@@ -1,0 +1,218 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+\stylizeDoc{Physique}{Compte-rendu du TP 21}{Étude du pendule pesant}
+
+\boxhtp{
+    \itstar Déterminer la nature d'un filtre inconnu
+    \itstar Étudier la dynamique aux grands angles
+}{
+    \itstar un pendule pesant muni d'un système de capteur angulaire
+    \itstar une balance, une règle, un pied à coulisse
+}
+
+\section{Éléments théoriques}
+
+On étudie un pendule pesant constitué d'une tige rigide de masse m1 et d'un cylindre mobile de masse $m_2$, constituant un solide de masse totale $m_\text{tot}$. On suppose en première approximation que la liaison pivot située au point d'accroche $O$ est idéale, et on néglige les frottements dus à l'air. On note $\Delta$ l'axe de rotation du dispositif, et $\ell$ la distance entre l'axe et le centre d'inertie $G$ du système.
+
+\begin{enumerate}
+    \item Faire un schéma \textbf{propre} et \textbf{légendé} du dispositif. On notera $\theta$ l'angle que forme la tige avec l'axe vertical.
+    
+    \boxans{
+        \centering\begin{tikzpicture}[scale=1]
+        \draw[dashed] (0,0) -- (0,-3);
+            \draw[color=main1,thick] (0,0) -- node [midway,label={east:$\ell$}] {} (1,-2);
+            \node[circle,draw,inner sep=3pt,label={above:$\Delta$}] at (0,0) {};
+            \node[circle,fill,inner sep=1pt] at (0,0) {};
+        
+            %\draw[-latex',thick,color=main20] (1,-2) -- node[right] {$\vec{u_r}$} (1.4,-2.8);
+            %\draw[-latex',thick,color=main20] (1,-2) -- node[right,label={east:$\vec{u_\theta}$}] {} (1.6,-1.7);
+        
+            %\draw[-latex',thick,color=main21] (1,-2) -- node[right] {$\vec{T}$} (0.5,-1);
+        \draw[-latex',thick, color=main21] (1,-2) -- node[left] {$\vec{P}$} (1,-3);
+        \draw[-latex',thick,color=main21!50] (2,0) -- node[left] {$\vec{g}$} (2,-1);
+
+        
+        \coordinate (a) at (0,0);
+        \coordinate (b) at (0,-3);
+        \coordinate (c) at (1,-2);
+
+        \draw pic[-latex',draw,angle radius=1cm, "$\theta$",thick] {angle=b--a--c};
+        \node[circle,fill,inner sep=2pt,label={[main3]west:$G$},color=main1] at (1,-2) {};
+        \end{tikzpicture}
+    }
+    
+    \item Montrer que l'application du TMC au système \{masse + tige\} de masse totale $M$ conduit à
+    
+    \begin{equation}
+        \boxed{\ddot \theta + \omega_0^2\sin \theta = 0} \qquad\text{où}\qquad \boxed{\omega_0 = \sqrt{\dfrac{m_\text{tot}g\ell}{J_\Delta}}}
+    \end{equation}
+    
+    Que devient cette équation dans l'approximation des petits angles ?
+    
+    \boxans{
+        On a $\sigma_\Delta = J_\Delta\dot\theta$ et $\bcM_\Delta = -\ell\sin \theta m_\text{tot}g$, donc par TMC :
+        %
+        \[ J_\Delta \ddot \theta = -\ell m_\text{tot} g \sin \theta\]
+        %
+        On retrouve bien :
+        %
+        \[ \boxed{\ddot \theta + \omega_0^2\sin \theta = 0} \qquad\text{où}\qquad \boxed{\omega_0 = \sqrt{\dfrac{m_\text{tot}g\ell}{J_\Delta}}} \]
+        
+        De plus, lorsque $\theta \ll \SI{1}{\radian}$, on a $\sin \theta \approx \theta$ d'où $\boxed{\ddot\theta + \omega_0^2\theta = 0}$
+    }
+    
+    Justifier que le système est conservatif. Montrer que l'énergie mécanique s'écrit à une constante près :
+    
+    \begin{equation}
+        \boxed{E_\text{m} = \dfrac{1}{2}J_\Delta \dot \theta^2 - m_\text{tot}\ell\cos\theta}
+    \end{equation}
+    
+    \boxans{
+        Le système est conservatif car le poids $\vec P$ est une force conservative, et que la tension du fil $\vec T$ ne travaille pas.
+        
+        En multipliant par $\dot\theta$ dans l'équation obtenu par TMC plus haut, on a :
+        %
+        \[ \dfrac{\dif}{\dif t}\left(\dfrac{1}{2}J_\Delta\dot\theta^2\right) = -mg\ell\dot\theta \sin \theta = \dfrac{\dif}{\dif t}\left(m_\text{tot}g\ell \cos \theta\right)\]
+        
+        Donc on a bien $\dfrac{\dif}{\dif t}\left(E_\text{c} + E_\text{p}\right) = \dfrac{\dif E_\text{m}}{\dif t} = 0$ où $\boxed{E_p = -m_\text{tot}g\ell\cos \theta}$.
+    }
+    
+\end{enumerate}
+
+\section{Protocole}
+
+\subsection{Calibrage du capteur}
+
+Le pendule simple est muni d'un capteur angulaire qui délivre une tension $U(t)$ proportionnelle à l'angle $\theta(t)$ du pendule :
+
+\begin{equation}
+    U(t) = k\theta(t)
+\end{equation}
+
+Deux valeurs sont possibles pour $k$ selon que le capteur est réglé pour mesurer des petits ou des grands angles.
+
+\noafter
+\boxans{
+    \begin{experience}{Étalonnage du capteur}{}
+        \begin{enumerate}
+            \ithand Vérifier qualitativement que le capteur est bien linéaire en le branchant sur la carte d'acquisition. Au besoin, régler le zéro.
+    
+            \ithand  Relever une dizaine de couples $(\theta, U)$ et estimer les deux valeurs de $k$ ainsi que leur incertitude par un traitement statistique.
+        \end{enumerate}
+    \end{experience}
+    
+    La tension délivrée par le capteur donne ainsi directement accès à θ(t).
+}
+%
+\nobefore\yesafter
+%
+\begin{expcom}
+    Pour le réglage avec $\alpha_\text{m} = 45 {}^{\circ}$, on obtient $k = \SI{0.10}{V / {}^\circ}$ avec $u(k) = \SI{0.0017}{V / {}^\circ}$.
+    
+    Pour le réglage avec $\alpha_\text{m} = 180 {}^{\circ}$, on obtient $k = \SI{0.029}{V / {}^\circ}$ avec $u(k) = \SI{0.00045}{V / {}^\circ}$.
+\end{expcom}
+%
+\yesbefore
+
+\subsection{Position du centre d'inertie}
+
+On souhaite obtenir une estimation du paramètre $\ell$.
+
+\noafter
+\boxans{
+    \begin{experience}{Étalonnage du capteur}{}
+        \begin{enumerate}
+            \ithand Mesurer $m_1$, masse de la tige qu’on assimile à une tige homogène, et $m_2$, masse du cylindre.
+    
+            \ithand lacer le cylindre à un endroit choisi sur la tige. Noter la position.
+            
+            \ithand Déterminer $\ell = \vec{OG}$ à partir des mesures précédentes. On ne cherchera pas à évaluer l’incertitude sur cette valeur.
+        \end{enumerate}
+    \end{experience}
+    
+    \begin{center}
+        Par la suite attention à ne pas modifier la position du cylindre sur la tige.
+    \end{center}
+}
+%
+\nobefore\yesafter
+%
+\begin{expcom}
+    On mesure $m_1 = \SI{61.3}{\g}$ et $m_2 = \SI{151}{\g}$. On place le cylindre à $\SI{50}{\cm}$ sur la tige. On a :
+    %
+    \[ \vec{OG} = \vec{OG_1} + \vec{G_1G} = \vec{0G_1} + \dfrac{m_2}{m_1 + m_2}\vec{G_1G_2}\]
+    
+    L'application numérique donne $\ell = \SI{44.2}{\cm}$.
+\end{expcom}
+%
+\yesbefore
+
+\subsection{Estimation du moment d'inertie}
+
+On utilise l’isochronisme des petites oscillations pour déterminer $J_\Delta$ à partir d’une acquisition temporelle. On note $T_0$ la période des petites oscillations :
+
+\begin{equation}
+    \boxed{T_0 = \dfrac{2\pi}{\omega_0} = 2\pi\sqrt{\dfrac{J_\Delta}{m_\text{tot}g\ell}}}
+\end{equation}
+
+\noafter
+\boxans{
+    \begin{experience}{Isochronisme des petites oscillations}{}
+        \begin{enumerate}
+            \ithand Lâcher le pendule sans vitesse initiale d’un angle $\theta_0 \approx 10^{\circ}$.
+    
+            \ithand Faire une acquisition sur \texttt{LatisPro} afin de déterminer la valeur de $T_0$ munie de son incertitude.
+            
+            \ithand En déduire une estimation de $J_\Delta$ munie de son incertitude.
+        \end{enumerate}
+    \end{experience}
+}
+%
+\nobefore\yesafter
+%
+\begin{expcom}
+    On mesure $n = 6$ périodes sur $T = \SI{8.5}{\second}$ avec $u(T) = \SI{50}{ms}$, donc on a $T_0 = \SI{1.4}{\second}$ et $u(T_0) = \SI{8.3}{ms}$.
+    
+    On isole $J_\Delta = \dfrac{T_0^2}{4\pi^2}m_\text{tot}g\ell$. L'application numérique donne $J_\Delta = \SI{1.7}{g\cdot m^2}$.
+    
+    On propage l'incertitude :
+    %
+    \[ \dfrac{u(J_\Delta)}{J_\Delta} = \sqrt{\left(2\dfrac{u(T_0)}{T_0}\right)^2 + \left(\dfrac{u(m_\text{tot})}{m_\text{tot}}\right)^2}\]
+    
+    L'application numérique $u(J_\Delta) = \SI{0.026}{g \cdot m^2}$.
+\end{expcom}
+%
+\yesbefore
+
+\subsection{Formule de Borda}
+
+Pour des amplitudes d’oscillations plus importantes que typiquement $\SI{1}{\radian}$, on observe une perte de l’isochronisme : la
+période $T$ d’oscillation dépend de l’amplitude $\theta_0$. On peut montrer que
+
+\begin{equation}
+    T=T_0\left(1 + \dfrac{1}{16}{\theta_0}^2 + \dfrac{11}{3072}{\theta_0}^4 + \O{\theta^0 \to 0}{{\theta_0}^6} \right) \qquad\text{où}\qquad T_0 = \dfrac{2\pi}{\omega_0} = 2\pi\sqrt{\dfrac{J_\Delta}{mg\ell}}
+\end{equation}
+
+Cette formule est connue sous le nom de formule de Borda.
+
+\noafter
+\boxans{
+    \begin{experience}{Vérification de la formule de Borda}{}
+        \begin{enumerate}
+            \ithand Mettre en œuvre un protocole pour mesurer le coefficient de l’ordre ${\theta_0}^2$ dans la formule de Borda.
+        \end{enumerate}
+    \end{experience}
+}
+%
+\nobefore\yesafter
+%
+\begin{expcom}
+    Manque de temps.
+\end{expcom}
+%
+\yesbefore
+\end{document}

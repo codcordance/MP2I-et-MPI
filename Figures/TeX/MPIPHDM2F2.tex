@@ -1,0 +1,55 @@
+\documentclass{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\usepackage{listofitems}
+\makeatletter
+\newcommand\loopthroughterm[1]{%
+  \def\myeqn{}%
+  \foreach\z in{0,...,#1}{%
+    \ifnum\z=0\relax\else\g@addto@macro\myeqn{+}\fi%
+    \foreachitem\zz\in\termstencil[]{%
+      \ifnum\zzcnt=1\else%
+        \expandafter\g@addto@macro\expandafter\myeqn\expandafter{\z}\fi%
+      \expandafter\g@addto@macro\expandafter\myeqn\expandafter{\zz}%
+    }%
+  }%
+}
+
+\usepackage[active,tightpage]{preview}
+\setlength{\PreviewBorder}{0pt}
+\PreviewEnvironment[{[]}]{tikzpicture}
+
+\begin{document}
+    \begin{tikzpicture}
+        \begin{axis}[
+        clip                =   false,
+        axis x line         =   middle,
+        axis y line         =   middle,
+        axis line style     =   {-},
+        minor tick num      =   4,
+        domain              =   -5:5,
+        xtick distance      =   1,
+        ytick distance      =   1,
+        xmin                =   -5,
+        xmax                =   5,
+        ymin                =   -5,
+        ymax                =   5,
+        grid                =   major,
+        xticklabels         =   {},
+        yticklabels         =   {}
+        ]
+            \draw (-5, 5) -- (5, 5) -- (5, -5) -- (-5, -5) -- (-5, 5);
+            \draw (-5, 5) -- (-5, 6) -- (5, 6) -- (5, 5);
+            \node[align=center,anchor=center,text width=2cm] at (-3.5, 5.45) {\tiny\texttt{timeDiv:}\\[-5pt]$0.1\, \textrm{ms/div}$};
+            \node[align=center,anchor=center,text width=2cm] at (-1, 5.45) {\tiny\texttt{channel A:}\\[-5pt]$1\, \textrm{V/div}$};
+            \node[align=center,anchor=center,text width=2cm] at (1.5, 5.45) {\tiny\texttt{channel B:}\\[-5pt]$1\, \textrm{V/div}$};
+            \node[align=center,anchor=center,text width=2cm] at (4, 5.45) {\tiny\texttt{XY:}\\[-5pt]$\textrm{OFF}$};
+            \setsepchar{?}
+            \readlist\termstencil{sin(180*?.5*(\x + 1))/(4*? + 2)}
+            \loopthroughterm{20}
+            \addplot[samples=300,smooth, thick, color=main3] {8/pi*(\myeqn) + 1};
+            \addplot[samples=300,smooth, thick, color=main20] {3*sin(90*\x - 90)};
+        \end{axis}
+    \end{tikzpicture}
+\end{document}

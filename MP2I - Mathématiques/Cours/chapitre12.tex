@@ -1,0 +1,1885 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+\begin{document}
+
+\stylizeDoc{Mathématiques}{Chapitre 12}{Structures Algébriques}
+
+\qquad Il est fréquent en Mathématiques de voir apparaître des propriétés et des phénomènes se ressemblant les uns aux autres, dans des domaines d'apparences pourtant distinctes. L'algèbre moderne, qui naît progressivement au cours du \textsc{XIX}\textsuperscript{e} siècle, notamment propulsée par les manuscrits d'\textit{Évariste Galois} (qui inventera d'ailleurs la notion de \textit{groupe}), permet de commencer à calculer sur des objets mathématiques qui ne sont plus nécessairement des nombres. Elle commence alors à mettre en évidence les ressemblances de certaines notions, au moyen de structures ensemblistes. L'axiomatisation des mathématiques au XX\textsuperscript{e} siècle (particulièrement avec la \textit{crise des fondements}), permettra d'approfondir et de formaliser ces notions, notamment avec le développement des \textit{espaces vectoriels}.\\
+
+\qquad Conformément au programme de MP2I, ce cours a pour objectif \guill{\textit{l'introduction des notions les plus élémentaires relatives aux groupes, anneaux, corps, afin de traiter de manière unifiée un certain nombre de situations}}.
+
+\initcours
+
+\section{Loi de composition interne}
+
+\qquad Les structure algébriques reposent toutes sur un concept fondamental, qui est d'associer à un ensemble d'éléments, une manière de faire correspondre ces éléments entre-eux, une sorte d'opération comme le serait l'addition, la soustraction, la multiplication et autres. Il s'agit donc dans un premier temps de poser un concept derrière cette idée, et d'étudier la notion de \guill{loi de composition interne}.
+
+\subsection{Définition}
+
+\begin{definition}{Loi de composition interne (LCI)}{}
+Soit $E$ un ensemble. Une \bf{loi de composition interne} sur $E$ est une application de $E \times E$ dans $E$.
+\end{definition}
+
+En notant $f:\begin{array}[t]{ccc}
+    E\times E &\to& E  \\
+      (x,y) &\mapsto& f(x, y)
+\end{array}$ une telle application, on utilisera dans toute la suite une notation infixe :
+
+\[f(x, y) = x \ f\ y \qquad\qquad\qquad\fcolorbox{white}{main22!8}{$\quad \underbrace{x}_{\cdot \in E} \overbrace{f}^{\text{nom de la LCI}} \underbrace{y}_{\cdot \in E}\quad$}\]
+
+Une loi de composition interne quelconque sera généralement noté $\star$, donc on a : $\star:\begin{array}[t]{ccc}
+    E\times E &\to& E  \\
+      (x,y) &\mapsto& x \star y
+\end{array}$
+
+On remarquera alors que si l'on a trois éléments $x$, $y$ et $z$ de $E$, il est a priori difficile de donner, tel quel, un sens à $x \star y \star z$.
+En effet, on est face à deux possibilités de parenthésage avec des sens différents : 
+
+\begin{minipage}{.1\linewidth}\hfill\end{minipage}
+\begin{minipage}{.4\linewidth}
+
+\[ \underbrace{(x \star y)}_{\in E} \star z\]
+
+\centering\begin{tikzpicture}
+ 
+    \node[circle, fill=main22!10,draw=white]{$\star$}
+    child { 
+        node[circle, fill=main22!10,draw=white] {$\star$}
+            child { node {$x$} }
+            child { node {$y$} }
+    }
+    child { node {$z$} };
+ 
+\end{tikzpicture}
+
+\end{minipage}
+\begin{minipage}{.4\linewidth}
+
+\[x \star \underbrace{(y \star z)}_{\in E}\]
+
+\centering\begin{tikzpicture}[nodes={}, ->]
+ 
+    \node[circle, fill=main22!10,draw=white]{$\star$}
+    child { node {$x$} }
+    child { 
+        node[circle, fill=main22!10,draw=white] {$\star$}
+            child { node {$y$} }
+            child { node {$z$} }
+    };
+
+\end{tikzpicture}
+
+\end{minipage}
+\begin{minipage}{.1\linewidth}\hfill\end{minipage}
+
+Ceci permet alors de définir la notion d'associativité :
+
+\begin{definition}{Loi associative}{}
+    Soit $E$ un ensemble et $\star$ une loi de composition interne sur $E$. On dit que $\star$ est \bf{associative} si et seulement si
+    \[\forall (x, y, z) \in E^3,\quad (x\star y)\star z = x\star(y\star z) \]
+\end{definition}
+
+Ainsi, pour loi de composition interne $\star$ associative, l'expression $x \star y \star z$ a un sens, dans la mesure où le choix de parenthèsage ne change pas la valeur.
+
+\begin{example}{}{}
+    Combien y a-t-il de parenthèsages possibles de évaluer l'expression $a \star b \star c \star d$ ?
+    \tcblower
+    \bf{On en compte $5$}, énumérées ci-dessous :\\[-20pt]
+\begin{minipage}[t]{.19\linewidth}
+\[ \bf{((a \star b) \star c) \star d}\]
+\centering\begin{tikzpicture}
+    \node[circle, fill=main22!10,draw=white]{$\star$}
+    child { 
+        node[circle, fill=main22!10,draw=white]{$\star$}
+        child { 
+            node[circle, fill=main22!10,draw=white] {$\star$}
+                child { node {$a$} }
+                child { node {$b$} }
+            }
+        child { node {$c$} }
+    }
+    child { node {$d$} };
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[t]{.19\linewidth}
+\[ \bf{(a \star (b \star c)) \star d}\]
+\centering\begin{tikzpicture}
+    \node[circle, fill=main22!10,draw=white]{$\star$}
+    child { 
+        node[circle, fill=main22!10,draw=white]{$\star$}
+        child {node {$a$} }
+        child { 
+            node[circle, fill=main22!10,draw=white] {$\star$}
+                child { node {$b$} }
+                child { node {$c$} }
+            }
+    }
+    child { node {$d$} };
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[t]{.19\linewidth}
+\[ \bf{a \star ((b \star c) \star d)}\]
+\centering\begin{tikzpicture}
+    \node[circle, fill=main22!10,draw=white]{$\star$}
+    child { node {$a$} }
+    child { 
+        node[circle, fill=main22!10,draw=white]{$\star$}
+        child { 
+            node[circle, fill=main22!10,draw=white] {$\star$}
+                child { node {$b$} }
+                child { node {$c$} }
+            }
+            child { node {$d$} }
+    };
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[t]{.19\linewidth}
+\[ \bf{a \star (b \star (c \star d))}\]
+\centering\begin{tikzpicture}
+    \node[circle, fill=main22!10,draw=white]{$\star$}
+    child { node {$a$} }
+    child { 
+        node[circle, fill=main22!10,draw=white]{$\star$}
+         child { node {$b$} }
+        child { 
+            node[circle, fill=main22!10,draw=white] {$\star$}
+                child { node {$c$} }
+                child { node {$d$} }
+            }
+    };
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[t]{.19\linewidth}
+\[ \bf{(a \star b) \star (c \star d)}\]
+\centering\begin{tikzpicture}
+    \node[circle, fill=main22!10,draw=white]{$\star$}
+    child { 
+        node[circle, fill=main22!10,draw=white] {$\star$}
+            child { node {$a$} }
+            child { node {$b$} }
+    }
+    child { 
+        node[circle, fill=main22!10,draw=white] {$\star$}
+            child { node {$c$} }
+            child { node {$d$} }
+    };
+\end{tikzpicture}
+\end{minipage}
+\end{example}
+
+Une autre propriété intéressante des lois de composition interne, à considérer est celle de la permutation de l'élément gauche et droit dans les expression de forme $x \star y$ vues plus haut. On défini alors la notion d'éléments permutables :
+
+\begin{definition}{Éléments permutables}{}
+    Soit $E$ un ensemble et $\star$ une loi de composition interne sur $E$. Soit $(x, y) \in E^2$. On dit que $x$ et $y$ sont \bf{permutables} si et seulement si
+    \[ x \star y = y \star x\]
+\end{definition}
+
+On peut également dire que $x$ et $y$ sont des \guill{éléments qui commutent}, ou simplement que $x$ et $y$ \textbf{commutent}.
+On peut alors établir une propriété pour la loi de composition elle-même :
+
+\begin{definition}{Loi commutative}{}
+    Soit $E$ un ensemble et $\star$ une loi de composition interne sur $E$. $\star$ est dite \bf{commutative} si et seulement si
+    \[\forall (x, y) \in E^2,\quad x \star y = y \star x \]
+\end{definition}
+
+Ainsi, une loi de composition interne sur un ensemble $E$ est commutative si et seulement si tous les éléments de $E$ sont deux à deux permutables sous cette loi.
+
+\subsection{Exemples}
+
+\begin{enumerate}
+
+    \ithand \underline{Somme et produit}
+    
+    \begin{enumerate}
+    
+        \itstar  \textbf{L'addition usuelle $+$} est une loi de composition interne \textbf{associative} et \textbf{commutative} sur $\bdN$, $\bdZ$, $\bdQ$, $\bdR$, $\bdC$.
+        
+        \itstar Il en va de même pour la \textbf{multiplication usuelle $\times$}.
+    
+        \itstar \textit{La soustraction usuelle $-$ n'est, elle, pas une loi de composition interne dans $\bdN$} ($3 - 4 = -1 \not\in \bdN$ par exemple).
+        
+        Elle n'est de plus ni \textit{associative} ($(n - m) -p \neq x - (m - p)$) ni \textit{commutative} ($n - m \neq m - n$).
+    \end{enumerate}
+    
+    \ithand \underline{Composition d'application}
+    
+    On peut considérer deux applications $f$ et $g$ de $E$ dans $E$. On remarquera alors que la composition des deux $f \circ g$ est également une application de $E$ dans $E$.
+    
+    \begin{enumerate}
+    
+        \itstar On obtient donc que \textbf{la composition $\circ$} telle que $\circ : \begin{array}[t]{ccc}
+        \bcF(E, E) \times \bcF(E, E) &\to& \bcF(E, E) \\
+        (g, f) &\mapsto& g \circ f
+    \end{array}$ est une loi de composition interne sur $\bcF(E, E)$.
+    Elle est également \textbf{associative}, mais pas \textit{commutative} en général (dès que $E$ possède au moins $2$ éléments).
+    
+        \itstar L'application identité $\id_E: \begin{array}[t]{ccc}
+        E &\to& E \\
+        x &\mapsto& x
+    \end{array}$ \textbf{commute} cependant avec tout $f \in \bcF(E, E)$ : $f \circ \id_E = \id_E \circ f = f$.
+    
+    De plus $f$ \textbf{commute} aussi avec elle-même. En définissant pour $n \in \bdN$, $f^n = \left\lbrace\begin{array}{ll}
+        \id_E &\text{si} \ n = 0  \\
+        f^{n-1} \circ f &\text{sinon} 
+    \end{array}\right.$.
+    
+    \[ \text{Autrement dit} \ f^n = \underbrace{f \circ f \circ \dots \circ f}_{n \ \text{fois}}\]
+    
+    On obtient alors que $f$ commute avec $f^n$ pour $n \in \bdN$: $f \circ f^n = f^{n+1} = f^n \circ f$.
+    
+    \end{enumerate}
+    
+    \ithand \underline{Lois sur $\bcP(E)$ (parties d'un ensemble $E$)}
+    
+    \begin{enumerate}
+    
+        \itstar  \textbf{L'union $\bigcup$} et \textbf{l'intersection  $\bigcap$} telles que $\cup: \begin{array}[t]{ccc}
+            \bcP(E)\times \bcP(E) &\to& \bcP(E)  \\
+            (A,B) &\mapsto& A\cup B 
+        \end{array}$ et $\cap: \begin{array}[t]{ccc}
+            \bcP(E)\times \bcP(E) &\to& \bcP(E)  \\
+            (A,B) &\mapsto& A\cap B
+        \end{array}$ sont des exemples de lois de composition internes sur $\bcP(E)$ \textbf{commutatives} et \textbf{associatives}.
+        
+        \itstar  \textbf{La différence ensembliste $\backslash$} telle que $\backslash : \begin{array}[t]{ccc}
+            \bcP(E) \times \bcP(E) &\to& \bcP(E) \\
+            (A, B) &\mapsto& A \backslash B 
+        \end{array}$ est elle-aussi une loi de composition interne sur $\bcP(E)$, mais \textit{non commutative} et \textit{non associative}:
+        
+        \[A\backslash B \neq B \backslash A \quad \text{et} \quad A \backslash (B \backslash C) \neq (A \backslash B) \backslash C\]
+    
+        \itstar \textbf{La différence symétrique $\Delta$} telle que $\Delta : \begin{array}[t]{ccc}
+            \bcP(E) \times \bcP(E) &\to& \bcP(E)  \\
+            (A, B) &\mapsto& (A\backslash B) \cup (B\backslash A) 
+        \end{array}$ est une loi de composition interne \textbf{commutative} et \textbf{associative}.
+        
+    \end{enumerate}
+   
+    \ithand \underline{En arithmétique}
+    
+    \begin{enumerate}
+    
+        \itstar \textbf{Le plus grand diviseur commun $\pgcd$} tel que $\pgcd : \begin{array}[t]{ccc}
+            \bdN\times\bdN &\to& \bdN  \\
+            (a, m) &\mapsto& \pgcd(a, b)
+        \end{array}$ est une loi de composition interne sur $\bdN$ \textbf{commutative} et \textbf{associative}.
+        
+        \itstar Il en va de même pour \textbf{le plus petit commun multiple $\ppcm$} tel que $\ppcm : \begin{array}[t]{ccc}
+            \bdN\times\bdN &\to& \bdN  \\
+            (a, m) &\mapsto& \ppcm(a, b)
+        \end{array}$.
+        
+    \end{enumerate}
+    
+    \ithand \underline{Relation d'ordre}
+    
+    Soit $(E, \rleq)$ un ensemble totalement ordonné.
+    
+    \begin{enumerate}
+    
+        \itstar  On définit $\min : \begin{array}[t]{ccc}
+        E\times E &\to& E  \\
+        (x, y) &\mapsto& \left\lbrace\begin{array}{ll}
+            x & \text{si} \ x \rleq y   \\
+            y & \text{sinon}
+        \end{array}\right.
+    \end{array}$. On remarque alors que \textbf{le minimum $\min$} est une loi de composition interne sur $E$ \textbf{commutative} et \textbf{associative}.
+    
+        \itstar On définit similairement $\max : \begin{array}[t]{cccc}
+        E\times E &\to& E  \\
+        (x, y) &\mapsto& \left\lbrace\begin{array}{ll}
+            x & \text{si} \ y \rleq x   \\
+            y & \text{sinon}
+        \end{array}\right.
+    \end{array}$, avec \textbf{le maximum $\max$} une loi de composition interne sur $E$ \textbf{commutative} et \textbf{associative}.
+    
+    \end{enumerate}
+    
+    \ithand \underline{Extension aux applications}
+    
+    Soit un ensemble $E$ muni d'une loi de composition interne $\star$. Soit $X$ un ensemble quelconque.
+    
+    \begin{enumerate}
+    
+        \itstar On peut munir l'ensemble $\bcF(X, E)$ d'une nouvelle loi de composition interne $\widetilde\star$ avec \[\widetilde\star : \begin{array}[t]{ccc}
+            \bcF(X, E) \times\bcF(X, E) &\to& \bcF(X, E) \\
+            (f,g) &\mapsto& f\; \widetilde\star\; g
+        \end{array} \qquad \text{où} \quad \forall x \in X, \quad (f\; \widetilde\star\; g)(x) = f(x) \star g(x)\]
+        
+        \itstar On peut ainsi définir \textbf{l'addition $+$} dans $\bcF(X, \bdR)$ et $\bcF(X, \bdC)$ par exemple.
+        
+        \itstar De même, on peut définir \textbf{la multiplication $\times$} dans $\bcF(X, \bdR)$ et $\bcF(X, \bdC)$.
+        
+        \itstar En particulier, avec $X = \bdN$, cela donne l'addition et la multiplication dans les ensembles $\bdR^\bdN$ et $\bdC^\bdN$.
+        
+    \end{enumerate}
+    
+    \ithand \underline{Dans un ensemble fini}
+    
+    Soit $n \in \bdN^*$. On définit l'ensemble des classes d'équivalences de la congruence modulo $n$ qu'on note :
+    
+    \[ \bdZ/n\bdZ = \{\overline{0}, \overline{1}, \dots, \overline{n-1}\} \quad \text{où} \quad \left\lbrace\begin{array}{ccl}
+        \overline{0} &= \{k \in \bdZ \mid k \equiv 0 \ [n]\}&=n\bdZ  \\
+        \overline{1} &= \{k \in \bdZ \mid k \equiv 1 \ [n]\} &= n\bdZ + 1\\
+        &\vdots\\
+        \overline{p} &= \{k \in \bdZ \mid k \equiv p \ [n]\} &= n\bdZ + p
+    \end{array}\right.\]
+    
+    On a donc $\bdZ/n\bdZ$ un ensemble fini à $n$ éléments. 
+    
+    \begin{enumerate}
+    
+        \itstar On peut munir $\bdZ/n\bdZ$ de \textbf{l'addition $+$} telle que $+ : \begin{array}[t]{ccc}
+            \bdZ/n\bdZ\times\bdZ/n\bdZ &\to& \bdZ/n\bdZ  \\
+            (\overline{k}, \overline{k'}) &\mapsto& \overline{k+k'}
+        \end{array}$. Cette addition revient en fait à calculer $k + k'$ modulo $n$. On a alors $+$ une loi de composition interne \textbf{commutative} et \textbf{associative}.
+        
+        \itstar On peut définir de même \textbf{la multiplication $\times$} telle que $\times : \begin{array}[t]{ccc}
+            \bdZ/n\bdZ\times\bdZ/n\bdZ &\to& \bdZ/n\bdZ  \\
+            (\overline{k}, \overline{k'}) &\mapsto& \overline{k\times k'}
+        \end{array}$, qui revient à calculer $k\times k'$ modulo $n$. Ici aussi, $\times$ est une loi de composition interne \textbf{commutative} et \textbf{associative}.
+        
+        \itstar Par exemple :
+        
+        \[\begin{array}{lccc}
+            \text{avec} \ \bdZ/2\bdZ = \{\overline{0}, \overline{1}\} & \fcolorbox{white}{main22!8}{$\quad\begin{array}{c|c|c}
+            + & 0 & 1  \\\hline
+            0 & 0 & 1  \\\hline
+            1 & 1 & 0
+        \end{array}\quad$} & \text{et} & \fcolorbox{white}{main22!8}{$\quad\begin{array}{c|c|c}
+            \times & 0 & 1  \\\hline
+            0 & 0 & 0  \\\hline
+            1 & 0 & 1
+        \end{array}\quad$}\\[18pt]
+            \text{avec} \ \bdZ/5\bdZ = \{\overline{0}, \overline{1}, \overline{2}, \overline{3}, \overline{4}\} & \fcolorbox{white}{main22!8}{$\quad\begin{array}{c|c|c|c|c|c}
+            + & 0 & 1 & 2 & 3 & 4 \\\hline
+            0 & 0 & 1 & 2 & 3 & 4 \\\hline
+            1 & 1 & 2 & 3 & 4 & 0 \\\hline
+            2 & 2 & 3 & 4 & 0 & 1 \\\hline
+            3 & 3 & 4 & 0 & 1 & 2 \\\hline
+            4 & 4 & 0 & 1 & 2 & 3
+        \end{array}\quad$} & \text{et} & \fcolorbox{white}{main22!8}{$\quad\begin{array}{c|c|c|c|c|c}
+            \times & 0 & 1 & 2 & 3 & 4 \\\hline
+            0 & 0 & 0 & 0 & 0 & 0 \\\hline
+            1 & 0 & 1 & 2 & 3 & 4 \\\hline
+            2 & 0 & 2 & 4 & 1 & 3 \\\hline
+            3 & 0 & 3 & 1 & 4 & 2 \\\hline
+            4 & 0 & 4 & 3 & 2 & 1
+        \end{array}\quad$}\\[37pt]
+        \text{avec} \ \bdZ/6\bdZ = \{\overline{0}, \overline{1}, \overline{2}, \overline{3}, \overline{4}, \overline{5}\} & \fcolorbox{white}{main22!8}{$\quad\begin{array}{c|c|c|c|c|c|c}
+            + & 0 & 1 & 2 & 3 & 4 & 5 \\\hline
+            0 & 0 & 1 & 2 & 3 & 4 & 5 \\\hline
+            1 & 1 & 2 & 3 & 4 & 5 & 0 \\\hline
+            2 & 2 & 3 & 4 & 5 & 0 & 1 \\\hline
+            3 & 3 & 4 & 5 & 0 & 1 & 2 \\\hline
+            4 & 4 & 5 & 0 & 1 & 2 & 3 \\\hline
+            5 & 5 & 0 & 1 & 2 & 3 & 4
+        \end{array}\quad$} & \text{et} & \fcolorbox{white}{main22!8}{$\quad\begin{array}{c|c|c|c|c|c|c}
+            \times & 0 & 1 & 2 & 3 & 4 & 5 \\\hline
+            0 & 0 & 0 & 0 & 0 & 0 & 0 \\\hline
+            1 & 0 & 1 & 2 & 3 & 4 & 5 \\\hline
+            2 & 0 & 2 & 4 & 0 & 2 & 4 \\\hline
+            3 & 0 & 3 & 0 & 3 & 4 & 3 \\\hline
+            4 & 0 & 4 & 2 & 0 & 2 & 2 \\\hline
+            5 & 0 & 5 & 4 & 3 & 2 & 1
+        \end{array}\quad$}
+        \end{array}\]
+        
+    \end{enumerate}
+    
+    \textbf{N. B. :} $\bdZ/n\bdZ$ muni de l'addition et de la multiplication a en fait une structure d'anneau (on parle d'anneau $\bdZ/n\bdZ$). 
+\end{enumerate}
+
+\subsection{Élément neutre et inversibilité}
+
+\begin{definition}{Élément neutre}{}
+    Soit $E$ un ensemble et $\star$ une loi de composition interne sur $E$. Soit $e \in E$. On dit que $e$ est \bf{neutre} par $\star$ si et seulement si
+    \[ \forall x \in E,\quad x \star e = e \star x = x\]
+\end{definition}
+
+$e$ est alors appelé \textbf{élément neutre}. On remarquera si l'on sait que $\star$ est commutative, il suffit de vérifier pour montrer que $e$ est un élément neutre que $\forall x \in E$,\quad $e \star x = x$.
+
+\begin{property}{Unicité de l'élément neutre}{}
+    Soit $E$ un ensemble et $\star$ une loi de composition interne sur $E$. Si $\star$ possède un élément neutre, alors il est unique.
+\end{property}
+
+\demo{
+    Soit $E$ un ensemble et $\star$ une loi de composition interne sur $E$. Supposons qu'il existe $(e, e') \in E^2$ tel que $e$ et $e'$ sont tous deux des éléments neutres de $\star$. Par définition on a :
+
+    \[ e \star e' = e \ \text{(car} \ e \ \text{est neutre)} \qquad\qquad e \star e' = e' \ \text{(car} \ e' \ \text{est neutre)}\]
+
+    Donc $e = e'$. On a bien unicité.
+}
+
+\begin{definition}{Élément inversible et inverse}{}
+    Soit $E$ un ensemble et $\star$ une loi de composition interne sur $E$, associative et possédant un élément neutre $e$.
+    
+    Soit $x \in E$. On dit que $x$ est \bf{inversible} par la $\star$ si et seulement si
+    
+    \[\exists y \in E,\quad x\star y = y\star x = e \]
+    
+\end{definition}
+
+On peut aussi dire de $x$ qu'il est \textbf{symétrisable}.
+
+\begin{property}{Unicité de l'inverse}{}
+     Soit $E$ un ensemble et $\star$ une loi de composition interne sur $E$, associative et possédant un élément neutre $e$.
+     
+     \[ \forall x \in E,\ x \ \text{est inversible} \implies \exists! y \in E,\quad x\star y = y\star x = e\]
+     
+     Cette unicité permettra d'appeler le $y$ en question \bf{inverse} de $x$, qu'on notera $x^{-1}$.
+\end{property}
+
+\demo{
+Soit $E$ un ensemble et $\star$ une loi de composition interne sur $E$, associative et possédant un élément neutre $e$.
+
+Soit également $x \in E$ un élément inversible. Soit $(x, y) \in E^2$ tels que $\left\lbrace\begin{array}{ll}
+    x \star y = y \star x = e \\
+    x \star z = z \star x = e & 
+\end{array}\right.$. On a alors :
+
+\[(y \star x) \star e = e \star z = z \qquad\text{et}\qquad (y\star x)\star z = y\star(x \star z) = y\star e = y\]
+
+Donc $y = z$. On a bien unicité.
+}
+
+Lorsqu'on l'on a deux éléments $x$ et $y$ tous deux symétrisables, on peut alors s'intéresser à l'inversibilité de la \guill{composition} des deux, au sens de la loi de composition interne.
+
+\begin{property}{Inverse d'une composée}{}
+    Soit $E$ un ensemble et $\star$ une loi de composition interne sur $E$, associative et d'élément neutre $e$.
+    
+    \[ \forall (x, y) \in E^2,\quad x \ \text{inversible} \ \text{et} \ y \  \text{inversible} \implies (x \star y) \ \text{inversible et} \ (x \star y)^{-1} = y^{-1} \star x^{-1}\]
+\end{property}
+
+\demo{
+    Soit $E$ un ensemble et $\star$ une loi de composition interne sur $E$, associative et d'élément neutre $e$.
+    
+    Soit également $(x, y) \in E^2$ tels que $x$ et $y$ sont inversibles. On a bien l'existence de $x^{-1}$ et $y^{-1}$. On a alors :
+    
+    \[ (x \star y) \star (y^{-1} \star x^{-1}) \overset{\text{(associativité)}}{=} x \star (y \star y^{-1}) \star x^{-1} = x \star e \star x^{-1} = x \star x^{-1} = e\]
+    
+    De plus :
+    
+    \[  (y^{-1} \star x^{-1}) \star (x \star y) \overset{\text{(associativité)}}{=} y^{-1} \star (x^{-1} \star x) \star y = y^{-1} \star e \star y = y^{-1} \star y = e\]
+    
+    Donc \[(x \star y) \star (y^{-1} \star x^{-1}) = (y^{-1} \star x^{-1}) \star (x \star y) = e\]
+    
+    On a bien montré que $x \star y$ est inversible et d'inverse $y^{-1} \star x^{-1}$ qu'on notera $(x \star y)^{-1}$.
+}
+
+\begin{example}{}{}
+
+    \begin{enumerate}
+    
+        \ithand \bf{L'élément neutre de l'addition $+$} dans $\bdN$, $\bdZ$, $\bdQ$, $\bdR$ et $\bdC$ est \bf{$0$}. Celui de \bf{la multiplication} est \bf{$1$}.
+        
+        \ithand Dans $\bdN$, \bf{$0$ est le seul élément inversible} pour $+$ : $0 + 0 = 0$. Sinon 
+        \[\forall n \in \bdN^*,\quad \not\exists m \in \bdN,\quad n + m = 0\]
+        
+        \ithand Dans $\bdZ$, $\bdQ$, $\bdR$ ou $\bdZ$ muni de l'addition $+$, \bf{tout élément $x$ est inversible}. Son inverse par $+$ est en fait son opposé, qu'on note $-x$ : $x + (-x) = 0$.
+        
+        \ithand Dans $\bdN$ muni de la multiplication $\times$, \bf{$1$ est le seul élément inversible} pour $\times$ : $1 \times 1 = 1$. Sinon
+        \[\forall n \in \bdN^*,\quad \not\exists m \in \bdN,\quad n \times m = 1 \qquad\quad\left(\dfrac{1}{n} \not\in \bdN\right)\]
+        
+        \ithand Dans $\bdZ$ muni de la multiplication $\times$, \bf{les seuls éléments inversibles sont $1$ et $-1$}.
+        
+        \ithand dans $\bdQ$, $\bdR$ ou $\bdZ$ muni de la multiplication $\times$, \bf{tout élément non nul $x$ possède un inverse $x^{-1} = \dfrac{1}{x}$}.
+        
+        \ithand \bf{l'élément neutre de l'union $\bigcup$} dans $\bcP(E)$ est \bf{$\emptyset$}. Celui de \bf{l'intersection $\bigcap$} est \bf{$E$}.
+    \end{enumerate}
+    
+\end{example}
+
+\subsection{Distributivité}
+
+\begin{definition}{Distributivité à gauche et à droite}{}
+    Soit $E$ un ensemble et $\star$, $\lozenge$ deux lois de composition interne sur $E$.
+    
+    On dit que \bf{$\lozenge$ est distributive à gauche sur $\star$} si et seulement si
+    
+    \[ \forall (x, y, z) \in E^3,\quad x \ \lozenge \ (y \star z) = (x \ \lozenge \ y) \star (x \ \lozenge \ z)\]
+    
+    On dit aussi que \bf{$\lozenge$ est distributive à droite sur $\star$} si et seulement si
+    
+    \[ \forall (x, y, z) \in E^3,\quad (x \star y)\  \lozenge \ z = (x\ \lozenge \ z) \star (y\ \lozenge\ z)\]
+    
+    Enfin, on dit que \bf{$\lozenge$ est distributive sur $\star$} si et seulement $\lozenge$ est distributive sur $\star$ à gauche et à droite.
+\end{definition}
+
+On remarquera que dans le cas d'une loi commutative, la distributivité gauche est équivalente à la distributivité droite, et à la distributivité en général - une loi commutative et distributive à gauche est donc distributive en général.
+
+\begin{example}{}{}
+    \begin{enumerate}
+        \ithand Dans $\bdN$, $\bdZ$, $\bdQ$, $\bdR$ et $\bdC$, \bf{la multiplication usuelle $\times$ est distributive sur l'addition usuelle $+$}.
+        
+        \ithand Soit $\bdK = \bdR$ ou $\bdC$, et $E \in \bcF(X, \bdK)$. De même, \bf{la multiplication $\times$ est distributive sur l'addition $+$}.
+        
+        \ithand Sur les anneaux $\bdZ/n\bdZ$, qui héritent de l'addition et de la multiplication sur $\bdZ$, il en est évidemment de même.
+        
+        \ithand Axiomatiquement, tout anneau a \bf{sa loi multiplicative $\times$ distributive sur sa loi additive $+$}.
+        
+        Pour $3$ suites $\left(\suite{u_n}, \suite{v_n}, \suite{w_n}\right) \in \left(\bdK^\bdN\right)^3$, on a bien $(u + v)w = uw + vw = wu + wv$.
+        
+        \ithand Soit $E = \bcF(\bdR, \bdR)$ muni des lois $+$ et $\circ$. On a que \bf{$\circ$ est distributive à droite sur $+$}. En effet :
+        
+        \[ \forall (f, g, h) \in E^3,\quad (f+g)\circ h = f \circ h + g \circ h\]
+        On n'a cependant pas la distributivité à gauche.
+        
+        \ithand Dans $\bcP(E)$, \bf{l'union $\cup$ est distributive sur l'intersection $\cap$ et inversement} :
+        \[ \forall (A, B, C) \in \bcP(E)^3, \quad (A \cap B) \cup C = (A \cup C) \cap (B \cup C) \qquad\et\quad (A \cup B) \cap C = (A \cap C) \cup (B \cap C)\]
+        
+        \ithand Dans $\bdB = \{\top ,\perp \}$, \bf{la conjonction $\land$} \bf{est distributive sur la disjonction $\lor$} \bf{et inversement}.
+        
+        \[ \forall (x, y, z) \in \bdB^3,\quad x \land (y \lor z) = (x \land y) \lor (x \land z) \qquad\et\qquad x\lor(y\land z) = (x \lor y)\land(x \lor z)\]
+        
+    \end{enumerate}
+\end{example}
+    
+\subsection{Notations}
+
+Généralement, lorsqu'une loi de composition interne $\star$ sur un ensemble $E$ st une addition, on utilisera des notations additives. Communément, la loi sera sera dénoté $+$ et est commutative, associative et admet un élément neutre que l'on note $0$. Ainsi :
+
+\[ \forall x \in E, \quad 0 + x = x + 0 = x\]
+
+Si un élément $x$ de $E$ est inversible pour la loi $+$, alors son inverse $x^{-1}$ sera plutôt appelé son opposé et sera noté $-x$. Ainsi :
+
+\[ x + (-x) = -x + x = 0\]
+
+Ainsi, pour deux éléments $(a, b) \in E^2$, si $a$ et $b$ ont des opposés, alors la propriété $(x \star y)^{-1} = y^{-1} \star x^{-1}$ se réécrira simplement
+
+\[ -(a + b) = (-a) + (-b) = (-b) + (-a)\]
+
+Dans le cas où la loi $\lozenge$ est une multiplication, on procédera similairement. La loi sera alors noté $\times$. Si elle admet un élément neutre, il sera communément noté $1$. Ainsi :
+
+\[ \forall x \in E,\quad a \times 1 = 1 \times a = a\]
+
+On notera aussi plus simplement $ab$ pour représenter $a \times b$. Si un élément $x \in E$ est inversible pour la loi $\times$, on notera bien son inverse $x^{-1}$ ou parfois $\frac{1}{x}$. On a alors
+$\forall (x,y) \in E^2,\quad xy = yx = 1 \iff y = x^{-1} = \dfrac{1}{x}$.
+
+\newpage
+
+\section{Structure de groupe}
+
+\qquad Une fois les lois de composition interne étudiées, on peut s'intéresser à l'une des structures algébriques fondamentales de l'algèbre pour un ensemble muni d'une loi: le groupe.
+
+\subsection{Partie stable par une loi}
+
+\begin{definition}{Partie stable par une loi}{}
+    Soit $E$ un ensemble, $\star$ une loi de composition interne sur $E$ et $F$ une partie de $E$.
+    
+    On dit que \bf{$F$ est stable par $\star$} si et seulement si 
+    
+    \[ \forall (x, y) \in F^2, \quad x \star y \in F\]
+\end{definition}
+On remarquera que si $F$ est stable par $\star$, alors on peut définir une loi de composition interne sur $f$ par :
+\[ \star_F : \begin{array}[t]{ccc}
+    F \times F &\to& F  \\
+    (x, y) &\mapsto& x \star y 
+\end{array}\]
+On dit alors que $\star_F$ est une loi induite, et on la note généralement $\star$ elle-aussi puisqu'il n'y a pas de confusion possible.
+
+\begin{example}{}{}
+    \begin{enumerate}
+        \ithand $\bdR_+$ est \bf{stable par addition $+$ et produit $\times$}.
+            
+        \ithand $\bdR_-$ est \bf{stable par $+$} mais \textit{\hg{non stable par $\times$}}.
+            
+        \ithand $[-1; 1]$ est \bf{stable par produit $\times$}.
+            
+        \ithand $\bdU$ est \bf{stable par produit $\times$}. En effet:
+            
+        \[\forall (z, z') \in \bdU^2,\quad \mod{z} = \mod{z'} = 1\]
+            
+        Donc $\mod{zz'} = 1$ donc $zz' \in \bdU$.
+        \ithand Soit $n \in \bdN^*$, $\bdU_n$ est \bf{stable par conjugaison $\overline{\cdot}$, produit $\times$ et passage à l'inverse $\cdot^{-1}$}. En effet :
+        
+        Si $z \in \bdU_n$, alors $z^n = 1$. En conjuguant, $\overline{z^n} = \overline{1} = 1$. Donc $\overline{z}^n = 1$ donc $\overline{z} \in \bdU_n$.
+        
+        De même, en passant à l'inverse $\dfrac{1}{z^n} = \dfrac{1}{1}$ donc $\left(\dfrac{1}{z}\right)^n = 1$ donc $z^{-1} \in \bdU_n$.
+        
+        Enfin, si $(z, z') \in \bdU_n$, $\exists (k, k') \in \bdZ$ tels que $z = \exp{i\dfrac{2k\pi}{n}}$ et $z' = \exp{i\dfrac{2k'\pi}{n}}$. Donc
+        
+        \[ zz' = \exp{i\dfrac{2k\pi}{n} + i\dfrac{2k\pi}{n}} = \exp{i\dfrac{2(k + k')\pi}{n}} \in \bdU_n\]
+        
+    \end{enumerate}
+\end{example}
+
+\subsection{Définition}
+
+\begin{definition}{Groupe}{}
+    Soit $G$ un ensemble et $\star$ une loi de composition interne sur $G$. On dit que \bf{$(G, \star)$ est un groupe} si et seulement si :
+    \begin{enumerate}
+        \ithand La loi $\star$ est associative.
+        \ithand La loi $\star$ possède un élément neutre $e_G \in G$.
+        \ithand Tout élément de $G$ possède un inverse par $\star$.
+    \end{enumerate}
+\end{definition}
+
+La commutativité de la loi $\star$ n'est pas requis par la structure de groupe. Cependant, comme elle intervient très régulièrement, on peut définir la notion de groupe abélien.
+
+\begin{definition}{Groupe abélien}{}
+    Un groupe $(G, \star)$ est dit \bf{groupe abélien} ou \bf{groupe commutatif} si et seulement si sa loi $\star$ est commutative.
+\end{definition}
+
+On remarquera qu'un groupe est toujours non vide, car on a au moins $e_G \in G$.
+
+\begin{example}{}{}
+    \begin{enumerate}
+        \ithand $(\bdR, +)$, $(\bdC, +)$, $(\bdQ, +)$, $(\bdZ, +)$ sont des \bf{groupes abéliens.}
+        
+        \ithand $(\bdN, +)$ n'est \textit{\hg{pas un groupe}} car tout $n$ non nul n'a pas d'opposé sur $\bdN$.
+        
+        \ithand $(\bdR_+^*, \times)$ est un \bf{groupe abélien.} $(\bdU, \times)$ et $(\bdU_n, \times)$ sont des \bf{groupes abéliens}.
+        
+        \ithand $(\bdR_+, \times)$ n'est \textit{\hg{pas un groupe}} car $0$ n'a pas d'inverse. $(\bdR^*, +)$ n'est \textit{\hg{pas un groupe}} car $0 \not\in \bdR^*$.
+        
+        \ithand $(\bdZ^*, \times)$ n'est \textit{\hg{pas un groupe}} car $2$ n'a pas d'inverse dans $\bdZ$. En revanche $(\bdZ/n\bdZ, +)$ est un \bf{groupe}. 
+        
+        \ithand On a \bf{$(\bfS(E), \circ)$ le groupe des permutations} d'un ensemble $E$ (voir ci-dessous)
+    \end{enumerate}
+\end{example}
+
+\begin{definition}{Ensemble des permutations d'un ensemble et groupe symétrique}{}
+    Soit $E$ un ensemble. On note $\bfS(E)$, $\bfS_E$ ou $S(E)$ l'ensemble des applications bijectives de $E$ dans $E$ :
+    \[ \bfS(E) = \{ f \in \bcF(E, E) \mid f \ \text{est bijective} \} \]
+    On appelle \bf{groupe des permutations de $E$} ou \bf{groupe symétrique} le groupe $(\bfS(E), \circ)$, souvent noté plus simplement avec $\bfS(E)$, $\bfS_E$ ou $S(E)$.
+\end{definition}
+
+Généralement, pour $n \in \bdN^*$, $\bfS_{\llbracket1, n\rrbracket}$ est noté $\bfS_n$. On remarquera que dès que $E$ possède au plus trois éléments, la composition $\circ$ n'est plus commutative, et donc le groupe n'est plus abélien.
+
+\begin{example}{}{}
+    \begin{enumerate}
+    \ithand Lorsque $E = \{ a, b \}$, que vaut $(\bfS(E), \circ)$ (c'est-à-dire en fait $\bfS_2$) ? Si on liste les bijections de $E$ dans $E$ on a :
+    
+    \[ \id : \begin{array}[t]{ccc}
+        a &\mapsto& a  \\
+        b &\mapsto& b 
+    \end{array} \qquad\qquad \tau : \begin{array}[t]{ccc}
+        a &\mapsto& b  \\
+        b &\mapsto& a 
+    \end{array}\]
+    
+    On a donc $\bfS(E) = \{\id, \tau\}$ où $\id^{-1} = \id$, $\tau^{-1} = \tau$ et $\tau \circ \tau = \id$. On a donc la table de composition :
+    
+    \[ \fcolorbox{white}{main2!8}{$\quad\begin{array}{c|c|c}
+            \circ & \id & \tau  \\\hline
+            \id & \id & \tau  \\\hline
+            \tau & \tau & \id
+        \end{array}\quad$} \quad \circ \ \text{est ici commutatif car la table est symétrique}\]
+        
+    \ithand Lorsque $E = \{ a, b, c \}$, que vaut $(\bfS(E), \circ)$ (c'est-à-dire en fait $\bfS_3$) ? On liste les bijections de $E$ dans $E$ :
+    
+    \[ \id : \begin{array}[t]{ccc}
+        a &\mapsto& a   \\
+        b &\mapsto& b   \\ 
+        c &\mapsto& c
+    \end{array} \qquad \tau_1 : \begin{array}[t]{ccc}
+        a &\mapsto& b   \\
+        b &\mapsto& a   \\
+        c &\mapsto& c
+    \end{array} \qquad \tau_2 : \begin{array}[t]{ccc}
+        a &\mapsto& a   \\
+        b &\mapsto& c   \\
+        c &\mapsto& b
+    \end{array}\qquad \tau_3 : \begin{array}[t]{ccc}
+        a &\mapsto& a   \\
+        b &\mapsto& c   \\
+        c &\mapsto& b
+    \end{array}\]
+    \[\sigma : \begin{array}[t]{ccc}
+        a &\mapsto& b   \\
+        b &\mapsto& c   \\
+        c &\mapsto& a
+    \end{array} \qquad \sigma^{-1} : \begin{array}[t]{ccc}
+        a &\mapsto& c   \\
+        b &\mapsto& a   \\
+        c &\mapsto& b
+    \end{array}\]
+    
+    On a donc $\bfS(E) = \{\id, \tau_1, \tau_2, \tau_3, \sigma, \sigma^{-1}\}$ . On a donc la table de composition :
+    
+    \[ \fcolorbox{white}{main2!8}{$\quad\begin{array}{c|c|c|c|c|c|c}
+            \circ & \id & \hg{\tau_1} & \hg{\tau_2} & \tau_3 & \sigma & \sigma^{-1}  \\\hline
+            \id & \id & \tau_1 & \tau_2 & \tau_3 & \sigma & \sigma^{-1} \\\hline
+            \hg{\tau_1} & \tau_1 & \id & \hg{\sigma^{-1}} & \sigma & \tau_3 & \tau_2 \\\hline
+            \hg{\tau_2} & \tau_2 & \hg{\sigma} & \id & \sigma^{-1} & \tau_1 & \tau_3 \\\hline
+            \tau_3 & \tau_3 & \sigma^{-1} & \sigma & \id & \tau_2 & \tau_1 \\\hline
+            \sigma & \sigma & \tau_2 & \tau_3 & \tau_1 & \sigma^{-1} & \id \\\hline
+            \sigma^{-1} & \sigma^{-1} & \tau_3 & \tau_1 & \tau^2 & \id & \sigma
+        \end{array}\quad$}\]
+        
+    On voit bien que la table n'est pas symétrique et que l'on a des cas de non commutativité. Par exemple :
+    \[\tau_1 \circ \tau_2 = \sigma^{-1} \neq \sigma = \tau_2 \circ \tau_1\]
+    En vérité, si l'on a $(f, g, g') \in \bfS(E)^3$ tels que $f \circ g = f \circ g'$, on peut composer à gauche par $f^{-1}$. On a alors
+    \[ f^{-1} \circ f \circ g = f^{-1} \circ f \circ g'\]
+    D'où $g = g'$. Ainsi, $g \neq g' \implies f \circ g \neq f \circ g'$ par contraposée. Ceci se caractérise par des valeurs toutes différentes deux à deux dans chaque ligne et chaque colonne de la table.
+\end{enumerate}
+\end{example}
+
+
+\subsection{Itéré dans un groupe}
+
+\begin{definition}{Itéré dans un groupe}{}
+    Soit $(G, \star)$ un groupe, d'élément neutre $e_G$. Soit $x \in G$ un élément du groupe.
+    
+    On définit pour $n \in \bdN$, \bf{x$n$ le $n$-ième itéré de $x$} par :
+    
+    \[ x^n = \left\lbrace\begin{array}{cl}
+        e_G &\text{si} \ n = 0  \\
+        x \star x^{n-1} = x^{n-1} \star x &\text{sinon}
+    \end{array}\right. \qquad\qquad\text{Ainsi pour} \ n \in \bdN, \quad x^n = \underbrace{x \star x \star \dots \star x}_{n \ \text{fois}}\]
+\end{definition}
+
+Puisque $x$ possède un inverse $x^{-1}$, pour $\left(x^{-1}\right)^n = \underbrace{x^{-1} \star x^{-1} \star \dots \star x}_{n \ \text{fois}}$ on notera $x^{-n}$, car $\left(x^{-1}\right)^n = \left(x^{n}\right)^{-1}$.
+
+On a ainsi défini $x^n$ pour $x \in G$ et $n \in \bdZ$. Par stabilité, on a :
+
+\[ \forall n \in \bdZ,\ \forall x \in G,\qquad x^n \in G\]
+
+On remarquera aussi que si $G$ est fini et possède $N$ éléments, alors en calculant $x^k$ avec $0 \leq k \leq N$, on peut tomber sur un $k$ tel que $x^k = x$. Plus généralement et formellement :
+
+\[ \exists (i, j) \in \bdN,\ 0 \leq i \leq j \leq N,\qquad xî = x^j\]
+
+Ainsi, si $G$ est fini et à $N$ éléments, pour tout $x \in G$, il existe $k \in \llbracket 1, N \rrbracket$, tel que $x^k = e_G$.
+
+\begin{property}{}{}
+    Soit $(G, \star)$ un groupe. On a :
+    
+    \[ \forall x \in G,\ \forall (n, m) \in \bdZ^2,\quad x^n \star x^m = x^{n+m} \quad\et\quad x^{nm} = \left(x^n\right)^m \]
+\end{property}
+
+\demo{
+    Soit $(G, \star)$ un groupe d'élément neutre $e_G$, $x$ un élément de $G$ et $m \in \bdN$. On pose :
+
+    \[\forall n \in \bdN,\quad H(n): x^n \star x^m = x^{n+m}\]
+
+    \begin{enumerate}
+        \ithand \underline{Initialisation :} On a $x^0 \star x^m = e_G \star x^m = x^m$ et $x^{0+m}=x^m$ donc $H(0)$ est vrai.
+        
+        \ithand \underline{Hérédité :} Soit $n \in \bdN$ tel que $H(n)$ est vérifiée. Or :
+    
+        \[ x^{n+1+m} \eq{\text{def}} x \star x^{n+m} \eq{\text{par} \ H(n)} x \star x^n \star x^m \eq{\text{def}} x^{n+1} \star x^m\]
+    
+        Donc $H(n+1)$ est vraie.
+        \ithand \underline{Conclusion :} On a $H(0)$ et $\forall n \in \bdN$, $H(n) \implies H(n+1)$ donc par principe de récurrence :
+    
+        \[ \forall x \in G,\ \forall (n, m) \in \bdN^2,\quad x^n \star x^m = x^{n+m}\]
+    
+        Pour la seconde égalité, on pose $n \in \bdN$. Par définition de la multiplication sur $\bdN$ :
+        
+        \[ x^{nm} = x^{\underbrace{n + n + \dots + n}_{m \ \text{fois}}} = \underbrace{x^n \star x^n \star \dots \star x^n}_{m \ \text{fois}} = \left(x^n\right)^m \]
+        
+        Enfin, pour montrer les propriétés sur $\bdZ$, il suffira de les appliquer avec $x^{-1}$.
+        
+    \end{enumerate}
+}
+
+On notera que dans le cas d'une loi additive, donc avec $(G, +)$ un groupe d'élément neutre $e_G = 0$, pour $x$ un élément de $G$ et $n \in \bdZ$, l'itéré $n$-ième de $x$, noté normalement $x^n$, sera noté $nx$.
+Alors la propriété précédente s'écrira :
+\[ \forall x \in G,\ \forall (n, m) \in \bdZ^2,\quad nx + mx = (n+m)x \quad\et\quad m(nx) = (mn)x \]
+
+\begin{warning}{}{}
+    Pour un groupe $(G, \star)$ avec $\star$ une loi de composition interne \bf{non commutative}, on a en général 
+    \[ \forall (x, y) \in G^2,\quad \hg{(x \star y)^n \neq x^n \star y^n}\]
+    On a par exemple \hg{$(x \star y)^2 = (x \star y) \star (x \star y) \neq x \star x \star y \star y$}.
+\end{warning}
+
+\begin{property}{}{}
+    Soit $(G, \star)$ un groupe. On a :
+    
+    \[ \forall (x, y) \in G^2, \quad x \star y = y \star x \implies \forall n \in \bdZ,\quad (x \star y)^n = x^n \star y^n\]
+\end{property}
+
+\demo{Soit $(G, \star)$ un groupe, $(x, y) \in G^2$ et $n \in \bdN$. On a :
+\[(x \star y)^n = \underbrace{(x \star y) \star (x \star y) \star \dots \star (x \star y)}_{n \ \text{fois}}\]
+On commute, donc on a alors :
+\[ (x \star y)^n = \underbrace{x \star x \star \dots \star x}_{n \ \text{fois}} \ \star \ \underbrace{y \star y \star \dots \star y}_{n \ \text{fois}} = x^n \star y^n\]
+}
+
+On remarquera qu'avec la notation additive, donc dans un groupe $(G, +)$ où $+$ est une loi de composition interne commutative, la propriété e réécrit :
+
+\[ \forall (x, y) \in G^2,\ \forall n \in \bdZ, \quad n(x + y) = nx + ny\]
+
+\subsection{Sous-groupe}
+
+\begin{definition}{Sous-groupe}{}
+    Soit $(G, \star)$ un groupe et $H$ une partie de $G$. On dit que \bf{$H$ est un sous-groupe de $(G, \star)$} si et seulement si
+    \begin{enumerate}
+        \ithand $H \neq \emptyset$
+        
+        \ithand $H$ est stable par $\star$
+        
+        \ithand $H$ est stable passage à l'inverse.
+    \end{enumerate}
+\end{definition}
+
+On se rend en fait compte qu'un sous-groupe est un groupe. On notera d'ailleurs $H \leq G$ ou $H \leq (G, \star)$ pour dire que $H$ est un sous-groupe.
+
+\begin{property}{Un sous-groupe est un groupe}{}
+    Soit $(G, \star)$ un groupe et $H \subset G$. Si $H$ est un sous-groupe de $(G, \star)$, alors $(H, \star)$ est un groupe.
+\end{property}
+
+\demo{
+    Soit $(G, \star)$ un groupe d'élément neutre $e_G$ et $H$ un sous-groupe de $(G, \star)$.
+    
+    \begin{enumerate}
+        \ithand Puisque $H$ est stable par $\star$, on peut voir $\star$ comme une loi de composition interne de $H$ :
+    
+        \[ \star : \begin{array}[t]{ccc}
+             H\times H &\to& H  \\
+            (x, y) &\mapsto& x \star y 
+        \end{array}\]
+
+        \ithand Puisque $\star$ est associative dans $G$ et $H \subset G$, $\star$ est donc aussi associative dans $H$.
+    
+        \ithand Puisque $H$ est non vide, il existe au moins un élément $x$ dans $H$. Par stabilité de $H$ par passage à l'inverse, on a aussi $x^{-1} \in H$.
+        Enfin, par stabilité de $H$ par $\star$ , $x \star x^{-1} \in H$ donc $e_G \in H$.
+
+        \ithand Enfin, tout élément de $H$ possède un inverse dans $H$, puisque $H$ est par définition stable par passage à l'inverse.
+    \end{enumerate}
+    
+    Donc $(H, \star)$ est un groupe. 
+}
+
+Il est en fait possible de caractériser un groupe encore plus simplement :
+
+\begin{theorem}{Caractérisation des sous-groupes}{}
+    Soit $(G, \star)$ un groupe et $H \subset G$. \bf{$H$ est un sous-groupe de $G$} si et seulement si
+    
+    \[ H \neq \emptyset \qquad\qquad\et\qquad\qquad \forall (x, y) \in H^2,\quad x \star y^{-1} \in H\]
+\end{theorem}
+
+\demoth{Soit $(G, \star)$ un groupe d'élément neutre $e_G$ et $H$  une partie de $G$.
+    \begin{enumerate}
+        \ithand Montrons $\boxed{\implies}$ : Si $H$ est un sous-groupe de $G$, alors $H \neq \emptyset$. 
+        
+        De plus, si $(x, y) \in H^2$, on a alors $y^{-1} \in H$ donc $x \star y^{-1} \in H$.
+        
+        \ithand Montrons $\boxed{\impliedby}$ : On suppose $H \neq \emptyset$ et $\forall (x, y) \in H^2$, $x \star y^{-1} \in H$.
+        
+        Puisque $H \neq \emptyset$, $\exists x \in H$ donc $x \star x^{-1} \in H$ donc $e_G \in H$. 
+        
+        Ainsi, pour $y \in H$, Puisque $e_G \in H$, $e_G \star y^{-1} \in H$ donc $y^{-1} \in H$.
+        
+        Soit enfin $(x, y) \in H^2$, on a $y^{-1} \in H$ donc $x \star \left(y^{-1}\right)^{-1} \in H$ d'où $x \star y \in H$.
+    \end{enumerate}
+}
+En pratique, lorsqu'il s'agira de monter que $H$ est non vide, on montrera systématiquement que l'élément neutre $e_G$ est dans $H$ (ce qui est forcément le cas si $H$ est un sous-groupe). On remarquera que dans le cas d'un groupe additif $(G, +)$ (où $+$ est une loi de composition interne commutative) d'élément neutre $0$, pour une partie $H$ de $G$, on aura 
+
+\[(H, \star) \ \text{sera un sous-groupe de} \ (G, \star) \ \text{si et seulement si} \ 0 \in H \ \text{et} \ \forall (x, y) \in H^2,\quad x-y \in H\]
+
+\begin{example}{}{}
+    \begin{enumerate}
+        \ithand Soit $(G, \star)$ un groupe d'élément neutre $e_G$. \bf{$G$ est un sous-groupe de $G$}, et \bf{$\{e_G\}$ également}.
+        \ithand \bf{$(\bdZ, +)$ est un sous-groupe de $(\bdQ, +)$ qui est un sous-groupe de $(\bdR, +) \dots$}
+        \ithand Pour tout entier $n \in \bdN^*$, \bf{$(\bdU_n, +)$ est un sous-groupe de $(\bdU, +)$ qui est un sous-groupe de $(\bdC, +)$}
+    \end{enumerate}
+\end{example}
+
+On peut alors se demander quels sont les sous-groupes additifs de $\bdZ$
+
+\begin{theorem}{Sous-groupes de $(\bdZ, +)$}{}
+    Les sous-groupes de $(\bdZ, +)$ sont exactement les $n\bdZ$.
+\end{theorem}
+
+\demoth{
+    Montrons que les sous-groupes de $(\bdZ, +)$ sont exactement les $n\bdZ$. Soit $n \bdN$.
+
+    \begin{enumerate}
+        \ithand Montrons d'abord que tout $n\bdZ$ est un sous-groupe de $(\bdZ, +)$.
+    
+        On a $n\bdZ \subset \bdZ$ et $0 = 0\times n \in n\bdZ$ donc $n\bdZ \neq \emptyset$.
+   
+        Pour $(a,b)\in (n\bdZ)^2$, on a $a \equiv 0 \ [n]$ et $b \equiv 0 \ [n]$ donc $a-b \equiv 0 \ [n]$ donc $a-b \in n\bdZ$.
+   
+        Par caractérisation, $n\bdZ$ est un sous-groupe de $(\bdZ, +)$.
+   
+        \ithand Montrons maintenant que tout sous-groupe de $(\bdZ, +)$ est un $n\bdZ$ avec $n \in \bdN$.
+   
+        Soit $H$ une partie de $Z$ tel que $(H, +)$ est un sous-groupe de $(\bdZ, +)$.
+   
+        Si $H = \{0\}$, alors $H = 0\bdZ$. Sinon si $H \neq \{0\}$, alors $\exists n \in H$ tel que $n \neq 0$. Or $H$ est un groupe donc $-n \in H$, donc $\mod{n} \in H\cap\bdN^*$.
+       
+        On a $H \cap \bdN^*$ une partie non vide de $\bdN^*$, donc on peut prendre $n = \min\left(\bdN^* \cap H\right)$. 
+       
+        Vérifions maintenant que $H = n\bdZ$ : 
+        \begin{enumerate}
+    
+            \itstar Montrons $\boxed{\supseteq}$ : $n \in H$, donc tous les itérés de $n$ sont aussi dans $H$, donc $kn \in H$ avec $k \in \bdZ$.
+        
+            \itstar Montrons $\boxed{\subseteq}$ : Soit $h \in H$. On pose la division euclidienne de $h$ par $n$.
+        
+            \[ \exists (q, r) \in \bdZ^2,\quad k = nq + r \qquad\et\quad 0 \leq r < n\]
+        
+            Or $h \in H$ et $nq \in n\bdZ \subset H$ donc $h - nq \in H$ donc $r \in H$.
+        
+            Ainsi, $r \in H \cap N$ et $r < n = \min\left(H \cap \bdN^*\right)$. Donc $r = 0$. Donc, $h = nq$ donc $h \in n\bdZ$, donc $H \subset n\bdZ$.
+    \end{enumerate}
+    
+    Donc $H = n\bdZ$.
+\end{enumerate}
+
+}
+
+\begin{example}{}{}
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \ithand $0\bdZ = \{0\}$
+            \ithand $1\bdZ = \bdZ$
+            \ithand $2\bdZ = \{ 2k \mid k \in \bdZ\}$
+            \ithand Pour $n \in \bdN$, on a $n\bdZ = \{nk \mid k \in \bdZ\}$ soit
+            $n\bdZ = \{\dots -2n, -n, 0, n, 2n, \dots\}$
+        \end{enumerate}
+    \end{multicols}
+\end{example}
+
+\begin{theorem}{Intersection de sous-groupes}{}
+    Soit $(G, \star)$ un groupe et $(H_i)_{i \in I}$ une famille de sous-groupes de $(G, \star)*$. On a que :
+    
+    \[ \bigcap_{i \in I} H_i \quad \text{est un sous-groupe de} \ G \qquad\qquad\text{soit}\quad \bigcap_{i \in I} H_i \leq G\]
+    
+    Plus simplement, \bf{toute intersection de sous-groupes est un sous-groupe.}
+\end{theorem}
+
+\demoth{
+    Soit $(G, \star)$ un groupe de neutre $e_G$ et $(H_i)_{i \in I}$ une famille de sous-groupes de $(G, \star)*$. Posons :
+
+    \[\displaystyle H = \bigcap_{i \in I} H_i\]
+
+    Tout $H_i$ étant un sous-groupe de $G$, $\forall i \in I$, $e_G \in I$. Ainsi :
+    
+    \[e_G \in \bigcap_{i \in I} H_i \qquad \text{donc}\qquad e_G \in H\]
+
+    Soit $(x, y) \in H^2$, donc $\forall i \in I$, $x \in H_i$ et $y \in H_i$. Or chaque $H_i$ étant un sous-groupe, on a que :
+    \[\forall i \in I,\quad x \star y^{-1} \in H_i\qquad\text{donc}\qquad x \star y^{-1} \in \bigcap_{i \in I} H_i\]
+    
+    On a donc montré que $x \star y^{-1} _in H$. Par caractérisation $\displaystyle \bigcap_{i \in I} H_i$ est un sous-groupe de $G$.
+}
+
+Cependant ce principe ne marche pas avec l'union : en effet, l'union de deux (sous-)groupes n'est pas forcément un (sous-)groupe. En effet, en prenant par exemple les groupes additions $2\bdZ$ et $3\bdZ$, on peut poser
+\[ G = 2\bdZ \cup 3 \bdZ\]
+On a $2 \in G$ et $3 \in G$, cependant $2 + 3 = 5 \not\in G$ donc $G$ n'est pas un groupe.
+
+\begin{exercise}{}{}
+    Soit $G$ et $G'$ deux groupes, et $H = G \cup G'$. Montrer que $H$ est un groupe si et seulement si
+    
+    \[ \hg{G \subset G' \qquad\qquad\text{ou}\qquad\qquad G' \subset G}\]
+    
+    \tcblower
+    
+    \begin{enumerate}
+        \ithand Montrons $\boxed{\impliedby}$ : \begin{enumerate}
+            \itstar Si $G' \subset G$, alors $G \cup G' = G$, donc un groupe.
+            
+            \itstar Si $G \subset G'$, alors $G \cup G' = G'$, donc un groupe.
+        \end{enumerate}
+        
+        \ithand Montrons $\boxed{\implies}$ : \begin{enumerate}
+        
+            \itstar $1^{\text{er}}$ cas : Si $G' \subset G$, le résultat est immédiat.
+            
+            \itstar $2^{\text{ème}}$ cas : Sinon, avec $G' \not\subset G$. Il faut montrer $G \subset G'$. Soit $x \in G$. On a $G' \not\subset G$, donc $\exists y \in G'$ tel que $y \not \in G$.
+            
+            Or $H = G \cup G'$ est un groupe, ainsi $x \in H$ et $y \in H$, donc $x \star y \in H$. Donc $\underbrace{x \star y \in G}_{\text{impossible}}$ ou $x \star y \in G'$.
+            
+            Ainsi $x \star y \in G'$. Or $y \in G'$ donc $y^{-1} \in G'$ donc $(x \star y) \star y^{-1} \in G'$ donc $x \in G'$.
+            
+            Donc on a bien $G \in G'$.
+        \end{enumerate}
+    \end{enumerate}
+\end{exercise}
+
+\subsection{Homomorphisme de groupes}
+
+\begin{definition}{Homomorphisme de groupes}{}
+    Soient $(G, \star)$ et $(H \lozenge)$ deux groupes. Soit $f \in \bcF(G, H)$. On dit que \bf{$f$ est un homomorphisme de groupes} si et seulement si 
+    
+    \[ \forall (x, y) \in G^2, \ f(x\star y) = f(x) \lozenge f(y)\]
+    
+    On dit aussi plus simplement que \bf{$f$ est un morphisme de groupes}.
+\end{definition}
+
+\begin{example}{}{}
+
+    \begin{enumerate}
+        \ithand \bf{$\ln$ est un morphisme de $(\bdRp, \times)$ dans $(\bdR, +)$} :
+        \[ \forall (x, y) \in \left(\bdRp\right)^2,\ \ln{x\times y} = \ln(x) + \ln{y}\]
+        
+        
+        \ithand \bf{$\exp$ est un morphisme de $(\bdR, +)$ dans $(\bdRp, \times)$} :
+        \[ \forall (x, y) \in \bdR^2,\ \exp{x + y} = \exp(x) \times  \exp{y}\]
+        
+        \ithand \bf{$\varphi : \begin{array}[t]{ccc}
+            \bdR &\to& \bdN  \\
+            \theta &\mapsto&e^{i\theta} 
+        \end{array}$ est un morphisme de $(\bdR, +)$ dans $(\bdU, \times)$}.
+        
+        \[ \forall (\theta, \theta') \in \bdR^2,\quad e^{i(\theta + \theta')} = e^{i\theta + i\theta'} = e^{i\theta} + e^{i\theta'}\]
+        
+        \ithand Soit un entier $n \in \bdN^*$ non nul. On pose :
+        
+        \[ f : \begin{array}[t]{ccc}
+            \bdZ/n\bdZ &\to& \bdU_n  \\
+            k &\mapsto&e^{\frac{2ik\pi}{n}} 
+        \end{array}\]
+        
+        On remarque alors que \bf{$f$ est un morphisme de $(\bdZ/n\bdZ, +)$ dans $(\bdU_n, \times)$}.
+    \end{enumerate}
+    
+\end{example}
+
+\begin{property}{}{}
+    Soit  $(G, \star)$ de neutre $e_G$ et $(H, \lozenge)$ de neutre $e_H$, deux groupes. Soit $f: G \to H$. 
+    
+    Si $f$ est un morphisme de groupes, alors :
+    \[ f(e_G) = e_H \qquad\et\qquad \forall x \in G,\quad f(x^{-1}) = f(x)^{-1}\]
+\end{property}
+
+\demo{Soit  $(G, \star)$ de neutre $e_G$ et $(H, \lozenge)$ de neutre $e_H$, deux groupes. Soit $f: G \to H$ un morphisme .
+
+\begin{enumerate}
+    \ithand On a $e_G = e_G \star e_G$ donc par le morphisme $f$, $f(e_G) = f(e_G \star e_G) = f(e_G) \lozenge f(e_G)$. Or $f(e_G) \in H$, donc $f(e_G)^{-1} \in H$. Donc :
+
+    \[ \underbrace{f(e_G)^{-1} \ \lozenge \ f(e_G)}_{e_H} = \underbrace{f(e_G)^{-1} \ \lozenge \ f(e_G)}_{e_H} \ \lozenge \ f(e_G) \qquad\text{donc}\qquad e_H = e_H\ \lozenge \ f(e_G) = f(e_G)\]
+    
+    Donc $f(e_G) = e_H$.
+
+    \ithand Soit maintenant $x \in G$, on a $x \star x^{-1} = e_G$. En appliquant le morphisme $f$:
+    
+    \[ f(e_G) = f(x \star x^{-1}) \qquad\text{donc}\qquad e_H = f(x)\ \lozenge \ f(x^{-1})\qquad \underbrace{f(x)^{-1}\ \lozenge \ f(x)}_{e_H}\ \lozenge \ f(x^{-1}) = f(x)^{-1}\ \lozenge \ e_H\]
+    
+    Donc $f(x^{-1}) = f(x)^{-1}$.
+\end{enumerate}
+}
+
+\begin{definition}{Endomorphisme, Isomorphisme, Automorphisme}{}
+    Soit  $(G, \star)$ et $(H, \lozenge)$ deux groupes. Soit $f: G \to H$ un morphisme de groupes.
+    
+    \begin{enumerate}
+        \ithand Si $H = G$, on dit que \bf{$f$ est un endomorphisme}.
+        
+        \ithand Si $f$ est bijective, on dit que \bf{$f$ est un isomorphisme}.
+        
+        \ithand Si $f$ est un endomorphisme et un isomorphisme, on dit que \bf{$f$ est un automorphisme}.
+    \end{enumerate}
+    
+\end{definition}
+
+On peut alors établir le théorème suivant sur les isomorphismes de groupes :
+
+\begin{theorem}{Isomorphisme réciproque}{}
+    Soit  $(G, \star)$ et $(H, \lozenge)$ deux groupes. Soit $f: G \to H$ un morphisme de groupes. 
+    
+    \bf{Si $f: G \to H$ est un isomorphisme de groupes, alors sa réciproque $f^{-1}: H \to G$ l'est aussi.}
+\end{theorem}
+
+\demoth{
+    Soit  $(G, \star)$ et $(H, \lozenge)$ deux groupes. Soit $f: G \to H$ un isomorphisme de groupes.
+
+    On sait déjà que $f: G \to H$ est bijective, et admet donc une bijection réciproque $f^{-1}: H \to G$.
+
+    Soient $(a, b) \in H^2$. On a $f^{-1}(a) \in G$ et $f^{-1}(b) \in G$ donc $f^{-1}(a) \star f^{-1}(b) \in G$. Or $f$ est un morphisme donc :
+
+    \[ f\left(f^{-1}(a) \star f^{-1}(b)\right) = f\left(f^{-1}(a)\right) \ \lozenge \ f\left(f^{-1}(b)\right) a \ \lozenge \ b \in H\]
+
+    Donc en appliquant $f^{-1}$:
+
+    \[ f(a \ \lozenge \ b) = f^{-1}\left(f\left(f^{-1}(a) \star f^{-1}(b)\right)\right) = f^{-1}(a) \star f^{-1}(b)\]
+
+    Donc $f^{-1}$ est un morphisme de groupes, donc un isomorphisme de groupes.
+
+}
+
+\begin{theorem}{Composition de morphismes}{}
+    La composée de deux morphismes de groupes est un morphisme de groupes.
+\end{theorem}
+
+\demoth{
+    Soit $(G, \star)$, $(H, \lozenge)$ et $(K, \otimes)$ trois groupes et $f: G \to H$ et $g: H \to K$ deux morphismes de groupes. Soient $(x, y) \in G^2$. On a :
+
+    \[(g \circ f)(x \star y) = g(f(x \star y)) = g\left(f(x) \ \lozenge f(y)\right) = g(f(x)) \otimes g(f(y)) = (g\circ f)(x) \otimes (g \circ f)(y)\]
+    
+    Donc $(g \circ f) : G \to K$ est un morphisme de groupes.
+}
+
+On peut alors commencer à établir des résultats important les ensembles image directe et image réciproque d'un morphisme :
+
+\begin{theorem}{}{}
+    Soit $(G, \star)$ et $(H, \lozenge)$ deux groupes, et $f: G \to H$ un morphisme de groupes.
+    
+    \begin{enumerate}
+        \ithand Pour tout sous-groupe $G'$ de $G$, l'image directe $f(G')$ de $G'$ par $f$ est un sous-groupe de $H$.
+    
+        \ithand Pour tout sous-groupe $H'$ de $H$, l'image réciproque $f^{-1}(H')$ de $H'$ par $f$ est un sous-groupe de $G$.
+        
+        \ithand En résumé :
+        
+         \[ \forall G' \leq (G, \star),\quad f(G') \leq (H, \lozenge) \qquad\qquad\et\qquad\qquad \forall H' \leq (H, \lozenge),\quad f^{-1}(H') \leq (G, \star)\]
+    \end{enumerate}
+\end{theorem}
+
+\demoth{
+    Soit deux groupes $(G, \star)$ et $(H, \lozenge)$ de neutre $e_G$ et $e_H$, et $f: G \to H$ un morphisme de groupes.
+    
+    Soit $G' \leq (G, \star)$ un sous-groupe de $G$ et $H' \leq (H, \lozenge)$ un sous-groupe de $H$.
+
+    \begin{enumerate}
+        \ithand On a $f(G') = \{f(x) \mid x \in G'\}$. Puisque $f: G \to H$ et $G' \subset G$ on a déjà $f(G') \subset H$.
+
+        Or $G'$ est un sous-groupe de $G$ donc $e_G \in G'$. Puisque $f(e_G) = e_H$, on a $e_H \in f(G')$, donc $f(G') \neq \emptyset$.
+
+        Soient $(a, b) \in f(G')^2$. Donc $\exists (x, y) \in G'^2$, $a = f(x)$ et $b = f(y)$. Donc :
+        
+        \[a \ \lozenge \ b^{-1} = f(x) \ \lozenge \ f(y)^{-1} = f(x) \ \lozenge \ f(y^{-1}) = f(x \star y^{-1})\]
+
+        Or $x \in G'$, $y \in G'$, et $G'$ est un groupe donc $x \star y^{-1} \in G'$. Donc $f(x \star y^{-1}) \in f(G')$ donc $a \ \lozenge \ b^{-1} \in f(G')$.
+
+        \[ \text{Par caractérisation} \ f(G') \leq (H, \lozenge) \ \text{est un sous-groupe de} \ H\]
+
+        \ithand On a $f^{-1}(H') = \{ x \in G \mid f(x) \in H'\}$. De même, par définition de $f$, on a déjà $f^{-1}(H') \subset G$.
+        
+        $H'$ est un sous-groupe de $H$, donc $e_H \in H'$. Or $f(e_G) = e_H$ donc $f(e_G) \in H'$ donc $e_G \in f^{-1}(H') \neq \emptyset$.
+        
+        Soient $(x, y) \in f^{-1}(H')^2$. On a $x \in f^{-1}(H')$ et $y \in f^{-1}(H')$, donc $f(x) \in H'$ et $f(y) \in H'$.
+        
+        Or $H'$ est un sous-groupe, donc $f(x) \ \lozenge \ f(y)^{-1} \in H'$. Or 
+        
+        \[ f(x) \ \lozenge \ f(y)^{-1} = f(x) \ \lozenge \ f(y^{-1}) = f(x \star y^{-1}) \qquad\text{donc}\qquad f(x \star y^{-1}) \in H' \quad\text{donc} \ \]
+        
+        Donc par définition, on a bien $x \star y^{-1} \in f^{-1}(H')$.
+        
+        \[ \text{Par caractérisation} \ f^{-1}(H') \leq (G, \star) \ \text{est un sous-groupe de} \ G\]
+        
+        \end{enumerate}
+
+    On a bien montré que $\forall G' \leq (G, \star)$, $f(G') \leq (H, \lozenge)$ et $\forall H' \leq (H, \lozenge)$, $f^{-1}(H') \leq (G, \star)$.
+}
+
+On peut en fait distinguer deux cas particuliers : soit tout d'abord deux groupes $(G, \star)$ et $(H, \lozenge)$, et $f: G \to H$ un morphisme de groupes.
+
+\begin{enumerate}
+    \ithand On a $G$ un sous-groupe de $G$, donc $f(G)$ est un sous-groupe de $H$. On peut donc définir la notion d'\textit{image d'un morphisme}.
+    
+    \ithand De plus, $\{e_H\}$ est un sous-groupe de $H$, donc l'image réciproque $f^{-1}(\{e_H\})$ est un sous-groupe de $G$. On peut alors définir la notion de \textit{noyau d'un morphisme}.
+\end{enumerate} 
+
+\begin{definition}{Image et Noyau d'un morphisme}{}
+    Soit deux groupes $(G, \star)$ et $(H, \lozenge)$ de neutre $e_H$, et $f: G \to H$ un morphisme de groupes.
+    
+    On appelle \bf{image de $f$} l'ensemble décrit par:
+    
+    \[ f(G) = \{f(x) \mid x \in G\}\]
+    
+    On appelle \bf{noyau de $f$} l'ensemble décrit par :
+    
+    \[ f^{-1}(\{e_H\}) = \{ x \in G \mid f(x) = e_H \} \]
+\end{definition}
+
+Généralement, l'image d'un morphisme sera notée $\Imm(f)$ et le noyau d'un morphisme sera noté $\Ker(f)$. On remarquera par ailleurs que, puisque l'on a :
+
+\[\Imm(f) = f(G) \qquad\et\qquad \Ker(f) = f^{-1}(\{e_H\})\]
+
+Alors on a bien que le noyau et l'image d'un morphisme de groupes sont des sous-groupes.
+
+\begin{theorem}{}{}
+     Soit deux groupes $(G, \star)$ et $(H, \lozenge)$ et $f: G \to H$ un morphisme de groupes.
+     
+     \begin{enumerate}
+         \ithand \bf{$f$ est surjective si et seulement si $\Imm(f) = H$}.
+         \ithand \bf{$f$ est injective si et seulement si $\Ker(f) = \{e_G\}$}.
+     \end{enumerate}
+      
+\end{theorem}
+
+\demoth{Soit deux groupes $(G, \star)$ de neutre $e_G$ et $(H, \lozenge)$ de neutre $e_H$ et $f: G \to H$ un morphisme de groupes.
+
+\begin{enumerate}
+    \ithand On a que $f$ est surjective si et seulement si $f(G) = H$. Puisque $\Imm(f) = f(G)$, on a bien que $f$ est surjective si et seulement si $\Imm(f) = H$.
+    
+    \ithand Montrons que $f$ est injective si et seulement si $\Ker(f) = \{e_G\}$.
+    \begin{enumerate}
+        \itstar Montrons $\boxed{\implies}$ : Si $f$ est injective.
+        
+        Comme $f$ est un morphisme, $f(e_G) = e_H$ donc $e_G \in \Ker f$. Donc $\{e_G\} \subset \Ker f$.
+        
+        Soit $x \in \Ker f$. Alors, $f(x) = e_H = f(e_G)$. Par injectivité de $f$, $x = e_G$. Donc $\Ker f \subset \{ e_G\}$. Ainsi $\Ker f = \{ e_G\}$.
+        
+        \itstar Montrons $\boxed{\impliedby}$ : Si $\Ker f = \{ e_G \}$. Montrons que $f$ est injective.
+        
+        Soient $(a, b) \in G^2$ tels que $f(a) = f(b)$. On a $f(b) \in H$ et $H$ un groupe de $f(b)^{-1} \in H$ et $f(a) \ \lozenge \ f(b)^{-1} = e_H$.
+        
+        Puisque $f$ est un morphisme, $f(a \star b^{-1}) = e_H$ donc $a \star b^{-1} \in \Ker f = \{ e_G \}$ d'où $a \star b^{-1} = e_G$ donc $a = b$.
+    \end{enumerate}
+    
+\end{enumerate}
+
+}
+
+\newpage
+
+\section{Structure d'anneau}
+
+\qquad On peut alors souhaiter enrichir la structure de groupe avec une deuxième loi de composition interne. Typiquement, on considère une première loi additive, donc un groupe additif, et l'on rajoute à ce groupe une deuxième loi, elle multiplicative. On cherche alors à étudier une autre structure algébrique : un anneau.
+
+\subsection{Définition}
+
+\begin{definition}{Anneau}{}
+    Soit un ensemble $A$ et deux lois de composition interne $+$, $\times$ sur $A$. On dit que \bf{$(A, +, \times)$ est un anneau} si et seulement si :
+    \begin{enumerate}
+        \ithand $(A, +)$ est un groupe abélien de neutre $0_A$.
+        \ithand $\times$ est associative et possède un élément neutre $1_A$.
+        \ithand \times $\times$ est distributive sur $+$. 
+    \end{enumerate}
+\end{definition}
+
+Comme pour les groupes, la commutativité de la deuxième loi $\times$ n'est pas requis par la structure d'anneau. On peut cependant, comme avec les groupes abéliens, définir une notion d'anneau commutatif.
+
+\begin{definition}{Anneau commutatif}{}
+    Un anneau $(A, +, \times)$ est dit \bf{anneau commutatif} si et seulement si sa loi $\times$ est commutative.
+\end{definition}
+
+On peut alors remarquer le fait suivant :
+\begin{property}{}{}
+    Soit un anneau $(A, +, \times)$ de neutres $0_A$ et $1_A$. On a :
+    \[ 0_A = 1_A \implies A = \{ 0_A \}\]
+\end{property}
+
+\demo{Soit un anneau $(A, +, \times)$ de neutres $0_A$ et $1_A$, tel que $1_A = 0_A$. Soit $x \in A$ :
+
+\[x = 1_A \times x = 0_A \times x = (0_A + 0_A) \times x = 0_A \times x + 0_A\times x = 1_A\times x + 1_A \times x = x+ x\]
+Donc $x = x+ x$. En additiant $-x$, on a $0_A = x$ donc $A = \{ 0_A\}$.
+}
+
+Pour cette raison, on considérera toujours dans la suite que $0_A \neq 1_A$.
+
+\begin{example}{}{}
+    \begin{enumerate}
+        \ithand $(\bdZ, +, \times)$, $(\bdQ, +, \times)$, $(\bdR, +, \times)$, $(\bdC, +, \times)$ sont des \bf{anneaux commutatifs} de neutres $0$ et $1$.
+        
+        \ithand $(\bcM_n(\bdR), + \times)$ \bf{l'anneau des matrices carrées} \textit{\hg{(non commutatif)}} de taille $n \in \bdN$ et à coefficient dans $\bdR$.
+        
+        \ithand $(\bcF(X, \bdR), +, \times)$ est un \bf{anneau commutatif}, de neutres $\widetilde{0}: \begin{array}[t]{ccc}
+            X &\to& \bdR  \\
+            x &\to& 0 
+        \end{array}$ et $\widetilde{1}: \begin{array}[t]{ccc}
+            X &\to& \bdR  \\
+            x &\to& 1 
+        \end{array}$
+        
+        \ithand $(\bdR^\bdN, +, \times)$ et $(\bdC, +, \times)$ sont des \bf{anneaux commutatifs} de neutres $\suite{0}$ et $\suite{1}$
+        
+        \ithand $(\bdR[X], +, \times)$ est un \bf{anneau commutatif} de neutres le polynôme nul $\widetilde 0$ et constant $\widetilde 1$. 
+    \end{enumerate}
+
+\end{example}
+
+
+On peut alors reprendre la notion d'itérés qu'on avait défini plus haut pour les groupes. Ainsi, pour un anneau $(A, +, \times)$ et $x \in A$, les itérés de $x$ pour l'addition sont notés $nx$ avec $n \in \bdZ$. Précisément, on aura 
+\[ 0x = 0_A \qquad\qquad (n+1)x = nx + x \qquad\qquad (-n)x = -nx \]
+
+On peut de plus considérer les itérés pour la multiplication, en notant $x^0 = 1_A$ et $\forall n \in \bdN$, $x^{n+1} = x \times x^n = x^n \times x$.
+
+On remarquera que l'on a seulement des itérés pour $n \in \bdN$, et non pas $n \in \bdZ$ : en effet, on n'a généralement pas d'inverse pour $a$. On fera aussi attention au fait que $\times$ n'est pas commutative. Ainsi :
+\[ (x+y)^2 = xyxy \neq x^2y^2\]
+
+\subsection{Calculs dans un anneau}
+
+On se placera généralement dans un anneau $(A, +, \times)$ de neutres $0_A$ et $1_A$. On cherche alors a étudier les calculs possibles et leurs résultats dans un tel anneau.
+
+
+\begin{property}{Propriétés de calcul}{}
+    Soit un anneau $(A, +, \times)$ de neutres $0_A$ et $1_A$. Pour tout $(x, y, z) \in A^3$ :
+    \begin{enumerate}
+        \ithand $0_A \times x = x \times 0_A = 0_A$.
+        
+        \ithand $-(a \times b) = (-a)\times b = a \times (-b)$.
+        
+        \ithand $(-a) \times (-b) = a\times b$.
+        
+        \ithand $a \times (b - c) = a \times b - a \times c$.
+        
+        \ithand $(a-b) \times c = a \times c - b \times c$.
+    \end{enumerate}
+\end{property}
+
+\demo{
+    Soit un anneau $(A, +, \times)$ de neutres $0_A$ et $1_A$. Soit $(x, y, z) \in A^3$.
+    
+    \begin{enumerate}
+        \ithand $0_A = 0_A + 0_A$ donc $0_A \times a = (0_A + 0_A) \times a = (0_A \times a) + (0_A \times a)$.
+    
+        En ajoutant l'opposé $-(0_A \times a)$, on obtient bien $0_A = 0_A \times a$.
+    
+        \ithand On a $(a \times b) + ((-a)\times b) \eq{\text{distrib.}} (a + (-a))\times b = 0_A \times b = 0_A$.
+    
+     Donc $(-a) \times b$ est bien l'opposé de $(a \times b)$, soit $-(a\times b) = (-a)\times b$. De même, $-(a \times b) = a \times (-b)$.
+    
+        \ithand Laissé en exercice au lecteur.
+    \end{enumerate}
+    
+}
+
+Ces propriétés de calcul permettent de définir les notions de somme et produit avec les notations $\sum$ et $\prod$.
+
+\begin{definition}{Somme et Produit}{}
+    Soit un anneau $(A, +, \times)$ de neutres $0_A$ et $1_A$.  Soit $(n,m) \in \bdZ^2$ avec $m \geq n$ et $a_n, a_{n+1}, a_{n+2}, \dots, a_{m} \in A^{m-n+1}$.
+    
+    On a la \bf{somme des $a_i$ de $n$ à $m$} et le \bf{produit des $a_i$ de $n$ à $m$} notés tels que :
+    \[ \sum_{i=n}^m a_i = a_n + a_{n+1} + a_{n+2} + \dots + a_{m} \quad\et\quad \prod_{i=n}^m a_i = a_n \times a_{n+1} \times a_{n+2} \times \dots \times a_{m}\]
+    
+    Pour $(n, m) \in \bdZ^2$ avec $m < n$, on aura la somme vide $\displaystyle \sum_{i=n}^{m} a_i = 0_A$ et le produit vide $\displaystyle \prod_{i=n}^{m} a_i = 1_A$.
+\end{definition}
+
+On remarquera que la distributivé s'applique bien :
+
+\[ b \times \left(\sum_{i=1}^n a_i\right) = \sum_{i=1}^n (b\times a_i) \qquad\et\qquad \left(\sum_{i=1}^n a_i\right) \times b = \sum_{i=1}^n (a_i \times b)\]
+
+On remarquera bien la distinction des deux cas, car $\times$ n'est pas forcément commutatif. On a également:
+
+\[ \left(\sum_{i=1}^n a_i\right) \times \left(\sum_{k=1}^n b_j\right) = \sum_{i=1}^n \sum_{k=1}^n (a_i \times b_j)\]
+
+\begin{property}{Binôme de Newton et égalité de Bernoulli}{}
+    Soit un anneau $(A, +, \times)$ de neutres $0_A$ et $1_A$, et $(a, b) \in A^2$ tels que $a$ et $b$ commutent pour $\times$ ($a \times b = b \times a$).
+    
+    \[ \forall n \in \bdN, \quad (a+b)^n = \sum_{k=0}^n \binom{n}{k}a^k b^{n-k} \qquad\et\qquad a^{n+1}-b^{n+1} = (a-b) \times \sum_{k=0}^n a^k b^{n-k}\]
+\end{property}
+
+\demo{
+    Laissé en exercice au lecteur.
+}
+
+On remarquera bien l'importance de la commutativité de $a$ et $b$. Il faut en effet qu'on puisse avoir $ab = ba$ dans :
+
+\[(a+b)^2 = a^2 + ab + ba + b^2 = a^2 + 2ab + b^2\] 
+
+De même pour $(a-b)(a+b) = a^2 + ab - ba - b^2 = a^2 - b^2$. Dans le cas particulier où $b = 1_A$, on a :
+
+\[ \forall a \in A,\ \forall n \in \bdN,\quad (a+ 1_A)^n = \sum_{k=0}^n \binom{n}{k}a^k \qquad\et\qquad a^{n+1} - 1_A = (a - 1_A)\times\sum_{k=0}^n a^k\]
+
+Ceci aura son utilité avec les matrices carrés. En effet, on aura:
+
+\[ \forall n \in \bdN,\ \forall M \in \bcM_n(\bdR), \quad (M-I_n)(I_n + M + M^2 + \dots + M^n) = M^{n+1}-I_n  \]
+
+\begin{warning}{}{}
+    Soit un anneau $(A, +, \times)$ de neutres $0_A$ et $1_A$, et $(a, b) \in A^2$, avec $a\times b = 0_A$ ?
+    
+    \begin{center}
+        \bf{On ne peut rien en dire dans un anneau !}.
+    \end{center}
+    
+    En effet, dans $(\bcM_2(\bdR), +, \times)$, en posant $M = \left(\begin{array}{cc}
+        0 & 1 \\
+        0 & 0
+    \end{array}\right)$, on a $M \times M = \left(\begin{array}{cc}
+        0 & 0 \\
+        0 & 0
+    \end{array}\right) = 0$ avec $M \neq 0$.
+    
+    Ou alors, dans $(\bcF(\bdR, \bdR), +, \times)$, en posant $f : \begin{array}[t]{ccc}
+        \bdR &\to& \bdR \\
+        x &\mapsto& \left\lbrace\begin{array}{cl}
+            x &\text{si} \ x \geq 0  \\
+            0 &\text{si} \ x < 0 
+        \end{array}\right. 
+    \end{array}$ et $g : \begin{array}[t]{ccc}
+        \bdR &\to& \bdR \\
+        x &\mapsto& \left\lbrace\begin{array}{cl}
+            0 &\text{si} \ x \geq 0  \\
+            x &\text{si} \ x < 0 
+        \end{array}\right. 
+    \end{array}$.
+    
+    Ici aussi, on a $f \times g = \widetilde 0$, avec $f \neq g \neq \widetilde 0$.
+\end{warning}
+
+On peut en fait définir une propriété spécifique des anneaux qui respectent ce \guill{produit nul}.
+
+\begin{definition}{Anneau intègre}{}
+    Soit un anneau $(A, +, \times)$ de neutres $0_A$ et $1_A$. On dit que \bf{l'anneau $A$ est intègre} si et seulement si
+    \[ \forall (x, y) \in A^2,\quad a\times b = 0_A \implies (a = 0_A \quad \text{ou} \  b = 0_A)\]
+\end{definition}
+
+On peut donner quelques exemples d'anneaux intègres et d'anneaux non intègres :
+
+\begin{example}{}{}
+    \begin{enumerate}
+        \ithand Les anneaux $(\bcF(X, \bdR), +, \times)$, $(\bcM_n(\bdR), +, \times)$ et $(\bdR^\bdN, +, \times)$ ne sont \textit{\hg{pas intègres}}.
+        
+        \ithand $(\bdC, + \times)$ est un \bf{anneau intègre}.
+        
+        \ithand $(\bdR[X], + \times)$ est un \bf{anneau intègre}.
+    \end{enumerate}
+\end{example}
+
+On remarquera alors que si $a \in A$ est inversible pour $\times$, alors l'intégrité de l'anneau $(A, +, \times)$ entraîne :
+
+\[ a \times b = 0_A \implies a^{-1} \times a \times b = 0_A \implies b = 0_A\]
+
+Ceci permet donc de montrer qu'un anneau n'est pas intègre, lorsque le $b$ en question ne vaut pas $0_A$. On montre ainsi que $(\bdZ/6\bdZ, +, \times)$ est non intègre, car $2 \times 3 \equiv 0 \ [6]$.
+
+\subsection{Inversibles d'un anneau}
+
+\begin{property}{}{}
+    Soit un anneau $(A, +, \times)$ de neutres $0_A$ et $1_A$.
+    
+    L'ensemble des éléments inversibles de l'anneau $A$ pour $\times$ forme un \bf{groupe multiplicatif}.
+\end{property}
+
+\demo{Soit un anneau $(A, +, \times)$ de neutres $0_A$ et $1_A$. On pose
+\[ A^* = \{ x \in A \mid a \ \text{est inversible pour} \ \times\}\]
+Montrons que $(A^*, \times)$ est un groupe. 
+
+\begin{enumerate}
+    \ithand $1_A$ est inversible car $1_A \times 1_A = 1_A$, donc ${1_A}^{-1} = 1_A$, donc le neutre $1_A \in A^*$.
+    
+    \ithand Soit $x \in A^*$. On a $x \times x^{-1} = 1_A$ donc $x^{-1}$ est inversible avec $(x^{-1})^{-1} = x$, donc $x^{-1} \in A^*$.
+    
+    \ithand Soit $(x, y) \in A^*$. On a $(x \times y)^{-1} = y^{-1} \times x^{-1}$. Donc $x \times y \in A^*$.
+    
+    \ithand Enfin, $A$ est un anneau donc $\times$ est associative.
+\end{enumerate}
+
+Par définition, on a bien $(A^*, \times)$ un groupe multiplicatif.
+
+}
+
+Généralement, l'ensemble des élément inversibles d'un anneau $A$ sera noté $A^*$. Il faut faire attention avec cette notation, car si elle correspond souvent à $A \backslash \{0\}$, ce n'est pas toujours le cas.
+
+\begin{enumerate}
+    \ithand Les inversibles de l'anneau $(\bdC, +, \times)$ sont $\bdC \backslash \{ 0 \} = \bdQ^*$. On a donc $(\bdC^*, \times)$ un groupe.
+    
+    \ithand Les inversibles de l'anneau $(\bdR, +, \times)$ sont $\bdR \backslash \{ 0 \} = \bdR^*$. On a donc $(\bdR^*, \times)$ un groupe.
+    
+    \ithand Idem pour $(\bdQ, +, \times)$ avec $\bdQ^* = \bdQ \backslash \{ 0 \}$
+    
+    \ithand Les inversibles de l'anneau $(\bdZ, +, \times)$ sont $\{-1, 1\}$, un ensemble différent de $\bdZ \backslash \{ 0 \}$.
+    
+    \ithand dans $\bdZ/6\bdZ$ : 
+    \[ \fcolorbox{white}{main22!8}{$\quad\begin{array}{c|c|c|c|c|c|c}
+            \times & 0 & 1 & 2 & 3 & 4 & 5 \\\hline
+            0 & 0 & 0 & 0 & 0 & 0 & 0 \\\hline
+            1 & 0 & 1 & 2 & 3 & 4 & 5 \\\hline
+            2 & 0 & 2 & 4 & 0 & 2 & 4 \\\hline
+            3 & 0 & 3 & 0 & 3 & 4 & 3 \\\hline
+            4 & 0 & 4 & 2 & 0 & 2 & 2 \\\hline
+            5 & 0 & 5 & 4 & 3 & 2 & 1
+        \end{array}\quad$}\]
+        Donc les inversibles de $\bdZ/6\bdZ$ sont les $a, b$ tels que $a\times b \equiv 1 \ [6]$, donc $\left(\bdZ/6\bdZ\right)^*=\{1, 5\}$. En fait :
+        \[ ab \equiv 1 \ [6] \iff \exists k \in \bdZ, \quad ab = 6k + 1 \iff \exists k \in \bdZ, \quad a\times b - 6 \times k = 1\]
+        Donc si et seulement si $\pgcd(a, 6) = 1$ et $\pgcd(b, 6) = 1$. Ce résultat peut en fait être généralisé :
+\end{enumerate}
+
+\begin{exercise}{}{}
+    Soit $n \in \bdN^*$, montrer que :
+    
+    \[\hg{\left(\bdZ/n\bdZ\right)^* = \{ k \in \llbracket0; n-1\rrbracket \mid \pgcd(k, n) = 1 \}}\]
+    
+    \tcblower
+    \begin{enumerate}
+        \ithand Montrons $\boxed{\supseteq}$ : Soit $k \in \llbracket0; n-1\rrbracket$, tel que $\pgcd(k, n) = 1$. On a alors la relation de Bézout :
+        
+        \[ \exists (u, v) \in \bdZ^2,\quad uk + vn = 1 \qquad\qquad\text{donc} \ uk \equiv 1 \ [n]\]
+        
+        Donc $k$ est inversible dans $\bdZ/n\bdZ$ d'inverse le reste $r$ de la division euclidienne de $u$ par $n$ :
+        
+        \[\exists (q,r) \in \bdZ^2,\quad u = nq + r \quad\et\quad 0 \leq r < n\]
+        
+        Donc $k \in \left(\bdZ/n\bdZ\right)^*$, ainsi $\{ k \in \llbracket0; n-1\rrbracket \mid \pgcd(k, n) = 1 \} \subset \left(\bdZ/n\bdZ\right)^*$.
+        
+        \ithand Montrons $\boxed{\subseteq}$ : Soit $k \in \left(\bdZ/n\bdZ\right)^*$. $k$ est inversible, donc $\exists u \in G$ tel que $uk \equiv 1 \ [n]$. Donc $\exists v \in \bdZ$, $uk = 1 + vn$. On a donc bien une relation de Bézout :
+        
+        \[\exists (u, v) \in \bdZ^2,\quad uk + vn = 1\]
+        
+        Donc $k \in \{ k \in \llbracket0; n-1\rrbracket \mid \pgcd(k, n) = 1 \}$, ainsi $\left(\bdZ/n\bdZ\right)^* \subset \{ k \in \llbracket0; n-1\rrbracket \mid \pgcd(k, n) = 1 \}$.
+    \end{enumerate}
+    
+    Donc on a bien $\left(\bdZ/n\bdZ\right)^* = \{ k \in \llbracket0; n-1\rrbracket \mid \pgcd(k, n) = 1 \}$.
+\end{exercise}
+
+On aura donc, par exemple : \qquad $\left(\bdZ/12\bdZ\right)^* = \{k \in \llbracket 0; 11\rrbracket \mid \pgcd(k, 12) = 1\} = \{1, 5, 7, 11\}$
+\subsection{Sous-anneau}
+
+Comme pour les groupes, où l'on avait défini des sous-groupes, on peut définir des sous-anneaux pour les anneaux. Ainsi, tel que c'était le cas précédemment, un sous-anneau serait donc fait d'une partie de l'ensemble d'un anneau plus grand, muni des mêmes lois $+$ et $\times$ de cet anneau plus grand, et qui respecterait les axiomes de définition d'un anneau. On définit ainsi :  
+
+\begin{definition}{Sous-anneau}{}
+    Soit un anneau $(A, +, \times)$ de neutres $0_A$ et $1_A$, et $B$ une partie de $A$. On dit que \bf{$B$ est un sous-anneau de $(A, + \times)$} si et seulement si
+    \begin{enumerate}
+        \ithand $(B, +)$ est un sous-groupe de $A$
+        \ithand $1_A \in B$
+        \ithand $B$ est stable par la loi $\times$
+    \end{enumerate}
+\end{definition}
+
+On peut alors bien montrer qu'un sous-anneau est un anneau.
+
+\begin{property}{Un sous-anneau est un anneau}{}
+    Soit $(A, +, \times)$ un anneau et $B \subset A$. Si $B$ est un sous-anneau de $(A, +, \times)$, alors $(B, + \times)$ est un anneau.
+\end{property}
+
+\demo{
+    Laissé en exercice au lecteur.
+}
+
+\begin{theorem}{Caractérisation des sous-anneaux}{}
+     Soit un anneau $(A, +, \times)$ de neutres $0_A$ et $1_A$, et $B \subset A$. \bf{$B$ est un sous-anneau de $A$} si et seulement si
+     
+     \[ 1_A \in B \qquad\qquad\et\qquad\qquad \forall (x, y) \in B^2,\quad \left\lbrace\begin{array}{cc}
+         x - y &\in B  \\
+         x \times y  &\in B 
+     \end{array}\right.\]
+     
+\end{theorem}
+
+\demoth{
+    Laissé en exercice au lecteur.
+}
+
+\begin{example}{}{}
+    Soit l'ensemble des \textit{\hg{entiers de Gauss}} $\bdZ[i]$ que l'on se représentera de la sorte:
+    
+    \[\bdZ[i] = \{a + ib \mid (a, b) \in \bdZ^2\}\]
+    
+     \pgfplotsset{width=12cm,height=6cm}
+        \center \begin{tikzpicture}
+            \begin{axis}[
+                axis lines          = center,
+                xmin                = -8.9,
+                xmax                = 8.9,
+                ymin                = -4.45,
+                ymax                = 4.45,
+                grid                = both,
+                grid style          = {line width = .1pt, draw = main2!7},
+                major grid style    = {line width=.2pt,draw=main2!10},
+                minor tick num      = 1,
+                xlabel=$\bdZ$,
+                ylabel=$i\bdZ$,
+            ]
+            
+            \addplot[
+                color=main2,
+                only marks,
+                mark=*,
+                mark size=2pt,
+                point meta=explicit symbolic
+            ]
+            coordinates {
+                (-8, -4)
+                (-8, -3)
+                (-8, -2)
+                (-8, -1)
+                (-8, 0)
+                (-8, 1)
+                (-8, 2)
+                (-8, 3)
+                (-8, 4)
+                (-7, -4)
+                (-7, -3)
+                (-7, -2)
+                (-7, -1)
+                (-7, 0)
+                (-7, 1)
+                (-7, 2)
+                (-7, 3)
+                (-7, 4)
+                (-6, -4)
+                (-6, -3)
+                (-6, -2)
+                (-6, -1)
+                (-6, 0)
+                (-6, 1)
+                (-6, 2)
+                (-6, 3)
+                (-6, 4)
+                (-5, -4)
+                (-5, -3)
+                (-5, -2)
+                (-5, -1)
+                (-5, 0)
+                (-5, 1)
+                (-5, 2)
+                (-5, 3)
+                (-5, 4)
+                (-4, -4)
+                (-4, -3)
+                (-4, -2)
+                (-4, -1)
+                (-4, 0)
+                (-4, 1)
+                (-4, 2)
+                (-4, 3)
+                (-4, 4)
+                (-3, -4)
+                (-3, -3)
+                (-3, -2)
+                (-3, -1)
+                (-3, 0)
+                (-3, 1)
+                (-3, 2)
+                (-3, 3)
+                (-3, 4)
+                (-2, -4)
+                (-2, -3)
+                (-2, -2)
+                (-2, -1)
+                (-2, 0)
+                (-2, 1)
+                (-2, 2)
+                (-2, 3)
+                (-2, 4)
+                (-1, -4)
+                (-1, -3)
+                (-1, -2)
+                (-1, -1)
+                (-1, 0)
+                (-1, 1)
+                (-1, 2)
+                (-1, 3)
+                (-1, 4)
+                (0, -4)
+                (0, -3)
+                (0, -2)
+                (0, -1)
+                (0, 0)
+                (0, 1)
+                (0, 2)
+                (0, 3)
+                (0, 4)
+                (8, -4)
+                (8, -3)
+                (8, -2)
+                (8, -1)
+                (8, 0)
+                (8, 1)
+                (8, 2)
+                (8, 3)
+                (8, 4)
+                (7, -4)
+                (7, -3)
+                (7, -2)
+                (7, -1)
+                (7, 0)
+                (7, 1)
+                (7, 2)
+                (7, 3)
+                (7, 4)
+                (6, -4)
+                (6, -3)
+                (6, -2)
+                (6, -1)
+                (6, 0)
+                (6, 1)
+                (6, 2)
+                (6, 3)
+                (6, 4)
+                (5, -4)
+                (5, -3)
+                (5, -2)
+                (5, -1)
+                (5, 0)
+                (5, 1)
+                (5, 2)
+                (5, 3)
+                (5, 4)
+                (4, -4)
+                (4, -3)
+                (4, -2)
+                (4, -1)
+                (4, 0)
+                (4, 1)
+                (4, 2)
+                (4, 3)
+                (4, 4)
+                (3, -4)
+                (3, -3)
+                (3, -2)
+                (3, -1)
+                (3, 0)
+                (3, 1)
+                (3, 2)
+                (3, 3)
+                (3, 4)
+                (2, -4)
+                (2, -3)
+                (2, -2)
+                (2, -1)
+                (2, 0)
+                (2, 1)
+                (2, 2)
+                (2, 3)
+                (2, 4)
+                (1, -4)
+                (1, -3)
+                (1, -2)
+                (1, -1)
+                (1, 0)
+                (1, 1)
+                (1, 2)
+                (1, 3)
+                (1, 4)
+                
+            };
+            
+            \end{axis}
+        \end{tikzpicture}
+        
+    On cherche à montrer que \bf{$(\bdZ[i], +, \times)$ est un anneau}.
+    \tcblower
+        
+    On se rend compte que $\bdZ[i] \subset \bdC$, et $(\bdC, +, \times)$ est un anneau. On peut alors montrer que $\bdZ[i]$ est un sous-anneau de $\bdC$.
+    
+    \begin{enumerate}
+        \ithand \underline{Neutre :} $1 = 1 + i0 \in \bdZ[i]$
+        
+        \ithand \underline{Stabilité par $-$ :} Soit $(a, b, c, d) \in \bdZ^4$ et $(x, y) \in \bdZ[i]^2$ tel que $x = a + ib \in \bdZ[i]$ et $y = c + id \in \bdZ[i]^2$.
+        
+        Alors $x-y = \underbrace{a-c}_{\in \bdZ} + i(\underbrace{b-d}_{\in \bdZ})$ donc $x-y \in \bdZ[i]$.
+        
+        \ithand \underline{Stabilité par $\times$ :} On a $x \times y = (a+ib)(c+id) = \underbrace{ac-bd}_{\in \bdZ} + i(\underbrace{bc-ad}_{\in \bdZ})$ donc $x\times y \in \bdZ[i]$. 
+    \end{enumerate}
+    Par caractérisation, $(\bdZ[i], +, \times)$ est un sous-anneau de $\bdC$.
+\end{example}
+
+On peut alors se questionner sur les \textit{éléments inversibles} de $\bdZ[i]$.
+
+On pose $(a, b, c, d) \in \bdZ^4$ et $z = a + ib \in \bdZ[i]$ et $z' = c + id \in \bdZ[i]$. 
+
+Si $z$ est inversible, alors $\exists z' \in \bdZ[i]$ tel que $zz' = 1$. Dès lors, $\mod{zz'} = 1$ donc $\mod{z}\times\mod{z'} = 1$.
+
+Or $\mod{z}^2 = a^2 + b^2 \in \bdN$ et $\mod{z'}^2 = c^2 + d^2$ donc $\mod{z}=\mod{z'}=1$ donc $a^2+b^2 = 1$ et $c^2+d^2 = 1$. On a donc :
+
+\[\bdZ[i]^* = \{1, -1, i, -i\}\]
+
+\newpage 
+
+\section{Structure de corps}
+
+\qquad Enfin, on peut considérer le cas où l'on possède (presque) tout les inverses de la seconde loi de composition interne (ce qui n'est pas nécessairement le cas d'un anneau). On cherche alors à étudier la structure de corps.
+
+\subsection{Définition}
+
+\begin{definition}{Corps}{}
+    Soit $K$ un ensemble muni de deux loi de compositions internes $+$ et $\times$. On dit que \bf{$(K, +, \times)$ est un corps} si et seulement si :
+    
+    \begin{enumerate}
+        \ithand $(K, +, \times)$ est un anneau commutatif (pour $\times$) de neutres $0_K$ et $1_K$.
+        
+        \ithand Tout élément non nul $(\neq 0_K)$ est inversible.
+    \end{enumerate}
+\end{definition}
+On remarquera que dans le cas d'un corps, on aura bien $K^* = K \backslash \{ 0_K \}$ le groupe des inversibles de l'anneau $(K, +, \times)$.
+
+\begin{example}{}{}
+    \begin{enumerate}
+        \ithand $(\bdC, +, \times)$, $(\bdR, +, \times)$, $(\bdQ, +, \times)$ sont des \bf{corps}.
+        
+        \ithand $(\bdZ, +, \times)$ n'est \textit{\hg{pas un corps}}.
+        
+        \ithand $(\bdZ/p\bdZ, +, \times)$ est un \bf{corps lorsque $p \in \bdP$ ($p$ est premier)}.
+        
+        \ithand $\left(\{a + ib \mid (a, b) \in \bdQ^2\}, +, \times \right)$ et $\left(\{a + \sqrt{2} b \mid (a, b) \in \bdQ^2\}, +, \times \right)$ sont des \bf{corps} (cf. exercices).
+    \end{enumerate}
+\end{example}
+
+Comme pour les groupes avec les sous-groupes et pour les anneaux avec les sous-anneaux, on peut aussi définir pour les corps une notion de sous-corps.
+
+\begin{definition}{Sous-corps}{}
+    Soit un corps $(K, +, \times)$ de neutres $0_K$ et $1_K$ et $L$ une partie de $K$. On dit que \bf{$L$ est un sous-corps de $(K, +, \times)$} si et seulement si
+    
+    \begin{enumerate}
+        \ithand $L$ est un sous-anneau de $K$
+        \ithand Tout élément non nul de $L$ possède un inverse dans $L$.
+    \end{enumerate}
+\end{definition}
+
+On peut ensuite montrer, comme on l'a fait pour les sous-groupes et les sous-anneaux, qu'un sous-corps est lui aussi un corps.
+
+\begin{property}{Un sous-corps est un corps}{}
+    Soit $(K, +, \times)$ un corps et $L \subset K$. Si $L$ est un sous-corps de $(K, +, \times)$, alors $(L, + \times)$ est un corps.
+\end{property}
+
+\demo{
+    Laissé en exercice au lecteur.
+}
+
+On peut également (toujours comme on l'avait fait pour les groupes et les anneaux) donner un théorème de caractérisation des sous-corps.
+
+\begin{theorem}{Caractérisation des sous-corps}{}
+     Soit un corps $(K, +, \times)$ de neutres $0_K$ et $1_K$ et $L \subset K$. \bf{$L$ est un sous-corps de $K$} si et seulement si
+     
+     \[ \forall (x, y) \in L^2,\quad x-y \in L\qquad\qquad\et\qquad\qquad y \neq 0 \implies x\times y^{-1} \in L\]
+\end{theorem}
+
+\demoth{
+    Laissé en exercice au lecteur.
+}
+
+\subsection{Exemples}
+
+\begin{example}{}{}
+    Soit $\bdQ[i] = \{a + ib \mid (a,b) \in \bdQ^2\}$. Montrons que \bf{$(\bdQ[i], +, \times)$ est un corps}.
+    
+    \tcblower
+    
+    \begin{enumerate}
+        \ithand On a $\bdQ[i] \subset \bdC$ où $(\bdC, +, \times)$ est un corps.
+        
+        \ithand $0 = 0+i0 \in \bdQ[i]$ et $1=1+i0 \in \bdQ[i]$.
+        
+        \ithand Soient $(a, b, c, d) \in \bdQ^2$ et $(z, z') \in \bdQ[i]^2$ tels que $z = a+ib$ et $z' = c+id$.
+        
+        On a bien $z-z' = (\underbrace{a-c}_{\in \bdQ}) + i(\underbrace{b-d}_{\in \bdQ}) \in \bdQ[i]$.
+        
+        \ithand Pour $z' \neq 0$, on a :
+        
+        \[\dfrac{z}{z'} = \dfrac{a+ib}{c+id} \times \dfrac{c-id}{c-id}= \dfrac{ac+bd+i(bc-ad)}{c^2+d^2} = \underbrace{\dfrac{ac+bd}{c^2+d^2}}_{\in \bdQ} + i\underbrace{\dfrac{bc-ad}{c^2+d^2}}_{\in \bdQ} \in \bdQ[i]\]
+        
+    \end{enumerate}
+    
+    Par caractérisation, $(\bdQ[i], +, \times)$ est bien un sous-corps de $\bdC$, donc un corps.
+\end{example}
+
+On peut aussi revenir sur l'exemple de $(\bdZ/p\bdZ)$ avec $p \in \bdP$, par exemple avec $\bdZ/5\bdZ$.
+
+\begin{example}{}{}
+    Montrons que \bf{$(\bdZ/5\bdZ, +, \times)$ est un corps}.
+    
+    \tcblower
+    
+    On a $\bdZ/5\bdZ = \{ \overline{0}, \overline{1}, \overline{2}, \overline{3}, \overline{4}\}$ et 
+    
+    \[\fcolorbox{white}{main22!8}{$\quad\begin{array}{c|c|c|c|c|c}
+            + & 0 & 1 & 2 & 3 & 4 \\\hline
+            0 & \hg{0} & 1 & 2 & 3 & 4 \\\hline
+            1 & 1 & 2 & 3 & 4 & \hg{0} \\\hline
+            2 & 2 & 3 & 4 & \hg{0} & 1 \\\hline
+            3 & 3 & 4 & \hg{0} & 1 & 2 \\\hline
+            4 & 4 & \hg{0} & 1 & 2 & 3
+        \end{array}\quad$} \quad\et\quad \fcolorbox{white}{main22!8}{$\quad\begin{array}{c|c|c|c|c|c}
+            \times & 0 & 1 & 2 & 3 & 4 \\\hline
+            0 & 0 & 0 & 0 & 0 & 0 \\\hline
+            1 & 0 & \hg{1} & 2 & 3 & 4 \\\hline
+            2 & 0 & 2 & 4 & \hg{1} & 3 \\\hline
+            3 & 0 & 3 & \hg{1} & 4 & 2 \\\hline
+            4 & 0 & 4 & 3 & 2 & \hg{1}
+        \end{array}\quad$}\]
+    
+    On remarque bien que tout élément possède un opposé, et que tout élément non nul possède un inverse, donc $(\bdZ/5\bdZ, +, \times)$ est un corps.
+    
+    On remarquera que les opérations se comportent de manière particulière dans $\bdZ/5\bdZ$, par exemple :
+    
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \ithand $\overline{2} + \overline{3} = \overline{0}$
+            
+            \ithand $\overline{1} + \overline{4} = \overline{0}$
+            
+            \ithand $\overline{2} \times \overline{3} = \overline{1}$
+            
+            \ithand $\overline{4} \times \overline{4} = \overline{1}$
+        \end{enumerate}
+    \end{multicols}
+\end{example}
+
+
+
+\end{document}

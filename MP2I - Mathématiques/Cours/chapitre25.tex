@@ -1,0 +1,250 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+    \stylizeDoc{Mathématiques}{Chapitre 25}{Variables aléatoires}
+
+    \initcours{}
+
+    \section{Variable Aléatoire Réelle (V.A.R)}
+
+    \subsection{Définition}
+
+    \begin{definition}{Variable Aléatoire}{}
+        Soit $\Omega$ un univers fini et $E$ un ensemble quelconque.
+        On appelle \hg{variable aléatoire} sur \hg{$\Omega$} à valeurs
+        dans \hg{$E$} toute \hg{application $X \in \bcF\left(
+        \Omega, E\right)$ de $\Omega$ dans $E$}.
+    \end{definition}
+
+    \begin{definition}{Variable Aléatoire Réelle}{}
+        Soit $\Omega$ un univers fini, $E$ un ensemble quelconque et $X
+        \in \bcF\left(\Omega, E\right)$ une variable aléatoire sur $\Omega$
+        à valeurs dans $E$. On dit que \hg{$X$ est variable aléatoire
+        \textit{réelle}} lorsque $E = \bdR$.
+    \end{definition}
+
+    \begin{warning}{}{}
+        Une \hg{\textit{variable aléatoire}} n'est
+        \begin{enumerate}
+            \ithand \hg{ni \bfseries variable}
+            \ithand \hg{ni \bfseries aléatoire}
+        \end{enumerate}
+    \end{warning}
+
+    L'ensemble des valeurs possibles pries par $X$ est l'ensemble image
+    de $X$, noté $X\left(\Omega\right)$ qui est une \underline{partie
+    finie} de $\bdR$.
+
+    \begin{definition}{Support}{}
+        Soit $\Omega$ un univers fini, $E$ un ensemble quelconque
+        et $X \in \bcF\left(\Omega, E\right)$ une variable aléatoire sur
+        $\Omega$ à valeurs dans $E$. On appelle \hg{support de la
+        variable  $X$} l'\hg{ensemble $X\left(\Omega\right)$}.
+    \end{definition}
+
+    \begin{example}{}{}
+        \begin{enumerate}
+            \itt On lance deux dés et on note $S$ la somme des deux dés.
+            
+            $S$ est donc une \hg{V.A.R. de support $S\left(\Omega\right) =
+            \left\llbracket 2, 12\right\rrbracket$}, où :
+            %
+            \[ \Omega = \left\{ \ \text{résultats des lancés des deux dés } \
+            \right\} = \left\llbracket 1, 6\right\rrbracket^2\]
+            %
+            avec $S : \begin{array}[t]{rcl}
+                           \Omega &\to& \bdR\\
+                           \left(\omega_1, \omega_2\right) &\mapsto&
+                           \omega_1 + \omega_2
+            \end{array}$
+            
+            \itt On lance $N$ fois une pièce et on note $X$ le n° du premier
+            lancer qui donne Pile (s'il existe) et $0$ sinon.
+            
+            $X$ est une \hg{V.A.R de support $X\left(\Omega\right) =
+            \left\llbracket 0, N\right\rrbracket$} où :
+            %
+            \[ \Omega = \left\{ P, F \right\}^N \]
+        \end{enumerate}
+    \end{example}
+    
+    \begin{property}{Algèbre des V.A.R.D}{}
+        Soit un univers fini $\Omega$. Si $\left(X, Y\right) \in
+        \bcF\left(\Omega, \bdR\right)^2$ sont deux V.A.R et $\lambda
+        \in \bdR$.
+        %
+        \[ \hg{\left\lbrace\begin{array}{c}
+            X + Y \\
+            XY \\
+            \lambda X 
+        \end{array}\right. \ \text{sont des V.A.R}} \]
+    \end{property}
+    
+    \subsection{Évènements}
+    
+    Soit $\Omega$ un univers fini et $X : \Omega \to \bdR$ une V.A.R. Soit 
+    
+    \newpage
+    
+    \subsection{Loi de probabilités}
+    
+    TODO
+    
+    \begin{example}{}{}
+        \begin{enumerate}
+            \itt On lance deux déséquilibrés à $N$ faces numérotées de $1$ à $N$. On note $S$ la somme des deux des dés. L'objectif est de déterminer la loi de $S$.
+            
+            \itt Soient $D_1$ et $D_2$ les résultats de chaque dé. On a $S = D_1 + D_2$. La loi de $D_1$ (identique à celle de $D_2$) est uniforme :
+            %
+            \[ D_1\left(\Omega\right) = \left\llbracket 1, N \right\rrbracket \qquad\et\qquad \forall k \in \left\llbracket 1, N\right\rrbracket,\qquad \bdP\left(D_1 = k\right) = \dfrac{1}{N}\]
+            %
+        \end{enumerate}
+    \end{example}
+    
+    \section{TODO}
+    
+    \subsection{TODO}
+    
+    \subsection{TODO}
+    
+    \newpage
+    
+    \subsection{Loi de Bernoulli}
+    
+    L'on est souvent confronté à une situation consistant en la répétition d'une même épreuve, d'un même lancé ou d'un même tirage, qu'on peut soit gagner soit perdre :
+    %
+    \begin{enumerate}
+        \itt Lors des $n$ tirages avec remise dans une urne contenant des boules de différentes couleurs, on pourrait chercher la probabilité que l'on tire $p$ fois une boule blanche par exemple. L'épreuve répétée est le tirage d'une boule, de succès \guill{la boule est blanche}. Puisqu'il y a remise, la probabilité d'un tel évènement ne change pas d'un tirage au suivant, donc les épreuves sont identiques.
+        
+        \itt Lors d'une partie de pile ou face, où l'on lance $n$ fois une pièce, ou pourrait par exemple chercher la probabilité d'obtenir $p$ fois pile. L'épreuve répétée est le lancé de la pièce, de succès \guill{la pièce tombe sur pile}. Ici aussi, et même si elle est déséquilibrée, la pièce ne change pas d'un lancé à l'autre, donc les épreuves sont identiques.
+    \end{enumerate}
+    %
+    Avant de chercher à obtenir la probabilité voulue \guill{on obtient $p$ fois le résultat [\dots] sur les $n$ expériences}, on peut chercher à modéliser cette épreuve de succès $p$ qui sera répétée de manière identiques $n$ fois. Tel est l'objectif de la loi de \Bernoulli{} : elle modélise une expérience aléatoire ayant deux issues possibles, intuitivement un \guill{succès} et son évènement contraire, un \guill{échec}.
+    
+    \begin{definition}{Variable et loi de Bernouilli}{}
+        Soit $X$ une variable aléatoire réelle. $X$ suit une \hg{loi de \Bernoulli{} de paramètre $p \in \left]0, 1\right[$} lorsque :
+        %
+        \begin{enumerate}
+            \ithand \hg{$X\left(\Omega\right) = \left\{0, 1\right\}$}
+            \ithand \hg{$\left\lbrace\begin{array}{ll}
+                \bdP\left(X = 1\right) &= p  \\
+                \bdP\left(X = 0\right) &= 1 - p 
+            \end{array}\right.$}
+        \end{enumerate}
+        %
+        On dit que $X$ est une \hg{variable de \Bernoulli{}}.
+    \end{definition}
+    %
+    On notera généralement $X \hookrightarrow \bcB\left(p\right)$ ou $X \hookrightarrow \bcB\left(1, p\right)$. 
+    
+    \begin{definition}{Épreuve de Bernoulli}{}
+        Soit $p \in \left]0, 1\right[$. On dit qu'une expérience aléatoire est une \hg{épreuve de \Bernoulli{} de paramètre $p$} lorsqu'elle comporte deux issues, l'une de probabilité $p$ et l'autre de probabilité $1-p$.
+    \end{definition}
+    %
+    L'issue de probabilité $p$ représente intuitivement le \guill{succès}, et celle de probabilité $1-p$ représente l'échec.
+    %
+    \begin{property}{Construction d'une variable de Bernoulli}{}
+        Soit un évènement $S$ sur un espace probabilisé $\left(\Omega, \bcP\left(\Omega\right), \bdP\right)$. La \hg{variable aléatoire réelle $\bdOne_S$} (fonction indicatrice de $S$) suit la \hg{loi de \Bernoulli{} $\bcB\left(1, \bdP\left(S\right)\right)$}.
+    \end{property}
+    %
+    \begin{nproof}
+        Soit un évènement $S$ sur un espace probabilisé $\left(\Omega, \bcP\left(\Omega\right), \bdP\right)$. On lui associe la variable aléatoire $\bdOne_S$ (fonction indicatrice de $S$). On a ainsi :
+        %
+        \[ \bdOne_S : \begin{array}{ccc}
+            \Omega &\to & \left\{0, 1 \right\}  \\
+            \omega &\mapsto& \left\lbrace \begin{array}{ll}
+                1 &\text{si} \ \omega \in S \\
+                0 &\text{sinon} 
+            \end{array}\right. 
+        \end{array}\]
+        %
+        Dès lors, $\bdP\left(\bdOne_S = 1\right) = \bdP\left(S\right)$ et $\bdP\left(\bdOne_S = 0\right) = \bdP\left(\overline{S}\right) = 1 - \bdP\left(S\right)$. On a bien $X \hookrightarrow \bcB\left(1, \bdP\left(S\right)\right)$. 
+    \end{nproof}
+    
+    Un cas particulier se fait avec les épreuves de Bernoulli. En effet, en considérant une épreuve de Bernoulli de paramètre $p$ et d'issues $S$ de probabilité $\bdP\left(S\right) = p$ et $\overline{S}$ de probabilité $\bdP\left(\overline{S}\right) = 1 - p$, on a bien $\bdOne_S \hookrightarrow \bcB\left(1, p\right)$ et $\bdOne_{\overline{S}} \hookrightarrow \bcB\left(1, 1 - p\right)$.
+    
+    \begin{property}{}{}
+        Soient $X$ une variable aléatoire réelle et $p \in \left]0, 1\right[$. Si \hg{$X \hookrightarrow \bcB\left(1, p\right)$}, On a \hg{$\bdE\left(X\right) = p$} et \hg{$\bdV\left(X\right) = p\left(1-p\right) = p - p^2$}.
+    \end{property}
+    
+    \begin{nproof}
+        Soient $X$ une variable aléatoire réelle et $p \in \left]0, 1\right[$, tels que $X \hookrightarrow \bcB\left(1, p\right)$.
+        
+        \begin{enumerate}
+            \itt $\bdE\left(X\right) = 1\times\bdP\left(X = 1\right) + 0\times\bdP\left(X = 0\right) = p + 0 = 0$.
+            
+            \itt $\bdV\left(X\right) = \left(1 - \bdE\left(X\right)\right)\times\bdP\left(X = 1\right) + \left(0 - \bdE\left(X\right)\right)\times\bdP\left(X = 0\right) = \left(1 - p\right)p + \left(0 - p\right)\times 0 = p\left(1 - p\right)$.
+        \end{enumerate}
+    \end{nproof}
+    
+\section{---}
+
+\section{---}
+
+\section{---}
+
+\newpage
+
+\section{Covariance}
+
+\subsection{Définition}
+
+\begin{definition}{Covariance}{}
+    Soient $X$ et $Y$ deux variables aléatoires réelles sur un espace probabilisé $\left(\Omega, \bcP\left(\Omega\right), \bdP \right)$ \hg{\itshape (fini)}. On appelle \hg{covariance de $X$ et $Y$} le réel :
+    %
+    \[ \hg{\bdE\left(\left(X - \bdE\left(X\right)\right)\times\left(Y - \bdE\left(Y\right)\right)\right)}\]
+\end{definition}
+%
+\begin{notation}
+    La covariance de $X$ et $Y$ est généralement notée $\hg{\cov{X, Y}}$.
+\end{notation}
+
+\begin{property}{}{}
+    Soient $X$ et $Y$ deux variables aléatoires réelles sur un espace probabilisé $\left(\Omega, \bcP\left(\Omega\right), \bdP \right)$ \hg{\itshape (fini)}. On a :
+    %
+    \[ \hg{\cov\left(X, Y\right) = \bdE\left(XY\right) - \bdE\left(X\right)\bdE\left(Y\right)}\]
+\end{property}
+
+\begin{nproof}
+     Soient $X$ et $Y$ deux variables aléatoires réelles sur un espace probabilisé $\left(\Omega, \bcP\left(\Omega\right), \bdP \right)$ {\itshape (fini)}. On a :
+     %
+     \[ \bdE\left(\left(X - \bdE\left(X\right)\right)\left(Y - \bdE\left(Y\right)\right)\right) = TODO\]
+\end{nproof}
+
+On remarquera que si $X$ et $Y$ sont indépendantes, alors $\bdE\left(XY\right) = \bdE\left(X\right)\bdE\left(Y\right)$, et ainsi $\cov{X, Y} = 0$. On dit alors que $X$ et $Y$ sont \textit{non corrélées}. La réciproque est fausse : on peut avoir $X$ et $Y$ tels que  $\bdE\left(XY\right) = \bdE\left(X\right)\bdE\left(Y\right) = 0$ sans que $X$ et $Y$ soient indépendantes.
+
+On remarquera également que $\cov{X, X} = \bdV\left(X\right) = \bdE\left(X^2\right) - E\left(X\right)^2 = \bdE\left(\left(X - \bdE\left(X\right)\right)^2\right)$.
+
+\begin{property}{Propriétés de la covariance}{}
+    Soient $X$, $Y$ et $Z$ trois variables aléatoires réelles sur un espace probabilisé $\left(\Omega, \bcP\left(\Omega\right), \bdP \right)$ \hg{\itshape (fini)} et $\lambda \in \bdR$. La covariance vérifie les propriétés suivantes :
+    %
+    \begin{psse}
+        \item \textit{positivité :} \qquad \hg{$\cov{X, X} \geq 0$}
+        
+        \item \textit{symétrie :} \qquad \hg{$\cov{Y, X} = \cov{X, Y}$}
+        
+        \item \textit{bilinéarité : } \qquad \begin{enumerate}
+            \itb \hg{$\cov{\lambda X + Y, Z} = \lambda \cov{X, Z} + \cov{Y, Z}$}
+            \itb \hg{$\cov{X, \lambda Y + Z} = \lambda \cov{X, Y} + \lambda\cov{X, Z}$}
+        \end{enumerate}
+    \end{psse}
+\end{property}
+
+\begin{definition}{Coefficient de corrélation}{}
+    Soient $X$ et $Y$ deux variables aléatoires réelles sur un espace probabilisé $\left(\Omega, \bcP\left(\Omega\right), \bdP \right)$ \hg{\itshape (fini)}. On appelle \hg{coefficient de corrélation de $X$ et $Y$} le réel :
+    %
+    \[ \hg{\dfrac{\cov{X, Y}}{\sqrt{\bdV\left(X\right) \times \bdV\left(Y\right)}}}\]
+\end{definition}
+%
+\begin{notation}
+    Le coefficient de corrélation de $X$ et $Y$ est généralement noté $\hg{\cor{X, Y}}$.
+\end{notation}
+
+\subsection{Conséquence sur la variance}
+
+
+
+
+
+\end{document}

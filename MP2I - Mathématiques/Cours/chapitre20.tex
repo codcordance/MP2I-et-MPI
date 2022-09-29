@@ -1,0 +1,166 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Chapitre 20}{Algèbre linéaire en dimension finie}
+
+Notre étude de l'algèbre linéaire a commencé, dans le chapitre 18, avec la présentation de la structure algébrique d'\textit{espace vectoriel} et des morphismes entre ces structures, les \textit{applications linéaires}. On poursuit dans ce chapitre l'étude de ces structures, en rajoutant la notion de \textit{dimension}.
+
+\initcours{}
+
+Dans toute le chapitre, on considérera un corps $\bdK$.
+
+\section{Familles de vecteurs}
+
+\subsection{Famille génératrice}
+
+
+Pour rappel, pour $E$ un $\bdK$-espace vectoriel et $\bsF = \left(e_i\right)_{i \in I}$ une famille de vecteurs de $E$, (où $I$ est un ensemble d'indices quelconque), on dit que $\bsF$ est une \textit{famille génératrice} de $E$ si $E = \Vect(\bsF)$. Ceci revient à dire que tout vecteur de $E$ peut s'écrire comme une combinaison linéaire \textit{finie} de vecteurs de de $\bsF$ :
+%
+\[ \forall x \in E,\qquad \exists (\lambda_j)_{\in in J} \in \bdK^J,\qquad x = \sum_{j \in J} \lambda_j e_j\]
+%
+Un exemple simple est celui des polynômes : $\bdK[X] = \Vect(X^k,\ k \in \bdN)$. On avait aussi le cas particulier d'une \textit{famille génératrice finie} : 
+%
+\[ \exists \in \bdN^*,\qquad \bsF = (e_1, e_2, \dots, e_n) \in E^n\]
+%
+Ici $\bsF$ est génératrice de $E$ si et seulement si :
+%
+\[ \forall x \in E,\qquad \exists (\lambda_1, \lambda_2, \dots, \lambda_n) \in \bdK^n,\qquad x = \sum_{i=1}^n \lambda_i e_i\]
+%
+On peut alors chercher à \guill{minimiser} les familles génératrices d'un $\bdK$-espace vectoriel $E$, c'est-à-dire à trouver la \guill{plus petite} famille qui génère cet espace. En effet, on peut trouver de nombreuses familles génératrices où l'information est redondante :
+
+\begin{example}{}{}
+    La famille \hg{$(X + 2, X - 1, 1, 2X + 3, X)$}, qui possède 5 vecteurs, est \hg{génératrice de $\bdK_1[X]$}. Mais la famille \hg{$(1, X)$}, qui n'en possède que 2, est aussi génératrice de $\bdK_1[X]$.
+\end{example}
+
+On peut donc d'abord définir les sur-familles et les sous-famille :
+
+\begin{definition}{Sur-famille et sous-famille}{}
+    Soient deux familles $\bsF$, $\bsF'$ d'éléments d'un ensemble $E$. On dit que \hg{$\bsF$ est une sur-famille de $\bsF'$} et que \hg{$\bsF'$ est une sous-famille de $\bsF$} lorsque \hg{$\bsF$ contient tous les éléments de $\bsF'$}.
+\end{definition}
+
+\begin{property}{Caractère générateur d'une sur-famille d'une famille génératrice}{CGSFFG}
+    Soit $E$ un $\bdK$-espace vectoriel, $\bsF$ une famille génératrice de $E$ et $\bsF'$ une famille de vecteurs de $E$. Si \hg{$\bsF'$ est une sur-famille de $\bsF$}, alors \hg{$\bsF'$ est une famille génératrice de $E$}.
+\end{property}
+
+\begin{nproof}
+    TODO.
+\end{nproof}
+
+\begin{property}{Restriction d'une famille génératrice}{}
+    Soit $E$ un $\bdK$-espace vectoriel, $J$ un ensemble d'indices et $(e_i)_{i \in J}$ une famille génératrice de $E$.
+    
+    \[ \hg{\exists j \in J,\qquad e_j \in \Vect\left(\left(e_i\right)_{i \in J \backslash \{ j \}}\right) \iff E = \Vect\left(\left(e_i\right)_{i \in J \backslash \{ j \}}\right)} \]
+\end{property}
+
+\begin{nproof}
+    Soit $E$ un $\bdK$-espace vectoriel, $J$ un ensemble d'indices et $(e_i)_{i \in J}$ une famille génératrice de $E$.
+    
+    \begin{enumerate}
+        \itt $\boxed{\implies}$ On se donne un $x \in E =  \Vect(\left(e_i\right)_{i \in J}$. Alors :
+        %
+        \[ \exists \left(\lambda_i\right)_{i \in J} \in \bdK^J,\qquad x = \sum_{i \in J} = \underbrace{\sum_{i \in J \backslash \{j\}} \lambda_i e_i}_{\in \Vect\left(\left(e_i\right)_{i \in J \backslash \{ j \}}\right)} + \underbrace{\lambda_{j}e_j}_{\in \Vect\left(\left(e_i\right)_{i \in J \backslash \{ j \}}\right)}\]
+        %
+        Donc $x \in \Vect\left(\left(e_i\right)_{i \in J \backslash \{ j \}}\right)$, soit $E \subset \Vect\left(\left(e_i\right)_{i \in J \backslash \{ j \}}\right)$, et donc $E = \Vect\left(\left(e_i\right)_{i \in J \backslash \{ j \}}\right)$.
+        
+        \itt $\boxed{\impliedby}$ Si $E = \Vect\left(\left(e_i\right)_{i \in J \backslash \{ j \}}\right)$, alors puisque $e_j \in E$, on a $e_j \in \Vect\left(\left(e_i\right)_{i \in J \backslash \{ j \}}\right)$.
+    \end{enumerate}
+\end{nproof}
+
+Autrement dit, si l'un des vecteurs d'une famille génératrice $\bsF$ est une combinaison linéaire des autres vecteurs, alors la famille $\bsF'$ obtenue en retirant cet élément de la famille ne lui enlève pas son caractère générateur.
+
+On peut aussi comprendre ce résultat dans l'autre sens : la famille $\bsF$ est une sur-famille de la famille $\bsF'$, puisque $\bsF$ vaut $\bsF'$ à laquelle on ajoute le vecteur en question. Le caractère générateur de $\bsF$ se comprend alors comme une conséquence du caractère générateur de $\bsF'$. Cette vision permet de définir les familles génératrices minimales :
+
+\begin{definition}{Famille génératrice minimale}{}
+    Soit $E$ un $\bdK$-espace vectoriel, $I$ un ensemble d'indices et $\bsF = (e_i)_{i \in I} $ une famille génératrice de $E$. On dit que \hg{$\bsF$ est une famille génératrice minimale} lorsque :
+    
+    \[ \hg{\forall i \in I,\qquad \Vect\left(\left(e_i\right)_{i \in J \backslash \{ j \}}\right) \neq E}\]
+\end{definition}
+
+Ainsi, une famille génératrice est minimale lorsque lui retirer n'importe quel élément retire par la même son caractère générateur, ce qui par l'équivalent plus haut signifie qu'aucun de ses vecteurs n'est une combinaison linéaire des autres. Ainsi, une famille génératrice minimale n'est sur-famille d'aucune autre famille génératrice, ce qui justifie son appellation \guill{minimale}.
+
+TODO.
+
+\subsection{Famille libre ou linéairement indépendante}
+
+TODO.
+
+Chaque vecteur va apporter une contribution qui ne peuvent pas apporter les autres vecteurs.
+
+\begin{property}{Caractère libre d'une sous-famille d'une famille génératrice}{}
+    Soit $E$ un $\bdK$-espace vectoriel, $\bsF$ et $\bsF'$ deux familles de vecteurs de $E$ avec $\bsF$ libre. Si \hg{$\bsF'$ est une sous-famille de $\bsF$}, alors \hg{$\bsF'$ est une famille libre}.
+\end{property}
+
+\subsection{Bases}
+
+\begin{definition}{Base}{}
+    Soit $E$ un $\bdK$-espace vectoriel et $\bcB$ une famille de vecteurs de $E$. On dit que \hg{$\bcB$ est une base de $E$} lorsque \hg{$\bcB$ est une famille libre et génératrice de $E$}.
+\end{definition}
+
+\newpage
+
+\subsection{Caractérisation des baes en dimension finie}
+
+\begin{theorem}{Caractérisation des bases en dimension finie}{}
+    Soit $E$ un $\bdK$-espace vectoriel de dimension finie $\dim E = n \in \bdN$ et $\bsF = (e_1, e_2, \dots, e_n) \in E^n$ une famille de $n$ vecteurs de $E$. Les propositions suivantes sont équivalentes :
+    %
+    \begin{enumerate}[label=\textit{\EBGaramond (\roman*)}]
+        \item \hg{$\bsF$ est une base de $E$}
+        
+        \item \hg{$\bsF$ est libre}
+        
+        \item \hg{$\bsF$ est génératrice de $E$}
+    \end{enumerate}
+\end{theorem}
+
+\begin{nproof}
+    Soit $E$ un $\bdK$-espace vectoriel de dimension finie $\dim E = n \in \bdN$ et $\bsF = (e_1, e_2, \dots, e_n) \in E^n$ une famille de $n$ vecteurs de $E$.
+    
+    \begin{enumerate}
+        \itt $\boxed{\textit{\EBGaramond (i)} \implies \textit{\EBGaramond (ii)}}$ et $\boxed{\textit{\EBGaramond (i)} \implies \textit{\EBGaramond (iiI)}}$ Ces deux sens sont évidents évident.
+        
+        \itt $\boxed{\textit{\EBGaramond (ii)} \implies \textit{\EBGaramond (i)} \implies \textit{\EBGaramond (iii)}}$. Supposons $\bsF$ libre. Par théorème de la base incomplète, $\bsF$ peut être complétée en une base de $E$. Or toute base de $E$ a $n$ vecteurs donc $\bsF$ est une base de $E$, et donc génératrice de $E$.
+        
+        \itt $\boxed{\textit{\EBGaramond (iii)} \implies \textit{\EBGaramond (i)} \implies \textit{\EBGaramond (ii)}}$ Supposons $\bsF$ génératrice de $E$. Par \textsc{Théorème de la base extraite}, il existe une base de $E$ à $n$ vecteurs composée de vecteurs de $\bsF$, donc c'est $\bsF$ tout entier, donc $\bsF$ est une base de $E$, et donc $\bsF$ est libre.
+    \end{enumerate}
+\end{nproof}
+
+\newpage
+
+\subsection{Retour sur les formes linéaires}
+
+Soit $E$ de dimension finie $n \in \bdN^*$. On étudie l'ensemble $\bcL(E, \bdK)$ des formes linéaires sur $E$. On sait déjà que :
+%
+\[\dim\left(\bcL\left(E, \bdK\right)\right) = \dim E \times \dim \bdK = n \times 1 = n\]
+
+\begin{theorem}{}{}
+    Soit $E$ un $\bdK$-espace vectoriel de dimension finie $n \in \bdN$.
+    
+    \hg{Tout $\bdK$-sous-espace vectoriel $F$ de $E$ est l'intersection de $n - \dim F$ hyperplans de $E$.}
+\end{theorem}
+
+\begin{nproof}
+    Soient $E$ un $\bdK$-espace vectoriel de dimension $n \in \bdN$ et $F$ un sous-espace vectoriel de $E$ de dimension $p \in \bdN$.
+    
+    
+    Soit $\bcB_F = \left(e_1, e_2 \dots, e_p\right)$ une base de $F$. On la complète en une base de $E$ : $\bcB_E = \left(e_1, e_2, \dots, e_p, e_{p+1}, \dots, e_n\right)$.
+    
+    Prenons alors $\bcB^\star = \left({e_1}^\star, {e_2}^\star, \dots,{e_n}^\star\right)$ la base des formes linéaires coordonnées.
+    
+    Soit $x \in E$. On a :
+    %
+    \[ \exists ! \left(\lambda_1, \lambda_2, \dots, \lambda_n\right) \in \bdK^n,\qquad x = \sum_{i=1}^n \lambda_ie_i\]
+    %
+    Dès lors :
+    \begin{align*}
+        x \in F &&\iff&& \sum_{i=1}^p \lambda_ie_i + \sum_{i=p+1}^n \lambda_ie_i \in F\\
+        &&\iff&& \forall i \in \llbracket p+1, n\rrbracket,\qquad \lambda_i = 0\\
+        &&\iff&& \forall i \in \llbracket p+1, n\rrbracket,\qquad {e_i}^\star\left(x\right) = 0\\
+        &&\iff&& \forall i \in \llbracket p+1, n\rrbracket,\qquad x \in \Ker {e_i}^\star
+        &&\iff&& x \in \bigcap_{i=1}^n \Ker {e_i}^\star
+    \end{align*}
+\end{nproof}
+
+
+
+\end{document}

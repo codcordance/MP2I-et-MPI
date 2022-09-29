@@ -1,0 +1,59 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Chapitre 21}{Matrices et applications linéaires}
+
+Les chapitres précédents d'algèbre linéaire nous ont permis d'introduire
+la structure algébrique d'espace vectoriel et d'y développer une théorie
+de la dimension. On s'intéresse ici plus particulièrement aux
+homomorphismes entre ces structures, les \textit{applications linéaires}. Muni de la notion de dimension, on s'intéressera à leur lien avec les matrices et les bases. En effet, bien que la notion de \textit{matrice} remonte 
+
+\initcours{}
+
+\subsection{Matrice d'un vecteur}
+
+On peut tout d'abord considérer un corps commutatif $\bdK$, et $E$ un $\bdK$-espace vectoriel qu'on prendra de dimension $n \in \bdN^*$ finie. On considérera de plus une base $\bcB = \left(e_1, e_2, \dots, e_n\right)$ de $E$. On a montré dans un chapitre précédent que :
+%
+\[ \forall x \in E,\qquad \exists ! \left(x_i\right)_{i \in \left\llbracket1, n\right\rrbracket} \in \bdK^n,\qquad x = \sum_{i=1}^n x_i e_i\]
+%
+Cette famille de scalaires $\left(x_1, x_2, \dots, x_n\right)$ sont les \textit{coordonnées} du vecteur $x$ de $E$ dans la base $\bcB$. On peut alors considérer la matrice colonne faite de ces coordonnées
+
+\begin{definition}{Matrice colonne des coordonnées d'un vecteur}{}
+    Soient $E$ un $\bdK$-espace vectoriel de dimension finie $n \in
+    \bdN^*$ et de base $\bcB$. Pour tout vecteur $x \in E$, on appelle
+    \hg{matrice colonne des coordonnées du vecteur $x$ dans la base $\bcB$} la \hg{matrice colonne à $n$ lignes de $\bcM_{n, 1}\left(\bdK\right)$} dont les coefficients sont de haut en bas \hg{les coordonnées de $x$ dans la base $\bcB$}.
+\end{definition}
+
+Cette matrice est généralement notée $\Matc_\bcB\left(x\right)$ ou encore $\Coord_\bcB\left(x\right)$. Dans le cas du vecteur $x$ ci-dessous, on a alors :
+%
+\[ \Matc_\bcB\left(x\right) = \Coord_\bcB\left(x\right) = \begin{pnm}
+    x_1\\
+    x_2\\
+    \Vdots \\
+    x_n
+\end{pnm}\]
+
+
+
+\begin{theorem}{}{}
+     Soit $E$ un $\bdK$-espace vectoriel de dimension finie $n \in \bdN^*$ et de base $\bcB_E$.
+     
+     \[ \hg{\begin{array}[t]{rcl}
+         E &\to& \bcM_{n, 1}\left(\bdK\right)  \\
+         x &\mapsto& \Matc_{\bcB_E}\left(x\right) 
+     \end{array} \ \text{est un isomorphisme}}.\]
+\end{theorem}
+
+\subsection{Matrice d'une famille de vecteurs}
+
+\begin{definition}
+     Soit $E$ un $\bdK$-espace vectoriel de dimension finie $n \in \bdN^*$ et de base $\bcB_E$.
+     
+     \[ \hg{\begin{array}[t]{rcl}
+         E &\to& \bcM_{n, 1}(\bdK]  \\
+         x &\mapsto& \Mat_{\bcB_E}\left(x\right) 
+     \end{array} \ \text{est un isomorphisme}}.\]
+\end{definition}
+
+\end{document}

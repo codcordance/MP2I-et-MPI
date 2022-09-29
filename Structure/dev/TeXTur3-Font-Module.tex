@@ -1,0 +1,30 @@
+%===============================
+% 
+% 4PE18 TEX package TeXTur3
+% Package personnalisé pour les documents en LaTeX.
+% - Rémy SIAHAAN--GENSOLLEN
+% 
+% Assez  peu documenté, et régulièrement  modifié,  ce package est 
+% avant tout conçu pour un  usage privé. Étant donné les multiples
+% personnes à qui j'ai décidé de restructurer un peu mieux le code
+% du package, de mieux le segmenter en  différents "modules" et de
+% documenter un peu plus le tout  ; et aussi avec pour objectif de
+% produire un  travail qui soit  d'une meilleure qualité graphique.
+%
+% Le module ci-dessous traite des polices de caractères.
+%
+%===============================
+
+%Package pour la gestion des polices
+\usepackage[no-math]{fontspec}
+
+%Police de type machine à écrire utilisée pour les blocs "codes"
+\usepackage[DefaultFeatures={Scale=0.85}]{plex-otf}
+
+%Police Impact pour le titre
+\providefontfamily\Impact{Impact}[
+    Path            =  ../../Fonts/,
+    Extension       = .ttf
+]
+
+%TODO

@@ -1,0 +1,304 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+        
+\begin{document}
+\stylize{Mathématiques}{Devoir Maison 10 : Suites implicites}
+
+\section*{Suites implicites}
+
+On s’intéresse dans cet exercice aux points d’intersections d’abscisses positives entre la courbe de la fonction exponentielle et les courbes des fonctions puissances.
+
+Soit $n \in \bdN^*$. On cherche donc à résoudre l'équation $(E_n) : e^x = x^n$.
+\begin{enumerate}
+    \item Montrer que pour tout $n \in \bdN^*$, l'équation $(E_n)$ d'inconnue $x$ dans $\bdRp$ est équivalente à l'équation 
+    \[ (F_n) : \dfrac{\ln x}{x} = \dfrac{1}{n}\]
+    
+    \boxans{
+    $\forall n \in \bdN^*$, on a les équivalences $e^x = x^n \iff x = n\ln{x} \iff \dfrac{\ln x}{x}=\dfrac{1}{n}$ donc \boxsol{$(E_n) \iff (F_n)$}.
+    }
+    
+    \item Représenter le graphe de $f : x \mapsto \dfrac{\ln x}{x}$ \quad (on précisera les asymptotes et tangentes).
+    
+    \boxans{
+
+        \pgfplotsset{width=12.5cm}
+        \center \begin{tikzpicture}
+            \begin{axis}[
+                axis lines          = center,
+                xmin                = -2,
+                xmax                = 18,
+                ymin                = -10,
+                ymax                = 5,
+                domain              = 0.1:18,
+                grid                = both,
+                grid style          = {line width = .1pt, draw = gray!30},
+                major grid style    = {line width=.2pt,draw=gray!50},
+                minor tick num      = 1,
+                legend pos          = north east,
+                xlabel=$x$,
+                ylabel=$y$,
+            ]
+            
+            \addplot[color=main1, line width=0.7mm,samples=200] {ln(x)/x};
+            \addlegendentry{$f(x) = \frac{\ln x}{x}$};
+            \addplot[dashed,color=main6,line width =0.5mm] coordinates{(0.1,-10) (0.1,2)};
+            \addlegendentry{asymptote verticale en $0$}
+            \addplot[color=main7,line width =0.5mm,latex'-latex'] coordinates{(1,1/e) (5,1/e)};
+            \addlegendentry{tangente horizontale en $e$}
+            \addplot[dashed,color=main8,line width =0.5mm] coordinates{(8,0) (18,0)};
+            \addlegendentry{asymptote horizontale en $+\infty$}
+            \addplot[
+                color=main3,
+                mark=*,
+                mark size=2pt,
+                point meta=explicit symbolic,
+                nodes near coords,
+                every node near coord/.append style={anchor=south, color=main3},
+            ]
+            coordinates {
+                (e, 1/e) [$\left(e, \sfrac{1}{e}\right)$]
+            };
+            
+            \end{axis}
+        \end{tikzpicture}
+    }
+    
+    \item Montrer que pour chaque entier $\mathbf{n \geq 3}$, l'équation $(F_n)$ admet exactement deux solutions réelles, notées $u_n$ et $v_n$ et telles que :
+    \[ 1 < u_n < e < v_n\]
+    
+    \boxans{
+        La fonction $f : x \mapsto \dfrac{\ln x}{x}$ sur $\bdRp$ étant un quotient de fonctions dérivables sur $\bdRp$, elle est dérivable sur $\bdRp$ :
+        \[ \forall x \in \bdR, \quad f'(x) = \dfrac{1-\ln x}{x^2}\]
+        On a $f'(x) > 0 \iff 1 - \ln x > 0 \iff x > e$ donc $f$ est strictement croissante sur $]0, e[$ et strictement décroissante sur $]e, +\infty[$. Par théorème de la bijection, on pose les réciproques $g_1$ et $g_2$ de $f$, avec 
+        \[ g_1 : ]-\infty, \sfrac{1}{e}[ \to ]0, e[ \qquad \text{et} \qquad g_2 : ]0, \sfrac{1}{e}[ \to ]e, +\infty[\]
+        avec $g_1$ strictement croissante et $g_2$ strictement décroissante.
+        
+        Soit $n \in \bdN$, $n \geq 3$ tel que $x \in \bdRp$ est solution de $(F_n)$. On a $n \geq 3 > e$ donc $\dfrac{1}{n} < \dfrac{1}{e}$. Donc :
+        \[ x \in \bdRp \ \text{est solution de} \ (F_n) \iff f(x) = \dfrac{1}{n} \iff x = g_1\left(\dfrac{1}{n}\right) \quad \text{ou} \quad x = g_2\left(\dfrac{1}{n}\right)\]
+        On a donc exactement deux solutions $u_n =  g_1\left(\dfrac{1}{n}\right)$ et $v_n =  g_2\left(\dfrac{1}{n}\right)$. Les ensemble d'arrivée de $g_1$ et $g_2$ livrent $u_n < e < v_n$. On remarque de plus que $f(1)=\dfrac{\ln 1}{1}=0$ donc $g_1(0) = 1$. Or $\dfrac{1}{n} \geq 0$ donc par stricte croissance de $g_1$, $u_n > 1$. Donc :
+        
+        \boxsol{$\forall n \in \llbracket3, +\infty\llbracket$, l'équation $(F_n)$ admet exactement deux solutions $u_n$ et $v_n$ telles que $1 < u_n < e < v_n$}.
+    }
+    
+    \item Représenter sur un schéma les abscisses correspondant aux valeurs de $u_n$ et $u_{n+1}$ pour un entier $n \geq 3$.
+    
+    \textit{On prendra par exemple $n = 3$}.
+    
+    \boxans{
+
+        \pgfplotsset{width=12.5cm}
+        \center \begin{tikzpicture}
+            \begin{axis}[
+                axis lines          = center,
+                xmin                = -1,
+                xmax                = 4,
+                ymin                = -0.2,
+                ymax                = 0.6,
+                domain              = 0.1:5,
+                grid                = both,
+                grid style          = {line width = .1pt, draw = gray!30},
+                major grid style    = {line width=.2pt,draw=gray!50},
+                minor tick num      = 1,
+                legend pos          = north east,
+                xtick               = {-1, 0, 1, 2, 3, 4},
+                ytick               = {-0.2, 0, 0.2, 0.4,0.6},
+                xlabel=$x$,
+                ylabel=$y$,
+            ]
+            
+            \addplot[color=main1, line width=0.7mm,samples=200,domain=0.1:e] {ln(x)/x};
+            \addlegendentry{$f(x) = \frac{\ln x}{x}$};
+            \addplot[color=main2!30!gray, dashed, line width=0.7mm,samples=200,domain=e:4] {ln(x)/x};
+            
+            \addplot[color=main5!50!gray, dashed, line width=0.5mm, -latex'] coordinates{(0,1/3) (1.857,1/3)};
+            \addplot[color=main5!50!gray, dashed, line width=0.5mm, -latex'] coordinates{(1.857,1/3) (1.857,0)};
+            
+            \addplot[color=main9!50!gray, dashed, line width=0.5mm, -latex'] coordinates{(0,1/4) (1.43,1/4)};
+            \addplot[color=main9!50!gray, dashed, line width=0.5mm, -latex'] coordinates{(1.43,1/4) (1.43,0)};
+            
+            \addplot[
+                color=main5,
+                mark=*,
+                mark size=2pt,
+                point meta=explicit symbolic,
+                nodes near coords,
+                every node near coord/.append style={anchor=east},
+            ]
+            coordinates {
+                (0, 1/3) [$\frac{1}{3}$]
+            };
+            
+            \addplot[
+                color=main5,
+                mark=x,
+                mark size=2pt,
+                point meta=explicit symbolic,
+                nodes near coords,
+                every node near coord/.append style={anchor=north},
+            ]
+            coordinates {
+                (1.857,0) [$u_3$]
+            };
+            
+            \addplot[
+                color=main9,
+                mark=*,
+                mark size=2pt,
+                point meta=explicit symbolic,
+                nodes near coords,
+                every node near coord/.append style={anchor=east},
+            ]
+            coordinates {
+                (0, 1/4) [$\frac{1}{4}$]
+            };
+            
+            \addplot[
+                color=main9,
+                mark=x,
+                mark size=2pt,
+                point meta=explicit symbolic,
+                nodes near coords,
+                every node near coord/.append style={anchor=north},
+            ]
+            coordinates {
+                (1.43,0) [$u_4$]
+            };
+            
+            \addplot[
+                color=main3,
+                mark=*,
+                mark size=2pt,
+                point meta=explicit symbolic,
+                nodes near coords,
+                every node near coord/.append style={anchor=south, color=main3},
+            ]
+            coordinates {
+                (e, 1/e) [$\left(e, \sfrac{1}{e}\right)$]
+            };
+            
+            \end{axis}
+        \end{tikzpicture}
+    }
+    
+    \item Étudier la monotonie de la suite $\left(u_n\right)_{n \geq 3}$.
+    
+    \boxans{
+        Soit $n \in \bdN$, $n \geq 3$. On a $u_{n+1} - u_n = g_1\left(\dfrac{1}{n+1}\right) - g_1\left(\dfrac{1}{n}\right)$. Or $\dfrac{1}{n+1} < \dfrac{1}{n}$, donc par stricte croissance de $g_1$ on a $g_1\left(\dfrac{1}{n+1}\right) < g_1\left(\dfrac{1}{n}\right)$ donc $u_{n+1} < u_n$. Donc \boxsol{la suite $\left(u_n\right)_{n \geq 3}$ est strictement décroissante}.
+    }
+    
+    \item Montrer que cette suite $\left(u_n\right)_{n \geq 3}$ converge et calculer sa limite.
+    
+    \boxans{
+        La suite $\left(u_n\right)_{n \geq 3}$ est strictement décroissante et minorée par $1$ donc \boxsol{la suite $\left(u_n\right)_{n \geq 3}$ converge}.
+        
+        On a $\lim\limits_{n \to +\infty} u_n = \lim\limits_{n \to +\infty} g_1\left(\dfrac{1}{n}\right) = \lim\limits_{N \to 0^+} g_1(N) = 1$. Donc \boxsol{$\lim\limits_{n \to +\infty} u_n = 1$}.
+    }
+    
+    \item Montrer que la suite $\left(v_n\right)_{n \geq 3}$ tend vers $+\infty$. \quad \textit{(On pourra calculer $f(n)$.)}
+    
+    \boxans{
+        Soit $n \in \bdN$, $n \geq 3$. On a $v_{n+1} - v_n = g_2\left(\dfrac{1}{n+1}\right) - g_2\left(\dfrac{1}{n}\right)$. Comme précédemment, par stricte décroissance de $g_2$ on obtient $v_{n+1} > v_n$ donc la suite $\left(v_n\right)_{n \geq 3}$ est strictement croissante, donc elle converge ou diverge vers $+\infty$.
+        On a $\lim\limits_{n \to +\infty} f(n) = \lim\limits_{n \to +\infty} \dfrac{\ln n}{n} = 0^+$ donc $\lim\limits_{n \to 0^+} g_2(n) = +\infty$. 
+        
+        Or $\lim\limits_{n \to +\infty} v_n = \lim\limits_{n \to +\infty} g_2\left(\dfrac{1}{n}\right) = \lim\limits_{N \to 0^+} g_2(N) = +\infty$ donc \boxsol{$\lim\limits_{n \to +\infty} v_n = +\infty$}.
+    }
+    
+    \item Dans cette question, on cherche un développement asymptotique de la suite $u$.
+    
+    \begin{enumerate}
+        \item En écrivant $u_n - 1= \epsilon_n$, \quad montrer que $\epsilon_n \asymp{+\infty}  \dfrac{1}{n}$.
+        
+        \boxans{
+            On veut calculer $\lim\limits_{n \to +\infty} \dfrac{\epsilon_n}{\frac{1}{n}} = \lim\limits_{n \to +\infty} \dfrac{u_n - 1}{\frac{1}{n}} = \lim\limits_{n \to +\infty} \dfrac{g\left(\frac{1}{n}\right) -1}{\frac{1}{n}}=\lim\limits_{x \to 0} \dfrac{g(0+x) - g(0)}{x}$.
+            
+            Or $f'$ ne s'annule pas sur $]0, e[$ donc par dérivée de la réciproque, $g_1$ est dérivable et  tel que :
+            \[ \forall x \in ]-\infty, \sfrac{1}{e}[,\quad g'_1(x) = \dfrac{1}{f'(g_1(x))} = \dfrac{1}{\frac{1}{g_1(x)^2}-\frac{x}{g_1(x)}} = \dfrac{g_1(x)^2}{1-xg_1(x)}\]
+            
+            Or $\lim\limits_{x \to 0} \dfrac{g(0+x) - g(0)}{x} = g_1'(0) = \dfrac{1^2}{1-0\times1}=1$ donc $\lim\limits_{n \to +\infty} \dfrac{\epsilon_n}{\frac{1}{n}} = 1$ donc \boxsol{$\epsilon_n \asymp{+\infty}  \dfrac{1}{n}$}.
+        }
+        
+        \item  Rappeler le développement limité à tous ordres de $x \to \ln(1 + x)$ au voisinage de $0$.
+        
+        \boxans{
+            Soit $x \in \bdR$ au voisinage de $0$ et $p \in \bdN$, on a le développement limité de $x \to \ln(1 + x)$ d'ordre $p$ :
+            \[ \boxsol{$DL_p(0) : \ln(1+x) \eq{+\infty} x - \dfrac{x^2}{2} + \dfrac{x^3}{3} + \dots + (-1)^{n-1}\dfrac{x^p}{p}+o(x^p)$} \]
+        }
+        
+        \item On pose alors $y_n = u_n - 1 - \dfrac{1}{n}$. \quad Donner un développement asymptotique à précision $\o{}{\frac{1}{n^2}}$ des quantités $\ln(u_n)$ et $\frac{u_n}{n}$ en fonction uniquement de $n$ et $y_n$. En déduire un équivalent de $y_n$.
+        
+        Justifier le développement asymptotique pour la suite $\left(u_n\right)_{n \geq 3}$ :
+        \[ u_n \eq{+\infty} 1 + \dfrac{1}{n} + \dfrac{a}{n^2} + \o{}{\dfrac{1}{n^2}}\]
+        On précisera la valeur du réel $a$.
+        
+        \boxans{
+            On a $u_n - 1 = \epsilon_n$ et $\epsilon \asymp{+\infty} \dfrac{1}{n}$ donc $u_n - 1 \asymp{+\infty} \dfrac{1}{n}$ donc $u_n - 1 - \dfrac{1}{n} \eq{+\infty} \o{}{\dfrac{1}{n}}$ donc $y_n \eq{+\infty} \o{}{\dfrac{1}{n}}$.
+            On a $y_n = u_n - 1 - \dfrac{1}{n}$ donc $u_n = 1 + y_n + \dfrac{1}{n}$. En utilisant le développement limité ci-dessus :
+            \[ \boxsoll{$\ln(u_n)$} \eq{+\infty} y_n + \dfrac{1}{n} - \dfrac{\left(y_n + \frac{1}{n}\right)^2}{2}+\o{}{\left(y_n+\dfrac{1}{n}\right)^2} \boxsolr{$\eq{+\infty} y_n + \dfrac{1}{n} - \dfrac{1}{2n^2} +\o{}{\dfrac{1}{n^2}}$} \]
+            De plus, on a :
+            \[ \boxsoll{$\dfrac{u_n}{n}$} = \dfrac{1}{n} + \dfrac{y_n}{n} + \dfrac{1}{n^2} \eq{+\infty} \boxsolr{$\dfrac{1}{n} + \dfrac{1}{n^2} + \o{}{\dfrac{1}{n^2}}$} \]
+            Or $f(u_n) = \dfrac{1}{n}$ donc $\dfrac{\ln(u_n)}{u_n} = \dfrac{1}{n}$ d'où $\ln(u_n) = \dfrac{u_n}{n}$. En combinant les deux développements ci-dessus :
+            \[ y_n \eq{+\infty} \dfrac{1}{n} + \dfrac{1}{n^2} - \dfrac{1}{n} + \dfrac{1}{2n^2} + \o{}{\dfrac{1}{n^2}} \eq{+\infty} \dfrac{\sfrac{3}{2}}{n^2} +\o{}{\dfrac{1}{n^2}} \quad \text{donc} \ \boxsol{$y_n \asymp{+\infty} \dfrac{\sfrac{3}{2}}{n^2}$}\]
+            Donc $u_n - 1 - \dfrac{1}{n}\eq{+\infty} \dfrac{\sfrac{3}{2}}{n^2} +\o{}{\dfrac{1}{n^2}}$ d'où \boxsol{$u_n \eq{+\infty} 1 + \dfrac{1}{n} + \dfrac{\sfrac{3}{2}}{n^2} + \o{}{\dfrac{1}{n^2}}$}
+        }
+        
+    \end{enumerate}
+    
+    \item Dans cette question, on cherche un équivalent de la suite $v$.
+    
+    \begin{enumerate}
+        \item Montrer que : \quad $\forall n > 3$, $v_n \geq n\ln{n}$.
+        
+        \boxans{
+            Soit $n \in \bdN$, $n \geq 3$. On a $\dfrac{\ln v_n}{v_n} = \dfrac{1}{n}$ donc $v_n = n\ln(v_n)$. Or $n \geq 3 > e$ donc $\ln n \geq 1$ donc $\dfrac{\ln n}{n} \geq \dfrac{1}{n}$.
+            
+            Par décroissance de $g_2$, $n \leq g_2\left(\dfrac{1}{n}\right) = v_n$ donc $n\ln{v_n} \geq n\ln{n}$. Donc \boxsol{$v_n \geq n\ln(n)$}.
+        }
+        
+        \item Soit $\epsilon$ un réel strictement positif fixé.
+        \begin{enumerate}
+            \item Calculer $f((1+\epsilon)n\ln n)$ et montrer que : $f((1+\epsilon)n\ln n) \asymp{+\infty} \dfrac{1}{(1+\epsilon)n}$
+            
+            \boxans{
+            \[\boxsoll{$f((1+\epsilon)n\ln n)$} = \dfrac{\ln{(1+\epsilon)n\ln(n)}}{(1+\epsilon)n\ln n}=\boxsolr{$\dfrac{1}{(1+\epsilon )n}\left[1+\dfrac{\ln(1+\epsilon)+\ln{\ln{n}}}{\ln{n}}\right]$}\]
+            
+            Donc $\lim\limits_{n \to +\infty} \dfrac{f((1+\epsilon)n\ln n)}{\frac{1}{(1+\epsilon)n}} = \lim\limits_{n \to +\infty} \left(1+\dfrac{\ln(1+\epsilon)+\ln{\ln{n}}}{\ln{n}}\right) = 1$
+            
+            Donc \boxsol{$f((1+\epsilon)n\ln n) \asymp{+\infty} \dfrac{1}{(1+\epsilon)n}$}
+            }
+            
+            \item En déduire l'existence d'un entier $n_0$ tel que pour tout $n \geq n_0$, on ait :
+            \[ nf((1+\epsilon)n\ln n) \leq 1\]
+            
+            \boxans{
+            On a $f((1+\epsilon)n\ln n) \asymp{+\infty} \dfrac{1}{(1+\epsilon)n}$ donc $\lim\limits_{n \to +\infty} nf((1+\epsilon)n\ln n) = \dfrac{1}{1+\epsilon}$. Par définition 
+            \[ \exists n_0 \in \bdN,\ n_0 \geq 3,\ \forall n \in \bdN,\quad n \geq n_0 \implies \mod{nf((1+\epsilon)n\ln n) - \dfrac{1}{1+\epsilon}} \leq \dfrac{\epsilon}{1+\epsilon}\]
+            Donc $\forall n \in \bdN$, $n\geq n_0 \implies nf((1+\epsilon)n\ln n) \leq \dfrac{\epsilon}{1+\epsilon} + \dfrac{1}{1+\epsilon} \implies f((1+\epsilon)n\ln n) \leq 1$.
+            
+            Donc \boxsol{il existe un entier $n_0$ tel que pour tout $n \geq n_0$, $nf((1+\epsilon)n\ln n) \leq 1$ }.
+            }
+            
+            \item En déduire que pour tout $n \geq n_0$, on a :
+            \[ n\ln n \leq v_n \leq (1+\epsilon)n \ln n\]
+            
+            \boxans{
+                Soit $n \in \bdN$, $n \geq n_0$. On a $nf((1+\epsilon)n\ln n) \leq 1$ donc $f((1+\epsilon)n\ln n) \leq \dfrac{1}{n}$. Par décroissance de $g_2$, on a $(1+\epsilon)n\ln n \geq g_2\left(\dfrac{1}{n}\right) = v_n$. Donc \boxsol{$n\ln n \leq v_n \leq (1+\epsilon)n \ln n$}.
+            }
+        \end{enumerate}
+        
+        \item Donner un équivalent de la suite $\left(v_n\right)_{n \geq 3}$, lorsque $n$ tend vers l’infini.
+        
+        \boxans{
+        \[ \forall \epsilon \in \bdRp,\ \exists n_o(\epsilon) \in \bdN,\ n_0 \geq 3,\ \forall n \in \bdN, \qquad n \geq n_0(\epsilon) \implies n\ln n \leq v_n \leq (1+\epsilon)n \ln n\]
+        
+        On peut donc considérer $\left(\epsilon_n\right)_{n \geq 3}$, $\epsilon_n \eq{+\infty} o(1)$ tel que
+        \[ \forall n \in \bdN, \ n \geq 3,\quad u_n = (1+\epsilon)n\ln n \eq{+\infty} (1+\o{}{1})n\ln n \eq{+\infty} n\ln n + \o{}{n\ln n}\]
+        On a donc \boxsol{$v_n \asymp{+\infty} n\ln n$}.
+        
+        On remarquera que la vitesse de converge est tout de même très lente, du fait de $\o{}{n\ln n}$.
+        }
+
+    \end{enumerate}
+
+
+\end{enumerate}
+\end{document}

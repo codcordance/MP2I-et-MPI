@@ -1,0 +1,520 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylize{Mathématiques}{Devoir Maison 5}
+
+\section*{Problème : Fonction exponentielle}
+
+Au lycée, vous avez admis qu'il existe une fonction vérifiant $f' = f$ et $f(0) = 1$; vous avez pu prouver l'unicité d'une telle fonction; vous avez ainsi introduit la fonction exponentielle réelle et vous avez dû établir les propriétés usuelles (relation fonctionnelle, limites, etc).
+
+Ce problème se propose de démontrer l'existence de cette fonction en partie B.2, son unicité en partie A, de donner des approximations en partie C.
+
+Dans les parties A et B, \underline{les fonctions exponentielles et logarithmes sont supposées ne pas être connues}.
+
+Les parties A, B.1, B.2 et C peuvent être traitées indépendamment même si elles ont un lien entre elles.
+
+\subsection*{Partie A - Unicité, sous réserve d'existence, de la fonction exponentielle}
+
+Dans cette partie; on suppose qu'il existe une fonction $f$ dérivable sur $\bdR$ solution de l'équation différentielle
+
+$(E) : y' = y$ sur $\bdR$ et telle que $f(0) = 1$.
+
+\begin{enumerate}
+    \item Démontrer que : $\forall x \in \bdR$, $f(x)f(-x) = 1$.
+        \textit{(On pourra dériver $x \mapsto f(x)(f-x)$)}
+        
+        En déduire que $f$ ne s'annule pas sur $\bdR$.
+    \boxans{
+        Soit $x \in \bdR$. On pose $u : x \mapsto f(x)f(-x)$. Par composée, $x \mapsto f(-x)$ se dérive en $x \mapsto -f'(-x)$.
+        
+        $u$ est un produit de fonctions dérivables sur $\bdR$ donc dérivable sur $\bdR$.
+        On a donc :
+        
+        \[ u'(x) = f'(x)f(-x) - f(x)f'(-x) = f(x)f(-x) - f(x)f(-x) = 0 \]
+        
+        La dérivée de $u$ est la fonction nulle donc $u$ est une fonction constante :
+        $\exists k \in \bdR$, $u(x) = k$.
+        
+        $u(0) = f(0)f(-0) = 1 \times 1 = 1$ donc $k = 1$, donc \boxsol{$\forall x \in \bdR$, $f(x)f(-x) = 1$}.
+        
+        On a $f(x)f(-x) \neq 0$ donc $f(x) \neq 0$ et $f(-x) \neq 0$. Donc \boxsol{$f$ ne s'annule pas sur $\bdR$}.
+    }
+    
+    \item Démontrer que $f$ est unique. Pour cela, on montrera que si $g$ est une fonction             dérivable sur $\bdR$ solution de $(E)$ sur $\bdR$ telle que $g(0) = 1$ alors $g = f$.
+    
+        \textit{(On pourra considérer la fonction $\phi = \frac{g}{f}$ et calculer sa dérivée.)}
+    \boxans{
+        Soit $g$ une fonction dérivable sur $\bdR$ solution de $(E)$ sur $\bdR$ telle que $g(0) = 1$.
+        
+        Soit $x \in \bdR$. On pose $\phi : x \mapsto \frac{g(x)}{f(x)}$.  
+        $f$ ne s'annule pas sur $\bdR$ donc $\phi$ est un quotient toujours défini de fonctions dérivable sur $\bdR$ donc dérivable sur $\bdR$. On a donc :
+        
+        \[ \phi'(x) = \frac{g'(x)f(x) - g(x)f'(x)}{f(x)^2} = \frac{g(x)f(x) - g(x)f(x)}{f(x)^2}= 0 \]
+        
+        La dérivée de $\phi$ est la fonction nulle donc $\phi$ est une fonction constante :
+        $\exists k \in \bdR$, $\phi(x) = k$.
+        
+        $\phi(0) = \frac{g(0)}{f(0)} = \frac{1}{1} = 1$ donc $k = 1$, donc $\frac{g(x)}{f(x)}=1$ donc $f(x)=g(x)$. Finalement, \boxsol{$g = f$}.
+    }
+    
+    \item \textit{Relation fonctionnelle}
+    \begin{enumerate}
+        \item Soit $y \in \bdR$ fixé. Dériver la fonction $\varphi : x \mapsto \frac{f(x+y)}{f(x)}$     de la variable $x$.
+        \boxans{
+            Soit $x \in \bdR$. $\varphi$ est un quotient de fonctions dérivables sur $\bdR$ et ne s'annulant pas sur $\bdR$, donc $\varphi$ est dérivable sur $\bdR$. Avec $y$ une constante, par composée, $x \mapsto f(x+y)$ se dérive en $x \mapsto f'(x+y)$.
+            %\[ \varphi'(x) = \frac{f'(x+y)f(x) - f(x+y)f'(x)}{f(x)^2} = \frac{f(x+y)f(x) - f(x+y)f(x)}{f(x)^2} = 0 \ \text{donc} \ \boxsol{$\varphi' = 0$} \]
+        }
+        
+        \item En déduire : $\forall (x,y) \in \bdR^2$, $f(x+y)=f(x)f(y)$.
+        \boxans{
+            Soit $y \in \bdR$. Soit $\varphi$ la fonction telle que $\forall x \in \bdR$, $\varphi(x) = \frac{f(x+y)}{f(x)}$.
+            La dérivée de $\varphi$ est la fonction nulle donc $\varphi$ est une fonction constante : $\exists k \in \bdR$, $\varphi(x) = k$.
+            
+            $\varphi(0) = \frac{f(0+y)}{f(0)} = \frac{f(y)}{1} = f(y)$ donc $k = f(y)$. Donc $\varphi(x) = f(y)$ donc $\frac{f(x+y)}{f(x)}=f(y)$.
+            
+            Donc \boxsol{$\forall (x,y) \in \bdR^2$, $f(x+y)=f(x)f(y)$}.
+        }
+    \end{enumerate}
+    
+    \item Déduire des résultats précédents que $f$ est strictement positive sur $\mathbb{R}$.
+    
+    \boxans{
+        Soit $x \in \bdR$. On pose $y = \frac{x}{2}$. On a $f(x)=f(2y)=f(y+y)=f(y)f(y)=f(y)^2$.
+        
+        Or $f$ est solution de $(E)$ sur $\bdR$ donc $f$ est à valeur dans $\bdR$, donc $f$ est positive sur $\bdR$.
+        
+        De plus $f$ ne s'annule pas sur $\bdR$ donc \boxsol{$f$ est strictement positive sur $\bdR$}.
+    }
+\end{enumerate}
+
+\subsection*{Partie B.1 - Méthode d'Euler}
+
+La méthode d'Euler est un algorithme donnant une solution approchée d'une équation différentielle. On construit une solution approchée affine par morceaux par approximations successives. On décrit ci-dessous le principe de l'algorithme pour le cas particulier de l'équation différentielle : $y ' = y$ et $y(0)=1$ en notant $f$ la solution exacte (en supposant qu'elle existe). Pour obtenir une valeur approchée de $f(x)$ où $x \geq 0$, on commence par choisir un entier $n \geq 1$ assez grand et on partage le segment $\left[0,x\right]$ en $n$ intervalles réguliers d'extrémités $x_k = \frac{kx}{n}$ où $k \in \llbracket0,n\rrbracket$.\vspace{2mm}
+
+On va construire ne fonction affine par morceaux notée $\varphi_n$ sur $\left[0,x\right]$ qui approche $f$.\vspace{1mm}
+
+
+La valeur de $f$ en $0$ est connue : $f(0) = 1$, on pose donc $\varphi_n(0) = 1$.
+
+Pour estimer la valeur en $x_1$, on fait une approximation affine de $f$ grâce à sa tangente en $0$ d'équation $y = f(0) + (x - 0)f'(0)$.
+
+On rappelle que $f' = f$ et $f(0) = 1$ donc $f'(0) = f(0) = 1$ et la tangente de $f$ en $0$ a pour équation $y = 1 + x$.
+
+On pose donc $\varphi_n(x_1) = 1 + x_1 = 1 + \frac{x}{n}$. Puis, pour estimer la valeur en $x_2$ on refait une approximation affine grâce à l'équation de la tangente en $x_1$ : $f(x_2) \approx f(x_1)+f'(x_1)(x_2-x_1) = f(x_1) + f(x_1)(x_2-x_1)$ (toujours car $f' = f$).
+
+Cette fois, comme la valeur exacte $f(x_1)$ n'est pas connue, on la remplace par la valeur approchée de $\varphi_n(x_1)$.
+
+On pose finalement : $\varphi(x_2) = \varphi(x_1) + \varphi(x_1)(x_2-x_1)$ ; et on continue le procédé jusqu'à obtenir la valeur de $\varphi(x_n)$ c'est-à-dire $\varphi(x)$ qui sera considérée comme une valeur approchée de $f(x)$.\vspace{2mm}
+
+Pour tracer la fonction affine par morceaux $\varphi_n$ sur $\left[0, x\right]$, il n'y a plus qu'à relier les points $\left(x_{k-1}, \varphi_n(x_{k-1})\right)$ et $\left(x_k, \varphi_n(x_k)\right)$ pour $k \in \llbracket1,n\rrbracket$.
+
+
+\begin{enumerate}
+    \item Faites un dessin pour illustrer le procédé.
+    
+    \boxans{
+        \pgfplotsset{width=12.5cm}
+        \center \begin{tikzpicture}
+            \begin{axis}[
+                axis lines          = left,
+                xmin                = 0,
+                xmax                = 5,
+                ymin                = 0,
+                ymax                = 7.268,
+                xtick               = {0, 1, 2, 3, 4, 5},
+                xticklabels         = {$x_0$, $x_1$, $x_2$, $x_3$, $x_k$, $x_n$},
+                ytick               = {1, 1.487, 2.210, 3.287, 4.888,7.268},
+                yticklabels         = {$\varphi_n(x_0)$, $\varphi_n(x_1)$, $\varphi_n(x_2)$, $\varphi_n(x_3)$, $\varphi_n(x_k)$, $\varphi_n(x_n)$ },
+                grid                = both,
+                grid style          = {line width = .1pt, draw = gray!30},
+                major grid style    = {line width=.2pt,draw=gray!50},
+                minor tick num      = 5,
+                legend pos          = north west,
+            ]
+            
+            \addplot[color=gypl5, style=dashed, line width=0.3mm] { 1     + 0.487*x};
+            \addlegendentry{Tangente en $x_0$}
+            \addplot[color=gypl4, style=dashed, line width=0.3mm] { 0.764 + 0.723*x};
+            \addlegendentry{Tangente en $x_1$}
+            \addplot[color=gypl3, style=dashed, line width=0.3mm] { 0.056 + 1.077*x};
+            \addlegendentry{Tangente en $x_2$}
+            \addplot[color=gypl2, style=dashed, line width=0.3mm] {-1.516 + 1.601*x};
+            \addlegendentry{Tangente en $x_3$}
+            \addplot[color=gypl1, style=dashed, line width=0.3mm] {-4.632 + 2.38*x};
+            \addlegendentry{Tangente en $x_4$}
+            
+            \addplot[
+                color=blue,
+                mark=x,
+                mark size=4pt,
+                point meta=explicit symbolic,
+                nodes near coords,
+                every node near coord/.append style={anchor=west, color=blue},
+            ]
+            coordinates {
+                (0, 1.000) [$\left(x_0, \varphi(x_0)\right)$]
+                (1, 1.487) [$\left(x_1, \varphi(x_1)\right)$]
+                (2, 2.210) [$\left(x_2, \varphi(x_2)\right)$]
+                (3, 3.287) [$\left(x_3, \varphi(x_3)\right)$]
+                (4, 4.888) [$\left(x_k, \varphi(x_k)\right)$]
+                (5, 7.268) [$\left(x_5, \varphi(x_5)\right)$]
+            };
+            \addlegendentry{Tracé par morceaux de $\varphi_n$}
+            \end{axis}
+        \end{tikzpicture}
+    }
+    
+    \item Pour $n \in \bdN$ et $x \geq 0$, expliciter le réel $\varphi_n(x)$ en fonction de $x$     et de $n$.
+    
+        \textit{(On calculera $\varphi_n(x_k)$ en fonction de $\varphi_n(x_{k-1})$)}
+    
+    \boxans{
+        Pour $k \in \llbracket0,n-1\rrbracket$, on a $\varphi_n(x_{k+1})=\varphi_n(x_k)+\varphi_n(x_k)(x_{k+1}-x_k)=\varphi_n(x_k)(1+\frac{x}{n})$. Il s'agit d'une suite géométrique de raison $(1+\frac{x}{n})$ et de premier terme $\varphi_n(0)=1$. Or $\varphi_n(x)=\varphi(x_n)$.
+        
+        Donc $\varphi_n(x)=\varphi(0)\left(1+\frac{x}{n}\right)^n$ donc \boxsol{$\varphi_n(x)=\left(1+\frac{x}{n}\right)^n$}
+    }
+    \textbf{N.B.} \textit{Rien ne prouve à ce stade que l'approximation est convenable. Dans la suite, on va démontrer que pour tout $x \in \bdR$, $f(x) = \lim\limits_{n \to +\infty}\varphi_n(x)$.}
+    
+\end{enumerate}
+
+\subsection*{Partie B.2 - Existence de la fonction exponentielle réelle}
+
+On souhaite dans cette partie, établir l'existence d'une fonction $f$ définie et dérivable sur $\bdR$, solution de $(E)$ telle que $f(0) = 1$.
+
+Pour tout réel $x$ et $n$ un entier tel que $n > \mod x$, on pose :
+
+\[ u_n(x) = \left(1 + \dfrac{x}{n}\right)^n\]
+
+Soit $x$ un réel que l'on considérera fixé jusqu'à la question 7.
+
+\begin{enumerate}
+    \item Justifier que $\forall n > \mod x$, \quad $u_n(x) > 0$.
+    
+    \boxans{
+        Soit $n$ un entier tel que $n > \mod x$. Alors $\frac{x}{n} > -1$ donc $1 +\frac{x}{n} > 0$. Donc \boxsol{$\forall n > \mod x$, \quad $u_n(x) > 0$}
+    }
+    
+    \item Établir l'inégalité de Bernoulli :
+        $\forall a \in \left]-1;+\infty\right[, \forall n \in \bdN^*, \quad (1+a)^n \geq 1 + na$
+        
+    \boxans{
+        Soit $a \in \left]-1;+\infty\right[$ et $n \in \bdN^*$. Soit $u$ la fonction définie et dérivable sur $\bdR$ telle que $u(x)=(1+x)^n$. On a :
+        $u'(x) = n(1+x)^{n-1}$.La tangente $T_0$ à $u$ en $0$ est alors $y = u(0) + (x-0)u'(0) = 1^n + xn\times1^{n-1} = 1 + xn$.
+        
+        Pour $x \in \left]-1;+\infty\right[$, $1 + x > 0$, donc par stricte croissance des fonctions puissances sur $x \in \left]0;+\infty\right[$, $u'$ est strictement croissante sur $\left]-1;+\infty\right[$, donc $u$ est convexe sur $\left]-1;+\infty\right[$ et donc au dessus de ses tangentes.
+        En évaluant $T_0$ en $a$, on obtient \boxsol{$\forall a \in \left]-1;+\infty\right[, \forall n \in \bdN^*, \quad (1+a)^n \geq 1 + na$}
+    }
+    
+    \item Soit $n$ un entier tel que $n > \mod x$.
+    \begin{enumerate}
+        \item Démontrer que : 
+            $u_{n+1}(x)=u_n(x)\left(1+\dfrac{x}{n}\right)\left(\dfrac{1+\frac{x}{n+1}}{1+\frac{x}{n    }}\right)^{n+1}$
+        
+        \boxans{
+            \boxsoll{$u_n(x)\left(1+\dfrac{x}{n}\right)\left(\dfrac{1+\frac{x}{n+1}}{1+\frac{x}{n}}\right)^{n+1}$} $= \left(\left(1+\frac{x}{n}\right)\dfrac{1+\frac{x}{n+1}}{1+\frac{x}{n}}\right)^{n+1} = \left(1 + \dfrac{x}{n+1}\right)^{n+1}$\boxsolr{$=u_{n+1}(x)$}
+        }
+        
+        \item En utilisant l'inégalité de Bernoulli, montrer que :                              $\left(\dfrac{1+\frac{x}{n+1}}{1+\frac{x}{n}}\right)^{n+1} \geq                     \dfrac{1}{1+\frac{x}{n}}$
+        
+        \boxans{
+            On a $\left(\dfrac{1+\frac{x}{n+1}}{1+\frac{x}{n}}\right)^{n+1} = \dfrac{\left(1+\frac{x}{n+1}\right)^{n+1}}{\left(1+\frac{x}{n}\right)^{n+1}} = \dfrac{\left(1+\frac{x}{n+1}\right)^{n+1}}{\left(1+\frac{x}{n}\right)^n\left(1+\frac{x}{n}\right)}$. Donc d'après l'inégalité de Bernoulli :
+        
+            $\left(\dfrac{1+\frac{x}{n+1}}{1+\frac{x}{n}}\right)^{n+1} \geq \dfrac{1+(n+1)\frac{x}{n+1}}{\left(1+(n)\frac{1}{n}\right)\left(1+\frac{x}{n}\right)} = \dfrac{1+x}{\left(1+x\right)\left(1+\frac{x}{n}\right)}$.
+            Donc \boxsol{$\left(\dfrac{1+\frac{x}{n+1}}{1+\frac{x}{n}}\right)^{n+1} \geq \dfrac{1}{1+\frac{x}{n}}$}
+        }
+        
+        \item En déduire que la suite $(u_n(x))_{n>\mod x}$ est croissante.
+        
+        \boxans{
+            On a $u_n(x)\left(1+\dfrac{x}{n}\right)\left(\dfrac{1}{1+\frac{x}{n}}\right) \leq u_n(x)\left(1+\dfrac{x}{n}\right)\left(\dfrac{1+\frac{x}{n+1}}{1+\frac{x}{n}}\right)^{n+1}$, donc \boxsol{$u_n \leq u_{n+1}$}
+        }
+    \end{enumerate}
+    
+    \small{On sait (Partie A) que la fonction $f$ solution du problème, si elle existe, vérifie $f(x)f(-x)=1$, pour cela on introduit aussi la suite $u_n(x-)$ dans les questions suivantes.}
+    
+    \item Soit $n$ un entier tel que $n \geq \mod x$.  Montrer que $1 - \dfrac{x^2}{n} \leq     u_n(x)u_n(-x) \leq 1$.
+    
+    \boxans{
+        $u_n(x)u_n(-x) = \left(\left(1+\dfrac{x}{n}\right)\left(1-\dfrac{x}{n}\right)\right)^n = \left(1-\left(\dfrac{x}{n}\right)^2\right)^n$, $x \leq n$ donc $\left(\dfrac{x}{n}\right)^2 \leq 1$ donc $1-\left(\dfrac{x}{n}\right)^2 \leq 1$.
+        D'après l'inégalité de Bernoulli, $\left(1+\dfrac{-x^2}{n^2}\right)^n \geq 1+n\dfrac{-x^2}{n^2}$ donc \boxsol{$1 - \dfrac{x^2}{n} \leq u_n(x)u_n(-x) \leq 1$}
+    }
+    
+    \item Vérifier que la suite $(1/u_n(-x))_{n > \mod x}$ est monotone et en déduire qu'elle est convergente.
+    
+    \boxans{
+        La suite $(u_n(-x))_{n>\mod{-x}}$ est croissante donc par composition et décroissance de la fonction inverse la suite $(1/u_n(-x))_{n > \mod x}$ est décroissante. Or $\frac{1}{u_n(-x)} = \left(\dfrac{1}{1-\frac{x}{n}}\right)^{n}$ et $x < n$ donc $1 - \frac{x}{n} > 0$ donc la suite $(u_n(-x))_{n>\mod x}$ est minorée par 0.
+        D'après le théorème de convergence monotone, \boxsol{ la suite $(1/u_n(-x))_{n > \mod x}$ converge}.
+    }
+    
+    \item En déduire que la suite $(u_n(-x))_{n > \mod x}$ converge vers la même limite.
+    
+    On notera $f(x)$ la limite commune des suites de terme général $u_n(x)$ et $1/u_n(-x)$.
+    
+    \boxans{
+        On pose $L = \lim\limits_{n\to+\infty}\left(\dfrac{1}{u_n(-x)}\right)$. On a $u_n(x)u_n(-x) \leq 1$ donc $u_n(x) \leq \dfrac{1}{u_n(-x)}$ donc $u_n(x) \leq L$.
+        
+        Donc la suite $(u_n(-x))_{n > \mod x}$ est majorée. Or la suite $(u_n(-x))_{n > \mod x}$ est croissante, donc d'après le théorème de convergence monotone, \boxsol{ la suite $(u_n(x))_{n > \mod x}$ converge}. On pose donc $L' =\lim\limits_{n\to+\infty}\left(u_n(x)\right)$. On a $L' \leq L$.
+        
+        De plus $1 - \dfrac{x^2}{n} \leq u_n(x)u_n(-x)$ donc $\lim\limits_{n\to+\infty} \left(\dfrac{1 - \frac{x^2}{n}}{u_n(-x)}\right) \leq L'$ donc $\lim\limits_{n\to+\infty} \left(\dfrac{1}{u_n(-x)}\right) \leq L'$ donc $L \leq L'$.
+        
+        Donc d'après le théorème d'encadrement, $L=L'$, on note donc \boxsol{$f(x) = \lim\limits_{n\to+\infty}\left(u_n(x)\right) = \lim\limits_{n\to+\infty}\left(\dfrac{1}{u_n(-x)}\right)$}
+    }
+    
+    \item Justifier les encadrements suivants : pour tout $x \in \bdR$ et $n$ entier tel que $n > \mod x$ :
+    
+    \[ 0 < u_n(x)  \leq f(x) \leq \dfrac{1}{u_n(-x)} \quad \text{et} \quad 0 \leq f(x) -u_n(x) \leq \dfrac{x^2}{n}\dfrac{1}{u_n(-x)}\]
+    
+    \boxans{
+        La suite $(1/u_n(-x))_{n > \mod x}$ est décroissante et de limite $f(x)$, donc $f(x) \leq \dfrac{1}{u_n(-x)}$. 
+        La suite $(u_n(-x))_{n > \mod x}$ est strictement positive, croissante et de limite $f(x)$ donc $0 < u_n(x)  \leq f(x)$, donc \boxsol{$0 < u_n(x)  \leq f(x) \leq \dfrac{1}{u_n(-x)}$}.
+        
+        On a $u_n(x)  \leq f(x) \leq \dfrac{1}{u_n(-x)}$ donc $0  \leq f(x) - u_n(x) \leq \dfrac{1}{u_n(-x)}-u_n(x)$. Donc $0  \leq f(x) - u_n(x)$ et
+        
+        $f(x) - u_n(x)\leq \dfrac{1-u_n(x)u_n(-x)}{u_n(-x)}$ donc $f(x) - u_n(x)\leq \dfrac{1-(1-\frac{x^2}{n})}{u_n(-x)}$, donc \boxsol{$0 \leq f(x) -u_n(x) \leq \dfrac{x^2}{n}\dfrac{1}{u_n(-x)}$}. 
+    }
+    
+        On désigne par $f$ la fonction qui à tout réel $x$ associe $f(x)$.
+    \textit{On va démontrer que $f$ est une fonction dérivable solution de $(E)$ avec $f(0) = 1$.}
+    
+    \item Vérifier que $f(0) = 1$ et que : \quad $\forall x \in \bdR$, $f(x)f(-x) = 1$
+    
+    \boxans{
+        $f(0) = \lim\limits_{n\to+\infty}\left(1+\dfrac{0}{n}\right)^n=\lim\limits_{n\to+\infty}1^n$ donc \boxsol{$f(0)=1$}. Soit $x \in \bdR$. On a $1 - \dfrac{x^2}{n} \leq u_n(x)u_n(-x) \leq 1$, or $\lim\limits_{n\to+\infty}\left(1 - \dfrac{x^2}{n}\right)=1$ donc d'après le théorème d'encadrement, \boxsol{ $\forall x \in \bdR$, $f(x)f(-x) = 1$}
+    }
+    
+    \item Soit $x$ et $h$ deux réels fixés.
+    \begin{enumerate}
+        \item Soit $n$ un entier tel que $n > \mod x + \mod h$. \quad Montrer que $\dfrac{u_n(x + h)}{u_n(x)} \geq 1 + \dfrac{1}{1 + \frac{x}{n}}$
+        
+        \boxans{
+            $\dfrac{u_n(x + h)}{u_n(x)} = \dfrac{\left(1+\frac{x+h}{n}\right)^n}{\left(1+\frac{x}{n}\right)^n} = \left(\dfrac{1+\frac{x}{n}+\frac{h}{n}}{1+\frac{x}{n}}\right)^n = \left(1+\dfrac{h}{n+x}\right)^n$. Donc d'après l'inégalité de Bernoulli :
+            
+            $\dfrac{u_n(x + h)}{u_n(x)} \geq 1+n\dfrac{h}{n+x}$ donc \boxsol{$\dfrac{u_n(x + h)}{u_n(x)} \geq 1 + \dfrac{h}{1 + \frac{x}{n}}$}.
+        }
+        
+        \item En déduire $f(x+h) - f(x) \geq hf(x)$
+        
+        \boxans{
+            En passant à la limite, on obtient $\dfrac{f(x+h)}{f(x)}\geq 1 + h$, donc $\dfrac{f(x+h)}{f(x)}\geq h$, donc \boxsol{$f(x+h) - f(x) \geq hf(x)$}.
+        }
+    \end{enumerate}
+    
+    \item En utilisant l'inégalité précédente, montrer que
+    
+    \[ \forall x \in \bdR, \forall h \in \bdR, \quad f(x-h) \geq (1-h)f(x) \quad \text{puis} \quad \forall x \in \bdR, \forall h \in \left]-1;1\right[, \quad f(x+h) \leq \dfrac{1}{1-h}f(x)\]
+    
+    \boxans{
+        Soit $x \in \bdR$ et $h \in \bdR$. En utilisant l'inégalité précédente avec $-h$, on obtient $f(x+(-h))-f(x) \geq (-h)f(x)$ donc $f(x-h) \geq f(x)-hf(x)$, donc \boxsol{$\forall x \in \bdR, \forall h \in \bdR, \quad f(x-h) \geq (1-h)f(x)$}.
+        
+        Soit $x \in \bdR$ et $h \in \left]-1;1\right[$. On pose $x' = x+h$. On a $f(x'-h) \geq (1-h)f(x')$.
+        Or $h < 1$ donc $1-h > 0$ donc $\dfrac{1}{1-h}f(x+h-h)\geq f(x+h)$. Donc \boxsol{$\forall x \in \bdR, \forall h \in \left]-1;1\right[, \quad f(x+h) \leq \dfrac{1}{1-h}f(x)$}
+    }
+    
+    \item Soit $x_0$ un réel fixé. Établir la dérivabilité de $f$ à droite et à gauche en $x_0$ et vérifier que $f$ est dérivable en $x_0$ de dérivée $f(x_0)$.
+    
+    \boxans{
+        Soit $h \in \left]0;1\right[$. D'une part $f(x_0 + h) \leq \dfrac{1}{1-h}f(x_0)$ donc $f(x_0 + h) - f(x_0) \leq \dfrac{1-(1-h)}{1-h}f(x_0)$ donc $\dfrac{f(x_0 + h) - f(x_0)}{h} \leq \dfrac{1}{1-h}f(x_0)$.
+        D'autre part $hf(x_0) \leq f(x_0 + h) - f(x)$ donc $f(x_0) \leq \dfrac{f(x_0 + h) - f(x_0)}{h}$. Donc
+        \( f(x_0) \leq \dfrac{f(x_0 + h) - f(x_0)}{h} \leq \dfrac{1}{1-h}f(x_0) \).
+        Or $\lim \limits_{h\to 0}\left(\dfrac{1}{1-h}\right)=1$ donc d'après le théorème d'encadrement, \boxsol{$\lim \limits_{\substack{h\to 0\\h > 0}}\left(\dfrac{f(x_0 + h) - f(x_0)}{h}\right)=f(x_0)$}.
+        
+        Soit $h \in \left]-1;0\right[$. Similairement, \( f(x_0) \geq \dfrac{f(x_0 + h) - f(x_0)}{h} \geq \dfrac{1}{1-h}f(x_0) \), donc d'après le théorème d'encadrement, \boxsol{$\lim \limits_{\substack{h\to 0\\h < 0}}\left(\dfrac{f(x_0 + h) - f(x_0)}{h}\right)=f(x_0)$}. Donc \boxsol{$f$ est dérivable en $x_0$ de dérivée $f(x_0)$}.
+    }
+    
+    \item Conclure.
+    
+    \boxans{
+        La fonction $f$ définie sur $\bdR$ par $f(x) = \lim\limits_{n\to+\infty}\left(1+\dfrac{x}{n}\right)^n$ est solution de l'équation différentielle $y' = y$ sur $\bdR$ avec $f(0) = 1$. Ainsi définie, \boxsol{on a donc montré l'existence (et donc l'unicité) de la fonction exponentielle réelle}.
+    }
+    
+    \begin{itshape}
+        On a ainsi établi l'existence et l'unicité d'une solution de $y' = y$ et $y(0) = 1$.
+        
+        On appelle \underline{exponentielle réelle}, notée $\exp$ cette unique solution.
+        
+        On note $e = \exp(1)$ et pour $x$ réel $e^x = \exp(x)$ car la relation fonctionnelle $\forall (x,y) \in \bdR^2$, $\exp(x+y)=\exp(x)\exp(y)$ (cf partie A) coïncide avec les propriétés des exposants permet d'écrire sans confusion : \quad $\forall (x,y) \in \bdR^2$, $e^{x+y}=e^x e^y$
+    \end{itshape}
+    
+    \item Écrire un programme (langage ou pseudo-langage au choix) qui permet d'obtenir une valeur approchée de $e = exp(1)$ à $10^{-3}$ près. On utilisera le deuxième encadrement de la question 7.
+    
+    \boxans{
+        D'après le deuxième encadrement de la question 7, on a $e - u_n(1) \leq \dfrac{1}{nu_n(-1)}$. Dans un premier temps, on cherche donc $n > 1$ tel que $\dfrac{1}{nu_n(-1)} = \dfrac{1}{n\left(1-\frac{1}{n}\right)^n} < 10^{-3}$, puis on calcule $u_n(1)$.
+        
+    }
+    \text{}\\[-12mm]
+    \begin{code}{Python}{approx.py}
+precision = 3
+        
+# On calcule la valeur de n
+n, u_n, p = 1, 1, 10**(-precision)
+while u_n > p:
+    n += 1
+    u_n = 1 / (n * (1 - 1/n)**n)
+
+# On calcule et on affiche ensuite l'estimation de e
+print(f'e ~ {(1 + 1/n)**n/p//1*p}')
+    \end{code}
+    \text{}\\[-12mm] \boxans{
+    Le programme ci-dessus renvoie l'approximation \boxsol{$e \approx 2.718$}
+    }
+    
+    \begin{itshape}
+        Remarque : on sera capable, avec le cours de MP2I, de montrer que l'erreur dans cette approximation est majorée par $e/(2n)$ ce qui explique que la convergence est lente.
+    \end{itshape}
+
+\end{enumerate}
+
+\subsection*{Partie C - Une autre limite pour $e^x$}
+
+Pour $x \in \bdR$ et $n \in \bdN$, on note $\displaystyle f_n(x)=\sum_{k=0}^n \dfrac{x^k}{k!}$.
+
+\begin{enumerate}
+    \item Montrer, par étude de fonction, l'inégalité : \quad $\forall x \in \bdR$, $e^x \geq 1     + x$
+    
+        En déduire $\lim \limits_{x\to+\infty} e^x$ puis déterminer $\lim \limits_{x\to-\infty} e^x$
+    
+    \boxans{
+        la fonction $\exp$ est convexe sur $\bdR$, donc au dessus de toutes ses tangentes.
+        Sa tangente en $0$ est donnée par $y = \exp(0) + (x-0)\exp'(0) = 1 + x$. Donc \boxsol{$\forall x \in \bdR$, $e^x \geq 1 + x$}. Or $\lim \limits_{x\to+\infty} 1 + x = +\infty$.
+        Donc d'après le théorème de minoration, \boxsol{$\lim \limits_{x\to+\infty} e^x = +\infty$}. $\lim \limits_{x\to-\infty} e^x = \lim \limits_{x\to+\infty} \dfrac{1}{e^x}$ donc \boxsol{$\lim \limits_{x\to-\infty} e^x = 0$.}
+    }
+    
+    \item
+    \begin{enumerate}
+        \item Montrer que $P(x) = f_n(x) - (1+\frac{x}{n})^n$ est un polynôme en $x$ à coefficients positifs ou nuls (on pourra développer par la formule du binôme de Newton).
+        
+        \boxans{
+            Soit $x \in \bdR$. $\displaystyle P(x)=\sum_{k=0}^n \dfrac{x^k}{k!}-\sum_{k=0}^n \left(\dfrac{x}{n}\right)^k=\sum_{k=0}^n x^k\dfrac{x^k}{k!}-\dfrac{x^k}{n^k}$. Or $\forall k \in \llbracket0;n\rrbracket$, $k \leq n$, donc $k! \leq n^k$.
+            
+            Donc \boxsol{$\displaystyle P(x)=\sum_{k=0}^n x^k\lambda_k$, avec $\forall k \in \llbracket0;n\rrbracket$, \quad $\lambda_k = \dfrac{n^k-k!}{n^kk!} \geq 0$}
+        }
+        
+        \item En déduire que : \quad $\forall x \geq 0$, $\left(1 + \dfrac{x}{n}\right)^n \leq f_n(x)$.
+        
+        \boxans{
+            $P$ est un polynôme à coefficients positifs ou nuls, donc pour tout réel $x$ positif, $P(x)$ est positif, donc $f_n(x) - (1+\frac{x}{n})^n > 0$. Donc \boxsol{$\forall x \geq 0$, $\left(1 + \dfrac{x}{n}\right)^n \leq f_n(x)$}
+        }
+    \end{enumerate}
+    
+    \item
+    \begin{enumerate}
+        \item Établir que : \quad $\forall n \in \bdN$, $\forall x \geq 0$, $f_n(x) \leq e^x$. On pourra étudier les variations de $\exp - f_n$ sur $\bdR^+$.
+        
+        \boxans{
+            $\forall n \in \bdN$, \qquad on pose $P(n) : \forall x \geq 0$, \quad $e^x - f_n(x) \geq 0$. Pour $n_0 = 0$, $P(0)$ est immédiat.
+            
+            Soit $n \in \bdN$ tel que $P(n)$ est vrai. Sur $\bdR^+$, on pose $u=\exp - f_{n+1}$. La fonction $\exp$ est dérivable sur $\bdR^+$ et $f_{n+1}$ est un polynôme réel donc dérivable sur $\bdR^+$, donc $u$ est dérivable sur $\bdR^+$. Soit $x \in \bdR^+$, on a:
+            
+            \[  u'(x) = e^x - \sum_{k=1}^{n+1} \dfrac{kx^{k+1}}{k!} = = e^x - \sum_{k=0}^{n} \dfrac{(k+1)x^{k}}{(k+1)!} = e^x - \sum_{k=0}^n \dfrac{x^k}{k!} = e^x - f_n(x) \]
+            
+            Par hypothèse de récurrence, $u'(x) \geq 0$ donc $u$ est croissante sur $\bdR^+$, donc $u(x) \geq u(0)$.
+            
+            Or $\displaystyle u(0) = e^0 - \sum_{k=0}^{n+1} \dfrac{0^k}{k!} = 1 - 1 = 0$. Donc $e^x-f_{n+1} \geq 0$. donc $P(n+1)$ est vrai.
+            
+            $P(0)$ est vrai et $\forall n \in \bdN$, $\displaystyle P(n) \implies P(n+1)$ donc par récurrence, \boxsol{$\forall n \in \bdN$, $\forall x \geq 0$, $f_n(x) \leq e^x$}
+        }
+        
+        \item En déduire pour tout entier $p \in \bdN$, la limite $\lim\limits_{x\to+\infty} \dfrac{e^x}{x^p}$.
+        
+        \boxans{
+            Soit $p \in \bdN$ et $x \in \bdR^+$. $e^x \geq f_{p+1}(x)$ donc $\displaystyle \dfrac{e^x}{x^p} \geq \dfrac{\sum_{k=0}^{p+1} \dfrac{x^k}{k!}}{x^p}$ donc $\displaystyle \dfrac{e^x}{x^p} \geq \dfrac{x}{(p+1)!} + \sum_{k=0}^{p} \dfrac{x^{k-p}}{k!}$.
+            
+            Or $\displaystyle \lim\limits_{x\to+\infty}\left(\dfrac{x}{(p+1)!} + \sum_{k=0}^{p} \dfrac{x^{k-p}}{k!}\right) = \lim\limits_{x\to+\infty} \dfrac{x}{(p+1)!} + \lim\limits_{x\to+\infty} \sum_{k=0}^{p} \dfrac{x^{k-p}}{k!} = +\infty + 0 = +\infty$.
+            
+            D'après le théorème de minoration, on a donc \boxsol{$\lim\limits_{x\to+\infty} \dfrac{e^x}{x^p} = +\infty$}
+        }
+        
+        \item Déduire des deux encadrements précédents pour tout $x \geq 0$, on a $e^x = \lim\limits_{n\to+\infty} f_n(x)$
+        
+        \boxans{
+            Soit $x \in \bdR^+$. On a $\forall n\in \bdN$, \quad $\left(1 + \dfrac{x}{n}\right)^n \leq f_n(x) \leq e^x$. De plus $\lim\limits_{n\to+\infty} \left(1 + \dfrac{x}{n}\right)^n = e^x$.
+            
+            D'après le théorème d'encadrement, \boxsol{la limite de $f_n$ existe et est telle que $\lim\limits_{n\to+\infty} f_n(x) = e^x$}.
+        }
+    
+    \end{enumerate}
+    \item
+    \begin{enumerate}
+        \item Justifier que si $P$ est un polynôme à coefficients positifs, on a $\forall x \in \bdR$, $\mod{P(x)} \leq P(\mod x)$
+        
+        \boxans{
+            Soit $P \in \bdR[X]$, $n = \deg P$ et $\forall k \in \llbracket0;n\rrbracket$, $\lambda_k \in \bdR^+$ tel que $\displaystyle P = \lambda_nX^n + \dots + \lambda_1X +\lambda_0 = \sum_{k=0}^n \lambda_kX^k$.
+            
+            Soit $x \in \bdR$. $\displaystyle \mod{P(x)} = \mod{\sum_{k=0}^n \lambda_kx^k} \leq \sum_{k=0}^n \mod{\lambda_kx^k} = \sum_{k=0}^n \lambda_k\mod{x^k}$ donc \boxsol{$\forall x \in \bdR$, $\mod{P(x)} \leq P(\mod x)$}.
+            
+            
+        }
+        \item En déduire $\forall x \in \bdR$, $\forall n \in \bdN$, $\mod{f_n(x) - \left(1 + \dfrac{x}{n}\right)^n} \leq f_n(\mod x) - \left(1 + \dfrac{\mod x}{n}\right)^n$.
+        
+        \boxans{
+            $P(x) = f_n(x) - (1+\frac{x}{n})^n$ est un polynôme à coefficients positifs donc en appliquant le résultat précédent, on a de manière immédiate \boxsol{$\forall x \in \bdR$, $\forall n \in \bdN$, $\mod{f_n(x) - \left(1 + \dfrac{x}{n}\right)^n} \leq f_n(\mod x) - \left(1 + \dfrac{\mod x}{n}\right)^n$}.
+        }
+        
+        \item En déduire que $\forall x \in \bdR$, $\displaystyle e^x = \lim\limits_{n\to+\infty} \sum_{k=0}^n \dfrac{x^k}{k!}$ 
+        
+        
+        \boxans{
+            Le résultat a été montré plus haut pour $x \in \bdR^+$. Soit $x \in \bdR^-$ et $n \in \bdN$. On a :
+            
+            $\mod{f_n(x) - \left(1 + \dfrac{x}{n}\right)^n} \leq f_n(\mod x) - \left(1 + \dfrac{\mod x}{n}\right)^n$ donc $0 \leq \mod{f_n(x) - \left(1 + \dfrac{x}{n}\right)^n} \leq f_n(-x) - \left(1 + \dfrac{-x}{n}\right)^n$.
+            Or $\lim\limits_{n\to+\infty} \left( f_n(-x) - \left(1 + \dfrac{-x}{n}\right)^n\right)=e^{-x} - e^{-x}=0$.
+            Donc d'après le théorème d'encadrement, $\lim\limits_{n\to+\infty} \mod{f_n(x) - \left(1 + \dfrac{x}{n}\right)^n} = 0$ donc $\lim\limits_{n\to+\infty} \left(f_n(x) - \left(1 + \dfrac{x}{n}\right)^n\right) = 0$.
+            
+            Donc $\forall x \in \bdR^-, \lim\limits_{n\to+\infty} f_n(x) = e^x$, donc \boxsol{ $\forall x \in \bdR$, $\displaystyle e^x = \lim\limits_{n\to+\infty} \sum_{k=0}^n \dfrac{x^k}{k!}$ }.
+        }
+    \end{enumerate}
+    
+    \item Montrer que pour $x \geq 0$, on a $0 \leq e^x - f_n(x) \leq \dfrac{x^{n+1}}{(n+1)!}e^x$ (on pourra faire une étude de fonction).
+    
+    \boxans{
+        Le résultat $e^x - f_n(x) \geq 0$ a été montré. $\forall n \in \bdN$, on pose $P(n) : \forall x \geq 0$, $e^x - f_n(x) \leq \dfrac{x^{n+1}}{(n+1)!}e^x$.
+        
+        Pour $n_0 = 0$, $e^x-f_0(x)=e^x-1$ et $\dfrac{x^{0+1}}{(0+1)!}e^x = xe^x$. On a $e^x-1 \leq xe^x$ donc $P(0)$ est vrai. 
+        
+        Soit $n \in \bdN$ tel que $P(n)$ est vrai. Sur $\bdR^+$, on pose $u(x)=\dfrac{x^{n+2}}{(n+2)!}e^x -e^x + f_{n+1}$. La fonction $\exp$ est dérivable sur $\bdR^+$, $f_{n+1}$ est un polynôme réel donc dérivable sur $\bdR^+$, et la fonction $x \mapsto \dfrac{x^{n+2}}{(n+2)!}$ est dérivable sur $\bdR^+$ donc $u$ est dérivable sur $\bdR^+$. On a montré plus haut que $f_{n+1}' = f_n$. Soit $x \in \bdR^+$, on a :
+        
+        \( u'(x) = \dfrac{(n+2)x^{n+1}}{(n+2)!}e^x + \dfrac{x^{n+2}}{(n+2)!}e^x -e^x + f_n(x) \geq  \dfrac{x^{n+1}}{(n+1)!}e^x -e^x + f_n(x) \).
+        Par hypothèse de récurrence, $\dfrac{x^{n+1}}{(n+1)!}e^x \geq e^x - f_n(x)$ donc $\dfrac{x^{n+1}}{(n+1)!}e^x -e^x + f_n(x) \geq 0$ donc $u'(x) \geq 0$ donc $u(x)$ est croissante sur $\bdR^+$. Donc $u(x) \geq u(0)$. Or $u(0) = \dfrac{0^{n+2}}{(n+2)!}e^0 - e^0 - f_{n+1}(0) = 0 - 1 + 1 = 0$. Donc $\dfrac{x^{n+2}}{(n+2)!}e^x -e^x + f_{n+1} \geq 0$ donc $P(n+1)$ est vrai.
+        
+        $P(0)$ et $P(n)\implies P(n+1)$, donc par récurrence, \boxsol{$\forall x \in \bdR^+, \forall n \in \bdN, 0 \leq e^x - f_n(x) \leq \dfrac{x^{n+1}}{(n+1)!}e^x$}.
+    }
+    
+    \item En utilisant la question précédente, écrire un programme (dans le langage de votre choix) renvoyant une valeur approchée de $e$ à $10^{-3}$ près et commenter l'amélioration par rapport au programme écrit dans la partie précédente (B.13.)
+    
+    \boxans{
+        D'après la question précédente, on a $e-f_n(1)\leq \dfrac{1}{(n+1)!}e$. Comme $e$ figure dans les deux membres, et qu'on cherche à trouver $n > 0$ tel que $e-f_n(1) < 10^{-3}$, on majore $\dfrac{1}{(n+1)!}e$ par $\dfrac{4}{(n+1)!}$.
+    
+       Dans un premier temps, on cherche donc $n$ tel que $\dfrac{4}{(n+1)!} < 10^{-3}$, puis on calcule $f_n(1)$.\\
+       
+    }
+    \text{}\\[-13mm]
+    \begin{code}{Python}{approx2.py}
+precision = 3
+
+# On calcule récursivement la valeur de n
+n, r, p = 0, 4, 10**(-precision)
+while r > p:
+    n += 1
+    r /= (n+1)
+
+# On calcule récursivement l'approximation e
+e, f = 1, 1
+for k in range(1,n+1):
+    f *= k
+    e += 1/f
+    
+# On affiche l'estimation de e
+print(f'e ~ {e/p//1*p}')
+    \end{code}
+    \text{}\\[-13mm] \boxans{
+    Le programme ci-dessus renvoie l'approximation \boxsol{$e \approx 2.718$}.\\
+    
+    On constate une nette amélioration par rapport au programme écrit dans la partie précédente, celui-ci ayant nettement moins de calculs à faire : 
+    
+    D'une part la bonne valeur de $n$ est atteint bien plus rapidement ($n = 7$ ici, pour $n = 2719$ avec le programme précédent).
+    
+    D'autre part les calculs sont ici faits récursivement : à chaque itération de la boucle correspond toujours le même nombre d'opération (contrairement au programme précédent).
+    }
+\end{enumerate}
+\end{document}

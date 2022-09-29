@@ -1,0 +1,338 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+
+\stylizeDoc{Mathématiques}{Programme de khôlle 21}{Énoncés et
+résolutions}
+
+\section*{Séries numériques}
+
+\subsection*{Généralités}
+
+\begin{enumerate}
+    \ithand Définition d'une série de terme général $\suite{u_n}$. Suite des sommes partielles. Convergence et divergence. Définition de la somme et du reste d'une série dans le cas convergent.
+    
+    \ithand Lien suite-série (télescopique).
+    
+    \ithand Critère de convergence des séries géométriques et somme dans le cas convergent.
+    
+    \ithand Condition nécessaire de convergence. Notion de divergence grossière.
+
+    \ithand Opérations sur les séries convergentes : linéarité, conjugaison.
+\end{enumerate}
+
+\subsection*{Séries à termes positifs}
+
+\begin{enumerate}
+    \ithand Soit $\suite{u_n}$ une suite réelle à termes positifs. La série $\serie u_n$ converge ssi. la somme partielle est majorée (convergence monotone).
+    
+    \ithand Théorème de comparaison des séries à termes positifs $(\leq , \o{}{\cdot}, \O{}{\cdot}, \asymp)$.
+\end{enumerate}
+
+\subsection*{Comparaison série-intégrale}
+
+\begin{enumerate}
+    \ithand Cas d'une série $\serie f\left(n\right)$ où $f$ est une fonction à valeurs réelles positives continue et décroissante.
+    
+    \ithand La série $\serie f\left(n\right)$ et la suite $\suite{\int_0^nf\left(t\right)\dif t}$ ont la même nature.
+    
+    \ithand Séries de Riemann. Critère de convergence. Série harmonique et constante d'Euler.
+\end{enumerate}
+
+\subsection*{Séries absolument convergentes}
+
+\begin{enumerate}
+    \ithand Définition. La convergence absolue implique la convergence. Cas de $\serie \frac{\left(-1\right)^{n-1}}{n}$.
+    
+    \ithand Formule de Stirling $n! \asymp \sqrt{2\pi n} n^n e^{-n}$. 
+\end{enumerate}
+
+\subsection*{Compléments}
+
+\begin{enumerate}
+    \ithand Critère des séries alternées. Sommes géométriques et dérivées (première et seconde). Critère de d'Alembert.
+\end{enumerate}
+
+\questionsdecours
+
+\begin{enumerate}
+    \item Montrer que si une série $\serie u_n$ converge, alors la suite $\suite{u_n}$ converge vers $0$ et le reste $R_n$ tend vers $0$.
+    
+    Montrer qu'une suite $\suite{v_n}$ converge si et seulement si la série $\serie \left(v_{n+1} - v_n\right)$ converge.
+    
+    \noafter
+    %
+    \boxans{
+        \begin{property}{Condition nécessaire de convergence}{}
+            Soit une suite $\suite{u_n} \in \bdK^\bdN$. Si \hg{$\serie u_n$ converge}, alors \hg{$\suite{u_n}$ et la suite des restes $\suite{R_n}$ convergent vers $0$}.
+        \end{property}
+    }
+    %
+    \nobefore
+    %
+    \begin{nproof}
+        Soit une suite $\suite{u_n} \in \bdK^\bdN$ telle que $\serie u_n$ converge, donc telle que la suite des sommes partielles $\suite{S_n}$ converge. On pose $\ell = \sum\limits_{k=0}^{+\infty} u_k = \lim\limits_{n \to +\infty} S_n$ la somme de la série. On a :
+        %
+        \begin{center}
+            \( \displaystyle \forall n \in \bdN,\qquad S_n = \sum_{k=0}^{n} u_k \quad \text{donc}\quad u_{n+1} = S_{n+1} - S_n \qquad\et\qquad R_n = \sum_{k=n+1}^{+\infty} u_k = \sum_{k=0}^{+\infty} u_k - S_n = \ell - S_n \)
+        \end{center}
+        %
+        Donc en passant à la limite $u_{n+1} \lima{n \to +\infty} \ell - \ell = 0$ et $R_n \lima{n \to +\infty} \ell - \ell = 0$.
+        
+        Donc les suites $\suite{u_n}$ et $\suite{R_n}$ convergent vers $0$.
+    \end{nproof}
+    %
+    \boxans{
+       \begin{property}{Lien suite-série par télescopage}{}
+        Soit une suite $\suite{u_n} \in \bdK^\bdN$. \hg{$\serie \left(u_{n+1} - u_n\right)$} converge si et seulement si \hg{$\suite{u_n}$ converge}.
+    \end{property}
+    } 
+    %
+    \yesafter
+    %
+    \begin{nproof}
+        Soit une suite $\suite{u_n} \in \bdK^\bdN$. On note $\suite{S_n}$ les sommes partielles de la série $\serie \left(u_{n+1} - u_n\right)$.
+        %
+        \[ \forall n \in \bdN,\qquad S_n = \sum_{k=0}^n \left(u_{k+1} - u_k\right) = \sum_{k=0}^n u_{k+1} - \sum_{k=0}^n = \sum_{k=1}^{n+1} u_k - \sum_{k=0}^n u_k = u_{n+1} - u_0 \]
+        %
+        \begin{enumerate}
+            \itt $\boxed{\implies}$ Si la suite $\suite{u_n}$ converge, alors la suite $\suite{S_n}$ converge donc la série converge.
+            
+            \itt $\boxed{\impliedby}$ Réciproquement, si la suite $\suite{S_n}$ converge vers $\ell' \in \bdK$, alors par l'égalité précédente $\suite{u_{n+1} - u_0}$ converge vers $\ell'$ donc $\suite{u_n}$ converge vers $\ell' + u_0$.
+        \end{enumerate}
+    \end{nproof}
+    %
+    \yesbefore
+
+    \item Nature de la série géométrique et valeur de la somme et du reste dans le cas convergent $\mod{q} < 1$.
+    
+    \noafter
+    %
+    \boxans{
+        \begin{theorem}{Nature et somme des séries géométriques}{}
+            Soit $q \in \bdK$. \hg{La série $\serie q^n$ converge} si et seulement si \hg{$\mod{q} < 1$}. Dans ce cas :
+            %
+            \[ \hg{\sum_{n=0}^{+\infty} q^n = \dfrac{1}{1-q}} \qquad\text{et le reste donne}\qquad \forall n \in \bdN,\qquad \hg{R_n = \dfrac{q^{n+1}}{1-q}} \]
+        \end{theorem}
+    }
+    %
+    \nobefore\yesafter
+    %
+    \begin{nproof}
+        Soit $q \in \bdK$. Pour tout $n \in \bdN$, La somme partielle $S_n = \displaystyle\sum_{k=0}^n q^k = \left\lbrace\begin{array}{rc}
+            \dfrac{1-q^{n+1}}{1-q} &\text{si} \ q \neq 1  \\
+            n+1 &\text{si} \ q = 1 
+        \end{array}\right.$.
+        
+        On a $\lim\limits_{n \to +\infty} n + 1 = + \infty$ donc la série diverge si $q = 1$. Par ailleurs, $\dfrac{1-q^{n+1}}{1-q} = \dfrac{1}{1-q} - \dfrac{q^{n+1}}{1-q}$.
+        
+        Or $\dfrac{q^{n+1}}{1-q}$ converge si et seulement si $\mod{q} < 1$, donc la série converge si et seulement si $\mod{q} < 1$.
+        
+        Dans ce cas, $\dfrac{q^{n+1}}{1-q} \lima{n \to +\infty} 0$ donc $S_n \lima{n \to +\infty} \dfrac{1}{1-q}$. On obtient facilement l'expression du reste :
+        %
+        \[ \forall n \in \bdN,\qquad R_n = \sum_{n=0}^{+\infty} q^n - S_n = \dfrac{1}{1-q} - \left(\dfrac{1}{1-q} - \dfrac{q^{n+1}}{1-q}\right) = \dfrac{q^{n+1}}{1-q} \]
+    \end{nproof}
+    %
+    \yesbefore
+    
+    \item Énoncé du théorème de comparaison $(\leq , \o{}{\cdot}, \O{}{\cdot}, \asymp)$ pour les séries à termes positifs.
+    
+    \boxans{
+        \begin{theorem}{Théorème de comparaison des séries à termes positifs}{}
+            Soient $\left(\suite{u_n}, \suite{v_n}\right) \in \left({\bdR_+}^\bdN\right)^2$ deux suites à termes positifs.
+            
+            \begin{enumerate}
+                \ithand \hg{$\suite{0 \leq u_n \leq v_n}$ \textit{APCR} et $\left\lbrace\begin{array}{lcl}
+                    \serie u_n \ \text{diverge} &\implies& \serie v_n \ \text{diverge}   \\
+                    \serie v_n \ \text{converge} &\implies& \serie u_n \ \text{converge}   \\
+                \end{array}\right.$} ;
+                
+                \ithand \hg{$u_n = \left\lbrace\begin{array}{c}
+                    \o{n \to +\infty}{v_n} \\
+                    \O{n \to +\infty}{v_n}
+                \end{array}\right.$ et $\serie v_n$ converge $\implies \serie u_n$ converge} ;
+                
+                \ithand \hg{$u_n \asymp{n \to +\infty} v_n \implies \serie u_n$ et $\serie v_n$ sont de même nature};
+            \end{enumerate}
+        \end{theorem}
+    }
+    
+    \item Soit $f : \bdR_+ \to \bdR_+$ une fonction continue et décroissante.
+    
+    Montrer que la série $\serie f\left(n\right)$ converge si et seulement si la suite $\suite{\int_0^n f\left(t\right)\dif t}$ converge.
+    
+    \noafter
+    %
+    \boxans{
+        \begin{corollary}{Théorème de comparaison entre série et intégrale}{}
+            Soit $f \in \bcC\left(\bdR_+, \bdR_+\right)$ une fonction \textit{décroissante}.
+            
+            La série \hg{$\serie f\left(n\right)$ converge} si et seulement si \hg{la suite $\suite{\displaystyle \int_0^n f\left(t\right)\dif t}$ converge}.
+        \end{corollary}
+    }
+    %
+    \nobefore\yesafter
+    %
+    \begin{nproof}
+        Soit $f \in \bcC\left(\bdR_+, \bdR_+\right)$ une fonction \textit{décroissante}. Par décroissance, on a :
+        %
+        \[ \forall n \in \bdN,\qquad f\left(n\right) \geq \int_{n}^{n+1} f\left(t\right)\dif t \geq f\left(n+1\right) \qquad\text{donc par Chasles}\qquad \sum_{k=0}^{n-1} f\left(k\right) \geq \int_0^{n} f\left(t\right)\dif t \geq \sum_{k=1}^{n} f\left(n\right) \]
+        %
+        En notant $S_n$ la somme partielle de rang $n$, on a $S_n - f\left(n\right) \geq \displaystyle \int_0^{n} f\left(t\right)\dif t \geq S_n - f\left(0\right)$. 
+        
+        \begin{enumerate}
+            \itt Si la série $\serie f\left(n\right)$ converge, $S_n$ converge, donc $S_n - f\left(n\right)$ est majoré par décroissance de $f$.
+            
+            Donc $\displaystyle \int_0^{n} f\left(t\right)$ est majoré, et par positivité de $f$, on obtient la croissance de $\suite{\displaystyle \int_0^{n} f\left(t\right)}$.
+            
+            Donc par théorème de convergence monotone,  $\suite{\displaystyle \int_0^n f\left(t\right)\dif t}$ converge.
+        
+            \itt Si $\suite{\displaystyle \int_0^n f\left(t\right)\dif t}$ converge, alors on majore $S_n - f\left(0\right)$, et donc $S_n$.
+            
+            Puisque $f$ est positive, $\suite{S_n}$ est croissante donc par théorème de convergence monotone, la suite $\suite{S_n}$ converge, donc la série $\serie f\left(n\right)$ converge.
+        \end{enumerate}
+    \end{nproof}
+    %
+    \yesbefore
+    
+    \item Montrer que la suite de terme général $\left(\displaystyle \sum_{k=0}^n \dfrac{1}{k} - \ln n\right)_{n \geq 1}$ est convergente.
+    
+    En déduire $\displaystyle \sum_{k=1}^n \dfrac{1}{k} \eq{n \to +\infty} \ln n + \gamma + \o{}{1}$.
+    
+    \boxans{
+        On pose la suite $\suite{u_n}$ telle que pour tout entier $n \in \bdN$, on a $u_n = H_n - \ln n = \displaystyle\sum_{k=0}^n \dfrac{1}{k} - \ln n$.
+        
+        \[\forall n \in \bdN,\qquad u_{n+1} - u_n = \dfrac{1}{n+1} - \ln{n+1} + \ln n = \dfrac{1}{n+1} - \ln{\dfrac{n+1}{n}} = \dfrac{1}{n+1} - \ln{1 + \dfrac{1}{n}} \]
+        
+        Lorsque $n$ tends vers $+\infty$, $\dfrac{1}{n}$ tends vers $0$, donc on a les développements polynomiaux :
+        %
+        \[ \left\lbrace\begin{array}{rl}
+            \ln{1 + \dfrac{1}{n}} &\eq{n \to +\infty} \dfrac{1}{n} - \dfrac{1}{2n^2} + \o{}{\dfrac{1}{n^2}} \\[10pt]
+            \dfrac{1}{n+1} = \dfrac{1}{n\left(1 + \frac{1}{n}\right)} = \dfrac{1}{n}\times\dfrac{1}{1+\frac{1}{n}} &\eq{n \to +\infty} \dfrac{1}{n}\left(1 - \dfrac{1}{n} + \o{}{\dfrac{1}{n}}\right)
+        \end{array}\right. \]
+        %
+        Donc $u_{n+1} - u_n \eq{n \to +\infty} \dfrac{1}{n} - \dfrac{1}{n^2} - \dfrac{1}{n} + \dfrac{1}{2n^2} + \o{}{\dfrac{1}{n^2}} = -\dfrac{1}{2n^2} + \o{}{\dfrac{1}{n^2}}$. Donc $u_{n+1} - u_n \asymp{n \to +\infty} -\dfrac{1}{n^2}$.
+        
+        Donc la suite $\suite{u_n - u_{n+1}}$ est à terme positif à partir d'un certain rang.
+        
+        Par comparaison avec la série de Riemann de paramètre $2$, \ie $\serie \dfrac{1}{n^2}$, qui est convergente par critère des séries de Riemann, la série $\serie u_{n+1} - u_n$ converge. Par télescopage, la suite $\suite{u_n}$ converge.
+        
+        On pose $\gamma = \lim\limits_{n \to +\infty} u_n$. Or $u_n = H_n - \ln n$ donc $H_n = u_n + \ln n$. 
+        
+        On a $u_n \eq{n \to +\infty} \gamma + \o{}{1}$ donc $H_n \eq{n \to +\infty} \ln n + \gamma + \o{}{1}$.
+    }
+    
+    \item Montrer le critère des séries de Riemann $\sum\limits_{n \in \bdN^*} \dfrac{1}{n^\alpha}$.
+    
+    \noafter
+    %
+    \boxans{
+        \begin{theorem}{Critère des séries de Riemann}{}
+            Soit $\alpha \in \bdR$. La série de Riemann de paramètre $\alpha$ \hg{$\serie \dfrac{1}{n^\alpha}$ converge} si et seulement si \hg{$\alpha > 1$}.
+        \end{theorem}
+    }
+    %
+    \yesafter\nobefore
+    %
+    \begin{nproof}
+        Soit $\alpha \in \bdR$. On procède par disjonction de cas. Pour montrer d'abord le sens direct.
+        \begin{enumerate}
+            \itt Si $\alpha \leq 0$ la série diverge grossièrement.
+            
+            \itt Si $\alpha=1$ la série correspond à la série harmonique donc la série diverge.
+            
+            \itt Si $\alpha>0$ avec $\alpha \neq 1$, la fonction $x\mapsto \dfrac{1}{x^\alpha}$ est continue et décroissante sur $\bdRp$. La somme partielle donne :
+            
+            \[ \forall n \in \bdN,\qquad S_n = \sum_{k=1}^n \dfrac{1}{k^\alpha} \qquad\text{donc}\qquad S_n - 1 \leq \int_1^n \dfrac{\dif t}{t^\alpha} \leq S_n - \dfrac{1}{n^\alpha} \]
+            
+            Soit $n \in \bdN$. On a $\displaystyle \int_1^n \dfrac{\dif t}{t^\alpha} = \dfrac{n^{1 - \alpha} - 1}{1 - \alpha}$. On distingue alors deux cas :
+            
+            \begin{enumerate}
+                \itstar Si $\alpha > 1$, alors $\lim\limits_{n \to +\infty} \displaystyle \int_1^n \dfrac{\dif t}{t^\alpha} = \dfrac{1}{\alpha - 1}$,  donc $S_n - 1$ est majoré.
+                
+                Or $n \to \dfrac{1}{n^\alpha}$ est toujours positive pour $n \in \bdN$, donc $\suite{S_n}$ est croissante. Par théorème de convergence monotone, la série converge.
+                
+                \itstar Si $\alpha < 1$, alors $\lim\limits_{n \to +\infty} \displaystyle \int_1^n \dfrac{\dif t}{t^\alpha} = +\infty$. Par minoration, $S_n - \dfrac{1}{n^\alpha}$ diverge.
+                
+                Or $ \dfrac{1}{n^\alpha}$ converge tout de même, donc $S_n$ diverse. En cela, la série diverge.
+            \end{enumerate}
+        \end{enumerate}
+        
+        Donc si $\alpha > 1$, alors la série converge. De plus si $\alpha < 1$, alors la série diverge, donc par contraposée, si la série converge, alors $\alpha > 1$. On obtient bien le sens réciproque.
+    \end{nproof}
+    %
+    \yesbefore
+    
+    \item Montrer que la série $\sum\limits_{n \geq 1} \frac{(-1)^n}{n}$ converge mais ne converge pas absolument.
+    
+    \boxans{
+        On considère la suite $\suiteZ{u_n} = \suite{\dfrac{1}{n}}$. La suite $\suite{u_n}$ est positive, décroissante et de limite nulle.
+        
+        Par critère des séries alternées, la série $\sum\limits_{n \geq 1} \left(-1\right)^n u_n = \sum\limits_{n \geq 1} \dfrac{\left(-1\right)^n}{n}$ est convergente.
+        
+        On remarque que $\sum\limits_{n \geq 1} u_n = \sum\limits_{n \geq 1} \dfrac{1}{n}$ correspond à la série harmonique $H_n$.
+        
+        Puisque la suite $\suiteZ{\displaystyle \int_1^n \dfrac{\dif t}{t}} = \suiteZ{\ln{n}}$ diverge, alors $H_n$ diverge également.
+        
+        Donc la série $\sum\limits_{n \geq 1} \dfrac{(-1)^n}{n}$ converge mais ne converge pas absolument.
+    }
+    
+    \item Montrer qu'il existe $K > 0$ tel que $n! \asymp{n \to +\infty} K \sqrt{n} n^n e^{-n}$ (on ne montrera pas que $K=\sqrt{2\pi}$).
+    
+    \boxans{
+        On pose la suite $\suite{u_n}$ telle que pour tout entier naturel $n \in \bdN$, on a $u_n = \dfrac{n!}{\sqrt{n}n^ne^{-n}}$.
+        
+        On pose également la suite $\suite{v_n} = \suite{\ln{u_n}}$. Soit $n \in \bdN$, on a :
+        %
+        \[ v_{n+1} - v_n = \ln{\dfrac{u_{n+1}}{u_n}} \qquad\et\qquad \dfrac{u_{n+1}}{u_n} = \dfrac{\left(n+1\right)!\sqrt{n}n^ne^{-n}}{n!\sqrt{n+1}\left(n+1\right)^{n+1}e^{-\left(n+1\right)}} = e\left(\dfrac{n}{n+1}\right)^{n + \frac{1}{2}} \]
+        %
+        Donc $v_{n+1} - v_n = \ln{e} + \left(n + \dfrac{1}{2}\right)\ln{\dfrac{n}{n+1}} = 1 - \left(n + \dfrac{1}{2}\right)\ln{\dfrac{n+1}{n}} = 1 - \left(n + \dfrac{1}{2}\right)\ln{1 + \dfrac{1}{n}}$. 
+        
+        Or $\dfrac{1}{n} \lima{n \to +\infty} 0$ donc on a le développement limité $\ln{1 + \dfrac{1}{n}} \eq{n \to +\infty} \dfrac{1}{n} - \dfrac{1}{2n^2} + \dfrac{1}{3n^3} + \o{}{\dfrac{1}{n^3}}$. Donc :
+        %
+        \[ v_{n+1} - v_n \eq{n \to +\infty} 1 - \left(1 + \dfrac{1}{2n} - \dfrac{1}{2n} - \dfrac{1}{4n^2} + \dfrac{1}{3n^2} + \dots + \o{}{\dfrac{1}{n^2}}\right) = -\dfrac{1}{12n^2} + \o{}{\dfrac{1}{n^2}} = \O{}{\dfrac{1}{n^2}}\]
+        
+        Par comparaison avec une série de Riemann convergente, $\serie v_{n+1} - v_n$ converge donc $\suite{v_n}$ converge. Par continuité et positivité de l'exponentielle, $\suite{u_n}$ converge vers $K > 0$. Donc $n! \asymp{n \to +\infty} K \sqrt{n} n^n e^{-n}$.
+    }
+    
+    \item Montrer que si $\displaystyle S_n = \sum_{k=0}^n (-1)^k a_k$ et si la suite $\suite{a_n}$ est positive, décroissante et de limite nulle, alors la suite $\suite{S_n}$ converge.
+    
+    \noafter
+    %
+    \boxans{
+        \begin{theorem}{Critère des séries alternées}{}
+            Soit une suite $\suite{u_n} \in \bdR^\bdN$.
+            
+            Si la suite \hg{$\suite{u_n}$ est positive, décroissante et de limite nulle}, alors \hg{la série $\serie \left(-1\right)^n u_n$ converge}.
+        \end{theorem}
+    }
+    %
+    \nobefore\yesafter
+    %
+    \begin{nproof}
+        Soit une suite $\suite{u_n} \in \bdR^\bdN$ telle que $\suite{u_n}$ est positive, décroissante et de limite nulle. On étudie la suite des sommes partielles $\suite{S_n}$. Pour cela, on étudie séparément les sous suites des rangs pairs $\suite{S_{2n}}$ et impairs $\suite{S_{2n+1}}$.
+        
+        Soit $n \in \bdN$, on a $S_n = \displaystyle\sum_{k=0}^n \left(-1\right)^n u_n$. De plus :
+        
+        \begin{enumerate}
+            \itt $S_{2n+1} - S_{2n} = -u_{2n+1}$ et par hypothèse $\suite{u_n}$ tends vers $0$ donc la différence entre les deux sous-suites tend vers $0$.
+            
+            \itt $S_{2n+2} - S_{2n} = u_{2n+2} - u_{2n+1}$. Or $\suite{u_n}$ est décroissante par hypothèse, donc $u_{2n+2} < u_{2n+1}$, donc $\suite{S_{2n}}$ est décroissante.
+            
+            \itt $S_{2n+3} - S_{2n+1} = u_{2n+2} -u_{2n+3}$. Or $\suite{u_n}$ est décroissante par hypothèse, donc $u_{2n+2} > u_{2n+3}$, donc $\suite{S_{2n+1}}$ est croissante.
+        \end{enumerate}
+        
+        Les deux sous-suites sont donc adjacentes, donc de limite commune. On remarque que :
+        %
+        \[ \left\{ 2n \ \middle\vert  \ n \in \bdN \right\} \cup \left\{ 2n +1 \ \middle\vert  \ n \in \bdN \right\} = \bdN\]
+        %
+        La propriété est donc valable pour $\suite{S_n}$ (la suite converge), et donc la série converge.
+    \end{nproof}
+        
+
+\end{enumerate}
+
+\end{document}

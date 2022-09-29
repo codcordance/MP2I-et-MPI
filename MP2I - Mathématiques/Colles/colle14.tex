@@ -1,0 +1,240 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\moretikzsetup
+
+\renewcommand{\thesubsection}{\Roman{subsection}.}
+\begin{document}
+
+\stylizeDoc{Mathématiques}{Programme de khôlle 14}{Énoncés et résolutions}
+
+\section*{Matrices - Calcul matriciel}
+
+\begin{enumerate}
+    \ithand Définition d’une matrice à $n$ lignes et $p$ colonnes à coefficients dans $\bdK$. Représentation.
+    
+    \ithand Matrices lignes, colonnes. Matrices carrées, matrice identité, matrices diagonales, matrices triangulaires supérieures ou inférieures.
+    
+    \ithand Matrices élémentaires $E_{k, \ell}$ de terme général $(\delta_{i, k}\delta_{j, l})_{(i, j) \in \llbracket 1, n\rrbracket \times \llbracket 1, p\rrbracket}$ pour $(k, \ell) \in \llbracket 1, n\rrbracket \times \llbracket 1, p\rrbracket$.
+    
+    \ithand Combinaisons linéaires de matrices en général. Combinaison linéaire des matrices élémentaires pour générer toutes les matrices, les matrices diagonales, les matrices triangulaires.
+    
+    \ithand Produit matriciel. Définition. Produit d’une matrice par une colonne. Ecriture matricielle d’un système linéaire. Produit de matrices élémentaires.
+    
+    \ithand  Propriétés du produit : associativité, élément neutre, distributivité à gauche et à droite par rapport à l’addition, multiplication par un scalaire.
+    
+    \ithand Structure d’anneau (non commutatif, non intègre) de $(\bcM_n(\bdK), +, \times)$ :
+    
+    \begin{enumerate}
+        \itstar Puissances de matrices carrées. Formule du binôme, $(AB)^m$ et $A^m - B^m$ pour deux matrices qui commutent.
+        
+        \itstar Matrices inversibles. Groupe linéaire $GL_n(\bdK)$. Inverse d’un produit de matrice carrées inversibles. Caractérisation des matrices inversibles : équivalence entre inverse, inverse à droite et inverse à gauche (admis provisoirement).
+        
+        \itstar Calcul de l’inverse d’une matrice par résolution du système linéaire $AX = Y$.
+        
+        \itstar Sous-anneau des matrices diagonales. Critère d’inversibilité.
+        
+        \itstar Sous-anneau des matrices triangulaires supérieures. Critère d’inversibilité.
+    \end{enumerate}
+    
+    \ithand Calcul de l’inverse d’une matrice. Algorithme du pivot de Gauss. Correction de l’algorithme via les matrices codant les opérations élémentaires $L_i \longleftrightarrow L_j$, $L_i \longleftarrow \lambda L_i$ (avec $\lambda \neq 0$), $L_i \longleftarrow L_i + \mu L_j$.
+    
+    \ithand Transposition. Linéarité de $A \mapsto {}^t A$, bijection de $\bcM_{n,p}(\bdK)$ sur $\\bcM_{p,n}(\bdK)$.
+    
+    Matrices symétriques et antisymétriques. Toute matrice de $\bcM_n(\bdK)$ s’écrit de façon unique comme la somme d’une matrice symétrique et d’une matrice antisymétrique. Transposée d’un produit. Transposée et matrice inverse.
+    
+    \ithand Trace d’une matrice carrée et propriétés.
+
+\end{enumerate}
+
+\section*{Questions de cours}
+
+\begin{enumerate}
+    \item Polynômes de Tchebychev : en admettant l’existence d’une famille $\suite{T_n}$ de polynômes tel que $T_n$ est de degré $n$, de coefficient dominant $2^{n-1}$, à coefficients entiers et vérifiant $\forall \theta \in \bdR,\qquad \cos \theta = \cos{n\theta}$. Résoudre $T_n(x) = 0$ sur $[-1, 1]$ et en déduire les racines et une factorisation de $Tn$.
+    
+    \boxans{
+        Soit $n \in \bdR$. Cherchons les racines de $T_n$. On a $T_n$ de degré $n$ donc $T_n$ a au plus $n$ racines.
+        
+        Cherchons alors $n$ racines distinctes dans $]-1, 1[$. Soit $\theta \in ]0; \pi[$, on a $\cos(n\theta) \in ]-1; 1[$.
+        
+        Cherchons les $\theta$ tels que $T_n(\cos \theta) = 0$, c'est-à-dire $\cos(n\theta) = 0$. On a alors :
+        
+        \[n\theta \equiv \dfrac{\pi}{2} \ [\pi] \qquad\text{donc}\qquad \exists k \in \bdN \qquad\text{donc}\qquad n\theta =  k\pi + \dfrac{\pi}{2} \qquad\text{donc}\qquad \theta = \dfrac{(2k+1)\pi}{2n}\]
+        
+        La fonction $\cos$ est bijective de $]0; \pi[$ sur $]-1; 1[$, et l'on a les équivalences suivantes :
+        
+        \[ \theta \in ]0; \pi[ \iff 0 < \dfrac{(2k+1)\pi}{2n} < \pi \iff -1 < k < n-1 \iff 0 \leq k \leq n-1\]
+        
+        Donc \boxsol{$\forall k \in \llbracket0, n-1\rrbracket, \qquad \cos{\dfrac{(2k+1)\pi}{2n}} \in ]-1;1[$ est racine de $T_n$}. $T_n$ est alors scindé sur $\bdR$, ces $n$ racines étant toutes distinctes et $T_n$ étant de degré $n$. En vertu de cela, on obtient finalement la factorisation :
+        
+        \[ \boxsol{$T_n = 2^{n-1}\displaystyle\prod_{k=0}^{n-1}\left(X - \cos{\dfrac{(2k+1)\pi}{2n}}\right)$} \]
+    }
+    
+    \newpage
+    
+    \item Factoriser $P = 1 + X^2 + X^4 + \dots + X^{2n - 2}$ dans $\bdC[X]$ et dans $\bdR[X]$. 
+    
+    \boxans{
+        Pour $X \neq 1$, on a par somme géométrique $P = 1 + X^2 + X^4 + \dots + X^{2n - 2} = \sum_{k=0}^{n-1} \displaystyle \left(X^2\right)^{k} = \dfrac{X^{2n}-1}{X^2-1}$.
+        \[ \dfrac{X^{2n}-1}{X^2-1} = 0 \iff X^{2n} = 1 \land X^2 \neq 1 \iff X \in \bdU_{2n}\backslash\{1, -1\} \iff \exists k \in \llbracket 1, 2n-1\rrbracket\backslash\{\sfrac{n}{2}\}, \ X = e^{\sfrac{2ik \pi}{2n}}\]
+        On a $\deg(P) = 2n-1$ racines distinctes et $P$ unitaire, d'où \boxsol{$\displaystyle P = \prod_{1\leq k \leq 2n-1, k \neq \sfrac{n}{2}} \left(X - e^{\sfrac{ik\pi}{n}}\right)$}.
+        
+        On a la factorisation avec les racines conjuguées $P = \prod_{k=1}^{n-1}\left(X-e^{\sfrac{ik\pi}{n}}\right)\left(X-\overline{e^{\sfrac{ik\pi}{n}}}\right)$, et donc en développant ce produit on obtient la factorisation dans $\bdR$ : \boxsol{$P = \displaystyle\prod_{k=1}^{n-1} \left(X^2 - 2\cos{\sfrac{k\pi}{n}} + 1\right)$}.
+    }
+    
+    \item Montrer que pour $A \in \bcM_{n,p}(\bdK)$, $B \in \bcM_{p,q}(\bdK)$ et $C \in \bcM_{q,r}(\bdK)$, on a $(AB)C$ = $A(BC)$.
+    
+    \boxans{
+        On a $AB \in \bcM_{n, q}(\bdK)$ d'où $(AB)C \in \bcM_{n, r}(\bdK)$. De plus $BC \in \bcM_{p, r}(\bdK)$, d'où $A(BC) \in \bcM_{n, r}(\bdK)$. Alors : 
+        \begin{align*}
+            \forall (i, j) \in \llbracket 1 , n\rrbracket \times \llbracket 1, r\rrbracket, \qquad [(AB)C]_{i, j} &= \sum_{k=1}^{q} [AB]_{i, k}[C]_{k, j} = \sum_{k=1}^{q}\left(\sum_{\ell=1}^{p}[A]_{i, \ell}[B]_{\ell, k}\right)[C]_{k, j}\\
+            &= \sum_{\ell=1}^{p}[A]_{i, \ell}\left(\sum_{k=1}^q [B]_{\ell, k}[C]_{k, j}\right) = \sum_{\ell = 1}^{n} [A]_{i, \ell}[BC]_{\ell, j} = [A(BC)]_{i, j}\\
+            &\text{On obtient donc bien \boxsol{$(AB)C = A(BC)$}.}
+        \end{align*}
+    }
+    
+    \item Montrer que le produit de deux matrices triangulaires supérieures de $\bcM_n(\bdK)$ est une matrice triangulaire supérieure.
+    
+    \boxans{
+        Soient deux matrices triangulaires supérieurs $(A, B) \in \bcT_{n}^+(\bdK)^2$. Montrons que $AB \in \bcT_{n}^+(\bdK)$. On a :
+        \[\forall (i, j) \in \llbracket 1, n\rrbracket^2, \qquad i < j \implies [A]_{i, j} = [B]_{i, j} = 0\]
+        On a $(A, B) \in \bcM_n(\bdK)^2$ d'om $AB \in \bcM_n(\bdK)$. Montrons que $\forall (i, j) \in \llbracket 1, n\rrbracket^2, \qquad i < j \implies [AB]_{i, j} = 0$.
+        \[ \forall (i, j) \in \llbracket 1, n\rrbracket^2, \qquad [AB]_{i, j} = \sum_{k=1}^{n} [A]_{i, k}[B]_{k, j} = \sum_{k=1}^{j-1}[A]_{i, k}\underbrace{[B]_{k, j}}_{=0} + \sum_{k=j}^{n}[A]_{i, k}[B]_{k, j} = \sum_{k=j}^{n}[A]_{i, k}[B]_{k, j}\]
+        Donc $\forall (i, j) \in \llbracket 1, n\rrbracket^2, \qquad i < j \implies \left(\forall k \in \llbracket j, n\rrbracket, \ k \geq j \implies i < k \implies [A]_{i, k} = 0\right) \implies [AB]_{i, j} = 0$.
+        
+        Donc finalement \boxsol{$AB \in \bcT_{n}^+(\bdK)$}.
+    }
+    
+    \item Définition de la transposée d’une matrice de $\bcM_{n,p}(\bdK)$. Montrer que $^t(AB) = ^tB \times {}^tA$.
+    
+    \begin{definition*}{Transposée d'une matrice}{}
+        On appelle \bf{transposée de $A \in \bcM_{n, p}(\bdK)$} la matrice $\hg{^tA \in \bcM_{p, n}(\bdK)}$ telle que \[\hg{\forall (i, j) \in \llbracket 1, n\rrbracket \times \llbracket 1, p\rrbracket,\ [A]_{i, j} = [^tA]_{j, i}}\]
+        
+        On peut voir la transposée d'une matrice comme son symétrique par rapport à l'axe diagonal :
+
+\[\begin{array}{c}
+        {} \\
+        {} \\
+        {} \\
+        {}
+        \end{array}^t\begin{pNiceMatrix}
+\CodeBefore [create-cell-nodes]
+    \tikz {
+        \draw[-, dashed, line width=0.35mm, line cap=round, main1!65] ([xshift=-6pt,yshift=3pt]1-1.north west) -- ([xshift=6pt,yshift=-3pt]4-5.south east);
+        \draw[gradientarrow={0.35pt}{main1}{main5}] ([xshift=0pt,yshift=-5pt]4-5.south east) to[bend left=90,looseness=2] ([xshift=6pt,yshift=0pt]4-5.south east); 
+    }
+\Body
+    a_{1,1} & \Cdots & \Cdots & a_{1,j} & a_{1,p}  \\
+        \Vdots &  & & \vdots  & \Vdots \\
+        a_{i, 1} & \cdots & \cdots & a_{i, j} & a_{i, p}\\
+        a_{n, 1} & \Cdots & \Cdots &  a_{n, j} & a_{n, p}
+\end{pNiceMatrix} = \begin{pNiceMatrix}
+a_{1,1} & \Cdots & a_{i, 1} & a_{n, 1}\\
+\Vdots & & \vdots & \Vdots\\
+\Vdots & & \vdots & \Vdots\\
+a_{1, j} & \cdots & a_{i, j} & a_{n, j}\\
+a_{1,p} & \Cdots & a_{i, p} & a_{n, p}\\
+\end{pNiceMatrix}\]
+    \end{definition*}
+    
+    \begin{property*}{Transposée d'un produit}{}
+        \[ \hg{\forall A \in \bcM_{n, p}(\bdK), \qquad \forall B \in \bcM_{p, q}(\bdK),\qquad {}^t(AB) = ^tB \times {}^tA}\]
+    \end{property*}
+    
+    \demo{
+        Soit $A \in \bcM_{n, p}(\bdK)$ et $B \in \bcM_{p, q}(\bdK)$. On a $^t B \times {}^t A \in \bcM_{q, n}(\bdK)$ et $^t(AB) \in \bcM_{q, n}(\bdK)$ et :
+        
+        \[\forall (i, j) \in \llbracket 1, q\rrbracket\times\llbracket1, n\rrbracket,\qquad \left[{}^t(AB)\right]_{i, j} = [AB]_{j, i} = \sum_{k=1}^{p} [A]_{j, k}[B]_{k, i} = \sum_{k=1}^{p} \left[{}^tB\right]_{i, k}\left[{}^tA\right]_{k, j} = \left[{}^tB \times {}^tA\right]_{i, j}\]
+        
+        On a bien ${}^t(AB) = ^tB \times {}^tA$.
+    }
+    \item  Définition de la trace d’une matrice de $\bcM_n(\bdK)$. Montrer que $\Tr(AB) = \Tr(BA)$.
+    
+    \begin{definition*}{Trace d'une matrice}{}
+        La \bf{trace d'une matrice $A \in \bcM_{n}(\bdK)$}, notée $\hg{\Tr(A)}$, est la somme de ses coefficients diagonaux.
+        
+        \[ \hg{Tr(A) = \sum_{i=0}^n [A]_{i, i}}\]
+    \end{definition*}
+    
+    \begin{property*}{Trace d'un produit}{}
+        \[ \hg{\forall (A,B) \in \bcM_n(\bdK)^2, \qquad \Tr(AB) = \Tr(BA)}\]
+    \end{property*}
+    
+    \demo{
+        Soit $(A, B) \in \bcM_n(\bdK)^2$. On a :
+        
+        \[ \Tr(AB) = \sum_{i=0}^n [AB]_{i, i} = \sum_{i=0}^n \sum_{j=0}^n [A]_{i, j}[B]_{j, i} = \sum_{j=0}^n \sum_{i=0}^n [B]_{j, i}[A]_{i, j} \sum_{j=0}^n [BA]_{j, j} = \Tr(BA)\]
+        
+        On a bien $\Tr(AB) = \Tr(BA)$.
+    }
+    
+    \item Montrer que toute matrice de $\bcM_n(\bdK)$ s’écrit de façon unique comme la somme d’une matrice symétrique et d’une matrice antisymétrique.
+    
+    \boxans{
+        \textit{Analyse.} Soit $M \in \bcM_{n}(\bdK)$. On cherche $S \in \bcS_n(\bdK)$ et $A \in \bcA_n(\bdK)$ telles que $S + A = M$.
+        
+        On a alors $^tM = {}^t(S + A) = {}^tS + {}^tA = S - A$. Donc $M + {}^tM = 2S$ et $M - {}^tM = 2A$.
+        
+        On a donc : $S = \dfrac{M + {}^tM}{2}$ et $A = \dfrac{M - {}^tM}{2}$.
+        
+        \textit{Synthèse.} Soit $M \in \bcM_{n}(\bdK)$. On pose $S = \dfrac{M + {}^tM}{2}$ et $A = \dfrac{M - {}^tM}{2}$.
+        
+        \begin{enumerate}
+            \ithand Montrons que $S \in \bcS_n(\bdK)$. On a :
+            
+            \[[S]_{i, j} = \left[\dfrac{M+{}^tM}{2}\right]_{i, j} = \left[\dfrac{M}{2}\right]_{i, j} + \left[\dfrac{{}^tM}{2}\right]_{i, j} = \left[\dfrac{{}^tM}{2}\right]_{j, i} + \left[\dfrac{M}{2}\right]_{j, i} = \left[\dfrac{{}^tM + M}{2}\right]_{j, i} = [S]_{j, i}\]
+            
+            On a bien $S \in \bcS_n(\bdK)$.
+            
+            \ithand Montrons que $A \in \bcA_n(\bdK)$. On a :
+            
+            \[[S]_{i, j} = \left[\dfrac{M-{}^tM}{2}\right]_{i, j} = \left[\dfrac{M}{2}\right]_{i, j} - \left[\dfrac{{}^tM}{2}\right]_{i, j} = \left[\dfrac{{}^tM}{2}\right]_{j, i} - \left[\dfrac{M}{2}\right]_{j, i} = -\left[\dfrac{M - {}^tM}{2}\right]_{j, i} = -[S]_{j, i}\]
+            
+            On a bien $A \in \bcA_n(\bdK)$.
+            
+            \ithand Montrons enfin que $M = A + S$. On a :
+            
+            \[ S + A = \dfrac{M + {}^tM}{2} + \dfrac{M - {}^tM}{2} = \dfrac{M + {}^tM + M - {}^tM}{2} = \dfrac{2M}{2} = M\]
+            
+            On a bien finalement $M = A + S$.
+        \end{enumerate}
+    }
+
+    \item Calculer (par binôme, ou polynôme annulateur, au choix) les puissances de la matrice $H_p \in \bcM_p(\bdR)$ définie par $h_{i,i} = 0$ et $h_{i,j} = 1$ pour $i \neq j$.
+    
+    \boxans{
+        On a en fait :
+        
+        \[ H_p = \begin{pNiceMatrix}
+            0       &   1    & \Cdots & \Cdots & 1          \\
+            1       & \Ddots & \Ddots &        & \Vdots     \\
+            \Vdots  & \Ddots & 0 & \Ddots & \Vdots     \\
+            \Vdots  &        & \Ddots & \Ddots & 1          \\
+            1       & \Cdots & \Cdots & 1      & 0
+        \end{pNiceMatrix} = \begin{pNiceMatrix}
+            1       & \Cdots & 1      & \Cdots & 1          \\
+            \Vdots  & \Ddots & \Vdots &        & \Vdots     \\
+            1       & \Cdots & 1      & \Cdots & 1     \\
+            \Vdots  &        & \Vdots & \Ddots & \Vdots          \\
+            1       & \Cdots & 1      & \Cdots & 1
+        \end{pNiceMatrix} - \begin{pNiceMatrix}
+            1       &   0    & \Cdots & \Cdots & 0          \\
+            0       & \Ddots & \Ddots &        & \Vdots     \\
+            \Vdots  & \Ddots & 1 & \Ddots & \Vdots     \\
+            \Vdots  &        & \Ddots & \Ddots & 0          \\
+            0       & \Cdots & \Cdots & 0      & 1
+        \end{pNiceMatrix}\]
+        
+        On pose alors $K_p$ tel que $H_p = K_p - I_p$, d'où $H_p^n = (K_p - I_p)^n$. Or $K_p$ et $I_p$ commutent donc :
+        
+        \[ H_p^n = \binom{n}{k}\sum_{k=0}^n K_p^n (-1)^{n-k}I_p^{n-k}\]
+        
+        On remarque que pour $k \neq 0$, $K_p^k = p^{k-1}K_p$, donc :
+        
+        \[ \boxsol{$\displaystyle H_p^n = (-1)^I_p + K_p\sum_{k=1}^n \binom{n}{k} p^{k-1}(-1)^{n-k}$}\]
+    }
+    
+
+\end{enumerate}
+
+\end{document}

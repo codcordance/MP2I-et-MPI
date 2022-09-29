@@ -1,0 +1,375 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+
+    \stylizeDoc{Mathématiques}{Programme de khôlle 23}{Énoncés et résolutions}
+
+    \section*{Déterminants}
+
+    \subsection*{Groupe symétrique}
+
+    \begin{enumerate}
+        \ithand Généralités, cardinal de $\bfS_n$. Cycles et transpositions. Décomposition d'un
+        cycle en produit de transpositions.
+        
+        \ithand Décomposition d'une permutation en produit de cycles à supports disjoints.
+        
+        \ithand Signature d'une permutation : définition via les inversions. Signature d'une
+        transposition.
+        
+        \ithand La signature est un morphisme de groupes de $\p{\bfS_n, \circ}$ dans
+        $\p{\ens{\pm 1}, \times}$.
+        
+        \ithand Signature d'un cycle, calcul de la signature d'une permutation. Groupe alterné
+        $\bfA_n$.
+    \end{enumerate}
+
+    \subsection*{Formes multilinéaires}
+
+    \begin{enumerate}
+        \ithand Formes $n$-linéaires, formes $n$-linéaires alternées, antisymétriques.
+        Propriétés.
+        
+        \ithand Formes $n$-linéaires alternées sur un espace vectoriel $E$ de dimension $n$.
+    \end{enumerate}
+
+    \subsection*{Déterminants}
+
+    \begin{enumerate}
+        \ithand Déterminant d'une famille de vecteurs : définition, propriétés. Caractérisation
+        des bases.
+        
+        \ithand Déterminant d'un endomorphisme. Lien avec le déterminant d'une famille de
+        vecteurs. Propriétés. Caractérisation des automorphisme.
+        
+        \ithand Déterminant d'une matrice carrée. Définition, lien avec les déterminants
+        précédents. Propriétés. Caractérisation des matrices inversibles.
+    \end{enumerate}
+
+    \subsection*{Calcul du déterminant}
+
+    \begin{enumerate}
+        \ithand Effet des opérations élémentaires sur le déterminant.
+        Développement selon une ligne ou une colonne.
+        
+        \ithand Déterminant d'une matrice triangulaire, triangulaire par blocs. Cofacteur,
+        comatrice.
+        
+        \ithand Formule de l'inverse d'une matrice inversible.
+        
+        \ithand Déterminant de \textsc{Vandermonde}. Orientation d'un $\bdR$-espace vectoriel
+        de dimension finie.
+    \end{enumerate}
+
+    \questionsdecours
+
+    \begin{enumerate}
+        \item Savoir calculer la signature d'une permutation, en la décomposant en produit de
+        cycles à supports disjoints et en produit de transpositions.
+        
+        \noafter
+        %
+        \boxans{
+            \begin{definition}{Inversion}{}
+                Soit $n \in \bdN^*$, une permutation $\sigma \in \bfS_n$ et $\p{i, j} \in
+                \iint{1, n}^2$. On dit que \hg{$\sigma$ réalise une inversion sur $\p{i, j}$}
+                (ou que \hg{$\p{i, j}$ est une inversion de $\sigma$}) lorsque \hg{$i < j$ et
+                $\sigma\p{i} > \sigma\p{j}$}.
+            \end{definition}
+        }
+        %
+        \nobefore
+        %
+        \begin{notation}
+            On note généralement :
+            %
+            \[ \hg{\Inv{\sigma} = \mod{\ens{\vphantom{\displaystyle\sum} \p{i, j} \in 
+            \iint{1, n}^2 \;\middle\vert\; i < j \et \sigma\p{i} > \sigma\p{j}}}} \]
+            %
+            le \hg{nombre d'inversions} d'une permutation $\sigma \in \bfS_n$.
+        \end{notation}
+        %
+        \boxans{
+            \begin{definition}{Signature d'une permutation}{}
+                Soit $n \in \bdN^*$ et une permutation $\sigma \in \bfS_n$. On alors
+                \hg{signature de $\sigma$} la quantité $\hg{\left(-1\right)^{\Inv\p{\sigma}}}$.
+            \end{definition}
+        }
+        %
+        \begin{notation}
+            On note généralement \hg{$\epsilon\p{\sigma}$} la signature d'une permutation
+            $\sigma \in \bfS_n$.
+        \end{notation}
+        %
+        \yesafter
+        %
+        \boxans{
+            \begin{form}{Méthode}{}
+                Pour calculer la signature d'une permutation $\sigma \in \bfS_n$ :
+                \begin{enumerate}
+                    \itt Déterminer les orbites $p$ de $\sigma$, \ie les cycles de supports
+                    disjoints (\hg{support cyclique de $\sigma$}).
+                    
+                    \itt Chaque orbite $\p{C_i}_{1 \leq i \leq p}$ est un $k_i$-cycle  de
+                    signature $\epsilon\p{C_i} = \p{-1}^{k_i - 1}$.
+                    
+                    Les $k_i$, rangés dans l'ordre croissent forment d'ailleurs le \hg{type
+                    cyclique de $\sigma$}.
+                    
+                    \itt La signature de $\sigma$ est le produit des signatures des cycles :
+                    %
+                    \[ \prod_{i=1}^p \epsilon\p{C_i} = \prod_{i=1}^p \p{-1}^{k_i - 1} =
+                    \p{-1}^{\p{\sum_{i=1}^p k_i} - p} = \p{-1}^{n-p} \]
+                    %
+                    \bf{\itstar Donc pour $n \in \bdN$ et $\sigma \in \bfS_n$, on a
+                    $\epsilon\p{\sigma} = \p{-1}^{n - p}$ où $p$ est le nombre de
+                    cycles/d'orbites de $\sigma$.}
+                \end{enumerate}
+            \end{form}
+        }
+        %
+        \yesbefore
+        
+        \item Donner (sans preuve) quelques propriétés du déterminant d'une matrice :
+        
+        $\det{AB}$, $\det{A^n}$, $\det{\lambda A}$, $\det{\mtrans{A}}$, $\det{A^{-1}}$ lorsque
+        $A$ est inversible.
+        
+        \boxans{
+            \begin{property}{Propriétés du déterminant}{}
+                    Soient un entier non nul $n \in \bdN^*$ et deux matrices $\p{A, B} \in
+                    \bcM_n\p{\bdK}$. On a :
+                    %
+                    \begin{psse}
+                        \item \hg{$\det{AB} = \det{A}\det{B}$} ;
+                        \item \hg{$\forall p \in \bdN,\qquad \det{A^p} = \det{A}^p$} ;
+                        \item \hg{$\forall \lambda \in \bdK,\qquad \det{\lambda A} =
+                        \lambda^n\det{A}$} ;
+                        \item \hg{$A \in \GL_n\p{\bdK} \implies \det{A^{-1}} =
+                        \dfrac{1}{\det{A}}$}.
+                    \end{psse}
+            \end{property}
+        }
+        
+        \item Effet des opérations élémentaires sur les colonnes sur le déterminant : échange $C_i \leftrightarrow C_j$, multiplication par un scalaire $C_j
+        \leftarrow \lambda C_j$ (avec $\lambda \neq 0$), ajout d'une combinaison
+        linéaire de colonnes $C_j \leftarrow C_j + \sum\limits_{i \neq j} \lambda_i C_i$.
+        
+        \boxans{
+            \begin{theorem}{Effet des opérations élémentaires sur le déterminant}{}
+                Soit un entier non nul $n \in \bdN^*$, une matrice $A \in \bcM_n\p{\bdK}$ de
+                colonnes $C_1, C_2, \dots C_n$ (de la gauche vers la droite) et un indice $j \in \iint{1, n}$. \hg{Les opérations élémentaires ont pour effet sur $\det A$} :
+                
+                \begin{psse}
+                    \item Échanger deux colonnes (\hg{$\forall i \in \iint{1, n},\ C_j \leftrightarrow C_i$})
+                    \hg{multiplie le déterminant par $-1$}.
+                    
+                    \item Multiplier une ligne par un scalaire non nul $\lambda \neq 0$
+                    (\hg{$C_j \leftarrow \lambda C_j$}) \hg{multiplie le déterminant par $\lambda$}.
+                    
+                    \item Faire une combinaison linéaire des colonnes $\left(\hg{C_j \leftarrow C_j - \sum\limits^n_{\substack{i = 1\\ i \neq j}} \lambda_i C_i}\right)$ \hg{ne modifie pas le déterminant}.
+                    
+                    \item Permuter les colonnes selon $\sigma \in \bfS_n$ (\hg{$\forall i \in \iint{1, n},\ C_i \leftrightarrow C_{\sigma\p{i}}$}) \hg{multiplie le déterminant par $\epsilon\p{\sigma}$}.
+                    
+                    \item De même pour les opérations sur les lignes.
+                \end{psse}
+            \end{theorem}
+        }
+        
+        \item Déterminant de Vandermonde. Énoncé et preuve.
+        
+        \noafter
+        %
+        \boxans{
+            \begin{definition}{Matrice de Vandermonde}{}
+                Soit $n \in \bdN^*$ et une famille de $n$ scalaires $\p{\alpha_i}_{i \in \iint{1, n}} \in \bdK^n$. On appelle \hg{matrice de \textsc{Vandermonde}} de coefficients $\p{\alpha_i}_{i \in \iint{1, n}}$ \hg{la matrice $\p{{\alpha_i}^{j-1}}_{ \p{i, j} \in \iint{1, n}^2}$}, \ie la matrice :
+                %
+                \[\hg{  \begin{pNiceMatrix}
+                            1 & \alpha_1 & {\alpha_1}^2 & \Cdots & {\alpha_1}^{n-1} \\
+                            1 & \alpha_2 & {\alpha_2}^2 & \Cdots & {\alpha_2}^{n-1} \\
+                            1 & \alpha_3 & {\alpha_3}^2 & \Cdots & {\alpha_3}^{n-1} \\
+                            \Vdots & \Vdots & \Vdots & & \Vdots \\
+                            1 & \alpha_n & {\alpha_n}^2 & \Cdots & {\alpha_n}^{n-1} 
+                        \end{pNiceMatrix}_{\left[n\right]} }\]
+            \end{definition}
+        }
+        %
+        \nobefore
+        %
+        \begin{notation}
+            Le déterminant d'une telle matrice est appelé \hg{déterminant de \textsc{Vandermonde}} est est noté, avec les mêmes coefficients, $\hg{V\p{\alpha_1, \alpha_2, \dots, \alpha_n}}$.
+        \end{notation}
+        %
+        \boxans{
+            \begin{property}{Déterminant de Vandermonde}{}
+                Soit $n \in \bdN^*$ et une famille de $n$ scalaires $\p{\alpha_i}_{i \in \iint{1, n}} \in \bdK^n$. On a :
+                %
+                \[ \hg{V\p{\alpha_1, \alpha_2, \dots, \alpha_n} = \begin{vNiceMatrix}
+                            1 & \alpha_1 & {\alpha_1}^2 & \Cdots & {\alpha_1}^{n-1} \\
+                            1 & \alpha_2 & {\alpha_2}^2 & \Cdots & {\alpha_2}^{n-1} \\
+                            1 & \alpha_3 & {\alpha_3}^2 & \Cdots & {\alpha_3}^{n-1} \\
+                            \Vdots & \Vdots & \Vdots & & \Vdots \\
+                            1 & \alpha_n & {\alpha_n}^2 & \Cdots & {\alpha_n}^{n-1} 
+                        \end{vNiceMatrix}_{\left[n\right]} = \prod_{1 \leq i < j \leq n} \p{\alpha_j - \alpha_i} }\]
+            \end{property}
+        }
+        %
+        \yesafter
+        %
+        \begin{nproof}
+            Soit $n \in \bdN^*$ et une famille de $n$ scalaires $\p{\alpha_i}_{i \in \iint{1, n}} \in \bdK^n$.
+            
+            \begin{enumerate}
+                \itt Soit $M = \begin{pNiceMatrix}
+                            1 & \alpha_1 & {\alpha_1}^2 & \Cdots & {\alpha_1}^{n-1} \\
+                            1 & \alpha_2 & {\alpha_2}^2 & \Cdots & {\alpha_2}^{n-1} \\
+                            1 & \alpha_3 & {\alpha_3}^2 & \Cdots & {\alpha_3}^{n-1} \\
+                            \Vdots & \Vdots & \Vdots & & \Vdots \\
+                            1 & X & X^2 & \Cdots & X^{n-1} 
+                        \end{pNiceMatrix}_{\left[n\right]}$ de mineurs de positions $\Delta_{i, j}$. On pose le polynôme $P\p{X} = V\p{\alpha_1, \alpha_2, \dots, X} = \det{M}$ d'indéterminée $X$, et on développe suivant la dernière ligne (d'indice $n$):
+                %
+                \[ P\p{X} = \sum_{j=1}^n \left(-1\right)^{n+j}\left[M\right]_{n,j} \Delta_{n,j} = \sum_{j=1}^n \left(-1\right)^{n+j} X^{j-1} \Delta_{n,j}\]
+                %
+                On a donc $P\p{X}$ de la forme :
+                %
+                \[P\p{X} = X^{n-1}\underbrace{\begin{vNiceMatrix}
+                            1 & \alpha_1 & {\alpha_1}^2 & \Cdots & {\alpha_1}^{n-1} \\
+                            1 & \alpha_2 & {\alpha_2}^2 & \Cdots & {\alpha_2}^{n-1} \\
+                            1 & \alpha_3 & {\alpha_3}^2 & \Cdots & {\alpha_3}^{n-1} \\
+                            \Vdots & \Vdots & \Vdots & & \Vdots \\
+                            1 & \alpha_{n-1} & {\alpha_{n-1}}^2 & \Cdots & {\alpha_{n-1}}^{n-1} 
+                        \end{vNiceMatrix}}_{V\p{\alpha_1, \alpha_2, \dots, \alpha_{n-1}} = cst} - X^{n-1}\underbrace{\begin{vNiceMatrix}
+                            1 & \alpha_1 & \Cdots & {\alpha_1}^{n-1} & {\alpha_1}^n \\
+                            1 & \alpha_2 & \Cdots & {\alpha_2}^{n-2} & {\alpha_2}^n \\
+                            1 & \alpha_3 & \Cdots & {\alpha_3}^{n-2} & {\alpha_3}^n \\
+                            \Vdots & \Vdots & & \Vdots & \Vdots \\
+                            1 & \alpha_{n-1} & \Cdots & {\alpha_{n-1}}^{n-2} & {\alpha_{n-1}}^n 
+                        \end{vNiceMatrix}}_{cst} + \dots\]
+                
+                \itt Puisque dans chaque $\Delta_{n, j}$ on retire la dernière ligne, la seule à contenir l'indéterminée $X$, chaque $\Delta{n, j}$ est constant donc $P \in \bdK\left[X\right]$ est de degré $n-1$. On vient par ailleurs de montrer que son coefficient dominant est égal à $\Delta_{n, n} = V\p{\alpha_1, \alpha_2, \dots, \alpha_{n-1}}$.
+                
+                \itt Lorsque $X = \alpha_i$ pour $i \in \iint{1, n-1}$, on a deux lignes égales dans la matrice $M$ (les lignes $i$ et $n$) donc le déterminant est nul. Ainsi pour chaque $i \in \iint{1, n-1}$ on a $P\p{\alpha_i} = 0$ donc $\alpha_i$ est racine de $P$. Par suite, on a la factorisation $\displaystyle P\left(X\right) = V\p{\alpha_1, \alpha_2, \dots, \alpha_{n-1}}\prod_{i = 1}^{n-1}\p{X - \alpha_i}$. Donc en évaluant en $\alpha_n$, on a :
+                %
+                \[V\p{\alpha_1, \alpha_2, \dots, \alpha_n} = P\left(\alpha_n\right) = V\p{\alpha_1, \alpha_2, \dots, \alpha_{n-1}}\prod_{i=1}^{n-1} \p{\alpha_n - \alpha_i}\]
+                
+                \itt On procède par récurrence sur $k \in \iint{2, n}$ selon le prédicat $H\p{k} : V\p{\alpha_1, \alpha_2, \dots, \alpha_k} = \displaystyle \prod_{1 \leq i < j \leq k} \p{\alpha_j - \alpha_i}$.
+                
+                \itstar \underline{Initialisation :} On a $V\p{\alpha_1, \alpha_2} = \begin{vNiceMatrix}
+                    1 & \alpha_0\\
+                    1 & \alpha_1
+                \end{vNiceMatrix} = \alpha_1 - \alpha_0$ donc $V\p{2}$ est vrai.
+                
+                \itstar \underline{Hérédité :} Soit $k \in \iint{1, k-1}$ tel que $V\p{k}$ est vrai, \ie $ V\p{\alpha_1, \alpha_2, \dots, \alpha_k} = \prod\limits_{1 \leq i < j \leq k} \p{\alpha_j - \alpha_i}$.
+                
+                Par les résultats précédents, on a $ V\p{\alpha_1, \alpha_2, \dots, \alpha_{k+1}} = V\p{\alpha_1, \alpha_2, \dots, \alpha_k}\prod\limits_{i=1}^{k} \p{\alpha_{k+1} - \alpha_i}$, donc :
+                %
+                \[ V\p{\alpha_1, \alpha_2, \dots, \alpha_{k+1}} = \prod_{1 \leq i < j \leq k} \p{\alpha_j - \alpha_i}\prod_{i=1}^{k} \p{\alpha_{k+1} - \alpha_i} = \prod_{1 \leq i < j \leq k+1} \p{\alpha_j - \alpha_i} \qquad\text{donc} \ V\p{k+1} \ \text{est vrai.}\]
+                %
+                \itstar \underline{Conclusion :} Par principe de récurrence, on a $V\p{\alpha_1, \alpha_2, \dots, \alpha_n} = \prod\limits_{1 \leq i < j \leq n} \p{\alpha_j - \alpha_i}$.
+            \end{enumerate}
+            
+            
+        \end{nproof}
+        %
+        \yesbefore
+        
+        \item Calculer le déterminant suivant où $\p{a, b} \in \bdC^2$ et $n \in \bdN^*$ :
+        \qquad $\begin{vNiceMatrix}
+                    a       &   b       &   \Cdots  &   b       \\
+                    b       &   \Ddots  &   \Ddots  &   \Vdots  \\
+                    \Vdots  &   \Ddots  &           &   b       \\
+                    b       &   \Cdots  &   b\hphantom{-}    &   a
+                \end{vNiceMatrix}_{\left[n\right]}$
+                
+        \boxans{
+            \begin{align*}
+                \begin{vNiceMatrix}
+                    a       &   b       &   \Cdots  &   b       \\
+                    b       &   \Ddots  &   \Ddots  &   \Vdots  \\
+                    \Vdots  &   \Ddots  &           &   b       \\
+                    b       &   \Cdots  &   b\hphantom{-}       &   a
+                \end{vNiceMatrix} &\eq{C_1 \leftarrow C_1 + \sum\limits_{i=2}^n C_i}
+                \begin{vNiceMatrix}
+                    a + \p{n-1}b & b       &   \Cdots  &        & b       \\
+                    \Vdots       & a       &   \Ddots  &        & \Vdots  \\
+                                 & b       &   \Ddots  &        & \Vdots       \\
+                                 & \Vdots  &   \Ddots  &        & b       \\
+                    a + \p{n-1}b & b       &   \Cdots  &    b\hphantom{--}   & a      
+                \end{vNiceMatrix} =
+                \p{a + \p{n-1}b}\begin{vNiceMatrix}
+                    1 & b       &   \Cdots  &        & b       \\
+                    \Vdots       & a       &   \Ddots  &        & \Vdots  \\
+                                 & b       &   \Ddots  &        & \Vdots       \\
+                                 & \Vdots  &   \Ddots  &        & b       \\
+                    1 & b       &   \Cdots  &    b\hphantom{--}   & a      
+                \end{vNiceMatrix}\\
+                &\eq{\left\lbrace\substack{L_2 \leftarrow L_2 - L_1\\
+                L_3 \leftarrow L_3 - L_1\\
+                \cdots \\
+                L_n \leftarrow L_n - L_1}\right.}\p{a + \p{n-1}b}\begin{vNiceMatrix}
+                    1       & b       &   \Cdots  &        & b       \\
+                    0       & a-b     &   0       & \Cdots & 0  \\
+                    \Vdots  & \Ddots  &   \Ddots  & \Ddots & \Vdots       \\
+                            &         &           &        & 0       \\
+                    0       & \Cdots  &           &    0   & a-b      
+                \end{vNiceMatrix} = \p{a + \p{n-1}b}\p{a-b}^{n-1}
+            \end{align*}
+        }
+                
+        \item Calculer le déterminant suivant :
+        \qquad $\begin{vNiceMatrix}
+                    2       &   1       &   0       &   \Cdots  &   0       \\
+                    1       &   \Ddots  &  \Ddots   &   \Ddots  &   \Vdots  \\
+                    0       &   \Ddots  &           &           &   0       \\
+                    \Vdots  &   \Ddots  &  \Ddots   &           &   1       \\
+                    0       &   \Cdots &0\phantom{-}&   1       &   2
+                \end{vNiceMatrix}_{\left[n\right]}$
+                
+        \boxans{
+            On pose pour $n \in \bdN^*$ la matrice $D_n = \begin{pNiceMatrix}
+                    2       &   1       &   0       &   \Cdots  &   0       \\
+                    1       &   \Ddots  &  \Ddots   &   \Ddots  &   \Vdots  \\
+                    0       &   \Ddots  &           &           &   0       \\
+                    \Vdots  &   \Ddots  &  \Ddots   &           &   1       \\
+                    0       &   \Cdots &0\phantom{-}&   1       &   2
+                \end{pNiceMatrix}_{\left[n\right]}$. On développe $\det{D_n}$ selon la ligne 1 :
+                %
+                \[ \det{D_n} = \sum_{j=1}^n \p{-1}^{1+j}\left[D\right]_{1, j}\Delta_{1,j}\p{D_n} = \begin{vNiceMatrix}
+                    2       &   1       &   0       &   \Cdots  &   0       \\
+                    1       &   \Ddots  &  \Ddots   &   \Ddots  &   \Vdots  \\
+                    0       &   \Ddots  &           &           &   0       \\
+                    \Vdots  &   \Ddots  &  \Ddots   &           &   1       \\
+                    0       &   \Cdots &0\phantom{-}&   1       &   2
+                \end{vNiceMatrix}_{\left[n-1\right]} - \begin{vNiceMatrix}
+                    1       &   1       &   0       &   \Cdots  &   0       \\
+                    0       &   2       &  \Ddots   &   \Ddots  &   \Vdots  \\
+                    \Vdots  &   1       &  \Ddots   &           &   0       \\
+                            &   0       &  \Ddots   &           &   1       \\
+                            &   \Vdots  &  \Ddots   &           &   2        \\
+                    0       &   0       &   \Cdots  &0\hphantom{--}&   1\vphantom{\dfrac{-}{-}}
+                \end{vNiceMatrix}_{\left[n-1\right]}\]
+                %
+                On reconnaît le premier terme comme étant $\det{D_{n-1}}$. En développant le second terme selon la première ligne, on reconnaît également $\det{D_{n-2}}$. On a donc pour entier $n \in \bdN$ tel que $n \geq 3$, $\det{D_n} = 2\det{D_{n-1}} - \det{D_{n-2}}$.
+                
+               On a suite récurrente linéaire d'ordre 2, d'équation caractéristique $r^2 = 2r - 1$ soit $\p{r-1}^2 = 0$. On a la racine double $r = 1$, ainsi :
+                %
+                \[ \exists ! \p{\lambda, \mu} \in \bdR^2,\qquad D_n = \p{\lambda + n\mu}\times 1^n = \lambda + n\mu\]
+                %
+                Puisque  $\lambda + \mu = \det{D_1} = \mod{2} = 2$ et $\lambda + 2\mu = \det{D_2} = \begin{vNiceMatrix}
+                    2 & 1\\ 1 & 2
+                \end{vNiceMatrix} = 3$, on a $\lambda = \mu = 1$. Donc finalement :
+                %
+                \[ \forall n \in \bdN^*,\qquad \begin{vNiceMatrix}
+                    2       &   1       &   0       &   \Cdots  &   0       \\
+                    1       &   \Ddots  &  \Ddots   &   \Ddots  &   \Vdots  \\
+                    0       &   \Ddots  &           &           &   0       \\
+                    \Vdots  &   \Ddots  &  \Ddots   &           &   1       \\
+                    0       &   \Cdots &0\phantom{-}&   1       &   2
+                \end{vNiceMatrix}_{\left[n\right]} = n + 1\]
+        }
+    \end{enumerate}
+\end{document}

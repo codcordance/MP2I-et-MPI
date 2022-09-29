@@ -1,0 +1,292 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+
+\stylizeDoc{Mathématiques}{Programme de khôlle 16}{Énoncés et résolutions}
+
+\section*{Dérivation}
+
+\begin{enumerate}
+    \ithand Définition de la dérivabilité en un point, du nombre dérivé. Équivalence avec l'existence d'un développement limité à l'ordre 1. Si $f$ est dérivable, alors $f$ est continue.
+    
+    \ithand Dérivée à gauche, dérivée à droite. Fonction dérivée, dérivées successives. Classe $\bcC^n$, $\bcC^\infty$ sur $I$.
+    
+    \ithand Opérations usuelles : dérivée d'une combinaison linéaire, d'un produit, de l'inverse, d'une composée. Idem pour la dérivée $n$-ième et la classe  $\bcC^n$, $\bcC^\infty$. Formule de Leibniz pour la dérivée $n$-ième d'un produit.
+    
+    \ithand Dérivée d'une fonction réciproque si $f$ dérivable et $f'$ ne s'annule pas.
+    
+    Pour la classe $\bcC^n$: Si $f : I \to J$ est bijective entre deux intervalles réels $I$ et $J$, de classe $\bcC^n$ et $f'$ ne s'annule pas sur $I$, alors $f^{-1}$ est de classe $\bcC^n$ sur $J$.
+\end{enumerate}
+
+\subsection*{Théorème de Rolle et théorème des accroissements finis}
+
+\begin{enumerate}
+    \ithand Extrema locaux. Si $f$ dérivable sur un intervalle $I$ admet un extremum local en $a$ un point intérieur à $I$, alors $f'(a) = 0$.
+
+    \ithand Théorème de Rolle. Égalité des accroissements finis pour les fonctions réelles. Inégalité des accroissements finis.
+\end{enumerate}
+
+\subsection*{Applications du théorème des accroissements finis}
+
+\begin{enumerate}
+    \ithand Lien entre monotonie et signe de la dérivée sur un intervalle.
+    
+    \ithand Théorème de limite de la dérivée : soit $I$ un intervalle contenant $a$, $f$ une fonction continue sur $I$, dérivable sur $I \backslash \{a\}$ telle que : $f'(x) \lima{x \to a} \ell$ avec $\ell \in \overline\bdR$. Alors si $\ell$ est fini, $f$ est dérivable en $a$ et $f'(a) = \ell$. Si $\ell = \pm \infty$, $f$ n'est pas dérivable en $a$.
+
+    \ithand Théorème de prolongement de classe $\bcC^n$. Si $f$ est de classe $\bcC^n$ sur $I \backslash \{a\}$ et si pour tout $i \in \llbracket 0, n\rrbracket$, $f^{(i)}$ admet une limite finie égale à $\ell_i$ en $a$, alors le prolongement de $f$ défini par $f(a) = \ell_0$ est une fonction de classe $\bcC^n$ sur l'intervalle $I$.
+\end{enumerate}
+
+\section*{\centering\EBGaramond\Large Questions de cours}
+
+Les énoncés du cours doivent être connus et énoncés avec leurs hypothèses précises : formule de Leibniz, dérivabilité d'une réciproque, théorème de Rolle, égalité des accroissements finis, inégalité des accroissements finis, théorème de la limite de la dérivé, théorème de prolongement $\bcC^n$.
+
+\begin{enumerate}
+    \item Montrer que si $f : I \to \bdR$ admet un extremum local en $a$, point intérieur de $I$ et si $f$ est dérivable en $a$, alors $f'(a) = 0$. Montrer ensuite le théorème de Rolle.
+    
+    \noafter
+	%
+	\boxans{
+		%
+        \begin{lemma}{}{rolleprev}
+            Soit un intervalle \hgu{ouvert} $I \subset \bdR$, et $f \in \bcF(I, \bdR)$. On a :
+            %
+            \[\hg{\exists a \in I,\qquad f \ \text{est dérivable et admet un extremum local en} \ a \implies f'(a) = 0}\]
+        \end{lemma}
+		%
+    }
+	%
+	\nobefore
+	%
+	\begin{nproof}
+		%
+        Soit un intervalle ouvert $I \subset \bdR$, $f \in \bcF(I, \bdR)$ et $a \in I$ tel que $f$ est dérivable et admet un extremum local en $a$. Par définition :
+        %
+        \[ \exists \eta \in \bdRp,\qquad \forall x \in I,\qquad x \in [a - \eta; a + \eta] \implies f(a) \geq f(x)\]
+        %
+        Puisque $a$ est un point intérieur de $I$, on peut considérer $\eta_1 \in \bdRp$ tel que $[ a - \eta', a + \eta' ] \subset I \cap [ a - \eta, a + \eta ]$. Donc $\forall x \in ]a - \eta', a + \eta']$, on a $f(x) \leq f(a)$, d'où :
+        %
+        \[ \forall x \in ]a, a + \eta'],\qquad \dfrac{f(x) - f(a)}{x - a} \leq 0 \qquad\et\qquad \forall x \in [a - \eta', a[,\qquad  \dfrac{f(x) - f(a)}{x - a} \geq 0\]
+        %
+        Donc $f'(a) = \lim\limits_{x \to a^-} \dfrac{f(x) - f(a)}{x - a} \leq 0$ donc $f'(a) \leq 0$. De plus $f'(a) = \lim\limits_{x \to a^+} \dfrac{f(x) - f(a)}{x - a} \geq 0$ donc $f'(a) \geq 0$. On en déduit donc $f'(a) = 0$.
+		%
+	\end{nproof}
+	%
+	\boxans{
+		%
+        \begin{theorem}{Théorème de Rolle}{rolle}
+            Soient $(a, b) \in \bdR^2$ tels que $a < b$, et $f \in \bcC([a, b], \bdR) \cap \bcD(]a, b[, \bdR)$. On a :
+            %
+            \[ \hg{f(a) = f(b)\implies \exists c \in ]a, b[,\qquad f'(c) = 0}\]
+        \end{theorem}
+		%
+    }
+	%
+	\yesafter
+	%
+	\begin{nproof}
+		%
+        Soient $(a, b) \in \bdR^2$ tels que $a < b$, et $f \in \bcC([a, b], \bdR) \cap \bcD(]a, b[, \bdR)$ telle $f(a) = f(b)$. $f$ est continue sur $[a, b]$ donc $f$ atteint ses bornes :
+        %
+        \[ \exists (m, M) \in [a, b]^2,\qquad f(m) \leq f(x) \leq f(M)\]
+        %
+        \begin{enumerate}
+            \ithand Si $\{m,M\} = \{a, b\}$, alors puisque $f(a) = f(b)$, on a $f(m) = f(M)$. Donc $f$ est constante sur $[a, b]$, ainsi $f'$ est nulle sur $[a, b]$. Donc tout point de $]a, b[$ convient.
+
+            \ithand Sinon, on a $\{m, M\} \cap ]a, b[ \neq \emptyset$, donc on peut considérer $c \in \{m, M\}$ tel que $c \in ]a, b[$. $c$ est un extremum local donc d'après le lemme \lemref{rolleprev} précédent, $f'(c) = 0$. 
+        \end{enumerate}
+    \end{nproof}
+	%
+	\yesbefore
+    
+    \item Montrer le théorème des accroissements finis, ainsi que les inégalités des accroissements finis.
+    
+    \noafter
+    %
+    \boxans{
+        %
+        \begin{theorem}{Théorème des accroissements finis}{TAF}
+            Soient $(a, b) \in \bdR^2$ tels que $a < b$ et $f \in \bcC([a, b], \bdR) \cap \bcD(]a, b[, \bdR)$. On a :
+            %
+            \[ \hg{\exists c \in ]a, b[,\qquad f(b) - f(a) = (b-a)f'(c)}\]
+        \end{theorem}
+        %
+    }
+    %
+    \nobefore
+    %
+    \begin{nproof}
+		%
+        Soient $(a, b) \in \bdR^2$ tels que $a < b$ et $f \in \bcC([a, b], \bdR) \cap \bcD(]a, b[, \bdR)$. On pose :
+        %
+        \[\varphi : \begin{array}[t]{rcl}
+            [a, b] &\to&\bdR  \\
+            x &\mapsto& f(x) - \dfrac{f(b)-f(a)}{b-a}(x-a) 
+        \end{array}\]
+        %
+        $\varphi$ est continue par opérations sur $[a, b]$, et dérivable sur $]a, [$. De plus, on a :
+        %
+        \[ \begin{array}{ll}
+            \varphi(a) = f(a) - \dfrac{f(b)-f(a)}{b-a}(a-a) = f(a) - 0 &= f(a) \\
+            \varphi(b) = f(b) - \dfrac{f(b)-f(a)}{b-a}(b-a) = f(b) - f(b) + f(a) &= f(a)
+        \end{array} \]
+        %
+        Donc $\varphi(a) = \varphi(b)$. Par \thref{rolle} sur $\varphi$, on a lors :
+        %
+        \[ \exists c \in ]a, b[,\qquad \varphi'(c) = 0\qquad\text{soit}\qquad f'(c) - \dfrac{f(b)-f(a)}{b-a} = 0\qquad\text{soit}\qquad f'(c) = \dfrac{f(b)-f(a)}{b-a}\]
+        %
+        On a donc bien un $c \in ]a, b[$ tel que $f(b) - f(a) = f'(c)\times(b-a)$.
+		%
+    \end{nproof}
+	%
+	\boxans{
+        %
+        \begin{corollary}{Inégalité des accroissements finis}{IAF}
+            Soient $(a, b) \in \bdR^2$ tels que $a < b$ et $f \in \bcC([a, b], \bdR) \cap \bcD(]a, b[, \bdR)$. On a :
+            %
+            \[ \hg{\forall (m, M) \in \bdR^2,\qquad \forall x \in ]a, b[,\qquad m \leq f'(x) \leq M \implies m(b - a) \leq f(b) - f(a) \leq M(b-a)}\]
+        \end{corollary}
+        %
+    }
+	%
+	\yesafter
+	%
+	\begin{nproof}
+		%
+        Soient $(a, b) \in \bdR^2$ tels que $a < b$ et $f \in \bcC([a, b], \bdR) \cap \bcD(]a, b[, \bdR)$, ainsi que $(m, M) \in \bdR^2$ tels que $\forall x \in ]a, b[$, $m \leq f'(x) \leq M$. On applique alors le \thref{TAF}, d'où :
+        %
+        \[ \exists c \in ]a, b[,\qquad f(b) - f(a) = (b-a)f'(c) \]
+        %
+        Or $m \leq f'(c) \leq M$, de plus $b - a \geq 0$, donc on a $m(b-a) \leq (b-a)f'(c) \leq M(b-a)$. Finalement on a donc $m(b-a) \leq f(b) - f(a) \leq M(b-a)$.
+		%
+	\end{nproof}
+	%
+	\yesbefore
+    
+    \item Soit $f$ dérivable sur l’intervalle $I$. Montrer que $f$ est croissante si et seulement si $f' \geq 0$ sur $I$.
+    
+    \noafter
+    %
+    \boxans{
+        %
+        \begin{property}{Caractérisation de la croissance d'une fonction dérivable}{croissderiv}
+            Soit un intervalle $I \subset \bdR$ et $f \in \bcD(I, \bdR)$. On a \bf{$f$ croissante sur $I$ si et seulement si $f' \geq 0$ sur $I$}.
+        \end{property}
+        %
+    }
+    %
+    \nobefore\yesafter
+    %
+    \begin{nproof}
+        Soit un intervalle $I \subset \bdR$ et $f \in \bcD(I, \bdR)$. Montrons l'équivalence par double implication.
+            
+        \begin{enumerate}
+            \ithand $\boxed{\implies}$ Supposons $f$ croissante sur $I$. On se donne un point $a \in I$ \underline{intérieur} de $I$. Alors :
+            %
+            \[ \forall x \in I \cap ]a, +\infty[,\qquad x \geq a \qquad\text{donc}\qquad f(x) \geq f(a) \qquad\text{donc}\qquad \dfrac{f(x)-f(a)}{x-a} \geq 0\]
+            %
+            Donc en faisant tendre $x$ vers $a^+$, on obtient $f'(a) = \lim\limits_{x \to a^+} \dfrac{f(x)-f(a)}{x-a} \geq 0$. De même :
+            %
+            \[ \forall x \in I \cap ]-\infty, a[,\qquad x \leq a \qquad\text{donc}\qquad f(x) \leq f(a) \qquad\text{donc}\qquad \dfrac{f(x)-f(a)}{x-a} \geq 0\]
+            %
+            en faisant tendre $x$ vers $a^-$, on a $f'(a) = \lim\limits_{x \to a^-} \dfrac{f(x)-f(a)}{x-a} \geq 0$. Donc on a bien $f(a) \geq 0$. Ceci étant valable pour tout $a$ de $I$, on a bien $f' \geq 0$ sur $I$.
+                
+            \ithand $\boxed{\impliedby}$ Supposons $f' \geq 0$ sur $I$. Soient $(a, b) \in I^2$ avec $a < b$. $f$ est continue sur $[a, b]$ et dérivable sur $]a, b[$ donc par \thref{TAF} : $\exists c \in ]a,b[,\qquad f(b) - f(a) = (b-a)f'(c)$.
+                
+            Or $f'(c) \geq 0$ par et $b - a \geq 0$, donc $f(b) - f(a) \geq 0$ d'où $f(b) \geq f(a)$. On obtient bien $f$ croissante.
+        \end{enumerate}
+    \end{nproof}
+    %
+    \yesbefore
+    
+    \item Étudier selon les valeurs du réel $\alpha$ les classes $\bcC^0$, $\bcD^0$ et $\bcC^1$ de la fonction $f_\alpha : x \mapsto \left\lbrace\begin{array}{cl}
+                \mod{x}^\alpha\sin{\sfrac{1}{x}} &\text{si} \ x \neq 0  \\
+                0 &\text{sinon} 
+            \end{array}\right.$
+    
+    \boxans{
+        Pour tout réel non nul  $x \in \bdR^*$, $\sin{\sfrac{1}{x}}$ est toujours bornée. On étudie donc $\mod{x}^\alpha$ :
+        %
+        \[ \forall x \in \bdR,\qquad \mod{x}^\alpha = \exp{\alpha \ln \mod{x}} \qquad\et\qquad \ln\mod{x} \lima{x \to 0} -\infty\]
+        %
+        \begin{enumerate}
+            \ithand Si $\alpha > 0$, on a $\alpha\ln\mod x \lima{x \to 0} -\infty$, donc $\mod{x}^\alpha \lima{x \to 0} 0$. Donc par \textsc{Théorème d'encadrement}, $\lim\limits{x \to 0} f_\alpha(x) = 0 = f_\alpha(0)$. Donc $f_\alpha$ est continue en $0$.
+            
+            \ithand Si $\alpha = 0$, $\mod{x}^\alpha = \mod{x}^0 = 1$ et $\sin{\sfrac{1}{x}}$ n'a pas de limite en $0$ donc $f_\alpha$ n'a pas de limite.
+            
+            \ithand Si $\alpha < 0$, $\alpha \ln \mod{x} \lima{x \to 0} +\infty$, et $\sin{\sfrac{1}{x}}$ n'a pas de limite en $0$ donc $f_\alpha$ n'a pas de limite.
+        \end{enumerate}
+        
+        \[ \forall x \in \bdR^*,\qquad \dfrac{f_\alpha(x) - f_\alpha(0)}{x - 0} = \dfrac{f_\alpha(x)}{x} = \mod{x}^{\alpha - 1}\sin{\sfrac{1}{x}} = f_{\alpha-1}(x)\]
+        %
+        Or $f'_{\alpha}(0) = \lim\limits_{x \to 0} \dfrac{f_\alpha(x)-f_\alpha(0)}{x-0} =\lim\limits_{x \to 0} f_{\alpha - 1}(x)$. Donc $f_\alpha$ est dérivable en $0$ si et seulement si $\alpha > 1$, avec $f'_\alpha(0) = 0$. Étudions maintenant la continuité de $f'_\alpha$ :
+        %
+        \[ \forall x \in \bdR^*,\qquad f'_\alpha(x) = \sgn{x}\alpha x^{\alpha - 1}\sin{\sfrac{1}{x}} - \dfrac{\mod{x}^\alpha}{x^2}\cos{\sfrac{1}{x}} = \sgn{x}\alpha f_{\alpha-1}(x) - \mod{x}^{\alpha - 2}\cos{\sfrac{1}{x}}\]
+        %
+        où $\sgn(x) = \left\lbrace\begin{array}{cl}
+            1 &\text{si} \ x > 0  \\
+            -1 &\text{si} \ x < 0 
+        \end{array}\right.$. Puisque $\alpha > 1$, $f_{\alpha - 1}(x) \lima{x \to 0} 0$ donc $f'_{\alpha}(0) \asymp{x \to 0} \mod{x}^{\alpha - 2}\cos{\sfrac{1}{x}}$. Comme précédemment, on a $\cos{\sfrac{1}{x}}$ borné, donc $\mod{x}^{\alpha - 2}\cos{\sfrac{1}{x}}$ converge si et seulement si $a > 2$, et converge alors vers $0$. Alors $f'_\alpha$ est continue. Donc $f_\alpha$ est $\bcC^0$ et $\bcD^0$ si et seulement si $\alpha > 1$, et  $\bcC^1$ si et seulement si $\alpha > 2$.
+    }
+    
+    \item Étudier la suite $\suite{u_n}$ définie par $u_0 = 0$ et $u_{n+1} = \sqrt{2- u_n}$.
+    %
+    %On montrera pour cela que pour $f : x \to \sqrt{2-x}$, on a $\sup\limits_{[0, \sqrt{2}]} \mod{f'} = \frac{1}{2\sqrt{2-\sqrt{2}}} < 1$.
+    
+    \boxans{
+        On introduit la fonction $f: \begin{array}[t]{rcl}
+            ]-\infty, 2] &\to& \bdR_+ \\
+            x &\mapsto& \sqrt{2-x}
+        \end{array}$. Par opérations, $f$ est continue et dérivable sur $]-\infty, 2[$.
+        
+        $\forall x \in ]-\infty, 2[$, $f'(x) = \dfrac{-1}{2\sqrt{2-x}}$. De plus $f\left(\left[0, \sqrt{2}\right]\right) = \left[0, \sqrt{2-\sqrt{2}}\right] \subset \left[0, \sqrt{2}\right]$, donc par récurrence immédiate, on obtient $u_n \in \left[0, \sqrt{2}\right]$, donc $\suite{u_n}$ bornée. On remarque par ailleurs que $f(1) = 1 \in \left[0, \sqrt{2}\right]$ et que $\sup\limits_{[0, \sqrt{2}]} \mod{f'} = \max\limits_{[0, \sqrt{2}]} \mod{f'} = \frac{1}{2\sqrt{2-\sqrt{2}}} = k$, donc en appliquant l'\corref{IAF}, on obtient que $f$ est $k$-lipschitzienne sur $\left[0, \sqrt{2}\right]$. Par récurrence immédiate, on a alors :
+        %
+        \[ \forall n \in \bdN,\qquad \mod{u_{n+1} - 1} = \mod{f(u_n) - f(1)} \leq k\mod{u_n - 1} \qquad\text{donc}\qquad \mod{u_n - 1}\leq k^n\mod{u_0 - 1} = k^n\]
+        %
+        Il suffit alors de montrer que $k^n \lima{n \to +\infty} 0$, donc que $k < 1$ ($f$ est alors contractante). Or :
+        
+        {\centering \(k < 1 \iff \frac{1}{2\sqrt{2-\sqrt{2}}} < 1 \iff \sfrac{1}{2} < \sqrt{2-\sqrt{2}} \iff \sfrac{1}{4} < 2 - \sqrt{2} \iff \sqrt{2} < \sfrac{7}{4} \iff 2 < \sfrac{49}{16} \iff \top\)}
+        %
+        Donc on a bien $k^n \lima{n \to +\infty} 0$, d'où $\mod{u_n - 1} \lima{n \to +\infty} 0$, soit $\lim\limits_{n \to +\infty} u_n = 1$.
+       
+    }
+    
+    \item Soit $f : x \mapsto \exp{-\dfrac{1}{x^2}}$ pour $x \neq 0$ et $f(0) = 0$. Montrer que pour tout $n \in \bdN$ et $x \in \bdR^*$, $f^{(n)}(x) = P_n\left(\sfrac{1}{x}\right)e^{-\sfrac{1}{x^2}}$, avec $P_n \in \bdR[X]$. En déduire que $f$ est $\bcC^\infty$ sur $\bdR$.
+    
+    \boxans{
+        On a $x \mapsto -\dfrac{1}{x^2}$ de classe $\bcC^\infty$ sur $\bdR_+^*$ et sur $\bdR_-^*$ et de même pour $\exp$, donc par composition, $f$ est de classe $\bcC^\infty$ sur $\bdR_+^*$ et $\bdR_-^*$. Il s'agit maintenant de montrer que $f$ est $\bcC^\infty$ sur $\bdR$. On pose le prédicat :
+        %
+        \[ \forall n \in \bdN,\qquad H(n):\qquad \exists P_n \in \bdR[X],\qquad \forall x \in \bdR^*,\qquad f^{(n)}(x) = P_n\left(\dfrac{1}{x}\right)f(x)\]
+        %
+        \begin{enumerate}
+            \ithand On procède par récurrence simple. L'initialisation est évidente, avec $P_0 = 1$.
+            
+            \ithand Soit $n \in \bdN$ tel que $H(n)$ est vrai. Donc :
+            %
+            \[ \exists P_n \in \bdR[X],\qquad \forall x \in \bdR^*,\qquad f^{(n)}(x) = P_n\left(\dfrac{1}{x}\right)f(x) = P_n\left(\dfrac{1}{x}\right)\exp{-\dfrac{1}{x^2}}\]
+            %
+            $f$ est $\bcC^\infty$ sur $\bdR_-^*$ et $\bdR_+^*$ donc on peut dériver :
+            %
+            \begin{align*}
+                 \forall x \in \bdR^*,\qquad f^{(n)}(x) &= P'_n\left(\dfrac{1}{x}\right)\exp{-\dfrac{1}{x^2}} + P_n\left(\dfrac{1}{x}\right)\dfrac{2}{x^3}\exp{-\dfrac{1}{x^2}}\\
+                 &= \left(P_n\left(\dfrac{1}{x}\right) + \dfrac{2}{x^3}P_n\left(\dfrac{1}{x}\right)\right)\exp{-\dfrac{1}{x^2}}\\
+                 &=  \left(P_n\left(\dfrac{1}{x}\right) + P_n\left(\dfrac{1}{x}\right)\dfrac{2}{x^3}\right)f(x)
+            \end{align*}
+            %
+            En posant $P_{n+1} = P'_n + 2X^3P_n$, on a bien $H(n+1)$.
+            
+            \ithand Par principe de récurrence, $H(n)$ est vrai pour tout $n \in \bdN$.
+        \end{enumerate}
+        %
+        \[ \forall P \in \bdR[X],\qquad P\left(\dfrac{1}{x}\right)\exp{-\dfrac{1}{x^2}} \lima{x \to 0} 0 \qquad\text{donc}\qquad \forall n \in \bdN,\qquad f^{(n)}(x) \lima{x \to 0} 0\]
+        %
+        Par \textsc{Théorème de limite de la dérivée}, on a :
+        %
+        \[ \forall n \in \bdN,\qquad f^{(n)}(0) = 0 \quad\et\quad f^{(n)} \in \bcC^n(\bdR, \bdR) \qquad\text{donc}\qquad f \ \text{est} \ \bcC^\infty \ \text{sur} \ \bdR\]
+    }
+    
+\end{enumerate}
+
+\end{document}

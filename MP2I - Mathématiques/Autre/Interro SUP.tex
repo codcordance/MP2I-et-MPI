@@ -1,0 +1,268 @@
+\documentclass[french,bookmarks]{article}
+
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    total={170mm,257mm},
+    left=20mm,
+    top=20mm
+}
+
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{xcolor}
+\usepackage{fontspec}
+
+\newfontfamily{\EBGaramond}{EBGaramond}[RawFeature={+clig,+liga,+cv11,+cv90,+calt,+ccmp,+swsh},Ligatures=TeX]
+
+\usepackage{etoolbox}
+
+\makeatletter
+\def\makelistright{%
+    \leftmargin\z@
+    \patchcmd{\@listi}%
+        {\leftmargin\leftmargini}%
+        {\rightmargin\leftmargini}%
+        {}{}%
+    \patchcmd{\@listii}%
+        {\leftmargin\leftmarginii}%
+        {\rightmargin\leftmarginii}%
+        {}{}%
+    \patchcmd{\@listiii}%
+        {\leftmargin\leftmarginiii}%
+        {\rightmargin\leftmarginiii}%
+        {}{}%
+    \patchcmd{\@listiv}%
+        {\leftmargin\leftmarginiv}%
+        {\rightmargin\leftmarginiv}%
+        {}{}%
+    \patchcmd{\@listv}%
+        {\leftmargin\leftmarginv}%
+        {\rightmargin\leftmarginv}%
+        {}{}%
+    \patchcmd{\@listvi}%
+        {\leftmargin\leftmarginvi}%
+        {\rightmargin\leftmarginvi}%
+        {}{}%
+    \patchcmd{\@trivlist}%
+        {%
+            \leftskip\z@skip%
+            \rightskip\@rightskip%
+            \parfillskip\@flushglue%
+        }%
+        {%
+            \leftskip\@flushglue%
+            \rightskip\@rightskip%
+            \parfillskip\z@skip%
+        }%
+        {}{}%
+    \patchcmd{\@item}%
+        {\box\@labels}%
+        {%
+            \hskip-\@flushglue%
+            \hbox to 0pt {\hskip\linewidth\box\@labels\hskip-\linewidth}%
+            \hskip\@flushglue%
+        }%
+        {}{}%
+    \patchcmd{\@item}%
+        {%
+            \unhbox\@labels
+            \hskip \itemindent
+            \hskip -\labelwidth
+            \hskip -\labelsep
+            \ifdim \wd\@tempboxa >\labelwidth
+            \box\@tempboxa
+            \else
+                \hbox to\labelwidth {\unhbox\@tempboxa}%
+            \fi
+            \hskip \labelsep
+        }%
+        {%
+            \hskip \labelsep%
+            \hbox to\labelwidth {\unhbox\@tempboxa}%
+            \unhbox\@labels
+            \hskip -\labelwidth
+            \hskip -\labelsep
+        }%
+        {}{}%
+    \def\@mklab##1{##1\hss}%
+    \patchcmd{\itemize}%
+        {\hss\llap}%
+        {}%
+        {}{}%
+}
+\makeatother
+ 
+\begin{document}
+
+    \pagestyle{fancy}
+    \fancyhf{}
+    \rhead{07/09/2022}
+    \lhead{Janson-de-Sailly}
+    \chead{MP2I}
+    \cfoot{\thepage}
+    
+    \noindent \textsf{}\\[-25pt]\makebox[0.75\textwidth]{Nom et prénom :\enspace\hrulefill}
+    
+    \begin{center}
+        \fbox{\fbox{\parbox{5.5in}{\centering\huge\sffamily Interrogation n° 0}}}
+    \end{center}
+    
+    \noindent \textit{\triangleright \ Veillez à rédiger soigneusement vos réponses. La lisibilité et l'orthographe, ainsi que la qualité des réponses, font partie intégrante de la notation. L'usage de tout matériel électronique (calculatrice, téléphone, \dots) est strictement interdit.}\\
+    
+    
+    \noindent \textbf{Exercice 1} Écrire la négation de l'assertion suivante :
+    %
+    \[ \forall \epsilon > 0,\quad \exists \eta > 0,\quad \forall \left(x, y\right) \in \mathbb{R}^2,\qquad \left| x - y\right| \leq \eta \implies \left| f\left(x\right) - f\left(y\right) \right| \leq \epsilon\]
+    
+    \vspace{6mm}
+    
+    \noindent \textbf{Exercice 2} Soit deux réels $a$ et $b$. Donner les formules trigonométriques correspondant à :
+    %
+    \begin{enumerate}
+        \item[\bullet] $\cos\left(a + b\right) = $
+        
+        \item[\bullet] $\sin\left(a - b\right) = $
+        
+        \item[\bullet] En fonction de $\cos\left(2x\right)$,\quad $\cos^2\left(x\right) =$
+        
+        \item[\bullet] $\sin\left(2x\right) =$\\
+    \end{enumerate}
+    
+    \noindent \textbf{Exercice 3} Étudier les limites en $0$ et en $+\infty$ de la fonction $f$ définie sur $\mathbb{R}_+^*$ par :\quad $\forall x \in \mathbb{R}_+^*,\quad f\left(x\right) = \frac{1}{x} - \frac{1}{e^x - 1}$
+    
+    \vspace{20mm}
+    
+    \noindent \textbf{Exercice 4} Montrer que la fonction $F$ définie sur $\mathbb{R}$  :
+    %
+    \[ \forall x \in \mathbb{R},\qquad F\left(x\right) = \int_0^{\cos^2\left(x\right)} \arccos\left(\sqrt{t}\right)\mathrm{d}t + \int_0^{\sin^2\left(x\right)} \arcsin\left(\sqrt{t}\right)\mathrm{d}t\]
+    %
+    est constante et donner $F\left(0\right)$. \textit{Attention à la rigueur, pensez à vérifier les domaines de définition !}
+    
+    \vspace{40mm}
+    
+    \noindent \textbf{(*) Exercice 5} Soit $m$ un entier naturel et $\left(x_1, x_2, \dots x_m\right)$ des réels. En raisonnant par récurrence sur $m$, démontrez la formule du multinôme de \textsc{Newton} :
+    %
+    \[ \forall n \in \mathbb{N},\qquad \left(\sum_{i=1}^m x_i \right)^n = \sum_{\substack{k_1 + k_2 + \dots + k_m\\\sum_{i=1}^m k_i = n}} \binom{n}{k_1,k_2,\cdots,k_m}\prod_{i=1}^m x_i^{k_i}\]
+    %
+    où $\displaystyle \binom{n}{k_1,k_2,\cdots,k_m} = \dfrac{n!}{\displaystyle\prod_{i=1}^m k_i!}$ (appelé \textit{coefficient multinomial}).
+    
+    \newpage
+    
+    \noindent \textbf{Exercice 6} Reliez chaque citation à son auteur. Attention, il y a des pièges !\\
+    
+    \begin{minipage}{0.3\linewidth}
+        \begin{makelistright}
+            \begin{itemize}
+                \item[\bullet] M. \textsc{Morcrette}
+                \item[\bullet] Anna
+                \item[\bullet] Mme. \textsc{Fratta}
+                \item[\bullet] Hassan
+                \item[\bullet] M. \textsc{Brethes}
+                \item[\bullet] Rayan
+            \end{itemize}
+        \end{makelistright}
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}{0.60\linewidth}
+        \begin{enumerate}
+            \item[\bullet] \textit{Les mathématiques c'est inutile.}
+            
+            \item[\bullet] \textit{Mes enfants vont être contents !}
+            
+            \item[\bullet] \textit{C'est le punctum rectum.}
+            
+            \item[\bullet] \textit{C'est le début de mon point g ...}
+            
+            \item[\bullet] \textit{Allez, zou !}
+            
+            \item[\bullet] \textit{La différence est dans les patates.}
+            
+            \item[\bullet] \textit{Je peux pas, j'ai apéro !}
+            
+            \item[\bullet] \textit{C'est profond ce matin ...}
+            
+            \item[\bullet] \textit{Je mettrai une perruque rose et je m'habillerai en clown.}
+            
+            \item[\bullet] \textit{J'en ai rien à foutre des MP2I.}
+            
+            \item[\bullet] \textit{Monsieur, vous pouvez nous ouvrir une salle pour voler un sapin ?}
+            
+            \item[\bullet] \textit{Tu peux dire stop hein, c'est \#metoo dans les deux sens !}
+            
+            \item[\bullet] \textit{On peut faire un espace vectoriel avec des figures géométriques ?}
+            
+            \item[\bullet] \textit{Le porno aujourd'hui c’est des gens comme vous et moi.}
+            
+            \item[\bullet] \textit{Ils ont avorté mon programme !}
+            
+            \item[\bullet] \textit{Je suis obligé de me ramener à la religion parce que je n'ai plus foi en vous.}
+        \end{enumerate}
+    \end{minipage}
+    
+    \vspace{2mm}
+    \noindent \textbf{Exercice 7} Répondez aux questions.
+    
+    \begin{enumerate}
+        \item Pendant les vacances, tu as (fais des maths au moins) ? \enspace\hrulefill \\
+        \text{}\enspace\hrulefill
+        
+        \item Comment va-t-on te reconnaître parmi les sup ? De quel lycée viens-tu ?\enspace\hrulefill  \\
+        \text{}\enspace\hrulefill
+        
+        \item Tu fais du sport,de la musique, ... ? A quelle fréquence ? \enspace\hrulefill \\
+        \text{}\enspace\hrulefill
+        
+        \item Ta couleur préférée (Éliminatoire à l'X) ? \enspace\hrulefill 
+        
+        \item Combien de fois penses-tu : majorer ? minorer ? avoir une note au dessus de 10 ? \enspace\hrulefill\\
+        \text{}\enspace\hrulefill
+        
+        \item A quand remontent tes derniers cours de physique ? \makebox[2cm][l]{$\square$ Terminale} \hfill \makebox[2cm][l]{$\square$ Première} \hfill \makebox[2cm][l]{$\square$ Seconde} \hfill\text{}
+        
+        \item Tu préfères ? \quad \makebox[2cm][l]{$\square$ Les maths} \hfill \makebox[2cm][l]{$\square$ Les maths} \hfill \makebox[2cm][l]{$\square$ Les maths} \hfill \makebox[2cm][l]{$\square$ Le français} \hfill \resizebox{0.8cm}{!}{\begin{minipage}{0.2\linewidth}
+            $\square$ La physique\newline $\square$ L'info\newline
+            $\square$ La SI\newline
+            $\square$ Les maths\newline
+            $\square$ Autre
+        \end{minipage}
+        }\qquad\text{}
+        
+        \item Quel instrument pratique M. \textsc{Morcrette} ? \enspace\hrulefill
+        
+        \item Antoine délégué ? \makebox[2cm][l]{$\square$ oui} \hfill \makebox[2cm][l]{$\square$ Les maths} \hfill \makebox[2cm][l]{\color{black!10!white}{$\square$ non}}
+        
+        \item Quelle est ta situation sentimentale ? \makebox[3cm][l]{$\square$ En couple} \hfill \makebox[3cm][l]{$\square$ Je joue à LoL} \hfill
+        \makebox[3cm][l]{$\square$ \#Charogang } \hfill\text{}\\
+        \makebox[3cm][l]{$\square$ J'ai des vues... } $\square$ Trouvez qqun svp... Précise (tkt ça reste entre nous) ? \enspace\hrulefill\\
+        \text{}\enspace\hrulefill
+        
+        \item Quelle est la personne que tu préfères dans la classe ? \enspace\hrulefill ?
+        
+        \item Celle que tu aimes le moins (promis on le dit pas !) ? \enspace\hrulefill
+        
+        \item Autre chose à dire ? \enspace\hrulefill
+        
+    \end{enumerate}
+    
+    \text{}\newline
+    
+    \noindent\textit{\large\EBGaramond Bienvenue en sup 3 !} L'intégration se fera vendredi 9 septembre, après les cours (rendez-vous à 17h dans la cours). On espère tous que tu seras présent avec nous (\makebox[1cm][l]{$\square$ oui } \makebox[1cm][l]{$\square$ non }) et on a besoin de savoir si :
+    
+    \begin{enumerate}
+        \item[\ast] Tu bois de l'alcool ? \makebox[1cm][l]{$\square$ oui} \makebox[3cm][l]{$\square$ oui (beaucoup)} \makebox[1cm][l]{$\square$ non} 
+        
+        \item[\ast] Tu as un régime spécifique (végétarien, ...) \enspace\hrulefill
+        
+        \item[\ast] Tu as des allergies ? Si oui, lesquelles ? \enspace\hrulefill
+    \end{enumerate}
+    
+    \noindent N'oubliez pas : venez avec d’anciens habits (ou moche évidemment comme vous voulez). Ne vous inquiétez pas, \underline{rien n'est obligatoire}, on ne vous forcera à rien (promis !). On vous demande une participation pour organiser l’inté : 10€ pour ceux qui boivent et 7€ pour ceux qui ne boivent pas.
+    
+\end{document}

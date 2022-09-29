@@ -1,0 +1,47 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+    
+\begin{document}
+\stylizeDoc{Physique}{Compte-rendu du TP 18}{Le filtre RC}
+
+\boxhtp{
+    \itstar Mettre en œuvre un dispositif expérimental pour tracer le diagramme de Bode du filtre RC
+}{
+    \itstar un GBF, un oscilloscope, boîte à décades de résistances, de capacités, une bobine.
+}
+
+\begin{experience}{Diagramme de Bode du filtre RC}{}
+    \begin{enumerate}
+        \ithand Choisir une valeur de capacité (typiquement $C =\SI{10}{nF}$) et une valeur de résistance (typiquement $R = \SI{1}{k\Omega}$).
+        
+        \ithand Tracer le diagramme de Bode du filtre RC.
+    \end{enumerate}
+\end{experience}
+
+\boxexp{
+    \begin{center}
+        \begin{circuitikz}
+        \draw (0, 0) 
+            to[vsourcesin, v=$\underline e(t)$] ++(0, 2.4) coordinate (m0)
+            to[R, l=$R \eq \SI{1}{k\Omega}$] ++(5,0) coordinate (m1)
+            to[C, v=$\underline s(t)$, l=$C \eq \SI{10}{nF}$] ++(0,-2.4)
+            to[short, i=$i$] ++(-5,0) node[eground, rotate = -45]{}
+            to[short, -o] ++(0,0);
+            --(0,0);
+                
+            \draw[->] (m0) to[short, o-]  ++(-1,1) node[label={west:\texttt{Voie 1}}]{};
+                
+            \draw[->] (m1) to[short, o-]  ++(1,1) node[label={east:\texttt{Voie 2}}]{};
+        \end{circuitikz}
+            
+        \begin{tabular}{|>{\centering\columncolor{colexp!20}}p{0.1\linewidth}|c!{\color{colexp!50!gray}\vrule}|}\hline
+        \rowcolor{colexp!20} $\vphantom{\dfrac{1}{2}}f_G (\SI{}{kHz})$ & $1$\\\hline
+        $\vphantom{\dfrac{1}{2}}A_s (\SI{}{V})$ & $9.8$\\\hline
+        $\vphantom{\dfrac{1}{2}}\phi_s (\SI{}{{}^\circ)}$ & $1.0$\\\hline
+    \end{tabular}
+    \end{center}
+        
+    On a de plus $\omega_c = \dfrac{1}{\omega_0} = \dfrac{1}{RC}$, d'où $f_C = \dfrac{1}{2\pi RC}$. L'application numérique donne $f = \SI{15915}{Hz}$.
+}
+
+\end{document}

@@ -1,0 +1,125 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans{}
+
+
+\begin{document}
+    \stylizeDoc{Mathématiques}{Banque Agro-Veto}{Sujet A BCPST 0422}
+    
+    \section*{Exercice 1.}
+    
+    Soit $n$ un entier supérieur ou égal à $2$. On considère une urne contenant $n$ boules indiscernables numérotées de $1$ à $n$. On tire au hasard une boule et on la retire de l'urne ainsi que toutes les boules ayant un numéro supérieur à celui de la boule tirée. On réitère l'expérience jusqu'à ce que l'urne soit vide et l'on note $X_n$ la variable aléatoire égale au nombre de tirages réalisés pour vider l'urne.\medskip
+    
+    Pour tout entier $i$, on pourra noter $N_i$ la variable aléatoire égale au numéro de la $i$-ième boule tirée s'il y a eu au moins $i$ tirages, et $0$ sinon.
+    
+    \begin{enumerate}
+        \item Trouver la loi de $X_2$ puis donner son espérance et sa variance.
+        
+        \boxans{
+            Pour $n = 2$, on peut soit tirer la boule numérotée $1$ et vider l'urne, soit tirer la boule numérotée $2$ puis tirer la boule numérotée $1$. L'univers des possibles est donc $X_2\p{\Omega} = \ens{1, 2}$, l'issue étant déterminée par le numéro de la boule du premier tirage. On en déduit que $X_2$ suit la distribution uniforme $X_2 \hookrightarrow \bcU\p{2}$, c'est-à-dire que l'on a $\prob{X_2 = 1} = \prob{X_2 = 2} = \dfrac{1}{2}$. Il en résulte que $\bdE\p{X_2} = \dfrac{2+1}{2} = \dfrac{3}{2}$ et $\bdV\p{X_2} = \dfrac{2^2 - 1}{12} = \dfrac{3}{12} = \dfrac{1}{4}$.
+           
+        }
+        
+        \item Trouver la loi de $X_3$ et donner son espérance.
+        
+        \boxans{
+            Pour $n = 3$, on peut soit tirer la boule numérotée $1$ et vider l'urne (1 tirage), soit tirer la boule numérotée $2$ puis la boule numérotée $1$ (2 tirages), soit tirer la boule numérotée $3$ puis $1$ (2 tirages) soit tirer la boule numérotée $3$ puis $2$ puis $1$ (3 tirages). On a donc la loi :
+            %
+            \[ \prob{X_3 = 1} = \dfrac{1}{4}\qquad \prob{X_3 = 2} = \dfrac{2}{4} = \dfrac{1}{2}\qquad \prob{X_3 = 3} = \dfrac{1}{4}\]
+            %
+            L'espérance de $X_3$ vaut alors : $\bdE\p{X_3} = 1\times\dfrac{1}{3} + 2\times\p{\dfrac{1}{3} + \dfrac{1}{3}\times\dfrac{1}{2}} + 3\times\dfrac{1}{3}\times\dfrac{1}{2} = \dfrac{11}{6}$.
+        }
+        
+        \item Donner l'ensemble des valeurs que peut prendre $X_n$.
+        
+        \boxans{
+            Pour $k \in \iint{1,n}$ obtenir l'issue $\intc{X_n = k}$ peut se faire en tirant les boules dans l'ordre décroissant en partant de la boule numérotée $n$, jusqu'au $k$-ième tirage où l'on tire la boule numérotée $1$ (ce qui vide l'urne), \ie :
+            %
+            \[ \p{\bigcap_{i=1}^{k-1} \intc{N_i = n + 1 - k}} \cap \intc{N_k = 1} \subset \intc{X_n = k}\]
+            %
+            Par ailleurs il y a au minimum $1$ tirage (puisque l'urne contient forcément $2$ boules) et au maximum $n$ tirages (tirages dans l'ordre décroissant).
+            %
+            Ainsi $X_n\p{\Omega} = \iint{1,n}$.
+        }
+        
+        \item Déterminer $\prob{X_n = 1}$ et $\prob{X_n = n}$.
+        
+        \boxans{
+            \begin{enumerate}
+                \itt L'issue $\intc{X_n = 1}$ s'obtient uniquement en tirant la boule $1$ (parmi les $n$ boules) au premier tirage, soit $\prob{X_n = 1} = \dfrac{1}{n}$.
+                
+                \itt L'issue $\intc{X_n = 1}$ s'obtient uniquement en tirant les boules dans l'ordre décroissant :
+                %
+                \[ \intc{X_n = 1} = \bigcap_{i=1}^n \intc{N_i = n + 1 - i} \]
+                %
+                Or $\prob{N_1 = n} = \dfrac{1}{n}$ et $\prob{N_{i} = n + 1 - i \;\middle\vert\; \displaystyle\bigcap_{j=1}^{i-1} N_{j} = n + 1 - j } = \dfrac{1}{n + 1 - i}$ (on tire la boule la boule \guill{maximale} par $n + 1 - i$ boules) donc par \textit{formule des probabilités composées} on a :
+                %
+                \begin{align*}
+                    \prob{X_n = n} &= \prob{\bigcap_{i=1}^n \intc{N_i = n + 1 - i}} = \prob{N_1}\prod_{i=2}^n\prob{N_{i} = n + 1 - i \;\middle\vert\; \displaystyle\bigcap_{j=1}^{i-1} \intc{N_{j} = n + 1 - j}}\\
+                    &= \dfrac{1}{n}\prod_{i=2}^{n} \dfrac{1}{n+1-i} = \prod_{i=1}^n \dfrac{1}{n+1-i} = \prod_{i=1}^n \dfrac{1}{n+1-\p{n+1-i}} = \prod_{i=1}^n \dfrac{1}{i} =  \dfrac{1}{n!}
+                \end{align*}
+            \end{enumerate}
+        }
+        
+        \item Prouver que pour tout $k \geq 2$, on a :
+        %
+        \[ \prob{X_n = k} = \dfrac{1}{n} \sum_{i = 2}^n \prob{X_{i-1} = k - 1}\]
+        
+        \boxans{
+            L'issue $\intc{X_n = k}$ s'obtient généralement en tirant aux $k-1$ premiers tirages des boules de numéro supérieurs à $1$ puis en tirant au $k$-ième tirage la boule numérotée $1$. Le numéro de la boule obtenue au $k-1$-ième tirage est donc supérieur à $2$, et est (grossièrement) majoré par $n$, d'où\footnote{$\bigsqcup$ signifie union dijointe}  :
+            %
+            \[ \intc{X_n = k} = \intc{N_k = 1} \cap \intc{N_{k-1} \geq 2} = \intc{N_k = 1} \cap \p{\bigsqcup_{i=2}^n \intc{N_{k-1} = i}} = \bigsqcup_{i=2}^n \p{\intc{N_k = 1} \cap \intc{N_{k-1} = i}}\]
+            %
+            Ce qui amène :
+            %
+            \begin{align*}
+                  \prob{X_n = k} &= \prob{\bigsqcup_{i=2}^n \p{\intc{N_k = 1} \cap \intc{N_{k-1} = i}}} = \sum_{i=2}^n \prob{\intc{N_k = 1} \cap \intc{N_{k-1} = i}}\\
+                  &= \sum_{i=2}^n \prob{N_{k-1}=i}\prob{N_k = 1 \;\middle\vert\; N_{k-1}=i} = \sum_{i=2}^n \prob{N_{k-1}=i}\dfrac{1}{i-1}
+            \end{align*}
+            %
+            Par ailleurs, l'évènement $\intc{N_{k-1}=i}$ signifie qu'au $k-1$-ième tirage, on obtient la boule numérotée $i$, et donc que pendant ces $k-1$ premiers tirages, on a tiré que des boules de numéro supérieure à $i$. On considère alors l'évènement $A_i$ : \textit{\guill{les $i$ premières boules sont supérieures ou égales à $i$}}.\medskip
+            
+            Sous cette condition, on peut s'intéresser à la \guill{sous urne} des boules numérotées de $i$ à $n$ (soit une urne de $n + 1 - i$ boules). En effet, tirer la boule numérotée $i$ au $k-1$-ième tirage (forcément dans cette sous-urne sous la condition $A_i$) revient à vider cette sous-urne. La probabilité de $\intc{N_{k-1}=i}$ sachant $A_i$ est donc égale à la probabilité de vider une urne de $n+1 - i$ boules en $k-1$ tirages, soit $\prob{X_{n+1-i} = k - 1}$.\medskip
+            
+            Puisque $\intc{N_{k-1} = i} \subset \intc{A}$, on a $\intc{N_{k-1} = i} = \intc{N_{k-1} = i} \cap \intc{A}$ donc :
+            %
+            \begin{align*}
+                \prob{X_n = k} &= \sum_{i=2}^n \prob{X_{n+1-i} = k - 1}\dfrac{\prob{A_i}}{i-1} = \sum_{i=2}^n \prob{X_{n+1-(n+2-i)} = k - 1}\dfrac{\prob{A_{n+2-i}}}{n+2-i-1}\\
+                &= \sum_{i=2}^n \dfrac{\prob{A_{n+2-i}}}{n+2-i} \prob{X_{i- 1} = k - 1}
+            \end{align*} 
+        }
+        
+        \item En déduire que $\bdE\p{X_{n+1}}-\bdE\p{X_n} = \dfrac{1}{n+1}$.
+        
+        \boxans{
+            \begin{align*}
+                \bdE\p{X_{n+1}} &= \sum_{k=1}^{n+1} k\prob{X_{n+1} = k} = \dfrac{1}{n+1} + \sum_{k=2}^{n+1} k\prob{X_{n+1} = k} = \dfrac{1}{n+1} + \sum_{k = 2}^{n + 1} \dfrac{k}{n+1} \sum_{i=2}^{n+1} \prob{X_{i - 1} = k - 1}\\
+                &= \dfrac{1}{n+1} + \sum_{k = 2}^{n + 1} \dfrac{k}{n+1} \intc{\prob{X_n = k - 1} + \sum_{i=2}^{n}\prob{X_{i-1} = k - 1}}\\
+                &= \dfrac{1}{n+1} + \sum_{k = 2}^{n+1} \dfrac{k}{n+1} \intc{\prob{X_n = k - 1} + n\prob{X_n = k}}\\
+                &= \dfrac{1}{n+1} + \sum_{k=2}^{n+1} \dfrac{k}{n+1} \prob{X_n = k - 1} + \sum_{k=2}^{n+1} \dfrac{kn}{n+1} \prob{X_n = k}\\
+                &= \dfrac{1}{n+1} + \sum_{k=1}^{n} \dfrac{k+1}{n+1} \prob{X_n = k} + \sum_{k=1}^n \dfrac{kn}{n+1} \prob{X_n = k} + \underbrace{\dfrac{n(n+1)}{n+1}\prob{X_n = n+1}}_{= 0} - \dfrac{n}{n+1}\prob{X_n = 1}\\
+                &= \dfrac{1}{n+1} + \sum_{k=1}^n \dfrac{k+1 + kn}{n+1}\prob{X_n = k} - \dfrac{n}{n(n+1)}\\
+                &= \dfrac{1}{n+1} + \sum_{k=1}^n \dfrac{k(n+1)}{(n+1)}\prob{X_n = k} + \sum_{k=1}^n\dfrac{1}{n+1} \prob{X_n = k} - \dfrac{1}{n+1}\\
+                &= \dfrac{1}{n+1} + \sum_{k=1}^n k\prob{X_n = k} + \dfrac{1}{n+1}\intc{\prob{1 \leq X_n \leq n} - 1} = \dfrac{1}{n+1} + \bdE\p{X_n} + \dfrac{1-1}{n+1} = \dfrac{1}{n+1} + \bdE\p{X_n}
+            \end{align*}
+            %
+            On a donc $\bdE\p{X_{n+1}}-\bdE\p{X_n} = \dfrac{1}{n+1}$.
+        }
+        
+        \item En déduire une expression de $\bdE\p{X_n}$ sous forme d'une somme.
+        
+        \item \begin{enumerate}
+            \item Prouver que pour tout entier $k \geq 2$, on a :\qquad $\displaystyle \int_k^{k+1} \dfrac{\dif t}{t} \leq \dfrac{1}{k} \leq \int_{k-1}^k \dfrac{\dif t}{t}$.
+            
+            \item En déduire que $\displaystyle \sum_{k=1}^n \dfrac{1}{k} \asymp{n \to +\infty} \ln{n}$.
+            
+            \item En déduire un équivalent de $\bdE\p{x_n}$ quand $n$ tend vers $+\infty$.
+        \end{enumerate}
+        
+        \item Trouver une relation entre $\bdE\p{{X_{n+1}}^2}$, $\bdE\p{{X_n}^2}$ et $\bdE\p{X_n}$.
+        
+        \item En déduire une expression de $\bdV\p{X_n}$ sous forme de somme puis un équivalent de $\bdV\p{X_n}$ quand $n$ tend vers $+\infty$.
+    \end{enumerate}
+    
+\end{document}

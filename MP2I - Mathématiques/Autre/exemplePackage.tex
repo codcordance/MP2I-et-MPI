@@ -1,0 +1,140 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans{}
+
+\begin{document}
+    \stylizeDoc{Exemple}{Package 4PE18TEXTB}{Exemple d'utilisation}
+    
+    \initcours{}
+    
+    \section{Les boîtes}
+    
+    \subsection{Boîte boxans}
+    
+    Texte en dehors de la boîte. 
+    
+    \boxans{
+        Dolor sit amet, blablabla, dans la bôite.
+    }
+    
+    \subsection{Boîtes colorées}
+    
+    \begin{theorem}{Nature et somme des séries géométriques}{}
+        Soit $q \in \bdK$. \hg{La série $\serie q^n$ converge} si et seulement si \hg{$\mod{q} < 1$}. Dans ce cas :
+        %
+        \[ \hg{\sum_{n=0}^{+\infty} q^n = \dfrac{1}{1-q}} \qquad\text{et le reste donne}\qquad \forall n \in \bdN,\qquad \hg{R_n = \dfrac{q^{n+1}}{1-q}} \]
+    \end{theorem}
+    
+    \begin{theorem*}{Caractérisation des supplémentaires en dimension finie}{}
+        Soient $E$ un $\bdK$-espace vectoriel de dimension finie et $F$ et $G$ deux $\bdK$-sous-espaces vectoriels de $E$. Les propositions suivantes sont équivalentes :
+        
+        \begin{psse}
+            \item \hg{$E = F \oplus G$}
+            \item \hg{$F \cap G = \left\{0_E\right\}$ et $\dim E = \dim F + \dim G$}
+            \item \hg{$E = F + G$ et $\dim E = \dim F + \dim G$}
+        \end{psse}
+    \end{theorem*}
+    
+    \begin{nproof}
+        Soient $E$ un $\bdK$-espace vectoriel de dimension finie et $F$ et $G$ deux $\bdK$-sous-espaces vectoriels de $E$.
+        
+        \begin{enumerate}
+            \itt $\boxed{\pssenum{i} \implies \pssenum{ii}}$ TRIVIAAAAAAAAAL.
+        \end{enumerate}
+    \end{nproof}
+    
+    \begin{property}{Condition nécessaire de convergence}{}
+        Soit une suite $\suite{u_n} \in \bdK^\bdN$. Si \hg{$\serie u_n$ converge}, alors \hg{$\suite{u_n}$ et la suite des restes $\suite{R_n}$ convergent vers $0$}.
+    \end{property}
+    
+    \begin{corollary}{Théorème de comparaison entre série et intégrale}{}
+        Soit $f \in \bcC\left(\bdR_+, \bdR_+\right)$ une fonction \textit{décroissante}.
+            
+        La série \hg{$\serie f\left(n\right)$ converge} si et seulement si \hg{la suite $\suite{\displaystyle \int_0^n f\left(t\right)\dif t}$ converge}.
+    \end{corollary}
+    
+    \begin{lemma}{Isomorphisme induit par restriction}{}
+        Soient $E$ et $F$ deux $\bdK$-espaces vectoriels, $f \in \bcL\left(E,
+        F\right)$ une application linéaire entre ces deux espaces, et $G$ un
+        supplémentaire de $\Ker f$ dans $E$.
+        %
+        \[ \hg{f{}_{\vert G}^{\vert \Imm f} : \begin{array}[t]{rcl}
+            G &\to& \Imm f  \\
+            x &\mapsto& f(x) 
+        \end{array}\ \text{est un isomorphisme de} \ G \
+        \text{sur} \ \Imm f} \]
+    \end{lemma}
+    
+    \begin{definition*}{Styles}{}
+        Texte normal.
+        
+        \hg{Texte en couleur.}
+        
+        \bf{Texte en couleur gras.}
+        
+        \hgu{Texte en couleur souligné couleur.}
+        
+        \hguo{Texte normal souligné couleur.}
+    \end{definition*}
+    
+    \begin{theorem}{Théorème fondamental de la prépa}{}
+        Soit \hg{$f$} la \hg{fonction représentant le travail en fonction du temps en prépa}. Alors \hg{$f$ diverge}.
+    \end{theorem}
+    
+    \begin{nproof}
+        Soit $f$ la fonction représentant le travail en fonction du temps en prépa. La quantité de travail en prépa ne fait qu'augmenter, donc $f$ tends vers $+\infty$, donc $f$ diverge.
+    \end{nproof}
+    
+    \subsection{Autres boîtes}
+    
+    \begin{example}{Exemple}{}
+        Un exemple \hg{couleur} !
+    \end{example}
+    
+    \begin{exercise}{Exercise}{}
+        Laissé en exercice au \hgu{lecteur} :o
+    \end{exercise}
+    
+    \begin{warning}{Ne pas faire ça !}{}
+        \bf{$\log{a + b} \neq \log{a} + \log{b}$}, non c'est non !
+    \end{warning}
+    
+    \begin{form}{Une boite un peu fourre-tout}{}
+        \hguo{Une boite un peu fourre-tout} :)
+    \end{form}
+    
+    \section{Commandes auto}
+    
+    \[ \cos{123} \qquad \cos 123 \qquad \sin{345} \qquad \sin 345 \]
+    
+    Ceci est une phrase \ie un ensemble de mots (\cf l'académie française)
+    
+    \begin{enumerate}
+        \itt itt
+        \ithand ithand
+        \itb itb
+        \itstar itstar
+        \itvarstar itvarstar
+        \itarr itarr
+        \itvararr itvararr
+        \itbox itbox
+        \itvarbox itvarbox
+    \end{enumerate}
+    
+    Pour les parenthèses $\p{\dfrac{3}{2}}$ contrairement à $(\dfrac{3}{2})$.
+    
+    Pour les accolades $\ens{\dfrac{3}{2}}$ contrairement à $\{\dfrac{3}{2}\}$.
+    
+    \begin{enumerate}
+        \itt $\intc{2; 3}$ et  $\iint{2; 3}$
+        \itt $\into{2; 3}$ et  $\iinto{2; 3}$
+        \itt $\intor{2; 3}$ et  $\iintor{2; 3}$
+        \itt $\intol{2; 3}$ et  $\iintol{2; 3}$
+    \end{enumerate}
+    
+    $\bfA \bfB \bfC \bfD \bfE \bfF \bfG \bfH \bfI \bfJ \bfK \bfL \bfM \bfN \bfO \bfP \bfQ \bfR \bfS \bfT \bfU \bfV \bfW \bfX \bfY \bfZ$
+    
+    Pour les fonctions indicatrices $\bdOne$
+\end{document}
+

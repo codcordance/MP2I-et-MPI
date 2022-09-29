@@ -1,0 +1,268 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+
+\stylizeDoc{Physique}{Compte-rendu du TP 24}{Calorimétrie}
+
+\boxhtp{
+    \itstar Mettre en œuvre un capteur de température.
+    \itstar Effectuer des bilans d'énergie et mettre en œuvre une technique de calorimétrie.
+    \itstar Mesurer des grandeurs thermodynamiques énergétiques : capacité thermique, enthalpie de changement d'états.
+}{
+    \itstar Calorimètre, thermomètre, balance, plaque chauffante.
+    \itstar Solides à faire chauffer (aluminium, laiton, fer, zinc, plomb)
+}
+
+\text{}\hfill\\
+
+\textbf{Remarques importantes concernant les mesures en thermodynamique}
+% Curieux, besoin de cet espace vide pour que le premier que "triangle" de l'enum 
+% s'affiche
+\hfill
+%
+\begin{minipage}{0.35\linewidth}
+	\centering
+	\begin{tabular}{c|c}
+	\end{tabular}
+\end{minipage}
+%
+\begin{enumerate}
+    \itt En thermodynamique, il n'est pas rare d'obtenir des incertitudes-type de l'ordre \SI{50}{\percent}. Ce n'est toutefois pas une raison pour manipuler n'importe comment, ne serait-ce que pour la sécurité lorsque l'on manipule des éléments chauds.
+    
+    \itt Attention à bien peser et mesurer les températures des fluides utilisés : on pourra par exemple poser le calorimètre contenant uniquement les instruments sur la balance et tarer celle-ci, les valeurs affichées par la balance correspondant alors à la masse du contenu.
+\end{enumerate}
+
+On donne $c_\text{eau} = \SI{4.18e3}{\joule \cdot \K^{-1} \cdot \kg^{-1}}$ la capacité thermique massique de l'eau liquide, supposée globalement indépendante de la température.
+
+
+\section{Mesure de la valeur en eau du calorimètre (cf. TP précédent)}
+
+\subsection{Le calorimètre}
+
+Vous disposez d'un calorimètre, dispositif conçu de manière à pouvoir raisonnablement négliger, sur la durée d'une expérience, les échanges thermiques avec l'extérieur, de sorte que $Q \approx 0$.
+
+\begin{enumerate}
+    \item Lister les dispositifs permettant de limiter les transferts thermiques.
+    
+    \boxans{
+        Les dispositifs du calorimètre permettant de limiter les transferts thermiques sont :
+        %
+        \begin{enumerate}
+            \itt la paroi métallique réfléchissante à l'intérieur du calorimètre ;
+            
+            \itt la double paroi, séparant l'intérieur de l'extérieur du calorimètre avec du vide ou de l'air ;
+            
+            \itt le couvercle recouvrant presque la totalité du calorimètre.
+        \end{enumerate}
+    }
+\end{enumerate}
+
+Les expériences réalisées dans un calorimètre sont effectuées en contact avec l'atmosphère.
+
+\begin{enumerate}[resume]
+    \item Quelle forme prend alors le premier principe ?
+    
+    \boxans{
+        Le premier principe livre :
+        %
+        \[\Delta U = \Delta Q + \Delta W \]
+        %
+        Or ici on a $Q = 0$ d'où $\Delta Q = 0$ Le premier principe se réécrit donc :
+        %
+        \[ \Delta U. = \Delta W\]
+    }
+\end{enumerate}
+
+Le système thermodynamique $\Sigma$ étudié est
+
+\begin{equation}
+    \Sigma = \left\{\text{calorimètre} + \text{instruments} + \text{contenu}\right\}
+\end{equation}
+
+Il faut donc considérer la capacité thermique $C_\text{calo}$ du calorimètre et des instruments lorsque l'on applique le premier principe, puisque celle-ci n'est généralement pas négligeable devant celle du contenu. On se propose ainsi de déterminer la valeur en eau $µ$ du calorimètre qui vérifie
+
+\begin{equation}
+    C_\text{calo} = \mu c_\text{eau}
+\end{equation}
+
+\subsection{Méthode des mélanges}
+
+\noafter
+%
+\boxans{
+    \begin{experience}{Mesure de la valeur en eau du calorimètre}{}
+        \begin{enumerate}
+            \ithand Placer une masse $m_1$ d'eau \guill{froide}, attendre l'équilibre thermiqueà la température $T_1$ dans le calorimètre.
+    
+            \ithand Placer la sonde de température dans le calorimètre et la relier à la carte d'acquisition. Attendre quelques minutes que l'eau et le calorimètre soient alors à la même température et la noter.
+            
+            \ithand Ajouter une masse $m_2$ d'eau \guill{chaude} à la température $T_2$.
+            
+            \ithand Fermer le couvercle, agiter, et relever l'évolution de la température au cours du temps. Déterminer la température finale $T_\text f$ lorsque l'équilibre est atteint dans le calorimètre.
+        \end{enumerate}
+    \end{experience}
+}
+%
+\nobefore\yesafter
+%
+\begin{expcom} \text{}
+    \begin{enumerate}
+        \itt On place $m_1 = \SI{320}{\g}$ d'eau, et on atteint l'équilibre thermique à la température $T_1 = \SI{22}{\celsius}$.
+        \itt On ajoute $m_2 = \SI{270}{\g}$ à la température $T_2 = \SI{68}{\celsius}$
+        \itt On atteint la température finale $T_\text f = \SI{40.5}{\celsius}$
+    \end{enumerate}
+\end{expcom}
+%
+\yesbefore
+
+\begin{enumerate}[resume]
+    \item Montrer que la valeur en eau du calorimètre est donnée par
+    
+    \begin{equation}
+        \mu = \dfrac{m_1\left(T_1 - T_\text f\right) + m_2\left(T_2 - T_\text f\right)}{T_f - T_1}
+    \end{equation}
+    
+    faire l'application numérique avec vos valeurs.
+    
+    \boxans{    
+        La transformation subie par un système placé dans un calorimètre est monobare, en équilibre mécanique à l'état intial et final, et adiabatique. Ainsi $\Delta H = 0$. Or $\Delta H = \Delta H_\text{calorimètre} + \Delta H_\text{instruments} + \Delta H_\text{contenu}$.
+        
+        \begin{enumerate}
+        
+            \itt On a $\Delta H_\text{calorimètre} = C_\text{calo}\left(T_f - T_1\right) = \mu c_\text{eau}\left(T_f - T_1\right)$
+        
+            \itt On néglige, du fait de leur taille, l'influence des instruments, donc $\Delta H_\text{instruments} = 0$.
+            
+            
+            \itt Le contenu du calorimètre n'étant que de l'eau, on a $\Delta H_\text{contenu} = \Delta H_\text{eau froide} + \Delta H_\text{eau chaude}$, d'où :
+            %
+            \[ \Delta H_\text{contenu} = c_\text{eau}m_1\left(T_\text f - T_1\right) + c_\text{eau}m_2\left(T_\text f - T_2\right) = c_\text{eau}\left(m_1\left(T_\text f - T_1\right) + m_2\left(T_\text f - T_2\right)\right)\]
+        \end{enumerate}
+        %
+        On a donc :
+        %
+        \[ 0 = \mu c_\text{eau}\left(T_f - T_1\right) + c_\text{eau}m_1\left(T_\text f - T_1\right) + c_\text{eau}m_2\left(T_\text f - T_2\right) = c_\text{eau}\left(m_1\left(T_\text f - T_1\right) + m_2\left(T_\text f - T_2\right)\right) \]
+        %
+        On divise par $c_\text{eau}$, donc on a :
+        %
+        \[\mu\left(T_ 1 - T_ \text f\right) = m_1\left(T_\text f - T_1\right) + m_2\left(T_\text f - T_2\right) \qquad\text{donc}\qquad \mu = \dfrac{m_1\left(T_1 - T_\text f\right) + m_2\left(T_2 - T_\text f\right)}{T_f - T_1}\]
+        
+        L'application numérique livre $\mu = \SI{0.081}{\kg} = \SI{81}{\g}$.
+    }
+\end{enumerate}
+
+Avec les calorimètres utilisés la valeur attendue est généralement de l'ordre de $\mu^\text{attendue} = \SI{15}{\g}$.
+
+\noafter
+%
+\boxans{
+    \begin{experience}{Comparaison avec la valeur attendue}{}
+        \begin{enumerate}
+            \ithand Estimer l'incertitude-type $u\left(\mu\right)$ sur la valeur de $\mu$ en réalisant une simulation Monte-Carlo.
+            
+            \ithand Comparer alors valeur mesurée et valeur attendue. Conclure.
+        \end{enumerate}
+    \end{experience}
+}
+%
+\nobefore\yesafter
+%
+\begin{expcom} \text{}
+    \begin{enumerate}
+        \itt Après avoir effectué la simulation de Monte-Carlo, on obtient $\overline{\mu} = \SI{0.081}{\kg} = \SI{81}{\g}$ et $u\left(\mu\right) = \SI{0.01}{\kg} = \SI{10}{\g}$.
+        
+        \itt On calcule alors le z-score selon :
+        %
+        \[ z = \dfrac{\mod{\overline{\mu} - \mu^\text{attendue}}}{u\left(\mu\right)}\]
+        %
+        On obtient $z = 6.6$. Ce score n'est pas particulièrement bon, mais les remarques importantes données en introduction semblent le nuancer.
+    \end{enumerate}
+\end{expcom}
+%
+\yesbefore
+
+\section{Enthalpie massique de transition de phase}
+
+On cherche à déterminer $L_{S \to L}$.
+
+\begin{enumerate}[resume]
+    \item Concevoir un protocole pour mesurer $L_{S \to L}$ à l'aide d'eau, d'un glaçon à $T_0 = \SI{0}{\celsius}$ et d'un calorimètre.
+    
+    \boxans{
+        \begin{experience}{Mesure d'une enthalpie massique de transition de phase}{}
+            \begin{enumerate}
+                \ithand Placer dans le calorimètre une masse $m_1$ d'eau, et attendre la température d'équilibre $T_1$.
+                
+                \ithand Ajouter un glaçon de masse $m_2$ et de température $T_0 = \SI{0}{\celsius}$ (donc à l'équilibre dans de l'eau liquide).
+            
+                \ithand Attendre que le glaçon fonde, et mesurer la température finale $T_f$.
+            
+                \ithand Déterminer alors $L_{S \to L}$.
+            \end{enumerate}
+        \end{experience}
+    }
+    
+    \item Modéliser la situation et donner l'expression de $L_{S \to L}$ en fonction des autres variables.
+    
+    \boxans{
+        On modélise la transformation (fictive) selon :
+        %
+        \[ \left[\begin{array}{cc}
+            \text{eau liquide} & m_1, T_1 \\
+            \text{glaçon} & m_2, T_0 \\ 
+            \text{calorimètre} & \mu, T_1
+        \end{array}\right] \overset{(1)}{\to} \left[\begin{array}{cc}
+            \text{L} & m_1, T_\text f \\
+            \text{S} & m_2, T_0 \\ 
+            \text{S} & \mu, T_1
+        \end{array}\right] \overset{(2)}{\to} \left[\begin{array}{cc}
+            \text{L} & m_1, T_\text f \\
+            \text{S} & m_2, T_0 \\ 
+            \text{S} & \mu, T_\text f
+        \end{array}\right] \overset{(3)}{\to} \left[\begin{array}{cc}
+            \text{L} & m_1, T_\text f\\
+            \text{L} & m_2, T_0 \\ 
+            \text{S} & \mu, T_\text f
+        \end{array}\right] \overset{(4)}{\to} \left[\begin{array}{cc}
+            \text{L} & m_1, T_\text f \\
+            \text{L} & m_2, T_\text f \\ 
+            \text{S} & \mu, T_\text f
+        \end{array}\right]\]
+        %
+        \begin{enumerate}
+            \itt Pour la transformation $(1)$ : L'eau liquide est une PC2I donc $\Delta H_1 = C\Delta T = m_1c_\text{eau}\left(T_\text f - T_1\right)$.
+            
+            \itt Pour la transformation $(2)$ : Le calorimètre est une PC2I donc $\Delta H_2 = C\Delta T = \mu c_\text{eau}\left(T_\text f - T_1\right)$.
+             
+             \itt Pour la transformation $(3)$ : Le galçon fond doonc $\Delta H_3 = m_2 \times L_{S \to L}$.
+             
+             \itt Pour la transformation $(4)$ : Le glaçon fondu (liquide) est une PC2I donc $\Delta H_4 = m_2c_\text{eau}\left(T_f - T_0\right)$.
+        \end{enumerate}
+        
+        La transformation subie par un système placé dans un calorimètre est monobare, en équilibre mécanique à l'EI et l'EF, et adiabatique donc $\Delta H = 0$.
+        %
+        \[ -m_2\times L_{S \to L} = m_1c_\text{eau}\left(T_\text f - T_1\right) + \mu c_\text{eau}\left(T_\text f - T_1\right) + m_2c_\text{eau}\left(T_f - T_0\right)\]
+        %
+        Donc :
+        %
+        \[ L_{S \to L} = -\dfrac{c_\text{eau}}{m_2}\left(\left(m_1 + \mu\right)\left(T_f - T_1\right) + m_2\left(T_f - T_0\right)\right) = c_\text{eau}\left(\dfrac{m_1 + \mu}{m_2}\left(T_1 - T_f\right) + T_0 - T_f\right)\]
+    }
+    
+    \item Réaliser l'expérience et déterminer $L_{S \to L}$. On a $L_{S \to L}^\text{attendu} = \SI{334}{\kilo\joule \cdot \kelvin^{-1}}$.
+    
+    \begin{expcom} \text{}
+        \begin{enumerate}
+            \itt On a $T_1 \SI{37}{\celsius}$, $T_f = \SI{32}{\celsius}$, $m_1 = \SI{579}{\g}$ et $m_2 = \SI{21}{\g}$.
+            
+            \itt On obtient avec l'expression ci-dessus $L_{S \to L} = \SI{388}{\kilo\joule \cdot \kelvin^{-1}}$.
+            
+            \itt Manque de temps pour les incertitudes.
+        \end{enumerate}
+    \end{expcom}
+    
+\end{enumerate}
+
+\end{document}

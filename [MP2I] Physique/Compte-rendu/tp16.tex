@@ -1,0 +1,238 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+    
+\begin{document}
+\stylizeDoc{Physique}{Compte-rendu du TP 16}{Oscillateur mécanique amorti}
+
+\boxhtp{
+    \itstar Analyser un système oscillant électrique.
+    \itstar Mesurer précisément les caractéristiques du circuit.
+}{
+    \itstar un GBF, un oscilloscope, une carte d’acquisition ;
+    \itstar une boîte à décades de résistances, de capacités, une bobine.
+}
+    
+On se propose d’étudier la réponse d’un circuit RLC à un échelon de tension.
+
+\section{Éléments théoriques}
+
+\begin{enumerate}
+    \item Donner l’équation différentielle vérifiée par la tension $u_C(t)$.
+    
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0, 0) 
+                to[vsourcesquare, v=$E(t)$] ++(0, 2.4)
+                to[L, l=$L$, i=$i$] ++(2.5,0)
+                to[R, l=$R$] ++(2.5,0)
+                to[C, v^=$u_C(t)$, l_=$C$] ++(0,-2.4)
+            --(0,0);
+        \end{circuitikz}
+    \end{center}
+    
+    \boxans{
+        Soient $u_L(t)$ (resp. $u_R(t)$) la tension de la bobine $L$ (resp. la résistance $R$) en convention récepteur. 
+        
+        La loi des mailles livre alors :
+        
+        \[ E(t) = u_L(t) + u_R(t) + u_C(t)\]
+        
+        La loi d'Ohm livre $u_R(t) = R\cdot i(t)$, et les relation constitutives d'une bobine et d'un condensateur livrent :
+        
+        \[ i(t) = C\dfrac{\dif u_C}{\dif t} \qquad\et\qquad u_L(t) = L\dfrac{\dif i}{\dif t}\]
+        
+        En réinjectant, on obtient donc :
+        
+        \[ LC\dfrac{\dif^2 u_C}{\dif t^2} + RC\dfrac{\dif u_C}{\dif t} + u_C(t) = E(t)\]
+        
+        On divise par $LC$ pour obtenir l'équation sous forme canonique :
+        
+        \[ \boxsol{$\dfrac{\dif^2 u_C}{\dif t^2} + \dfrac{R}{L}\dfrac{\dif u_C}{\dif t} + \dfrac{1}{LC}u_C(t) = \dfrac{1}{LC}E(t)$}\]
+    }
+    
+    \item Montrer que la pulsation propre $\omega_0$ et le facteur de qualité $Q$ s’écrivent
+    
+    \begin{equation}
+        \omega_0 = \dfrac{1}{\sqrt{LC}} \quad\et\quad Q = \dfrac{1}{R}\sqrt{\dfrac{L}{C}}
+    \end{equation}
+    
+    \boxans{
+        On procède simplement par identification à l'aide de la forme canonique d'un oscillateur harmonique amorti :
+        
+        \[ \dfrac{\dif^2 u_C}{\dif t^2} + \dfrac{\omega_0}{Q} \dfrac{\dif u_C}{\dif t} + \omega_0^2 u_C(t) = \omega_0^2 E(t)\]
+        
+        Il vient $\omega_0^2 = \dfrac{1}{LC}$, d'où \boxsol{$\omega_0 = \dfrac{1}{\sqrt{LC}}$}. De plus $\dfrac{\omega_0}{Q} = \dfrac{R}{L}$, donc \boxsol{$Q = \dfrac{1}{R}\sqrt{\dfrac{L}{C}} $}.
+    }
+    
+    \item Montrer que dans le cas pseudo-périodique, la pseudo-pulsation vaut
+    
+    \begin{equation}
+        \omega = \omega_0 \sqrt{1 - \dfrac{1}{4Q^2}}
+    \end{equation}
+    
+    \boxans{
+        Dans le cas pseudo-périodique, les solutions de l'équation caractéristiques $r^2 + \dfrac{\omega_0}{Q}r + \omega_0^2 = 0$ sont complexes :
+        
+        \[ r_\pm = \dfrac{-\omega_0}{2Q} \pm j \dfrac{\sqrt{-\Delta}}{2} \qquad\qquad\text{où} \ j^2 = -1 \ \et \ \Delta = \omega_0^2\left(\dfrac{1}{Q^2}-4\right)\]
+        
+        Donc $r_\pm = \dfrac{-\omega_0}{2Q} \pm j\omega_0\sqrt{1-\dfrac{1}{4Q^2}}$. La solution de l'équation homogène dans $\bdR$ est alors :
+        
+        \[ u_C(t) = e^{\Re(r_\pm) t}\left[\lambda \cos{\mod{\Im(r_\pm)}t} + \mu\sin{\mod{\Im(r_\pm)}t}\right] \qquad\qquad (\lambda, \mu) \in \bdR^2\]
+        
+        On a alors la pseudo-pulsation $\omega = \mod{\Im(r_\pm)}$. Or $\Im(r_\pm) = \pm \omega\sqrt{1-\dfrac{4}{Q^2}}$, d'où \boxsol{$\omega = \omega_0 \sqrt{1 - \dfrac{1}{4Q^2}}$}.
+    }
+\end{enumerate}
+
+\section{Mise en place du montage}
+
+\begin{enumerate}[resume]
+    \item Reproduire le schéma électrique en indiquant la masse électrique et les points de mesure des tensions.
+    
+    \boxans{
+        \begin{center}
+            \begin{circuitikz}
+                \draw (0, 0) 
+                    to[vsourcesquare, v=$E(t)$] ++(0, 2.4) coordinate (m0)
+                    to[L, l=$L$, i=$i$, v=$u_L(t)$] ++(2.5,0)
+                    to[R, l=$R$, v=$u_R(t)$] ++(2.5,0) coordinate (m1)
+                    to[C, v^=$u_C(t)$, l_=$C$] ++(0,-2.4)
+                    to[] ++(-5,0) node[eground, rotate = -45]{}
+                    to[short, -o] ++(0,0);
+                --(0,0);
+                
+                \draw[->] (m0) to[short, o-]  ++(-1,1) node[label={west:\texttt{CH1}}]{};
+                
+                \draw[->] (m1) to[short, o-]  ++(1,1) node[label={east:\texttt{CH2}}]{};
+            \end{circuitikz}
+        \end{center}
+    }
+    
+    \item Comment doit-on choisir la période $T_{GBF}$ pour observer à la fois la charge et la décharge du circuit RLC ?
+    
+    \boxans{
+        On veut pouvoir observer la charge complète ainsi que la décharge complète du condensateur. Sachant que ces deux évènements mettent un même temps $\approx 3\tau_C$ pour se compléter, et qu'ils arrivent tous deux pendant chaque moitié d'une période $T_{GBF}$ du signal créneau, il faut choisir $T_{GBF} \geq 6\tau_C$.
+        
+        On choisira donc \boxsol{une grandeur période $T_{GBF}$}.
+    }
+
+\end{enumerate}
+
+\begin{experience}{Mesure sans résistance}{}
+    \begin{enumerate}
+        \ithand Câbler le circuit sans résistance avec les composants disponibles sur la paillasse. On prendra $C = 10 \ nF$.
+            
+        \ithand Observer simultanément $E(t)$ et $u_C(t)$ à l’oscilloscope.
+    \end{enumerate}
+\end{experience}
+
+\boxexp{
+    Expérience effectuée.
+}
+
+\begin{enumerate}[resume]
+    \item Théoriquement, on devrait observer une oscillation infinie de l’oscillateur harmonique. Est-ce le cas ? Pourquoi ?
+    
+    \boxans{
+        Ce n'est pas le cas. Ceci s'explique par le fait que les composants ont une résistance interne: bobine, GBF, \dots.
+    }
+\end{enumerate}
+
+\begin{experience}{ Mesure de la résistance interne de la bobine}{}
+    \begin{enumerate}
+        \ithand Mesurer la résistance interne $r$ de la bobine (on rappelle que la mesure d’une résistance à l’ohmmètre se fait en dehors de tout circuit électrique). Déterminer l’incertitude sur cette mesure.
+        \ithand Recâbler le circuit.
+    \end{enumerate}
+\end{experience}
+
+\boxexp{
+    On mesure $r \approx 8,4 \ \Omega$ et $u(r) \approx 0,1 \ \Omega$.
+}
+
+La résistance totale du circuit sera la somme de la résistance variable, de la résistance de la bobine et de la résistance
+interne du générateur, égale à $50 \ \Omega$ :
+
+\begin{equation}
+    R_{tot} = R + r + R_{interne}
+\end{equation}
+
+On négligera une éventuelle résistance due au condensateur.
+
+\section{Mesures et exploitation}
+
+\begin{experience}{Première observations}{}
+    \begin{enumerate}
+        \ithand En faisant varier la résistance, identifier les différents types de régimes transitoires. Vérifier qualitativement et rapidement que la durée du régime transitoire dépend de la valeur de la résistance $R$.
+        
+        \ithand Se convaincre que le régime transitoire est de durée minimale en régime apériodique critique ($Q = \sfrac{1}{2}$).
+        
+        \ithand Estimer la valeur critique de résistance entre un régime pseudo-périodique et un régime apériodique. Comparer à la valeur attendue. Commenter la précision de la mesure.
+    \end{enumerate}
+\end{experience}
+
+\boxexp{
+    On mesure une valeur critique $R_{tot, crit} \approx 3450 \ \Omega$, toutefois ce seuil étant détecté visuellement sur l'oscilloscope, on ne peut considérer la mesure comme particulièrement fiable.  La valeur attendue est telle que $Q = \dfrac{1}{2} = \dfrac{1}{R_{tot}}\sqrt{\dfrac{L}{C}}$, soit $R_{tot} = 2\sqrt{\dfrac{L}{C}}$. L'application numérique donne $R_{tot} \approx 4000 \ \Omega$. Compte-tenu de la précision de la mesure, la valeur obtenue est assez proche de la valeur attendue.
+}
+
+Le but des mesures suivantes est de déterminer la valeur de $\omega_0$ et du facteur de qualité $Q$.
+
+\begin{experience}{Mesure des paramètres du circuit}{}
+    \begin{enumerate}
+        \ithand Se placer en régime pseudo-périodique de manière à observer une vingtaine d’oscillations. Mesurer la pseudo-période $T$, en déduire la pseudo-pulsation $\omega$, et justifier que dans cette configuration $\omega_0 \approx \omega$. Déterminer les incertitudes.
+        
+        \ithand Choisir une valeur de résistance de manière à observer une demi-douzaine d’oscillations. Noter la valeur de $R$.
+        
+        \ithand  En mesurant le décrément logarithmique (cf. TP précédent), obtenir une mesure de $Q$ munie de son incertitude.
+    \end{enumerate}
+\end{experience}
+
+\boxexp{
+
+    \textit{Notes sur les étapes intermédiaires introuvables :(.} \qquad On a
+    
+    \[ \delta = \ln{\dfrac{z(t) - z_{eq}}{z(t+T)-z_{eq}}} \qquad\et\qquad \delta = \dfrac{\omega_0 T}{2Q}\]
+    
+    On obtient au final $\delta = 0,78$ et $u(\delta) = 0,05$, ainsi $Q = 4,04$.
+}
+
+\begin{enumerate}[resume]
+    \item Comparer les valeurs expérimentales de $\omega_0$ et $Q$ avec les valeurs attendues. Conclusion ?
+    
+    \boxans{
+         \textit{De même, notes introuvables :(.}. Les valeurs expérimentales sont proches des valeurs attendues.
+    }
+\end{enumerate}
+
+
+\section{Portrait de phase}
+
+\begin{experience}{Portrait de phase}{}
+    \begin{enumerate}
+        \ithand En faisant une acquisition du signal à l’aide de la carte d’acquisition et de \verb|LatisPro|, tracer le portrait de phase du système pendant les phases de charge et de décharge.
+    \end{enumerate}
+\end{experience}
+
+\boxexp{
+    Expérience non effectuée faute de temps.
+}
+
+\section{Première approche de la résonance en tension – si le temps le permet}
+
+On s’intéresse maintenant au régime sinusoïdal forcé du RLC.
+
+\begin{experience}{Résonance en tension}{}
+    \begin{enumerate}
+        \ithand Choisir $R$ de manière à ce que le facteur de qualité soit de l’ordre de $10$.
+        
+        \ithand Faire délivrer par le GBF une tension sinusoïdale $E(t) = E_0\cos(\omega t)$ de pulsation proche de $\omega_0$.
+        
+        \ithand Observer simultanément les tensions $E(t)$ et $u_C(t)$ à l’oscilloscope. Vérifier que les deux signaux sont synchrones mais pas forcément en phase.
+        
+        \ithand  Faire varier $\omega$, la pulsation du GBF. Pour quelle valeur de $\omega$ l’amplitude de $u_C(t)$ est-elle maximale ? Quel est alors le déphasage entre $E(t)$ et $u_C(t)$ ?
+    \end{enumerate}
+\end{experience}
+
+\boxexp{
+    Expérience non effectuée faute de temps.
+}
+
+\end{document}

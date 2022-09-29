@@ -1,0 +1,436 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Chapitre 13}{Polynômes}
+
+\initcours
+
+\section{Structure des polynômes}
+
+L'idée de ce cours est de pouvoir calculer des expressions de type :
+
+\[ (2 - x)^2(x^3 + x + 1) + x = (4 - 4x + x^2)(x^3 + x + 1) = 4x^3 + 4x - 4 \dots \]
+
+Ou encore, pour le calcul :
+
+\[ (x^2 - 1) = (x-1)(x+1)\]
+
+L'objectif est alors de pouvoir formaliser ces opérations pour dégager une structure de ces calculs. On se d'ailleurs en fait compte que la variable $x$ n'a pas tant d'importance que cela, et que l'on peut en fait se \guill{passer} d'elle, en considérant seulement une indéterminée $X$. Dans la suite, $(\bdA, +, \times)$ désigne un anneau commutatif.
+
+\subsection{Construction des polynômes}
+
+\begin{definition}{Suite presque nulle}
+    Une suite $\suite{u_n} \in \bdK^\bdN$ est dite \bf{presque nulle} si elle est nulle à partir d'un certain rang.
+\end{definition}
+
+On peut alors bien donner une définition formelle d'un polynôme.
+
+\begin{definition}{Polynôme à une indéterminée}{}
+    On appelle \bf{polynôme $P$ à une indéterminée} \hg{à coefficients dans $\bdA$} toute suite $\suite{a_n}$ presque nulle de $\bdA^\bdN$.
+\end{definition}
+
+L'ensemble des polynômes à une indéterminée $X$ à coefficients dans $\bdA$ est noté $\bdA[X]$. L'élément $a_n$ (d'indice $n$ de la suite $\suite{a_n}$) est appelé $n$-ième coefficient de $P$ ou coefficient du monôme de degré $n$ de $P$.
+
+\begin{example}{}{}
+    Soit TODO
+\end{example}
+
+\begin{property}{Polynôme nul}{}
+    La suite nulle $\suite{0}$ est un polynôme.
+\end{property}
+
+\demo{
+    La suite nulle $\suite{0}$ vaut $0$ pour tout rang $n$, elle est donc nulle à partir du rang $n = 0$, c'est donc par définition un polynôme.
+}
+
+\begin{definition}{Égalité}{}
+    Soit $P = \suite{a_n} \in \bdK[X]$ et $Q = \suite{b_n} \in \bdK[X]$. On dit que \bf{les polynômes $P$ et $Q$ sont égaux} si et seulement si
+    
+    \[ \forall n \in \bdN,\qquad a_n = b_n\]
+\end{definition}
+
+\begin{definition}{Opérations arithmétiques sur les polynômes}
+    Soit $P = \suite{a_n} \in \bdA[X]$ et $Q = \suite{b_n} \in \bdA[X]$. Soit $\lambda \in \bdA$.
+    
+    \begin{enumerate}
+        \ithand On appelle \bf{somme des polynômes $P$ et $Q$} la suite $\suite{a_n + b_n} \in \bdA^\bdN$.
+        
+        \ithand On appelle \bf{multiplication du polynôme par $\lambda$} la suite $\suite{\lambda a_n} \in \bdA^\bdN$.
+        
+        \ithand On appelle \bf{produit des polynômes $P$ et $Q$} la suite $\suite{\displaystyle \sum_{i=0}^n a_ib_{n-i}} \in \bdA^\bdN$
+        
+    \end{enumerate}
+\end{definition}
+
+La somme des polynômes $P$ et $Q$ est généralement notée $P + Q$. La multiplication de $P$ par $\lambda$ est notée $\lambda P$ et le produit de $P$ et $Q$ est noté $P\times Q$. Lorsque $\bdA$ est un corps, la multiplication de $P$ par $\lambda$ est par ailleurs appelée \guill{multiplication par un scalaire}.
+
+\begin{property}{Stabilité de $K[X]$ par opérations}{}
+    Soit $(P, Q) \in \bdA[X]^2$ et $\lambda \in \bdA$. On a 
+    
+    \[ P + Q \in \bdA[X] \qquad \lambda P \in \bdA[X] \qquad P\times Q \in \bdK[X]\]
+\end{property}
+
+\demo{
+    Soit $(P, Q) \in \bdA[X]^2$ et $\lambda \in \bdA$. On a par définition :
+
+    \[ \exists (N, M) \in \bdN^2,\ \forall n \in \bdN,\qquad n \geq N \implies a_n = 0 \qquad\et\qquad n \geq M \implies b_n = 0\]
+
+    \begin{enumerate}
+        \ithand $\forall n \in \bdN$, $n \geq \max(N, M) \implies a_n + b_n = 0$. La suite $P + Q$ est donc presque nulle. Par définition, $P + Q \in \bdA[X]$.
+    
+        \ithand $\forall n \in \bdN$, $n \geq N \implies \lambda a_n = 0$. La suite $\lambda P$ est donc presque nulle. Par définition, $\lambda P \in \bdA[X]$.
+    
+        \ithand On remarque que :
+    
+        \[ \sum_{i=0}^{N+M} a_ib_{n-i} = \sum_{i=0}^{N-1} a_ib_{n-i} + \sum_{i=N}^{N+M} a_ib_{n-i}\]
+        
+        TODO
+    \end{enumerate}
+    
+}
+
+\begin{theorem}{Structure d'anneau de $\bdA[X]$}{}
+    $\hg{(\bdA[X], +, \times)}$ est un \bf{anneau commutatif}.
+\end{theorem}
+
+\demoth{On démontre successivement les différentes propriétés.
+
+    \begin{enumerate}
+        \ithand $+ : \begin{array}[t]{ccc}
+            \bdA[X]\times\bdA[X] &\to&\bdA[X]  \\
+            (P, Q) &\mapsto& P + Q
+        \end{array}$ est bien une loi de composition interne.
+        
+        \ithand On a $\forall P \in \bdK[X],\ \exists \suite{a_n} \in \bdA^\bdN,\qquad P = \suite{a_n}$.
+        
+        On pose $-P = \suite{-a_n}$, ainsi $P + (-P) = \suite{a_n} + \suite{-a_n} = \suite{a_n - a_n} = \suite{0_n}$.
+        
+        
+        
+        \ithand $\times : \begin{array}[t]{ccc}
+            \bdA[X]\times\bdA[X] &\to&\bdA[X]  \\
+            (P, Q) &\mapsto& P \times Q
+        \end{array}$ est bien une loi de composition interne.
+        
+        \ithand TODO
+        
+        \end{enumerate}
+
+}
+
+\begin{definition}{Indéterminée}{}
+    On appelle \bf{indéterminée} le polynôme $X = (0, 1, 0, 0, 0, \dots) \in \bdA[X]$.
+\end{definition}
+
+On peut alors s'intéresser aux itérés de $X$ par $\times$ :
+
+\begin{property}{Itérés $X^n$ de l'indéterminée $X$}{}
+    \[ \hg{\forall n \in \bdN, \qquad X^n = (\underbrace{0, 0, \dots, 0}_{n \ \text{valeurs nulles}}, 1, 0, 0, \dots) \in \bdA[X]}\]
+\end{property}
+
+\demo{
+    Le résultat s'obtient directement par récurrence.
+}
+
+Ainsi, pour tout polynôme $P \in \bdA[X]$, $\exists \suite{a_n} \in \bdA^\bdN$ où $\suite{a_n}$ est presque nulle. Donc
+
+\begin{align*}
+    && P &= \suite{a_n}\\
+    \iff && P &= (a_0, a_1, a_2, \dots, a_N, 0, 0, \dots)\\
+    \iff && P &= (a_0, 0, 0, 0, 0, 0, 0, 0, 0, 0, \dots )\\
+    && &+ (0, a_1, 0, 0, 0, 0, 0, 0, 0, 0, \dots)\\
+    && &+ (0, 0, a_2, 0, 0, 0, 0, 0, 0, 0, \dots)\\
+    && &+ \dots\\
+    && &+ (0, 0, \dots, 0, a_N, 0, 0, 0, 0, \dots)\\
+    && &+ (0, 0, 0, 0, 0, 0, 0, \dots)\\
+    && &+ \dots\\
+    \iff && P &= a_0 \cdot (1, 0, 0, 0, 0, 0, 0, 0, \dots)\\
+    && &+ a_1 \cdot (0, 1, 0, 0, 0, 0, 0, 0, \dots)\\
+    && &+ a_2 \cdot (0, 0, 1, 0, 0, 0, 0, 0, \dots)\\
+    && &+ \dots\\
+    && &+ a_N \cdot (0, 0, 0, \dots, 1, 0, 0, \dots)\\
+    && &+ a_{N+1} \cdot (0, 0, 0, \dots, 0, 1, 0, \dots)\\
+    && &+ \dots\\
+    \iff && P &= a_0X^0 + a_1X^1 + a_2X^2 + \dots + a_NX^N + a_{N+1}X^{N+1} + \dots\\
+    \iff && P & = \sum_{i=0}^{+\infty} a_iX^i = \sum_{i=0}^{N} a_iX^i
+\end{align*}
+
+%A REFAIRE DE MANIERE PLUS PROPRE
+
+\subsection{Degré}
+
+Soit $P \in \bdA[X]$ non nul de coefficients $\suite{a_n}$.
+
+\[ \{ k \in \bdN \mid a_k \neq 0 \} \ \text{est une partie non vide et majorée de } \ \bdN\]
+
+Donc $\{ k \in \bdN \mid a_k \neq 0 \}$ admet un plus grand élément.
+
+\begin{definition}{Degré d'un polynôme}{}
+    Soit un polynôme $P \in \bdA[X]$ non nul. On appelle \bf{degré de $P$} l'indice de son plus grand coefficient non nul.
+\end{definition}
+
+Le degré de $P$ est généralement noté $\deg P$. On a donc :
+
+\[ \deg P = \max \{ k \in \bdN \mid a_k \neq 0 \} \]
+
+Par convention, si $P = 0$ (polynôme nul) on pose $\deg P = -\infty$.
+
+\begin{theorem}{Opérations et degré}
+    Soient deux polynômes $(P, Q) \in \bdA[X]^2$.
+    
+    \begin{enumerate}
+        \ithand $\deg (P+Q) \leq \max(\deg P, \deg Q)$. De plus si $\deg P \neq \deg Q$, il y a égalité.
+    \end{enumerate}
+\end{theorem}
+
+\demoth{
+
+}
+
+\begin{property}{Inversibles pour $\times$}{}
+    Les \bf{polynômes inversibles} de l'anneau $(\bdA[X], +, \times)$ pour $\times$ sont exactement les polynômes constants non nuls. 
+    
+    \[ \hg{\bdA[X]^* = \bdA^*}\]
+\end{property}
+
+\demo{Soient $(P, Q) \in \bdA[X]^2$. On cherche à résoudre $P \times Q = 1$.  
+
+}
+
+\section{Fonction polynomiales et racines}
+
+\subsection{Fonction polynomiale}
+
+\begin{definition}{Fonction polynomiale}{}
+    Soit $\displaystyle P = \sum_{k\geq0} a_kX^k \in \bdK[X]$. La \bf{fonction polynomiale associée}, notée $\widetilde P$, est définie par :
+    
+    \[ \widetilde P : \begin{array}[t]{ccc}
+        \bdK &\to& \bdK  \\
+        x &\mapsto&\displaystyle \sum_{k\geq0} a^kx^k
+    \end{array}\]
+\end{definition}
+
+\begin{property}{\guill{Morphisme} \quad $\widetilde \cdot$}{}
+     Soit $(P, Q) \in \bdK^2$. On a :
+     
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \ithand $\widetilde \cdot : \bdK[X] \to \bcF(\bdK, \bdK)$
+            
+            \ithand $\widetilde{P+Q} = \widetilde P + \widetilde Q$
+            
+            \ithand $\widetilde{P\times Q} = \widetilde{P} \times \widetilde{Q}$
+            
+            \ithand $\widetilde{\lambda P} = \lambda \widetilde P$
+            
+            \ithand $\widetilde{P \circ Q} = \widetilde{P} \circ \widetilde{Q}$
+        \end{enumerate}
+    \end{multicols}
+     
+\end{property}
+
+\demo{
+    Laissé en exercice au lecteur.
+}
+
+On remarquera que pour une fonction $f \in \bcF(\bdK, \bdK)$, $f$ est une fonction polynomiale s'il existe $P \in \bdK[X]$ tel que $\widetilde P = f$. On identifiera donc volontairement tout polynôme à sa fonction polynomiale, et toute fonction polynomiale à son polynôme, et on oubliera la notation $\widetilde \cdot$.
+
+\subsection{Racines}
+
+\begin{definition}{Racine}{}
+    Soit $P \in \bdK[X]$ et $\alpha \in \bdK$. On dit que $\alpha$ est \bf{racine de $P$} si et seulement si $\widetilde P(\alpha) = 0$.
+\end{definition}
+
+Les racines de $P$ sont donc les zéros de l'application/fonction $\widetilde P$.
+
+\begin{theorem}{Factorisation}{}
+    Soit $P \in \bdK[X]$ et $\alpha \in \bdK$. On a $(X - \alpha)$ divise $Q$ si et seulement si $\alpha$ est racine de $P$ :
+    
+    \[ \hg{\alpha \ \text{est racine de} \ P \iff \exists Q \in \bdK[X],\quad P = (X - \alpha)\times Q}\]
+\end{theorem}
+
+\demoth{
+    Soit $P \in \bdK[X]$ et $\alpha \in \bdK$. 
+    
+    \begin{enumerate}
+        \ithand Effectuons la division euclidienne de $P$ par $(X - \alpha)$ :
+
+        \[ \exists (Q, R) \in \bdK[X]^2,\qquad P = (X-\alpha)Q + R \qquad\et\qquad \deg R < \deg (X-\alpha)\]
+
+        Or $\deg (X-\alpha) = 1$ donc $R \in \bdK_0[X] = \bdK$. On a que $R$ est un polynôme constant : $\exists \lambda \in \bdK$, $R = \lambda$.
+
+        \ithand On évalue alors en $\alpha$ :
+        \[ \widetilde P(\alpha) = (\underbrace{\alpha-\alpha}_{=0})\widetilde Q(\alpha) + \widetilde R(\alpha) = \widetilde R(\alpha) = \lambda\]
+        Dès lors, on obtient bien :
+        \[ \alpha \ \text{est racine de} \ P \iff \widetilde{R}(\alpha) = 0 \iff \lambda = 0 \iff P = (X-\alpha)Q\]
+    \end{enumerate}
+    
+}
+
+Une conséquence importante est que si $P \in \bdK[X]$ est de degré $n \in \bdN$, alors il possède au plus $n$ racines distinctes.
+
+\begin{property}{}{}
+    Soit $P \in \bdK_n[X]$. Si $P$ a $n+1$ racines distinctes, alors $P = 0$.
+\end{property}
+
+\demo{
+    Soit $P \in \bdK_n[X]$. On a donc $\deg P \leq n$. Si $P$ a $n+1$ racines distinctes, alors en notant $(\alpha_i)_{i \in \llbracket 1, n+1\rrbracket}$ ces racines, on a 
+    
+    \[ \prod_{i=1}^{n+1} (X-\alpha_i) \mid P\]
+    
+    Donc $\exists Q \in \bdK[X]$, $P = \left(\prod_{i=1}^{n+1} (X-\alpha_i)\right)\times Q$, ainsi :
+    
+    \[\deg P = \deg\left(\left(\prod_{i=1}^{n+1} (X-\alpha_i)\right)\times Q\right) = \deg\left(\prod_{i=1}^{n+1} (X-\alpha_i)\right) + \deg(Q) = n+1 + \deg(Q)\]
+    
+    Or $\deg(P) \leq n$, donc $n + 1 + \deg(Q) \leq n$ soit $\deg(Q) \leq -1$, donc forcément $\deg(Q) = -\infty$.
+    
+    On en déduit que $Q = 0$ et donc $P = 0$.
+}
+
+On peut alors établir une méthode pour montrer que deux polynômes $P$ et $Q$ sont égaux. On cherche en effet à montrer que $P - Q = 0$. Il suffit alors de :
+
+\begin{enumerate}
+    \ithand Majorer le degré de $P - Q$ par $N$ : $\deg(P-Q) \leq N$
+    
+    \ithand Trouver $(N+1)$ racines pour $(P-Q)$.
+\end{enumerate}
+
+\subsection{Multiplicité d'une racine}
+
+\begin{property}{}{}
+    Soit $P \in \bdK[X]$ non nul, et $\alpha \in \bdK$. L'ensemble $\left\{k \in \bdN  (X -\alpha)^k \ \text{divise} \ P\right\}$ est non vide et majoré.
+\end{property}
+
+\demo{
+    Soit $P \in \bdK[X]$ non nul, et $\alpha \in \bdK$. On pose $A = \left\{k \in \bdN  (X -\alpha)^k \ \text{divise} \ P\right\}$. On remarque que $(X-\alpha)^0 = 1$ et $1 \mid P$, donc $(X-\alpha)^0 \mid P$ d'où $0 \in A$. De plus, puisque $P \neq 0$, on a que pour tout $k \in \bdN$, si $(X-\alpha)^k \mid P$, alors $k \leq \deg P$ donc $A$ est majoré par $\deg P$. 
+}
+
+On peut donc s'intéresser au maximum de cet ensemble 
+
+\begin{definition}{Multiplicité d'une racine}{}
+    Soit $P \in \bdK[X]$ non nul, et $\alpha \in \bdK$. La \bf{multiplicité de la racine $\alpha$ dans $P$} est l'entier $m$ défini par 
+    
+    \[ m = \max \left\{k \in \bdN  (X -\alpha)^k \ \text{divise} \ P\right\}\]
+\end{definition}
+
+\section{Dérivation}
+
+\subsection{Dérivée formelle}
+
+\begin{definition}{Dérivée formelle}{}
+    Soit $P \in \bdK[X]$
+\end{definition}
+
+\subsection{Multiplicité et dérivées successives}
+
+\begin{lemma}{}{}
+    Soit un polynôme $\bcP \in \bdK[X]$ non nul, $\alpha \in \bdK$ et $m \in \bdN^*$.
+    
+    \[\hg{\alpha \ \text{est racine de} \ \bcP \ \text{avec multiplicité} \ m \implies \alpha \ \text{est racine de} \ \bcP' \ \text{avec multiplicité} \ m-1}\]
+\end{lemma}
+
+\demolm{
+    Soit un polynôme $\bcP \in \bdK[X]$ non nul, $\alpha \in \bdK$ et $m \in \bdN^*$.
+    
+    Si $\alpha$ est racine de $\bcP$ avec multiplicité $m$, alors il existe un polynôme $\bcQ \in \bdK[X]$ non nul tel qu
+}
+
+\begin{theorem}{Caractérisation des racines multiples}{}
+    Soit un polynôme $\bcP \in \bdK[X]$ non nul, $\alpha \in \bdK$ et $m \in \bdN^*$.
+    
+    \[\hg{\alpha \ \text{est racine de} \ \bcP \ \text{avec multiplicité} \ m \iff \bcP(\alpha) = \bcP'(\alpha) = \dots = \bcP^{(m-1)}(\alpha) = 0 \quad\text{et}\quad \bcP^{(m)}(\alpha) \neq 0}\]
+\end{theorem}
+
+\demoth{
+    Par double implication et récurrence.
+}
+
+\section{Factorisation dans $\bdC[X]$ ou $\bdR[X]$}
+
+\subsection{Factorisation dans $\bdC[X]$}
+
+\begin{theorem}{Théorème fondamental de l'algèbre / Théorème d'Alembert-Gauss}{}
+    Tout polynôme non constant de $\bdC[X]$ possède au moins une racine dans $\bdC$.
+    
+    \[ \hg{\forall \bcP \in \bdC[X], \qquad \deg(\bcP) \geq 1 \implies \exists \alpha \in \bdC, \quad \widetilde \bcP(\alpha) = 0}\]
+\end{theorem}
+
+On dira autrement que le corps $\bdC$ est algébriquement clos.
+
+\demoth{
+    Admis.
+}
+
+\begin{corollary}{$\bcP \in \bdC[X]$ scindé}{}
+    Tout polynôme non constant de $\bdC[X]$ est scindé sur $\bdC$.
+\end{corollary}
+
+\newpage
+
+\section{Arithmétique des polynômes}
+
+\textit{Objectif :} Généraliser l'arithmétique dans $\bdZ$ à une arithmétique dans $\bdK[X]$ où $\bdK$ est un corps.
+
+\subsection{Plus Grand Commun Diviseur}
+
+Si $\bcA$ et $\bcB$ sont deux polynômes non nuls de $\bdK[X]$, alors l'ensemble des diviseurs communs de $\bcA$ et de $\bcB$, noté $\bsD(\bcA) \cap \bsD(\bcB)$ est partie de $\bdK[X]$. Elle est non vide, car elle contient $1$ (on peut remarquer qu'elle ne contient pas $0)$.
+
+L'ensemble $E = \{ \deg \bcP \mid \bcP \in \bsD(\bcA) \cap \bsD(\bcB) \}$ est alors une partie non vide de $\bdN$, majoré par $\min(\deg \bcA, \deg \bcB)$. La partie $E$ possède un plus grand élément, noté $r = \max E \in \bdN$.
+
+\begin{definition}{$\pgcd$ dans $\bdK[X]$}{}
+    Soit un corps $\bdK$, ici $\bdC$ ou $\bdR$. Soient deux polynômes $(\bcA, \bcB) \in \bdK[X]^2$. 
+    
+    \hgu{Un} \bf{plus grand commun diviseur de $\bcA$ et $\bcB$} est un polynôme $\bcD$ diviseur de $\bcA$ et $\bcB$ et de degré maximal.
+\end{definition}
+
+\begin{lemma}{}{}
+    Soit un corps $\bdK$, ici $\bdC$ ou $\bdR$. Soient $(\bcA, \bcB, \bcQ, \bcR) \in \bdK[X]^4$. On a :
+    
+    \[\hg{\bcA = \bcB\bcQ + \bcR \implies \bsD(\bcA) \cap \bsD(\bcB) = \bsD(\bcB) \cap \bsD(\bcR)}\]
+\end{lemma}
+
+\begin{center}
+    \underline{Algorithme d'Euclide pour le calcul d'un $\pgcd$}
+\end{center}
+
+Ainsi, par divisions successives (comme pour l'algorithme d'Euclide dans $\bdZ$), il y a un nombre fini de divisions euclidiennes car la suite des degrés des restes est une suite d'entiers naturels strictement décroissante : elle est donc finie.
+
+En notant $(\bcR_0, \bcR_1, \dots \bcR_k, \bcR_{k+1})$, la suite des restes avec $\bcR_0 = \bcA$, $\bcR_1 = \bcB$, $\bcR_{k+1} = 0$ et $\bcR_k \neq 0$, on a alors :
+
+\[ \exists \bcQ_i \in \bdK[X], \quad \bcR_i = \bcQ_i\bcR_{i+1} + \bcR_{i+2} \qquad\text{avec}\qquad \deg(\bcR_{i+2}) < \deg(\bcR_{i+1})\]
+
+Ainsi, on a :
+
+\[ \bsD(\bcA) \cap \bsD(\bcB) = \bsD(\bcR_0) \cap \bsD(\bcR_1) = \bsD(\bcR_i) \cap \bsD(\bcR_{i+1}) = \bsD(\bcR_k) \cap \bsD(\bcR_{k+1}) = \bsD(\bcR_k) \cap \bsD(0) = \bsD(\bcR_k) \]
+
+Alors, le polynôme $\bcR_k$ (dernier reste non nul) ainsi que ses polynômes associés est un $\pgcd$ de $\bcA$ et $\bcB$.
+
+\begin{corollary}{$\pgcd$ associés}{}
+    Soit un corps $\bdK$, ici $\bdC$ ou $\bdR$. Soient $(\bcA, \bcB, \bcD_1, \bcD_2) \in \bdK[X]^4$. On a :
+    
+    \[ \hg{\bcD_1 \et \bcD_2 \ \text{sont des $\pgcd$ de } \ \bcA \et \bcB \implies \exists \lambda \in \bdK^*, \quad \bcD_1 = \lambda\bcD_2}\]
+\end{corollary}
+
+En effet, $\bsD(\bcD_1) = \bsD(\bcD_2)$ si et seulement si $\bcD_1$ et $\bcD_2$ sont associés ($\bcD_1 \mid \bcD_2$ et $\bcD_2 \mid \bcD_1$).
+
+Une conséquence est le choix de l'unique $\pgcd$ en imposant un caractère \textbf{unitaire}.
+
+\begin{property}{Caractérisation unitaire du $\pgcd(\bcA, \bcB)$}
+    Soit un corps $\bdK$, ici $\bdC$ ou $\bdR$. Soient $(\bcA, \bcB) \in \bdK[X]^2$. Il existe un unique polynôme unitaire $\bcD \in \bdK[X]$ tel que 
+    
+    \[ \hg{\bsD(\bcD) = \bsD(\bcA) \cap \bsD(\bcB)}\]
+\end{property}
+
+On appelle $\bcD$ \underline{le} Plus Grand Commun Diviseur de $\bcA$ et $\bcB$ et on le note $\bcD = \pgcd(\bcA, \bcB) = \bcA \wedge \bcB$.
+
+\subsection{Algorithme d'Euclide}
+
+\begin{property}{Correction et terminaison}
+    Soit un corps $\bdK$, ici $\bdC$ ou $\bdR$. Soient $(\bcA, \bcB, \bcQ, \bcR) \in \bdK[X]^4$. On a :
+    
+    \[\hg{\bcA = \bcB\bcQ + \bcR \implies \bcA \wedge \bcB = \bcB \wedge \bcR}\]
+    
+    Par divisions euclidiennes successives, l'algorithme se termine en un nombre fini d'itérations, et le dernier reste non nul est un $\pgcd$ de $\bcA$ et $\bcB$. Le $\pgcd(\bcA, \bcB)$ s'obtient en le rendant unitaire (i.e. en le divisant par son coefficient dominant).
+\end{property}
+\end{document}

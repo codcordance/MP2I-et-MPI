@@ -1,0 +1,175 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+    \stylizeDoc{Mathématiques}{Chapitre 28}{Intégration sur un segment}
+    
+    On a déjà étudié cette année dans divers chapitres d'analyse le \textit{théorème fondamental de l'analyse}, les différentes techniques d'intégration, le calcul des primitives, ... Ce cours cependant, est plus culturel, et cherche à étudier la notion même d'intégration, dont l'intuition est celle d'\guill{aire sous la courbe}, et à fournir une construction rigoureuse de l'intégrale. 
+
+    \initcours{}
+
+    \section{Concepts préliminaires}
+    
+    \subsection{Continuité uniforme}
+    
+    On s'intéresse tout d'abord à la notion de \textit{continuité uniforme}. Celle-ci est une version \guill{plus forte}, comme on va le voir juste après, de la continuité. On commence par définir ce concept :
+    
+    \begin{definition}{Continuité uniforme}{}
+        Soit une partie $X \subset \bdR$, un \textit{intervalle} $I \subset X$ et une fonction $f \in \bcF\p{X, \bdR}$ définie sur la partie $X$. On dit que \hg{$f$ est uniformément continue sur $I$} lorsque :
+        %
+        \[ \hg{\forall \epsilon \in \bdRp,\qquad \exists \eta \in \bdRp,\qquad \forall \p{x, y} \in I^2,\qquad \mod{x-y} \leq \eta \implies \mod{f\p{x}-f\p{y}} \leq \epsilon}\]
+    \end{definition}
+    
+    Comme on l'a dit, la continuité uniforme est une version \guill{plus forte} de la continuité. La définition n'est d'ailleurs pas sans rappeler celle de la continuité, et en est même très proche. On obtient d'ailleurs le résultat suivant :
+    
+    \begin{property}{Continuité uniforme implique continuité}{}
+        Soit une partie $X \subset \bdR$, un \textit{intervalle} $I \subset X$ et une fonction $f \in \bcF\p{X, \bdR}$ définie sur la partie $X$.
+        %
+        \[ \text{Si \hg{$f$ est uniformément continue sur $I$}, alors \hg{$f$ est continue sur $I$}} \]
+    \end{property}
+    %
+    \begin{nproof}
+        Soit une partie $X \subset \bdR$, un \textit{intervalle} $I \subset X$ et une fonction $f \in \bcF\p{X, \bdR}$ définie sur la partie $X$, et telle que $f$ est uniformément continue sur $I$. Dès lors :
+        %
+        \[ \forall \epsilon \in \bdRp,\qquad \exists \eta \in \bdRp,\qquad \forall \p{x, y} \in I^2,\qquad \mod{x-y} \leq \eta \implies \mod{f\p{x}-f\p{y}} \leq \epsilon\]
+        %
+        A un $\epsilon$ donné, $\eta$ est identique pour tous les $x$, donc on peut bien obtenir :
+        %
+        \[ \forall x \in I,\qquad \forall \epsilon \in \bdRp,\qquad \exists \eta \in \bdRp,\qquad \forall y \in I,\qquad \mod{x-y} \leq \eta \implies \mod{f\p{x}-f\p{y}} \leq \epsilon\]
+        %
+        Ce qui, par définition, livre la continuité de $f$ sur $I$.
+    \end{nproof}
+    
+    En fait, le concept de \textit{continuité d'une fonction sur un intervalle} affirme qu'en chacun des points $\alpha$ de cet intervalle, tous les $f\p{x}$ autour de $\alpha$, dans un rayon $\epsilon$ arbitrairement choisi, ont leur antécédent $x$ dans un rayon $\eta$ autour de $\alpha$. Pour un même epsilon $\epsilon$, il est donc possible d'avoir des rayons $\eta$ d'antécédents différents pour des points $\alpha$ différent. Le concept de \textit{continuité uniforme} affirme lui que ce rayon $\eta$ est le même pour tous les points $\alpha$, d'où la terminologie de continuité \guill{uniforme}.
+    
+    \begin{property}{Lipschitzien implique continuité uniforme}
+        Soit une partie $X \subset \bdR$, un \textit{intervalle} $I \subset X$ et une fonction $f \in \bcF\p{X, \bdR}$ définie sur la partie $X$.
+        %
+        \[ \text{Si \hg{$f$ est lipschitzienne sur $I$}, alors \hg{$f$ est uniformément continue sur $I$}} \]
+    \end{property}
+    %
+    \begin{nproof}
+        Soit une partie $X \subset \bdR$, un \textit{intervalle} $I \subset X$ et une fonction $f \in \bcF\p{X, \bdR}$ définie sur la partie $X$, et telle que $f$ est $k$-lipschitzienne continue sur $I$ avec $k \in \bdRp$. On a :
+        %
+        \[ \forall \p{x, y} \in I^2,\qquad \mod{f\p{x} - f\p{y}} \leq k\mod{x - y} \]
+        %
+        Soit $\epsilon > 0$. On pose $\eta = \dfrac{\epsilon}{k} > 0$, de telle sorte que pour $\forall \p{x, y} \in I^2$, si $\mod{x - y} \leq \eta$, alors $\mod{x - y} \leq \dfrac{\epsilon}{k}$ et donc :
+        %
+        \[ \mod{f\p{x} - f\p{y}} \leq k\mod{x - y} \leq k\times\dfrac{\epsilon}{k} = \epsilon \]
+        %
+        Ainsi par définition, $f$ est uniformément continue.
+    \end{nproof}
+    
+    La notion de de fonction uniformément continue est donc à mis chemin entre celle de fonction lipschitzienne (plus forte), et celle de fonction continue (moins forte). On remarquera qu'on peut donner des exemples de fonctions continues sur un intervalle, mais pas uniformément continues. Toutefois on peut remarquer qu'à chaque fois, il s'agit d'un intervalle avec une borne ouverte. En effet, cette situation n'est pas possible sur un intervalle fermé, comme le montre le théorème suivant, dit de \textsc{Heine} :
+    
+    \begin{theorem}{Théorème de Heine}
+        Soit une partie $X \subset \bdR$, un \textit{segment} $\intc{a,b} \subset X$ et une fonction $f \in \bcF\p{X, \bdR}$ définie sur la partie $X$.
+        %
+        \[ \text{Si \hg{$f$ est continue sur $\intc{a, b}$}, alors \hg{$f$ est uniformément continue sur $\intc{a, b}$}} \]
+    \end{theorem}
+    %
+    \begin{nproof}
+        Soit une partie $X \subset \bdR$, un \textit{segment} $\intc{a,b} \subset X$ et une fonction $f \in \bcF\p{X, \bdR}$ définie sur la partie $X$, et telle que $f$ est continue sur $\intc{a, b}$.Par l'absurde, supposons que $f$ n'est pas uniformément continue sur $\intc{a, b}$. On a :
+        %
+        \[ \exists \epsilon \in \bdRp,\qquad \forall \eta \in \bdRp,\qquad \exists \p{x, y} \in I^2,\qquad \mod{x - y} \leq \eta \et \mod{f\p{x} - f\p{y}} > \epsilon\]
+        %
+        On construit deux suites $\suite{x_n}$ et $\suite{y_n}$ TODO
+        
+        Or $\suite{x_n}$ est bornée dans $\intc{a, b}$ donc par théorème de \textsc{Bolzano}-\textsc{Weierstrass}, il existe une fonction extractrice $\varphi \in \bcF\p{\bdN \to \bdN}$ donnant une sous-suite $\suite{x_{\varphi{n}}}$ convergente. On note $\ell$ sa limite.
+    \end{nproof}
+    
+    \subsection{Fonction en escalier}
+    
+    On considère maintenant un segment $\intc{a, b} \subset \bdR$. On découpe ce segment via une subdivision $a = a_0 < a_1 < a_2 < \dots < a_n = b$ :
+    
+    \begin{center}
+        \begin{tikzpicture}
+            \draw (-5, 0) -- (5, 0);
+        \end{tikzpicture}
+    \end{center}
+
+    
+    On peut par exemple avoir une subdivision régulière de pas $\dfrac{b-a}{n}$ :
+    %
+    \[ \forall i \in \iint{0, n},\qquad a_i = a + i\dfrac{b-a}{n} \qquad\text{soit le \guill{pas} de subdivision}\qquad\forall i \in \iint{0, n-1},\qquad  a_{i+1}-a_i = \dfrac{b-a}{n}\]
+    %
+    On définit alors la notion de fonction en escalier :
+    
+    \begin{definition}{Fonction en escalier}{}
+            Soit un \textit{segment} $\intc{a, b} \subset \bdR$ et une fonction $f \in \bcF\p{\intc{a, b}, \bdR}$. On dit que \hg{$f$ est en escalier} lorsqu'il existe $n \in \bdN$ et une subdivision $\p{a_0, a_1, \dots, a_n}$ de $\intc{a, b}$ telle que :
+            %
+            \[ \hg{ \forall i \in \iint{0, n-1},\qquad f \ \text{est constante sur} \ \into{a_i, a_{i+1}} }\]
+    \end{definition}
+    
+    \subsection{Fonction continue par morceaux (CPM)}
+    
+    On introduit un troisième acteur, la notion de \guill{fonction continue par moceaux} :
+    %
+    \begin{definition}{Fonction continue par morceaux}{}
+        Soit un \textit{segment} $\intc{a, b} \subset \bdR$ et une fonction $f \in \bcF\p{\intc{a, b}, \bdR}$. On dit que \hg{$f$ est continue par morceaux} lorsqu'il existe $n \in \bdN$ et une subdivision $\p{a_0, a_1, \dots, a_n}$ de $\intc{a, b}$ telle que :
+        %
+        \[ \hg{ \forall i \in \iint{0, n-1},\qquad f_{\vert \into{a_i, a_{i+1}}} \ \text{est continue sur} \ \into{a_i, a_{i+1}} \et \text{a des limites finies en} \ a_i^+ \et a_{i-1}^-}\]
+    \end{definition}
+    
+    On remarquera que $f_{\vert \into{a_i, a_{i+1}}}$ se prolongement continuement (localement) sur $\intc{a_i, a_{i+1}}$. 
+    
+    \begin{warning}{}{}
+        \hg{$f : \begin{array}[t]{ccc}
+            \intc{0, 1} &\to& \bdR  \\
+            x &\mapsto& \left\lbrace\begin{array}{cc}
+                1 &\text{si} \ x = 0  \\
+                \sfrac{1}{x} &\text{sinon} 
+            \end{array}\right. 
+        \end{array}$ n'est pas continue par morceaux}.
+    \end{warning}
+    
+    \subsection{Approximation uniforme}
+    
+    \begin{theorem}{Théorème d'approximation uniforme}{}
+        Soit un \textit{segment} $\intc{a, b} \subset \bdR$ et une fonction $f \in \bcF\p{\intc{a, b}, \bdR}$. Si \hg{$f$ est continue par morceaux}, alors
+        %
+        \[ \hg{ \forall \epsilon \in \bdRp,\qquad \exists \varphi \in \bcF\p{\intc{a, b}, \bdR} \ \text{\underline{en escalier}},\qquad \forall x \in \intc{a, b},\qquad \mod{f\p{x} - \varphi\p{x}} \leq \epsilon}\]
+    \end{theorem}
+    %
+    \begin{nproof}
+        Soit un \textit{segment} $\intc{a, b} \subset \bdR$ et une fonction $f \in \bcF\p{\intc{a, b}, \bdR}$, et telle que $f$ est continue par morceaux.
+        
+        \begin{enumerate}
+            \itt $\boxed{1^\text{er} \ \text{cas}}$ Pour $f$ continue sur le segment $\intc{a, b}$, on a par \textit{théorème de \textsc{Heine}} la continuité uniforme de de $f$ sur $\intc{a, b}$.
+            
+            Alors pour tout $x \in \intor{a, b}$, il existe $i$ tel que $x \in \intor{a_i, a_{i+1}}$ et $\varphi\p{x} - f\p{x} = f\p{a_i} - f\p{x}$.
+            
+            Or $\mod{a_i - x} \leq \dfrac{b-a}{n} \leq \eta$ et/d'où $\mod{\varphi\p{x} - f\p{x}} = \mod{f\p{a_i} - f\p{x}} \leq \epsilon$.
+            
+            Ainsi $\varphi$ convient : $\varphi$ convient : \qquad $\norm{\varphi - f}_{\infty} \leq \epsilon$.
+            
+             \itt $\boxed{2^\text{è} \ \text{cas}}$ Si $f$ est continue par morceaux on fait de même sur chaque morceaux $\intc{a_i, a_{i+1}}$ là où $f$ se prolonge continuement.
+        \end{enumerate}
+    \end{nproof}
+    
+    \section{Construction de l'intégrale}
+    
+    On peut désormais construire l'intégrale.
+    
+    \subsection{Pour les fonctions en escalier}
+    
+    \begin{definition}{Intégrale d'une fonction en escalier}{}
+        Soit un \textit{segment} $\intc{a, b} \subset \bdR$ et une fonction $f \in \bcF\p{\intc{a, b}, \bdR}$ \underline{en escalier}, de subdivision $a = a_0 < a_1 < \dots < a_n = b$. On pose les $\p{h_i}_{i \in \iint{0, n-1}}$ tels que :
+        %
+        \[ \forall i \in \iint{0, n-1},\qquad \forall x \in \into{a_i, a_{i+1}},\qquad f\p{x} = h_i\]
+        %
+        On appelle \hg{intégrale de $f$ sur $\intc{a, b}$} la quantité \hg{$\displaystyle \sum_{i=0}^{n-1} h_i\p{a_{i+1} - a_i}$}.
+    \end{definition}
+    
+    \begin{property}{}{}
+        
+    \end{property}
+    
+    \newpage
+    
+    \section{Somme de Riemann}
+    
+    L'objectif de cette partie est d'approcher l'intégrale $\displaystyle\int_a^b f\p{t}\dif t$ par une somme. On considère déjà $f$ continue sur un segment $\intc{a, b}$. Lorsque $f$ sera en fait continue par morceaux, il suffira de considérer individuellement chaque segment sur lequel la fonction est continue.
+    
+    % DESSIN (peut être à droite).
+\end{document}

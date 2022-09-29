@@ -1,0 +1,260 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+\stylizeDoc{Physique}{Compte-rendu du TP 19}{Introduction à l'analyse spectrale
+}
+
+\boxhtp{
+    \itstar  Mettre en œuvre un dispositif expérimental permettant d'analyser le spectre d'un signal acoustique.
+}{
+    \itstar un micro, un diapason avec une caisse de résonance
+}
+
+L'\textbf{analyse spectrale} consiste à déterminer le spectre d'un signal temporel.
+
+\section{Étude du diapason}
+
+\subsection{Le micro}
+
+Un micro est un \textit{\color{main1} transducteur électromagnétique}, c'est-à-dire un dispositif qui transforme un signal sonore (une onde de pression) en un signal électrique.
+
+\begin{experience}{Mise en place}{}
+    \begin{enumerate}
+        \ithand Allumer le micro. Le connecter à la plaquette octogonale sur l'entrée \texttt{EA0}, et vérifier que la plaquette est connectée à l'ordinateur préalablement allumé.
+        
+        \ithand Lancer le logiciel \texttt{Latis-Pro}, cliquer sur le bouton \texttt{EA0} dans la fenêtre \texttt{Acquisition temporelle}.
+
+        \ithand Régler le nombre $N$ de points (\texttt{Points}) à la valeur maximale possible correspondant à une puissance de 2.
+        
+        \ithand Choisir la durée d'échantillonnage \texttt{Total} correspondant à $\Delta t$ de la fiche \bf{\sffamily Échantillonnage}. Vérifier que cela influe sur la \hg{\itshape période d'échantillonnage} \texttt{Te}.
+    \end{enumerate}
+\end{experience}
+
+\boxexp{
+    On prend $N = 256000$, $\texttt{Te} = \SI{100}{\ns}$ donc $\texttt{Total} = \SI{25.6}{\ms}$.
+}
+
+\subsection{Analyse temporelle du signal}\label{subsec:1.2}
+
+\begin{experience}{Acquisition du son d'un diapason}{}
+    \begin{enumerate}
+        \ithand Approcher du micro le diapason muni de sa caisse de résonance.
+        
+        \ithand Exciter le diapason avec la baguette dédiée et lancer l'acquisition avec le bouton $\triangleright$ ou la touche \texttt{F10}.
+    \end{enumerate}
+\end{experience}
+
+\boxexp{
+    On obtient le signal suivant :
+    
+    \begin{center}
+        \begin{minipage}[c]{0.48\linewidth}
+            \pgfplotsset{width=10cm}
+            \begin{tikzpicture}[scale = 0.7]
+                \begin{axis}[
+                    axis lines = left,
+                    xlabel=$\textsf{Fréquence (Hz)}$,
+                    ylabel=$\textsf{Temps (\mu s)}$,
+                    %xmin=0,
+                    %xmax=10,
+                    %ymin=0,
+                    %ymax=500,
+                    %xtick distance={200},
+                    %ytick distance={100},
+                    xticklabel={$\mathsf{\pgfmathprintnumber{\tick}}$},
+                    yticklabel={$\mathsf{\pgfmathprintnumber{\tick}}$},
+                    %minor x tick num=2,
+                    %minor y tick num=2,
+                    x tick label style={/pgf/number format/1000 sep=\,},
+                    font=\footnotesize,
+                    grid = both,
+                    grid style = {line width = .1pt, draw = gray!30},
+                    major grid style = {line width=.2pt,draw=gray!50},
+                ]
+                    %\addplot[mark=none, main1, line width=0.6mm] coordinates
+                    
+                    %\addplot[dashed] table[x=Temps,y=EA0,col sep=comma] {diapason.csv};
+                \end{axis}
+            \end{tikzpicture}
+            
+             \textbf{\sffamily \color{main21} DONNES NON TROUVEES.}
+        \end{minipage}
+    \end{center}
+}
+
+\newpage
+
+\begin{enumerate}
+    \item Décrire le signal obtenu ; estimer sa valeur moyenne. Pourquoi cette allure évolue-t-elle au cours du temps ?
+    
+    \boxans{
+        Le signal obtenu est de forme sinusoïdal, à une seule harmonique. L'allure du signal évolue légèrement au cours du temps, notamment au niveau de l'amplitude. Ceci s'explique par les conditions réelles de l'acquisition du signal, puisqu'il peut y avoir un mouvementent du micro, un 
+    }
+    
+    \item Donner une estimation grossière de la période $T$ du signal.
+    
+    \boxans{
+        On estime grossièrement que $T \approx \SI{2.3}{\ms}$.
+    }
+    
+    \item En déduire la fréquence $f$ du signal sonore. Cela correspond-il à ce qui est indiqué sur le diapason ?
+    
+    \boxans{
+        On a $f = \dfrac{1}{T}$. L'application numérique donne $f = \SI{435}{\hertz}$.
+    }
+\end{enumerate}
+
+\subsection{Analyse spectrale du signal}
+
+\begin{experience}{Visualisation spectrale du signal}{}
+    \begin{enumerate}
+        \ithand Aller dans l'onglet \texttt{Traitements}, puis \texttt{Calculs spécifiques}, et enfin \texttt{Analyse de Fourier}.
+
+        \ithand Dans la fenêtre qui s'ouvre, sélectionner à l'onglet \texttt{Fenêtre de pondération} le choix \texttt{Hamming}, puis tracer le spectre. Une nouvelle fenêtre s'ouvre.
+        
+        \ithand Si les fenêtres se chevauchent, la touche \texttt{F5} permet un passage automatique en mosaïque.
+    \end{enumerate}
+\end{experience}
+
+\boxexp{
+    On obtient le spectre en amplitude suivant :
+    
+    \begin{center}
+        \begin{minipage}[c]{0.48\linewidth}
+            \pgfplotsset{width=10cm}
+            \begin{tikzpicture}[scale = 0.7]
+                \begin{axis}[
+                    axis lines = left,
+                    xlabel=$\textsf{Fréquence (Hz)}$,
+                    ylabel=$\textsf{Amplitude (mV)}$,
+                    xmin=0,
+                    xmax=1000,
+                    ymin=0,
+                    ymax=500,
+                    xtick distance={200},
+                    ytick distance={100},
+                    xticklabel={$\mathsf{\pgfmathprintnumber{\tick}}$},
+                    yticklabel={$\mathsf{\pgfmathprintnumber{\tick}}$},
+                    minor x tick num=2,
+                    minor y tick num=2,
+                    x tick label style={/pgf/number format/1000 sep=\,},
+                    font=\footnotesize,
+                    grid = both,
+                    grid style = {line width = .1pt, draw = gray!30},
+                    major grid style = {line width=.2pt,draw=gray!50},
+                ]
+                    \addplot[mark=none, main1, line width=0.6mm] coordinates {(440,0) (440,352)};
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+    \end{center}
+}
+
+\begin{enumerate}[resume]
+    \item Commentez l'allure du spectre : que voit-on et pourquoi ? Est-ce en accord avec les observations en \textbf{\sffamily \ref{subsec:1.2}} ?
+    
+    \boxans{
+        On obtient une seule harmonique de fréquence proche de $\SI{440}{\hertz}$, ce qui est en accord avec les observations effectuées en \textbf{\sffamily \ref{subsec:1.2}}.
+    }
+\end{enumerate}
+
+\section{Étude d'une corde du ukulélé}
+
+\begin{center}
+    \begin{minipage}{0.9\linewidth}
+    \begin{tcolorbox}[
+        breakable,
+        enhanced,
+        interior style      = {color=colexp!10},
+        borderline north    = {.5pt}{0pt}{colexp!10},
+        borderline south    = {.5pt}{0pt}{colexp!10},
+        borderline west     = {.5pt}{0pt}{colexp!10},
+        borderline east     = {.5pt}{0pt}{colexp!10},
+        sharp corners       = downhill,
+        arc                 = 0 cm,
+        boxrule             = 0.5pt,
+        drop fuzzy shadow   = black!50!white
+    ]
+        \centering Pour le bien des oreilles de chacun, n'excitez une corde du ukulélé que lorsque le protocole l'exige.
+    \end{tcolorbox}
+\end{minipage}
+
+\end{center}
+
+\subsection{Analyse préliminaire}
+
+Une corde vibrante fixée à ces extrémités ne peut produire que certaines fréquences de vibrations appelées \textit{fréquences propres}. Nous avons montré lors du chapitre sur les phénomènes ondulatoires que ces fréquences s'écrivent :
+
+\begin{equation}\label{eq:1}
+    f_n = n\dfrac{c}{2L} \qquad \text{où} \quad n \in \bdN^*
+\end{equation}
+
+avec $c$ la vitesse de propagation des ondes mécaniques le long de la corde. La note associée à une corde correspond à sa \textit{fréquence fondamentale} $f_1$.
+
+\begin{enumerate}[resume]
+    \item Sans jouer, comment peut-on déterminer la corde qui donnera la note la plus grave ?
+
+    \boxans{
+        Le facteur $c$ dépend de la masse linéique de la corde, qui dépend elle-même de la masse. Puisque toutes les cordes ont à peu près la même longueur, c'est donc la masse de chaque corde qui va influencer sa tessiture. Plus la masse est élevée, plus $c$ sera faible et donc plus $f_1$ sera faible. La corde la plus grave sera donc celle avec la plus grande masse, visuellement celle la plus épaisse.
+    }
+\end{enumerate}
+
+\subsection{Analyse temporelle du signal}
+
+\begin{experience}{}{}
+    \begin{enumerate}
+        \ithand Remplacer le diapason par le ukulélé. Exciter au choix l’une des cordes en faisant en sorte que les autres ne vibrent pas.
+        
+        \ithand Lancer l’acquisition du signal par l’ordinateur
+    \end{enumerate}
+\end{experience}
+
+\boxexp{
+    On rejoue un \textsc{La} sur le ukulélé, de manière à pouvoir garder la configuration du début. On obtient le signal suivant :
+    
+    - figure
+}
+
+\begin{enumerate}[resume]
+    \item Décrire le signal obtenu et estimer sa valeur moyenne.
+    
+    \boxans{
+        On obtient un signal de moyenne $\phyavg{s} = \SI{0}{\mV}$ et de forme sinusoïdale, quoique bien plus \guill{perturbée}.
+    }
+    
+    \item Donner une estimation grossière de la période $T$ du signal et en déduire la valeur de la fréquence de sa première harmonique de Fourier.
+    
+    \boxans{
+        On estime grossièrement que $T \approx \SI{2.4}{\ms}$. On a $f = \dfrac{1}{T}$ L'application numérique donne $f = \SI{417}{\hertz}$.
+    }
+    
+    \item A partir de ces observations, que peut-on déjà en déduire quand à la composition spectrale du signal ?
+    
+    \boxans{
+        Le signal est ici plus \guill{complexe} qu'une simple sinusoïde, on en déduit donc que sa composition spectrale sera faite de plusieurs harmoniques.
+    }
+\end{enumerate}
+
+\subsection{Analyse spectrale du signal}
+
+\begin{experience}{Visualisation spectrale du signal}{}
+    \begin{enumerate}
+        \ithand Réaliser à nouveau l’analyse spectrale du signal
+    \end{enumerate}
+\end{experience}
+
+\boxexp{
+    On obtient le spectre en amplitude suivant :
+}
+
+\begin{enumerate}
+    \ithand Commentez l’allure du spectre. Que voit-on ? Pourquoi ?
+    
+    \boxans{
+        On observe plusieurs \guill{pics} d'amplitude, dont les fréquences sont des multiples de la fréquence fondamentale $f_1 = \SI{440}{\hertz}$. Ceci s'explique par la formule \eqref{eq:1}.
+    }
+\end{enumerate}
+\end{document}

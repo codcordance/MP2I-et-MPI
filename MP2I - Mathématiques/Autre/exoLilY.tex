@@ -1,0 +1,99 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+    \stylizeDoc{Mathématiques}{Exercices pour Lily}{DL, Continuité, Dérivabilité}
+    
+    \initcours{}
+    
+    \section{Développements polynomiaux (développement limité et asymptotique)}
+    
+    \begin{notation}
+        Par \hg{$\mathsf{DL}_n\p{\alpha}$} on désigne un développement limité à l'ordre \hg{$n$} en \hg{$\alpha$}. 
+    \end{notation}
+    
+    \subsection{Calcul de DL}
+    
+    \begin{exercise}{Quelques DL en 0}{}
+        \medskip Déterminer les développements limités en suivants :\medskip
+        
+        \begin{enumerate}
+            \begin{minipage}{0.48\linewidth}
+                \itt Un $\mathsf{DL}_3\p{0}$ de $x \mapsto xe^x\vphantom{\dfrac{1}{1}}$
+            
+                \itt Un $\mathsf{DL}_3\p{0}$ de $x \mapsto \sin{x}\sqrt{1 + x}\vphantom{\dfrac{1}{1}}$
+            
+                \itt Un $\mathsf{DL}_4\p{0}$ de $x \mapsto e^{\cos x}\vphantom{\dfrac{1}{1}}$
+                
+                \itt Un $\mathsf{DL}_5\p{0}$ de $x \mapsto \dfrac{1}{\cos x}$
+            \end{minipage}
+            %
+            \hfill
+            %
+            \begin{minipage}{0.48\linewidth}
+                \itt Un $\mathsf{DL}_3\p{0}$ de $x \mapsto \dfrac{x}{\sin x}$
+                                
+                \itt Un $\mathsf{DL}_2\p{0}$ de $x \mapsto \dfrac{e^x - e^{-x}}{\sqrt{1 + x}}$
+            
+                \itt Un $\mathsf{DL}_2\p{0}$ de $x \mapsto \dfrac{\ln{1+x^2}}{\sin^2 x}$
+                
+                \itt Un $\mathsf{DL}_2\p{0}$ de $x \mapsto e^{-x}\dfrac{x}{1 + x}$
+            \end{minipage}
+        \end{enumerate}
+    \end{exercise}
+    
+    \bigskip
+    
+    \begin{exercise}{Quelques DL en un point fini non nul}{}
+        \medskip \hg{\itshape En vérité, ce genre de questions a un but purement pratique. Les développements limités sont presque toujours en $0$ ou dans un point remarquable pour la fonction. $\ln$ par exemple a son $\mathsf{DL}$ en $1$, et même dans ce cas, beaucoup préfèrent considérer le $\mathsf{DL}$ \guill{usuel} comme étant celui de $x \mapsto \ln{1 + x}$ en $0$}.\medskip
+        
+       Déterminer les développements limités en suivants :\medskip
+        
+        \begin{enumerate}
+            \begin{minipage}{0.48\linewidth}
+                \itt Un $\mathsf{DL}_2\p{\dfrac{\pi}{3}}$ de $x \mapsto \cos x$
+                
+                \itt Un $\mathsf{DL}_3\p{\dfrac{\pi}{4}}$ de $x \mapsto \cos x$
+            
+                \itt \bf{Pour tout $n \in \bdN$}, un $\mathsf{DL}_{\hg{n}}\p{-1}$ de $x \mapsto \dfrac{1}{x}$
+            \end{minipage}
+            %
+            \hfill
+            %
+            \begin{minipage}{0.48\linewidth}
+                \itt Un $\mathsf{DL}_4\p{2}$ de $x \mapsto \sqrt{x}$
+                
+                \itt Un $\mathsf{DL}_3\p{2}$ de $x \mapsto \ln x$
+                
+                \itt Un $\mathsf{DL}_5\p{\dfrac{\pi}{2}}$ de $x \mapsto \ln{\dfrac{1 + \cos x}{\sin x}}$
+            \end{minipage}
+        \end{enumerate}
+    \end{exercise}
+    
+    \bigskip
+    
+        \begin{exercise}{Toujours plus ...}{}
+        \medskip Déterminer les développements limités en suivants :\medskip
+        
+        \begin{enumerate}
+            \begin{minipage}{0.48\linewidth}
+                \itt Un $\mathsf{DL}_4\p{0}$ de $\displaystyle x \mapsto \int_x^{x^2} \sqrt{1 + t^2}\dif t$
+            \end{minipage}
+            %
+            \hfill
+            %
+            \begin{minipage}{0.48\linewidth}
+                \itt \bf{Pour tout $n \in \bdN$}, un $\mathsf{DL}_{\hg{n+1}}\p{0}$ de 
+                
+                $x \mapsto \ln{1 + x + \dfrac{x^2}{2!} + \dots + \dfrac{x^n}{n!}}$
+            \end{minipage}
+        \end{enumerate}
+    \end{exercise}
+    
+    \newpage
+    
+    \subsection{Calcul de développement asymptotique et d'équivalent}
+    
+    
+    
+\end{document}

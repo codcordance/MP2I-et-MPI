@@ -1,0 +1,195 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+\stylizeDoc{Mathématiques}{TD - Chapitre 15}{Continuité}
+\inittd
+
+\setcounter{section}{2}
+\section{Continuité globale, théorème des valeurs intermédiaires}
+
+\begin{center}
+    \begin{minipage}{.7\linewidth}
+        \begin{tcolorbox}[
+            breakable,
+            breakable,
+            enhanced,
+            interior style      = {left color=main4!15,right color=main2!12},
+            borderline north    = {.5pt}{0pt}{main2!10},
+            borderline south    = {.5pt}{0pt}{main2!10},
+            borderline west     = {.5pt}{0pt}{main2!10},
+            borderline east     = {.5pt}{0pt}{main2!10},
+            sharp corners       = downhill,
+            arc                 = 0 cm,
+            boxrule             = 0.5pt,
+            drop fuzzy shadow   = black!40!white,
+            nobeforeafter,
+        ]
+        \centering Correction des exercices en séance de TD
+    \end{tcolorbox}
+\end{minipage}
+\end{center}
+
+\underline{\textsc{Exercice 17} \ \lozenge \ \strong{Généralisation du théorème des valeurs intermédiaires}}
+
+Soit $f$ une fonction continue sur $\bdR$ telle que $\lim\limits_{x \to +\infty} f(x) = \ell$ et $\lim\limits_{x \to -\infty} f(x) = \ell'$. L’objectif est de démontrer,
+dans le cas où $\ell$ et $\ell'$ sont finis, ( et sans prendre de $\epsilon\dots$) que si $c$ est un réel compris strictement entre $\ell$ et $\ell'$, alors il existe $a \in \bdR$ tel que $f(a) = c$.
+
+\begin{enumerate}
+    \item On pose $g = f \circ \tan$. Montrer que $g$ est continue sur $\left]-\dfrac{\pi}{2}, \dfrac{\pi}{2}\right[$.
+    
+    \boxans{
+        $\tan$ est continue sur $\left]-\dfrac{\pi}{2}, \dfrac{\pi}{2}\right[$, à valeurs dans $\bdR$. De plus $f$ est continue sur $\bdR$, donc \boxsol{$g$ est continue sur $\left]-\dfrac{\pi}{2}, \dfrac{\pi}{2}\right[$}.
+    }
+    
+    \item Montrer qu'on peut prolonger g par continuité en $\pm\dfrac{\pi}{2}$
+    
+    \boxans{
+        On a $\lim\limits_{y \to +\infty} f(y) = \ell$ donc $g(x) = f(\tan x) \lima{\substack{x \to \sfrac{\pi}{2}\\x \leq \sfrac{\pi}{2}}} \ell$. De même, $g(x) = f(\tan x) \lima{\substack{x \to -\sfrac{\pi}{2}\\x \geq -\sfrac{\pi}{2}}} \ell$.
+        
+        \boxsol{On peut prolonger $g$ par continuité sur $\left[-\dfrac{\pi}{2}, \dfrac{\pi}{2}\right]$ en posant $g(\sfrac{\pi}{2}) = \ell$ et $g(-\sfrac{\pi}{2}) = \ell'$.}.
+    }
+    
+    \item  Conclure.
+    
+    \boxans{
+        Soit $c$ compris strictement entre $\ell$ et $\ell'$. Donc $c$ est entre $g(-\sfrac{\pi}{2})$ et $g(\sfrac{\pi}{2})$. Le TVI sur $g$ donne :
+        
+        \[ \exists x_0 \in \left]-\sfrac{\pi}{2}, \sfrac{\pi}{2}\right[,\qquad g(x_0) = c\]
+        
+        Donc $f(\tan x_0) = c$. En prennant $a = \tan(x_0) \in \bdR$, on a trouvé \boxsol{$f(a) = 0$}.
+    }
+\end{enumerate}
+
+\underline{\textsc{Exercice 19} \ \lozenge \ \strong{Un avant-goût}}
+
+Montrer que si un élève de \textsf{SUP 3} descend une piste de dénivelé \SI{1000}{\m} entre \SI{14}{\hour} et \SI{15}{\hour}, il y a un intervalle de \SI{30}{\minute} où le dénivelé est exactement de \SI{500}{\m}.
+
+\boxans{
+    \begin{minipage}{0.45\linewidth}
+        \begin{center}
+	        \begin{tikzpicture}[]
+		    \draw [-,color=main3,thick] (0, 0) -- (1, 4) ;
+		    \draw [-,color=main3] (0.8, 3.2) -- (1.25, 3.2) ;
+		    \draw[-,color=main3,thick] (1, 4) -- (1.5, 2.5);
+		    \draw[-,color=main3,thick] (1.5, 2.5) -- (2, 3.5);
+		    \draw [-,color=main3] (1.7, 2.9) -- (2.2, 2.9) ;
+		    \draw[-,color=main3,thick] (2, 3.5) -- (2.5, 2);
+		    \draw[-,color=main3,thick] (2.5, 2) -- (3, 3);
+		    \draw [-,color=main3] (2.75, 2.5) -- (3.15, 2.5) ;
+		    \draw[-,color=main3,thick] (3, 3) -- (4, 0);
+		    \draw[-,color=main3, thick] (4, 0) -- (0, 0);
+		    
+		    \draw [color=main5, o->] plot [smooth, tension=0.5] coordinates { (0.73,2.9) (1,3.3) (1.5, 1.8) (2, 2.3) (2.3, 1.5) (2.9, 2) (3.8,0)};
+		    
+		    \draw[Latex-Latex,thick,color=main1] (5.5, 0) -- node[right] {$\SI{1000}{\m}$} (5.5, 3);
+		    
+		    \draw[color=gray, dashed] (3.8,0) -- (5.5, 0);
+		    \draw[color=gray, dashed] (0.73,3) -- (5.5, 3);
+	    \end{tikzpicture}
+        \end{center}
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}{0.45\linewidth}
+        On appelle $a : \begin{array}[t]{rcl}
+            [0, 1] &\to&\bdR  \\
+            t &\mapsto& a(t)
+        \end{array}$ la fonction qui donne au temps $t$ l'altitude $a(t)$.
+        
+        On pose alors $d : \begin{array}[t]{rcl}
+            [0, \sfrac{1}{2}] &\to&\bdR  \\
+            t &\mapsto& a(t) - a(t + \sfrac{1}{2})
+        \end{array}$.
+        
+        Montrons qu'il existe $t_0$ tel qe $d(t_0) = 500$, soit $d(t_0) - 500 = 0$.
+        
+        Soit $\varphi(t) = d(t) - 500$. On suppose que $a$ est continue sur $[0, 1]$, donc $\varphi$ est continue sur $[0, \sfrac{1}{2}]$.
+    \end{minipage}
+    
+    \text{}\newline On a $\varphi(0) = a(0) - a(\sfrac{1}{2}) - 500$ et $\varphi(\sfrac{1}{2}) = a(\sfrac{1}{2}) - a(1) - 500$. Or $a(0) - a(1) = 1000$, donc $\varphi(0) + \varphi(\sfrac{1}{2}) = 0$. Ainsi $\varphi(0)$ et $\varphi(\sfrac{1}{2})$ sont de signes opposés donc par TVI, $\varphi$ s'annule. Donc :
+    
+    \[ \exists t_0 \in [0, \sfrac{1}{2}],\qquad \varphi(t_0) = 0 \qquad\text{donc}\qquad \boxsol{$d(t_0) = \SI{500}{\m}$}\]
+
+}
+
+\underline{\textsc{Exercice 20} \ \lozenge \ \strong{Monotonie}}
+
+Soit $f : \bdR_+^* \to \bdR$ croissante telle que $g : x \mapsto \dfrac{f(x)}{x}$ soit décroissante. Démontrer que $f$ est continue.
+
+\boxans{
+    On a $f : \bdR_+^* \to \bdR$ est croissante et $g : x \mapsto \dfrac{f(x)}{x}$ décroissante. Le théorème de la limite monotone sur $f$ donne l'existence de limites en tout point à gauche et à droite. On se donne alors $a \in \bdR_+^*$. $f$ est croissante, donc :
+    
+    \[ \lim\limits_{a^-} f \leq f(a) \leq \lim\limits_{a^+} f\]
+    
+    De plus $g$ est décroissante, donc :
+    
+    \[ \lim\limits_{a^-} g \geq g(a) \geq \lim\limits_{a^+} g\]
+    
+    Or $\lim\limits_{a^+} g = \dfrac{\lim\limits_{a^+} f}{a}$ et $\lim\limits_{a^-} g = \dfrac{\lim\limits_{a^-} f}{a}$. Donc :
+    
+    \[ \dfrac{\lim\limits_{a^-} f}{a} \geq \dfrac{f(a)}{a} \geq \dfrac{\lim\limits_{a^+} f}{a}\]
+    
+    Or $a > 0$ donc $\lim\limits_{a^-} f \geq f(a) \geq \lim\limits_{a^+} f$. En conclusion, \boxsol{$\lim\limits_{a^-} f = f(a) = \lim\limits_{a^+} f$}.
+}
+
+\section{Théorème de compacité}
+
+\underline{\textsc{Exercice 23} \ \lozenge \ \strong{Fonction périodique et continue}}
+
+Montrer qu'une fonction continue sur $\bdR$ et périodique est bornée et atteint ses bornes.
+
+\boxans{
+    Soit $f$ une fonction périodique et continue sur $\bdR$. Notons $T > 0$ une période de $f$. Alors :
+    
+    \[ \forall x \in \bdR,\qquad f(x + T) = f(x) \qquad \text{donc} \qquad f(\bdR) = f([0, T])\]
+    
+    Par théorème des bornes atteintes, \boxsol{$f$ est bornée et atteint ses bornes sur $[0, T]$ donc sur $\bdR$}
+}
+
+\underline{\textsc{Exercice 24}}
+
+Montrer que si $f$ et $g$ sont continues sur $[a, b]$, et que $\forall x \in [a, b]$, $f(x) < g(x)$, alors il existe $\alpha > 0$ tel que $\forall x \in [a, b]$, $f(x) < g(x) - \alpha$.
+
+\boxans{
+    On pose $h = g - f$. $h$ est continue sur $[a, b]$ et $h > 0$ donc $h$ admet un minimum atteint :
+    
+    \[ \exists c \in [a, b],\qquad \forall x \in [a, b],\qquad h(x) \geq h(c) > 0\]
+    
+    Posons $\alpha = \dfrac{h(c)}{2}$. Ainsi, $h(c) > \alpha > 0$ donc \boxsol{$\forall x \in [a, b], \qquad g(x) - f(x) > \alpha$}.
+}
+
+\underline{\textsc{Exercice 28} \ \lozenge \ \strong{Généralisation du théorème de Compacité}}
+
+Soit $f$ une fonction continue de $\bdR$ dans $\bdR$ admettant des limites finies en $+\infty$ et $-\infty$.
+
+\begin{enumerate}
+    \item Montrer que $f$ est bornée.
+    
+    \boxans{
+        Par définition de $\lim_{+\infty} f = L$ avec $\epsilon = 1$ :
+        
+        \[\exists A \in \bdR, \qquad \forall x \geq A,\qquad \mod{f(x) - L} \leq 1\]
+        
+        donc sur $[A, +\infty[$, $L- 1 \leq f(x) \leq L + 1$ ($f$ bornée sur $[A, +\infty[$). On a de même pour $\lim_{-\infty} f = L'$ :
+        
+        \[ \exists B \in \bdR,\qquad \forall x \leq B,\qquad L' - 1 \leq f(x) \leq L' + 1\]
+        
+        Donc $f$ est bornée sur $]-\infty, B]$. Il reste à étudier $f$ sur $[B, A]$. Or $f$ est continue sur $\bdR$ donc sur le segment $[B, A]$, ainsi $f$ est bien bornée sur $[B, A]$. Donc il existe $m$ et $M$ deux réels tels que $\forall x \in [B, A]$, $m \leq f(x) \leq M$. On pose alors :
+        
+        \[ m_0 = \min(m, L' -1, L - 1) \qquad\et\qquad M_0 = \max(M, L' + 1, L + 1)\]
+        
+        On a donc bien $\forall x \in \bdR$, $m_0 \leq f(x) \leq M_0$ donc \boxsol{$f$ est bornée sur $\bdR$}.
+    }
+    
+    \item $f$ atteint-elle ses bornes ?
+    
+    \boxans{
+        Un contre-exemple est donné $\tanh$ ou $\arctan$, donc \boxsol{$f$ n'atteint pas toujours ses bornes}.
+    }
+\end{enumerate}
+
+\end{document}

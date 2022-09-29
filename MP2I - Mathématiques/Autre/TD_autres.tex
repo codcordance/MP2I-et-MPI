@@ -1,0 +1,73 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Exercices intéressants}{Énoncés et résolutions}
+
+\begin{exercise}{}{}
+    Soit un polynôme à coefficients réels $P \in \bdR[X]$, tel que $\forall n \in \bdN$, $P(n) \in \bdP$. \hg{Montrer que $P$ est constant.}
+    
+    \tcblower
+    
+    $P$ ne peut-être le polynôme nul car $0 \not\in \bdP$. On peut donc se donner $n = \deg P$. On pose alors la séquence $(a_k)_{k \in \llbracket0, n\rrbracket}$ telle que :
+    %
+    \[ P = \sum_{k=0}^n a_kX^k\]
+    %
+    On a alors $P(0) = a_0$. De plus $0 \in \bdN$ donc $P(0) \in \bdP$, donc $a_0 \in \bdP$. On pose alors la suite $\left(p_m\right)_{m \in \bdN^*}$ telle que :
+    %
+    \[ \forall m \in \bdN^*,\qquad p_m = P({a_0}^m)\]
+    %
+    Or $a_0 \in \bdN$ donc ${a_0}^m \in \bdN$, donc la suite $\left(p_m\right)_{m \in \bdN^*}$ est à valeur dans $\bdP$. Soit $m \in \bdN^*$, on a :
+    %
+    \[ p_m = P({a_0}^m) =  \sum_{k=0}^n a_k \left({a_0}^m\right)^k = a_0 + \sum_{k=1}^n a_k (a_0)^{mk} = a_0\left(1 + \sum_{k=1}^n a_k (a_0)^{mk}\right)\]
+    %
+    Donc $a_0 \mid p_m$, donc $a_0 \in \bcD(p_m)$. Or $p_m$ est premier, donc $\bcD(p_m) = \{1, p_m\}$, donc $a_0 = 1$ ou $a_0 = p_m$. Puisque $a_0 \geq 2$, on a $p_m = a_0$. La suite $\left(p_m\right)_{m \in \bdN^*}$ est donc constante et vaut $a_0$.\\
+    
+    Posons donc le polynôme $Q = P - a_0$. On a :
+    
+    \[ \forall m \in \bdN^*,\qquad Q({a_0}^m) = P({a_0}^m) - a_0 = p_m - a_0 = a_0 - a_0 = 0\]
+    
+    Puisque $a_0 \geq 2$, la suite $\left({a_0}^m\right)_{m \in \bdN^*}$ prend une infinité de valeurs, donc $Q$ s'annule une infinité de fois. Puisque $Q$ est un polynôme, on déduit $Q = 0$. Dès lors, on a $P - a_0 = 0$, d'où $P = a_0$.
+    
+    \[ \boxedcol{\text{\bf{On a bien montré que $P$ est constant.}}} \]
+\end{exercise}
+
+\newpage
+
+\begin{exercise}{}{}
+    Soit $\bdK$ un corps infini, $E$ un $\bdK$-espace vectoriel de dimension finie.
+    \begin{enumerate}
+        \item Montrer qu'on ne peut pas avoir $E = V_1 \cup V_2 \cup \dots \cup V_N$, où les $V_i$ sont des sous-espaces vectoriels stricts de $E$. Que se passe-t-il si $\bdK$ est fini ?
+    \end{enumerate}
+    
+    \tcblower
+    
+    \begin{enumerate}
+        \item On procède par récurrence sur la dimension. On pose pour tout rang rang $n \in \bdN$  le prédicat $H(n)$ suivant :
+        %
+        \[\forall E \ \text{un} \ \bdK\text{-ev} \ \text{tel que} \dim E = n,\quad \forall \left(V_i\right)_\text{1\leq i \leq N} \ \text{des sev de} \ E,\quad \bigcup_{i=1}^N V_i = E\implies \exists j \in \llbracket 1, n\rrbracket,\quad V_j = E\]
+        %
+        Simplement, $H$ dit que si un espace vectoriel $E$ est une union de sous espaces vectoriels de lui-même, alors un de ses sous espaces est $E$, ce qui est équivalent à dire qu'on ne peut pas avoir $E = \displaystyle \bigcup_i V_i$ où les $V_i$ sont des espaces stricts de $E$.
+        
+        \begin{enumerate}
+            \ithand \underline{\textsf{Initialisation :}} Soit $E$ un $\bdK$-ev de dimension $0$. Alors $E = \{ 0_E\}$. Le seul sev de $E$ est $\{0_E\}$ soit $E$ lui-même, $H(0)$ est alors immédiate.
+            
+            \ithand \underline{\textsf{Hérédité :}} Soit $n \in \bdN$ tel que $H(n)$ est vrai. Soit $E$ un $\bdK$-ev de dimension $n+1$. On se donne de plus une base $\left(u_i\right)_{1 \leq i \leq n+1}$ de $E$. Soit une famille $\left(V_i\right)_{1 \leq i \leq N}$ tel que $E = \displaystyle\bigcup_{i=1}^N V_i$. On considère :
+            
+            \[ \phi : \sum_{i=1}^{n+1} \lambda_i u_i \mapsto \sum_{i=1}^n \lambda_i u_i\]
+            
+            On pose alors $E' = \phi(E)$, donc $E' = \displaystyle\phi\left(\bigcup_{i=1}^N V_i\right) = \bigcup_{i=1}^N \phi(V_i)$. Par projection, chaque $V_i$ est sev de $E'$, donc par hypothèse de récurrence il existe $j \in \llbracket 1, N\rrbracket$ tel que $\phi(V_j) = E'$. Dès lors :
+            %
+            \[ \phi\left(E \backslash V_j\right) = \phi\left(E\right) \backslash \phi\left(V_j\right) = E' \backslash E' = \emptyset\]
+            
+            Or $\phi^{-1}\left(\emptyset\right) = \emptyset$. Donc $E\backslash V_j = \emptyset$, d'où $E = V_j$. On a bien montré $H(n+1)$.
+            
+            \ithand \underline{\textsf{Conclusion :}} Par principe de récurrence, immédiate.
+        \end{enumerate}
+        
+    \end{enumerate}
+\end{exercise}
+
+\end{document}

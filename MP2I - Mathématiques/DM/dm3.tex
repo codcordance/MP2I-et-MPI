@@ -1,0 +1,359 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[autolanguage]{numprint}
+
+\usepackage[top=2cm, bottom=2cm, left=1cm, right=1cm]{geometry}
+
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{mathtools}
+\usepackage{ulem}
+\usepackage{amssymb}
+\usepackage{tocbibind}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{nameref}
+\usepackage{lipsum}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{mathrsfs}
+\usepackage{xfrac}
+\usepackage{fancybox}
+
+\usepackage{tikz}
+\def\cotan{\qopname\relax o{cotan}}
+\usepackage[most]{tcolorbox}
+\usepackage{tkz-tab}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{SIAHAAN--GENSOLLEN Rémy}
+\chead{DM03}
+\rhead{MP2I - 2021-2022}
+\cfoot{\thepage}
+
+\newtheorem*{property}{Propriété}
+\renewcommand\qedsymbol{$\blacksquare$}
+\newcommand{\RE}{\mathfrak{Re}}
+\newcommand{\IM}{\mathrm{Im}}
+
+\usepackage[bookmarks]{hyperref}
+\begin{document}
+
+\section*{Exercice : Trigonométrie et complexes}
+
+\noindent Pour tout $t \in \mathbb{R}$, tout $\varphi \in \left]0;2\pi\right[$ et tout entier naturel $n \in \mathbb{N}$, on définit l'expression $C(t,\varphi,n)$ par :
+\[C(t,\varphi,n) = \sum_{k=0}^n \cos(t+k\varphi).\]
+On propose différentes méthodes pour déterminer l'expression par radicaux de $\cos\left(\dfrac{\pi}{5}\right)$, c'est à dire sous forme $\alpha+\beta\sqrt{\gamma}$, avec $(\alpha,\beta,\gamma) \in \mathbb{Q}^3$. Dans toute la suite, on notera $\theta =\frac{\pi}{5}$.\\
+
+\noindent\textbf{I. Préliminaire}\quad Montrer que :\quad $C(t,\varphi,n) = \cos\left(t + \dfrac{n}{2}\varphi\right)\dfrac{\sin\left(\frac{(n+1)\varphi}{2}\right)}{\sin\left(\frac{\varphi}{2}\right)}$
+     \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+     
+     On a $\varphi \neq 2\pi$, donc $e^{i\varphi} \neq 1$. Donc :
+     \begin{align*}
+         C(t,\varphi,n) &= \sum_{k=0}^n \cos(t+k\varphi)\\
+         &= \sum_{k=0}^n \RE \left(e^{i(t+k\varphi)}\right)\\
+         &= \RE \left(\sum_{k=0}^n e^{it} \left(e^{i\varphi}\right)^k\right)\\
+         &= \RE \left(e^{it}\dfrac{e^{i\varphi(n+1)}-1}{e^{i\varphi}-1}\right)\\
+         &= \RE \left(e^{it}\dfrac{e^{i(n+1)\frac{\varphi}{2}}\left(e^{i\frac{(n+1)\varphi}{2}}-e^{-i\frac{(n+1)\varphi}{2}}\right)}{e^{i\frac{\varphi}{2}}\left(e^{i\frac{\varphi}{2}}-e^{-i\frac{\varphi}{2}}\right)}\right)\\
+         &= \RE \left(e^{it}e^{in\frac{\varphi}{2}}\dfrac{\sin\left(\frac{(n+1)\varphi}{2}\right)}{\sin\left(\frac{\varphi}{2}\right)}\right)\\
+         &= \RE \left(e^{i(t+\frac{n}{2}\varphi)}\dfrac{\sin\left(\frac{(n+1)\varphi}{2}\right)}{\sin\left(\frac{\varphi}{2}\right)}\right)\\
+         &= \cos\left(t + \dfrac{n}{2}\varphi\right)\dfrac{\sin\left(\frac{(n+1)\varphi}{2}\right)}{\sin\left(\frac{\varphi}{2}\right)}
+     \end{align*}
+    \end{tcolorbox}
+
+
+\noindent\textbf{II. Par factorisation de polynôme}
+
+\begin{enumerate}
+    \item Résoudre dans $\mathbb{C}$ l'équation $z^5+1=0$, et exprimer ses solutions en fonction de $\theta$.
+    \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+    Soit $z \in \mathbb{C}$ solution de $z^5+1=0$. Alors $|z^5|=|-1|$ donc $|z|=1$ ($z \in \mathbb{U}$). On pose $t \in \left[0;2\pi\right[$ tel que $z = e^{it}$.
+    $z^5 = -1$ donc $e^{5it} = e^{i\pi}$ donc $5t \equiv \pi \ \left[2\pi\right]$ donc $t \equiv \frac{\pi}{5} \ \left[\frac{2\pi}{5}\right]$ donc $\exists k \in \mathbb{N}$, $t = \frac{2\pi}{5}k + \frac{\pi}{5} = (2k+1)\theta$.\\
+    Or $t \in \left[0;2\pi\right[$ donc $\frac{2\pi}{5}k + \frac{\pi}{5} < 2\pi$ donc $2 k + 1 < 10$ donc $0 \leq k \leq 4$.
+    \[ S = \left\lbrace e^{i\theta}, e^{i3\theta}, e^{i5\theta}, e^{i7\theta}, e^{i9\theta}\right\rbrace \]
+    \end{tcolorbox}
+    
+    
+    \item Représenter graphiquement les solutions de l'équation.
+    \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+    Voir annexe.
+    \end{tcolorbox}
+    \item Vérifier que certaines solutions sont complexes conjugées.
+        \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+    \[e^{i\theta} \in S \quad\qquad \overline{e^{i\theta}} = e^{-i\theta} = e^{-i\theta+2i\pi\frac{5}{5}} = e^{-i\theta + i10\theta} = e^{i9\theta} \in S\]
+    \[e^{i3\theta} \in S \quad\qquad \overline{e^{i3\theta}} = e^{-i3\theta} = e^{-i3\theta+2i\pi\frac{5}{5}} = e^{-i3\theta + i10\theta} = e^{i7\theta} \in S\]
+    Certaines solutions sont donc complexes conjugées.
+    \end{tcolorbox}
+    \item Trouver le polynôme $Q(x)$ de degré $4$ tel que $X^5+1=(X+1)Q(X)$.
+    \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+    $$\displaystyle X^5 + 1 = X^5 - (-1)^5 = (X+1)\left(\sum_{k=0}^4X^{4-k}(-1)^k\right)$$ Donc $X^5 + 1 = (X+1)Q(X)$ avec $Q$ un polynôme de degré 4 tel que $\displaystyle Q(X)=X^4-X^3+X^2-X+1$.
+    \end{tcolorbox}
+    \item On pose $Z = z + \frac{1}{z}$. Montrer qu'il existe $(a,b,c) \in \mathbb{R}^3$ tel que \quad $\dfrac{Q(z)}{z^2}=aZ^2 + bZ + c$.
+    \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+    \[\dfrac{Q(z)}{z^2} = z^2-z+1-\dfrac{1}{z}+\dfrac{1}{z^2} = z^2+2z\dfrac{1}{z}+\dfrac{1}{z^2} - 2 -  \left(z + \dfrac{1}{z}\right) + 1 = \left(z+\dfrac{1}{z}\right)^2 - \left(z + \dfrac{1}{z}\right) - 1 = Z^2 - Z - 1\]
+    Donc il existe $(a,b,c) \in \mathbb{R}^3$ tel que \quad $\dfrac{Q(z)}{z^2}=aZ^2 + bZ + c$ \quad avec $(a,b,c)=(1,-1,-1)$.
+    \end{tcolorbox}
+    \item Résoudre dans $\mathbb{C}$ l'équation $Q(z)=0$. On écrira les quatres solutions sous forme algébrique.
+    \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+    $0^2-0-1\neq0$ donc $0$ n'est pas solution. Donc $Q(z)=0 \iff \dfrac{Q(z)}{z^2}=0 \iff Z^2-Z-1=0$.\\
+    $\Delta = (-1)^2-4(1)(-1)=1+4=5$. Soit $Z_1$ et $Z_2$ les solutions, on a: $Z_1=\dfrac{1-\sqrt{5}}{2}$ et $Z_2=\dfrac{1+\sqrt{5}}{2}$.\\
+    Or $Z=z+\dfrac{1}{z}$ donc $zZ=z^2+1$ donc $z^2-Zz+1 = 0$. On note $\Delta_1$ et $\Delta_2$ pour $Z_1$ et $Z_2$ respectivement.\\
+    \begin{multicols}{2}
+$\Delta_1 = \left(-\dfrac{1-\sqrt{5}}{2}\right)^2-4=\dfrac{-5-\sqrt{5}}{2}$\\
+Donc $\Delta_1 = \left(i\sqrt{\dfrac{5+\sqrt{5}}{2}}\right)^2 = \left(\frac{1}{2}i\sqrt{10+2\sqrt{5}}\right)^2$.\\
+Donc $z_{1,1} = \dfrac{1-\sqrt{5}}{4} - i\dfrac{\sqrt{10 + 2\sqrt{5}}}{4}$ et $z_{1,2} = \overline{z_{1,1}}$.\\
+$\Delta_2 = \left(-\dfrac{1+\sqrt{5}}{2}\right)^2-4=\dfrac{-5+\sqrt{5}}{2}$\\
+Donc $\Delta_2 = \left(i\sqrt{\dfrac{5-\sqrt{5}}{2}}\right)^2 = \left(\frac{1}{2}i\sqrt{10-2\sqrt{5}}\right)^2$.\\
+Donc $z_{2,1} = \dfrac{1+\sqrt{5}}{4} - i\dfrac{\sqrt{10 + 2\sqrt{5}}}{4}$ et $z_{2,2} = \overline{z_{2,1}}$.
+\end{multicols}
+\[ S' = \left\lbrace\dfrac{1-\sqrt{5}}{4} - i\dfrac{\sqrt{10 + 2\sqrt{5}}}{4};\dfrac{1-\sqrt{5}}{4} + i\dfrac{\sqrt{10 + 2\sqrt{5}}}{4};\dfrac{1+\sqrt{5}}{4} - i\dfrac{\sqrt{10 + 2\sqrt{5}}}{4};\dfrac{1+\sqrt{5}}{4} + i\dfrac{\sqrt{10 + 2\sqrt{5}}}{4}\right\rbrace\]
+    \end{tcolorbox}
+    \item En déduire l'expression par radicaux de $\cos \theta$.
+    \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+    On sait que $\Re(e^{i\theta}) = \cos \theta$. De plus, $X^5+1=(X+1)Q(X)$ donc $S = S'\cup\{-1\}$. Or $e^{i\theta} \neq 1$ donc $e^{i\theta} \in S'$.\\
+    $\cos \theta = \Re(e^{i\theta}) $ donc $\cos \theta \in \left\lbrace\dfrac{1-\sqrt{5}}{4};\dfrac{1+\sqrt{5}}{4}\right\rbrace$. Or $0 \leq \theta \leq \dfrac{\pi}{2}$ donc $\cos \theta \geq 0$. \qquad Donc:
+    $\displaystyle\boxed{\cos \theta = \dfrac{1+\sqrt{5}}{4}}$
+    \end{tcolorbox}
+\end{enumerate}
+
+\noindent\textbf{III. Par formules trigonométriques}
+\begin{enumerate}
+    \item En rappelant la formule de $\cos(2a)$, exprimer $\cos(2\theta)$ et $\cos(4\theta)$ en fonction de $\cos \theta$.
+        \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+        \[\cos(2a) = 2\cos^2 a - 1\]
+        Donc \quad $\cos(2\theta) = 2\cos^2(\theta) - 1$ \qquad et \qquad $\cos(4\theta) = 2\cos^2(2\theta)-1=8\cos^4\theta-8\cos^2\theta + 1$
+        \end{tcolorbox}
+    \item En déduire que $\cos \theta$ est solution de l'équation $8x^4-8x^2+x+1=0$.
+        \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+        $\cos \theta = - \cos(\pi - \theta)$ donc $-\cos \theta = \cos (4\theta) = 8\cos^4\theta-8\cos^2\theta + 1$.
+        Donc $8\cos^4\theta-8\cos^2\theta \cos \theta + 1 = 0$.\\
+        Donc $\cos \theta$ est solution de l'équation $8x^4-8x^2+x+1=0$.
+        \end{tcolorbox}
+    \item Vérifier que $8x^4-8x^2+x+1$ se factorise par $2x^2+x-1$.
+    \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+    \begin{align*}
+        8x^4-8x^2+x+1 &= 4x^2(2x^2+x-1) -4x^3 + 4x^2 - 8x^2 + x + 1 \\
+        &= 4x^2(2x^2+x-1) -2x(2x^2+x-1) + 2x^2 - 2x - 4x^2 + x + 1\\
+        &=4x^2(2x^2+x-1) -2x(2x^2+x-1) -(2x^2 +x - 1)\\
+        &=(2x^2+x-1)(4x^2-2x-1)
+    \end{align*}
+    \end{tcolorbox}
+    \item En déduire les solutions de l'équation $8x^4-8x^2+x+1=0$, puis en conclure sur la valeur de $\cos \theta$.
+    \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+    $8x^4-8x^2+x+1=0 \iff (2x^2+x-1)(4x^2-2x-1) = 0 \iff 2x^2+x-1 = 0 $ ou $4x^2-2x-1 = 0$.\\
+    Pour $2x^2+x-1=0$, $x_{1,1} = -1$ est une racine évidente. $x_{1,2}$ est donc telle que $-1=2(x_{1,1})(x_{1,2})$ donc $x_{1,2}=\dfrac{1}{2}$.\\
+    
+    Pour $4x^2-2x-1=0$, on pose $\Delta = (-2)^2-4(4)(-1)=4+16=20=(2\sqrt{5})^2$ et les solutions $x_{2,1}$ et $x_{2,1}$.\\
+    $x_{2,1} = \dfrac{2-2\sqrt{5}}{2\times4} =\dfrac{1-\sqrt{5}}{4}$ \quad et \quad $x_{2,2} = \dfrac{2+2\sqrt{5}}{2\times4} =\dfrac{1+\sqrt{5}}{4}$.\\
+    \[ S = \left\lbrace-1;\dfrac{1-\sqrt{5}}{4};\dfrac{1}{2};\dfrac{1+\sqrt{5}}{4}\right\rbrace\]
+    $\cos \theta$ est solution de l'équation $8x^4-8x^2+x+1=0$ donc $\cos \theta \in S$. Or $0 < \theta < \dfrac{\pi}{3}$ donc par stricte décroissance du $\cos$ sur $\left[0;\pi\right]$ on a: $1 > \cos \theta > \dfrac{1}{2}$.\qquad  Donc:
+    $\displaystyle\boxed{\cos \theta = \dfrac{1+\sqrt{5}}{4}}$
+    \end{tcolorbox}
+\end{enumerate}
+
+\noindent\textbf{IV. Par somme et produit}
+\begin{enumerate}
+    \item En utilisant le préliminaire, calculer $\cos \theta + \cos 3\theta$ puis vérifier que $\cos \theta + \cos 3\theta = \frac{1}{2}$.\\
+    \textit{On pourra faire apparaître} $\sin(4\theta)$.
+        \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+    On a $\displaystyle \cos \theta + \cos 3\theta = \cos(\theta + 0\times2\theta) + \cos(\theta + 1\times2\theta)
+        = \sum_{k=0}^1 \cos(\theta + k2\theta) = C(\theta,2\theta,1)$ Donc:\\
+        $\cos \theta + \cos 3\theta = \cos\left(\theta + \dfrac{1}{2}2\theta\right)\dfrac{\sin\left(\frac{1+1}{2}2\theta\right)}{\sin\left(\frac{2\theta}{2}\right)} = \dfrac{\cos(2\theta)\sin(2\theta)}{\sin \theta} = \dfrac{\sin 4\theta}{2\sin\theta} = \dfrac{\sin (\pi - \theta)}{2\sin \theta}=\dfrac{\sin\theta}{2\sin\theta}=\dfrac{1}{2}$.
+    \end{tcolorbox}
+    \item Linéariser $\cos \theta \cos 3\theta$ et vérifier $\cos \theta \cos 3\theta=-\frac{1}{4}$.\\
+    \textit{On pourra faire apparaître} $\cos \theta + \cos 3\theta$.
+         \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+     On a $\displaystyle \cos\theta\cos3\theta = \dfrac{\cos(3\theta + \theta)+\cos(3\theta - \theta)}{2} = \dfrac{\cos 4\theta + \cos2\theta}{2} = \dfrac{-\cos(\pi-4\theta)-\cos(\pi-2\theta)}{2}$\\
+     Donc $\cos\theta\cos3\theta = -\dfrac{\cos(5\theta - 4\theta) + \cos(5\theta - 2\theta)}{2} =-\dfrac{\cos\theta + \cos3\theta}{2} = -\dfrac{1}{4}$.
+     \end{tcolorbox}
+    \item Déduire des deux questions précédentes la valeur de $\cos \theta$.
+    \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+    $\left(\cos\theta + \cos3\theta\right)^2 = \cos^2\theta + 2\cos\theta\cos3\theta + \cos^2(3\theta)$ donc $\left(\dfrac{1}{2}\right)^2 = \cos^2\theta + 2\left(-\dfrac{1}{4}\right) + \dfrac{\cos(6\theta)-1}{2}$\\
+    Donc $0 = \cos^2 \theta + \dfrac{1}{2}\cos(\pi + \theta) - \dfrac{1}{4}$ donc $0 = 4\cos^2 \theta - 2\cos\theta - 1$.\\
+    De manière analogue à  la question \textbf{III.}4., $\cos \theta$ est solution de l'équation $4x^2-2x-1=0$.\\
+    
+    Donc $\displaystyle\cos \theta \in \left\lbrace\dfrac{1-\sqrt{5}}{4};\dfrac{1+\sqrt{5}}{4}\right\rbrace$.\\
+    Or $0 < \theta < \dfrac{\pi}{3}$ donc par stricte décroissance du $\cos$ sur $\left[0;\pi\right]$ on a: $1 > \cos \theta > \dfrac{1}{2}$.\qquad  Donc:
+    $\displaystyle\boxed{\cos \theta = \dfrac{1+\sqrt{5}}{4}}$
+    \end{tcolorbox}
+\end{enumerate}
+
+\noindent\textbf{V. Par somme}
+\begin{enumerate}
+    \item En utilisant le préliminaire, calculer $1 + \cos 2\theta + \cos 4\theta + \cos 6\theta + \cos 8\theta$.
+     \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+     $\displaystyle1 + \cos 2\theta + \cos 4\theta + \cos 6\theta + \cos 8\theta = \sum_{k=0}^4  \cos(0+k\times2\theta) = C(0,2\theta,4)=\cos\left(0+\dfrac{4}{2}2\theta\right)\dfrac{\sin\left(\frac{4+1}{2}2\theta\right)}{\sin\left(\frac{2\theta}{2}\right)}$.\\
+     Or $\sin\left(\frac{4+1}{2}2\theta\right)=\sin\pi=0$ donc $\displaystyle1 + \cos 2\theta + \cos 4\theta + \cos 6\theta + \cos 8\theta = 0$. 
+     \end{tcolorbox}
+    \item En déduire que $\cos \theta$ est solution d'une équation du second degré.
+    \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+    $1 + \cos 2\theta + \cos 4\theta + \cos 6\theta + \cos 8\theta = 1 + \cos 2\theta - \cos \theta - \cos \theta + \cos 2\theta = 2\cos 2\theta - 2\theta + 1 = 4\cos^2\theta -2\cos \theta - 1$.\\
+    Or $\displaystyle1 + \cos 2\theta + \cos 4\theta + \cos 6\theta + \cos 8\theta = 0$ donc $\cos \theta$ est solution de l'équation $4x^2-2x-1=0$.
+    \end{tcolorbox}
+    \item Conclure.
+    \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+    Il s'agit de la même équation qu'aux questions \textbf{III.}4. et \textbf{IV.}3. On retrouve donc: \qquad  
+    $\displaystyle\boxed{\cos \theta = \dfrac{1+\sqrt{5}}{4}}$
+    \end{tcolorbox}
+\end{enumerate}
+
+\newpage
+\section*{Problème : Convergence de $\zeta(2)$}
+
+
+
+
+On appelle polynôme à coefficients réels toute fonction du type :
+
+\[ P(X) = a_nX^n + a_{n-1}X^{n-1} + \dots + a_1X + a_0, \ \text{avec} \ (a_0,\dots,a_n) \in \mathbb{R}^{n+1}\]
+On dit que $x_0$ est une racine de $P$ si $P(x_0) = 0$.\\
+On rappelle que si $x_0$ est une racine de $P$, alors $P$ se factorise par $(X-x_0)$.\\
+On appelle \textit{cotangente} la fonction notée $\cotan$ et définie sur $\mathbb{R} \backslash \{k\pi, k \in \mathbb{Z}\}$ par $\cotan = \dfrac{\cos}{\sin}$.\\
+
+\noindent Dans ce problème, pour tout $n \in \mathbb{N}^*$, on considère le polynôme $P_n(X) = \dfrac{1}{2i}\left[(X + i)^{2n+1} - (X - i)^{2n+1}\right]$.
+\begin{enumerate}
+    \item Montrer que $P_n$ est un polynôme à coefficients réels et qu'il existe $Q_n$, polynôme à coefficients réels tel que :
+    \[P_n(X) = Q_n(X^2) \]
+    \textit{Indication :} \quad On utilisera la formule du binôme, et on séparera les indices pairs et impairs.\\
+    
+    Expliciter $Q_n$ sous la forme $\displaystyle Q_n(X) = \sum_{p=0}^n a_pX^p$, en vérifiant que les coefficients sont $a_p = \binom{2n+1}{2p}(-1)^{n-p}$.
+    
+     \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+     \begin{align*}
+         P_n(X) &= \dfrac{1}{2i}\left[(X + i)^{2n+1} - (X - i)^{2n+1}\right]\\
+          &= \dfrac{1}{2i}\left[\sum_{p=0}^{2n+1}\binom{2n+1}{p}Xi^p - \sum_{p=0}^{2n+1}\binom{2n+1}{p}X^{2n+1-p}(-i)^p\right]\\
+         &= \dfrac{1}{2i}\left[\sum_{p=0}^{2n+1}\binom{2n+1}{p}X^{2n+1-p}\left(i^p - (-i)^p\right)\right]\\
+         &= \dfrac{1}{2i}\left[\sum_{\substack{p=0\\p \text{ pair}}}^{2n+1}\binom{2n+1}{p}X^{2n+1-p}\left(i^p - (-i)^p\right) + \sum_{\substack{p=0\\p \text{ impair}}}^{2n+1}\binom{2n+1}{p}X^{2n+1-p}\left(i^p - (-i)^p\right)\right]\\
+          &= \dfrac{1}{2i}\left[\sum_{p=0}^{n}\binom{2n+1}{2k}X^{2n+1-2k}\left(i^{2k} - (-i)^{2k}\right) + \sum_{p=0}^{n}\binom{2n+1}{2k+1}X^{2n+1-(2k+1)}\left(i^{2k+1} - (-i)^{2k+1}\right)\right]\\
+          &= \dfrac{1}{2i}\left[\sum_{p=0}^{n}\binom{2n+1}{2k}X^{2n+1-2k}\left((-1)^{p} - (-1)^{p}\right) + \sum_{p=0}^{n}\binom{2n+1}{2k+1}X^{2(n-p)}\left(i(-1)^p - (-i)(-1)^{p}\right)\right]\\
+           &= \dfrac{1}{2i}\left[\sum_{p=0}^{n}\binom{2n+1}{2k}X^{2n+1-2k}\left(0\right) + \sum_{p=0}^{n}\binom{2n+1}{2k+1}X^{2(n-p)}\left(i(-1)^p + i(-1)^{p}\right)\right]\\
+         &= \dfrac{1}{2i}\left[ \sum_{p=0}^{n}\binom{2n+1}{2k+1}X^{2(n-p)}\left(2i(-1)^p\right)\right]\\
+          &= \dfrac{1}{2i}\left[ 2i\sum_{p=0}^{n}\binom{2n+1}{2k+1}\left(X^2\right)^{n-p}(-1)^p\right]\\
+          &= \sum_{p=0}^{n}\binom{2n+1}{2n+1-2k}\left(X^2\right)^{p}(-1)^{n-p}\\
+          &= \sum_{p=0}^{n}\binom{2n+1}{2p}(-1)^{n-p}\left(X^2\right)^{p}
+     \end{align*}
+     Donc $P_n$ est un polynôme à coefficients réels, tel que $P_n(X) = Q_n(X^2)$ avec $\displaystyle Q_n(X) = \sum_{p=0}^n a_pX^p$.\\
+     On a également $a_p = \binom{2n+1}{2p}(-1)^{n-p}$.
+    \end{tcolorbox}
+    \item \begin{enumerate}
+        \item Résoudre dans $\mathbb{C}$ l'équation $(z+i)^{2n+1}-(z-i)^{2n+1}=0$.
+        \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+        $i$ n'est pas solution donc $(z+i)^{2n+1}-(z-i)^{2n+1}=0 \iff (z+i)^{2n+1}=(z-i)^{2n+1}\iff \left(\dfrac{z+i}{z-i}\right)^{2n+1} = 1$\\
+        Soit $z$ une solution de l'équation $(z+i)^{2n+1}-(z-i)^{2n+1}=0$. $\dfrac{z+i}{z-i} \in \mathbb{U}_{2n+1}$ donc $\exists k \in \llbracket0;2n\rrbracket$, $\dfrac{z+i}{z-i} = e^{\frac{2\pi k}{2n+1}}$.
+        $z+i=z-i$ n'a aucune solution dans $\mathbb{C}$, donc $k \in \llbracket1;2n\rrbracket$.\\
+        $z+i=(z-i)e^{\frac{2\pi k}{2n+1}}$ donc $z\left(1-e^{\frac{2\pi k}{2n+1}}\right) = -i\left(e^{\frac{2\pi k}{2n+1}}+1\right)$ donc $z = \frac{-i\left(e^{\frac{k\pi}{2n+1}}+e^{-\frac{k\pi}{2n+1}}\right)}{e^{-\frac{k\pi}{2n+1}}-e^{\frac{k\pi}{2n+1}}}=\cotan\left(\dfrac{k\pi}{2n+1}\right)$.\\
+        $\forall k \in \llbracket1;2n\rrbracket$, $\dfrac{k\pi}{2n+1} \in \left]0;\pi\right[$, or $\cotan$ est strictement décroissante sur $\left]0;\pi\right[$, donc les solutions sont distinctes.\\
+        \[S = \left\lbrace\cotan\left(\dfrac{k\pi}{2n+1}\right) , \  k \in \llbracket1;2n\rrbracket \right\rbrace\]
+        \end{tcolorbox}
+        \item Quelles sont les racines de $P_n$ ? Combien de racines distinctes possède $P_n$ ?\\
+        On pourra étudier la fonction $\cotan$ sur un intervalle bien choisi.
+        \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+        Les racines de $P_n$ sont les éléments de $S$. Il en existe $2n$ distincts donc $P_n$ possède $2n$ racines distinctes.
+        \end{tcolorbox}
+        \item Exprimer $\cotan(\pi - \theta)$ en fonction de $\cotan(\theta)$.
+        \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+        $$\cotan(\pi-\theta) = \dfrac{\cos(\pi-\theta)}{\sin(\pi-\theta)}=\dfrac{-\cos \theta}{\sin \theta}=-\cotan\theta$$
+        \end{tcolorbox}
+        \item En déduire que $Q_n$ possède $n$ racines réelles distinctes : $\left\lbrace\cotan^2\left(\frac{k\pi}{2n+1}\right),k \in \llbracket1,n\rrbracket\right\rbrace$
+        \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+        Soit $A$ le plus grand coefficient de $P_n$, tel que $\displaystyle P_n(X)=A\prod_{k=1}^{2n}\left(X-\cotan\left(\dfrac{k\pi}{2n+1}\right)\right)$.\\
+        Donc:
+        \begin{align*}
+            \displaystyle Q_n(X^2) &= A\prod_{k=1}^{n}\left(X-\cotan\left(\dfrac{k\pi}{2n+1}\right)\right)\prod_{k=n+1}^{2n}\left(X-\cotan\left(\dfrac{k\pi}{2n+1}\right)\right)\\
+            &= A\prod_{k=1}^{n}\left(X-\cotan\left(\dfrac{k\pi}{2n+1}\right)\right)\prod_{k=1}^{n}\left(X-\cotan\left(\dfrac{(2n+1-k)\pi}{2n+1}\right)\right)\\
+            &= A\prod_{k=1}^{n}\left(X-\cotan\left(\dfrac{k\pi}{2n+1}\right)\right)\prod_{k=1}^{n}\left(X-\cotan\left(\pi-\dfrac{k\pi}{2n+1}\right)\right)\\
+            &= A\prod_{k=1}^{n}\left(X-\cotan\left(\dfrac{k\pi}{2n+1}\right)\right)\left(X+\cotan\left(\dfrac{k\pi}{2n+1}\right)\right)\\
+            &= A\prod_{k=1}^{n}\left(X^2-\cotan^2\left(\dfrac{k\pi}{2n+1}\right)\right)
+        \end{align*}
+        Donc $Q_n$ possède $n$ racines réelles distinctes : $\left\lbrace\cotan^2\left(\frac{k\pi}{2n+1}\right),k \in \llbracket1,n\rrbracket\right\rbrace$
+        \end{tcolorbox}
+    \end{enumerate}
+    \item On admet la propriété suivante :\\
+    si $P(X) = a_nX^n + a_{n-1}X^{n-1} + \dots + a_1X + a_0$ avec $a_n \neq 0$, admet $z_1, z_2, \dots, z_n$ commes racines, alors :
+    \[\sum_{k=1}^n z_k = z_1 + z_2 + \dots + z_n = -\frac{a_{n-1}}{a_n} \qquad \text{et} \qquad \prod_{k=1}^n z_k = z_1 \times z_2 \times \dots \times z_n = (-1)^n\frac{a_0}{a_n}\].
+    \item \begin{enumerate}
+        \item En utilisant 3., calculer $\displaystyle S_n = \sum_{k=1}^n\cotan^2\left(\dfrac{k\pi}{2n+1}\right)$ et $\displaystyle A_n = \prod_{k=1}^n\cotan^2\left(\dfrac{k\pi}{2n+1}\right)$.
+        \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+        On a $S_n=-\dfrac{\binom{2n+1}{2(n-1)}(-1)^{n-(n-1)}}{\binom{2n+1}{2n}(-1)^{n-n}} =  \dfrac{\binom{2n+1}{2n-2}}{\binom{2n+1}{2n}}=\dfrac{\binom{2n+1}{2n-1-3}}{\binom{2n+1}{2n+1-1}}=\dfrac{\binom{2n+1}{3}}{\binom{2n+1}{1}}=\dfrac{1!(2n+1-1)!}{3!(2n+1-3)!}=\dfrac{2n(2n-1)}{6}$\\
+        Donc $S_n = \dfrac{n(2n-1)}{3}$. \qquad\qquad
+        On a $A_n = (-1)^n\dfrac{\binom{2n+1}{0}(-1)^{n-0}}{\binom{2n+1}{2n}(-1)^{n-n}}=(-1)^n\dfrac{(-1)^n}{2n+1}=\dfrac{1}{2n+1}$
+        \end{tcolorbox}
+    \item En déduire $\displaystyle \prod_{k=1}^n\cotan\left(\dfrac{k\pi}{2n+1}\right) = \dfrac{1}{\sqrt{2n+1}}$.
+            \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+            $\displaystyle A_n = \prod_{k=1}^n\cotan^2\left(\dfrac{k\pi}{2n+1}\right)$ donc $\displaystyle\left(\prod_{k=1}^n\cotan\left(\dfrac{k\pi}{2n+1}\right)\right)^2 = \dfrac{1}{2n+1}$.\\
+            Or $\dfrac{1}{2n+1} \geq 0$ donc
+            $\displaystyle \prod_{k=1}^n\cotan\left(\dfrac{k\pi}{2n+1}\right) = \dfrac{1}{\sqrt{2n+1}}$
+            \end{tcolorbox}
+    \item Montrer que $\forall x \in \left]0;\frac{\pi}{2}\right[$, \quad $1 + \cotan^2 x = \dfrac{1}{\sin^2 x}$.
+    \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+    Soit $x \in \left]0;\dfrac{\pi}{2}\right[$. \qquad\qquad
+    $1 + \cotan^2 x = \dfrac{\sin^2 x}{\sin^2 x}+\dfrac{\cos^2 x}{\sin ^2 x} = \dfrac{\cos^2 x + \sin^2 x}{\sin ^2} = \dfrac{1}{\sin ^2 x}$.
+    \end{tcolorbox}
+    \item En déduire la valeur de $T_n = \displaystyle \sum_{k=1}^n\dfrac{1}{\sin^2\left(\dfrac{k\pi}{2n+1}\right)}$.
+    \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+    $\forall k \in \llbracket1;n\rrbracket$, $\dfrac{k\pi}{2n+1} \in \left]0;\dfrac{\pi}{2}\right[$. \quad Donc $T_n = \displaystyle \sum_{k=1}^n\dfrac{1}{\sin^2\left(\dfrac{k\pi}{2n+1}\right)} = \sum_{k=1}^n 1 + \cotan^2 \left(\dfrac{k\pi}{2n+1}\right) = n + S_n$.\\
+    Donc $T_n = \dfrac{4n^2-2n+6n}{6}=\dfrac{2n(n+1)}{3}$.
+    \end{tcolorbox}
+        \end{enumerate}
+        \item \begin{enumerate}
+            \item Montrer que $\forall x \in \left]0;\frac{\pi}{2}\right[$, \quad $\cotan^2 x \leq \dfrac{1}{x^2} \leq \dfrac{1}{\sin^2x}$
+            \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+$\forall x \in \left]0;\frac{\pi}{2}\right[$, $1 + \cotan^2 x = \dfrac{1}{\sin^2 x}$ donc $\forall x \in \left]0;\frac{\pi}{2}\right[$, $\cotan^2 x \leq \dfrac{1}{\sin^2 x}$.\\
+$\forall x \in \left]0;\frac{\pi}{2}\right[$, $x\geq \sin x$ donc $\forall x \in \left]0;\frac{\pi}{2}\right[$, $\dfrac{1}{x^2}\leq \dfrac{1}{\sin^2 x}$. On étudie le signe de $\cotan^2x^2 - 1$ pour $x \in \left]0;\frac{\pi}{2}\right[$.\\
+
+$\forall x \in \left]0;\frac{\pi}{2}\right[$, $\cotan^2x^2 - 1=\left(x\cotan - 1\right)\left(x\cotan + 1\right)$. Or $\forall x \in \left]0;\frac{\pi}{2}\right[$, $\cotan (x) > 0$ et x $>0$.\\
+Donc $\forall x \in \left]0;\frac{\pi}{2}\right[$, $x\cotan (x) + 1> 0$. On étudie donc le signe de $x\cotan x - 1$, soit de $\dfrac{x\cos x - \sin x}{\sin x}$.\\
+
+Or $\forall x \in \left]0;\frac{\pi}{2}\right[$, $\sin x \geq 0$. Donc on étudie le signe de $f$ pour $f(x)=x\cos x - \sin x$. $f$ est dérivable sur $\left]0;\frac{\pi}{2}\right[$ avec $f'(x)=-x\sin x$. Or $\forall x \in \left]0;\frac{\pi}{2}\right[$, $\sin x < 0$ et $-x < 0$ donc $f(x) < 0$.\\
+Donc $f$ décroissante sur $\left]0;\frac{\pi}{2}\right[$.\\ 
+
+On étudie la limite de $x^2\cotan x^2 - 1$ quand $x$ tend vers $0$.\\
+$\lim\limits_{x \to 0} (x^2\cotan x^2 - 1)= -1 + \lim\limits_{x \to 0}\left( \dfrac{x\cos x}{\sin x}\right)^2 = -1 + \lim\limits_{x \to 0} \left(\dfrac{\cos^2 x}{\left(\dfrac{\sin x}{x}\right)^2}\right) = -1 + \dfrac{1}{1^2} = 0$.\\
+Donc $\forall x \in \left]0;\dfrac{\pi}{2}\right[$, $x^2\cotan^2x\leq0$ donc $x^2\cotan^2x\leq1$ donc $\cotan^2x-1\leq\dfrac{1}{x^2}$.\\Donc :
+
+\[\forall x \in \left]0;\frac{\pi}{2}\right[, \quad \cotan^2 x \leq \dfrac{1}{x^2} \leq \dfrac{1}{\sin^2x}\]
+
+\end{tcolorbox}
+    
+            \item Pour $n \geq 1$, on pose $\displaystyle u_n = \sum_{k=1}^n \dfrac{1}{k^2}$. \quad Montrer l'encadrement suivant :
+            \[ \forall n \in \mathbb{N}^*, \quad \dfrac{\pi^2}{(2n+1)^2}\frac{n(2n-1)}{3} \leq u_n \leq \frac{\pi^2}{(2n+1)^2}\frac{2n(n+1)}{3}\]
+            \textit{Indication :} \quad On utilisera 5.(a) avec $x = \frac{k\pi}{2n+1}$.
+            \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+            Soit $n \in \mathbb{N}^*$. 
+            On a $\forall x \in \left]0;\frac{\pi}{2}\right[$, \quad $\cotan^2 x \leq \dfrac{1}{x^2} \leq \dfrac{1}{\sin^2x}$.\\
+            Donc $\forall k \in \left\llbracket1;n\right\rrbracket$, \quad $\cotan^2 \left(\dfrac{k\pi}{2n+1}\right) \leq \dfrac{1}{k^2}\dfrac{(2n+1)^2}{\pi^2} \leq \dfrac{1}{\sin^2\left(\dfrac{k\pi}{2n+1}\right)}$\\
+            Donc $\displaystyle \sum_{k=0}^n \cotan^2 \left(\dfrac{k\pi}{2n+1}\right) \leq \sum_{k=0}^n \dfrac{1}{k^2}\dfrac{(2n+1)^2}{\pi^2} \leq \sum_{k=0}^n  \dfrac{1}{\sin^2\left(\dfrac{k\pi}{2n+1}\right)}$\\
+            Donc $\dfrac{n(2n-1)}{3} \leq u_n \dfrac{(2n+1)^2}{\pi^2} \leq \dfrac{2n(n+1)}{3}$ Donc :\[ \forall n \in \mathbb{N}^*, \quad \dfrac{\pi^2}{(2n+1)^2}\frac{n(2n-1)}{3} \leq u_n \leq \frac{\pi^2}{(2n+1)^2}\frac{2n(n+1)}{3}\]
+            \end{tcolorbox}
+            \item Montrer que la suite $(u_n)_{n\geq1}$ est convergente et calculer sa limite.
+            \begin{tcolorbox}[colback=black!8,colframe=black!9,boxrule=.25pt,enhanced,arc is angular,arc=0pt]
+            On a: \qquad $\displaystyle\forall n \in \mathbb{N}^*$,\quad $\displaystyle\dfrac{\pi^2}{3}\dfrac{n(2n-1)}{(2n+1)^2}\leq u_n \leq \dfrac{\pi^2}{3}\dfrac{2n(n+1)}{(2n+1)^2}$ donc $\displaystyle\dfrac{\pi^2}{3}\dfrac{2n^2-n}{4n^2+4n+1}\leq u_n \leq \dfrac{\pi^2}{3}\dfrac{2n^2+2n}{4n^2+4n+1}$.\\
+            Par taux d'accroissement des polynômes $\displaystyle\lim\limits_{n \to +\infty}\left(\dfrac{2n^2-n}{4n^2+4n+1}\right)=\dfrac{2}{4}=\dfrac{1}{2}$.\\
+            De même, $\displaystyle\lim\limits_{n \to +\infty}\left(\dfrac{2n^2+2n}{4n^2+4n+1}\right)=\dfrac{2}{4}=\dfrac{1}{2}$.\\
+            Or $\displaystyle\dfrac{\pi^2}{3}\lim\limits_{n \to +\infty}\left(\dfrac{2n^2-n}{4n^2+4n+1}\right)\leq \lim\limits_{n \to +\infty}u_n \leq \dfrac{\pi^2}{3}\lim\limits_{n \to +\infty}\left(\dfrac{2n^2+2n}{4n^2+4n+1}\right)$ donc $\displaystyle\dfrac{\pi^2}{6}\leq \lim\limits_{n \to +\infty}u_n \leq \dfrac{\pi^2}{6}$.\\
+            
+            D'après le théorème des gendarmes, la suite $\left(u_n\right)_{n \in \mathbb{N}^*}$ converge et est telle que:
+            \[\lim\limits_{n \to +\infty}u_n = \dfrac{\pi^2}{6}\]
+            \text{}\newline
+            \end{tcolorbox}
+            \text{}\newline
+            \begin{equation*}
+                    \boxed{\text{Conclusion : on a montré que } \zeta(2) = \sum_{k=1}^{+\infty} \dfrac{1}{k^2} = 1 + \dfrac{1}{4} + \dfrac{1}{9} + \dfrac{1}{16} + \dfrac{1}{25} + \dfrac{1}{36} + \dots = \dfrac{\pi^2}{6}.}
+                \end{equation*}
+        \end{enumerate}
+\end{enumerate}
+
+
+
+
+\newpage
+
+
+
+
+\end{document}

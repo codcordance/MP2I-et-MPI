@@ -1,0 +1,42 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\renewcommand{\thesection}{\Roman{section}}
+\newboxans
+
+\begin{document}
+
+\stylizeDoc{Français}{Cours, deuxième ouvrage}{Contes, H.C. Andersen}
+
+\section{Ttitre de la section}
+
+L'étude de l'enfance : 
+\hfill
+\begin{enumerate}
+	\itt Sélection de la corde à accorder (donc $f_\text{ac}$ est fixée).
+	
+	\itt Création d'un signal carré de référence de fréquence $f_\text{ac}$.
+	
+	\itt Enregistrement du signal $u_\text{e}(t)$ provenant de l'excitation de
+	la corde à accorder : signal quelconque, d'amplitude assez faible,
+	de fréquence $f_\text{co}$.
+	
+	\itt Amplification et filtrage de ce signal.
+	
+	\itt Extraction de la fondamentale du signal : obtention d'un signal
+	sinusoïdal de fréquence $f_\text{co}$ par l'utilisation d'un filtre à
+	fréquence caractéristique réglable par le signal extérieur de
+	référence.
+	
+	\itt Mise en forme de ce signal : obtention d'un signal carré de
+	fréquence $f_\text{co}$.
+	
+	\itt On a donc à disposition deux signaux carrés (signaux logiques)
+	de fréquences respectives $f_\text{ac}$ et $f_\text{co}$. Dans les accordeurs
+	récents le traitement est numérique : les signaux sont envoyés dans un
+	calculateur numérique intégré qui calcule l'écart de fréquence et
+	indique à l'utilisateur quand la corde est accordée, c'est-à-dire
+	quand $f_\text{co}=f_\text{ac}$.
+\end{enumerate}
+
+\end{document}

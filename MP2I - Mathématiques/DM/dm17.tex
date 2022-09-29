@@ -1,0 +1,377 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+\newboxans
+
+\renewcommand{\thesubsection}{\Roman{subsection}}
+
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Devoir Maison 17}{Dénombrement}
+
+\section*{Inversion de Pascal et dérangements}
+
+\subsection{Formule d'inversion de Pascal}\label{subsec:1}
+
+Soit $\varphi$ l'application définie par :
+%
+\[ \varphi : \left\lbrace\begin{array}{rcl}
+    \bdR_n\left[X\right] &\to \bdR_n\left[X\right]  \\
+    P &\mapsto \varphi\left(P\right) 
+\end{array}\right. \qquad\text{où} \ \varphi\left(P\right)\left(X\right) = P\left(X+1\right) \]
+
+\begin{enumerate}
+    \item Déterminer la matrice $M$ de $\varphi$ dans la base canonique de $\bdR_n\left[X\right]$.
+    
+    \boxans{
+        On considère $\bcB = \left(1, X, \dots, X^n\right) = \left(X^k\right)_{k \in \left\llbracket 0, n\right\rrbracket}$ la base canonique de $\bdR_n\left[X\right]$. On a $\varphi\left(1\right) = 1$, $\varphi\left(X\right) 1 + X$, $\varphi\left(X^2\right) = \left(X+1\right)^2 = 1 + 2X + X^2$ et généralement :
+        %
+        \[ \forall k \in \left\llbracket 0, n\right\rrbracket,\qquad \varphi\left(X^k\right) = \left(X+1\right)^k = \sum_{i=0}^k \binom{k}{i} X^i \]
+        %
+        On en déduit donc que $\forall \left(i, j\right) \in \left\llbracket 0, n\right\rrbracket^2$, on a $\left[\Mat_\bcB\left(\varphi\right)\right]_{i, j} = \binom{j-1}{i-1}$, ainsi la matrice $M = \Mat_\bcB\left(\varphi\right)$ donne :
+        %
+        \[M = \resizebox{0.9\linewidth}{!}{$\NiceMatrixOptions{
+code-for-first-row = \color{main2!60},
+code-for-last-col = \color{main2!60}} \begin{pNiceArray}{ccccccccccc}[last-col,first-row]
+\varphi\left(1\right) & \varphi\left(X\right) & \varphi\left(X^2\right) & \cdots & \varphi\left(X^i\right) & \cdots & \varphi\left(X^j\right) & \cdots & \varphi\left(X^{n-2}\right) &  \varphi\left(X^{n-1}\right) & \varphi\left(X^n\right)\\
+   1    &    1   &    1   &        &              &        &              & \Cdots &    1   &    1   &    1   & 1\\
+   0    &    1   &    2   & \Cdots &       i      & \Cdots &       j      & \Cdots &   n-2  &   n-1  &    n   & X \\
+   0    &    0   &    1   & \Cdots &\frac{i(i-1)}2& \Cdots &\frac{j(j-1)}2& \Cdots &\frac{(n-3)(n-2)}2&\frac{(n-2)(n-1)}2&\frac{n(n-1)}2& X^2 \\
+ \Vdots &        & \Ddots & \Ddots &     \Vdots   &        &     \Vdots   &        & \Vdots & \Vdots & \Vdots & \vdots \\
+        &        &        &        &       1      & \Cdots & \binom{j}{i} & \Cdots & \binom{n-2}i& \binom{n-1}{i}& \binom{n}{i} & X^i \\
+        &        &        &        &              & \Ddots &     \Vdots   &        & \Vdots & \Vdots & \Vdots & \vdots \\
+        &        &        &        &              &        &       1      & \Cdots & \binom{n-2}j& \binom{n-1}{j}& \binom{n}{j} & X^j \\
+        &        &        &        &              &        &              & \Ddots  & \vdots & \Vdots & \Vdots & \vdots \\
+        &        &        &        &              &        &              &        &    1   &   n-1  &\frac{n(n-1)}2& X^{n-2}\\
+ \Vdots &        &        &        &              &        &              &        &    0   &    1   &    n   & X^{n-1}\\
+    0   & \Cdots &        &        &              &        &              &        &    0   &    0   &    1   & X^n
+\end{pNiceArray}$}\]
+    }
+    
+    \item Justifier que $M$ est inversible et donner $M^{-1}$.
+    
+    \boxans{
+        On pose $\phi$ l'application définie par :
+        %
+        \[\phi : \left\lbrace\begin{array}{rcl}
+    \bdR_n\left[X\right] &\to \bdR_n\left[X\right]  \\
+    P &\mapsto \varphi\left(P\right) 
+\end{array}\right. \qquad\text{où} \ \phi\left(P\right)\left(X\right) = P\left(X-1\right)\]
+
+Soit $P \in \bdR_n\left[X\right]$. On a $\varphi\left(P\right) = P \circ \left(X + 1\right)$ et $\phi\left(P\right) = P \circ \left(X - 1\right)$ donc :
+        %
+        \[ \phi \circ \varphi \left(P\right) = \phi\left(\varphi\left( P\right)\right)=\phi\left(P \circ \left(X+1\right)\right) = P \circ \left(X + 1\right) \circ \left(X - 1\right)\]
+        %
+        Or $ \left(X + 1\right) \circ \left(X - 1\right) = \left(X - 1\right) + 1 = X - 1 + 1 = X$ donc $\phi \circ \varphi = \Id$. On obtient similairement $\varphi \circ \phi = \Id$.
+        
+        Donc $\varphi$ est inversible avec $\varphi^{-1} = \phi$, donc $M$ est inversible avec $M^{-1} = \Mat_\bcB\left(\phi\right)$. Par une méthode similaire à celle de la question précédente (binôme de \textsc{Newton}), on obtient :
+        %
+        \[M^{-1} =  \resizebox{0.95\linewidth}{!}{$\NiceMatrixOptions{
+code-for-first-row = \color{main2!60},
+code-for-last-col = \color{main2!60}} \begin{pNiceArray}{ccccccccccc}[last-col,first-row]
+\phi\left(1\right) & \phi\left(X\right) & \phi\left(X^2\right) & \cdots & \phi\left(X^i\right) & \cdots & \phi\left(X^j\right) & \cdots & \phi\left(X^{n-2}\right) &  \phi\left(X^{n-1}\right) & \phi\left(X^n\right)\\
+   1    &   -1   &    1   &        &              &        &              & \Cdots &\left(-1\right)^{n-2}&\left(-1\right)^{n-1}&\left(-1\right)^n   & 1\\
+   0    &    1   &   -2   & \Cdots & \left(-1\right)^{i-1}i      & \Cdots & \left(-1\right)^{j-1}j      & \Cdots & \left(-1\right)^{n-3}\left(n-2\right) & \left(-1\right)^{n-2}\left(n-1\right) &   \left(-1\right)^{n-1}n   & X \\
+   0    &    0   &    1   & \Cdots &\left(-1\right)^{i-2}\frac{i(i-1)}2& \Cdots &\left(-1\right)^{j-2}\frac{j(j-1)}2& \Cdots &\left(-1\right)^{n-4}\frac{(n-3)(n-2)}2&\left(-1\right)^{n-3}\frac{(n-2)(n-1)}2&\left(-1\right)^{n-2}\frac{n(n-1)}2& X^2 \\
+ \Vdots &        & \Ddots & \Ddots &     \Vdots   &        &     \Vdots   &        & \Vdots & \Vdots & \Vdots & \vdots \\
+        &        &        &        &       1      & \Cdots &\left(-1\right)^{j-i}\binom{j}{i} & \Cdots &\left(-1\right)^{n-2-i}\binom{n-2}i& \left(-1\right)^{n-1-i}\binom{n-1}{i}&\left(-1\right)^{n-i}\binom{n}{i} & X^i \\
+        &        &        &        &              & \Ddots &     \Vdots   &        & \Vdots & \Vdots & \Vdots & \vdots \\
+        &        &        &        &              &        &       1      & \Cdots & \left(-1\right)^{n-2-j}\binom{n-2}j& \left(-1\right)^{n-1-j}\binom{n-1}{j}& \left(-1\right)^{n-j}\binom{n}{j} & X^j \\
+        &        &        &        &              &        &              & \Ddots & \vdots & \Vdots & \Vdots & \vdots \\
+        &        &        &        &              &        &              &        &    1   &   1-n  &\frac{n(n-1)}2& X^{n-2}\\
+ \Vdots &        &        &        &              &        &              &        &    0   &    1   &   -n   & X^{n-1}\\
+    0   & \Cdots &        &        &              &        &              & \Cdots &    0   &    0   &    1   & X^n
+\end{pNiceArray}$}\]
+    }
+    
+    \item Soit $\left(a_0, \dots, a_n\right) \in \bdR^{n+1}$. On définit les réels $\left(b_0, \dots, b_n\right) \in \bdR^{n+1}$ par 
+    %
+    \[ \forall p \in\left\llbracket 0, n\right\rrbracket, \qquad b_p = \sum_{k=0}^p \binom{p}{k} a_k \]
+    %
+    Trouver un lien entre les deux matrices lignes $\left(a_0, \dots, a_n\right)$, $\left(b_0, \dots, b_n\right)$ et la matrice $M$.
+    
+    \boxans{
+        On pose les matrices lignes $A = \begin{pNiceArray}{ccc}a_0 & \Cdots & a_n\end{pNiceArray}$ et $B = \begin{pNiceArray}{ccc}b_0 &\Cdots & b_n\end{pNiceArray}$. Dès lors $AM \in \bcM_{1,n+1}\left(\bdR\right)$ et :
+        %
+        \begin{align*}
+            \forall p \in \left\llbracket 0, n\right\rrbracket, && \left[AM\right]_{1,p+1} &= \sum_{k=1}^{n+1} \left[A\right]_{1,k}\left[M\right]_{k,p=1} = \sum_{k=1}^{n+1} a_{k-1} \binom{p}{k-1} = \sum_{k=0}^{n} \binom{p}{k}a_k = \sum_{k=0}^{p} \binom{p}{k}a_k\\
+            && {} &= b_p = \left[B\right]_{1, p+1}
+        \end{align*}
+        %
+        On remarque alors que $B = AM$.
+    }
+    
+    \item En déduire 
+    %
+    \[ \forall p \in \left\llbracket 0, n \right\rrbracket,\qquad a_p = \sum_{k=0}^{p} \binom{p}{k} \left(-1\right)^{p-k}b_k \]
+    %
+    \boxans{
+        On a $B = AM$ donc en multipliant à droite par $M^{-1}$, on obtient $A = BM^{-1}$. Donc :
+        %
+        \begin{align*}
+             \forall p \in \left\llbracket 0, n\right\rrbracket, && a_p &= \left[A\right]_{1, p+1} = \left[BM^{-1}\right]_{1,p+1} = \sum_{k=1}^{p+1} \left[B\right]_{1,k}\left[M^{-1}\right]_{k,p+1} = \sum_{k=1}^{p+1} b_{k-1} \binom{p}{k-1} \left(-1\right)^{p-\left(k-1\right)}\\
+             && {} &= \sum_{k=0}^p \binom{p}{k}\left(-1\right)^{p-k}b_k
+        \end{align*}
+        %
+        On obtient bien la formule d'inversion de \textsc{Pascal}.
+    }
+    
+\end{enumerate}
+
+\subsection{Nombre de dérangements}
+
+Pour $n \in \bdN^*$, on appelle \textit{dérangement} toute permutation de l'ensemble $\left\llbracket 1, n\right\rrbracket$ sans point fixe, c'est-à-dire tout élément $\sigma$ de $\bfS_n$ vérifiant $\forall k \in \left\llbracket 1, n\right\rrbracket$, $\sigma\left(k\right) \neq k$. On note $d_n$ le nombre de dérangements et on pose $d_0 = 1$ par convention.
+
+\begin{enumerate}
+    \item Expliciter $d_1$, $d_2$ et $d_3$.
+    
+    \boxans{
+        \begin{enumerate}
+            \itt On a $\bfS_1 = \left\{ \Id = \begin{pNiceMatrix}1\\ 1\end{pNiceMatrix}\right \}$. Or $\Id$ n'est pas un dérangement donc $d_1 = 0$. 
+            
+            \itt On a $\bfS_2 = \left\{ \Id = \begin{pNiceMatrix}1 & 2\\ 1 & 2\end{pNiceMatrix},\quad \rho = \begin{pNiceMatrix}1 & 2\\ 2 & 1\end{pNiceMatrix}\right \}$. Seul $\rho$ est un dérangement donc $d_2 = 1$.
+            
+            \itt On a :
+            %
+            \[ \bfS_3 = \left\{\begin{array}{ccc}
+                \Id = \begin{pNiceMatrix}1 & 2 & 3 \\ 1 & 2 & 3\end{pNiceMatrix},\quad & \rho = \begin{pNiceMatrix}1 & 2 & 3 \\ 2 & 3 & 1\end{pNiceMatrix},\quad & \rho^2 = \begin{pNiceMatrix}1 & 2 & 3 \\ 3 & 1 & 2\end{pNiceMatrix},\\
+                 \sigma = \begin{pNiceMatrix}1 & 2 & 3 \\ 1 & 3 & 2\end{pNiceMatrix},\quad & \rho\sigma = \begin{pNiceMatrix}1 & 2 & 3 \\ 3 & 2 & 1\end{pNiceMatrix},\quad & \rho^2\sigma = \begin{pNiceMatrix}1 & 2 & 3 \\ 2 & 1 & 3\end{pNiceMatrix}
+            \end{array} \right\}\]
+            %
+            Seul $\rho$ et $\rho^2$ sont des dérangements donc $d_3 = 2$.
+        \end{enumerate}
+        
+    }
+    
+    \item Montrer que $n ! = \displaystyle\sum_{k=0}^n \binom{n}{k} d_{n-k} = \sum_{j = 0}^n \binom{n}{j} d_j$.
+    
+    \boxans{
+        Pour tout $i \in \left\llbracket 0, n\right\rrbracket$, on pose $A_i$ l'ensemble des permutations de $\left\llbracket 1, n\right\rrbracket$ avec exactement $i$ points fixe. On montre que les $\left(A_i\right)_{0 \leq i \leq n}$ forment une partition à part éventuellement vides de $\bfS$ :
+        
+        \begin{enumerate}
+            \itt $\forall i \in \left\llbracket 0, n\right\rrbracket,  A_i \subset \bfS_n$ donc $\bigcup\limits_{0\leq i\leq n} A_p \subset \bfS_n$. Réciproquement, soit $\sigma \in \bfS_n$, on note $p$ son nombre de points fixes. On a $0 \leq i \leq n$ donc $\sigma \in A_i$, donc $\sigma \in \bigcup\limits_{0\leq i\leq n} A_i$. Par double inclusion, on a $\bigcup\limits_{0\leq i\leq n} A_i = \bfS_n$.
+            
+            \itt Soit $\sigma \in \bfS$ et $\left(i, j\right) \in \left\llbracket 0, n\right\rrbracket^2$ tel que $\sigma \in A_i \cap A_j$. Alors $\sigma \in A_i$ donc $\sigma$ a exactement $i$ points fixes, et $\sigma \in A_j$ donc $\sigma$ a exactement $j$ points fixes, d'où $i = j$. Les $\left(A_i\right)_{0 \leq i \leq n}$ sont donc distincts.
+        \end{enumerate}
+        
+        On a donc $\mod{\bfS} = \sum\limits_{k=0}^n \mod{A_k}$. Pour $k \in \left\llbracket 0, n\right\rrbracket$, construire une permutation avec exactement $k$ points fixe revient à choisir les $k$ points fixes \textit{- $\binom{n}{k}$ possibilités -}, et à faire une permutation sans point fixe des $n-k$ éléments restants \textit{- $d_{n-k}$ possibilités -}. On a donc $\mod{A_k} = \binom{n}{k}d_{n-k}$. On obtient finalement :
+        %
+        \[ n! = \mod{\bfS_n} = \sum_{k=0}^n \binom{n}{k}d_{n-k} = \sum_{k=0}^n \binom{n}{n-k}d_{n-k} = \sum_{k=0}^n \binom{n}{k}d_{k}\]
+    }
+    
+    \item Déduire de la formule d'inversion de \textsc{Pascal} (cf. \textbf{\sffamily \ref{subsec:1}}) une expression explicite de $d_n$.
+    
+    \boxans{
+        On a $\forall p \in \left\llbracket 0, n\right\rrbracket$, $p! = \sum\limits_{k=0}^p \binom{p}{k} d_k$. En vertu de la formule d'inversion de \textsc{Pascal} déterminée plus haut, on a :
+        %
+        \[\forall p \in \left\llbracket 0, n\right\rrbracket,\qquad d_p = \sum_{k=0}^p \binom{p}{k} \left(-1\right)^{p-k} k! = \sum_{k=0}^p \dfrac{p!}{k!\left(p-k\right)!}\left(-1\right)^{p-k}k! = p!\sum_{k=0}^p \dfrac{\left(-1\right)^{p-k}}{\left(p-k\right)!} = p!\sum_{k=0}^p \dfrac{\left(-1\right)^k}{k!}\]
+        %
+        On a donc $\displaystyle d_n = n!\sum\limits_{k=0}^n \dfrac{\left(-1\right)^k}{k!}$.
+    }
+    
+    \item En déduire le nombre de permutations de $\left\llbracket 1, n\right\rrbracket$ ayant exactement $p$ points fixes ($0 \leq p \leq n$).
+    
+    \boxans{
+        \[ \mod{A_p} = \binom{n}{p}d_{n-p} = \dfrac{n!}{p!\left(n-p\right)!}\left(n-p\right)!\sum_{k=0}^{n-p}\dfrac{\left(-1\right)^k}{k!} = \dfrac{n!}{p!}\sum_{k=0}^{n-p} \dfrac{\left(-1\right)^k}{k!}\]
+    }
+    
+    \item Donner la limite de $\dfrac{d_n}{n!}$ puis un équivalent de $d_n$.
+    
+    \boxans{
+        On a $\dfrac{d_n}{n!} = \displaystyle\sum_{k=0}^n \dfrac{\left(-1\right)^k}{k!}$. Or on sait que (par définition ou par démonstration) $e^x = \displaystyle \sum_{k=0}^{+\infty} \dfrac{x^k}{k!} = \lim\limits_{n \to +\infty} \sum_{k=0}^n \dfrac{x^k}{k!}$.
+        
+        On a donc $\lim\limits_{n \to +\infty} \dfrac{d_n}{n!} = e^{-1} = \dfrac{1}{e}$. Ainsi $d_n \asymp{n \to +\infty} \dfrac{n!}{e}$.
+    }
+\end{enumerate}
+
+\subsection{Applications}
+
+\begin{enumerate}
+    \item Des lettres d'amour sont écrites en grand nombre mais les enveloppes se mélangent et chaque lettre est mise au hasard dans une des enveloppes vides puis expédiée. Quelle est la probabilité que personne ne reçoive la lettre qui lui était destinée ?
+    
+    \boxans{
+        On suppose qu'on a $n$ personnes différentes, et qu'à chaque personne est censé correspondre une unique lettre. On considère alors quotient du nombre permutations de $\left\llbracket 1, n\right\rrbracket$ sans point fixe sur le nombre de permutations total, \ie $\dfrac{d_n}{n!}$. En notant $A$ un tel évènement, on a exactement $\bdP\left(A\right) = \sum\limits_{k=0}^n \dfrac{\left(-1\right)^n}{k!}$.
+        
+        Pour un grand nombre $n$ de personnes, cette probabilité tends vers $\bdP\left(A\right) \lima{+\infty} \dfrac{1}{e}$.
+    }
+    
+    \item \begin{enumerate}
+        \item Déterminer le nombre d'applications de $\left\llbracket 1, n\right\rrbracket$ dans $\left\llbracket 1, n\right\rrbracket$ n'ayant aucun point fixe.
+        
+        \boxans{
+            Soit $f \in \bcF\left(\left\llbracket 1, n\right\rrbracket, \left\llbracket 1, n\right\rrbracket\right)$ sans point fixe. On sait que pour $k \in \left\llbracket 1, n\right\rrbracket$, on a $f\left(k\right) \in \left\llbracket 1, n\right\rrbracket \backslash \left\{ k \right \}$. Pour chaque $k \in \left\llbracket 1, n\right\rrbracket$ on a donc $n-1$ possibilité pour $f\left(k\right)$ donc on a $\left(n-1\right)^n$ applications de $\bcF\left(\left\llbracket 1, n\right\rrbracket, \left\llbracket 1, n\right\rrbracket\right)$ sans point fixe.
+        }
+        
+        \item  Si on choisit une application de  $\left\llbracket 1, n\right\rrbracket$ dans  $\left\llbracket 1, n\right\rrbracket$ au hasard quelle est la probabilité d'obtenir une application sans point fixe ?
+        
+        \boxans{
+            On a $\mod{\bcF\left(\left\llbracket 1, n\right\rrbracket, \left\llbracket 1, n\right\rrbracket\right)} = n^n$ donc en choisissant de manière uniforme une application $f$ de $\left\llbracket 1, n\right\rrbracket$ dans  $\left\llbracket 1, n\right\rrbracket$, l'évènement $B$ : \guill{$f$ n'a aucun point fixe} est de probabilité $\bdP\left(B\right) = \dfrac{\left(n-1\right)^n}{n^n} = \left(1-\dfrac{1}{n}\right)^n$
+        }
+        
+        \item Vers quoi tend cette probabilité quand $n$ tend vers l'infini ?
+        
+        \boxans{
+            On a $\bdP\left(B\right) = \left(1-\frac{1}{n}\right)^n = e^{n\ln{1-\frac{1}{n}}}$. Or $\lim\limits_{n \to +\infty}\frac{1}{n}  = 0$ donc par $\mathrm{DL}_1\left(0\right)$ de $u \mapsto \ln{1 + u}$ et $\exp$ on a :
+            \[ \bdP\left(B\right) \eq{n \to +\infty} e^{n\left(-\frac{1}{n} + \O{}{\frac{1}{n^2}}\right)} = e^{-1 + \O{}{\frac{1}{n}}} = \frac{1}{e}\times\left(1 + \O{}{\frac{1}{n}}\right) \lima{n \to +\infty} \frac{1}{e}\]
+        }
+     \end{enumerate}
+\end{enumerate}
+
+\subsection{Nombre de surjections}
+
+Dans cette partie, $n$ et $p$ désignent deux entiers naturels non nuls. On se propose ici de chercher le nombre $S_{n,p}$ de surjections de $\left\llbracket 1, n\right\rrbracket$ sur $\left\llbracket 1, p\right\rrbracket$.
+
+\begin{enumerate}
+    \item Calculer $S_{n, p}$ pour $p > n$.
+    
+    \boxans{
+        Soit deux ensembles $A$ et $B$ et $f \in \bcF\left(A, B\right)$. On sait que $\mod{f\left(A\right)} \leq \mod{A}$ et que si $f$ est surjective, $\mod{f\left(A\right)} = \mod{B}$.
+        
+        Pour $A = \left\llbracket 1, n\right\rrbracket$ et $B = \left\llbracket 1, p\right\rrbracket$, $\mod{A} = n$ et $\mod{B} = p$. On a donc $\mod{f\left(A\right)} \leq n$, et si $f$ est une surjection, $\mod{f\left(A\right)} = p$.
+        
+        Ainsi l'existence d'une surjection de $\left\llbracket 1, n\right\rrbracket$ sur $\left\llbracket 1, p\right\rrbracket$ implique que $p \leq n$. Pour $p > n$, on a donc $S_{n, p} = 0$.
+    }
+    
+    \item Calculer aussi $S_{n, n}$, $S_{n, 1}$, $S_{n, 2}$ et $S_{p+1, p}$.
+    
+    \boxans{
+        \begin{enumerate}
+            \itt Une surjection de $\left\llbracket 1, n\right\rrbracket$ sur $\left\llbracket 1, n\right\rrbracket$ est une permutation, ainsi $S_{n, n} = \mod{\bfS_n} = n!$.
+            
+            \itt Une surjection de $\left\llbracket 1, n\right\rrbracket$ sur $\left\{ 1 \right\}$ associe forcément $1$ à tout entier $k \in \left\llbracket 1, n\right\rrbracket$, elle est ainsi totalement déterminée, d'où $S_{n, 1} = 1$.
+            
+            \itt Une fonction $f$ de $\left\llbracket 1, n\right\rrbracket$ dans $\left\{ 1, 2 \right\}$ associe $1$ ou $2$ à tout entier $k \in \left\llbracket 1, n\right\rrbracket$, donc il y a 2 possibilités pour chaque $k$, et donc $2^n$ possibilités pour $f$. Il faut également s'assurer de la surjectivité, donc qu'il n'existe pas d'élément sans antécédent. Il faut donc exclure la fonction constante $f = 1$ (2 n'a pas d'antécédent) et la fonction constante $f= 2$ (1 n'a pas d'antécédent). Ainsi $S_{n, 2} = 2^n - 2$.
+            
+            \itt Considérons une surjection $f$ de $\left\llbracket 1, p+1\right\rrbracket$ sur $\left\llbracket 1, p\right\rrbracket$. Il existe un uniquement élément dans $\left\llbracket 1, p\right\rrbracket$ avec deux antécédents dans $\left\llbracket 1, p+1\right\rrbracket$ \textit{- on a donc $\binom{p+1}{2} = \frac{n\left(n+1\right)}{2}$ possibilités pour le choix de ces antécédents -} qu'on considère \guill{comme une même entité}. Les $p$ images ont alors $p$ antécédents différents, ce qui se ramène à une permutation de $\bfS_n$ \textit{- donc $\mod{\bfS_n} = n!$ possibilités}. On a donc
+            %
+            \[ S_{p+1, p} = \dfrac{n\left(n+1\right)}{2}n! = \dfrac{n}{2}\left(n+1\right)! \]
+        \end{enumerate}
+    }
+    
+    \item Démontrer que pour $p > 1$ et $n > 1$, on a la relation :
+    %
+    \[ S_{n, p} = p\left(S_{n-1, p} + S_{n-1, p-1}\right)\]
+    %
+    {{\EBGaramond Indication :} \footnotesize\itshape si $f$ désigne une surjection de $\left\llbracket 1, n\right\rrbracket$ sur $\left\llbracket 1, p\right\rrbracket$, considérer le nombre de valeurs possibles pour $f\left(n\right)$ puis, cette valeur étant fixée regarder la restriction de $f$ à $\left\llbracket 1, n-1\right\rrbracket$}.\medskip
+    
+    \boxans{
+        Considérons une surjection $f$ de $\left\llbracket 1, n\right\rrbracket$ sur $\left\llbracket 1, p\right\rrbracket$. On sait déjà que $p \leq n$ car $f$ existe, et par surjectivité pour tout $k \in \left\llbracket 1, p\right\rrbracket$, $\mod{f^{-1}\left(\left\{k\right\}\right)} \geq 1$. On a $f\left(n\right) \in \left\llbracket 1, p\right\rrbracket$ \textit{- soit $p$ possibilités -} donc $\mod{f^{-1}\left(\left\{f\left(n\right)\right\}\right)} \geq 1$.
+        
+        \begin{enumerate}
+            \itt Si $\mod{f^{-1}\left(\left\{f\left(n\right)\right\}\right)} > 1$ alors $f\left(p\right)$ a un deuxième antécédent dans $\left\llbracket 1, n-1\right\rrbracket$. Donc la restriction de $f$ à $\left\llbracket 1, n-1\right\rrbracket$, c'est-à-dire l'application \qquad $f_{\vert \left\llbracket 1, n-1\right\rrbracket} : \begin{array}[t]{ccc}
+                \left\llbracket 1, n-1\right\rrbracket &\to& \left\llbracket 1, p\right\rrbracket  \\
+                k &\mapsto& f\left(k\right) 
+            \end{array} $
+            
+            est une surjection \textit{- parmi les $S_{n-1, p}$ possibles -} de $\left\llbracket 1, n-1\right\rrbracket$ sur $\left\llbracket 1, p\right\rrbracket$.
+        
+        
+            \itt Sinon, $\mod{f^{-1}\left(\left\{f\left(n\right)\right\}\right)} = 1$ donc $f\left(p\right)$ n'a pas d'antécédent dans $\left\llbracket 1, n-1\right\rrbracket$. Ainsi, la corestriction $f_{\vert \left\llbracket 1, n-1\right\rrbracket}$ à $\left\llbracket 1, p\right\rrbracket \backslash \left\{ f\left(n\right) \right\}$, c'est-à-dire l'application \qquad $f_{\vert \left\llbracket 1, n-1\right\rrbracket}^{\vert \left\llbracket 1, p\right\rrbracket \backslash \left\{ f\left(n\right) \right\}} : \begin{array}[t]{ccc}
+                \left\llbracket 1, n-1\right\rrbracket &\to& \left\llbracket 1, p\right\rrbracket \backslash \left\{ f\left(n\right) \right\}  \\
+                k &\mapsto& f\left(k\right) 
+            \end{array} $
+            
+            est une surjection de $\left\llbracket 1, n-1\right\rrbracket$ sur $\left\llbracket 1, p\right\rrbracket \backslash \left\{ f\left(n\right) \right\}$. La fonction $\pi$ définie par
+            %
+            \[ \pi : \begin{array}[t]{ccc}
+                \left\llbracket 1, p\right\rrbracket \backslash \left\{ f\left(n\right) \right\} &\to& \left\llbracket 1, p-1\right\rrbracket \\
+                k &\mapsto & \left\lbrace\begin{array}{cc}
+                    k &\text{si} \ k < f\left(n\right)  \\
+                    k - 1 &\text{sinon} 
+                \end{array}\right.
+            \end{array} \]
+            %
+            est une bijection entre $\left\llbracket 1, p\right\rrbracket$ et $\left\llbracket 1, p-1\right\rrbracket$. Ainsi, $\pi\left(f_{\vert \left\llbracket 1, n-1\right\rrbracket}^{\vert \left\llbracket 1, p\right\rrbracket \backslash \left\{ f\left(n\right) \right\}}\right)$ est une surjection \textit{- parmi les $S_{n-1, p-1}$ possibles -} de $\left\llbracket 1, n-1\right\rrbracket$ sur $ \left\llbracket 1, n-1\right\rrbracket$.
+        \end{enumerate}
+        
+        On a donc bien $S_{n, p} = p\left(S_{n-1, p} + S_{n-1, p-1}\right)$.
+    }
+    
+    \item Combien y a-t-il de surjections d'un ensemble à $7$
+    éléments dans un ensemble à $4$ éléments ? 
+    
+    {{\EBGaramond Indication :} \footnotesize\itshape 8400}.
+    
+    \boxans{
+        La relation précédemment démontrée, à savoir : \qquad $\forall \left(n, p\right) \in \left(\bdN^*\right)^2,\qquad S_{n, p} = p\left(S_{n-1, p} + S_{n-1, p-1}\right)$
+        
+        n'est pas sans rappeler la formule de \textsc{Pascal}, fondatrice du triangle du même nom 
+        %
+        \[ \forall \left(n, p\right) \in \bdN^2, \binom{n}{p} = \binom{n-1}{p} + \binom{n-1}{p-1} \]
+        %
+        On reproduit ci-dessous le processus de construction du triangle de \textsc{Pascal}, tout en tenant compte du facteur multiplicatif : la quantité $S_{n, p}$ en ligne $n$ et en colonne $p$ est obtenue en multipliant par $p$ la somme des quantités en ligne $n$ et en colonnes $p-1$ et $p$. On a alors :
+        %
+        \[\NiceMatrixOptions{
+code-for-first-row = \color{main2!60},
+code-for-last-col = \color{main2!60}} \begin{NiceArray}{cccccccc}[last-col,first-row]
+p = 1 & p = 2 & p = 3 & p = 4 & p = 5 & p = 6 & p = 7 & \cdots\\
+1 & 0 & \Cdots & & & & & & n = 1\\
+1 & 2 & 0 & \Cdots & & & & & n = 2\\
+1 & 6 & 6 & 0 & \Cdots & & & & n = 3\\
+1 & 14 & 36 & 24 & 0 & \Cdots & & & n = 4\\
+1 & 30 & 150 & 240 & 120 & 0 & \Cdots & & n = 5 \\
+1 & 62 & 540 & 1560 & 1800 & 720 & 0 & \Cdots & n = 6\\
+1 & 126 & 1806 & \mathbf{\color{main2} 8400} & 16800 & 15120 & 5040 & \Cdots & n = 7
+\end{NiceArray}\]
+    %
+    On obtient $S_{7, 4} = 8400$.
+    }
+    
+    \item En classant les applications de $\left\llbracket 1, n\right\rrbracket$ dans $\left\llbracket 1, p\right\rrbracket$ selon le cardinal de leur espace image, montrer que
+    %
+    \[ p^n = \sum_{k=1}^p \binom{p}{k}S_{n, k} \]
+    
+    \boxans{
+        Pour tout $i \in \left\llbracket 1, p\right\rrbracket$, on pose $A_i$ l'ensemble des applications $f$ de $\left\llbracket 1, n\right\rrbracket$ dans $\left\llbracket 1, p\right\rrbracket$ telles que $\mod{\Imm f } = i$. Similairement à ce qui a été fait plus haut, on peut montrer que les $\left(A_i\right)_{1 \leq i \leq n}$ forment une partition à parts éventuellement vides de $\bcF\left(\left\llbracket 1, n\right\rrbracket, \left\llbracket 1, p\right\rrbracket\right)$. On obtient donc :
+        %
+        \[ \mod{\bcF\left(\left\llbracket 1, n\right\rrbracket, \left\llbracket 1, p\right\rrbracket\right)} = \mod{\left\llbracket 1, p\right\rrbracket}^{\mod{\left\llbracket 1, n\right\rrbracket}} = p^n = \sum_{k=1}^n \mod{A_k}\]
+        %
+        Soit $k \in \left\llbracket 1, p\right\rrbracket$. Pour tout $f \in A_k$, on a $\mod{\Imm f} = k$ donc il existe par définition une bijection $\beta_{k, f}$, qu'on peut prendre \textbf{strictement croissante}, entre $\Imm f$ et $\left\llbracket 1, k\right\rrbracket$. L'application $\pi_k : \begin{array}[t]{ccc}
+            A_k &\to& \bcF\left(\left\llbracket 1, n\right\rrbracket, \left\llbracket 1, k\right\rrbracket\right) \\
+            f &\mapsto& \beta_{k, f} \circ f
+        \end{array}$ ainsi définie envoie $A_k$ sur l'ensemble des surjections de $\left\llbracket 1, n\right\rrbracket$ dans $\left\llbracket 1, k\right\rrbracket$. On a donc $\mod{\Imm \pi_k} = \mod{\pi_k\left(A_k\right)} = S_{n, k}$, ainsi $\mod{A_k} = \displaystyle\sum_{g \in \Imm \pi_k} \mod{\pi_k^{-1}\left(\left\{g\right\}\right)}$.
+        
+        Soit $g \in \Imm \pi_k$ et $f \in A_k$ tel que $\pi_k\left(f\right) = g$, donc $\beta_{k,f} \circ f = g$, soit $f = \beta_{k,f}^{-1} \circ g$. Puisque $\beta_{k,f} : \Imm f \to \left\llbracket 1, k\right\rrbracket$ est strictement croissant, les seules \guill{variations} possibles sont celles liées aux éléments de l'ensemble de départ, à savoir $\Imm f$, qui est une partie à $k$ éléments de $\left\llbracket 1, n\right\rrbracket$. On a donc $\binom{p}{k}$ possibilités pour $\beta_{k, f}$, donc :
+        %
+        \[ p^n = \sum_{k=1}^p \mod{A_k} = \sum_{k=1}^p \sum_{g \in \Imm \pi_k} \mod{\pi_k^{-1}\left(\left\{g\right\}\right)} = \sum_{k=1}^p \sum_{g \in \Imm \pi_k} \binom{p}{k} = \sum_{k=1}^p \binom{p}{k} S_{n, k}\]
+    }
+    
+    \item  Utiliser la formule d'inversion de \textsc{Pascal} (cf. \textbf{\sffamily \ref{subsec:1}}) pour en déduire $S_{n, p} = \displaystyle \sum_{k=1}^p \left(-1\right)^{p-k}k^n\binom{p}{k}$.
+    %
+    \boxans{
+        On pose par convention $S_{n,0} = 0$, ainsi pour tout $p \in \left\llbracket 0, n\right\rrbracket$, on a $p^n = \displaystyle\sum\limits_{k=0}^{n} \binom{p}{k}S_{n,k}$. Par formule d'inversion de \textsc{Pascal}, on a :
+        %
+        \[ \forall p \in \left\llbracket 0, n\right\rrbracket,\qquad S_{n, p} = \sum_{k=0}^p \binom{p}{k}\left(-1\right)^{p-k} k^n\]
+        %
+        Puisque $0^n = 0$, on a bien $S_{n, p} = \displaystyle \sum_{k=1}^p \left(-1\right)^{p-k}k^n\binom{p}{k}$.
+    }
+    
+    \item Relier le résultat précédent avec l'exercice de probabilité suivant : on dispose de $n$ paires de chaussettes et de $p \leq n$ tiroirs. On range au hasard les $n$ paires de chaussettes dans les $p$ tiroirs.
+    
+    \begin{enumerate}
+        \item Proposer un univers.
+        
+        \boxans{
+            Un rangement peut être modélisée par une application $f \in \Omega$ qui associe à chaque chaussure son tiroir. Les chaussures sont numérotés de $1$ à $n$ et les tiroirs de $1$ à $p$, ainsi $\Omega =  \bcF\left(\left\llbracket 1, n\right\rrbracket, \left\llbracket 1, p\right\rrbracket\right)$.
+        }
+        
+        \item Déterminer la probabilité de l'événement $T_i$ : \guill{le tiroir numéro $i$ est vide}.
+        
+        \boxans{
+            En supposant la distribution uniforme, on peut compter le nombre de fonctions $f \in \Omega$ qui satisfont $T_i$. On a $\Imm f = \left\llbracket 1, p\right\rrbracket \backslash \left\{ i \right\}$, donc par des arguments similaires à ceux donnés dans les questions précédentes, $T_i$ est en bijection avec $\bcF\left(\left\llbracket 1, n\right\rrbracket, \left\llbracket 1, p-1\right\rrbracket\right)$. Dès lors on a $\mod{T_i} = {p-1}^n$, et donc :
+            %
+            \[ \bdP\left(T_i\right) = \dfrac{\mod{T_i}}{\mod{\Omega}} = \dfrac{\left(p-1\right)^n}{p^n} = \left(\dfrac{p-1}{p}\right)^n\]
+        }
+        
+        \item Quelle est la probabilité qu'il y ait au moins une paire de chaussettes dans chaque tiroir ?
+        
+        \boxans{
+            L'évènement $C$ : \guill{il y ait au moins une paire de chaussettes dans chaque tiroir} correspond à l'ensemble des applications $f$ pour lesquelles chaque image (tirroir) a au moins un antécédent (paire de chausette), \ie l'ensemble des applications $f$ injectives. Donc $\mod{C} = S_{n, p}$ d'où :
+            %
+            \[ \bdP\left(C\right) = \dfrac{\mod{C}}{\mod{\Omega}} = \dfrac{S_{n, p}}{p^n} = \sum_{k=1}^p \binom{p}{k}\left(-1\right)^{p-k} \left(\dfrac{k}{p}\right)^n\]
+        }
+    \end{enumerate}
+\end{enumerate}
+
+
+\end{document}

@@ -1,0 +1,628 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Chapitre 19}{Convexité}
+
+Ce chapitre fait suite au chapitre 15 sur la continuité et au chapitre
+16 sur la dérivabilité, qu'il complète en introduisant la notion de
+\textit{convexité} des fonctions de la variable réelle et à valeurs
+réelles. Celle-ci, bien qu'elle n'apporte pas autant d'information que
+la \textit{continuité} ou la \textit{dérivabilité}, est malgré tout un
+outil à ne pas négliger, car permettant de simplifier l'obtention de
+certains résultats, plus longue par les deux méthodes précédentes.
+
+\initcours{}
+
+\section{Étude des fonctions convexes}
+
+\subsection{Introduction : à propos des convexes en général}
+
+Réalisé en début de cours pour la culture, ce petit aparté introduit
+la notion de \textit{convexe}, d'une manière plus générale qu'une
+propriété des fonctions réelles. On dit qu'une partie est convexe
+lorsque tout \textit{segment} entre deux points de la partie est
+compris dans la partie :
+
+\begin{definition}{Convexe}{}
+    Soit un ensemble $E$ et une partie $F \subset E$. On dit que
+    \hg{$F$ est un convexe de $E$} lorsque :
+    %
+    \[ \hg{\forall (A, B) \in F^2,\qquad [A, B] \subset F}\]
+\end{definition}
+
+La seule difficulté de définition revient alors à celle du segment
+$[A, B]$, qui n'est pas si évident que ça à form, On s'en tiendra ici
+à une conception intuitive.
+
+\begin{example}{}{}
+    \begin{center}
+        \begin{minipage}{0.3\linewidth}
+            \centering
+            \begin{tikzpicture}
+                \draw[main2, fill=main2!10] circle (1);
+        
+                \draw[main2, <->] (0, 1) -- (0.707, -0.707);
+                \draw[main2, <->] (-1, 0) -- (0.707, 0.707);
+                \draw[main2, <->] (-0.5, 0.866) -- (0, -1);
+            \end{tikzpicture}
+        
+            \EBGaramond\itshape\color{main2}Convexe
+        \end{minipage}
+        %
+        \begin{minipage}{0.3\linewidth}
+            \centering
+            \begin{tikzpicture}
+                \draw[main2, fill=main2!10] (0, 0) -- (1, 2) -- (2, 0) --
+            (0, 0);
+            
+                \draw[main2, <->] (0.25, 0.5) -- (0.5, 0);
+                \draw[main2, <->] (1, 2) -- (1.5, 0);
+                \draw[main2, <->] (1.5, 1) -- (1, 0);
+            \end{tikzpicture}
+        
+        \EBGaramond\itshape\color{main2}Convexe
+        \end{minipage}
+    %
+    \begin{minipage}{0.3\linewidth}
+        \centering
+        \begin{tikzpicture}
+            \draw[main7, fill=main7!10, rounded corners=5] (-1,-0.2) 
+            .. controls (0,-0.3) .. (0.6,-1) -- (1, -1)
+            .. controls (0.5,0) .. (1,1) -- (0.6, 1)
+            .. controls (0,0.2) .. (-1,0.2) -- cycle;
+            
+            \draw[main2, <->] (-1, 0.1) -- (0.6, 0);
+            \draw[main7, dashed, thick, <->] (-1, -0.1) -- (0.8, -1);
+        \end{tikzpicture}
+        
+        \EBGaramond\itshape\color{main7}Non convexe
+    \end{minipage}
+    \end{center}
+\end{example}
+
+On peut alors s'intéresser aux convexes de $\bdR$. Si une partie 
+$I \subset \bdR$ est un convexe, alors pour tout $(x, y) \in I^2$, avec 
+$x < y$, le segment $[x, y]$ est inclus dans $I$. Or dans $\bdR$, un tel
+segment est en fait l'intervalle $[x, y]$. Dès lors :
+
+\begin{theorem}{Convexes de $\bdR$}{}
+    \hg{Les convexes de $\bdR$ sont exactement les intervalles de $\bdR$}.
+\end{theorem}
+
+\begin{nproof}
+    Soit une partie $I \subset \bdR$ convexe. Montrons que $I$ est un intervalle.
+    
+    \begin{minipage}{0.65\linewidth}
+        \begin{enumerate}
+            \itt On montre d'abord que $\left]\inf I, \sup I\right[ \subset I$. Soit $x \in \left]\inf I, \sup I\right[$. On a :
+            %
+            \[ \forall m \in I,\qquad x \leq m \implies m \ \text{est un minorant de} \ I\]
+        \end{enumerate}
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}{0.3\linewidth}
+        \begin{tikzpicture}
+            \coordinate (lb) at (0, 0);
+            \coordinate (ib) at (0.7, 0);
+            \coordinate (ie) at (3.2, 0);
+            \coordinate (le) at (4, 0);
+            
+            \coordinate (x) at (1.4, 0);
+            \coordinate (a) at (1, 0);
+            \coordinate (b) at (2.5, 0);
+                
+            \draw[thick] (lb) -- (ib);
+
+            \draw[thick, -Latex] (ie) -- (le) node[right] {$\bdR$};
+                
+            \draw[main10, |-|] (ib) -- node[midway,fill=main1white2!50!gray!7] {$I$} (ie);
+                
+            \draw[main10comp, Bracket-Bracket] ([yshift=15pt]a) -- node[above] {$[a, b]$} ([yshift=15pt]b);
+                
+            \node at (ib) [below=2pt] {$\color{main10}\inf I$};
+            \node at (ie) [below=2pt] {$\color{main10}\sup I$};
+                
+            \draw[] ([yshift=15pt]x) node[cross, main10comp2] {};
+                
+            \draw[main10comp2,densely dotted] (x) -- ([yshift=15pt]x);
+                
+            \draw[] (x) node[cross, main10comp2,label={below:$\color{main10comp2}x$}] {};
+                
+            \draw[] (a) node[cross, main10comp,label={above:$\color{main10comp}a$}] {};
+            \draw[] (b) node[cross, main10comp,label={above:$\color{main10comp}b$}] {};
+        \end{tikzpicture}
+    \end{minipage}
+    
+    \begin{enumerate}
+        \itt Or ceci contredit la minimalité de $\sup I$ ($\sup I < x$), et donc par l'absurde il existe $a \in I$, tel que $a < x$. De manière analogue avec $\sup$, on obtient l'existence d'un $b \in I$ tel que $x < b$. Donc $x \in [a, b]$. Or $(a, b) \in I^2$ donc par convexité, $[a, b] \subset I$. On a bien $x \in I$. Dès lors, les seuls éléments de $I$ qui ne sont pas dans $\left]\inf I, \sup I\right[$ ne peuvent être que $\sup I$ ou $\inf I$. Donc :
+        %
+        \[ I \in \left\{\left]\inf I, \sup I\right[, \left[\inf I, \sup I\right[, \left]\inf I, \sup I\right], \left[\inf I, \sup I\right]\right\}\]
+        %
+        \itt Donc $I$ est bien un intervalle. Réciproquement, si $I$ est un intervalle, alors $\forall (x, y) \in I^2$, $[x, y] \subset I$.
+    \end{enumerate}
+\end{nproof}
+
+Ce résultat permet en fait de s'intéresser aux fonctions convexes. On se donne pour cela un $a$ et $b$ deux réels (avec $a < b$), et l'intervalle (donc convexe) $[a, b]$. On peut alors chercher à \textit{paramétriser} cet intervalle :\\
+
+\begin{minipage}{0.4\linewidth}
+    \begin{tikzpicture}
+        \coordinate (lb) at (0, 0);
+        \coordinate (ib) at (1, 0);
+        \coordinate (ie) at (5, 0);
+        \coordinate (le) at (6, 0);
+            
+        \coordinate (x) at (1.9, 0);
+        \coordinate (cx) at (1.9, -0.5);
+        \coordinate (a) at (1, 0);
+        \coordinate (b) at (2.5, 0);
+        
+        \coordinate (cb) at (1, -0.5);
+        \coordinate (ce) at (5, -0.5);
+                
+        \draw[thick] (lb) -- (ib);
+
+        \draw[thick, -Latex] (ie) -- (le) node[right] {$\bdR$};
+    
+        \draw[main1, thick, Bracket-Bracket] (ib) -- node[above] {$[a, b]$} (ie);
+        
+        \node at (ib) [above=2pt] {$\color{main1}a$};
+        \node at (ie) [above=2pt] {$\color{main1}b$};
+        
+        \draw[main3, thick, densely dotted, <->] (cb) -- (ce);
+        
+        \node at (cb) [below=2pt] {$\color{main3}\lambda = 0$};
+        \node at (ce) [below=2pt] {$\color{main3}\lambda = 1$};
+        
+        \draw[main5] (x) -- (cx);
+        
+        \filldraw[main5, fill=main5!50] (x) circle (0.05);
+        
+        \node[rectangle,fill=main5!50!gray!70] (r) at ([xshift=1,yshift=-1]cx) {$\phantom{\lambda}$};
+        
+        \node[rectangle,draw,main5,fill=white,text = main5] (r) at (cx) {$\lambda$};
+    \end{tikzpicture}
+\end{minipage}
+%
+\hfill
+%
+\begin{minipage}{0.6\linewidth}
+    On se donne pour cela un réel $\lambda$ entre $0$ et $1$, et une
+    fonction $f$ telle que $f(\lambda)$ décrit $[a, b]$ lorsque $\lambda$
+    parcourt $[0, 1]$. On aurait donc $f(0) = a$ et $f(1) = b$. On
+    remarque qu'en partant de $a$, on peut donc ajouter $(b-a)\lambda$
+    pour se déplacer \guill{vers la droite}. Dès lors, la fonction
+    $f(\lambda) = a + (b-a)\lambda$ convient. Ainsi, on a :
+\end{minipage}
+
+\[ \left[a, b\right] = \left\{f(\lambda) \; \middle\vert \; \lambda \in \left[0, 1\right]\right\} = \left\{a + (b-a)\lambda \; \middle\vert \; \lambda \in \left[0, 1\right]\right\} \qquad\text{donc}\qquad \vphantom{\int_0^1}\fcolorbox{main1!15}{main1!10}{$\quad\left[a, b\right] = \left\{\vphantom{\displaystyle\sum}(1-\lambda)a + \lambda b \; \middle\vert \; \lambda \in \left[0, 1\right]\right\}\quad$}\]
+
+On peut alors chercher à appliquer ce principe aux fonctions. On considère d'abord une fonction $f$ définie sur un convexe $I \subset \bdR$, et deux points $a$ et $b$ de $I$. On peut alors considérer la droite passant par $\left(a, f(a)\right)$ et $\left(b, f(b)\right)$ :
+
+\begin{definition}{Sécante}{}
+    Soit un intervalle $I \subset \bdR$, une fonction $f$ définie sur $I$, ainsi que deux points $(a, b) \in I^2$. On appelle \hg{sécante de $f$} passant par $\left(a, f(a)\right)$ et $\left(b, f(b)\right)$ la droite d'équation :
+    %
+    \[ \hg{y = \dfrac{f(b)-f(a)}{b-a}\left(x - a\right) + f(a)}\]
+\end{definition}
+
+En effet, il est assez évident que la sécante de $f$ passant par $\left(a, f(a)\right)$ et $\left(b, f(b)\right)$ passe bien par les points $\left(a, f(a)\right)$ et $\left(b, f(b)\right)$. On peut alors s'intéresser à une partie plus spécifique de la sécante passant par $\left(a, f(a)\right)$ et $\left(b, f(b)\right)$, située sur le segment entre les points $a$ et $b$ :
+    
+\begin{definition}{Corde}{}
+    Soit un intervalle $I \subset \bdR$, une fonction $f$ définie sur $I$ et $(a, b) \in I^2$. On appelle \hg{corde de $f$ passant par $a$ et $b$} le \hg{segment reliant les points $\left(a, f(a)\right)$ et $\left(b, f(b)\right)$}.
+\end{definition}
+
+\begin{minipage}{0.5\linewidth}
+    \pgfplotsset{width=\linewidth}
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = left,
+            %xlabel=$x$,
+            %ylabel=$y$,
+            xmin=-1,
+            xmax=8,
+            ymin=0,
+            ymax=9,
+            xtick = {2, 6},
+            ytick ={3, 7.4},
+            %ytick = {1, 4.9, 2.60, 4.32, 3.13, 4.02},
+            xticklabels={$\color{main2} a$, $\color{main2} b$},
+            yticklabels={$\color{main2} f(a)$, $\color{main2} f(b)$},
+            x tick label style={/pgf/number format/1000 sep=\,},
+            font=\footnotesize,
+            grid = none,
+        ]
+            \addplot[domain=-2:8, densely dotted] {1.1*x+0.8} node[above, pos=0.88, rotate=43] {\textit{\EBGaramond Sécante}};
+            
+            \addplot[mark=none, main2, line width=0.1mm, dashed] coordinates {(-1, 3) (2, 3) (2, 0)};
+            \addplot[mark=none, main2, line width=0.1mm, dashed] coordinates {(-1, 7.4) (6, 7.4) (6, 0)};
+            \draw[main3, thick, densely dotted, <->] (2, 1.6) -- (6, 1.6);
+        
+            \node at (2, 1.6) [below=2pt,fill=white] {$\color{main3}\lambda = 0$};
+            \node at (6, 1.6) [below=2pt,fill=white] {$\color{main3}\lambda = 1$};
+            
+            \addplot[color=main7, line width=0.3mm, domain=-2:8,samples=500]{0.12*x^4 - 1.44*x^3 + 5.38*x^2 - 5.46*x + 2};
+            
+            \addplot[main2, mark=+, only marks] coordinates {(2, 3) (6, 7.4)};
+            
+            \addplot[main1, thick, Bracket-Bracket] coordinates {(2, 3) (6, 7.4)} node[above, pos=0.6,rotate=43] {\textit{\EBGaramond Corde}};
+            
+            \draw[main5, dotted, thick] (3, 4.88) -- (3, 4.1);
+        
+            \draw[main5] (3, 4.1) -- (3, 1.6);
+        
+            \filldraw[main5, fill=main5!50] (3, 4.1) circle (0.05);
+            
+            \filldraw[main5!70, fill=main5!30] (3, 4.88) circle (0.05);
+        
+            \node[rectangle,fill=main5!50!gray!70] (r) at ([xshift=1,yshift=-1]3, 1.6) {$\phantom{\lambda}$};
+        
+            \node[rectangle,draw,main5,fill=white,text = main5] (r) at (3, 1.6) {$\lambda$};
+        \end{axis}
+    \end{tikzpicture}
+\end{minipage}
+%
+\begin{minipage}{0.5\linewidth}
+    On peut alors chercher à paramétriser la corde. On se donne pour cela un même paramètre $\lambda$, avec lequel on paramétrise le segment $[a, b]$ et le segment $[f(a), f(b)]$. En combinant les deux, on peut décrire la corde par :
+    %
+    \[ \left\{\left(\vphantom{\dfrac{1}{2}}(1-\lambda)a + \lambda b, (1 - \lambda)f(a) + \lambda f(b)\right) \; \middle\vert \; \lambda \in \left[0, 1\right[\right\}\]
+    %
+    Dans le même temps, le graphe de $f$ entre $a$ et $b$ peut lui-aussi être décrit par $\lambda$, avec la courbe :
+    %
+    \[ \left\{\left(\vphantom{\dfrac{1}{2}}(1-\lambda)a + \lambda b, f\left((1-\lambda)a + \lambda b\right)\right) \; \middle\vert \; \lambda \in \left[0, 1\right[\right\}\]
+    %
+
+\end{minipage}
+
+\hfill
+
+Pour ces deux courbes, les abscisses de chaque point sont alors paramétrisées identiquement ce qui permet de comparer les ordonnées en chaque point $x$ du segment $\left[a, b\right]$. De là, on peut commencer à définir les notions de convexité et de concavité pour les fonctions, et étudier les propriétés qui en découlent.
+
+\subsection{Notions de convexité et de concavité}
+
+Dire qu'une fonction (de la variable réelle et à valeurs réelles) est \textit{convexe} sur un intervalle $I \subset \bdR$ signifie géométriquement que son graphe sur $I$ reste \textit{en-dessous} de toutes ses cordes sur $I$. La paramétrisation que l'on donné plus-haut permet alors de définir algébriquement :
+
+\begin{definition}{Fonction convexe}{}
+    Soit un intervalle $I \subset \bdR$ et une fonction $f \in \bcF(I, \bdR)$. On dit que \hg{$f$ est convexe sur $I$} lorsque :
+    %
+    \[ \hg{\forall (a, b) \in I^2,\qquad \forall \lambda \in \left[0, 1\right],\qquad f\left((1 - \lambda)a + \lambda b\right) \leq (1-\lambda)f(a) + \lambda f(b)}\]
+\end{definition}
+
+Symétriquement, dire qu'une fonction est concave sur $I$ signifie géométriquement que son graphe sur $I$ reste \textit{au-dessus} de toutes ses cordes sur $I$, soit algébriquement :
+
+\begin{definition}{Fonction concave}{}
+    Soit un intervalle $I \subset \bdR$ et une fonction $f \in \bcF(I, \bdR)$. On dit que \hg{$f$ est concave sur $I$} lorsque :
+    %
+    \[ \hg{\forall (a, b) \in I^2,\qquad \forall \lambda \in \left[0, 1\right],\qquad f\left((1 - \lambda)a + \lambda b\right) \geq (1-\lambda)f(a) + \lambda f(b)}\]
+\end{definition}
+
+Géométriquement, on peut aussi interpréter la convexité d'une fonction dans la \guill{direction} de son graphe, qui est dans un \textit{perpétuel virage à gauche}. Ceci trouve d'ailleurs un sens physique dans le cas où l'on peut deux fois dériver la fonction (ce qu'on abordera plus loin), puisque le vecteur accélération est alors dirigé vers \guill{l'intérieur} de la trajectoire. Ceci est aussi valable dans le cas d'une fonction concave, mais symétriquement (comme ce sera souvent le cas dans ce chapitre) : on observe un \textit{perpétuel virage à droite} du graphe.
+
+\begin{center}
+    \begin{minipage}{0.35\linewidth}
+        \centering
+        \pgfplotsset{width=\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis lines = left,
+                xmin=0,
+                xmax=9,
+                ymin=0,
+                ymax=7,
+                xtick = \empty,
+                ytick = \empty,
+                x tick label style={/pgf/number format/1000 sep=\,},
+                font=\footnotesize,
+                grid = none,
+            ]
+                \draw[main3, densely dotted] (1, 2.7) -- (5, 0.3);
+                \draw[main3, densely dotted] (1.5, 1.9) -- (5.5, 0.7);
+                \draw[main3, densely dotted] (2, 1.2) -- (6, 1.2);
+                \draw[main3, densely dotted] (2.5, 0.7) -- (6.5, 1.9);
+                \draw[main3, densely dotted] (3, 0.3) -- (7, 2.7);
+                \draw[main3, densely dotted] (3.5, 0.1) -- (7.5, 3.7);
+                
+                \addplot[main1, line width=1pt, domain=0:9] {0.3*(x-4)^2};
+                
+                \draw[main5, thick, ->] (8, 4.8) -- (6.5, 5.3);
+                \filldraw[main5!70, fill=main5!30] (8, 4.8) circle (0.07);
+            \end{axis}
+        \end{tikzpicture}
+            
+        \textit{\color{main1}\EBGaramond Fonction convexe}
+    \end{minipage}
+    %
+    \begin{minipage}{0.1\linewidth}
+        \hfill
+    \end{minipage}
+    %
+    \begin{minipage}{0.35\linewidth}
+        \centering
+        \pgfplotsset{width=\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis lines = left,
+                xmin=0,
+                xmax=9,
+                ymin=0,
+                ymax=7,
+                xtick = \empty,
+                ytick = \empty,
+                x tick label style={/pgf/number format/1000 sep=\,},
+                font=\footnotesize,
+                grid = none,
+            ]
+                \draw[main3, densely dotted] (0.1, 0.6) -- (5.1, 4.5);
+                \draw[main3, densely dotted] (0.6, 1.5) -- (5.6, 4.7);
+                \draw[main3, densely dotted] (1.1, 2.1) -- (6.1, 4.9);
+                \draw[main3, densely dotted] (1.6, 2.5) -- (6.6, 5.1);
+                \draw[main3, densely dotted] (2.1, 2.9) -- (7.1, 5.3);
+                
+                \addplot[main1, line width=1pt, samples=500, domain=0:9] {2*x^0.5};
+                
+                \draw[main5, thick, ->] (7, 5.3) -- (7.5, 4.2);
+                \filldraw[main5!70, fill=main5!30] (7, 5.3) circle (0.07);
+            \end{axis}
+        \end{tikzpicture}
+        
+        \textit{\color{main1}\EBGaramond Fonction concave}
+    \end{minipage}
+\end{center}
+
+
+On peut d'ailleurs remarquer qu'inverser le graphe d'une fonction convexe par rapport à l'axe des abscisses (ce qui revient donc à prendre l'opposé de la fonction) donne le graphe d'une fonction concave, et inversement. On a la propriété suivante :
+
+\begin{property}{Opposé d'une fonction convexe}{}
+    Soit un intervalle $I \subset \bdR$ et une fonction $f \in \bcF(I, \bdR)$. 
+    %
+    \[ \hg{f \ \text{est convexe} \iff -f \ \text{est concave}}\]
+\end{property}
+
+\begin{nproof}
+    Soit un intervalle $I \subset \bdR$ et une fonction $f \in \bcF(I, \bdR)$ telle que $f$ est convexe. Donc :
+    %
+    \[ \forall (a, b) \in I^2,\qquad \forall \lambda \in [0, 1],\qquad f\left((1-\lambda)a + \lambda b\right) \leq (1-\lambda)f(a) + \lambda f(b)\]
+    %
+    En multipliant par $-1$, on obtient :
+    %
+    \[ \forall (a, b) \in I^2,\qquad \forall \lambda \in [0, 1],\qquad -f\left((1-\lambda)a + \lambda b\right) \geq -\left((1-\lambda)f(a) + \lambda f(b)\right) = (1-\lambda)\left(-f(a)\right) +\lambda\left(-f(b)\right)\]
+    %
+    Donc par définition $-f$ est concave. On opère similairement dans le sens contraire.
+\end{nproof}
+
+Bien que ce ne soit pas la manière la plus pratique de le faire, il est possible de démontrer la convexité ou la concavité d'une fonction directement d'après la définition, comme dans l'exemple ci-dessous :
+
+\begin{example}{}{}
+    La fonction valeur absolue $\mod{\phantom{x}}$ est convexe sur $\bdR$.\\
+    
+    \begin{minipage}{0.35\linewidth}
+        \centering
+        \pgfplotsset{width=\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis lines = center,
+                xlabel = $x$,
+                ylabel = $\mod{x}$,
+                xmin=-5,
+                xmax=5,
+                ymin=-2,
+                ymax=6,
+                xtick = \empty,
+                ytick = \empty,
+                x tick label style={/pgf/number format/1000 sep=\,},
+                font=\footnotesize,
+                grid = none,
+            ]
+                \addplot[main2, line width=1pt, samples=500, domain=-5:5] {sqrt(x*x)};
+            \end{axis}
+        \end{tikzpicture}
+        
+        \textit{\color{main2}\EBGaramond Fonction valeur absolue}
+    \end{minipage}
+    %
+    \begin{minipage}{0.65\linewidth}
+        \[ \fcolorbox{main2!15}{main2!10}{$\mod{\phantom{x}} : \begin{array}[t]{rcl}
+            \bdR &\to&\bdR_+  \\
+            x &\mapsto& \left\lbrace\begin{array}{cl}
+                x &\text{si} \ x \geq 0  \\
+                -x &\text{si} \ x < 0
+            \end{array}\right.
+        \end{array}$}\]
+        %
+        En effet, pour tout $(a, b) \in \bdR^2$ et tout $\lambda \in [0, 1]$, on a :
+        %
+        \[ \mod{(1-\lambda)a +\lambda b} \leq \mod{(1-\lambda)a} + \mod{\lambda}b = (1-\lambda)\mod{a} + \lambda\mod{b}\]
+        %
+        Donc par définition \hg{$\mod{\phantom{x}}$ est convexe sur $\bdR$}.
+    \end{minipage}
+    
+    \hfill
+    
+\end{example}
+
+L'inégalité sur laquelle repose la définition de la convexité (et de même pour la concavité) repose sur deux variables $a$ et $b$ dans $I$, ainsi que sur le scalaire $\lambda \in [0, 1]$ et sur $1 - \lambda$, et ce afin de paramétriser le segment entre $a$ et $b$. Il est cependant possible de généraliser cette inégalité à plusieurs variables $x_1, x_2, \dots, x_n$ dans $I$, dans la mesure où l'on considère autant de scalaires $\lambda_1, \lambda_2, \dots, \lambda_n$ dont la somme fait $1$ (comme c'était d'ailleurs le cas avec $\lambda$ et $1 - \lambda$), et avec pour seule condition la convexité de la fonction sur $I$. Le résultat est présenté ci-dessous :
+
+\begin{theorem}{Inégalité de Jensen}{}
+    Soit un intervalle $I$, $f \in \bcF(I, \bdR)$ convexe sur $I$, $n \in \bdN^*$ et $\left(\lambda_k\right)_{1 \leq k \leq n} \in \left(\bdR_+\right)^n$ tels que $ \sum_{k=1}^n \lambda_k = 1$.
+    %
+    \[ \hg{\forall \left(x_k\right)_{1 \leq k \leq n} \in I^n,\qquad f\left(\sum_{k=1}^n \lambda_kx_k\right) \leq \sum_{k=1}^n \lambda_kf(x_k)}\]
+\end{theorem}
+
+\begin{nproof}
+    Soit un intervalle $I$ et $f \in \bcF(I, \bdR)$ convexe sur $I$. On procède maintenant par récurrence sur $\bdN^*$ selon le prédicat suivant :
+    %
+    \[ \forall n \in \bdN^*,\qquad H(n) : \forall \left(x_1, x_2, \dots, x_n\right) \in I^n,\qquad f\left(\sum_{k=1}^n \lambda_kx_k\right) \leq \sum_{k=1}^n \lambda_kf(x_k)\]
+    %
+    \begin{enumerate}
+        \itt \underline{Initialisation :} Pour $n=1$, on a forcément $\lambda_1 = 1$. On a bien $\forall x_1 \in I$, $f(x_1) \leq f(x_1)$ donc $H(1)$ est vrai. Par ailleurs, $H(2)$ correspond à la définition de la convexité donc $H(2)$ est vrai.
+            
+        \itt \underline{Hérédité :} Soit $n \in \bdN^* \backslash \{ 1 \}$, tel que $H(n)$ est vrai. Soit $\left(x_1, \dots, x_{n+1}\right) \in I^{n+1}$ et $\left(\lambda_1, \dots, \lambda_{n+1}\right) \left(\bdR_+\right)^{n+1}$ tel que $\displaystyle\sum_{k=1}^{n+1} \lambda_k = 1$. Si $s = \displaystyle\sum_{k=1}^n \lambda_k = 0$, alors $\lambda_{n+1} = 1$. Or  $f(x_{n+1}) \leq f(x_{n+1})$ donc $H(n+1)$ est vrai.
+            
+        Sinon, $\dfrac{s}{s} = 1$ soit $\dfrac{1}{s}\displaystyle\sum_{k=1}^n \lambda_n = 1$. Or $\displaystyle \sum_{k=1}^{n+1} \lambda_kx_k = \sum_{k=1}^{n} \lambda_kx_k + \lambda_{n+1}x_{k+1} = s\left(\sum_{k=1}^{n} \dfrac{\lambda_k}{s}x_k\right) + (1-s)x_{k+1}$. Par convexité de $f$ sur $I$, on a :
+        %
+        \[ f\left(\sum_{k=1}^{n+1} \lambda_ix_i\right) = f\left( s\left(\sum_{k=1}^{n} \dfrac{\lambda_k}{s}x_k\right) + (1-s)x_{n+1}\right) \leq s\times f\left(\sum_{k=1}^n \dfrac{\lambda_k}{s}x_k\right) + (1-s)f(x_{n+1})\]
+        %
+        Par hypothèse de récurrence, on obtient :
+        %
+        \[ f\left(\sum_{k=1}^{n+1} \lambda_ix_i\right) \leq s\times \sum_{k=1}^n \dfrac{\lambda_k}{s}f\left(x_k\right) + (1-s)f(x_{n+1}) = \sum_{k=1}^n \lambda_kf(x_k) + \lambda_{n+1}f(x_{n+1}) = \sum_{k=1}^{n=1}\lambda_kf(x_{n+1})\]
+        %
+        Donc on a bien $H(n+1)$.
+            
+        \itt \underline{Conclusion :} On conclut simplement par principe de récurrence.
+    \end{enumerate}
+\end{nproof}
+
+\begin{lemma}{Position du graphe d'une fonction convexe par rapport à ses sécantes}{PGFCRS}
+    Soit un intervalle $I \subset \bdR$, une fonction $f \in \bcF(I, \bdR)$ une fonction et $(a, b) \in I^2$ avec $a < b$.
+    
+    \begin{enumerate}
+        \ithand Si \hg{$f$ est convexe}, alors \hg{son graphe est situé en-dessous de sa sécante} passant par $\left(a, f(a)\right)$ et $\left(b, f(b)\right)$ \hg{sur le segment $[a, b]$} et \hg{au-dessus sinon} ;
+        
+        \ithand Si \hg{$f$ est concave}, alors \hg{son graphe est situé au-dessus de sa sécante} passant par $\left(a, f(a)\right)$ et $\left(b, f(b)\right)$ \hg{sur le segment $[a, b]$} et \hg{en-dessous sinon}.
+    \end{enumerate}
+\end{lemma}
+
+\begin{nproof}
+    Soit un intervalle $I \subset \bdR$, une fonction $f \in \bcF(I, \bdR)$ une fonction et $(a, b) \in I^2$ avec $a < b$. On traite ci-dessous le cas convexe, le cas concave s'en déduisant en prenant $-f$. On suppose donc $f$ convexe.
+    
+    \begin{minipage}{0.55\linewidth}
+        Prenons la sécante $s$ de $f$ passant par $\left(a, f(a)\right)$ et $\left(b, f(b)\right)$ :
+        %
+        \[ \forall t \in I,\qquad s(t) = \dfrac{f(b)-f(a)}{b-a}(t-a) + f(a)\]
+        %
+        On sait déjà, par définition de la convexité, que le graphe de $f$ est situé en-dessous de sa corde passant par $a$ et $b$, donc de $s$ sur $[a, b]$. Prenons maintenant $t \leq a$. On a les équivalences :
+        %
+        \begin{align*} 
+            && f(t) &\geq s(t)\\
+            \iff&& f(t) &\geq \dfrac{f(b)-f(a)}{b-a}(t-a) + f(a)\\
+            \iff&& (b-a)f(t) &\geq \left(f(b)-f(a)\right)(t-a) + (b-a)f(a)\\
+            \iff&& (b-a)f(t) &\geq (t-a)f(b) + (b-t)f(a)\\
+            \iff&& \dfrac{b-a}{b-t}f(t) + \dfrac{a-t}{b-t}f(b) &\geq f(a)
+        \end{align*}
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}{0.4\linewidth}
+        \pgfplotsset{width=\linewidth}
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis lines = left,
+                xmin=0,
+                xmax=7,
+                ymin=0,
+                ymax=7,
+                xtick = {2, 4},
+                ytick = {1.6, 2.4},
+                xticklabels={$\color{main9} a$, $\color{main9} b$},
+                yticklabels={$\color{main9} f(a)$, $\color{main9} f(b)$},
+                x tick label style={/pgf/number format/1000 sep=\,},
+                font=\footnotesize,
+                grid = none
+            ]
+                \addplot[mark=none, main9, line width=0.1mm, dashed] coordinates {(0, 1.6) (2, 1.6) (2, 0)};
+                
+                \addplot[mark=none, main9, line width=0.1mm, dashed] coordinates {(0, 2.4) (4, 2.4) (4, 0)};
+                
+                \addplot[name path=A, domain=0:7, line width=0.8pt, main10comp] {0.4*x+0.8} node[above, pos=0.87, rotate=17] {\textit{\EBGaramond \color{main10comp} Sécante}};
+                
+                                
+                \addplot[main3, line width=1pt, densely dotted] coordinates {(2, 1.6) (4, 2.4)} node[below=-2pt, pos=0.5, rotate=17] {\textit{\EBGaramond \color{main3} Corde}};
+                
+                \addplot[name path=BR, main10, line width=1pt, samples=500, domain=4:8] {0.9*x*x - 5*x + 8};
+                
+                \addplot[name path=BL, main10, line width=1pt, samples=500, domain=0:2] {0.9*x*x - 5*x + 8};
+                
+                \addplot[name path=BC, main10, line width=1pt, samples=500, domain=2:4] {0.9*x*x - 5*x + 8};
+                
+                \addplot[main8!20] fill between[of=A and BR];
+                
+                \addplot[main2!20] fill between[of=A and BC];
+                
+                \addplot[main8!20] fill between[of=A and BL];
+                
+                \filldraw[main5, fill=main5!50] (2, 1.6) circle (0.05);
+                
+                \filldraw[main5, fill=main5!50] (4, 2.4) circle (0.05);
+            \end{axis}
+        \end{tikzpicture}
+    \end{minipage}
+    Or $t \leq a < b$, donc $b - t \geq b - a > 0$ et donc $ 1 \geq \dfrac{b-a}{b-t} > 0$. On pose alors $\lambda = \dfrac{b-a}{b-t}$, donc $1 - \lambda = \dfrac{a-t}{b-t}$. De plus on a $\lambda t + (1 - \lambda)b = \dfrac{b-a}{b-t}t + \dfrac{a-t}{b-t}b = \dfrac{bt-at+ab-bt}{b-t} = \dfrac{a(b-t)}{b-t} = a$, donc :
+    %
+    \[ s(t) \geq f(t) \iff \lambda f(t) + (1-\lambda)f(b) \geq f\left(\lambda t + (1-\lambda)a \right) \impliedby f \ \text{est convexe sur} \ I\]
+    %
+    On a donc montré que le graphe de $f$ est au-dessus de $s$ à gauche de $a$. On opérera similairement à droite.
+\end{nproof}
+
+Ce lemme peut déjà avoir une utilité en lui-même, comme le montre par exemple l'exercice ci-dessous :
+
+\begin{exercise}{}{}
+    Soit $f \in \bcF(\bdR, \bdR)$ convexe sur $\bdR$, telle qu'il existe $(a, b) \in \bdR^2$ avec $a < b$ et $f(a) < f(b)$. Calculer $\hg{\lim\limits_{x \to +\infty} f}$.
+    
+    \begin{enumerate}
+        \itt Il suffit en fait de considérer la sécante $s$ passant par $\left(a, f(a)\right)$ et $\left(b, f(b)\right)$. Puisque $f(b) > f(a)$ et $b > a$, elle est de coefficient directeur $m = \dfrac{f(b)-f(a)}{b-a} > 0$
+        
+        \itt D'après le \textit{lemme précédent}, le graphe de $f$ est situé au-dessus de cette sécante après $b$, et puisque $f$ est convexe sur $\bdR$, c'est notamment valable lorsque $x$ tend vers $+\infty$. Or $\lim\limits_{x \to +\infty} s(x) = \lim\limits_{x \to +\infty} mx + p = +\infty$.
+        
+        \itt Par \textit{théorème de minoration}, $\hg{\lim\limits_{x \to +\infty} f = +\infty}$.
+    \end{enumerate}
+\end{exercise}
+
+\newpage
+
+\begin{theorem}{Inégalité de Jensen}{}
+    Soit un intervalle $I$, $f \in \bcF(I, \bdR)$ convexe sur $I$, $n \in \bdN^*$ et $\left(\lambda_1, \lambda_2, \dots, \lambda_n\right) \in \left(\bdR_+\right)^n$ tels que $ \sum_{k=1}^n \lambda_k = 1$.
+    %
+    \[ \hg{\forall \left(x_1, x_2, \dots, x_n\right) \in I^n,\qquad f\left(\sum_{k=1}^n \lambda_kx_k\right) \leq \sum_{k=1}^n \lambda_kf(x_k)}\]
+\end{theorem}
+    
+\begin{nproof}
+    Soit un intervalle $I$, $f \in \bcF(I, \bdR)$ convexe sur $I$, $n \in \bdN^*$ et $\left(\lambda_1, \lambda_2, \dots, \lambda_n\right) \in \left(\bdR_+\right)^n$ tels que $\displaystyle \sum_{k=1}^n \lambda_k = 1$.
+    %
+    \[\forall k \in \llbracket 1, n\rrbracket,\qquad x_k \in I \quad \text{donc} \quad \lambda_k\inf I \leq \lambda_kx_k \leq \lambda_k \sup I \quad \text{donc} \quad \sum_{k=1}^n \lambda_k \inf I \leq \sum_{k=1}^n \lambda_kx_k \leq \sum_{k=1}^n \lambda_k \sup I\]
+    %
+    Donc $\displaystyle \inf I \leq \sum_{k=1}^n \lambda_kx_k \leq \sup I$, soit\footnote{ce résultat préliminaire, bien qu'assez évident, semble dans une certaine mesure \textit{nécessaire} dans l'hérédité.} $\displaystyle \sum_{k=1}^n \lambda_kx_k \in I$. On procède maintenant par récurrence sur $\bdN^*$ selon :
+    %
+    \[ \forall n \in \bdN^*,\qquad H(n) : \forall \left(x_1, x_2, \dots, x_n\right) \in I^n,\qquad f\left(\sum_{k=1}^n \lambda_kx_k\right) \leq \sum_{k=1}^n \lambda_kf(x_k)\]
+    %
+    \begin{enumerate}
+        \itt \underline{Initialisation :} Pour $n=1$, on prend $\lambda_1 = 1$, on a bien $\forall x_1 \in I$, on a $f(x_1) \leq f(x_1)$ donc $H(1)$ est vrai. Par ailleurs, $H(2)$ correspond à la définition de la convexité donc $H(2)$ est vrai.
+            
+        \itt \underline{Hérédité :} Soit $n \in \bdN^* \backslash \{ 1 \}$, tel que $H(n)$ est vrai. Soit $\left(x_1, \dots, x_{n+1}\right) \in I^{n+1}$ et $\left(\lambda_1, \dots, \lambda_{n+1}\right) \left(\bdR_+\right)^{n+1}$ tel que $\displaystyle\sum_{k=1}^{n+1} \lambda_k = 1$. Si $s = \displaystyle\sum_{k=1}^n \lambda_k = 0$, alors $\lambda_{n+1} = 1$. Or  $f(x_{n+1}) \leq f(x_{n+1})$ donc $H(n+1)$ est vrai.
+            
+        Sinon, $\dfrac{s}{s} = 1$ soit $\dfrac{1}{s}\displaystyle\sum_{k=1}^n \lambda_n = 1$. Or $\displaystyle \sum_{k=1}^{n+1} \lambda_kx_k = \sum_{k=1}^{n} \lambda_kx_k + \lambda_{n+1}x_{k+1} = s\left(\sum_{k=1}^{n} \dfrac{\lambda_k}{s}x_k\right) + (1-s)x_{k+1}$. Par convexité de $f$ sur $I$, on a :
+        %
+        \[ f\left(\sum_{k=1}^{n+1} \lambda_ix_i\right) = f\left( s\left(\sum_{k=1}^{n} \dfrac{\lambda_k}{s}x_k\right) + (1-s)x_{n+1}\right) \leq s\times f\left(\sum_{k=1}^n \dfrac{\lambda_k}{s}x_k\right) + (1-s)f(x_{n+1})\]
+        %
+        Par hypothèse de récurrence, on obtient :
+        %
+        \[ f\left(\sum_{k=1}^{n+1} \lambda_ix_i\right) \leq s\times \sum_{k=1}^n \dfrac{\lambda_k}{s}f\left(x_k\right) + (1-s)f(x_{n+1}) = \sum_{k=1}^n \lambda_kf(x_k) + \lambda_{n+1}f(x_{n+1}) = \sum_{k=1}^{n=1}\lambda_kf(x_{n+1})\]
+        %
+        Donc on a bien $H(n+1)$.
+            
+        \itt \underline{Conclusion :} On conclut simplement par principe de récurrence.
+    \end{enumerate}
+\end{nproof}
+
+\begin{exercise}{}{}
+    Soit $n \in \bdN^*$ et $(x_1, x_2, \dots, x_n) \in \left(\bdRp\right)^n$. Montrer que :
+    %
+    \[ \dfrac{n}{\displaystyle\sum_{i=k}^n \frac{1}{x_k}} \leq \sqrt[n]{\prod_{k=1}^n x_k} \leq \dfrac{1}{n}\sum_{k=1}^n x_k\]
+    %
+    \begin{enumerate}
+        \itt On a les équivalences :
+        %
+        \[ \sqrt[n]{\prod_{k=1}^n x_k} \leq \dfrac{1}{n}\sum_{k=1}^n x_k \iff \ln{\sqrt[n]{\prod_{k=1}^n x_k}} \leq \ln{\dfrac{1}{n}\sum_{k=1}^n x_k} \iff \sum_{k=1}^n \dfrac{1}{n}\ln{x_k} \leq \ln{\sum_{k=1}^n \dfrac{1}{n} x_k}\]
+        %
+        Remarquons que $\displaystyle\sum_{k=1}^n \dfrac{1}{n} = n\times \dfrac{1}{n} = 1$ donc la dernière expression est vraie par \textit{inégalité de \textsc{Jensen}} (version concave, puisque $\ln$ est concave).
+        
+        \itt On a de plus les équivalences :
+        %
+        \[ \dfrac{n}{\displaystyle\sum_{i=k}^n \frac{1}{x_k}} \leq \sqrt[n]{\prod_{k=1}^n x_k} \iff \dfrac{1}{n}\sum_{k=1}^n \dfrac{1}{x^k} \geq \dfrac{1}{\sqrt[n]{\displaystyle\prod_{k=1}^n x_k}} \iff \sqrt[n]{\prod_{k=1}^n \dfrac{1}{x_k}} \geq \dfrac{1}{n}\sum_{k=1}^n \dfrac{1}{x_k}\]
+        %
+        En posant pour tout $k \in \llbracket 1, n \rrbracket$, $y_k = \dfrac{1}{x_k}$, on se ramène à l'inégalité précédente.
+    \end{enumerate}
+\end{exercise}
+
+\end{document}

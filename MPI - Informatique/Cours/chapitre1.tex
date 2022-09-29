@@ -1,0 +1,1050 @@
+    Les cours d'informatique de première année (\textsf{MP2I}), ont permis l'introduction d'un cadre rigoureux pour l'étude syntaxique et sémantique des formules logiques. Ils ont notamment permis de considérer la notion de \textit{vérité} dans le calcul propositionnel et d'introduire la notion de \textit{satisfiabilité}. Il en découle l'important problème SAT, \ie savoir déterminer si une formule donnée est, ou non, satisfiable.\newline
+    
+    Malheureusement, on se heurte vite à deux problèmes : d'une part, la vérification d'une tautologie est de nature exponentielle (il faut tester dans le pire des cas toutes les valuations, soit un algorithme de complexité exponentielle) et d'autre part, on ne peut jusqu'ici tirer profit de la méthode de démonstration utilisée en mathématiques. Ce premier chapitre vise à palier ces problèmes, en introduisant le concept de \textit{systèmes de preuve}. 
+    
+    \chaptertoc
+    
+    \section{Rappels : logique propositionnelle}
+    
+    Dans un premier temps, on rappellera d'abord les différentes notions du cours de logique propositionnelle donné en première année.
+    
+    \subsection{Syntaxe et représentation arborescente}
+    
+    On commence par rappeler les notions de syntaxe des formules logiques. Les propositions faisant presque toujours recours à des variables (par exemple $a$ et $b$ dans la proposition $a \ou b$), on considérera intuitive la notion de \guill{variable logique} ou de \guill{variable propositionnelle}. Ceci permet de définir la notion de formule propositionelle, au moyen d'une construction ensembliste par induction :
+    
+    \begin{definition}{Formules propositionnelles}{}
+        Soit \hg{$\bcV$} un \hg{ensemble fini ou dénombrable de variables propositionnelles}. On appelle \hg{ensembles des formules propositionnelles (à variables dans $\bcV$)} l'ensemble \hg{$\FP\p{\bcV}$}\footnote{La notation $\FP\p{\bcV}$ est une invention personnelle et propre à ce cours, elle n'est pas présente dans la littérature.} défini inductivement :
+        %
+        \begin{enumerate}
+            \itast $\hg{\top \in \FP\p{\bcV}}$ (lire \hg{\guill{top}} ou \hg{\guill{vrai}}) ;
+            
+            \itast $\hg{\bot \in \FP\p{\bcV}}$ (lire \hg{\guill{bottom}} ou \hg{\guill{faux}}) ;
+            
+            \itast $\hg{\forall v \in \bcV,\qquad v \in \FP\p{\bcV}}$ ;
+            
+            \itast $\hg{\forall \p{\varphi, \psi} \in \FP\p{\bcV}^2},\qquad \left\lbrace\begin{array}{cl}
+                \hg{\neg \varphi \in \FP\p{\bcV}} &\text{(lire \hg{\guill{non $\varphi$}}, désigne l'opération de \itshape négation)} \\
+                \hg{\varphi \land \psi \in \FP\p{\bcV}} &\text{(lire \hg{\guill{$\varphi$ et $\psi$}}, désigne l'opération de \itshape conjonction)} \\
+                \hg{\varphi \lor \psi \in \FP\p{\bcV}} &\text{(lire \hg{\guill{$\varphi$ ou $\psi$}}, désigne l'opération de \itshape disjonction)} \\
+                \hg{\varphi \rightarrow \psi \in \FP\p{\bcV}} &\text{(lire \hg{\guill{si $\varphi$ alors $\psi$}}, désigne l'opération d'\itshape implication)}
+            \end{array}\right.$.
+        \end{enumerate}
+        %
+        Tout élément de $\hg{\FP\p{\bcV}}$ est appelé \hg{formule propositionnelle}.
+    \end{definition}
+    %
+    
+    
+    L'équivalence ne figure pas parmi les règles de constructions de $\FP\p{\bcV}$ ci-dessus car elle peut s'exprimer en fonction de l'implication et de la conjonction. On peut cependant la noter plus simplement, à l'aide d'un sucre syntaxique :
+    
+    \begin{notation}
+        On note $\hg{\varphi \leftrightarrow \psi}$ pour $\hg{\p{\varphi \rightarrow \psi} \land \p{\psi \rightarrow \varphi}}$.
+    \end{notation}
+    
+    Par ailleurs, on verra plus loin que l'implication elle-même n'est pas \guill{nécessaire} à la construction de $\FP{\bcV}$, puisqu'elle peut s'exprimer à l'aide de la négation et de la disjonction.\newline
+    
+    Comme vu l'année dernière, la nature inductive des formules propositionnelles fait qu'elles admettent une structure arborescente, qu'on peut obtenir facilement :
+    %
+    \begin{enumerate}
+        \itt L'ensemble de base de $\FP{\bcV}$ étant constitué des constantes $\top$ et $\bot$ ainsi que des variables de $\bcV$, ces éléments sont les feuilles de l'arbre.
+        
+        \itt Les noeuds internes découlent de l'inductivité, et sont étiquetés des opérateurs $\land$, $\lor$, $\rightarrow$ (ils sont alors d'arité $2$) ou de l'opérateur $\neg$ (ils sont alors alors d'arité $1$).
+    \end{enumerate} 
+    %
+    \begin{definition}{Arbre syntaxique}{}
+        Soit \hg{$\bcV$} un \hg{ensemble fini ou dénombrable de variables propositionnelles} et \hg{$\varphi \in \FP{\bcV}$} une \hg{formule propositionnelle}. On appelle \hg{arbre syntaxique de $\varphi$} toute \hg{représentation arborescente} de $\varphi$ telle que décrie ci-dessus.
+    \end{definition}
+    
+    On donne ci-dessous un exemple d'un tel arbre syntaxique :
+    
+    \begin{example}{Arbre syntaxique}{}
+        On considère la formule propositionnelle suivante :
+        %
+        \[ \hg{\p{\p{a \land b} \lor \p{c \land \neg d}} \rightarrow \p{c \lor d}}\]
+        %
+        Celle-ci a pour arbre syntaxique :
+        
+        \begin{center}
+            \begin{tikzpicture}[nodes={}, ->,
+                level 1/.style = {sibling distance = 4cm},
+                level 2/.style = {sibling distance = 3cm},
+                level 3/.style = {sibling distance = 2cm},
+            ]
+            
+            \node[circle, fill=main2,draw=white,text=white]{$\rightarrow$}
+                child {
+                    node[circle, fill=main2,draw=white,text=white]{$\lor$}
+                    child {
+                        node[circle, fill=main2,draw=white,text=white]{$\land$}
+                        child { node {$a$} }
+                        child { node {$b$} }
+                    }
+                    child {
+                        node[circle, fill=main2,draw=white,text=white]{$\land$}
+                        child { node {$c$} }
+                        child {
+                            node[circle, fill=main2,draw=white,text=white]{$\neg$}
+                            child { node {$d$} }
+                        }
+                    }
+                }
+                child { 
+                    node[circle, fill=main2,draw=white,text=white, sibling distance = 2cm]{$\lor$}
+                    child { node {$c$} }
+                    child { node {$d$} }
+                };
+            \end{tikzpicture}
+        \end{center}
+    \end{example}
+    
+    Les arbres syntaxiques permettent alors  de définir les notions de hauteur et de taille d'une formule :
+    
+    \begin{definition}{Hauteur et taille d'une formule propositionnelle}{}
+        Soit \hg{$\bcV$} un \hg{ensemble fini ou dénombrable de variables propositionnelles} et \hg{$\varphi \in \FP{\bcV}$} une \hg{formule propositionnelle}. On appelle \hg{hauteur de $\varphi$} la \hg{hauteur de son arbre syntaxique}. et \hg{taille de $\varphi$} le \hg{le nombre de noeuds de son arbre syntaxique}.
+    \end{definition}
+    
+    \subsection{Sémantique}
+    
+    On rappelle maintenant quelques notions concernant la sémantique de la vérité du calcul propositionnel. Il s'agit d'expliciter plus formellement le concept de \textit{vrai}, dans le cadre introduit précédemment. On commence par définir la notion de valuation sur un ensemble de variables propositionnelles.
+    
+    \begin{definition}{Valuation}{}
+        Soit \hg{$\bcV$ un ensemble fini ou dénombrable de variables propositionnelles}. On appelle \hg{valuation (sur $\bcV$)} une \hg{fonction $\bcv : \bcV \to \ens{0, 1}$}.
+    \end{definition}
+    
+    Une valuation est donc une \guill{configuration} des différentes variables selon un critère booléen : une variable $v \in \bcV$ est soit vraie (on a alors $\bcv\p{v} = 1$), soit fausse (on a alors $\bcv\p{v} = 0$). On souhaiterait alors pouvoir établir une sorte de valuation pour chaque proposition logique : par exemple on voudrait que la proposition $a \land b$ ne soit vraie \textit{- on aurait alors $\bcv\p{a \land b} = 1$ -} que si et seulement si $a$ \guill{et} $b$ sont vrai \textit{- c'est-à-dire $\bcv\p{a} = \bcv\p{b} = 1$}.
+    
+    \begin{definition}{Valeur de vérité, évaluation}{}
+        Soit \hg{$\bcV$ un ensemble fini ou dénombrable de variables propositionnelles}, \hg{$\bcv$ une valuation sur $\bcV$} et \hg{$\Gamma$ l'ensemble des formules propositionnelles} à variables dans $\bcV$. On appelle \hg{évaluation sur $\bcv$} la \hg{fonction $\overline{\bcv} : \Gamma \to \ens{0, 1}$} définie inductivement selon :  
+        %
+        \begin{enumerate}
+            \itast $\hg{\overline\bcv\p{\top} = 1}$ ;
+            
+            \itast  $\hg{\overline\bcv\p{\bot} = 1}$;
+            
+            \itast $\hg{\forall v \in \bcV,\qquad \overline\bcv\p{v} = \bcv\p{v}}$
+            
+            \itast $\hg{\forall \p{\varphi, \psi} \in \Gamma^2,\qquad \left\lbrace\begin{array}{cl}
+                \overline\bcv\p{\neg \varphi} &= 1 - \overline\bcv\p{\varphi} \\
+                \overline\bcv\p{\varphi \land \psi} &= \overline\bcv\p{\varphi} \times \overline\bcv\p{\psi}\\
+                \overline\bcv\p{\varphi \lor \psi} &= \overline\bcv\p{\varphi} + \overline\bcv\p{\psi} - \overline\bcv\p{\varphi} \times \overline\bcv\p{\psi}\\
+                \overline\bcv\p{\varphi \rightarrow \psi} &= 1 - \overline\bcv\p{\varphi} + \overline\bcv\p{\varphi} \times \overline\bcv\p{\psi}
+            \end{array}\right.}$.
+        \end{enumerate}
+        %
+        Pour tout élément $\varphi$ de $\Gamma$, \hg{$\overline\bcv\p{\varphi}$} est appelé \hg{valeur de vérité de $\varphi$ par $\bcv$}.
+    \end{definition}
+    
+    On remarquera que pour $\varphi \in \Gamma$, si $\varphi \in \bcV$ alors $\overline{\bcv}\p{\varphi} = \bcv\p{\varphi}$ et sinon $\bcv\p{\varphi}$ n'est pas défini. Il n'y a donc pas de confusion possible entre $\overline\bcv$ et $\bcv$. On peut en fait voir $\overline\bcv$ comme une extension de la définition de $\bcv$ sur $\Gamma$.
+    
+    \begin{notation}
+       Pour la raison ci-dessus, on notera \hg{$\bcv\p{\varphi} = \overline\bcv\p{\varphi}$} pour tout \hg{$\varphi \in \Gamma$}.
+    \end{notation}
+    
+    La définition précédente de la valuation est en fait ce qui donne son sens aux règles de construction (négation, conjonction, ...) des formules propositionnelles. En effet, si l'on se fie à l'idée intuitive de \guill{et}, de \guill{ou (inclusif)}, etc, on constatera que:
+    %
+    \begin{enumerate}
+        \begin{minipage}{0.45\linewidth}
+            \itt $\bcv\p{\neg \varphi} = \left\lbrace\begin{array}{cl}
+                1 &\text{si} \ \bcv\p{\varphi} = 0 \\
+                0 &\text{sinon}
+            \end{array}\right.$
+        
+            \itt $\bcv\p{\varphi \land \psi} = \left\lbrace\begin{array}{cl}
+                1 &\text{si} \ \bcv\p{\varphi} = 1 \et \bcv\p{\psi} = 1 \\
+                0 &\text{sinon}
+            \end{array}\right.$
+        \end{minipage}
+        %
+        \hfill
+        %
+        \begin{minipage}{0.45\linewidth}
+            \itt $\bcv\p{\varphi \lor \psi} = \left\lbrace\begin{array}{cl}
+                1 &\text{si} \ \bcv\p{\varphi} = 1 \ou \bcv\p{\psi} = 1 \\
+                0 &\text{sinon}
+            \end{array}\right.$
+        
+            \itt $\bcv\p{\varphi \rightarrow \psi} =  \left\lbrace\begin{array}{cl}
+                1 &\text{si} \ \bcv\p{\varphi} = 0 \ou \bcv\p{\psi} = 1 \\
+                0 &\text{sinon}
+            \end{array}\right.$
+        \end{minipage}
+    \end{enumerate}
+    
+    \begin{definition}{Satisfiabilité, validité, tautologie et antilogie}{}
+        Soit \hg{$\bcV$ un ensemble fini ou dénombrable de variables propositionnelles}, \hg{$\bcv$ une évaluation sur $\bcV$}, \hg{$\Gamma$ l'ensemble des formules propositionnelles} à variables dans $\bcV$ et \hg{$\varphi \in \Gamma$ une formule propositionnelle}.
+        %
+        \begin{enumerate}
+            \itast On dit que \hg{$\varphi$ est satisfiable} lorsqu'il existe une évaluation \hg{$\bcv$ sur $\bcV$} telle que \hg{$\bcv\p{\varphi} = 1$}. On dit également que \hg{$\bcv$ satisfait $\varphi$}.
+            
+            \itast On dit que \hg{$\varphi$ est valide} (ou que c'est une \hg{tautologie}) lorsque \hg{pour toute évaluation $\bcv$ sur $\bcV$}, on a \hg{$\bcv\p{\varphi} = 1$}.
+            
+            \itast On dit que \hg{$\varphi$ est insatisfiable} (ou que c'est une \hg{antilogie}) lorsque \hg{pour toute évaluation $\bcv$ sur $\bcV$, $\bcv\p{\varphi} = 0$}.
+        \end{enumerate}
+    \end{definition}
+    %
+    \begin{notation}
+        Lorsque \hg{$\bcv$ satisfait $\varphi$}, on note \hg{$\bcv \vdash \varphi$}. De plus lorsque \hg{$\varphi$ est valide}, on note \hg{$\vdash \varphi$}.
+    \end{notation}
+    
+    Les notions précédemment introduites permettent d'amener celle d'équivalence logique.
+    
+    \begin{definition}{Équivalence logique}{}
+        Soit \hg{$\bcV$ un ensemble fini ou dénombrable de variables propositionnelles}, \hg{$\Gamma$ l'ensemble des formules propositionnelles} à variables dans $\bcV$ et \hg{$\p{\varphi, \psi} \in \Gamma^2$ deux formules propositionnelles}.
+        
+        On dit que \hg{$\varphi$ et $\psi$} sont logiquement équivalentes lorsque \hg{pour toute valuation $\bcv$ sur $\bcV$}, on a \hg{$\bcv\p{\varphi} = \bcv\p{\psi}$}.
+    \end{definition}
+    
+    \begin{notation}
+        Lorsque \hg{$\varphi$ et $\psi$ sont logiquement équivalentes}, on note \hg{$\varphi \equiv \psi$}.
+    \end{notation}
+    
+    On donne ci-dessous quelques exemples d'équivalences logiques, en particulier les lois de \textsc{De Morgan}. Celles-ci peuvent se montrer par \textit{table de vérité}, c'est-à-dire en vérifiant l'égalité pour chaque évaluation.
+    
+    \begin{property}{loi de De Morgan}{}
+        Soit \hg{$\bcV$ un ensemble fini ou dénombrable de variables propositionnelles}, \hg{$\Gamma$ l'ensemble des formules propositionnelles} à variables dans $\bcV$ et \hg{$\p{\varphi, \psi} \in \Gamma^2$ deux formules propositionnelles}. On a :
+        %
+        \[ \hg{\begin{array}{cc}
+            \neg\p{\varphi \land \psi} \equiv \neg \varphi \lor \neg \psi \\
+            \neg\p{\varphi \lor \psi} \equiv \neg \varphi \land \neg \psi
+        \end{array}}\]
+    \end{property}
+    
+    \begin{nproof}
+        Soit $\bcV$ un ensemble fini ou dénombrable de variables propositionnelles, $\Gamma$ l'ensemble des formules propositionnelles à variables dans $\bcV$ et $\p{\varphi, \psi} \in \Gamma^2$ deux formules propositionnelles. On procède par table de vérité :
+        %
+        \begin{center}
+            \NiceMatrixOptions{cell-space-top-limit=3pt}
+            \begin{NiceTabular}{|cc|cc|}[]
+                \CodeBefore
+                    \rowcolor{main3!10}{1}
+                    \rectanglecolor{main20!15}{2-3}{5-4}
+                    \cellcolor{main21!15}{3-3,3-4}
+                \Body
+                    \toprule
+                    \varphi & \psi & $\neg\p{\varphi \land \psi}$ & $\neg \varphi \lor \neg \psi$ \\ \midrule
+                    1 & 0 & 1 & 1\\
+                    1 & 1 & 0 & 0\\
+                    0 & 0 & 1 & 1\\
+                    0 & 1 & 1 & 1 \\
+                    \bottomrule
+            \end{NiceTabular}
+            %
+            \qquad\qquad\qquad
+            %
+            \begin{NiceTabular}{|cc|cc|}[]
+                \CodeBefore
+                    \rowcolor{main3!10}{1}
+                    \rectanglecolor{main21!15}{2-3}{5-4}
+                    \cellcolor{main20!15}{4-3,4-4}
+                \Body
+                    \toprule
+                    \varphi & \psi & $\neg\p{\varphi \lor \psi}$ & $\neg \varphi \land \neg \psi$ \\ \midrule
+                    1 & 0 & 0 & 0\\
+                    1 & 1 & 0 & 0\\
+                    0 & 0 & 1 & 1\\
+                    0 & 1 & 0 & 0\\
+                    \bottomrule
+            \end{NiceTabular}
+        \end{center}
+    \end{nproof}
+    
+    On remarque également que l'implication peut se construire uniquement à l'aide de la négation et de la disjonction :
+    
+    \begin{property}{Ré-expression de l'implication}{}
+        Soit \hg{$\bcV$ un ensemble fini ou dénombrable de variables propositionnelles}, \hg{$\Gamma$ l'ensemble des formules propositionnelles} à variables dans $\bcV$ et \hg{$\p{\varphi, \psi} \in \Gamma^2$ deux formules propositionnelles}. On a :
+        %
+        \[ \hg{\varphi \rightarrow \psi \equiv \neg \varphi \lor \psi}\]
+    \end{property}
+    %
+    \begin{nproof}
+        Soit $\bcV$ un ensemble fini ou dénombrable de variables propositionnelles, $\Gamma$ l'ensemble des formules propositionnelles à variables dans $\bcV$ et $\p{\varphi, \psi} \in \Gamma^2$ deux formules propositionnelles. On procède par table de vérité :
+        %
+        \begin{center}
+            \NiceMatrixOptions{cell-space-top-limit=3pt}
+            \begin{NiceTabular}{|cc|cc|}[]
+                \CodeBefore
+                    \rowcolor{main3!10}{1}
+                    \rectanglecolor{main20!15}{2-3}{5-4}
+                    \cellcolor{main21!15}{2-3,2-4}
+                \Body
+                    \toprule
+                    \varphi & \psi & $\varphi \rightarrow \psi$ & $\neg \varphi \lor \ \psi$ \\ \midrule
+                    1 & 0 & 0 & 0\\
+                    1 & 1 & 1 & 1\\
+                    0 & 0 & 1 & 1\\
+                    0 & 1 & 1 & 1\\
+                    \bottomrule
+            \end{NiceTabular}
+        \end{center}
+    \end{nproof}
+    
+    Enfin, un dernier exemple assez trivial :
+    
+    \begin{property}{Involutivité de la négation}{}
+        Soit \hg{$\bcV$ un ensemble fini ou dénombrable de variables propositionnelles}, \hg{$\Gamma$ l'ensemble des formules propositionnelles} à variables dans $\bcV$ et \hg{$\varphi \in \Gamma$ une formule propositionnelle}. On a :
+        %
+        \[ \hg{\neg\p{\neg \varphi} \equiv \varphi}\]
+    \end{property}
+    %
+    \begin{nproof}
+        Soit $\bcV$ un ensemble fini ou dénombrable de variables propositionnelles, $\Gamma$ l'ensemble des formules propositionnelles à variables dans $\bcV$ et $\varphi \in \Gamma$ une formule propositionnelle. On procède par table de vérité :
+        %
+        \begin{center}
+            \NiceMatrixOptions{cell-space-top-limit=3pt}
+            \begin{NiceTabular}{|c|cc|}[]
+                \CodeBefore
+                    \rowcolor{main3!10}{1}
+                    \rectanglecolor{main20!15}{2-2}{3-3}
+                    \cellcolor{main21!15}{2-2,3-3}
+                \Body
+                    \toprule
+                    \varphi  & $\neg \varphi$ & $\neg\p{\neg \varphi}$ \\ \midrule
+                    1 & 0 & 1\\
+                    0 & 1 & 0\\
+                    \bottomrule
+            \end{NiceTabular}
+        \end{center}
+    \end{nproof}
+    
+    \begin{definition}{Conséquence logique}{}
+        Soit \hg{$\bcV$ un ensemble fini ou dénombrable de variables propositionnelles}, \hg{$\Gamma$ l'ensemble des formules propositionnelles} à variables dans $\bcV$ et \hg{$\varphi \in \Gamma$ une formule propositionnelle}.
+        
+        On dit que \hg{$\varphi$ est une conséquence logique de $\Gamma$} si \hg{pour toute valuation $\bcv$ sur $\bcV$}, on a :
+        %
+        \[ \hg{\bcv\p{\forall \psi \in \Gamma, \quad \bcv\p{\psi}} \rightarrow v\p{\varphi} = 1 }\]
+    \end{definition}
+    
+    \begin{notation}
+        Lorsque \hg{$\varphi$ est une conséquence logique de $\Gamma$}, on note \hg{$\Gamma \vDash \varphi$}.
+    \end{notation}
+    
+    \subsection{Problème SAT}
+    
+    Les concepts précédemment introduits amènent naturellement la question de la satisfiabilité d'une formule propositionelle $\varphi$ quelconque, \ie décider si oui ou non, $\varphi$ est satisfiable, \ie s'il existe une valuation qui satisfait $\varphi$.
+    
+    On a vu l'an dernier deux méthodes pour résoudre ce problème :
+    %
+    \begin{enumerate}
+        \itt Faire la table de vérité de $\varphi$.
+        
+        \itt L'algorithme de \textsc{Quine}.
+    \end{enumerate}
+    %
+    Le problème de ces deux méthodes est leur complexité : de manière évidente, faire la table de vérité de $\varphi$ requiert de tester chaque valuation possible de $\bcV$, et demande donc $2^{\mod{\bcV}}$ ligne. Sa complexité est donc exponentielle. L'algorithme de \textsc{Quine} peut certes s'avérer plus efficace, mais bien qu'on ne l'ait pas montré, sa complexité est elle aussi exponentielle.
+    
+    Il s'agit donc de trouver une nouvelle manière de décider si oui ou non une formule est valide, en s'inspirant notamment du principe de démonstration/preuve utilisé en mathématiques. Pour cela, on introduit les \textit{systèmes de preuve}.
+    
+    \section{Systèmes de preuve}
+    
+    On commence par introduire quelques notions qui seront nécessaires à ces \textit{systèmes de preuve}.
+    
+    \subsection{Défintions}
+    
+    La première notion qu'on introduit est celle de \textit{séquent} :
+    
+    \begin{definition}{Séquent}{}
+        Soit $\Gamma$ un ensemble de formules et une formule $\varphi \in \Gamma$. $\Gamma \vdash \varphi$ est un séquent de contexte $\Gamma$.
+        
+        Une règle d'inférence est la donnée d'un séquent appelé \guill{conclusion} et d'un nombre fixé (potentiellement $0$) de séquents appelés \guill{prémises}.
+    \end{definition}
+    
+    \begin{notation}
+        \[ \dfrac{\overbrace{\Gamma_1 \vdash \varphi_1 \quad \Gamma_2 \vdash \varphi_2 \quad \cdots \quad \Gamma_n \vdash \varphi_n}^{\text{prémises}}}{\underbrace{\Gamma \vdash \varphi}_{\text{conclusion}}} \ \p{\text{nom de la règle}}\]
+    \end{notation}
+    
+    \begin{definition}{Système de preuve}{}
+        Un système de preuve est un ensemble fini de règles d'inférences.
+    \end{definition}
+    
+    \begin{definition}{Arbre de preuve}{}
+        Un arbre de preuve est un arbre tel que :
+        %
+        \begin{enumerate}
+            \ithand Chaque noeud de l'arbre est étuiqueté par un séquent
+            
+            \ithand Chaque noeud interne est également étiqueté du nom d'une des règles du système de preuve
+            
+            \ithand Si un noeud interne est étiqueté par une règle ayant $n$ premises, alors ce noeud est étiqueté par le séquent conclusion de la règle et a $n$ fils, haque fils étant étiqueté par les séquents correspondant aux prémises de la règle.
+            
+            \ithand Une branche d'un arbre est dite fermée si sa feuille est étiquetée par une règle ayant $0$ prémise.
+            
+            \ithand Un arbre de preuve est terminé si toutes ses branches sont fermées.
+        \end{enumerate}
+    \end{definition}
+    
+    \begin{definition}{Séquent prouvable}{}
+        Un séquent $\Gamma \vdash \varphi$ est prouvable par un système de preuve s'il existe un arbre de preuve terminé tel que $\Gamma \vdash \varphi$ est l'étiquette de la racine. Il est valide si $\Gamma \vDash \varphi$.
+    \end{definition}
+    
+    \subsection{La déduction naturelle}
+    
+    Lors de la notation de séquents, l'ensemble $\Gamma \cup \ens{\varphi}$ sera noté $\Gamma, \varphi$.
+    
+    On a Règles d'inférence de la déduction naturelle propositionnelle
+    
+    \begin{example}{Modus Ponens}{}
+        On veut montrer la règle du modus ponens : $p, p \rightarrow q $
+        \[ \dfrac{}{}\]
+    \end{example}
+    
+    \begin{example}{Syllogisme Barbara}{}
+        On veut montrer la règle du syllogisme Barbara : $\p{p \rightarrow q, q \rightarrow r} \rightarrow \p{p \rightarrow r}$
+        %
+        \[ \resizebox{\linewidth}{!}{$\hg{\dfrac{\dfrac{\dfrac{}{p \rightarrow q, q \rightarrow r, p \vdash q \rightarrow r} (Ax) \quad \dfrac{\dfrac{}{p \rightarrow q, q \rightarrow r, p \vdash p \rightarrow q} (Ax) \quad \dfrac{}{p \rightarrow q, q \rightarrow r, p \vdash p} (Ax)}{p \rightarrow q, q \rightarrow r, p \vdash q} (\rightarrow_e)}{p \rightarrow q, q \rightarrow r, p \vdash q} (\rightarrow_e)}{p \rightarrow q, q \rightarrow r \vdash p \rightarrow r} (\rightarrow_i)}$} \]
+    \end{example}
+    
+    \begin{theorem}{Correction}{}
+        Soit $\Gamma \vdash \varphi$ un séquent. Si $\Gamma \vdash \varphi$ est possible avec les règles de la déduction naturelle, alors $\Gamma \vDash \varphi$.
+    \end{theorem}
+    
+    \begin{nproof}
+        On procède par induction structurelle sur un arbre de preuve de $\Gamma \vdash \varphi$. 
+        
+        \begin{enumerate}
+            \itt Si $\dfrac{}{\Gamma, \varphi \vdash \varphi} (Ax)$.
+            
+            Soit $\bcv$ une valuation telle que $\bcv \vDash \Gamma, \varphi$. On a donc $\bcv \vdash \varphi$, donc $\Gamma, \varphi \vDash \varphi$.
+            
+            \itt Si $\dfrac{}{\Gamma \vdash \varphi} (\top)$.
+            
+            Soit $\bcv$ telle que $\bcv \vDash \Gamma$. On a par définition $\bcv \vdash $
+        \end{enumerate}
+    \end{nproof}
+    
+    \begin{example}{}{}
+        \[ \hg{\dfrac{\dfrac{\dfrac{\dfrac{}{\varphi \land \psi \vdash \varphi \land \psi} (Ax)}{\varphi \land \psi \vdash \psi} (\land_e^d) \qquad \dfrac{\dfrac{}{\varphi \land \psi \vdash \varphi \land \psi} (Ax)}{\varphi \land \psi \vdash \varphi} (\land_e^g)}{\varphi \land \psi \vdash \psi \land \varphi} (\land_i)}{\vdash \varphi \land \psi \rightarrow \psi \land \varphi} (\rightarrow_i)} \]
+    \end{example}
+    
+    \begin{example}{}{}
+        \[ \resizebox{\linewidth}{!}{$\hg{\dfrac{\dfrac{\dfrac{}{\neg \varphi \lor \psi, \varphi \vdash \neg \varphi \lor \psi} (Ax)\qquad \dfrac{\dfrac{\dfrac{\dfrac{}{\varphi, \neg \varphi \vdash \neg \varphi} (Ax) \qquad \dfrac{}{\varphi, \neg \varphi \vdash \varphi} (Ax)}{\varphi, \neg \varphi \vdash \bot} (\neg_e)}{\neg \varphi \lor \psi, \varphi, \neg \varphi, \neg \psi \vdash \bot} (Aff) \times 2}{\neg \varphi \lor \psi, \varphi, \neg \varphi \vdash \psi} (Abs) \qquad \dfrac{}{\neg \varphi \lor \psi \varphi, \psi \vdash \psi} (Ax)}{\neg \varphi \lor \psi, \varphi \vdash \psi} (\lor_e)}{\neg \varphi \lor \psi \vdash \varphi \rightarrow \psi} (\rightarrow_i)
+        }$} \]
+    \end{example}
+    
+    \subsection{Avantages des systèmes de preuve}
+    
+    \begin{enumerate}
+        \itt Les systèmes de preuves sont uniquement basés sur la syntaxe. Il sont donc faciles à implémenter pour faire :
+        
+        \begin{enumerate}
+            \ithand de la preuve automatique ;
+            
+            \ithand des assistants de preuve ;
+            
+            \ithand $\dots$
+        \end{enumerate}
+        
+        \itt Il y a peu de règles, et celles-ci sont simples. Les systèmes de preuves permettent donc de facilement prouver des propriétés.
+        
+        \itt Modularité : enlever ou ajouter quelques règles permet d'adapter le système de preuve pour obtenir un système correct et complet pour une autre logique. 
+        
+        Par exemple, si on s'intéresse uniquement aux formules utilisant l'implication $\rightarrow$ (donc n'utilisant ni la conjonction $\land$, ni la négation $\neg$, ni la disjonction $\lor$); alors le système suivant est complet :
+        %
+        \[ (Ax), (\top), (\rightarrow_i), (\rightarrow_e),  \dfrac{\Gamma, \varphi \to \bot \vdash \bot}{\Gamma \vdash \varphi} (Abs')\]
+    \end{enumerate}
+    
+    \subsection{La logique intuitionniste}
+    
+    \section{Logique du premier ordre}
+    
+    On considère maintenant un ensemble $\bcV$ fini ou dénombrable de variables (on ne parle plus de variables propositionnelles).
+    
+    \subsection{Syntaxe}
+    
+    \begin{definition}{Signature}{}
+        On appelle \hg{signature} un \hg{triplet $\p{\bcC, \bcF, \bcR}$} de trois \textit{ensembles de symboles} où :
+        %
+        \begin{enumerate}
+            \itast \hg{$\bcC$ est l'ensemble des symboles de \textit{constante}}.
+            \itast \hg{$\bcF$ est l'ensemble des symboles de \textit{fonction}}.
+            \itast \hg{$\bcR$ est l'ensemble de symboles de \textit{relation} (ou de \textit{prédicat})}.
+        \end{enumerate}
+        %
+        A chaque symbole de $\bcF$ et $\bcR$, on associe un entier $> 0$ appelé \hg{arité}.
+    \end{definition}
+    
+    Il est d'usage de noter entre parenthèses l'arité de chaque symbole lors de la définition de $\bcF$ et $\bcR$.
+    
+    Lorsqu'on utilise le mot \guill{prédicat} plutôt que le mot \guill{relation}, on parle alors de \guill{calcul des prédicats} plutôt que de \guill{logique du premier ordre}.
+    
+    On remarquera que :
+    %
+    \begin{enumerate}
+        \itt Un symbole de constante peut être vu comme un symbole de fonction d'arité $0$.
+        
+        \itt $\top$ et $\bot$ peuvent être vu comme des symboles de relation d'arité $0$.
+    \end{enumerate}
+    
+    \begin{example}{Signatures de quelques théories usuelles}{}
+        \begin{enumerate}
+            \itt La signature de la \hg{\itshape théorie des groupes} est :
+            %
+            \[ \hg{\bcC = \ens{e} \qquad \bcF = \ens{ \times \p{2}, \cdot^{-1} \p{1}} \qquad \bcR = \ens{= \p{2}}}\]
+            
+            \itt La signature de la \hg{\itshape théorie des corps ordonnés} est :
+            %
+            \[ \hg{\bcC = \ens{0, 1} \qquad \bcF = \ens{ + \p{2}, \times \p{2}, - \p{1}, \cdot^{-1} \p{1}} \qquad \bcR = \ens{= \p{2}, \leq \p{2}}}\]
+            
+            \itt La signature de la \hg{\itshape théorie des espaces vectoriels sur $\bdR$} est :
+            %
+            \[ \hg{\bcC = \ens{0} \qquad \bcF = \ens{ + \p{2}, - \p{1}} \cup \ens{x \mapsto \lambda x ,\ \lambda \in \bdR} \qquad \bcR = \ens{= \p{2}}}\]
+            
+            \itt La signature de la \hg{\itshape théorie des ensembles} est :
+            %
+            \[ \hg{\bcC = \ens{\emptyset} \qquad \bcF = \ens{ \cup \p{2}, \cap \p{2}, \overline{\cdot} \p{1}} \qquad \bcR = \ens{= \p{2}, \cup \p{2}, \in \p{2}}}\]
+            
+            \itt La signature de l'\hg{\itshape analyse réelle} est :
+            %
+            \[ \hg{\bcC = \bdR \qquad \bcF = \ens{ + \p{2}, \times \p{2}, - \p{1}, \cdot^{-1} \p{1}, \mod{\cdot} \p{1}, \sin, \ln, \dots} \qquad \bcR = \ens{= \p{2}, \leq \p{2}, \dots}}\]
+        \end{enumerate}
+        
+    \end{example}
+    
+    \begin{definition}{Terme}{}
+        Soit $\bsS = \p{\bcC, \bcF, \bcR}$ une signature. L'ensemble $\bcT$ des termes sur $\bsS$ est défini inductivement :
+        
+        \begin{enumerate}
+            \itast $\forall x \in \bcV,\qquad x \in \bcT$ ;
+            
+            \itast $\forall x \in \bcC,\qquad c \in \bcT$ ;
+            
+            \itast $\forall f \in \bcF,\qquad f \ \text{d'arité} \ n \in \bdN^* \implies \forall \p{t_1, \dots, t_n} \in \bcT^n,\qquad \p{f\p{t_1, \dots, t_n} \in \bcT}$.
+        \end{enumerate}
+    \end{definition}
+    
+    \begin{definition}{Terme clos}{}
+        Un terme clos est un terme qui ne contient pas de variables.
+    \end{definition}
+    
+    \begin{definition}{Hauteur}{}
+        La hauteur d'un terme est la hauteur de son arbre syntaxique.
+    \end{definition}
+    
+    \begin{definition}{Taille}{}
+        La taille (ou longueur) d'un terme est le nombre de noeuds internes de son arbre syntaxique.
+    \end{definition}
+    
+    \begin{property}{Calcul inductif de la hauteur}{}
+        \begin{enumerate}
+            \itast $\forall x \in \bcV,\qquad h\p{x} = 0$ ;
+            
+            \itast $\forall x \in \bcC, \qquad h\p{c} = 0$;
+            
+            \itast $\forall f \in \bcF_n,\qquad h\p{f\p{t_1, \dots, t_n}} = 1 + \max\ens{h\p{t_1}, \dots, h\p{t_n}}$.
+        \end{enumerate}
+    \end{property}
+    
+    \begin{property}{Calcul inductif de la taille}{}
+        \begin{enumerate}
+            \itast $\forall x \in \bcV,\qquad h\p{x} = 0$ ;
+            
+            \itast $\forall x \in \bcC, \qquad h\p{c} = 0$;
+            
+            \itast $\forall f \in \bcF_n,\qquad h\p{f\p{t_1, \dots, t_n}} = 1 + \max\ens{h\p{t_1}, \dots, h\p{t_n}}$.
+        \end{enumerate}
+    \end{property}
+    
+    On remarquera que :
+    %
+    \begin{enumerate}
+        \itt La taille d'un terme $t$ est le nombre de symboles de fonctions dans $t$.
+        
+        \itt La hauteur d'un terme $t$ est le nombre maximal de fonctions imbriqués dans $t$.
+    \end{enumerate}
+    
+    \begin{example}{}{}
+        Pour la signature de la théorie des groupes :
+        %
+        \begin{enumerate}
+            \itt $x \star y$ et $x^{-1} \star \p{y \star x^{-1}}^{-1}$ sont des termes.
+            
+            \itt $e^{-1} \star e$ est un terme clos.
+        \end{enumerate}
+    \end{example}
+    
+    \begin{definition}{Formule atomique}{}
+        Soit $\bsS = \p{\bcC, \bcF, \bcR}$ une signature, et $\bcT$ l'ensemble des termes sur $\bsS$.
+        
+        Une formule atomique de $\bsS$ est une forme de la forme $\bcR\p{t_1, \dots, t_n}$ où $R \in \bcR$ d'arité $n$ et $\p{t_1, \dots, t_n} \in \bcT^n$.
+    \end{definition}
+    
+    On note $\Atom$ l'ensemble des formules atomiques.
+    
+    L'ensemble $\FO{\bsS}$ (pour first order) des formules de la logique du premier ordre sur $\bsS$ défini inductivement :
+    
+    \begin{enumerate}
+        \itast $\top \in \FO{\bsS}$ 
+        
+        \itast $\bot \in \FO{\bsS}$
+        
+        \itast Si $\varphi \in \Atom$, alors $\varphi \in \FO{\bsS}$.
+        
+        \itast $\p{\varphi, \psi} \in \FO{\bsS}^2$ et $x \in \bcV$, alors $\ens{\varphi \land \psi, \varphi \lor \psi, \dots } \subset \FO{\bsS}$.
+    \end{enumerate}
+    
+    \begin{warning}{}{}
+        Ne pas confondre terme et formule. Par exemple, pour la signature de l'analyse réelle :
+        %
+        \begin{enumerate}
+            \itt $\sin{x}$ est un terme.
+            
+            \itt $x = 3$ est une formule.
+            
+            \itt $\forall x \p{x > 0 \rightarrow \exists y \p{y > ° \land \p{x = y \times y}}}$ est une formule.
+            
+            \itt $\exists x \p{\sin x = 0 \land \cos x = 0}$ est une formule.
+            
+            \itt $\sin x \land x = 3$ n'a pas de sens.
+        \end{enumerate}
+    \end{warning}
+    
+    \begin{warning}{}{}
+        Si $\varphi \in \FO{\bsS}$, alors dans l'arbre syntaxique de $\varphi$ :
+        %
+        \begin{enumerate}
+            \itt certains sous-arbres sont des formules (appelées sous-formules de $\varphi$)
+            
+            \itt certains sous-arbres sont des termes !
+        \end{enumerate}
+    \end{warning}
+    
+    \begin{definition}{Variables libres (free variables)}{}
+        Soit $\varphi$ une formule. On définit l'ensemble $\FV{\varphi}$ des variables libres de $\varphi$ par induction structurelle sur $\varphi$.
+        
+        \begin{enumerate}
+            \itast Si $\varphi = \bcR\p{t_1, \dots, t_n}$, $\FV{\varphi}$ est l'ensemble des variables apparaissant dans les $t_i$.
+            
+            \itast Si $\varphi = \varphi_1 \lozenge \varphi_2$, avec $\lozenge \in \ens{\land, \lor, \rightarrow}$, alors $\FV{\varphi} = \FV{\varphi_1} \cup \FV{\varphi_2}$.
+            
+            \itast Si $\varphi = \neg \varphi'$ alors $\FV{\varphi} = \FV{\varphi'}$.
+            
+            \itast Si $\varphi = \bcq x \varphi'$ avec $x \in \bcV$ et $\bcq \in \ens{\exists, \forall}$, alors $\FV{\varphi} = \FV{\varphi'} \backslash \ens{x}$. 
+        \end{enumerate}
+    \end{definition}
+    
+        \begin{definition}{Variables liées (boarded variables)}{}
+        Soit $\varphi$ une formule. On définit l'ensemble $\BV{\varphi}$ des variables liées de $\varphi$ par induction structurelle sur $\varphi$.
+        
+        \begin{enumerate}
+            \itast Si $\varphi = \bcR\p{t_1, \dots, t_n}$, $\BV{\varphi} = \emptyset$.
+            
+            \itast Si $\varphi = \varphi_1 \lozenge \varphi_2$, avec $\lozenge \in \ens{\land, \lor, \rightarrow}$, alors $\BV{\varphi} = \BV{\varphi_1} \cup \BV{\varphi_2}$.
+            
+            \itast Si $\varphi = \neg \varphi'$ alors $\BV{\varphi} = \BV{\varphi'}$.
+            
+            \itast Si $\varphi = \bcq x \varphi'$ avec $x \in \bcV$ et $\bcq \in \ens{\exists, \forall}$, alors $\BV{\varphi} = \BV{\varphi'} \cup \ens{x}$. 
+        \end{enumerate}
+    \end{definition}
+    
+    \begin{example}{}{}
+        \begin{enumerate}
+            \itt $\varphi_1 = \forall x \p{x \star y = y \star x}$, on a $\FV{\varphi_1} = \ens{y}$ et $\BV{\varphi_1} = \ens{x}$.
+            
+            \itt $\varphi_2 = \forall x \exists y \p{y = 0}$, on a $\FV{\varphi_2} = \emptyset$ et $\BV{\varphi_2} = \ens{x, y}$.
+            
+            \itt $\varphi_3 = \p{\forall x \exists y \p{x \star z = z \star y}} \land \p{x = z \star z}$, on a $\FV{\varphi_2} = \ens{x, z}$ et $\BV{\varphi_2} = \ens{x, y}$.
+        \end{enumerate}
+    \end{example}
+    
+    \begin{warning}{}{}
+        Comme le montre le dernier exemple 
+    \end{warning}
+    
+    \begin{definition}{Formule close}{}
+        On appelle \hg{formule close} une famille \hg{sans variable livre}.
+    \end{definition}
+    
+    Soit $\varphi$ une formule telle que $\FV{\varphi} = \ens{x_1, \dots, x_n}$.
+    
+    La clôture universelle de $\varphi$ est la forme close :
+    %
+    \[ \forall x_1, \dots, \forall x_n,\qquad \varphi\]
+    
+    \subsection{Sémantique (HP)}
+    
+    \begin{definition}{Modèle}{}
+        Soit $\bsS = \p{\bcC, \bcF, \bcR}$ une signature.
+        On appelle \hg{modèle de $\bsS$} l'ensemble $\bcM$ des données suivantes :
+        %
+        \begin{enumerate}
+            \itast $E_\bcM$ un ensemble non vide appelé \hg{domaine de $\bcM$} ;
+            
+            \itast pour chaque symbole de constante $c \in \bcC$,  élément $c_\bcM \in E_\bcM$ ;
+            
+            \itast pour chaque symbole de fonction $f \in \bcF$ d'arité $n$, une fonction $f_\bcM : E_\bcM^n \to E_\bcM$.
+            
+            \itast pour chaque symbole de relation $r \in \bcR$ d'arité $n$, un sous-ensemble $R_\bcM$ de $E_\bcM^n$.
+        \end{enumerate}
+
+    \end{definition}
+    
+    On remarquera que lorsque le symbole $= \p{2}$ est dans $\bcR$, il arrive qu'on impose que $=_\bcM$ corresponde à l'égalité dans $E_\bcM$ dans la définition de \guill{modèle}.
+    
+    \begin{definition}{Environnement}{}
+        Soit $\bcM$ un modèle de $\bsS$.
+        %
+        \begin{enumerate}
+            \itast Un \hg{environnement} est une fonction $\bcV \to E_\bcM$.
+            
+            \itast Si $e$ est un environnement, $a \in E_\bcM$ et $x \in \bcV$, on note $e\intc{x := a}$ l'environnement $e'$ tel que $\left\lbrace\begin{array}{ll}
+                e'\p{x} = a  \\
+                e'\p{x} = e\p{y} \qquad\text{pour} \ y \neq x
+            \end{array}\right.$.
+        \end{enumerate}
+    \end{definition}
+    
+    \begin{definition}{Valeur}{}
+        Soit $\bcM$ un modèle de $\bsS$, $t \in \bcT\p{\bsS}$, $e$ un environnement.
+        
+        La \hg{valeur} $t$ dans $\bcM$ et $e$, notée $\Val_{\bcM, e}\p{t}$ est définie par induction structurelle sur $t$ :
+        %
+        \begin{enumerate}
+            \itast $\Val_{\bcM, e}\p{c} = c_\bcM$ pour $c \in \bcC$
+            
+            \itast $\Val_{\bcM, e}\p{x} = e\p{x}$ pour $x \in \bcV$
+            
+            \itast $\Val_{\bcM, e}\p{f\p{t_1, \dots, t_n}} = f_\bcM\p{\Val_{\bcM, e}\p{t_1},\Val_{\bcM, e}\p{t_2},\dots,\Val_{\bcM, e}\p{t_n}}$
+        \end{enumerate}
+    \end{definition}
+    
+    On donne ci-dessous quelques exemples :
+    
+    \begin{example}{}{}
+        Soit $\bsS$ la signature de l'arithmétique. On a :
+        %
+        \[ \bcC = \ens{0, 1} \qquad \bcF = \ens{+ \p{2}, \times \p{2}}\qquad \bcR = \ens{= \p{2}}\]
+        %
+        On peut prendre comme modèle $\bcM$ :
+        %
+        \begin{enumerate}
+            \itt $E_\bcM = \bdN$, en interprétant les symboles avec leur sens habituel
+            
+            \itt $E_\bcM \in \ens{\bdZ, \bdQ, \bdR, \bdC, \dots}$, en interprétant les symboles avec leur sens habituel.
+            
+            \itt Mais on peut aussi prendre :
+            %
+            \[ E_\bcM = \bdN\qquad 0_\bcM = 12\qquad 1_\bcM = 12\qquad n +_\bcM m = 3n + 5m\qquad n \times_\bcM m = 42\]
+        \end{enumerate}
+    \end{example}
+    
+    \begin{definition}{Valeur de vérité}{}
+        Soit $\bcM$ un modèle de $\bsS$ et $e$ un environnement. On défini la valeur de vérité d'une formule $\varphi$ par induction structurelle sur $\bsS$ (notée aussi $\Val_{\bcM, e}\p{\varphi}$.
+        
+        %
+        \begin{enumerate}
+            \itast $\Val_{\bcM, e}\p{\bot} = 0$
+            
+            \itast $\Val_{\bcM, e}\p{\top} = 1$
+            
+            \itast $\Val_{\bcM, e}\p{R\p{t_1,t_2, \dots t_n}} = 1 \ \text{si et seulement si} \ \p{\Val_{\bcM, e}\p{t_1},\Val_{\bcM, e}\p{t_2},\dots,\Val_{\bcM, e}\p{t_n}} \in \bcR_\bcM$
+            
+            \itast $\Val_{\bcM, e}\p{\neg \varphi} = 1 \ \text{si et seulement si} \ \Val_{\bcM, e}\p{\varphi} = 0$
+            
+            \itast $\Val_{\bcM, e}\p{\varphi \land \psi} = 1 \ \text{si et seulement si} \ \Val_{\bcM, e}\p{\varphi} = 1 \et \Val_{\bcM, e}\p{\psi} = 1$
+            
+            \itast $\Val_{\bcM, e}\p{\varphi \lor \psi} = 1 \ \text{si et seulement si} \ \Val_{\bcM, e}\p{\varphi} = 1 \ou \Val_{\bcM, e}\p{\psi} = 1$
+            
+            \itast $\Val_{\bcM, e}\p{\varphi \to \psi} = 1 \ \text{si et seulement si} \ \Val_{\bcM, e}\p{\varphi} = 0 \ou \Val_{\bcM, e}\p{\psi} = 1$
+            
+            \itast $\Val_{\bcM, e}\p{\forall x \varphi} = 1 \ \text{si et seulement si} \ \text{pour tout} \ a \in E_\bcM,\qquad \Val_{\bcM, e\intc{x := a}}\p{\varphi} = 1$
+            
+            \itast $\Val_{\bcM, e}\p{\exists x \varphi} = 1 \ \text{si et seulement si} \ \text{il existe} \ a \in E_\bcM,\qquad \Val_{\bcM, e\intc{x := a}}\p{\varphi} = 1$
+            
+            
+        \end{enumerate}
+    \end{definition}
+    
+    \begin{definition}{Satisfiabilité}{}
+        Soit $\bcM$ un modèle de $\bsS$, $e$ un environnement et $\varphi$ une formule.
+        Si $\Val_{\bcM, e}\p{\varphi} = 1$, on dit que $\bcM$ satisfait $\varphi$ dans l'environnement $e$, et on note $\bcM, e \vDash \varphi$.
+        \begin{enumerate}
+            \itast Si $\bcM, e \vDash \varphi$ pour tout $e$, on note $\bcM \vDash \varphi$, et on dit que $\bcM$ est un modèle de $\varphi$.
+            \itast si $\bcM \vDash \varphi$ pour tout modèle de $\bsS$, on note $\vDash \varphi$ et on dit que $\varphi$ est un \hg{théorème} (ou que $\varphi$ est \hg{valide})
+        \end{enumerate}
+    \end{definition}
+    
+    On a alors le théorème suivant :
+    
+    \begin{theorem}{}{}
+        Soit \hg{$\bsS$ une signature}, \hg{$\varphi$ une formule} de \hg{clôture universelle $\tilde\varphi$} et \hg{$\bcM$ un modèle} de $\bsS$. On a :
+        
+        \[ \hg{M \vDash \varphi \ \text{si et seulement si} \ \bcM \vDash \tilde{\varphi} } \]
+    \end{theorem}
+    
+    \subsection{Théorie des modèles (HP)}
+    
+    On vient de définir une notion de modèle très large : les symboles de la signatures peuvent \textit{a priori} être interprétés par n'importe quoi. C'est pourquoi on se donne en pratique des \textit{axiomes}, c'est à dire un ensemble de formules qui doivent être des théorèmes dans les modèles que l'on considère. Cela force les symboles a ne pas être interprétés n'importe comment. On présente ci-dessous l'exemple de la théorie de l'égalité :
+    
+    \begin{example}{Théorie de l'égalité}{}
+        \begin{enumerate}
+            \itt On a premièrement sur \hg{$=$} :
+            %
+            \[ \hg{\p{\forall x \quad x = x} \land \p{\forall x \forall y \quad x=y \rightarrow y = x} \land \p{\forall x \forall y \forall z \quad \p{x = y \land y = z} \rightarrow x = y}}\]
+            %
+            \itt Pour chaque \hg{$f \in \bcF$ d'arité $n$} :
+            %
+            \[ \hg{\forall x_1 \dots \forall x_n \forall y_1 \dots \forall y_n\quad \p{x_1 = y_1 \land \dots x_n = y_n} \rightarrow f\p{x_1, \dots, x_n} = f\p{y_1, \dots, y_n}}\]
+            %
+            \itt Pour chaque \hg{$R \in \bcR$ d'arité $n$} :
+            %
+            \[ \hg{\forall x_1 \dots \forall x_n \forall y_1 \dots \forall y_n\quad \p{x_1 = y_1 \land \dots x_n = y_n} \rightarrow \p{R\p{x_1, \dots, x_n} \rightarrow R\p{y_1, \dots, y_n}}}\]
+        \end{enumerate}
+        
+        Ainsi les \hg{axiomes} de la \textit{théorie de l'égalité} forcent à interpréter \hg{$=$} comme l'\hg{égalité dans $E_\bcM$}.
+    \end{example}
+    
+    On donne un autre exemple, avec la théorie des groupes :
+    
+    \begin{example}{Théorie des groupes}{}
+        \begin{enumerate}
+            \itt On a les \textit{axiomes de l'égalité}
+            
+            \itt On a l'\hg{axiome d'associativité} :
+            %
+            \[ \hg{ \forall x \forall y \forall z \quad x \star \p{y \star z} = \p{x \star y} \star z} \]
+            
+            \itt On a l'\hg{axiome de présence d'un élément neutre} :
+            %
+            \[ \hg{\forall x \quad e \star x = x \land x \star e = e} \]
+            
+            \itt On a l'\hg{axiome de présence d'un inversible} :
+            %
+            \[ \hg{\forall x \quad x \star x^{-1} = e \land x^{-1} \star x = e} \]
+        
+            \itt Pour la \hg{théorie des groupes abéliens}, on a également l'\hg{axiome de commutativité} :
+            %
+            \[ \hg{\forall x \forall y \quad x \star y = y \star x} \]
+            
+        \end{enumerate}
+    \end{example}
+    
+    Un premier cas pratique est celui de l'arithmétique élémentaire :
+    
+    \begin{example}{Théorie de l'arithmétique élémentaire}{}
+        La \textit{théorie de l'arithmétique élémentaire} a la signature $\bsS$ suivante :
+        %
+        \[ \bcC = \ens{0}\qquad \bcF = \ens{+ \p{2}, \times \p{2}, S\p{1}}\quad \bcR = \ens{= \p{2}}\]
+        %
+        \begin{enumerate}
+            \begin{minipage}{0.5\linewidth}
+                \itt On a les \textit{axiomes de l'égalité}
+            
+                \itt \hg{$\forall x \quad \neg \p{S \p{x} = 0}$}
+            
+                \itt \hg{$\forall x \quad \p{x = 0 \lor \exists y \quad x = S\p{y}}$}
+            
+                \itt \hg{$\forall x \forall y \quad S\p{x} = S\p{y} \rightarrow x = y$}
+            \end{minipage}
+            %
+            \begin{minipage}{0.5\linewidth}
+                \itt \hg{$\forall x \quad x + 0 =x$}
+            
+                \itt \hg{$\forall x \forall y \quad x + S(y) = S(x+y)$}
+             
+                \itt \hg{$\forall x \quad x \times 0=0$}
+        
+                \itt \hg{$\forall x \forall y \quad x \times S(y) = x \times y + x$}
+            \end{minipage}
+            
+        \end{enumerate}
+    \end{example}
+    
+    \begin{example}{Théorie de l'arithmétique de Peano}{}
+        %
+        La \textit{théorie de l'arithmétique de \textsc{Peano}} a les axiomes suivants :
+        %
+        \begin{enumerate}
+            \itt On a les \textit{axiomes de l'égalité} et les \textit{axiomes de l'arithmétique élémentaire}.
+            
+            \itt Soit $\varphi$ une formule et $x$ une variable, on note $\mathrm{Rec}_{\varphi, x}$ la clôture universelle de la formule :
+            %
+            \[ \hg{\p{\varphi\intc{x = 0} \land \forall y \quad \p{\varphi\intc{x = y}} \rightarrow \varphi\intc{x = S\p{y}}} \rightarrow \forall x\quad \varphi}\]
+            %
+            On a alors \hg{L'ensemble $\mathrm{Rec}$ d'axiomes} défini par $\hg{\mathrm{Rec} = \ens{\mathrm{Rec}_{\varphi, x} \enstq \varphi \ \text{est une formule et} \ x \ \text{une variable}}}$.
+        \end{enumerate}
+        
+    \end{example}
+
+    \begin{example}{L'arithmétique de Presburger}{}
+        %
+        La \textit{théorie de l'arithmétique de \textsc{Presburger}} a les même axiomes que la théorie de l'arithmétique de \textsc{Peano} sauf que :
+        %
+        \begin{enumerate}
+            \itt \hg{On enlève $x$ de $\bcF$}.
+            
+            \itt \hg{On enlève les axiomes concernant la multiplication}.
+        \end{enumerate}
+    \end{example}
+
+    \subsection{Déduction naturelle}
+    
+    \begin{theorem}{}{}
+        Rajouter les règles $\p{\forall_i}$, $\p{\forall_e}$, $\p{\exists_i}$, $\p{\exists_e}$ aux règles de la déduction naturelle permet d'obtenir un système de preuve correct et complet. 
+    \end{theorem}
+    
+    \begin{theorem}{}{}
+        Si $= \ \in \bcR$, et si on se donne les axiomes de l'égalité alors rajouter les règles $\p{=_i}$ et $\p{=_e}$ permet d'obtenir un système de preuve correct et complet.
+    \end{theorem}
+    
+    \begin{nproof}
+        Admise.
+    \end{nproof}
+
+    \begin{example}{}{}
+        \[ \hg{
+        \infer[(\forall_i)]{
+            \forall x \quad R\p{x} \vdash \forall y \quad R\p{y}
+        }{
+            \infer[(\forall_e)]{
+                \forall x \quad R\p{x} \vdash R\p{y}
+            }{
+                \infer[(Ax)]{
+                    \forall x \quad R\p{x} \vdash \forall x \quad R\p{x}
+                }{}
+            }
+        }} \]
+    \end{example}
+    
+    \begin{warning}{}{}
+        Les règles ne sont pas évidentes :
+        %
+        \[ \hg{\infer[(\exists_i)]{
+            \exists x \quad R \p{x} \vdash \exists y \quad R \p{y}
+        }{
+            \infer[(\exists_e)]{
+                \exists x \quad R \p{x} \vdash R\p{x}
+            }{
+                \infer[(Ax)]{
+                    \exists x \quad R \p{x} \vdash \exists x \quad R \p{x}
+                }{} &
+                \infer[\text{\EBGaramond On est coincé !}]{
+                    \exists x \quad R\p{x}, R\p{y} \vdash R\p{x} 
+                }{} 
+            }
+        }} \]
+    \end{warning}
+    
+    \begin{example}{}{}
+        \[ \infer[(\exists_ie)]{
+            \exists x \quad R \p{x} \vdash \exists y \quad R \p{y}
+        }{ \infer[(Ax)]{
+            \exists x \quad R \p{x} \vdash \exists x \quad R \p{x}
+        }{} & \infer[(\exists_i)]{
+            \exists x \quad R \p{x}, R \p{y} \vdash \exists y \quad R \p{y}
+        }{
+            \infer[(Ax)]{
+            \exists x \quad R \p{x}, R \p{y} \vdash R \p{y}
+        }{}
+        }
+        } \]
+    \end{example}
+
+\section{Règles dérivables et règles équivalentes}
+
+    \begin{definition}{}
+        Soit $R$ un systeme de preuve
+        \begin{enumerate}
+            \itast Une règle d'inférence $(r) \notin R$ est dite \hg{dérivable} dans $R$ si elle peut être obtenue à partir des règles de $R$, c'est-à-dire si tout arbre de preuve utilisant $R \cup \ens{\p{r}}$ peut être transformé en un arbre de preuve utilisant $R$.
+            
+            \itast Soit $(r) \in R$ et $(r') \notin R$ les deux règles sont dites équivalente si
+            
+            \begin{enumerate}
+                \itt $(r')$ est dérivable dans $R$
+                
+                \itt $(r)$ est dérivable dans $(R \backslash \ens{(r)} \cup \ens{(r')}$
+            \end{enumerate}
+        \end{enumerate}
+    \end{definition}
+    
+    \begin{example}{Abs $\iff \neg \neg e$}{}
+        
+        \begin{enumerate}
+            \itt Soit $A$ un arbre de preuve dans lequel la règle $(\neg \neg_e)$ est utilisée. Considérons le noeud $(\neg \neg_e)$ de $A$ le plus proche de la racine.
+            \newline 
+            \[\infer[(\neg \neg_e)]{
+            \varrho \vdash \varphi}{
+            \infer[]{\varrho \vdash \neg \neg \varphi}{\pi}}\]
+            
+            \text{}\newline
+            \[\infer[(Abs)]{\varrho \vdash \varphi}{
+            \infer[(\neg_e)]{\varrho , \neg \varphi \vdash \bot} {
+            \infer[(Aff)]{\varrho , \neg \varphi \vdash \neg \neg \varphi}{\infer[]{\varrho \vdash \neg \neg \varphi}{\pi} 
+            & \infer[(Ax)]{\varrho , \neg \varphi \vdash \neg \varphi}{}}}}\]
+            
+            En réitérant ce processus, on peut remplacer toutes les occurences de $\neg \neg_e$ dans $\pi$, et dans les autres branches de $A$, jusqu'à obtenir un arbre de preuve n'utilisant pas $(\neg\neg_e$.
+            \itt Reciproquement, Soit $\bcA$ un arbre:
+            \[\infer[(Abs)]{\varrho \vdash \varphi}{
+            \infer[]{\varrho , \neg \varphi \vdash \bot}{\pi}} \]
+             
+             
+            \itt On peut transformer $\bcA$ en :
+            
+            \[\infer[(\neg \neg_e)]{\varrho \vdash \neg \neg \varphi}{
+            \infer[(\neg_i)]{\varrho \vdash \neg \neg \varphi}{
+            \infer[]{\varrho , \neg \varphi \vdash \bot}{\pi}}} \]
+            
+            
+            \itt La regles suivante(absurde intusioniste) est derivable  
+            
+            \[\infer[(\bot)]{\varrho \vdash \varphi}{\varrho \vdash \bot} \]
+            
+            \text{}\newline
+            Soit $\bcA$ un arbre tel que :
+            \[\infer[(\bot)]{\varrho \vdash \varphi}{
+            \infer[]{\varrho \vdash \bot}{\pi}} \]
+            \text{}\newline 
+            
+            On peut transformer $\bcA$: 
+            \[\infer[(Abs)]{\varrho \vdash \varphi}{
+            \infer[(Aff)]{\varrho , \neg \varphi \vdash}{
+            \infer[]{\varrho \vdash \bot}{\pi}}} \]
+            \newline
+            
+            \itt La regles $(TE)$ est dérivable 
+            
+            Soit $A$ tel que $\infer[(TE)]{\varrho \vdash \varphi \lor \neg \varphi}{} $
+            
+            \[\infer[(Aff)]{\varrho \vdash \varphi \lor \neg \varphi}{
+            \infer[(Abs)]{\vdash \varphi \lor \neg \varphi} {
+            \infer[(\neg_e)]{\neg (\varphi \lor \neg \varphi) \vdash \bot} {
+            \infer[(Ax)]{\neg (\varphi \lor \neg \varphi) \vdash \neg (\varphi \lor \neg \varphi)}{}
+            & \infer[(V_i^d)]{\neg (\varphi \lor \neg \varphi) \vdash \varphi \lor \neg \varphi} {
+            \infer[(\neg_i)]{\neg (\varphi \lor \neg \varphi) \vdash \neg \varphi}{
+            \infer[]{\neg (\varphi \lor \neg \varphi) , \varphi \vdash \varphi} {
+            \infer[(Ax)]{\neg (\varphi \lor \neg \varphi), \varphi \vdash \neg (\varphi \lor \neg \varphi)}{}
+            & \infer[V_i^g]{\neg (\varphi \lor \neg \varphi), \varphi \vdash \varphi \lor \neg \varphi}{
+            \infer[(Ax)]{\neg (\varphi \lor \neg \varphi) , \varphi \vdash \varphi}{}}
+            }}}
+            }}}\]
+            
+            Soit $R$ les regles de la déduction naturelle. 
+            Soit $R' = (R \setminus \left\{{(Abs)}\right\})$ $\bigcup$ $\left\{(\top), (TE)\right\} $
+            
+            $(Abs)$ est derivable dans $R'$
+            
+            Soit $\bcA$ tel que : 
+            \[\infer[(Abs)]{\varrho \vdash \varphi} {
+            \infer[]{\varrho , \neg \varphi \vdash \bot}{\pi}}\]
+            \newline
+            On peut transformer $A$ de :
+            
+            \[\infer[V_e]{\varrho \vdash \varphi}{
+            \infer[(TE)]{\varrho \vdash \varphi \lor \neg \varphi}{}
+            & \infer[(Ax)]{\varrho , \varphi \vdash \varphi} {}
+            & \infer[(\to_e)]{\varrho , \neg \varphi \vdash \varphi} {
+            \infer[\to_e]{\varrho , \varphi \vdash \neg \varphi}{
+            \infer[\to_i]{\varrho , \neg \varphi \vdash \bot \to \varphi}{
+            \infer[\bot]{\varrho , \neg \varphi , \bot \vdash \varphi} {
+            \infer[(Ax)]{\varrho , \neg \varphi , \bot \vdash \bot}{}}}
+            & \infer[]{\varrho , \neg \varphi \vdash \bot}{\pi}}
+            }}\]
+            \newline
+            Se transforme en :
+            \[\infer[V_e]{\varrho \vdash \varphi}{
+            \infer[(TE)]{\varrho \vdash \varphi \lor \neg \varphi}{}
+            & \infer[(Ax)]{\varrho , \varphi \vdash \varphi} {}
+            & \infer[(\bot)]{\varrho , \neg \varphi \vdash \varphi} {
+            \infer[]{\varrho , \neg \varphi \vdash \bot}{\pi}}
+            }\]
+        \end{enumerate}
+        
+    \end{example}

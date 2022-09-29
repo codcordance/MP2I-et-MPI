@@ -1,0 +1,381 @@
+\documentclass[a4paper,french,bookmarks]{book}
+
+\usepackage{booktabs}
+\usepackage{minitoc}
+\usepackage{./Structure/4PE18TEXTB}
+\usepackage{proof}
+\usepackage{pdfpages}
+
+\usepackage{subfiles}
+
+\makeatletter
+\renewcommand*\l@section{\@dottedtocline{1}{1.8em}{3.5em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{5.3em}{3.5em}}
+\makeatother
+
+\newboxans
+\renewcommand{\thechapter}{\Roman{chapter}}
+\renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+\mtcsettitle{minitoc}{}
+
+\newcommand{\Atom}{\mathop{\bcA_\text{tom}}\nolimits}
+\DeclareMathOperator{\Reg}{Reg}
+\DeclareDocumentCommand\FO{g}{\funlv{FO}{#1}}
+\DeclareDocumentCommand\FV{g}{\funlv{FV}{#1}}
+\DeclareDocumentCommand\BV{g}{\funlv{BV}{#1}}
+\DeclareDocumentCommand\FP{g}{\funlv{FP}{#1}}
+\DeclareDocumentCommand\th{g}{\funlv{th}{#1}}
+\DeclareDocumentCommand\First{g}{\funlv{First}{#1}}
+\DeclareDocumentCommand\Last{g}{\funlv{Last}{#1}}
+\DeclareDocumentCommand\Fact{g}{\funlv{Fact}{#1}}
+\DeclareDocumentCommand\NFact{g}{\funlv{NFact}{#1}}
+\DeclareDocumentCommand\Loc{g}{\funlv{Loc}{#1}}
+
+\newcommand{\chaptertoc}[0]{
+    \setcounter{tocdepth}{2}
+    \begin{tcolorbox}[
+        enhanced,
+        frame hidden,
+        sharp corners,
+        detach title,
+        spread outwards     = 5pt,
+        halign              = center,
+        valign              = center,
+        borderline west     = {3pt}{0pt}{main20!50!main2!95!gray!90},
+        coltitle            = main20!50!main2!95!gray!90, 
+        interior style      = {
+            left color      = main1white2!65!gray!11,
+            middle color    = main1white2!50!gray!10,
+            right color     = main1white2!35!gray!9
+        },
+        arc                 = 0 cm,
+        title               = SOMMAIRE,
+        boxrule             = 0pt,
+        fonttitle           = \bfseries\sffamily,
+        overlay             = {
+            \node[rotate=90, minimum width=1cm, anchor=south,yshift=-0.8cm]
+            at (frame.west) {\tcbtitle};
+        }
+    ]
+        \begin{minipage}{0.83\linewidth}
+            \sffamily
+            \minitoc
+        \end{minipage}
+    \end{tcolorbox}
+}
+
+\begin{document}
+    
+    %==============================
+    % METADONNEES
+    %==============================
+    
+    \title{Cours d'Informatique de MPI/MPI* (2022-2023)}
+    \author{SIAHAAN--GENSOLLEN Rémy}
+    \date{\today}
+    \hypersetup{
+        pdftitle={Cours d'Informatique de MPI/MPI* (2022-2023)},
+        pdfauthor={SIAHAAN--GENSOLLEN Rémy},
+        pdflang={fr-FR},
+        pdfsubject={MPI/MPI*, Cours d'Informatique},
+        pdfkeywords={MPI/MPI*, Cours d'Informatique, 2022-2023}
+        pdfstartview=
+    }
+    
+    %==============================
+    % MISE EN PAGE
+    %==============================
+    
+    \titleformat{\chapter}[display]{\normalfont\huge\bfseries}{}{0pt}{
+        \begin{tcolorbox}[
+            enhanced,
+            frame hidden,
+            sharp corners,
+            spread sidewards    = 5pt,
+            halign              = center,
+            valign              = center,
+            interior style      = {color=main1!20},
+            arc                 = 0 cm,
+            fontupper           = \color{black}\sffamily\bfseries\huge,
+            fonttitle           = \normalfont\color{white}\sffamily\small,
+            top                 = 1cm, 
+            bottom              = 0.7cm,
+            title               = Chapitre \thechapter,
+            attach boxed title to bottom center = {
+                yshift=\tcboxedtitleheight/2,
+            },
+            boxed title style = {
+                frame code={
+                \path[left color=main2!95!gray!90,
+                right color=main1!95!gray!90] 
+                    ([xshift=-10mm]frame.north west) -- 
+                    ([xshift=10mm]frame.north east) -- 
+                    ([xshift=10mm]frame.south east) -- 
+                    ([xshift=-10mm]frame.south west) -- 
+                    cycle;
+                },
+                interior engine=empty
+            }
+        ]
+            #1
+        \end{tcolorbox}%
+    }
+    \titlespacing*{\chapter}{0pt}{-120pt}{-15pt}
+    \titleformat{name=\chapter,numberless}[display]{\normalfont\huge\bfseries}
+    {}{0pt}{
+        \begin{tcolorbox}[
+            enhanced,
+            frame hidden,
+            sharp corners,
+            spread sidewards    = 5pt,
+            halign              = center,
+            valign              = center,
+            interior style      = {color=main1!20},
+            arc                 = 0 cm,
+            outer arc           = 0pt,
+            leftrule            = 0pt,
+            rightrule           = 0pt,
+            fontupper           = \color{black}\sffamily\bfseries\huge,
+            enlarge left by     = -1in-\hoffset-\oddsidemargin, 
+            enlarge right by    = -\paperwidth+1in+\hoffset +
+            \oddsidemargin+\textwidth,
+            width               = \paperwidth, 
+            left                = 1in+\hoffset+\oddsidemargin, 
+            right               = \paperwidth-1in-\hoffset -
+            \oddsidemargin-\textwidth,
+            top                 = 1cm, 
+            bottom              = 1cm
+        ]
+            #1
+        \end{tcolorbox}%
+    }
+    \titlespacing*{name=\chapter,numberless}{0pt}{-115pt}{0pt}
+    
+    %==============================
+    % PREMIERE DE COUVERTURE
+    %==============================
+
+    %\includepdf[pages={1},scale=1.15,offset=0mm -18mm]{CICover.pdf}
+    
+    %==============================
+    % PAGE VIDE
+    %==============================
+    
+    %\pagestyle{empty}
+    
+    %==============================
+    % PAGE DE COUVERTURE INTERNE
+    %==============================
+    
+
+    
+    %==============================
+    % PAGE VIDE
+    %==============================
+    
+    %\pagestyle{empty}\text{}\newpage
+    
+    %==============================
+    % STYLE DES EN-TÊTES ET PIEDS DE PAGES
+    %==============================
+    
+    \renewcommand\chaptermark[1]{\markboth{#1}{}}
+    
+    \fancypagestyle{intro}{
+        \fancyhf{}
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0pt}\fancyfoot[RO,LE]{\GillSansMTMedium\color{white5}\thepage\;/\;\pageref{LastPage}}
+        \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries COURS D'INFORMATIQUE}
+        \fancyhead[RE]{\GillSansMTMedium\color{white5}Avant-propos}
+        \fancyhead[LO]{\GillSansMTMedium\color{white5}\rightmark}
+        \fancyhead[RO]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} 2022-2023 \quad Janson-de-Sailly}
+    }
+    
+    \fancypagestyle{toc}{
+        \fancyhf{}
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0pt}\fancyfoot[RO,LE]{\GillSansMTMedium\color{white5}\thepage\;/\;\pageref{LastPage}}
+        \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries COURS D'INFORMATIQUE}
+        \fancyhead[RE]{\GillSansMTMedium\color{white5}Table des matières}
+        \fancyhead[LO]{\GillSansMTMedium\color{white5}\rightmark}
+        \fancyhead[RO]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} 2022-2023 \quad Janson-de-Sailly}
+    }
+    
+    \fancypagestyle{plain}{
+        \fancyhf{}
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0pt}\fancyfoot[RO,LE]{\GillSansMTMedium\color{white5}\thepage\;/\;\pageref{LastPage}}
+        \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries COURS D'INFORMATIQUE}
+        \fancyhead[RE]{\GillSansMTMedium\color{white5}Chapitre \thechapter : \nouppercase{\leftmark}}
+        \fancyhead[LO]{\GillSansMTMedium\color{white5}\nouppercase{\rightmark}}
+        \fancyhead[RO]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} 2022-2023 \quad Janson-de-Sailly}
+    }
+    
+    %==============================
+    % PREFACE 
+    %==============================
+    
+    \chapter*{Avant-propos}
+    \thispagestyle{intro}
+    \addcontentsline{toc}{chapter}{Avant-propos}
+    
+    \begin{center}
+        \begin{minipage}{0.85\linewidth}
+            \large \qquad Comme son nom l'indique, l'objectif de cet ouvrage est de fournir un cours d'informatique en accord avec le programme des classes préparatoires \textsf{MPI/MPI*}. Il contiendra principalement des notes de cours, dont je serai dispensé mon année de \guill{spé'} (année 2022/2023) à \textit{Janson-de-Sailly}, par M. \textsc{Anthony Lick}. J'essaierai par ailleurs de détailler et d'enrichir le plus possible son contenu au fil de l'année, à l'aide de mes cours de première année, d'autres ouvrages et de recherches en général. La rédaction de ce cours constitue un important projet, d'autant plus que j'en mène un similaire pour les enseignements de mathématiques et de physique cette année. C'est un travail qui peut s'avérer extrêmement chronophage, aussi risque-t-il d'être rarement mené jusqu'au bout.\newline
+    
+            \qquad Je ne prétends à aucun moment être enseignant, et ce livre reste avant tout destiné à mon usage personnel, aussi j'aviserai tout lecteur potentiel à faire preuve de prudence lors du parcours de ce texte, à ne pas hésiter à en vérifier le contenu par lui même. Il est très probable que de multiples erreurs (en tout genre) se soient glissés durant la rédaction, que je n'aurait su repérer, ou que le manque de temps empêche la correction. N'hésitez d'ailleurs pas à me le signaler, ou à me faire part de vos remarques en général.\newline
+    
+            \qquad J'espère enfin, et malgré les points exprimés précédemment, que ce cours pourra avoir une quelconque utilité à ceux qui s'y aventureraient, que sa lecture et son style en seront agréable (la mise en page et la composition graphique en général sont de ma conception personnelle, enrichie par les retours de mes camarades, et le fruit de plusieurs mois d'apprentissage de \LaTeX) et enrichissante.\newline\newline\newline\text{}
+        \end{minipage}
+    \end{center}
+    
+    \hfill{\large\textsc{Siahaan--Gensollen Rémy}}
+    
+    \pagestyle{intro}
+    
+    %==============================
+    % TABLE DES MATIERES
+    %==============================
+
+    %\newpage
+    \dominitoc\nomtcrule 
+    {\sffamily\tableofcontents}\mtcaddchapter\pagestyle{toc}
+    
+    %\cleardoublepage
+    
+    %==============================
+    % COURS
+    %==============================
+    
+    \pagestyle{plain}
+    
+    \chapter{Logique et systèmes de preuve}
+    
+    %\subfile{chapitre1}
+    
+    %\newpage
+    
+    \begin{definition}{Min-terme}{}
+        Soient \hg{$I$ un ensemble fini ou dénombrable d'indices} et \hg{$\bcV = \ens{v_i}_{i \in I}$ un ensemble de variables propositionnelles}. On appelle \hg{min-terme sur $\bcV$} la \hg{conjonction $\displaystyle\bigwedge_{i \in I} a_i$ des littéraux de $\ens{a_i \enstq a_i \in \ens{v_i, \neg v_i}}_{i \in I}$}.
+    \end{definition}
+    %
+    On donne ci-dessous quelques exemples de mini-termes.
+    %
+    \begin{example}{}{}
+        On considère $I = \iint{1, 3}$ et $\bcV = \ens{v_1, v_2, v_3}$ :
+        \begin{enumerate}
+            \itt $\hg{\neg v_1 \land v_2 \land \neg v_3}$ est un min-terme.
+            
+            \itt $\hg{v_1 \land \neg v_2}$ et $\hg{\neg v_1 \land v_2 \land v_1}$ ne sont \bf{pas} des min-termes.
+        \end{enumerate}
+    \end{example}
+    %
+    L'utilité des min-termes réside dans la propriété suivante :
+    %
+    \begin{property}{Table de vérité d'un min-terme}{}
+        Soit \hg{$\bcV$ un ensemble fini ou dénombrable de variables propositionnelles}. \hg{A chaque min-terme $m$} sur $\bcV$ \hg{correspond une unique valuation $\bcv_m$} sur $\bcV$ telle que \hg{$\bcv_m \vDash m$}, et \hg{réciproquement}.
+    \end{property}
+    %
+    \begin{nproof}
+        Soient $I$ un ensemble fini ou dénombrable d'indices, $\bcV = \ens{v_i}_{i \in I}$ un ensemble de variables propositionnelles et $m$ un min-terme sur $\bcV$. Soient $\bcv$ une valuation sur $\bcV$ telle que $v\p{m} = 1$ et $\ens{a_i \enstq a_i \in \ens{v_i, \neg v_i}}_{i \in I}$ tels que $m = \displaystyle\bigwedge_{i=1}^n a_i$.
+        %
+        \[ 1 = \bcv\p{m} = v\p{\bigwedge_{i \in I} a_i} = \prod_{i \in I} \bcv\p{a_i} = \prod_{\substack{i \in I\\a_i = v_i}} v\p{v_i} \prod_{\substack{i \in I\\a_i = \neg v_i}} \p{1 - \bcv\p{v_i}} \qquad\text{donc}\quad \forall i \in I\quad \bcv\p{a_i} = \left\lbrace\begin{array}{ll}
+            1 &\text{si} \ a_i = v_i  \\
+            0 &\text{si} \ a_i = \neg v_i 
+        \end{array}\right.\]
+        %
+        Ainsi $\bcv$ est entièrement déterminée, d'où l'unicité. Pour l'existence, $\bcv$ ainsi décrit convient. Il n'existe donc qu'une unique valuation satisfaisant $m$. Réciproquement, on pose $\ens{a_i \enstq \begin{array}{ll}
+            a_i = v_i &\text{si} \ \bcv\p{a_i} = 1  \\
+            a_i = \neg v_i &\text{si} \ \bcv\p{a_i} = 0 
+        \end{array}}_{i \in I}$. On a facilement que le min-terme $m_\bcv = \displaystyle\bigwedge_{i \in I} a_i$ est alors le seul satisfait par $\bcv$. 
+    \end{nproof}
+    %
+    Les min-termes permettent d'obtenir une forme normale disjonctive \guill{canonique}, au sens de l'unicité :
+    %
+    \begin{corollary}{Existence et unicité de la FNDC}{}
+        Soit \hg{$\bcV$ un ensemble fini ou dénombrable de variables propositionnelles}, \hg{$\Gamma$ un ensemble de formules propositionnelles} à variables dans $\bcV$ et \hg{$\varphi \in \Gamma$ une formule} logique de $\Gamma$.
+        %
+        \[ \text{\hg{Il existe une unique disjonction de min-termes différents logiquement équivalente à $\varphi$}.} \]
+    \end{corollary}
+    %
+    \begin{nproof}
+        Soit $\bcV$ un ensemble fini de variables propositionnelles, $\Gamma$ un ensemble de formules propositionnelles à variables dans $\bcV$ et $\varphi \in \Gamma$ une formule logique de $\Gamma$. Pour toute valuation $\bcv$ sur $\bcV$, on note $m_\bcv$ l'unique min-terme sur $\bcV$ satisfait par $\bcv$. On pose alors $\psi = \displaystyle\bigvee_{\bcv \in \ens{\bcv \enstq \bcv \vDash \phi}} m_\bcv$. Par définition de l'équivalence logique, on a directement $\varphi \equiv \psi$.\medskip
+        
+        Pour l'unicité, supposons $\psi'$ une disjonction de min-termes équivalente logiquement à $\varphi$. Soit $m$ un min-terme sur $\bcV$ et soit $\bcv$ l'unique valuation sur $\bcV$ satisfaisant $m$, d'où $m = m\bcV$. 
+        
+        Si $\bcv \vDash \varphi$, alors $m = m_\bcv$ est dans $\psi$. Si $\bcv \not\vDash \varphi$, alors $m = m_\bcv$ n'est pas dans $\psi$. Par contraposée, $m$ est dans $\psi$ si et seulement s'il est dans $\psi'$. On a bien unicité.
+    \end{nproof}
+    %
+    On remarque alors que cette disjonction de min-termes est une forme normale disjonctive, d'où :
+    %
+    \begin{definition}{Forme normale disjonctive canonique}{}
+        Soit \hg{$\bcV$ un ensemble fini ou dénombrable de variables propositionnelles}, \hg{$\Gamma$ un ensemble de formules propositionnelles} à variables dans $\bcV$ et \hg{$\varphi \in \Gamma$ une formule} logique de $\Gamma$. On appelle \hg{forme normale disjonctive canonique de $\varphi$} l'\hg{unique disjonction de min-termes différents logiquement équivalente à $\varphi$}.
+    \end{definition}
+    
+    \chapter{Langages formels}
+    
+    \subfile{chapitre2}
+    
+    \begin{definition}{Expression linéaire}{}
+        Soit \hg{$\Sigma$} un \hg{alphabet}. Une \hg{expression régulière} sur $\Sigma$ est dite \hg{linéaire} lorsque \hg{tout symbole de $\Sigma$ y apparaît au plus une fois}.
+    \end{definition}
+    
+    On a les exemples ci-dessous :
+    %
+    \begin{example}{}{}
+        Considérons l'alphabet $\Sigma$ tel que $\ens{a, b, c} \in \Sigma$.
+        \begin{enumerate}
+            \itt \hg{$a^\star bc^\star$} est une expression régulière.
+            
+            \itt \hg{$ba^\star bc^\star b$} n'est \hg{pas} une expression régulière.
+        \end{enumerate}
+    \end{example}
+    
+    Montrons d'abord le lemme suivant :
+    %
+    \begin{lemma}{}{}
+        Soient \hg{$\Sigma_1$} et \hg{$\Sigma_2$} deux \hg{alphabets} tels que \hg{$\Sigma_1 \cap \Sigma_2 \neq \emptyset$}, ainsi que \hg{$\bcL_1$} et \hg{$\bcL_2$} deux \hg{langages locaux}, respectivement \hg{sur $\Sigma_1$} et \hg{sur $\Sigma_2$}. Dans ce cas :
+        %
+        \begin{enumerate}
+            \itast \hg{$\bcL_1 \cap \bcL_2$} est un \hg{langage local sur $\Sigma_1 \cap \Sigma_2$} ;
+
+            \itast \hg{$\bcL_1 \cup \bcL_2$} est un \hg{langage local sur $\Sigma_1 \cup \Sigma_2$} ;
+            
+            \itast \hg{$\bcL_1 \cdot \bcL_2$} est un \hg{langage local sur $\Sigma_1 \cup \Sigma_2$} ;
+            
+            \itast \hg{$\bcL_1^\star$} est un \hg{langage local}.
+        \end{enumerate}
+    \end{lemma}
+    
+    \begin{nproof}
+        Soient $\Sigma_1$ et $\Sigma_2$ deux alphabets tels que $\Sigma_1 \cap \Sigma_2 \neq \emptyset$, $\bcL_1$ un langage local sur $\Sigma_1$ et $\bcL_2$ un langage local sur $\Sigma_2$.
+        
+        On note pour \(i\in \ens{1, 2}\) : \(La_i =\) Last(\(L_i\)), \(Fi_i =\) First(\(L_i\)), \(Fa_i =\) Fact(\(L_i\)), \(NFa_i\) = NFact(\(L_i\))
+
+        \begin{psse}
+            \item Si \(v \in \left(\bcL_1\cap\bcL_1\right)\backslash\ens{\varepsilon}\) alors \(v = a_i \hdots a_n\) avec \(a_1 \in Fi_1 \cap Fi_2\) et \(a_n \in \bcL a_1 \cap \bcL a_2\) et \(\forall i, a_i a_{i+1} \in Fa_1 \cap Fa_2\)
+
+            Et réciproquement, tout mot vérifiant ces trois propriétés est dans les langages car ils sont locaux. donc en posant \(Fi = Fi_1 \cap Fi_2\), \(La = La_1 \cap La_2\) et ainsi de suite on a go 
+            \[ \left(\bcL_1\cap \bcL_2 \right) \backslash \ens{\varepsilon} = \left(Fi\Simgma^{\alpha} \cap \Sigma^{\alpha} \bcL a\right) \backslash \Sigma^{\alpha} NFa \Sigma^*\]
+
+            On vérifie facilement que les nouveaux ensembles sont les caractéristiques de \(\bcL=\bcl_1\cup\bcL_2\)
+            
+            Donc $L \backslash \ens{\varepsilon} \subseteq \quad (F_i \Sigma^* \cap \Sigma^* $
+
+            
+        %c'est quoi psse ???????????????
+        % c'était au dessus donc moi je copie, j'y peux rien 
+        %si tes commandes on pas de sens
+        % 
+        \end{psse}
+    \end{nproof}
+    
+    
+    \begin{property}{}{}
+        Soient \hg{$\Sigma$} un \hg{alphabet} et $r$ une expression régulière sur $\Sigma$.
+        %
+        \[ \hg{\text{Si} \ r \ \text{est linéaire, alors} \ \bcL\p{r} \ \text{est local.}} \]
+    \end{property}
+    
+    
+\end{document}

@@ -1,0 +1,386 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+
+\stylizeDoc{Mathématiques}{Programme de khôlle 20}{Énoncés et
+résolutions}
+
+\section*{Matrices et applications linéaires}
+
+\subsection*{Matrices de bases et d'applications linéaires}
+
+\begin{enumerate}
+    \ithand Matrice colonne d'un vecteur. Isomorphisme entre $E$ et $\bcM_{n,1}\left(\bdK\right)$ connaissant une base $\bcB = \left(e_i\right)_{1 \leq i \leq n}$ de $E$. Matrice d'une famille de vecteurs. Définition.
+
+    
+    \ithand Matrice d'une application linéaire. Définition. Notation $\Mat_{\bcB,\bcC}\left(u\right)$. 
+    
+    \ithand Matrice d'un endomorphisme. Notation $\Mat_\bcB\left(u\right)$.
+    
+    \ithand Calcul matriciel et applications linéaires.
+    
+    Écriture de $y = u\left(x\right)$ sous forme matricielle : $Y = AX$ si $A = \Mat_{\bcB,\bcC}\left(u\right)$, $X$ matrice colonne des coordonnées de $x$ dans $\bcB$ et $Y$ matrice colonne des coordonnées de $y$ dans $\bcC$ (avec $\bcB$ une base de $E$ et $\bcC$ une base de $\bcF$).
+    
+    \ithand Si $E$ et $F$ sont des $\bdK$-ev de dimension $p$ et $n$, isomorphisme d'ev entre $\bcL\left(E, F\right)$ et $\bcM_{n,p}\left(\bdK\right)$ (des bases de $E$ et $F$ étant fixées). 
+    
+    Application linéaire canoniquement associée à une matrice $A$.
+    
+    \ithand Matrice d'une composée d'applications linéaires.
+    
+    \ithand Lien entre matrice inversible et isomorphisme. Isomorphisme de groupe en $\GL_n\left(\bdK\right)$ et $\GL\left(E\right)$. Caractérisation des matrices inversibles par le rang ou par $\forall X$ colonne, $\left(AX = 0 \implies X = 0\right)$.
+    
+    \ithand Rang d'une matrice (famille de ses colonnes). Égalité du rang d'une famille de vecteurs et du rang de sa matrice. Égalité du rang d'une application linéaire et de sa matrice.
+    
+    \ithand Calcul du rang : opération élémentaires sur les lignes et les colonnes d'une matrice.
+    
+    Traduction des opérations élémentaires en terme de produit matriciel : matrices de transposition, dilation et transvection. Méthode du pivot de Gauss. Application au calcul de l'inverse d'une matrice.
+
+\end{enumerate}
+
+\subsection*{Changement de bases, matrices équivalentes, matrices semblables}
+
+\begin{enumerate}
+    \ithand Matrices de passages. Toute matrice de passage est inversible. Formule de changement de bases pour les coordonnées d'un vecteur.
+    
+    \ithand Formule de changement de base pour les matrices d'applications linéaires. Cas particulier des endomorphismes.
+    
+    \ithand Matrices équivalentes. Définition. 
+    
+    Remarque : lien avec les applications linéaires et les formules de changements de bases. 
+    
+    Toute matrice de rang $r$ est équivalente à $J_r$. 
+    
+    Conséquence : deux matrices sont équivalentes si et seulement si elles ont même rang.
+    
+    \ithand Matrices semblables. La relation de similitude est une relation d'équivalence sur $\bcM_n\left(\bdK\right)$.
+    
+    Lien avec les endomorphismes et changements de base.
+    
+    \ithand Trace d'un endomorphisme. Deux matrices semblables ont la même trace.
+    
+    La trace d'un projecteur est égale à son rang.
+\end{enumerate}
+
+\savoirfaire
+
+\begin{enumerate}
+    \item Savoir écrire la matrice d'une application linéaire relativement à deux bases.
+    
+    \item Savoir trouver le rang, le noyau et l'espace image d'une application linéaire $f$ donnée par sa matrice relativement à deux bases données.
+    
+    \item Savoir déterminer le vecteur $y = f\left(x\right)$ si $x$ est donné.
+    
+    \item Savoir trouver l'inverse d'une matrice.
+    
+    \item Montrer que deux matrices données sont semblables.
+\end{enumerate}
+
+\questionsdecours
+
+\begin{enumerate}
+    \item Soient $E$, $F$ et $G$ des e.v. de dim finie et de bases $\bcB_E$, $\bcB_F$, $\bcB_G$. Soient $u \in \bcL\left(E, F\right)$ et $v \in \bcL\left(F, G\right)$. Alors $\Mat_{\bcB_E, \bcB_G}\left(v \circ u\right) = \Mat_{\bcB_F, \bcB_G}\left(v\right) \times \Mat_{\bcB_E, \bcB_F}\left(u\right)$.
+    
+    \noafter
+    %
+    \boxans{
+        \begin{theorem}{Matrice associée à une composition}{}
+            Soient $E$, $F$ et $G$ des $\bdK$-espaces vectoriels de dimension finie et de bases respectives $\bcB_E$, $\bcB_F$, $\bcB_G$, ainsi que deux applications linéaires $u \in \bcL\left(E, F\right)$ et $v \in \bcL\left(F, G\right)$. On a :
+            %
+            \[ \hg{\Mat_{\bcB_E, \bcB_G}\left(v \circ u\right) = \Mat_{\bcB_F, \bcB_G}\left(v\right) \times \Mat_{\bcB_E, \bcB_F}\left(u\right)} \]
+        \end{theorem}
+    }
+    %
+    \nobefore\yesafter
+    %
+    \begin{nproof}
+        Soient $E$, $F$ et $G$ des $\bdK$-espaces vectoriels de dimension finie et de bases respectives $\bcB_E$, $\bcB_F$, $\bcB_G$, ainsi que deux applications linéaires $u \in \bcL\left(E, F\right)$ et $v \in \bcL\left(F, G\right)$. On pose $A = \Mat_{\bcB_E, \bcB_F}\left(u\right)$ et $B = \Mat_{\bcB_F, \bcB_G}\left(v\right)$.On se donne $x \in E$, $y \in F$ et $z \in G$ et on prend $X = \Matc_{\bcB_E}\left(x\right)$, $Y = \Matc_{\bcB_F}\left(y\right)$ et $Z = \Matc_{\bcB_G}\left(z\right)$.
+        %
+        \begin{enumerate}
+            \itt $y = f\left(x\right)$ s'écrit matriciellement $Y = AX$ et $z = g\left(y\right)$ s'écrit matriciellement $Z = BY$
+            \itt $z = g \circ f\left(x\right)$ s'écrit matriciellement $Z = \Mat_{\bcB_E, \bcB_G}\left(g \circ f\right)X$
+        \end{enumerate}
+        %
+        Or $z = g \circ f \left(x\right) = g\left(f\left(x\right)\right) = g\left(y\right)$, donc matriciellement, $Z = BAX$, d'où $\Mat_{\bcB_E, \bcB_G}\left(g \circ f\right)X = BAX$. 
+        
+        Or $x$ est quantifié universellement, donc $X$ l'est aussi d'où finalement $\Mat_{\bcB_E, \bcB_G}\left(g \circ f\right) = BA$.
+    \end{nproof}
+    %
+    \yesbefore
+    
+    \item Soit $A \in \bcM_n\left(\bdK\right)$ telle que $A^2 = A$ et $r = \rg A$.
+    
+    Montrer que $A$ est semblable à une matrice diagonale $\diag(\underbrace{1, \dots, 1}_{r}, 0, \dots, 0)$. En déduire que $\Tr\left(A\right) = \rg\left(A\right)$.
+    
+    \nobefore
+    %
+    \boxans{
+        On prend $f \in \bcL\left(\bdR^n\right)$ l'endomorphisme canoniquement associé à $A$. Notons $\bcB_\text{b.c.}$ la base canonique de $\bdR^n$, ainsi $A = \Mat_{\bcB_\text{b.c.}}\left(f\right)$. On a $A^2 = A$ donc $f \circ f = f$, donc $f$ est un projecteur. Dès lors, $\bdR^n = \Ker f \oplus \Imm f$.
+        
+        Or $\dim \left(\Imm f\right) = \rg f = \rg A = r$ d'où $\dim \left(\Ker f \right) = \dim R^n - \dim \left(\Imm f\right) = n - r$. On se donne alors $\left(e_1, \dots, e_r\right)$ une base de $\Imm f$ et $\left(e_{r+1}, \dots, e_n\right)$ une base de $\Ker f$. Par supplémentarité $\bcB = \left(e_1, \dots, e_n\right)$ est une base de $\bdR^n$. Pour tout entier $i \in \llbracket 1, r\rrbracket$, on a $f\left(e_i\right) = e_i$ et pour tout $i \in \llbracket r+1, n\rrbracket$, on a $f\left(e_i\right) = 0_{\bdR^n}$. Donc :
+        %
+        \[ \Mat_\bcB\left(f\right) = \NiceMatrixOptions{
+code-for-last-row = \color{main2},
+code-for-last-col = \color{main2}} \begin{pNiceArray}{ccc|ccc}[last-col,last-row]
+        1   &        & (0) &         &        &     & e_1 \\
+            & \Ddots &     &         &   (0)  &     & \vdots \\
+        (0) &        &  1  &         &        &     & e_r \\\hline
+            &        &     &         &        &     & e_{r+1} \\
+            &   (0)  &     &         &   (0)  &     & \vdots \\
+            &        &     &         &        &     & e_n \\
+        f\left(e_1\right) & \cdots & f\left(e_r\right) & f\left(e_{r+1}\right) & \cdots & f\left(e_n\right)
+\end{pNiceArray} = \diag(\underbrace{1, \dots, 1}_{r}, 0, \dots, 0)\]
+        %
+        Par formule de changement de base (endomorphisme), $A = P\Mat_\bcB\left(f\right)P^{-1}$ où $P = P_{\bcB_\text{b.c.}}^{\bcB}$, donc $A$ est bien semblable à une matrice diagonale $\diag(\underbrace{1, \dots, 1}_{r}, 0, \dots, 0)$. Dès lors $\Tr A = r = \rg A$.
+    }
+    
+    \item Soit $A \in \bcM_n\left(\bdK\right)$ telle que $A^2 = I_n$ et $r = \rg\left(A + I_n\right)$.
+    
+    Montrer que $A$ est semblable à une matrice diagonale $\diag(\underbrace{1, \dots, 1}_{r}, -1, \dots, -1)$.
+    
+    \boxans{
+        On prend $f \in \bcL\left(\bdR^n\right)$ l'endomorphisme canoniquement associé à $A$. Notons $\bcB_\text{b.c.}$ la base canonique de $\bdR^n$, ainsi $A = \Mat_{\bcB_\text{b.c.}}\left(f\right)$. On a $A^2 = I_n$ donc $f \circ f = \Id$, donc $f$ est une symétrie. Dès lors, $\dfrac{1}{2}\left(s + \Id\right)$ est un projecteur et $\bdR^n = \Ker \left(f + \Id\right) \oplus \Ker\left(f - \Id\right)$ Donc :
+        %
+        \[ r = \rg\left(A + I_n\right) = \rg\left(\dfrac{1}{2}\left(f + \Id\right)\right) = \dim\left(\Imm\left(\dfrac{1}{2}\left(f + \Id\right)\right)\right) = \dim\left(\Ker\left(\dfrac{1}{2}\left(f - \Id\right)\right)\right) = \dim\left(\Ker\left(f - \Id\right)\right)\]
+        
+        On a également $\dim \left(\Ker \left(f + \Id\right)\right) = \dim \bdR^n - \dim \left(\Ker \left(f - \Id\right)\right) =n - r$. On se donne alors $\left(e_1, \dots, e_r\right)$ une base de $\Ker\left(f - \Id\right)$ et $\left(e_{r+1}, \dots, e_n\right)$ une base de $\Ker\left(f + \Id\right)$. Par supplémentarité $\bcB = \left(e_1, \dots, e_n\right)$ est une base de $\bdR^n$. Pour tout entier $i \in \llbracket 1, r\rrbracket$, on a $f\left(e_i\right) = e_i$ et pour tout $i \in \llbracket r+1, n\rrbracket$, on a $f\left(e_i\right) = -e_i$. Donc :
+        %
+        \[ \Mat_\bcB\left(f\right) = \NiceMatrixOptions{
+code-for-last-row = \color{main2},
+code-for-last-col = \color{main2}} \begin{pNiceArray}{ccc|ccc}[last-col,last-row]
+        1   &        & (0) &         &        &     & e_1 \\
+            & \Ddots &     &         &   (0)  &     & \vdots \\
+        (0) &        &  1  &         &        &     & e_r \\\hline
+            &        &     &   -1    &        & (0) & e_{r+1} \\
+            &   (0)  &     &         & \Ddots &     & \vdots \\
+            &        &     &   (0)   &        & -1  & e_n \\
+        f\left(e_1\right) & \cdots & f\left(e_r\right) & f\left(e_{r+1}\right) & \cdots & f\left(e_n\right)
+\end{pNiceArray} = \diag(\underbrace{1, \dots, 1}_{r}, -1, \dots, -1)\]
+        %
+        Comme à la question précédente, $A$ est bien semblable à une matrice diagonale $\diag(\underbrace{1, \dots, 1}_{r}, -1, \dots, -1)$.
+    }
+    %
+    \yesbefore
+    
+    \item Démontrer qu'une matrice $A \in \bcM_{n,p}\left(\bdK\right)$ de rang $r$ est équivalente à $J_r$.
+    
+    En déduire que deux matrices $\left(A, B\right) \in \bcM_{n,p}\left(\bdK\right)^2$ sont équivalentes si et seulement si $\rg(A) = \rg(B)$.
+    
+    \noafter
+    %
+    \boxans{
+        \begin{theorem}{Modèle des matrices de rang donné}{}
+            Soient $(n, p) \in {\bdN^*}^2$, une matrice $A \in \bcM_{n,p}\left(\bdK\right)$ et $r \in \bdN$. \hg{$\rg A = r$ ssi. $A$ est équivalente à $J_r = I_{n, p, r}$}.
+        \end{theorem}
+        
+        Une intuition de ce résultat peut se faire avec le pivot de Gauss-Jordan. En effet, si $\rg A = r$, alors en opérant par pivot \textbf{d'abord} sur les lignes \textbf{puis} sur les colonnes, on obtient :
+    %
+    \[ A \asymp{\text{lignes}} \begin{pNiceArray}{cccccc}
+        \bullet & \Cdots & & & & \Cdots \\
+        0 & \bullet & \Cdots & & & \Cdots \\
+        \Vdots & \Ddots & \bullet & \Cdots & & \Cdots \\
+        \Vdots & & 0 & & & \\
+        \Vdots & & \Vdots & & (0) & \\
+        0 & \Cdots & 0 & & &
+\end{pNiceArray} \asymp{\text{colonnes}}
+\NiceMatrixOptions{
+code-for-last-row = \color{main2},
+code-for-last-col = \color{main2}}
+\begin{pNiceArray}{ccc|ccc}[last-col,last-row]
+        1   &        & (0) &         &        &     & 1 \\
+            & \Ddots &     &         &   (0)  &     & \vdots \\
+        (0) &        &  1  &         &        &     & r \\\hline
+            &        &     &         &        &     & r+1 \\
+            &   (0)  &     &         &   (0)  &     & \vdots \\
+            &        &     &         &        &     & n \\
+          1 & \cdots &  r  &   r+1   & \cdots & p
+\end{pNiceArray} = J_r\]
+    }
+    %
+    \nobefore
+    %
+    \begin{nproof}
+        Soient $(n, p) \in {\bdN^*}^2$ et une matrice $A \in \bcM_{n,p}\left(\bdK\right)$. Soit $r \in \bdN$.
+        
+        \begin{enumerate}
+            \itt $\boxed{\impliedby}$ On a $J_r = I_{n, p, r} = 
+            \begin{pNiceArray}{ccc|ccc}
+                \Block{3-3}<\large>{I_r} & & & \Block{3-3}<\large>{0_{r, p-r}} & & \\
+                & \phantom{(0)(0)(0)}& & & &\\
+                & & & & &\\\hline
+                \Block{3-3}<\large>{0_{n-r, r}} & & & \Block{3-3}<\large>{0_{n-r, p-r}} & & \\
+                & & & & \phantom{(0)(0)(0)} & \\
+                & & & & &
+\end{pNiceArray} = 
+            \NiceMatrixOptions{
+code-for-last-row = \color{main2},
+code-for-last-col = \color{main2}}
+            \begin{pNiceArray}{ccc|ccc}[last-col,last-row]
+        1   &        & (0) &         &        &     & 1 \\
+            & \Ddots &     &         &   (0)  &     & \vdots \\
+        (0) &        &  1  &         &        &     & r \\\hline
+            &        &     &         &        &     & r+1 \\
+            &   (0)  &     &         &   (0)  &     & \vdots \\
+            &        &     &         &        &     & n \\
+          1 & \cdots &  r  &   r+1   & \cdots & p
+\end{pNiceArray}$.
+        
+    On remarque directement que $J_r$ est échelonnée et qu'elle possède $r$ lignes/colonnes non nulles donc $\rg J_r = r$. Puisque par hypothèse $A$ est équivalente à $J_r$, alors $\rg A = r$.
+    
+    
+    \itt $\boxed{\implies}$ Soit $r = \rg A$. On prend $f \in \bcL\left(\bdK^p, \bdK^n\right)$ l'homomorphisme canoniquement associé à $A$. Par théorème du rang $\dim\left(\Ker f\right) = \dim \bdK^p - \rg f = p - \rg A = p - r$. On se donne alors une base $\left(e_{r+1}, \dots, e_p\right)$ de $\Ker f$, que l'on complète par des vecteurs $\left(e_1, \dots, e_r\right)$ formant un complémentaire de $\Ker f$ pour avoir une base $\bcB$ de $\bdK^p$. $f$ induit alors un isomorphisme de $\Vect\left(e_1, \dots, e_r\right)$ dans $\Imm f$. Ainsi, $\left(f\left(e_1\right), \dots, f\left(e_r\right)\right)$ forme une base de $\Imm f$. On la complète par des vecteurs $\left(u_{r+1}, \dots, u_n\right)$ pour former une base $\bcC$ de $\bdK^n$. On a alors :
+                %
+                \[ \Mat_{\bcB, \bcC}\left(f\right) = \NiceMatrixOptions{
+code-for-last-row = \color{main2},
+code-for-last-col = \color{main2}}
+\begin{pNiceArray}{ccc|ccc}[last-col,last-row]
+        1   &        & (0) &         &        &     & f\left(e_1\right) \\
+            & \Ddots &     &         &   (0)  &     & \vdots \\
+        (0) &        &  1  &         &        &     & f\left(e_r\right) \\\hline
+            &        &     &         &        &     & u_{r+1} \\
+            &   (0)  &     &         &   (0)  &     & \vdots \\
+            &        &     &         &        &     & u_n \\
+          f\left(e_1\right) & \cdots &  f\left(e_r\right)  & f\left(e_{r+1}\right)   & \cdots & f\left(e_p\right)
+\end{pNiceArray} = J_r\]
+        \end{enumerate}
+            $A$ et $J_r$ représentent donc la même application linéaire dans deux bases différentes. La formule du changement de base s'applique, donnant l'équivalence entre $A$ et $J_r$.
+    \end{nproof}
+    %
+    \boxans{
+        \begin{corollary}{Classification des matrices équivalentes par le rang}{}
+            Soient $(n, p) \in {\bdN^*}^2$ et deux matrices $(A, B) \in \bcM_{n,p}\left(\bdK\right)^2$. \hg{$A$ et $B$ sont équivalentes ssi. $\rg A = \rg B$}.
+        \end{corollary}
+    }
+    %
+    \yesafter
+    %
+    \begin{nproof}
+        Soient $(n, p) \in {\bdN^*}^2$ et deux matrices $(A, B) \in \bcM_{n,p}\left(\bdK\right)^2$.
+            
+        \begin{enumerate}
+                \itt $\boxed{\impliedby}$ Soit $r = \rg A = \rg B$. $A$ est équivalente à $J_r = I_{n, p, r}$, qui est équivalente à $B$. Par transitivité, $A$ et $B$ sont équivalentes.
+                
+                \itt $\boxed{\implies}$ Si $A$ et $B$ sont équivalentes, alors il existe deux matrices inversibles $P \in \GL_n\left(\bdK\right)$ et $Q \in \GL_p\left(\bdK\right)$ telles que $B = PAQ$, donc $\rg B = \rg\left(PAQ\right)$. Par inversibilité de $P$, $\rg B = \rg\left(AQ\right)$. Par inversibilité de $Q$, $\rg B = \rg A$.
+        \end{enumerate}
+    \end{nproof}
+    %
+    \yesbefore
+    
+    
+    \item Soit $A = \begin{pnm}1 & 0 & - 1\\
+    0 & 1 & 0\\
+    -1 & -1 & 1
+    \end{pnm}$. Démontrer que $A$ est semblable à $D = \begin{pnm}0 & 0 & 0\\
+    0 & 1 & 0\\
+    0 & 0 & 2\\
+    \end{pnm}$. Comment calculer $A^n$ ?
+    
+    \boxans{
+        Soit $f$ l'endomorphisme de $\bdR^3$ canoniquement associé à $A$. On voudrait trouver une base $\bcB = \left(u, v, w\right)$ de $\bdR^3$, telle que $\Mat_\bcB\left(f\right) = D$. Il s'agirait donc de trouver $u$, $v$ et $w$ tels que :
+        %
+        \[ \left\lbrace\begin{array}{rcll}
+            f\left(u\right) &=& 0u + 0v + 0w &\qquad\et u \neq 0  \\
+            f\left(v\right) &=& 0u + 1v + 0w &\qquad\et v \neq 0  \\
+            f\left(w\right) &=& 0u + 0v + 2w &\qquad\et w \neq 0 
+        \end{array}\right.\]
+        %
+        On a donc $u \in \Ker f$, $v \in \Ker \left(f - \Id\right)$ et $w \in \Ker \left(f - 2\Id\right)$.
+        %
+        \begin{enumerate}
+            \itt Cherchons $u = \left(x, y, z\right) \in \bdR^3$. On a :
+            %
+            \[u \in \Ker f \iff A\begin{pnm}x\\
+    y\\
+    z\\
+    \end{pnm} = \begin{pnm}0\\
+    0\\
+    0\\
+    \end{pnm} \iff \left\lbrace\begin{array}{rcl}
+        x - z &= 0  \\
+        y &= 0 \\
+        -x -y + z &= 0
+    \end{array}\right. \iff \left\lbrace\begin{array}{rcl}
+        x &= z  \\
+        y &= 0 \\
+    \end{array}\right.\]
+    %
+    Posons $u = \left(1, 0, 1\right)$, on a bien $f\left(u\right) = 0$.
+    
+    \itt Cherchons $v = \left(x, y, z\right) \in \bdR^3$. On a :
+    %
+    \[v \in \Ker\left(f-\Id\right) \iff \left(A-I_3\right)\begin{pnm}x\\
+    y\\
+    z\\
+    \end{pnm} = \begin{pnm}0\\
+    0\\
+    0\\
+    \end{pnm} \iff \left\lbrace\begin{array}{rcl}
+        -z &= 0  \\
+        0 &= 0 \\
+        -x -y &= 0
+    \end{array}\right. \iff \left\lbrace\begin{array}{rcl}
+        z &= 0  \\
+        x &= -y \\
+    \end{array}\right.\]
+    %
+    Posons $v = \left(1, -1, 0\right)$, on a bien $f\left(v\right) = v$.
+    
+    \itt Cherchons enfin $w = \left(x, y, z\right) \in \bdR^3$. On a :
+    %
+    \[w \in \Ker\left(f-2\Id\right) \iff \left(A-2I_3\right)\begin{pnm}x\\
+    y\\
+    z\\
+    \end{pnm} = \begin{pnm}0\\
+    0\\
+    0\\
+    \end{pnm} \iff \left\lbrace\begin{array}{rcl}
+        -x - y &= 0  \\
+        -y &= 0 \\
+        -x -y -z &= 0
+    \end{array}\right. \iff \left\lbrace\begin{array}{rcl}
+        x &= -z  \\
+        y &= 0 \\
+    \end{array}\right.\]
+    %
+    Posons $w = \left(1, 0, -1\right)$, on a bien $f\left(w\right) = 2w$.
+    \end{enumerate}
+    
+    
+    On vérifie que $\bcB$ est bien une base de $\bdR$ :
+    %
+    \[ \rg\begin{pNiceArray}{c|c|c}
+            & & \\
+            u & v & w\\
+            & & 
+    \end{pNiceArray} = \rg\begin{pnm}1 & 1 &1\\
+    0 & -1 & 0\\
+    1 & 0 & -1 \\
+    \end{pnm} = \rg\begin{pnm}2 & 1 &1\\
+    0 & -1 & 0\\
+    0 & 0 & 1 \\
+    \end{pnm} = 3\]
+    %
+    $\bcB$ est bien une base de $\bcR^3$ et on a bien $\Mat_\bcB\left(f\right) = A$. Par formule du changement de base, il existe une matrice inversible (de changement de base) $P \in \GL_3\left(\bdR\right)$ telle que $D = P^{-1}AP$. Donc $A$ est bien semblable à $D$.
+    
+    $P$ est en fait la matrice de passage de la base canonique à la nouvelle base :
+    %
+    \[P = P_{\bcB_\text{b.c}}^\bcB = \begin{pNiceArray}{c|c|c}
+            & & \\
+            u & v & w\\
+            & & 
+    \end{pNiceArray} = \begin{pnm}1 & 1 &1\\
+    0 & -1 & 0\\
+    1 & 0 & -1 \\
+    \end{pnm}\]
+    %
+    On a donc $A = PDP^{-1}$, d'où $A^n = PD^nP^{-1}$. Par récurrence on obtient facilement $D^n = \begin{pnm}0 & 0 &0\\
+    0 & 1 & 0\\
+    0 & 0 & 2^n \\
+    \end{pnm}$
+    }
+
+\end{enumerate}
+
+\end{document}

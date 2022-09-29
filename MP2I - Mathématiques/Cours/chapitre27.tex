@@ -1,0 +1,61 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+    \stylizeDoc{Mathématiques}{Chapitre 25}{Espaces préhilbertiens}
+
+    \initcours{}
+
+    \section{Projection orthogonale}
+    
+    Pour rappel, si $E$ est un espace préhilbertien réel, et si $F$ est un sous-espace vectoriel de $E$ avec $F$ de dimension finie, alors $F$ possède un supplémentaire orthogonal : $F \oplus F^\bot = E$. 
+    
+    \begin{definition}{Projetion orthogonale}
+        On appelle \hg{projection orthogonale sur $F$} la projection vectorielle $p \in \bcL\p{E}$ sur $F$ parallèlement à $F^\bot$, \ie :
+        %
+        \begin{psse}
+            \item $\forall x \in F$,\qquad $p\p{x} = x$.
+            \item $\forall x \in F^\bot$,\qquad $p\p{x} = 0_E$.
+            \item $\forall x \in E$,\qquad $x = p\p{x} + \p{x - p\p{x}}$.
+        \end{psse}
+    \end{definition}
+    
+    On a alors $F = \Imm p = \ker\p{p - \Id}$ et $F^\bot = \Ker p$.
+    
+    \begin{tikzpicture}
+        \draw (-2, 0) -- (2, 0);
+        \draw (0, -3) -- (0, 0);
+        \draw[dashed] (0, 0) -- (0, 1);
+        \draw (0, 1) -- (0, 4);
+        \draw (-5, 0) -- (-1, 4);
+    \end{tikzpicture}
+    
+    Ainsi, $\forall x \in E$, $p\p{x} \bot \p{x - p\p{x}}$.
+    
+    \underline{Expression du projeté orthogonal dans une B.O.N :}
+    
+    Fixons $m = \dim F$ et $\bcB = \p{e_1, \dots, e_m}$ une B.O.N de $F$. Le projeté orthogonal sur $F$ d'un vecteur $x \in E$ est :
+    %
+    \[ p\p{x} = \sum_{i=1}^m \underbrace{\phyavg{x, e_i}}_{\lambda_i}e_i\]
+    %
+    En effet, $p\p{x} \in F$, donc $\exists ! \p{\lambda_1, \lambda_2, \dots, \lambda_m} \in \bdR^m$ tq $p\p{x} = \sum_{i=1}^m \lambda_i e_i$.
+    
+    Pour $j \in \iint{1, m}$, on a donc $\phyavg{p\p{x}, e_j} = \sum_{i=1}^m \lambda_i \underbrace{\phyavg{e_i, e_j}}_{\delta_{i, j}} = \lambda_j$.
+    
+    Or $x = p\p{x} + x - p\p{x}$ donc $\phyavg{x, e_j} = \underbrace{\phyavg{p\p{x}, e_j}}_{\lambda_j} + \underbrace{\phyavg{\underbrace{x - p\p{x}}_{\in F^\bot}, \underbrace{e_j}_{\in F}}}_{= 0}$.
+    
+    \begin{example}{}{}
+        \begin{enumerate}
+            \itt \hgu{Projection orthogonale sur une droite :} Soit $\bca \in E$ avec $\bca \neq 0_E$ et $\bsD = \Vect{\bca}$.
+            
+            Calculons la projection orthogonale sur $\bsD$. Prenons d'abord une B.O.N de $\bsD$ : $\p{\dfrac{\bca}{\norm{\bca}}}$.
+            
+            Pour tout $x \in \bsE$, $p\p{x} = \phyavg{x, \dfrac{\bca}{\norm{\bca}}}\dfrac{\bca}{\norm{\bca}}$
+            
+            $\mathscr{E} \mathscr{e}$.
+        \end{enumerate}
+    \end{example}
+    
+    Exercice de calcul de distance :
+    
+\end{document}

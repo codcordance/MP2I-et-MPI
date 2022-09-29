@@ -1,0 +1,46 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Chapitre 13}{Polynômes - Arithmétique}
+
+\initcours
+
+\setcounter{section}{4}
+\section{Arithmétique des polynômes}
+
+\textit{Objectif :} Généraliser l'arithmétique dans $\bdZ$ à une arithmétique dans $\bdK[X]$ où $\bdK$ est un corps.
+
+\subsection{Plus Grand Commun Diviseur}
+
+Si $\bcA$ et $\bcB$ sont deux polynômes non nuls de $\bdK[X]$, alors l'ensemble des diviseurs communs de $\bcA$ et de $\bcB$, noté $\bsD(\bcA) \cap \bsD(\bcB)$ est partie de $\bdK[X]$. Elle est non vide, car elle contient $1$ (on peut remarquer qu'elle ne contient pas $0)$.
+
+L'ensemble $E = \{ \deg \bcP \mid \bcP \in \bsD(\bcA) \cap \bsD(\bcB) \}$ est alors une partie non vide de $\bdN$, majoré par $\min(\deg \bcA, \deg \bcB)$. La partie $E$ possède un plus grand élément, noté $r = \max E \in \bdN$.
+
+\begin{definition}{$\pgcd$ dans $\bdK[X]$}{}
+    Soit un corps $\bdK$, ici $\bdC$ ou $\bdR$. Soient deux polynômes $(\bcA, \bcB) \in \bdK[X]^2$. 
+    
+    \hgu{Un} \bf{plus grand commun diviseur de $\bcA$ et $\bcB$} est un polynôme $\bcD$ diviseur de $\bcA$ et $\bcB$ et de degré maximal.
+\end{definition}
+
+\begin{lemma}{}{}
+    Soient $(\bcA, \bcB, \bcQ, \bcR) \in \bdK[X]^4$. On a :
+    
+    \[\hg{\bcA = \bcB\bcQ + \bcR \implies \bsD(\bcA) \cap \bsD(\bcB) = \bsD(\bcB) \cap \bsD(\bcR)}\]
+\end{lemma}
+
+\begin{center}
+    \underline{Algorithme d'Euclide pour le calcul d'un $\pgcd$}
+\end{center}
+
+Ainsi, par divisions successives (comme pour l'algorithme d'Euclide dans $\bdZ$), il y a un nombre fini de divisions euclidiennes car la suite des degrés des restes est une suite d'entiers naturels strictement décroissante : elle est donc finie.
+
+En notant $(\bcR_0, \bcR_1, \dots \bcR_k, \bcR_{k+1})$, la suite des restes avec $\bcR_0 = \bcA$, $\bcR_1 = \bcB$, $\bcR_{k+1} = 0$ et $\bcR_k \neq 0$, on a alors :
+
+\[ \exists \bcQ_i \in \bdK[X], \quad \bcR_i = \bcQ_i\bcR_{i+1} + \bcR_{i+2} \qquad\text{avec}\qquad \deg(\bcR_{i+2}) < \deg(\bcR_{i+1})\]
+
+
+
+
+
+\end{document}

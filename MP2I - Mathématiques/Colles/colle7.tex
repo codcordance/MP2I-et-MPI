@@ -1,0 +1,173 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+
+\stylizeDoc{Mathématiques}{Programme de khôlle 7}{Énoncés et résolutions}
+
+\section*{Fonctions usuelles (cf. programme précédent)}
+
+\begin{enumerate}
+    \ithand \textit{\cf programme précédent}.
+    
+    \ithand Fonctions circulaires réciproques : $\arcsin$, $\arccos$, $\arctan$.
+    
+    \ithand Fonction hyperboliques : $\sh$, $\ch$, $\th$.
+\end{enumerate}
+
+\section*{Calculs de primitives et intégrales}
+
+\subsection*{Primitives}
+
+\begin{enumerate}
+    \ithand Définition d’une primitive. Ensemble des primitives d’une fonction $f$ continue sur un intervalle $I$, à valeurs dans $\bdK$.
+    
+    \ithand Rappel des primitives des fonctions usuelles, avec l’intervalle de validité.
+    
+    \ithand Changements affine : primitive de $x \mapsto \lambda f\left(ax + b\right)$.
+    
+    \ithand Linéarité : primitive de $x \mapsto \lambda f + \mu g$.
+    
+    \ithand Primitive de $x \mapsto \dfrac{1}{\left(x-a\right)\left(x-b\right)}$ avec $a$ et $b$ deux réels distincts.
+    
+    \ithand Primitive de $x \mapsto u'\left(x\right)f\left(u'\left(x\right)\right)$.
+    
+    \ithand Rappels de trigonométrie : linéarisation.
+    
+    \ithand Primitive de $x \mapsto \dfrac{1}{x^2+px+q}$ avec $q$ et $p$ deux réels.
+    
+    \ithand Primitive de $x \mapsto \dfrac{1}{x + \alpha}$ avec $\alpha \in \bdC$.
+\end{enumerate}
+
+\subsection*{Intégrales}
+
+\begin{enumerate}
+    \ithand Intégrale d’une fonction continue sur un intervalle $I$, à valeurs dans $\bdR$ ou $\bdC$.
+
+    \ithand Théorème fondamental de l’analyse. Intégration par parties. Changement de variables.
+\end{enumerate}
+
+\savoirfaire
+
+\begin{enumerate}
+    \item Savoir calculer une intégrale par intégration par parties.
+    
+    \item Savoir calculer une intégrale par changement de variable.
+\end{enumerate}
+
+\questionsdecours
+
+\begin{enumerate}
+    \item Montrer que $\sh$ admet une bijection réciproque $\argsh$ définie sur $\bdR$ et donner une expression explicite et sa dérivée.
+    
+    \boxans{
+        La fonction $\sh$ est strictement croissante et continue sur $\bdR$. De plus $\lim\limits{x \to -\infty} \sh x = -\infty$ et $\lim\limits_{x \to +\infty} \sh x = +\infty$.
+        
+        En vertu du \textithéorème de la bijection, $\sh$ est donc une bijection de $\bdR$ dans $\bdR$ et 
+        
+        \boxsol{admet une bijection réciproque strictement croissante et continue de $\bdR$ et $\bdR$, qu'on nommera $\argsh$}.
+        
+        Soit $x$ et $y$ tels que $\sh x = y$, donc $\argsh y = x$. Déterminons donc $x$ en fonction de $y$.
+        
+        \begin{align*}
+            \sh x = y &&\iff&& \dfrac{e^x-e^{-x}}{2} &= y\\
+                        &&\iff&& \left(e^x\right)^2 - 2ye^x - 1 &= 0\\
+            \text{on pose} \ X = e^x &&\text{donc}&& X^2 - 2yX - 1 &=0\\
+            \Delta = 2\sqrt{y^2 + 1} > 0 &&\text{donc}&& X &= \dfrac{2y \pm 2\sqrt{y^2 + 1}}{2}\\
+            &&\iff&& x &= y \pm \sqrt{y^2 + 1}\\
+            X = e^x > 0 &&\text{donc}&& X = y + \sqrt{y^2 + 1}\\
+            &&\iff&& x = \ln\left(y + \sqrt{y^2 + 1}\right)
+        \end{align*}
+        
+        Ainsi \boxsol{$\forall x \in \bdR$, $\argsh x = \ln\left(x + \sqrt{x^2 + 1}\right)$}. Par opérations (somme, composition) $\argsh$ est dérivable sur $\bdR$. Soit $x$ un réel. On a :
+        
+        \[ \boxsoll{$\argsh'(x)$} = \dfrac{1 + \frac{2x}{2\sqrt{x^2+1}}}{x+\sqrt{x^2+1}} = \dfrac{\frac{\sqrt{x^2+1}+x}{\sqrt{x^2+1}}}{x+\sqrt{x^2+1}}  \boxsolr{$=\dfrac{1}{\sqrt{x^2+1}}$}\]
+    }
+    \item Montrer que $\th$ admet une bijection réciproque $\argth$ définie sur $\left] − 1, 1\right[$ et donner une expression explicite et sa dérivée.
+    
+    \boxans{
+         $\th$ est strictement croissante et continue sur $\bdR$, telle que $\th x \xrightarrow{x \to -\infty} -1$ et $\th x \xrightarrow{x \to +\infty} 1$. D'après le théorème de la bijection, $\th$ est donc une bijection de $\bdR$ dans $\left] − 1, 1\right[$ et
+         
+         \boxsol{admet une bijection réciproque strictement croissante et continue de $\left] − 1, 1\right[$ et $\bdR$, qu'on nommera $\argth$}.
+          
+          Soit $x$ et $y$ tels que $\th x = y$, donc $\argth y = x$. Déterminons donc $x$ en fonction de $y$.
+          
+          \[ \dfrac{e^{2x}-1}{e^{2x}+1} = y \iff e^{2x}-1 = y\left(e^{2x}+1\right) \iff e^{2x}\left(1-y\right) = 1+y \iff 2x = \ln\left(\dfrac{1+y}{1-y}\right)\]
+          
+          Finalement, \boxsol{$\forall x \in \bdR$, $\argth x = \dfrac{1}{2}\ln\left(\dfrac{1+y}{1-y}\right) = \dfrac{1}{2}\ln(1+y) - \dfrac{1}{2}\ln(1-y)$}. 
+          
+          Par opérations (somme, composition) $\argth$ est dérivable sur $\left] − 1, 1\right[$. Soit $x$ un réel. 
+          
+          On a :
+          
+          \[ \boxsoll{$\argth'(x)$} = \dfrac{1}{2(1+x)} - \dfrac{-1}{2(1-x)} = \dfrac{2}{2\left(1-x^2\right)} = \boxsolr{$\dfrac{1}{1-x^2}$}\]
+        
+    }
+    \item Donner une primitive de $x \mapsto \dfrac{1}{(x-a)(x-b)}$ avec $a$, $b$ deux réels distincts.
+    
+    \boxans{
+        Soit $a$ et $b$ deux réels distincts. Soit $f$ définie sur $\bdR \backslash \{a; b\}$ par $f(x) =  \dfrac{1}{(x-a)(x-b)}$. $I$ désigne un intervalle réel sur lequel $f$ est défini. On réduit $f$ en élément simples et on trouve $f(x) = \dfrac{1}{a-b}\left(\dfrac{1}{x-a}-\dfrac{1}{x-b}\right)$.
+        
+        On utilise alors la linéarité et on intègre $\dfrac{1}{x-a}$ en $\ln|x-a|$ et $\dfrac{1}{x-b}$ en $\ln|x-b|$.
+        
+        Donc une primitive de $x \mapsto \dfrac{1}{(x-a)(x-b)}$ est \boxsol{$x \mapsto \dfrac{1}{a-b}\left(\ln\mod{\dfrac{x-a}{x-b}}\right)$}.
+    }
+    \item  Savoir trouver une primitive d’une fonction de la forme $u' \times \left(f \circ u\right)$ donnée par l’examinateur.
+    
+    \boxans{
+        Soit $F$ une primitive de $f$.
+        
+        \boxsol{Une primitive d'une fonction fonction de la forme $u' \times \left(f \circ u\right)$ est de la forme $F \circ u$}
+    }
+    \item  Savoir trouver une primitive d’une fonction de la forme $x \mapsto \dfrac{1}{x^2 + px + q}$, donnée par l’examinateur.
+    \boxans{
+    Il s'agit tout d'abord d'étudier le polynôme de degré 2 du dénominateur. Soit $\Delta$ son discriminant. Si $\Delta > 0$, on se ramène à la démonstration plus haut avec $a$ et $b$ les racines distinctes du polynôme.
+    
+    Si $\Delta = 0$, on note $r$ la racine unique du polynôme. On a $\dfrac{1}{x^2 + px + q} = \dfrac{1}{\left(1+r\right)^2}$.
+    
+    On reconnaît la forme $u' \times u^{-2}$ de primitive $(-2+1)u^{-2+1}$. 
+    
+    Une primitive est alors \boxsol{$x \mapsto \dfrac{-1}{r-x}$}.
+    
+    Enfin si $\Delta < 0$, le polynôme ne s'annule pas ($I$ peut être $\bdR$). On peut alors l'écrire sous forme canonique. $x^2 + px + q = \left(x+\dfrac{p}{2}\right)^2 - \left(\dfrac{p}{2}\right)^2 + q = \left(x+\dfrac{p}{2}\right)^2 - \dfrac{\Delta}{4}$. On pose $a = \dfrac{p}{2}$ et $b = \dfrac{\Delta}{2}$. 
+    
+    Donc :
+    
+    $\dfrac{1}{x^2+px+q} = \dfrac{1}{(x+a)^2+b^2} = b\times \dfrac{b}{\left(\frac{x+a}{b}\right)^2+1}$. 
+    
+    Une primitive est donc \boxsol{$x \mapsto b \arctan{\dfrac{x+a}{b}}$}.
+    }
+    \item Déterminer une primitive de $x \mapsto \dfrac{1}{x-i}$ sur $\bdR$.
+    \boxans{
+    On a $\dfrac{1}{x-i} = \dfrac{x+i}{x^2+1} = \dfrac{x}{x^2+1} + i\dfrac{1}{x^2+1}$. Donc : \boxsol{$\displaystyle \int \dfrac{1}{x-i} \text dx = \dfrac{1}{2}\ln(x^2+1) + i\arctan{x}$}
+    }
+    \item Déterminer une primitive de $x \mapsto \cos x e^x$ en passant par les complexes.
+    \boxans{
+        On remarque que $\cos x e^x = \Re{e^{ix}e^x} = \Re{e^{x(i+1)}}$. $x \mapsto e^{x(i+1)}$ primitivé donne $x \mapsto \dfrac{1}{1+i}e^{x(i+1)}$.
+        Par linéarité, $\displaystyle \int \cos x e^x \text dx = \int \Re{e^{x(i+1)}} \text dx = \Re{\int e^{x(i+1)} \text dx} = \Re{\dfrac{1}{1+i}e^{x(i+1)}}$.
+        
+        $\dfrac{1}{1+i}e^{x(i+1)} = \dfrac{1-i}{2}e^x\left(\cos x + i \sin x\right) = \dfrac{e^x}{2}\left(\cos x + \sin x + i\left(\sin x - \cos x\right)\right)$.
+        
+        \boxsol{Une primitive de $x \mapsto \cos x e^x$ est donc $x \mapsto \dfrac{e^x}{2}\left(\cos x + \sin x\right)$}
+    }
+    \item Trouver une primitive sur $\bdR$ de $x \mapsto e^{\sqrt x}$.
+    
+    \boxans{
+    $x \mapsto \sqrt{x}$ est défini et continu sur $\bdR_+$. On travaille donc sur $I = \bdR_+$. Soit $(x,a) \in \bdR_+$. On cherche $\displaystyle \int_a^x e^{\sqrt t} \text dt$.
+    
+    On procède d'abord par changement de variable.
+    
+    On pose $u = \sqrt t$. Alors $\text du = \dfrac{1}{2\sqrt{t}}\text dt$ donc $\text dt = 2\sqrt{t}\text du = 2u\text du$. Donc :
+    $\displaystyle \int_a^x e^{\sqrt t} \text dt = \int_{\sqrt a}^{\sqrt x} 2ue^u \text du$.
+    
+    On procède alors par intégration par partie.
+    
+    \[\int_{\sqrt a}^{\sqrt x} 2ue^u \text du = \left[2ue^u\right]_{\sqrt a}^{\sqrt x} - \int_{\sqrt a}^{\sqrt x} ue^u \text du = 2\sqrt{x}\left(\sqrt{x}-1\right) + \lambda\]
+    
+    Donc \boxsol{ une primitive sur $\bdR$ de $x \mapsto e^{\sqrt x}$ est $x \mapsto 2e^{\sqrt x}\left(\sqrt x - 1\right)$}
+    }
+\end{enumerate}
+\end{document}

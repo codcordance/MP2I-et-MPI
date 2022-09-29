@@ -1,0 +1,274 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+
+\stylizeDoc{Mathématiques}{Programme de khôlle 19}{Énoncés et
+résolutions}
+
+\section*{Algèbre Linéaire (dimension finie)}
+
+\subsection*{Familles libres, familles génératrices, bases}
+
+\begin{enumerate}
+    \ithand Familles génératrices. Familles libres, familles liées. Des exemples : dans $\bdR^n$, $\bdR^\bdN$, $\bcF\left(\bdR,
+    \bdR\right)$, les familles de polynômes de degré échelonnés sont libres dans $\bdR\left[X\right]$. Bases. Coordonnées d'un vecteur dans une base.
+    
+    \ithand Familles de vecteur et somme. Soit $F$ et $G$ deux sous-espaces vectoriels de $E$. La concaténation d'une famille génératrice de $F$ et de $G$ donne une famille génératrice de $F + G$.
+    
+    Si $F$ et $G$ sont en somme directe, la concaténation d'une famille libre de $F$ avec une famille libre de $G$ donne une famille libre de $F \oplus G$. Si $E = F \oplus G$, base de $E$ par concaténation d'une base de $F$ et de $G$.
+    
+    \ithand Familles de vecteurs et applications linéaires : 
+    
+    Si $\bsF$ famille génératrice de $E$ et si $f ∈ \bcL\left(E, F\right)$, on a $\Imm f = \Vect\left(f\left(\bsF\right)\right)$.
+    
+    L'image d'une famille génératrice engendre l'image. L'image d'une famille génératrice par une application linéaire surjective est génératrice. L'image d'une famille libre par une application linéaire injective est libre.
+    
+    Si $\bcB$ est une base de $E$, $f$ est un isomorphisme de $E$ dans $F$ si et seulement si l'image par $f$ des vecteurs de $\bcB$ forme une base de $f$. Si $\bcB$ est une base, la donnée des images des vecteurs de $\bcB$ définit une unique application linéaire.
+\end{enumerate}
+
+\subsection*{Théorie de la dimension}
+
+\begin{enumerate}
+    \ithand Theorème : si $E$ est de dimension finie, $E$ est isomorphe à $F$ ssi $F$ est de dimension finie égale à celle de $E$.
+    
+    Isomorphisme naturel entre un ev de dimension $n$ et $\bdK^n$ si une base de $E$ est fixée.
+    
+    \ithand Théorème du rang : Si $E$ est un ev de dimension finie et $f \in \bcL\left(E, F\right)$. La restriction de $f$ à un supplémentaire $G$ du noyau réalise un isomorphisme de $G$ sur $\Imm f$. $\dim E = \dim ' f + \rg f$.
+    
+    \ithand Injectivité. Caractérisation par $\rg f = \dim E$ ou $\dim ' f = 0$. Surjectivité : caractérisation avec $\rg f = \dim F$. Comparaison des dimensions de $E$ et $F$ si f injective, surjective ou bijective.
+    
+    \ithand Caractérisation des isomorphismes en dimension finie. Théorème : si $\dim E = \dim F$ (finie), une application linéaire $f \in \bcL\left(E, F\right)$ est injective ssi elle est bijective ssi elle est surjective. En particulier : pour un endomorphisme en dimension finie : injectivité équivaut à surjectivité.
+    
+    \ithand  Dimension de $\bcL\left(E, F\right)$. Invariance du rang par opérations élémentaires ($C_i \leftrightarrow C_j$, $C_i \leftarrow \lambda C_i$, avec $\lambda \neq 0$, et $C_i \leftarrow C_i + \mu C_j$). Calcul pratique du rang : matrice d'une famille de vecteurs et pivot de Gauss. Les vecteurs colonnes non nuls d'une matrice échelonnée forment une famille libre.
+    
+    \ithand Hyperplans et formes linéaires en dimension finie. Résultats en dimension finie (notons $n = \dim E$ et fixons $\bcB$ une base de $E$) : un hyperplan est un sev de $E$ de dimension $n - 1$. Éq. cartésienne d'un hyperplan relativement à $\bcB$. Formes linéaires coordonnées. Espace $\bcL\left(E,K\right)$ et base des formes linéaires coordonnées. Dimension d'une intersection d'hyperplans. Tout sev en dimension finie $p$ est une intersection de $n − p$ hyperplans.
+\end{enumerate}
+
+\questionsdecours
+
+\textbf{\sffamily N.B.} La colle comportera l'étude d'une suite récurrente linéaire d'ordre 2 donnée par l'examinateur.
+
+\begin{enumerate}
+    \item Montrer qu'une famille de polynômes de degrés échelonnés est libre dans
+    $\bdK\left[X\right]$.
+    
+    Soit $\alpha \in \bdK$. Montrer que la famille de polynômes $\left(\left(X −
+    \alpha\right)^k\right)_{k \in \left\llbracket 0, n\right\rrbracket}$ est une base de
+    $\bdK_n\left[X\right]$.
+    
+    \boxans{
+        \begin{enumerate}
+            \itt Soit $n \in \bdN$ et $\left(P_k\right)_{k \in \left\llbracket 1,
+            n\right\rrbracket} \in \bdK\left[X\right]^n$ une famille de $n$ polynômes
+            qu'on prend par hypothèse échelonnés en degrés, en l'ordonnant de telle sorte
+            que :
+            %
+            \[ 0 \leq \deg P_1 < \deg P_2 < \dots < \deg P_{n-1} < P_n\]
+            %
+            Soient $\left(\lambda_k\right)_{k \in \left\llbracket 1, n\right\rrbracket} \in \bdK^n$ une famille de scalaires telle que $\sum_{k = 1}^n \lambda_k P_k = 0_{\bdK\left[X\right]}$. On suppose par l'absurde que les $\lambda_k$ ne sont pas tous nuls, et on pose $r = \max\left\{k \in \left\llbracket 1,n\right\rrbracket \middle\vert \lambda_k \neq 0 \right\}$. On a alors $P_r = -\sfrac{1}{\lambda_r}\sum_{k=1}^{r-1} \lambda_k P_k$. Or le degré du polynôme $P_r$ est supérieur à celui de tous les polynômes $P_k$ de la somme, donc il y a contradiction. La famille est donc bien libre.
+            
+            \itt La famille de polynôme $\left(\left(X − \alpha\right)^k\right)_{k \in \left\llbracket 0, n\right\rrbracket}$ est échelonnée en degré donc libre. Par ailleurs elle contient $n+1$ vecteurs et $\dim \bdK_n\left[X\right] = n + 1$ donc c'est une base de $\bdK_n\left[X\right]$.
+        \end{enumerate}
+    }
+    
+    \item Caractérisation des supplémentaires en dimension finie.
+    
+    \noafter
+    %
+    \boxans{
+        \begin{theorem}{Caractérisation des supplémentaires en dimension finie}{}
+            Soient $E$ un $\bdK$-espace vectoriel de dimension finie et $F$ et $G$ deux $\bdK$-sous-espaces vectoriels de $E$. Les propositions suivantes sont équivalentes :
+        
+            \begin{psse}
+                \item \hg{$E = F \oplus G$}
+                \item \hg{$F \cap G = \left\{0_E\right\}$ et $\dim E = \dim F + \dim G$}
+                \item \hg{$E = F + G$ et $\dim E = \dim F + \dim G$}
+            \end{psse}
+        \end{theorem}
+    }
+    %
+    \yesafter\nobefore
+    %
+    \begin{nproof}
+        Soient $E$ un $\bdK$-espace vectoriel de dimension finie et $F$ et $G$ deux $\bdK$-sous-espaces vectoriels de $E$.
+        %
+        \begin{enumerate}
+            \itt $\boxed{\text{\EBGaramond\itshape(i)} \implies \text{\EBGaramond\itshape(ii)}}$ Supposons que $E = F \oplus G$. On a bien $F \cap G = \left\{0_E\right\}$ par somme directe et :
+            %
+            \[\dim E = \dim \left( F + G \right) = \dim F + \dim G - \dim \left(F \cap G\right) = \dim F + \dim G + \dim \left\{0_E\right\} = \dim F + \dim G\]
+            
+            \itt $\boxed{\text{\EBGaramond\itshape(ii)} \implies \text{\EBGaramond\itshape(iii)}}$ Supposons que $F \cap G = \left\{0_E\right\}$ et que $\dim E = \dim F + \dim G$. On a :
+            %
+            \[ \dim \left(F + G\right) = \dim F + \dim G - \dim \left(F \cap G\right) = \dim F + \dim G - \dim \left\{0_E\right\} = \dim F + \dim G = \dim E\]
+            %
+            Or $F \subset E$ et $G \subset E$, donc $F + G \subset E$. On a inclusion et égalité de dimension donc $E = F + G$.
+            
+            \itt $\boxed{\text{\EBGaramond\itshape(iii)} \implies \text{\EBGaramond\itshape(i)}}$ Supposons que $E = F + G$ et que $\dim E = \dim F + \dim G$. On a :
+            %
+            \[ \dim E = \dim \left(F + G\right) = \dim F + \dim G - \dim \left(F \cap G\right) \qquad\et\qquad \dim E = \dim F + \dim G\]
+            %
+            On a donc $\dim \left(F \cap G\right) = 0$, donc $F \cap G = \left\{0_E\right\}$, donc $E = F \oplus G$.
+        \end{enumerate}
+    \end{nproof}
+    %
+    \yesbefore
+    
+    \item Montrer le théorème du rang.
+    
+    \noafter
+    %
+    \boxans{
+        \begin{lemma}{Isomorphisme induit par restriction}{}
+            Soient $E$ et $F$ deux $\bdK$-espaces vectoriels, $f \in \bcL\left(E,
+            F\right)$ une application linéaire entre ces deux espaces, et $G$ un
+            supplémentaire de $\Ker f$ dans $E$.
+            %
+            \[ \hg{f{}_{\vert G}^{\vert \Imm f} : \begin{array}[t]{rcl}
+                G &\to& \Imm f  \\
+                x &\mapsto& f(x) 
+            \end{array}\ \text{est un isomorphisme de} \ G \
+            \text{sur} \ \Imm f} \]
+        \end{lemma}
+    }
+    %
+    \nobefore
+    %
+    \begin{nproof}
+        Soient $E$ et $F$ deux $\bdK$-espaces vectoriels, $f \in \bcL\left(E, F\right)$ une application linéaire entre ces deux espaces, et $G$ un supplémentaire de $\Ker f$ dans $E$.
+        %
+        \begin{enumerate}
+            \itt Soit $x \in \Ker f{}_{\vert G}^{\vert \Imm f}$, donc $x \in \Ker f \cap G$. Or $G$ est un supplémentaire de $\Ker f$ dans $E$ donc $x = 0_E$. Ainsi $f{}_{\vert G}^{\vert \Imm f}$ est injective.
+            
+            \itt $\Imm f{}_{\vert G}^{\vert \Imm f} = \Imm f \cap \Imm f = \Imm f$ donc $f$ est surjective.
+        \end{enumerate}
+        
+        $f{}_{\vert G}^{\vert \Imm f}$ étant injective et surjective, elle est donc bijective. C'est bien un isomorphisme.
+    \end{nproof}
+    %
+    \boxans{
+        \begin{theorem}{Théorème du rang}{}
+            Soient $E$ et $F$ deux $\bdK$-espaces vectoriels avec $E$ de dimension finie, et $f \in \bcL\left(E, F\right)$ une application linéaire.
+            %
+            \[ \hg{\dim E = \dim \Ker f + \rg f}\]
+        \end{theorem}
+    }
+    %
+    \yesafter
+    %
+    \begin{nproof}
+        Soient $E$ et $F$ deux $\bdK$-espaces vectoriels avec $E$ de dimension finie, et $f \in \bcL\left(E, F\right)$ une application linéaire. Soit $G$ un complémentaire de $\Ker f$ dans $E$. On a donc :
+        %
+        \[E = \Ker f \oplus G \qquad\text{donc}\qquad \dim E = \dim \Ker f + \dim G - \dim \left(\Ker\left(f\right) \cap G\right) = \dim \Ker f + \dim G\]
+        %
+        Or $f$ induit un isomorphisme avec $f{}_{\mid G}^{\Imm f}$ entre $G$ et $\Imm f$, ces deux espaces sont donc de même dimension : $\dim G = \dim \Imm f = \rg f$. On a donc bien $\dim E = \dim \Ker f + \rg f$.
+    \end{nproof}
+    %
+    \yesbefore
+    
+    \newpage
+    
+    \item Équivalence entre injectivité, bijectivité et surjectivité pour $f \in \bcL\left(E, F\right)$, avec $E$ et $F$ deux ev de même dimension finie.
+    
+    \noafter
+    %
+    \boxans{
+        \begin{theorem}{Caractérisation des isomorphismes en dimension finie}
+            Soient $E$ et $F$ deux $\bdK$-espaces vectoriels de même dimension finie, et $f \in \bcL\left(E, F\right)$ une application linéaire entre ces deux espaces. Les propositions suivantes sont équivalentes :
+            %
+            \begin{psse}
+                \item \hg{$f$ est injective}
+                \item \hg{$\rg f = \dim E = \dim F$}
+                \item \hg{$f$ est surjective}
+                \item \hg{$f$ est un isomorphisme}
+            \end{psse}
+        \end{theorem}
+    }
+    %
+    \yesafter\nobefore
+    %
+    \begin{nproof}
+        Soient $E$ et $F$ deux $\bdK$-espaces vectoriels de même dimension finie, et $f \in \bcL\left(E, F\right)$ une application linéaire entre ces deux espaces.
+        
+        \begin{enumerate}
+            \itt $\boxed{\text{\EBGaramond\itshape(i)} \implies \text{\EBGaramond\itshape(ii)}}$ Supposons $f$ injective, donc $\Ker f = \left\{0_E\right\}$, donc $\dim \Ker f = 0$ donc par \textit{théorème du rang} $\rg f = \dim E = \dim F$.
+            
+            \itt $\boxed{\text{\EBGaramond\itshape(ii)} \implies \text{\EBGaramond\itshape(iii)}}$ Si $\rg f = \dim F$, alors $\dim \Imm f = \dim F$. Or $\Imm f \subset F$ donc par inclusion et égalité de dimension, $\Imm f = F$, donc $f$ surjective.
+            
+            \itt $\boxed{\text{\EBGaramond\itshape(iii)} \implies \text{\EBGaramond\itshape(i)}}$ Si $f$ est surjective, $\Imm f = F$ donc $\rg f = \dim F = \dim E$ donc par \textit{théorème du rang} $\dim \Ker f = 0$, donc $f$ est injective.
+            
+            \itt $\boxed{\text{\EBGaramond\itshape(i)} \iff \text{\EBGaramond\itshape(iv)}}$. Si $f$ est un isomorphisme alors $f$ est injective. Si $f$ est injective, on a $\text{\EBGaramond\itshape(i)} \iff \text{\EBGaramond\itshape(iii)}$ donc $f$ est surjective, donc $f$ est un isomorphisme.
+        \end{enumerate}
+    \end{nproof}
+    %
+    \yesbefore
+    
+    \item Soit $E$ un ev de dimension finie et $f \in \bcL\left(E\right)$ un endomorphisme de $E$. Soit $g \in \bcL\left(E\right)$ un endomorphisme de $E$ vérifiant $g \circ f = \Id_E$. Montrer que $f$ est un isomorphisme avec $f^{-1} = g$.
+    
+    \boxans{
+        Si $g \circ f = \id_E$, alors $g \circ f$ est bijective (puisque $\id_E$ est bijective) donc $f$ est injective. Par \textit{caractérisation des isomorphismes en dimension finie}, $f$ est un isomorphisme, donc $f^{-1}$ existe. 
+        
+        Or $g \circ f = \id_E$ donc $g \circ f \circ f^{-1} = \id_E \circ f^{-1}$ soit finalement $f^{-1} = g$.
+    }
+    
+    \item Montrer que $\dim \bcL\left(E, F\right) = \dim E \times \dim F$
+    
+    \noafter
+    %
+    \boxans{
+        \begin{property}{Dimension de l'espaces des applications linéaires}{}
+            Soient $E$ et $F$ deux $\bdK$-espaces vectoriels de dimension finie. \hg{$\dim \bcL\left(E, F\right) = \dim E \times \dim F$}.
+        \end{property}
+    }
+    %
+    \nobefore\yesafter
+    %
+    \begin{nproof}
+        Soient $E$ et $F$ deux $\bdK$-espaces vectoriels de dimension finie. On note $p = \dim E \in \bdN$ et $\bcB_E = \left(e_1, e_2, \dots, e_p\right)$ une base de $E$. On introduit :
+        %
+        \[ \varphi : \begin{array}[t]{rcl}
+            \bcL\left(E, F\right) &\to& F^p  \\
+            f &\mapsto& \left(f\left(e_1\right), f\left(e_2\right), \dots, f\left(e_p\right)\right) = f\left(\bcB\right)
+        \end{array}\]
+        %
+        $\varphi$ est entièrement caractérisée par les images par $f$ des vecteurs de la base $\bcB$. Donnons-nous $\left(f_1, f_2, \dots, f_n\right) \in F^p$. Il existe une unique application linéaire $f \in \bcL\left(E, F\right)$ telle que $f\left(e_1\right) = f_1$, $f\left(e_2\right) = f_2$, $\dots$, $f\left(e_n\right) = e_n$.
+        
+        On obtient ainsi la bijectivité de $\varphi$.
+        
+        La linéarité de $\varphi$ s'obtient directement par la linéarité de $F^p$ et des éléments de $\bcL\left(E, F\right)$. Donc $\varphi$ est un isomorphisme. Par \textit{théorème du rang}, on obtient :
+        %
+        \[ \dim \bcL\left(E, F\right) = \dim \varphi = \dim \Ker \varphi + \rg \varphi = 0 + \dim F^p = p \dim F = \dim E \times \dim F\]
+    \end{nproof}
+    %
+    \yesbefore
+    
+    \item Soient $H_1, H_2, \dots, H_p$ des hyperplans de $E$ de dimension finie $n$. Montrer que $n - p \leq \displaystyle \bigcap_{î=1}^p H_i$.
+    
+    \boxans{
+        Pour chaque hyperplan $H_i$, on considère une forme linéaire $\varphi_i \in \bcL\left(E, \bdK\right)$ telle que $H_i = \Ker \varphi_i$.
+        
+        On se donne $\psi : \begin{array}[t]{rcl}
+            E &\to&\bdK^p  \\
+            x &\mapsto& \left(\varphi_1\left(x\right), \varphi_2\left(x\right), \dots, \varphi_p\left(x\right)\right)
+        \end{array}$. $\psi$ est linéaire et par \textit{théorème du rang}, $\dim E = \dim \Ker \psi + \rg \psi$. Or $\rg \psi \leq \dim \bdK^p = p$. Soit $x \in \Ker \psi$. On a les équivalences :
+        %
+        \[ \varphi\left(x\right) = 0_{\bdK_p} \iff \left(\varphi_1\left(x\right), \varphi_2\left(x\right), \dots, \varphi_p\left(x\right)\right) = \left(0, 0, \dots, 0\right) \iff \varphi_1\left(x\right) = 0 \et \varphi_2\left(x\right) = 0 \et \dots \et \varphi_p\left(x\right) = 0\]
+        %
+        Donc $\Ker \psi = \bigcap_{i=1}^p \Ker \varphi_I = \bigcap_{i=1}^p H_i$. Donc $n \leq \dim \Ker \psi + p$, soit $n - p \leq \Ker \psi$. Donc $n - p \leq \displaystyle \bigcap_{î=1}^p H_i$.
+    }
+    
+    \item Soit $E$ un $\bdK$-espace vectoriel de dimension finie $n$ et soit $F$ un sev de $E$ de dimension $p$. Montrer qu’il existe $n − p$ hyperplans $H_{n−p+1}, \dots, H_n$ tels que $F = \bigcap_{p=n-p+1}^n H_i$.
+    
+    \boxans{
+        Soit $\bcB_F = \left(e_1, \dots, e_p\right)$ une base de $F$. On la complète en une base de $E$ : $\bcB_E = \left(e_1, \dots, e_p, e_{p+1}, \dots, e_n\right)$. Prenons alors $\bcB^\star = \left({e_1}^\star, {e_2}^\star, \dots, {e_n}^\star\right)$. Soit $x \in E$. $\exists ! \left(\lambda_1, \lambda_2, \dots, \lambda_n\right) \in \bdK^n$ tels que $x = \displaystyle \sum_{i=1}^n \lambda_ie_i$. On a les équivalences :
+        %
+        \[ x \in F \iff \sum_{i=1}^p \lambda_ie_i + sum_{i=p+1}^n \lambda_ie_i \in F \iff \forall i \in \left\llbracket p+1, n \right\rrbracket,\qquad \lambda_i = 0 \iff \forall i \in \left\llbracket p+1, n \right\rrbracket,\qquad x \in \Ker\left({e_i}^\star\right)\]
+        %
+        Donc si et seulement si $x \in \displaystyle\bigcap_{i=p+1}^n \Ker {e_i}^\star$, ssi $x \in \displaystyle\bigcap_{i=p+1}^n H_i$ où $H_i = \Ker {e_i}^\star$ est un hyperplan.
+    }
+
+\end{enumerate}
+
+\end{document}

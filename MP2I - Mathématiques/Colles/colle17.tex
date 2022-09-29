@@ -1,0 +1,290 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+
+\stylizeDoc{Mathématiques}{Programme de khôlle 17}{Énoncés et résolutions}
+
+\section*{Algèbre Linéaire (sans dimension)}
+
+\subsection*{Espaces vectoriels}
+
+\begin{enumerate}
+    \ithand Espace vectoriel : Définition. Exemples fondamentaux. Produit cartésien d'espaces vectoriels.
+    
+    \ithand Sous-espace vectoriel : définition. Exemples. 
+    
+    \ithand Combinaisons linéaires d'une famille de vecteurs. Familles génératrices d'un espace vectoriel. Exemples : $\bdK[X]$, $\bdK_n[X]$, $\bcM_{n, p}(\bdK)$, $\bdK^n$. {\EBGaramond\itshape On n'a pas encore abordé la notion de famille libre}
+    
+\end{enumerate}
+
+\subsection*{Applications linéaires}
+
+\begin{enumerate}
+    \ithand Définition. Endomorphisme, isomorphisme, automorphisme. Forme linéaire. Exemples.
+
+    \ithand Définition de l'image et du noyau. Caractérisation de l'injectivité et de la surjectivité.
+    
+    \ithand Structure d'espace vectoriel de $\bcL(E, V)$ (sev de $\bcF(E, V)$). La composée d'applications linéaires est linéaire. La réciproque d'un isomorphisme est un isomorphisme.
+    
+    \ithand Cas particulier des endomorphismes d'un ev $E$ : structure d'anneau de $(\bcL(E), +, \circ)$.
+    
+    Groupe linéaire de $E$ noté $\GL(E)$ : groupe des automorphismes de $E$.
+\end{enumerate}
+
+\subsection*{Sommes, sommes directes, supplémentaires}
+
+\begin{enumerate}
+    \ithand  Somme. Définition de la somme de deux sev.
+    
+    \ithand Somme directe (définition : la somme $F + G$ est directe si la décomposition est unique). Caractérisation : la somme $F + G$ est directe si et seulement si $F \cap G = \{0_E\}$.
+
+    \ithand Sous-espaces supplémentaires dans $E$. Exemples.
+\end{enumerate}
+
+\section*{\centering\EBGaramond\Large Savoir-faire en Algèbre Linéaire}
+
+\begin{enumerate}
+    \item Savoir démontrer qu'une partie d'un ev est un sev d'un ev de référence.
+    
+    \item Savoir trouver une famille génératrice d'un espace vectoriel $F$ et exprimer $F$ sous forme d'un $\Vect(\dots)$.
+    
+    \item Savoir démontrer qu'une application est linéaire.
+    
+    \item Savoir calculer le noyau et l'image d'une application linéaire, ainsi qu'une famille génératrice.
+    
+    \item Savoir montrer que deux sous-espaces vectoriels sont supplémentaires.
+\end{enumerate}
+
+\section*{\centering\EBGaramond\Large Questions de cours}
+
+\begin{enumerate}
+    \item Si $f \in \bcL(E, V)$ avec $E_1$ sev de $E$ et $E_2$ sev de $F$, Alors $f(E_1)$ est un sev de $F$ et $f^{-1}(E_2)$ est un sev de $E$. Conséquence : l'image de $f$ est un sev de $F$, le noyau de $f$ est un sev de $E$.
+    
+    \noafter
+	%
+	\boxans{
+		%
+        \begin{lemma}{Structure des images directes et réciproques}{lem1}
+            Soient $E$ et $F$ deux $\bdK$-espaces vectoriels et $f \in \bcL(E, F)$ une application linéaire.
+            
+            \begin{enumerate}
+                \ithand \hg{Pour tout sous espace vectoriel $E'$ de $E$, $f(E')$ est un sous espace vectoriel de $F$}.
+                
+                \ithand \hg{Pour tout sous espace vectoriel $F'$ de $F$, $f^{-1}(F')$ est un sous espace vectoriel de $E$}.
+            \end{enumerate}
+        \end{lemma}
+		%
+    }
+	%
+	\nobefore
+	%
+	\begin{nproof}
+		%
+        Soient $E$ et $F$ deux $\bdK$-espaces vectoriels et $f \in \bcL(E, F)$ une application linéaire.
+        %
+        \begin{enumerate}
+            \itt Soit $E'$ un sous espace vectoriel de $E$. On a directement $E' \subset E$. Or $f(E) \subset F$ donc $f(E') \subset F$.
+            
+            On a $0_E \in E'$ (sev), donc $f(0_E) \in f(E')$. Or $f \in \bcL(E, F)$ donc $f(0_E) = 0_F$ donc $0_F \in f(E')$.
+            
+            On se donne $(y_1, y_2) \in f(E')^2$, d'antécédents respectifs $(x_1, x_2) \in E'^2$, et $\lambda \in \bdK$. On a :
+            %
+            \[ \lambda y_1 + y_2 = \lambda f(x_1) + f(x_2) \eq{\text{linéarité}} f(\lambda x_1 + x_2) \qquad\text{or}\qquad \lambda x_1 + x_2 \in E' \qquad\text{donc}\qquad \lambda y_1 + y_2 \in f(E')\]
+            %
+            Par \textsc{Caractérisation des sous espaces vectoriels}, $f(E')$ est un sous espace vectoriel de $F$.
+            
+            \itt Soit $F'$ un sous espace vectoriel de $F$. On a directement $F' \subset F$. Or $f^{-1}(F) \subset E$ donc $f^{-1}(F') \subset E$.
+            
+            On a $0_F \in F'$, donc $f^{-1}(0_F) \subset f^{-1}(F')$. Or $f \in \bcL(E, F)$ donc $f(0_E) = 0_F$ donc $0_E \in f^{-1}(F')$.
+            
+            On se donne $(x_1, x_2) \in f^{-1}(F')^2$ et $\lambda \in \bdK$. On a $f(x_1) \in F'$ et $f(x_2) \in F'$ d'où :
+            %
+            \[\lambda f(x_1) + f(x_2) \in F' \qquad\text{donc par linéarité}\qquad f(\lambda x_1 + x_2) \in E' \qquad\text{donc}\qquad \lambda x_1 + x_2 \in f^{-1}(F')\]
+            %
+            Par \textsc{Caractérisation des sous espaces vectoriels}, $f^{-1}(F')$ est un sous espace vectoriel de $E$.
+            
+            
+        \end{enumerate}
+        %
+	\end{nproof}
+	%
+	\boxans{
+		%
+        \begin{property}{Structure de l'image et du noyau}{}
+            Soient $E$ et $F$ deux $\bdK$-espaces vectoriels et $f \in \bcL(E, F)$ une application linéaire.
+            %
+            \[ \hg{\Imm(f) \ \text{est un sous espace vectoriel de} \ F \et \Ker(f) \ \text{est un sous espace vectoriel de} \ E}\]
+        \end{property}
+		%
+    }
+	%
+	\yesafter
+	%
+	\begin{nproof}
+		%
+        On applique directement le lemme de \lemref{lem1}. 
+        %
+    \end{nproof}
+	%
+	\yesbefore
+    
+    \item Caractérisation de l'injectivité d'une application linéaire par le noyau réduit au vecteur nul.
+    
+    \noafter
+    %
+    \boxans{
+        %
+        \begin{theorem}{Caractérisation de l'injectivité d'une application linéaire}{CIAL}
+            Soient $E$ et $F$ deux $\bdK$-espaces vectoriels et $f \in \bcL(E, F)$ une application linéaire.
+            
+            \[ \hg{f \ \text{est injective} \iff \Ker f = \{ 0_E \}}\]
+        \end{theorem}
+        %
+    }
+    %
+    \nobefore
+	\yesafter
+	%
+	\begin{nproof}
+		%
+        Soient $E$ et $F$ deux $\bdK$-espaces vectoriels et $f \in \bcL(E, F)$ une application linéaire.
+        %
+        \begin{enumerate}
+            \itt $\boxed{\implies}$ Supposons que $f$ est injective. On se donne $x \in \Ker f$, donc $f(x) = 0_F$. Or $f$ est linéaire donc $f(0_E) = 0_F$, donc $f(x) = f(0_E)$. Par injectivité, on a donc $x = 0_E$, ainsi $\Ker f \subset \{ 0_E\}$. L'autre inclusion est immédiate, on a donc $\Ker f = \{ 0_E \}$.
+            
+            \itt $\boxed{\impliedby}$ Supposons que $\Ker f = \{ 0_E \}$. On se donne $(x, y) \in E^2$ tels que $f(x) = f(y)$.
+            %
+            \[ f(x) - f(y) = 0_F \qquad\text{donc par linéarité}\qquad f(x - y) = 0_F \qquad\text{donc}\qquad x - y \in \Ker f\]
+            %
+            On a donc $x - y = 0_E$ (soit $x = y$), en vertu de quoi $f$ est injective.
+        \end{enumerate}
+		%
+	\end{nproof}
+	%
+	\yesbefore
+    
+    \item Montrer que $\bcL(E, F)$ est un $\bdK$-ev (sev de $\bcF(E, F)$).
+    
+    \noafter
+    %
+    \boxans{
+        %
+        \begin{property}{Structure de l'ensemble des applications linéaires}{SALEF}
+            Soient $E$ et $F$ deux $\bdK$-espaces vectoriels.
+            %
+            \[ \hg{\bcL(E, F) \ \text{est un} \ \bdK\text{-sous espace vectoriel de} \ \bcF(E, F)} \]
+        \end{property}
+        %
+    }
+    %
+    \nobefore\yesafter
+    %
+    \begin{nproof}
+        Soient $E$ et $F$ deux $\bdK$-espaces vectoriels. On a $\bcL(E, F) \subset \bcF(E, F)$.
+        
+        L'application nulle $\widetilde 0 : \begin{array}[t]{rcl}
+            E &\to& F  \\
+            x &\mapsto 0
+        \end{array}$ est linéaire, donc $\widetilde 0 = 0_{\bcF(E, F)} \in \bcL(E, F)$.
+        
+        Soient $(f, g) \in \bcL(E, F)^2$ et $\lambda \in \bdK$. Montrons que $h = \lambda f + g \in \bcL(E, F)$. On se donne pour cela $(x, y) \in E^2$ et $\mu \in \bdK$. Calculons $h(\mu x + y)$.
+        %
+        \[ h(\mu x + y) = \lambda f(\mu x + y) + g(\mu x + y) = \lambda \mu f(x) + \lambda f(y) + \mu g(x) + g(y) = \mu\left(\lambda f(x) + g(y)\right) + \lambda f(y) + g(y) = \mu h(x) + h(y)\]
+        %
+        Donc $h$ est linéaire, soit $\lambda f + g \in \bcL(E, F)$. Par \textsc{Caractérisation des sous espaces vectoriels}, $\bcL(E, F)$ est un sous espace vectoriel de $\bcF(E, F)$.
+        %
+    \end{nproof}
+    %
+    \yesbefore
+    
+    \newpage
+    
+    \item Montrer que la composée d'application linéaire est linéaire, et que la réciproque d'un isomorphisme est un isomorphisme.
+    
+        \noafter
+    %
+    \boxans{
+        %
+        \begin{property}{Composée de deux applications linéaires}{C2AL}
+            Soient $E$, $F$ et $G$ trois $\bdK$-espaces vectoriels, ainsi que $f \in \bcL(E, F)$ et $g \in \bcL(F, G)$ deux applications linéaires. 
+            
+            \[ \hg{g \circ f \in \bcL(E, G) \ \text{est une application linéaire}}\]
+        \end{property}
+        %
+    }
+    %
+    \nobefore
+	%
+	\begin{nproof}
+		%
+		Soient $E$, $F$ et $G$ trois $\bdK$-espaces vectoriels, ainsi que $f \in \bcL(E, F)$ et $g \in \bcL(F, G)$ deux applications linéaires. On se donne $(x, y) \in E$ et $\lambda \in \bdK$. On a :
+		%
+		\[ (g \circ f)(\lambda x + y) = g(f(\lambda x + y)) = g(\lambda f(x) + f(y)) = \lambda g(f(x)) + g(f(y)) = \lambda (g \circ f)(x) + (g\circ f)(y)\]
+        %
+        On a donc bien $g \circ f \in \bcL(E, G)$.
+	\end{nproof}
+	%
+	\boxans{
+		%
+        \begin{property}{Réciproque d'un isomorphisme}{}
+            Soient $E$ et $F$ deux $\bdK$-espaces vectoriels et $f \in \bcL(E, F)$ un isomorphisme.
+            %
+            \[ \hg{f^{-1} \in \bcL(F, E) \ \text{est un isomorphisme}}\]
+        \end{property}
+		%
+    }
+	%
+	\yesafter
+	%
+	\begin{nproof}
+		%
+        Soient $E$ et $F$ deux $\bdK$-espaces vectoriels et $f \in \bcL(E, F)$ un isomorphisme. $f$ est donc bijective par définition, et admet une réciproque $f^{-1}$. On se donne $(a, b) \in F^2$ et $\lambda \in \bdK$. On a :
+        %
+        \[ \lambda a + b = \lambda (f \circ f^{-1})(a) +  f \circ f^{-1})(b) = f(\lambda f^{-1}(a) + \mu f^{-1}(b))\]
+        %
+        Donc $f^{-1}(\lambda a + b) = \lambda f^{-1}(a) + \mu f^{-1}(b)$, donc $f^{-1} \in \bcL(F, E)$.
+    \end{nproof}
+	%
+	\yesbefore
+	
+	\item Montrer que $F$ et $G$ sont en somme directe si et seulement si leur intersection est réduite au vecteur nul.
+	
+	\noafter
+    %
+    \boxans{
+        %
+        \begin{theorem}{Caractérisation de la somme directe}{SALEF}
+            Soient $E$ un $\bdK$-espace vectoriel ainsi que $F$ et $G$ deux sous espaces vectoriels de $E$.
+            %
+            \[ \hg{F \oplus G \iff F \cap G = \{0_E\}} \]
+        \end{theorem}
+        %
+    }
+    %
+    \nobefore\yesafter
+    %
+    \begin{nproof}
+        Soient $E$ un $\bdK$-espace vectoriel ainsi que $F$ et $G$ deux sous espaces vectoriels de $E$.
+        
+        \begin{enumerate}
+            \itt $\boxed{\implies}$ Supposons que $F \oplus G$. On se donne $x \in F \cap G$, donc $x \in F$ et $x \in G$. On peut écrire :
+            %
+            \[ x = \underbrace{x}_{\in F} + \underbrace{0_E}_{\in E} = \underbrace{0_E}_{\in F} + \underbrace{x}_{\in E}\]
+            %
+            Or $F \circ G$, donc la décomposition est unique, et donc $(x, 0_E) = (0_E, x)$, soit $x = 0_E$. On obtient donc $F \cap G \subset \{ 0_E \}$. L'autre implication est évidente car $F$ et $G$ sont deux sev, donc $F \cap G = \{ 0_E \}$
+            
+            \itt $\boxed{\impliedby}$ Supposons que $F \cap G = \{ 0_E\}$. On se donne $x \in F + G$, ainsi que $(a, a', b, b') \in F^2 \times G^2$ tels que $x = a + b = a' + b'$.
+            %
+            On a alors $a - a' = b' - b$. Remarquons que $a - a' \in F$ et $b' - b \in G$, donc $a - a' = b' - b \in F \cap G$, et donc $a - a' = b' - b = 0$. On obtient directement $(a, b) = (a', b')$, soit l'unicité de l'écriture. Par définition, $F \circ G$.
+            
+        \end{enumerate}
+        
+    \end{nproof}
+    %
+    \yesbefore
+\end{enumerate}
+
+\end{document}

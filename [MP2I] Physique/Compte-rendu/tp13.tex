@@ -1,0 +1,45 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylize{Physique}{Compte-rendu TP 13 : Mesure d'une viscosité}
+
+\section{Éléments théoriques}
+
+\boxans{
+\underline{Référentiel :} Terrestre supposé galiléen
+
+\underline{Système :} \{ Bille \}
+
+\underline{Bilan des forces :} $\left\lbrace\begin{array}{ll}
+    \vec{P} &= mg\vec{v_z}  \\
+    \vec{\Pi} &= -m_h g  \vec{v_z} \\
+    \vec{F} &= -6\pi r \eta \vec{v}
+\end{array}\right.$
+On a :
+\[ m\vec{a} = m\dfrac{\text dv}{\text dt} \]
+Et :
+\[ \left\lbrace\begin{array}{ll}
+    m_h &= \rho_{huile}\times V = \dfrac{4}{3}\pi r^3 \rho_{huile}  \\
+    m &=  \dfrac{4}{3}\pi r^3 \rho_{bille}
+\end{array}\right.\]
+
+On a :
+\[ \vec{v} = v(t)\vec{u_z} \]
+Le principe fondamental de la dynamique livre alors :
+\[ m \dfrac{\text dv}{\text dt} = \dfrac{4}{3}\pi r^3 \left(\rho_{huile} - \rho_{bille}\right) g - 6\pi \eta r v(t)\]
+
+Donc \[\dfrac{\text dv}{\text dt} + \dfrac{6\pi\eta r}{\sfrac{4}{3}\pi r^3 \rho_{huile}}v = \dfrac{\rho_{bille} - \rho_{huile}}{\rho_{bille}}g\]
+
+Donc \[ \boxed{\dfrac{\text dv}{\text dt} + \dfrac{g}{2}\cdot\dfrac{\eta}{r^2 \rho_{bille}}v= \dfrac{\rho_{bille} - \rho_{huile}}{\rho_{bille}}g}\]
+
+\[ \tau = \dfrac{r^2\rho_{huile}}{\eta}\cdot\dfrac{2}{g}\]
+Donc \[ v_{lim} = \dfrac{2}{g}r^2\dfrac{\rho_{bille} - \rho_{huile}}{\eta}g\]
+Finalement 
+\[ \boxed{\eta = \dfrac{2}{g}\cdot\dfrac{r^2\left(\rho_{bille} - \rho_{huile}\right)g}{v_{lim}}}\]
+}
+
+Données : $M = 16,5 \ g$ pour $100$ billes, $u(M) \approx 0,20 \ g$.
+
+$m_{huile} = 224,40 \ g$, $u(m_{huile}) = 0,10 \ g$, $V_0 = 250 \ mL$.
+\end{document}

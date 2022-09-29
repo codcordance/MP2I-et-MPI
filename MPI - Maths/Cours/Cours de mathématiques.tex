@@ -1,0 +1,1012 @@
+\documentclass[a4paper,french,bookmarks]{book}
+
+\usepackage{booktabs}
+\usepackage{minitoc}
+\usepackage{./Structure/4PE18TEXTB}
+\usepackage{proof}
+\usepackage{pdfpages}
+
+\makeatletter
+\renewcommand*\l@section{\@dottedtocline{1}{1.8em}{3.5em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{5.3em}{3.5em}}
+\makeatother
+
+\newboxans
+\renewcommand{\thechapter}{\Roman{chapter}}
+\renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+\mtcsettitle{minitoc}{}
+
+\DeclareDocumentCommand\Sp{g}{\funlv{Sp}{#1}}
+
+\newcommand{\chaptertoc}[0]{
+    \setcounter{tocdepth}{2}
+    \begin{tcolorbox}[
+        enhanced,
+        frame hidden,
+        sharp corners,
+        detach title,
+        spread outwards     = 5pt,
+        halign              = center,
+        valign              = center,
+        borderline west     = {3pt}{0pt}{main20!50!main2!95!gray!90},
+        coltitle            = main20!50!main2!95!gray!90, 
+        interior style      = {
+            left color      = main1white2!65!gray!11,
+            middle color    = main1white2!50!gray!10,
+            right color     = main1white2!35!gray!9
+        },
+        arc                 = 0 cm,
+        title               = SOMMAIRE,
+        boxrule             = 0pt,
+        fonttitle           = \bfseries\sffamily,
+        overlay             = {
+            \node[rotate=90, minimum width=1cm, anchor=south,yshift=-0.8cm]
+            at (frame.west) {\tcbtitle};
+        }
+    ]
+        \begin{minipage}{0.83\linewidth}
+            \sffamily
+            \minitoc
+        \end{minipage}
+    \end{tcolorbox}
+}
+
+\begin{document}
+    
+    %==============================
+    % METADONNEES
+    %==============================
+    
+    \title{Cours de Mathématiques de MPI/MPI* (2022-2023)}
+    \author{SIAHAAN--GENSOLLEN Rémy}
+    \date{\today}
+    \hypersetup{
+        pdftitle={Cours de Mathématiques de MPI/MPI* (2022-2023)},
+        pdfauthor={SIAHAAN--GENSOLLEN Rémy},
+        pdflang={fr-FR},
+        pdfsubject={MPI/MPI*, Cours de Mathématiques},
+        pdfkeywords={MPI/MPI*, Cours de Mathématiques, 2022-2023}
+        pdfstartview=
+    }
+    
+    %==============================
+    % MISE EN PAGE
+    %==============================
+    
+    \titleformat{\chapter}[display]{\normalfont\huge\bfseries}{}{0pt}{
+        \begin{tcolorbox}[
+            enhanced,
+            frame hidden,
+            sharp corners,
+            spread sidewards    = 5pt,
+            halign              = center,
+            valign              = center,
+            interior style      = {color=main1!20},
+            arc                 = 0 cm,
+            fontupper           = \color{black}\sffamily\bfseries\huge,
+            fonttitle           = \normalfont\color{white}\sffamily\small,
+            top                 = 1cm, 
+            bottom              = 0.7cm,
+            title               = Chapitre \thechapter,
+            attach boxed title to bottom center = {
+                yshift=\tcboxedtitleheight/2,
+            },
+            boxed title style = {
+                frame code={
+                \path[left color=main2!95!gray!90,
+                right color=main1!95!gray!90] 
+                    ([xshift=-10mm]frame.north west) -- 
+                    ([xshift=10mm]frame.north east) -- 
+                    ([xshift=10mm]frame.south east) -- 
+                    ([xshift=-10mm]frame.south west) -- 
+                    cycle;
+                },
+                interior engine=empty
+            }
+        ]
+            #1
+        \end{tcolorbox}%
+    }
+    \titlespacing*{\chapter}{0pt}{-120pt}{-15pt}
+    \titleformat{name=\chapter,numberless}[display]{\normalfont\huge\bfseries}
+    {}{0pt}{
+        \begin{tcolorbox}[
+            enhanced,
+            frame hidden,
+            sharp corners,
+            spread sidewards    = 5pt,
+            halign              = center,
+            valign              = center,
+            interior style      = {color=main1!20},
+            arc                 = 0 cm,
+            outer arc           = 0pt,
+            leftrule            = 0pt,
+            rightrule           = 0pt,
+            fontupper           = \color{black}\sffamily\bfseries\huge,
+            enlarge left by     = -1in-\hoffset-\oddsidemargin, 
+            enlarge right by    = -\paperwidth+1in+\hoffset +
+            \oddsidemargin+\textwidth,
+            width               = \paperwidth, 
+            left                = 1in+\hoffset+\oddsidemargin, 
+            right               = \paperwidth-1in-\hoffset -
+            \oddsidemargin-\textwidth,
+            top                 = 1cm, 
+            bottom              = 1cm
+        ]
+            #1
+        \end{tcolorbox}%
+    }
+    \titlespacing*{name=\chapter,numberless}{0pt}{-115pt}{0pt}
+    
+    %==============================
+    % PREMIERE DE COUVERTURE
+    %==============================
+
+    \includepdf[pages={1},scale=1.15,offset=0mm -18mm]{CMCover.pdf}
+    
+    %==============================
+    % PAGE VIDE
+    %==============================
+    
+    \pagestyle{empty}
+    
+    %==============================
+    % PAGE DE COUVERTURE INTERNE
+    %==============================
+    
+    \begin{titlepage}
+	    \begin{center}
+	        {\scshape SIAHAAN--GENSOLLEN Rémy\par}
+	        \vspace{2cm}
+	        {\huge\sffamily Cours de\par}
+	        \vspace{0.5cm}
+	        {\Huge\bfseries\sffamily MATHÉMATIQUES\par}
+	        \vspace{1cm}
+	        {\Large\textit{donné pendant mon année de \textsf{MPI/MPI*} à
+	        Janson-de-Sailly}\\[5pt]\texttt{(2022-2023)}\par}
+	        \vfill
+	        {\large\EBGaramond Dernière compilation le \today\par}
+        \end{center}
+    \end{titlepage}
+    
+    %==============================
+    % PAGE VIDE
+    %==============================
+    
+    \pagestyle{empty}\text{}\newpage
+    
+    %==============================
+    % STYLE DES EN-TÊTES ET PIEDS DE PAGES
+    %==============================
+    
+    \renewcommand\chaptermark[1]{\markboth{#1}{}}
+    
+    \fancypagestyle{intro}{
+        \fancyhf{}
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0pt}\fancyfoot[RO,LE]{\GillSansMTMedium\color{white5}\thepage\;/\;\pageref{LastPage}}
+        \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries COURS DE MATHÉMATIQUES}
+        \fancyhead[RE]{\GillSansMTMedium\color{white5}Avant-propos}
+        \fancyhead[LO]{\GillSansMTMedium\color{white5}\rightmark}
+        \fancyhead[RO]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} 2022-2023 \quad Janson-de-Sailly}
+    }
+    
+    \fancypagestyle{toc}{
+        \fancyhf{}
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0pt}\fancyfoot[RO,LE]{\GillSansMTMedium\color{white5}\thepage\;/\;\pageref{LastPage}}
+        \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries COURS DE MATHÉMATIQUES}
+        \fancyhead[RE]{\GillSansMTMedium\color{white5}Table des matières}
+        \fancyhead[LO]{\GillSansMTMedium\color{white5}\rightmark}
+        \fancyhead[RO]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} 2022-2023 \quad Janson-de-Sailly}
+    }
+    
+    \fancypagestyle{plain}{
+        \fancyhf{}
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0pt}\fancyfoot[RO,LE]{\GillSansMTMedium\color{white5}\thepage\;/\;\pageref{LastPage}}
+        \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries COURS DE MATHÉMATIQUES}
+        \fancyhead[RE]{\GillSansMTMedium\color{white5}Chapitre \thechapter : \nouppercase{\leftmark}}
+        \fancyhead[LO]{\GillSansMTMedium\color{white5}\nouppercase{\rightmark}}
+        \fancyhead[RO]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} 2022-2023 \quad Janson-de-Sailly}
+    }
+    
+    %==============================
+    % PREFACE 
+    %==============================
+    
+    \chapter*{Avant-propos}
+    \thispagestyle{intro}
+    \addcontentsline{toc}{chapter}{Avant-propos}
+    
+    \text{\Large\EBGaramond\itshape À tout lecteur potentiel, quelques mots...}\newline\newline\newline
+    
+    \begin{center}
+        \begin{minipage}{0.85\linewidth}
+            \large \qquad Comme son nom l'indique, l'objectif de cet ouvrage est de fournir un cours de Mathématiques en accord avec le programme des classes préparatoires \textsf{MPI/MPI*}. Il contiendra principalement des notes de cours, dont je serai dispensé mon année de \guill{spé'} (année 2022/2023) à \textit{Janson-de-Sailly}, par M. \textsc{Luc Abergel}. J'essaierai par ailleurs de détailler et d'enrichir le plus possible son contenu au fil de l'année, à l'aide de mes cours de première année, d'autres ouvrages et de recherches en général. La rédaction de ce cours constitue un important projet, d'autant plus que j'en mène un similaire pour les enseignements d'informatique et de physique cette année. C'est un travail qui peut s'avérer extrêmement chronophage, aussi risque-t-il d'être rarement mené jusqu'au bout.\newline
+    
+            \qquad Je ne prétends à aucun moment être enseignant, et ce livre reste avant tout destiné à mon usage personnel, aussi j'aviserai tout lecteur potentiel à faire preuve de prudence lors du parcours de ce texte, à ne pas hésiter à en vérifier le contenu par lui même. Il est très probable que de multiples erreurs (en tout genre) se soient glissés durant la rédaction, que je n'aurait su repérer, ou que le manque de temps empêche la correction. N'hésitez d'ailleurs pas à me le signaler, ou à me faire part de vos remarques en général.\newline
+    
+            \qquad J'espère enfin, et malgré les points exprimés précédemment, que ce cours pourra avoir une quelconque utilité à ceux qui s'y aventureraient, que sa lecture et son style en seront agréable (la mise en page et la composition graphique en général sont de ma conception personnelle, enrichie par les retours de mes camarades, et le fruit de plusieurs mois d'apprentissage de \LaTeX) et enrichissante.\newline\newline\newline\text{}
+        \end{minipage}
+    \end{center}
+    
+    \hfill{\large\textsc{Siahaan--Gensollen Rémy}}
+    
+    \pagestyle{intro}
+    
+    %==============================
+    % TABLE DES MATIERES
+    %==============================
+    
+    \newpage
+    \dominitoc\nomtcrule 
+    {\sffamily\tableofcontents}\mtcaddchapter\pagestyle{toc}
+    
+    \cleardoublepage
+    
+    %==============================
+    % COURS
+    %==============================
+    
+    \pagestyle{plain}
+    
+    \chapter{Espaces vectoriels généraux}
+    
+    Intro
+    
+    \chaptertoc
+    
+    \section{Présentation}
+    
+    \begin{definition}{Corps commutatif}{}
+        Soit un \hg{anneau commutatif $\p{\bdK, +, x}$}. On dit que \hg{$\p{\bdK, +, x}$ est un corps commutatif} lorsque \hg{tout élément \textit{non nul} de $\bdK$ admet un inverse}.
+    \end{definition}
+    
+    \begin{example}{}{}
+        \begin{enumerate}
+            \itt $\bdQ$, $\bdR$, $\bdC$ sont des corps commutatifs.
+            
+            \itt $\bdF_p = \bdZ/p\bdZ$ pour un entier premier $p \in \bdP$ est un corps commutatif.
+            
+            \itt $\bdQ\intc{\sqrt{2}} = \ens{a + b\sqrt{2}?\ \p{a, b} \in \bdQ^2}$ est un corps commutatif. En effet, on peut utiliser la multiplication par la quantité conjuguée :
+            %
+            \[ \dfrac{1}{a + b \sqrt{2}} = \dfrac{a - b\sqrt{2}}{a^2 - 2b^2}\]
+            %
+            Question : montrer que pour $\p{a, b} \in \bdQ^2$, on a $a^2 - 2b^2 = 0 \iff a = b = 0$
+            
+            \itt Soit le corps $\bck = \bdZ/3\bdZ$. On remarque que $0^2 = 0$, $1^1 = 1$ et $2^2 = 1$ donc $x^2 = 2$ n'a pas de solution dans $\bck$. On pose alors $\alpha$ tel que $\alpha^2 = 2 \in k$.
+        \end{enumerate}
+    \end{example}
+    
+    \begin{definition}{Caractéristique (HP)}{}
+        Soit un \hg{anneau commutatif $\p{\bdA, +, x}$} de \hg{neutre additif $0_\bdA$} et \hg{neutre multiplicatif $1_\bdA$}.
+        %
+        On appelle \hg{caractéristique de l'anneau $\p{\bdA, +, x}$} le \hg{plus \textit{petit entier} $n \in \bdN$} tel que :
+        %
+        \[ \hg{n \times 1_A = \underbrace{1_\bdA + 1_\bdA + \dots + 1_\bdA}_{n \ \text{fois}} = 0_\bdA} \]
+        %
+        \hg{si un tel entier existe, sinon égale à $0$}.
+    \end{definition}
+    
+    Grossièrement, on se contentera de la compréhension suivante pour les corps :
+    %
+    \begin{enumerate}
+        \itt Pour un corps $\bdK \subset \bdC$, la caractéristique de $\bdK$ est nulle.
+        
+        \itt Pour un corps $\bdK = \bdF_p = \bdZ/p\bdZ$ avec $p \in \bdP$, la caractéristique de $\bdK$ vaut $p$. 
+    \end{enumerate}
+    
+    
+    \section{Objets de l'algèbre linéaire}
+    
+    Rappels de SUP
+    
+    \section{Dimension}
+    
+    On considère une famille libre $\bsL = \p{e_i}_{i \in \iint{1, n}}$
+    
+    \newpage
+    
+    \begin{property}{Rang d'une composition}{}
+        \[ \hg{\rg{uv} \leq \min{\rg u, \rg v}}\]
+        
+        Si $u$ est un isomorphisme, alors $\rg{uv} = \rg{v}$, et si $v$ est un isomorphisme, alors $\rg{uv} = \rg{u}$.
+    \end{property}
+    
+    \begin{nproof}
+        $\Imm\p{uv} = u\p{\Imm v} < \Imm u$.
+        
+        Si $v$ est un isomorphisme, $\Imm\p{uv} = u\p{\Imm v} = u\p{E} = \Imm{u}$. Donc $\rg{uv} = \rg u$.
+    \end{nproof}
+    
+    \begin{property*}{}{}
+        Soit \hg{$F$} un \hg{$\bdK$-espace vectoriel}. On a l'\hg{isomorphisme} :
+        %
+        \[ \hg{\bcL\p{\bdK, F} \cong F}\]
+        %
+    \end{property*}
+    %
+    \begin{nproof}
+        Soit $F$ un $\bdK$-ev. Soit un vecteur $x \in F$. On construit $f_x : \bdK \to F$ telle que $\forall \lambda \in \bdK,\qquad f_x\p{\lambda} = \lambda x$. On obtient facilement que $f_x$ est linéaire. On pose alors $\bch : F \to \bcL\p{\bdK, F}$ l'application qui à $x$ associe $f_x$.
+        %
+        \begin{enumerate}
+            \itt Soit $\p{x, y} \in F$ et $\lambda \in \bdK$, on a :
+            %
+            \[ \forall \mu \in \bdK,\qquad \bch\p{\lambda x + y}\p{\mu} = \mu\p{\lambda x + y} = \mu\lambda x + \mu y = \lambda \bch\p{x}\p{\mu} + \bch\p{y}\p{\mu} \]
+            %
+            D'où $\bch\p{\lambda x + y} = \lambda \bch\p{x} +  \bch\p{y}$. $\bch$ est donc linéaire.
+            %
+            \itt Soit une application $f$ de $\bcL\p{\bdK, F}$. On pose $x = f\p{1}$. Par linéarité, pour tout scalaire $\lambda \in \bdK$, on a $f\p{\lambda} = \lambda x$. Donc $f = \bch\p{x}$. Ainsi $\bch$ est surjective.
+            
+            \itt Soit $\p{x} \in F$ tel que $\bch\p{x} = 0_{\bcL\p{\bdK, F}}$. Alors $\bch\p{x}\p{1} = 0$. Or $\bch\p{x}\p{1} = x$ donc $x = 0$. $\bch$ est donc injective.
+        \end{enumerate}
+        %
+        $\bch$ est bien un isomorphisme, d'où $\bcL\p{\bdK, F} \cong F$.
+    \end{nproof}
+    
+    \begin{property*}{}{}
+        Soit \hg{$E$} et \hg{$F$} deux \hg{$\bdK$-espaces vectoriels} de \hg{dimension finie}, \hg{$H \subset F$} un \hg{sous espace vectoriel} et \hg{$u \in \bcL\p{E, F}$} une \hg{application linéaire de $E$ dans $F$}. On a :
+        %
+        \[ \hg{\dim{u^{-1}\p{H}} = \dim{H \cap \Imm u} + \dim{\Ker u}}\]
+    \end{property*}
+    
+    \begin{nproof}
+        Soit $E$ et $F$ deux $\bdK$-espaces vectoriels de dimension finie, $H \subset F$ un sous espace vectoriel et $u \in \bcL\p{E, F}$ une application linéaire de $E$ dans $F$. On pose $\overline{u} = u_{\mid u^{-1}\p{H}}$ la restriction de $u$ à $u^{-1}\p{H}$. Par \textit{théorème du rang} sur $\overline{u}$, on a : 
+        %
+        \[ \dim{u^{-1}\p{H}} = \dim{\Imm \overline{u}} + \dim{\Ker \overline{u}}\]
+        %
+        \begin{enumerate}
+            \itt On a $\Imm{\overline{u}} = \ens{u\p{x},\ x \in u^{-1}\p{H}} = H \cap \Imm{u}$.
+            
+            \itt De plus, $\Ker \overline{u} = \ens{x \in u^{-1}\p{H} \enstq u\p{x} = 0} \subset \Ker u$. Par ailleurs, si $x \in \Ker u$, alors $u\p{x} = 0$. Or $0 \in H$ donc $x \in u^{-1}\p{H}$, donc $\overline{u}\p{x} = 0$, d'où $x \in \Ker \overline{u}$. Ainsi $\Ker u \subset \Ker \overline{u}$, donc $\Ker u = \Ker \overline{u}$.
+        \end{enumerate}
+        %
+        On obtient bien :
+        %
+        \[ \dim{u^{-1}\p{H}} = \dim{H \cap \Imm u} + \dim{\Ker u}\]
+    \end{nproof}
+    
+    \chapter{Matrices}
+    
+    \chaptertoc
+    
+    \section{Présentation de $\bcM_{n, m}\p{\bdK}$}
+    
+    \subsection{Définition}
+    
+    \begin{definition}{Matrice}{}
+        Une matrice est une famille doublement indexée $\p{a_{i, j}}_{\p{i, j} \in \iint{1, n} \times \iint{1, m}}$ avec $a_{i, j} \in \bdK$.
+    \end{definition}
+    
+    
+    \begin{definition}{Ensemble des matrices}{}
+        L'ensemble des matrices est noté $\bcM_{n, m}\p{\bdK}$
+    \end{definition}
+    
+    \begin{definition}{Colonnes et lignes}{}
+        La colonne d'une matrice $M$ est le vecteur/la famille $\bsC_j\p{M} = \p{a_{i, j}}_{i \in \iint{1, n}} = \p{a_{i, j}}_i$.
+        
+        De même, la ligne d'une matrice est le vecteur/la famille $\bsL_i\p{M} = \p{a_{i, j}}_{j \in \iint{1, m}} = \p{a_{i, j}}_j$
+    \end{definition}
+    
+    On a $\intc{A}_{i, j} = a_{i, j}$.
+    
+    \subsection{Opérations}
+    
+    $A + B$ : $\intc{A + B}_{i, j} = \intc{A}_{i, j} + \intc{B}_{i, j}$.
+    
+    $\lambda A$ : $\intc{\lambda A}_{i, j} = \lambda \intc{A}_{i, j}$
+    
+    $A \times B$ : $\intc{AB}_{i, k} = \displaystyle \sum_{j} a_{i, j} b_{j, k}$
+    
+    $\mtrans{A} = \ens{a_{i, j}}_{j, i}$.
+    
+    $\Tr A = \displaystyle \sum_{i} a_{i, i}$
+    
+    \subsection{Propriétés}
+    
+    $\bcM_{n, m}\p{\bdK}$ est un ev de dimenion $n \times m$.
+    
+    base canonique $E_{i, j}$ avec $\p{i, j} \in \iint{1, n} \times \iint{1, m}$. %dessin avec la matrice
+    
+    $E_{i, j} = \p{\delta_{u, i}\delta_{v, j}}_{u, v}$
+    
+    Sur le produit $\begin{array}{rcl}
+        \bcM_{n, m}\p{\bdK} \times \bcM_{m, p}\p{\bdK} &\to& \bcM_{n, p}\p{\bdK}  \\
+        A, b &\mapsto AB 
+    \end{array}$, on a :
+    
+    \begin{enumerate}
+        \itt associativé : $\p{AB}C = A\p{BC}$
+        
+        \itt $E_{i, j}E_{j', k} = E_{i, k}\delta_{j, j'}$
+    \end{enumerate}
+    
+    $A \mapsto \mtrans{A}$ linéaire et involutive.
+    
+    $\mtrans{\p{AB}} = \mtrans{A}\mtrans{B}$
+    
+    $\Tr{AB} = \Tr{BA}$.
+    
+    \subsection{Application linéaire associée à une matrice}
+    
+    \begin{enumerate}
+        \itt $\bdK^n = \bcM_{n, 1}\p{\bdK}$
+        
+        \itt $\bcM_{n, m}\p{\bdK}$ agit sur $\bdK^m$
+        
+        \itt $AX = Y \in \bdK^n$ et $u_A = \begin{array}[t]{rcl}
+            K^m &\to& K^n  \\
+            X &\mapsto& AX 
+        \end{array}$
+    \end{enumerate}
+    
+    \subsection{Matrice par blocs}
+    
+    On peut écrire $\begin{pNiceMatrix}
+        A & B\\
+        C & D
+    \end{pNiceMatrix}\begin{pNiceMatrix}
+        X
+        Y
+    \end{pNiceMatrix} = \begin{pNiceMatrix}
+        AX + BY\\
+        CX + DY
+        \end{pNiceMatrix}$.
+        
+    Ceci se généralise :
+    
+    %\begin{pNiceMatrix}
+    %
+    %\end{pNiceMatrix}
+    
+    \[ \begin{pNiceMatrix}
+            A & B\\
+            C & D
+        \end{pNiceMatrix}\begin{pNiceMatrix}
+            X & Y\\
+            Z & T
+        \end{pNiceMatrix} =
+        \begin{pNiceMatrix}
+            AX + BZ & AY + BT\\
+            CX + DZ & CY + DT
+        \end{pNiceMatrix}\]
+        
+    
+    Soit $M = \begin{pNiceMatrix}
+        A & B\\
+        C & D
+    \end{pNiceMatrix}$. On a $\mtrans{M} = M \iff \begin{pNiceMatrix}
+            \mtrans{A} & \mtrans{C}\\
+            \mtrans{B} & \mtrans{D}
+        \end{pNiceMatrix} = M \iff A, D$ symétriques et $B = \mtrans{C}$.
+        
+    \section{Applications linéaires et matrices}
+    
+    \subsection{Définitions}
+    
+    $A$ agit $K^m \to K^n$. $u \in \bcL\p{E, F}$. $\bcB$ base de $E$ et $\bcC$ de $F$. On a $\bcB = \p{e_j}_j$ et $\bcC = \p{f_i}_i$.
+    
+    $A = \Mat_{\bcB, \bcC} u = \p{a_{i, j}}_{i, j}$
+    
+    \subsection{Isomorphisme $\bcL\p{E, F} \cong \bcM_{n, m}\p{\bdK}$}
+    
+    isomorphisme, démo : lin puis dim puis inj
+    
+    \subsection{Matrices et produit / composition}
+    
+    $\begin{array}{ccccc}
+        E &\to& F &\to& G  \\
+        \bcB & u& \bcC & v& \bcD 
+    \end{array}$ et $\Mat_{\bcB, D}\p{v \circ u} = \Mat_{\bcC, \bcD}\p{v} \times \Mat_{\bcB, \bcC}\p{u}$
+    
+    \subsection{Changement de bases}
+    
+    Révisions sur le changement de base
+    
+    \subsection{Théorème fondamental en en trois versions}
+    
+    \begin{enumerate}
+        \item     $s$ supplémentaire de $\Ker u$ $\begin{array}{rcl}
+        S &\to& \Imm u  \\
+        x &\mapsto& u\p{x} 
+    \end{array}$
+    
+    \item $\exists \bcB, \bcC$ bases de $E$ et $F$ tel que $\Mat_{\bcB, \bcC}\p{u} = \begin{pNiceMatrix}
+        I_r & 0\\
+        0 & 0
+    \end{pNiceMatrix}$ où $r = \rg u$.
+    
+    \item $u, v \in \bcL\p{E, F}$. $v$ et $u$ sont dites équivalentes s'il existe deux isomorphismes $\varphi$ et $\psi$ tels que $v = \varphi u \psi$. C'est une relation d'équivalences.
+    
+    \end{enumerate}
+    
+    \section{Dualité en dimension finie}
+    
+    def : Soit $E$ un $\bbK$-ev, $f$ une forme linéaire sur $E$ est : $f : E \to \bbK$.
+    
+    On appelle dual l'ensemble $E^* = \bcL\p{E, \bbK}$ des formes linéaires.
+    
+    \newpage
+    
+    Soit $H$ un hyperplan d'un $\bbK$ espace vectoriel $E$ de dimension finie. Quelles sont les formes linéaires $E^*$ telles que $H = $
+    
+    \newpage
+    
+    Soit $D = \begin{vNiceMatrix}
+        1 & 0 & 1 & 0 & 0\\
+        x & 1 x & y & 1 & 0\\
+        x^2 & 2x & y^2 & 2y & 2\\
+        x^3 & 3x^2 & y^3 & 3y^2 & 6y\\
+        x^4 & 4x^3 & y^4 & 4y^3 & 12y^2
+    \end{vNiceMatrix}$. Montrer que $D$ est nul si et seulement si $x = y$.
+    
+    \vspace{5cm}
+    
+    \begin{exercise}{}{}
+        Soit $\p{\varphi_i}_{i \in \iint{1, k}}$ des formes linéaires de $E$. Montrer que $\p{\varphi_i}_{i \in \iint{1, k}}$ est libre si et seulement si l'application $F : \begin{array}[t]{rcl}
+            E &\to & \bbK^k  \\
+            x &\mapsto& \p{\varphi_i \p{x}}_{i \in \iint{1, k}}
+        \end{array}$ est surjective.
+        
+        \tcbline
+    
+    
+        On a $\Imm F = \ens{\p{\varphi_1\p{x}, \dots \varphi_k\p{x}}, x \in E} \subset \bbK^k$. Si $F$ est non surjective, alors $\Imm F$ est sev strict de $\bbK^k$.
+    
+        On considère donc $H$ un hyperplan de $\bbK^k$ tel que $\Imm F \subset H$. On a alors $H = \Ker \phi$ où $\phi \in \p{\bbK^k}^\star$. 
+        
+        Or $\p{K^k}^\star \cong \bbK^k$, ainsi il existe $\p{a_i}_{i \in \iint{1, k}} \in \bbK^k$ tel que $H = \ens{\p{y_i}_{i \in \iint{1, k}} \enstq \displaystyle\sum_{i=1}^k a_iy_i = 0}$.
+        
+        Puisque $\Imm F \subset H$, on a donc : \qquad $\displaystyle\forall x \in E,\quad \sum_{i=1}^k a_i\varphi_i\p{x} = 0$.
+        
+        
+        Si $F$ est surjective, alors  il existe $e_i$ tel que $\varphi_j\p{e_i} = \delta_{ij}$.
+        
+        Si $\displaystyle\sum \lambda_i \varphi_i = 0$, alors avec $e_j$ on obtient $\lambda_j e_j = 0$ d'où $\lambda = 0$.
+    \end{exercise}
+    
+    
+    \chapter{Calcul pratique sur les matrices}
+    
+    \chaptertoc
+    
+    \section{Opérations élémentaires}
+    
+    \subsection{Définition}
+    
+    \begin{definition}{Transvection}{}
+        La matrice de transvection est $T_{ij}\p{\lambda} = I_n + \lambda E_{i, j}$ avec $i \neq j$ :
+        %
+        \[ \hg{\begin{pNiceMatrix}
+            1 & & \lambda \\
+             & \Ddots & \\
+             & & 1
+        \end{pNiceMatrix}}\]
+    \end{definition}
+    
+    \begin{definition}{Dilatation}{}
+        La matrice de dilatation est $D_i\p{\lambda} = I_n + \p{\lambda - 1}E_{i, i}$ avec $\lambda \neq 0$ :
+        %
+        \[ \hg{\begin{pNiceMatrix}
+            1 & & (0) \\
+             & \lambda & \\
+            (0) & & 1
+        \end{pNiceMatrix}}\]
+    \end{definition}
+    
+    \begin{definition}{Permutatition}{}
+        La matrice de permutation de $\sigma \in \bfS$ est $P_{\sigma}$ tel que $\intc{P_\sigma}_{i, j} = \delta_{i, \sigma{j}}$
+        %
+        \[ \hg{\begin{pNiceMatrix}
+             & &  \\
+             & \intc{P}_{\sigma\p{j}, j} = 1 & \\
+             & & 
+        \end{pNiceMatrix}}\]
+    \end{definition}
+    
+    \subsection{Propriétés}
+    
+    \begin{property}{}{}
+        \begin{enumerate}
+            \itast $T_{ij}\p{\lambda}T_{ij}\p{\mu} = T_{ij}\p{\lambda + \mu}$
+            
+            \itast $T_{ij}\p{\lambda}^{-1} = T_{ij}\p{-\lambda}$
+            
+            \itast $D_i\p{\lambda}D_i{\mu} = D_i\p{\lambda\mu}$
+            
+            \itast $D_i\p{\lambda}^{-1} = D_i{\lambda^{-1}}$
+            
+            \itast $P_\sigma P_\tau = P_{\sigma\tau}$
+        \end{enumerate}
+    \end{property}
+    
+    \subsection{Effet sur une matrice}
+    
+    \subsubsection{Effet à droite}
+    
+    \begin{enumerate}
+        \itt $T_{ij}\p{e_k} = e_k$ pour $k \neq j$
+        
+        \itt ...
+    \end{enumerate}
+    
+    \subsubsection{Effet à gauche}
+    
+     Etc etc
+    
+    \section{Calcul pratique}
+    
+    \subsection{Rang}
+    
+    Le rang est invariant par opération sur les colonnes. De plus, avec :
+    %
+    \[ A = \begin{pNiceMatrix}
+        \lambda_1 & & \star\\
+        & \Ddots & \\
+        (0) & & \lambda_n
+    \end{pNiceMatrix}\]
+    %
+    On a $\rg_{A} = n$ si et seulement si $\lambda_i \neq 0$ pour tout $i \in \iint{1, n}$.
+    
+    Il n'y a cependant aucun lien entre $\rg_{A}$ et $\Card \ens{i \enstq \lambda_i = 0}$. Contre exemple :
+    %
+    \[ \begin{pNiceMatrix}
+        0 & 1 &   &  & \star\\
+          & 0 & 1 &  & \\
+          &   & \Ddots & \Ddots & \\
+          &   &   &  & 1\\
+        (0)  &   &   &  & 0
+    \end{pNiceMatrix}\]
+    
+    \subsection{Déterminant}
+    
+    On peut opérer sur lignes et colonnes. Attention, $\det D_i\p{\lambda} = \lambda$ et $\det P_\sigma = \epsilon\p{\sigma}$.
+    
+    \subsection{Inversion}
+    
+    Si $\theta_1, \dots, \theta_n$ tq $A \theta \dots \theta_n = I_n$, alors $A^{-1} = \theta_1\dots\theta_n$. 
+    
+    \begin{align*}
+        \p{\begin{array}{ccc|ccc}
+            1 & 1 & 1 & 1 & 0 & 0  \\
+            -1 & 2 & 1 & 0 & 1 & 0 \\
+            1 & 1 & 0 & 0 & 0 & 1
+        \end{array}} &\iff \p{\begin{array}{ccc|ccc}
+            1 & 1 & 1 & 1 & 0 & 0  \\
+            0 & 3 & 2 & 1 & 1 & 0 \\
+            0 & 0 & -1 & -1 & 0 & 1
+        \end{array}}\\
+        &\iff \p{\begin{array}{ccc|ccc}
+            1 & 1 & 0 & 0 & 0 & 1  \\
+            0 & 3 & 0 & -1 & 1 & 2 \\
+            0 & 0 & -1 & -1 & 0 & 1
+        \end{array}}\\
+        &\iff \p{\begin{array}{ccc|ccc}
+            1 & 1 & 0 & 0 & 0 & 1  \\
+            0 & 1 & 0 & -\sfrac{1}{3} & \sfrac{1}{3} & \sfrac{2}{3} \\
+            0 & 0 & 1 & 1 & 0 & -1
+        \end{array}}\\
+        &\iff \p{\begin{array}{ccc|ccc}
+            1 & 0 & 0 & -\sfrac{1}{3} & -\sfrac{1}{3} & -\sfrac{1}{3}   \\
+            0 & 1 & 0 & -\sfrac{1}{3} & \sfrac{1}{3} & \sfrac{2}{3} \\
+            0 & 0 & 1 & 1 & 0 & -1
+        \end{array}}
+    \end{align*}
+    
+    \chapter{Déterminants}
+    
+    On a vu l'année dernière que les déterminants étaient un critère numérique d'inversibilité très important et utile. On a par ailleurs vu que $\det{AB} = \det A \det B$.
+    
+    \chaptertoc
+    
+    \section{Calcul multilinéaire}
+    
+    \subsection{Définition}
+    
+    \begin{definition}{Application multilinéaire}{}
+        Soit $n \in \bdN$, une collection $\p{E_i}_{i \in \iint{1, n}}$ de $\bbK$-espaces vectoriels et $F$ un $\bbK$-espace vectoriel. On dit d'une fonction $f : E_1 \times \dots \times E_n \to F \in \bcF\p{\displaystyle\prod_{i=1}^n E_i, F}$ qu'elle est $n$ linéaire lorsque :
+        %
+        \[ \forall \p{x_i}_{i \in \iint{1, n}} \in \prod_{i=1}^n E_i,\qquad \forall i \in \iint{1, n},\qquad f_i : \begin{array}[t]{rcl}
+            E_i &\to& F  \\
+            y &\mapsto& f\p{x_1, \dots, x_{i-1}, y, x_{i+1}, \dots x_n}
+        \end{array} \in \bcL\p{E_i, F}\]
+    \end{definition}
+    
+    \begin{example}{}{}
+        \begin{enumerate}
+            \item Si $f$ est linéaire, $f\p{0, \dots, 0} = 0$. Si $f$ $n$-linéaire, alors $f\p{\bullet, \dots, \bullet, 0, \bullet \dots, \bullet} = 0$.
+            
+             \item linéaire en $x$ :  homogène degré $1$ des coordonnées de $x$
+             
+             $n$-linéaire en $\p{x_1, \dots, x_n}$ : homogène de degré $n$ des coordonnées des $x_i$
+             
+             \item $\p{x, y} \mapsto x + y$ est linéaire.
+             
+             $\p{x, y} \mapsto xy$ est bilinéaire.
+        \end{enumerate}
+    \end{example}
+    
+    \begin{definition}{Forme multilinéaire}{}
+        $f : E_1 \times \dots \times E_n \to \bbK$ forme $n$-linéaire.
+    \end{definition}
+    
+    \subsection{Cas de la dimension finie}
+    
+    Prenons $n \in \bdN$ et une collection $\p{E_i}_{i \in \iint{1, n}}$ de $\bbK$-espaces vectoriels de dimension finie. Pour tout $j \in \iiint{1, n}$, on considère $E_j$ de dimension $d_j = \dim E_j$ et une base $\bcB_j = \p{e_{j, 1}, e_{j, 2}, \dots, e_{j, d_j}}$. Pour un $n$-uplet $\p{x_1, \dots, x_n}$ on a alors :
+    %
+    \[ x_j = \sum_{i=1}^{d_j} \lambda_{1, j}e_{1, j}\]
+    
+    \subsection{Formes alternées, antisymétriques}
+    
+    Definitions [...]
+    
+    Prop : antisymétrique $\iff$ alternée (si $\bbK \subset \bdC$ et que la caractéristique de $\bbK$ n'est pas égale à $2$).
+    
+    Soit $f$ une forme antisymétriques. On a $f\p{x_{\sigma\p{1}}, \dots, x_{\sigma\p{n}}} = \epsilon\p{\sigma}f\p{x_1, \dots, x_n}$.
+    
+    Action de groupe : $\bfS_n$ agit sur $E^n$ par $\sigma x = \p{x_{\sigma\p{1}}, \dots, x_{\sigma\p{n}}}$, $1 x = x$ et $\sigma\p{\tau x} = \p{\sigma \tau} x$
+    
+    \section{Déterminants}
+    
+    \subsection{Déterminant d'une famille}
+    
+    Il existe une unique forme $n$-linéaire alternée $f$ sur $E$ de dimension $n$ tel que $f\p{\bcB} = 1$ . On note $f = \det_\bcB$.
+    
+    Par propriété de changement de base ($\bcB$, $\bcC$ deux bases)
+    
+    \subsection{Matrices par blocs}
+    
+    Prop : $\begin{vNiceMatrix}
+        A & 0\\
+        0 & B
+    \end{vNiceMatrix} = \mod{A}\mod{B}$
+    
+    Soit $E$ de dimension $n$ et $F$ de dimension $M$, $\bcB_E$ une base de $E$ et $\bcB_F$ une base de $F$. On considère :
+    %
+    \[ f : \begin{array}{rcl}
+        E^n \times F^m &\to& \bbK  \\
+         &\mapsto &
+    \end{array}\]
+    
+    Fixons $x = \p{x_1, \dots, x_n}$
+    
+    \section{Formules de Cramer}
+    
+    Formules de \textsc{Cramer}
+    
+    \subsection{Développement d'un déterminant selon ligne / colonne}
+    
+    A \quad $n \times n$ \quad $A = \p{a_{i, j}}_{i, j}$
+    
+    $\Delta_{i, j} = \det$ obtenu en supprimant $\bsL_i$ et $\bsC_j$.
+    
+    
+    \boxans{
+            On pose pour $n \in \bdN^*$ la matrice $D_n = \begin{pNiceMatrix}
+                    a       &   c       &   0       &   \Cdots  &   0       \\
+                    b       &   \Ddots  &  \Ddots   &   \Ddots  &   \Vdots  \\
+                    0       &   \Ddots  &           &           &   0       \\
+                    \Vdots  &   \Ddots  &  \Ddots   &           &   c       \\
+                    0       &   \Cdots &0\phantom{-}&   b       &   a
+                \end{pNiceMatrix}_{\left[n\right]}$. On développe $\det{D_n}$ selon la ligne 1 :
+                %
+                \[ \det{D_n} = \sum_{j=1}^n \p{-1}^{1+j}\left[D_n\right]_{1, j}\Delta_{1,j}\p{D_n} = a\begin{vNiceMatrix}
+                    a       &   c       &   0       &   \Cdots  &   0       \\
+                    b       &   \Ddots  &  \Ddots   &   \Ddots  &   \Vdots  \\
+                    0       &   \Ddots  &           &           &   0       \\
+                    \Vdots  &   \Ddots  &  \Ddots   &           &   c       \\
+                    0       &   \Cdots &0\phantom{-}&   b       &   a
+                \end{vNiceMatrix}_{\left[n-1\right]} -c \begin{vNiceMatrix}
+                    b       &   c       &   0       &   \Cdots  &   0       \\
+                    0       &   a       &  \Ddots   &   \Ddots  &   \Vdots  \\
+                    \Vdots  &   b       &  \Ddots   &           &   0       \\
+                            &   0       &  \Ddots   &           &   c       \\
+                            &   \Vdots  &  \Ddots   &           &   a        \\
+                    0       &   0       &   \Cdots  &0\hphantom{--}&   b\vphantom{\dfrac{-}{-}}
+                \end{vNiceMatrix}_{\left[n-1\right]}\]
+                %
+                On reconnaît le premier terme comme étant $\det{D_{n-1}}$. En développant le second terme selon la première colonne, on reconnaît également $b\det{D_{n-2}}$. On a donc pour entier $n \in \bdN$ tel que $n \geq 3$, $\det{D_n} = a\det{D_{n-1}} - bc\det{D_{n-2}}$.
+        }
+        
+        \boxans{
+            On pose pour $n \in \bdN^*$ la matrice 
+        }
+        
+ \chapter{Groupes finis}
+ 
+ exercice :
+ %
+ On a le polynôme cyclotomique, où $\zeta_k^n = \exp{2\ii\dfrac{k\pi}{n}}$
+ %
+ \[ \phi_n = \prod_{k \in \p{\sfrac{\bdZ}{n\bdZ}}^\star} \p{X - \zeta_k^n}\]
+ %
+ \begin{enumerate}
+     \itt Montrer que $\displaystyle\prod_{d \mid n} \phi_d = X^n - 1$
+     
+     \boxans{
+        Montrons d'abord que les inversibles de $\sfrac{\bdZ}{n\bdZ}$ sont les entiers premiers avec $n$ :
+        %
+        \begin{enumerate}
+            \itt $\boxed{\implies}$ Soit $\overline{a} \in \sfrac{\bdZ}{n\bdZ}$ tel que $\pgcd\p{a, n} = 1$. Par \textit{théorème de Bézout}, on a :
+            %
+            \[ \exists \p{u, v} \in \bdZ^2 \qquad au + nv = 1 \qquad\text{donc}\qquad au = 1 -nv \qquad\text{donc}\qquad \overline{a}\,\overline{u} = 1 \]
+            %
+            Donc $\overline{a}$ est inversible.
+            
+            \itt $\boxed{\impliedby}$ Supposons que $\overline{a}$ est inversible d'inverse $\overline{u}$. Même raisonnement dans le sens inverse.
+        \end{enumerate}
+        
+        On pose $\psi = \displaystyle\prod_{d \mid n} \phi_d$. Soit $d \mid n$, il existe $m \in \iint{1, n}$ minimal tel que $n = md$. On a :
+        %
+        \[ \zeta_k^d = e^{2\ii\frac{k\pi}{d}} = e^{2\ii\frac{km\pi}{n}} = \zeta_{km}^n \]
+        %
+        Ainsi toute racine de $\phi_d$ est dans $\bdU_n$, \ie toute racine de $\phi_d$ est racine de $X^n -1$. Ainsi $\psi \mid X^n - 1$. Or :
+        %
+        \[ \deg\p{\psi} = \deg\p{\displaystyle\prod_{d \mid n} \phi_d} = \sum_{d \mid n}\deg\p{\phi_d} = \sum_{d \mid n} \varphi\p{d}\]
+        %
+        Il s'agit donc de montrer que $\displaystyle \sum_{d \mid n} \varphi\p{d} = n$. On peut penser à un partitionnement selon les diviseurs de $n$.
+        
+        On remarque d'une part que $\p{\bdZ/d\bdZ}^\star$ possède exactement $\varphi\p{d}$ générateurs. On peut donc essayer de partitionner $\bdZ/n\bdZ$ en des groupes isomorphes aux $\p{\bdZ/d\bdZ}^\star$ où $d \mid n$. Il s'agit donc d'exhiber une partiton de groupes multiplicatifs de cardinal $d$ dans $\bdZ/n\bdZ$
+        
+        On remarque qu'on a $m$ tel que $m = \sfrac{n}{d}$. Donc $\phyavg{m} = \ens{0, m, 2m, \dots, \p{d-1}m}$ (sous-groupe de $\bdZ/n\bdZ$)  est de cardinal $\sfrac{n}{m} = d$.
+        %On peut donc écrire le résultat suivant :
+        %
+        %\[ \phi_n = \prod_{k < n \ \pgcd\p{k, n} = 1} \p{X - \zeta_k^n} \qquad\text{d'où}\qquad \prod_{d \mid n} \phi_d\]
+     }
+     
+     
+     \itt En déduire que $\phi_n \in \bdZ\intc{X}$
+     
+     \itt Dificile. Montrer que $\phi_n$ est irréductible sur $\bdZ$.
+ \end{enumerate}
+ 
+    \chapter{Réduction des endomorphismes}
+    
+    Intro
+    
+    \chaptertoc
+    
+    \section{Généralités}
+    
+    \subsection{Contexe}
+    
+    On considère dans ce chapitre un corps $\bbK$  (on pourrait prendre $\bdR$ ou $\bdC$, même $\bbK \subset \bdC$, mais on prendra ici $\bbK$ quelconque).
+    On considère $E$ un $\bbK$-espace vectoriel (qui sera généralement de dimension finie) et une application linéaire $u \in \bcL\p{E}$.
+    
+    On commence par définir la notion de vecteur propre : il s'agit d'un vecteur non nul sur lequel $u$ agit comme une homothétie :
+    %
+    \begin{definition}{Vecteur et valeur propre}{}
+        On dit que $x \in E$ est un vecteur propre si et seulement si $x \neq 0$ et $\exists \lambda \in \bbK$ tel que $u\p{x} = \lambda x$.
+        
+        On dit que $\lambda \in \bdK$ est une valeur propre si $\exists x \in E$, $x \neq 0$ tel que $u\p{x} = \lambda x$.
+        
+        La valeur propre et le vecteur propre sont dit associés.
+    \end{definition}
+    %
+    \begin{notation}
+        Une valeur propre sera noté $v_p$, un vecteur propre associé $\vec{v_p}$ et inversement.
+    \end{notation}
+    
+    \begin{definition}{Spectre}
+        L'ensemble des valeurs propres de $u$ est appelé spectre de $u$.
+    \end{definition}
+    
+    \begin{notation}
+        Le spectre de $u$ est noté $\Sp{u}$
+    \end{notation}
+    
+    \begin{definition}{Polynôme caractéristique}{}
+        Le polynôme caractéristique de $u$ est $\chi_u\p{X} = \det{u - X\Id}$
+    \end{definition}
+    
+    exemple : $u \in \Sp{u} \iff \exists x \in E,\quad x \neq 0,\quad u\p{x} = 0\iff u \ \text{non inversible et non injective}$
+    
+    \subsection{Propriétés}
+    
+    \begin{property}{}{}
+        \[ \lambda \in \Sp{u} \iff \chi_u\p{\lambda} = 0\]
+    \end{property}
+    %
+    \begin{nproof}
+        \[ \lambda \ \text{est une valeur propre} \iff \exists x \neq 0,\quad u\p{x} = \lambda x \quad \p{u - \lambda \Id} \ \text{non inversible} \iff \det{u - \lambda \Id} = 0\]
+    \end{nproof}
+    
+    \begin{property}{}{}
+        Les valeurs propres sont les racines du polynôme caractéristique.
+    \end{property}
+    
+    \begin{definition}{Sous-espace vectoriel propre}{}
+        \[ E_\lambda = \ens{x \in E \enstq u\p{x} = \lambda x} = \Ker{u - \lambda \Id}\]
+        %
+        sous-espace vectoriel propre associé à $\lambda$
+    \end{definition}
+    
+    \section{Action de $\bdK$[X]}
+    
+    \subsection{Définitions}
+    
+    $P = \sum_i a_iX^i \in \bdK\intc{X}$.
+    
+    Soit $u \in \bcL\p{E}$, que dire de $P\p{u}$ ?
+    
+    $u^0 = \Id$ et $u^{n+1} = u^n u = uu^n$ (assoc.)
+    
+    $P\p{u} = \sum_i a_iu^i$.
+    
+    ex : $\p{1 + X^2}\p{u} = \id + u^2 \neq 1 + u^2$.
+    
+    ex : $P\p{u} \in \bcL\p{E}$ agit sur $E$ par $\p{P\p{u}}\p{x} \in E$ où $x \in E$ avec $\p{P\p{u}}\p{x} = P\p{u}\p{x}$.
+    
+    Donc $\p{\p{1 + X^2}\p{u}}\p{X} = \p{\Id + u^2}\p{x} = x + u^2\p{x} = x + u\p{u\p{x}}$.
+    
+    \subsection{Propriétés}
+    
+    $\begin{array}[t]{rcl}
+        \bdK\intc{X} &\to& \bcL\p{E}  \\
+        P &\mapsto& P\p{u} 
+    \end{array}$ est un morphisme d'algèbres .
+    
+    Preuve : lin, $\p{PQ}\p{u} = P\p{u}Q\p{u}$, image du neutre $1\p{u} = \Id$
+    
+    demo : $P = \sum a_iX^i$ et $Q =\sum b_iX^i$
+    
+    Donc $\lambda P \u Q = \sum \p{\lambda a_i + \mu b_i}X^i$, on pousse la craie, ok.
+    
+    Produit : 1ère rédac,$P = \sum a_iX^i$ et $Q =\sum b_iX^i$, donc $PQ = \sum c_kX^k$ avec $c_k = \sum_{i+j = k} a_ib_j$. On pousse la craie, ok.
+    
+    2ème rédac, par bilinéarité de $\p{P, Q} \mapsto \p{PQ}\p{u}$, testant une base. Voir $u^iu^j = u^{i+j}$ (assoc.).
+    
+    \subsection{Rappels arithmétique de $\bdK$[X]}
+    
+    Notion de poly irréductible sur $\bdK$ (pas de diviseur non trivial)
+    
+    ex : irred sur $\bdC$, degré de $P = 1$ ; irred sur $\bdR$, degré de $P = 1$ ou $2$ avec $\Delta < 0$.
+    
+    Sur $\bdQ$ ??? il y a red irred de degré quelconque.
+    
+    ex $X^4 + 1$ irred sur $\bdR$ ? (non évidemment).
+    
+    Pour cela, $X^4 + 1 = \p{X^2 + 1}^2 - 2X^2 = \p{X^2 + 1 - \sqrt{2}X}\p{X^2 + 1 + \sqrt{2}X}$.
+    
+    Facorialité : tout poly s'écrit comme produit d'irreductibles unicité à l'ordre près et aux constantes multiplicatives près sur les irred.
+    
+    $P, Q$ dits premirs entre si sans facteur commun ; PGCD.
+    
+    Th de Gauss : $P \mid QR$ avec $\pgcd{P, Q} = 1$ implique $P \mid R$ 
+    
+    Th de Bezout : $\pgcd{P, Q} = 1$ ssi $\exists U, V \quad UP + VQ = 1$.
+    
+    Idéaux de $\bdK\intc{X}$, $I$ idéal si sous groupe pour $+$ et stable par multiplication externe à $I$.
+    
+    \subsection{Lemme des noyaux}
+    
+    Théorème de décomposition des noyaux
+    
+    Prop : si $\pgcd\p{P, Q} = 1$, alors $\Ker\p{PQ}\p{u} = \Ker P\p{u} \oplus \Ker Q\p{u}$
+    
+    Si $P_1, \dots, P_k$ deux à deux premiers entre eux, alors $\Ker\p{P_1 \dots P_k}\p{u} = \bigoplus_{i=1}^k \Ker P_i\p{u}$.
+    
+    Démo : $\pgcd{P, Q} = 1$.
+    
+    $UP + VQ = 1 \iff U\p{u}P\p{u} + V\p{u}Q\p{u} = \Id \iff U\p{u}\p{P\p{u}\p{x}} + V\p{u}\p{Q\p{u}\p{x}} = x$ avec $x \in E$.
+    
+    \begin{enumerate}
+        \itt $\oplus$ : $x \in \Ker P\p{u} \cap \Ker Q\p{u}$, on a :
+        %
+        $P\p{u}\p{x} = 0$ et $Q\p{u}\p{x} = 0$ soit $U\p{u}P\p{u}\p{x} = 0$ et $V\p{u}Q\p{u}\p{x} = 0$.
+        
+        \itt $+$, et $x = 0$.
+        %
+        On a $x \in \Ker PQ\p{u}$ et $P\p{u}Q\p{u}\p{x} = 0$. Avec :
+        %
+        \[ x = \underbrace{U\p{u}P\p{u}\p{x}}_{x'} + \underbrace{V\p{u}Q\p{u}\p{x}}_{x''}\]
+        %
+        Avec $x' \in \Ker Q\p{u}$ : $Q\p{u}\p{x'} = Q\p{u}U\p{u}P\p{u}\p{x} = UPQ\p{u}\p{x} = U\p{u}\p{PQ\p{u}\p{x}} = 0$.
+        
+        Et $x'' \in \Ker P\p{u}$ : $P\p{u}\p{x''} = PVQ\p{u}\p{x} = V\p{u}\p{\p{PQ}\p{u}\p{x}} = 0$.
+        
+        
+    \end{enumerate}
+\end{document}

@@ -1,0 +1,130 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+
+    \stylizeDoc{Physique}{Pont de Wheatstone résistif}{Résistance équivalente dans le cas général}
+    
+    \text{}\\[-45pt]
+    \begin{tcolorbox}[
+        enhanced,
+        frame hidden,
+        sharp corners,
+        spread sidewards    = 5pt,
+        halign              = center,
+        valign              = center,
+        interior style      = {left color=main4!15, right color=main2!12},
+        arc                 = 0 cm
+    ]
+        \begin{minipage}{0.83\linewidth}
+            La dernière question du dernier exercice du TD du chapitre 3 étant laissée \guill{en exercice au lecteur} dans la correction, j'ai tenté d'y répondre ci-dessous de manière détaillée.
+        \end{minipage}
+    \end{tcolorbox}
+    \text{}\\[-25pt]
+    
+    \begin{minipage}{0.5\linewidth}
+        On s'intéresse au circuit ci-contre (circuit en pont de \textsc{Wheatstone} résistif). On cherche à déterminer une résistance équivalente du dispositif entre les points $A$ et $B$, \ie à obtenir une résistance $R_\text{eq}$ tel que $E = R_\text{eq}i$. Par loi des mailles on a alors $E = u_1 + u_3$, donc en vertu de la loi d'\textsc{Ohm}, on obtient :
+        %
+        \begin{equation}
+            E = R_1i_1 + R_3i_3
+        \end{equation}
+        %
+        Il s'agit donc d'exprimer $i_1$ et $i_3$ en fonction de $i$ et des 5 résistances. La loi des noeuds en $A$ livre :
+        %
+        \begin{equation}
+            i = i_1 + i_2
+        \end{equation}
+        %
+        L'appliquer en $B$ livre :
+        %
+        \begin{equation}
+            i = i_3 + i_4
+        \end{equation}
+        %
+        L'appliquer en $C$ livre :
+        %
+        \begin{equation}
+            i_1 = i_0 + i_3
+        \end{equation}
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}{0.45\linewidth}
+        \begin{center}
+            \resizebox{\textwidth}{!}{\begin{circuitikz}
+            \draw (-3,0) node [label={above:$A$}] {} 
+            to [short, *-] ++(-1, 0)
+            to [short, i_<=$i \ $] ++(0, -5)
+            to [V, v_<=$E$] ++(8,0)
+            to [short] ++(0,5)
+            to [short, -*] ++(-1, 0) node [label={above:$B$}] {};
+            
+            \draw (-3, 0) to [short, R, l=$R_1$, v=$u_1$, i>^=$i_1$, -*] ++(3,3) node [label={above:$C$}] {}
+            to [short, R, l=$R_3$, v=$u_3$, i>^=$i_3$, -*] ++(3,-3);
+            
+            \draw (0, 3) to[short] ++(0,-1) to [short,R, l=$R_0$, v=$u_0$, i>^=$i_0$] ++(0,-4) to[short] ++(0,-1);
+            
+            \draw (-3, 0) to [short, R, l=$R_2$, v=$u_2$, i>^=$i_2$, -*] ++(3,-3) node [label={below:$D$}] {}
+            to [short, R, l=$R_4$, v=$u_4$, i>^=$i_4$, -*] ++(3,3);
+            \end{circuitikz}}
+        \end{center}
+    \end{minipage}
+    %
+    \text{}\bigskip
+    
+    Appliquer la loi des noeuds en $D$ pour obtenir $i_2 + i_0 = i_4$ serait redondant, car on n'obtiendrait pas plus d'information (le même résultat s'obtient avec les 3 autres).
+    
+    \begin{enumerate}
+        \itt La loi des mailles sur $ACD$ livre $u_0 + u_1 = u_2$ donc par loi d'\textsc{Ohm}, on a $R_0i_0 + R_1i_1 = R_2i_2$.
+    
+        En appliquant (4) et (2) afin de n'avoir que $i$, $i_1$ et $i_3$ on obtient :\qquad $R_0\p{i_1 - i_3} + R_1i_1 = R_2\p{i - i_1}$.
+        
+        \itt La loi des mailles sur $CBD$ livre $u_0 + u_4 = u_3$ donc par loi d'\textsc{Ohm}, on a $R_0i_0 + R_4i_4 = R_3i_3$.
+    
+        En appliquant (4) et (3) on obtient :\qquad $R_0\p{i_1 - i_3} + R_4\p{i - i_3} = R_3i_3$.
+    \end{enumerate}
+    
+    En simplifiant, on obtient le système :
+    %
+    \begin{equation*}
+        \left\lbrace\begin{array}{cccc}
+            \p{R_0 + R_1 + R_2}i_1 - R_0i_3 &= R_2i &\qquad\qquad& \text{(a)} \\
+            \p{R_0 + R_3 + R_4}i_3 - R_0i_1 &= R_4i &\qquad\qquad& \text{(b)}
+        \end{array}\right.
+    \end{equation*}
+    %
+    \text{}\bigskip 
+    %
+    Dès lors, considérer $\intc{R_0 + R_3 + R_4}\text{(a)} + R_0\text{(b)}$ permet d'annuler $i_3$, et l'on obtient :
+    %
+    \begin{align*}
+        && \p{R_0 + R_1 + R_2}\p{R_0 + R_3 + R_4}i_1 - {R_0}^2i_1 &= \p{R_0 + R_3 + R_4}R_2i + R_0R_4i\\
+        \text{donc} && \intc{\p{R_0 + R_1 + R_2}\p{R_0 + R_3 + R_4} - {R_0}^2}i_1 &= \intc{\p{R_0 + R_3 + R_4}R_2 + R_0R_4}i\\
+        \text{donc} && i_1 &= \dfrac{\p{R_0 + R_3 + R_4}R_2 + R_0R_4}{\p{R_0 + R_1 + R_2}\p{R_0 + R_3 + R_4} - {R_0}^2}i
+    \end{align*}
+    %
+    Après simplification du dénominateur, on obtient :
+    %
+    \begin{equation}
+        i_1 = \dfrac{\p{R_0 + R_3 + R_4}R_2 + R_0R_4}{R_0\p{R_1 + R_2 + R_3 + R_4} + \p{R_1 + R_2}\p{R_3 + R_4}}i
+    \end{equation}
+    %
+    De même, en considérant $\intc{R_0 + R_1 + R_2}\text{(b)} + R_0\text{(a)}$ on peut annuler $i_1$, et l'on obtient après simplification :
+    %
+    \begin{equation}
+        i_3 = \dfrac{\p{R_0 + R_1 + R_2}R_4 + R_0R_2}{R_0\p{R_1 + R_2 + R_3 + R_4} + \p{R_1 + R_2}\p{R_3 + R_4}}i
+    \end{equation}
+    
+    \text{}\bigskip
+    
+    En utilisant (1) avec (5) et (6), on obtient alors :
+    %
+    \[ E = \intc{R_1\dfrac{\p{R_0 + R_3 + R_4}R_2 + R_0R_4}{R_0\p{R_1 + R_2 + R_3 + R_4} + \p{R_1 + R_2}\p{R_3 + R_4}} + R_3\dfrac{\p{R_0 + R_1 + R_2}R_4 + R_0R_2}{R_0\p{R_1 + R_2 + R_3 + R_4} + \p{R_1 + R_2}\p{R_3 + R_4}}}i\]
+    %
+    En vertu de quoi, puisque $E = R_\text{eq}i$, on a finalement :
+    %
+    \[\boxed{\qquad R_\text{eq} = \dfrac{R_1R_2\p{R_0 + R_3 + R_4} + R_3R_4\p{R_0 + R_1 + R_2} + R_0R_1R_4 + R_0R_2R_3}{R_0\p{R_1 + R_2 + R_3 + R_4} + \p{R_1 + R_2}\p{R_3 + R_4}}\qquad }\]
+\end{document}

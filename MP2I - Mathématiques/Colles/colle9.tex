@@ -1,0 +1,352 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Programme de khôlle 9}{Énoncés et résolutions}
+
+\section*{Équations différentielles linéaires d’ordre 1}
+
+Définitions. Structure des solutions. Résolution de l’équation homogène. Recherche d’une solution particulière de l’équation avec second membre : solution évidente, méthode de variation de la constante, principe
+de superposition.
+
+Cas des équations différentielles à coefficients constants. Problème de Cauchy.
+
+Cas où l’équation n’est pas normalisée : recollement.
+
+\section*{Équations différentielles linéaires d’ordre 2}
+
+Définitions. Structure des solutions. Résolution de l’équation homogène : cas complexe et cas réel.
+
+Recherche d’une solution particulière de l’équation avec second membre : solution évidente, second membre de la forme exponentielle, polynôme $\times$ exponentielle ou avec fonctions trigonométriques $\sin$, $\cos$.
+
+Principe de superposition. Problème de Cauchy.
+
+\section*{Suites réelles [Cours uniquement]}
+
+\subsection*{Généralités sur les suites}
+
+Définitions. Opérations.
+
+Suites usuelles : stationnaire, arithmétique, géométrique, arithmético-géométrique.
+
+Suite majorée, minorée, bornée. Monotonie, stricte monotonie.
+
+\subsection*{Limite d’une suite}
+
+\begin{enumerate}
+    \itarr Convergence, définition. Unicité de la limite. Toute suite convergente est bornée.
+    \itarr Limites infinies. Définitions.
+    \itarr Limite et ordre : si APCR, $\mod{u_n - l} \leq v_n$ et $v \xrightarrow{} 0$, alors $u \lima l$.
+    
+    Si $u$ converge vers $l$, avec $l > a$, alors APCR, $u_n > a$.
+    
+    Passage à la limite dans une inégalité (large).
+    
+    \itarr Opérations sur les limites : Somme, produit, inverse, dans le cas des limites finies et infinies.
+    \itarr Théorèmes d’existence de limites : th. d’encadrement, divergence par minoration ou majoration.
+    \itarr Th. de la limite monotone (bornée ou non bornée).
+    
+\end{enumerate}
+
+\section*{Questions / Exercices de cours / Savoir faire}
+
+Savoir résoudre une Équation Différentielle Linéaire d’ordre 1, avec second membre.
+
+Savoir résoudre une Équation Différentielle Linéaire d’ordre 2 homogène à coefficients constants et avec second membre.
+
+\textbf{Note: $\bdK$ désigne ici le corps $\bdR$ ou $\bdC$, et $\mod{.}$ respectivement la valeur absolue ou le module}
+\begin{enumerate}
+    \item  Savoir résoudre une suite arithmético-géométrique donnée par l’examinateur.
+    
+    \boxans{
+        Soit $(u_n)_{n\in\bdN} \in \bdK^\bdN$ une suite arithmético-géométrique de premier terme $u_0$ et telle que:
+        \[ \exists (a,b) \in \bdK^2, \qquad \forall n \in \bdN \qquad u_{n+1} = au_n + b \]
+        On note $l$ un point fixe de cette suite, donc $l = al + b$ donc $l = \dfrac{b}{1-a}$. On a $\left\lbrace\begin{array}{ll}
+            u_{n+1} &= au_n+b\\
+            l &= al+b
+        \end{array}\right.$
+        
+        
+        Par soustraction, $u_{n+1}-l = a(u_n-l)$. La suite $(u_n-l)_{n\in\bdN}$ est donc une suite géométrique de raison $a$ et de premier terme $u_0 - l$. Donc $\forall n\in \bdN$, $u_n - l = a^n(u_0 - l)$ d'où $u_n = a^n(u_0 - l) + l$.
+        
+        Finalement, \boxsol{$\forall n \in \bdN$, $u_n = a^n\left(u_0 - \dfrac{b}{1-a}\right) + \dfrac{b}{1-a}$}
+    }
+    
+    \item Définition de la convergence d’une suite. Théorème d’unicité de la limite.
+    
+    \boxans{
+    Soit $(u_n)_{n \in \bdN} \in \bdK^\bdN$ et $l \in \bdK$. on dit que $u$ converge vers $l$ si (et seulement si)
+    \[ \boxsol{$\forall \epsilon \in \bdR_+,\ \exists n_0 \in \bdN,\ \forall n \in \bdN,\quad n \geq n_0 \implies \mod{u_n - l} \leq \epsilon$}\]
+    
+    On note alors $\lim\limits_{n \to +\infty} u_n = l$,\quad $\lim u = l$,\quad $u \lima l$,\quad $u_n \xrightarrow{n \to +\infty} l$,  ...
+        
+        Seulement lorsque $\bdK = \bdR$, une définition similaire peut être donnée pour la diverge en $+\infty$ et $-\infty$ :
+        \[ \left\lbrace \begin{array}{ll}
+        u_n \xrightarrow{n \to +\infty} +\infty \iff \forall A \in \bdR_+,\ \exists n_0 \in \bdN,\ \forall n \in \bdN,\quad n \geq n_0 \implies u_n \geq A \\
+         u_n \xrightarrow{n \to +\infty} -\infty \iff \forall A \in \bdR_-,\ \exists n_0 \in \bdN,\ \forall n \in \bdN,\quad n \geq n_0 \implies u_n \leq A
+    \end{array} \right.\]
+    
+    Montrons l'unicité de la limite. Prenons $(l, l') \in \bdK^2$ tels que $u \lima l$ et $u \lima l'$. Montrons alors $l = l'$.
+    
+    Soit $\epsilon \in \bdR_+$. Par définition de la convergence on prend $(n_1, n_2) \in \bdN^2$ tels que :
+    \[ \forall n \in \bdN,\qquad\qquad n \geq n_1 \implies \mod{u_n - l} \leq \frac{\epsilon}{2} \quad\text{et}\quad n \geq n_2 \implies \mod{u_n - l'} \leq \frac{\epsilon}{2} \]
+    On pose $n_0 = \max{n_1, n_2} \in \bdN$. On a donc $\forall n \in \bdN$, $n \geq n_0 \implies \mod{u_n - l} + \mod{u_n - l'} \leq \epsilon$.
+    
+    Par inégalité triangulaire, $\mod{u_n - l} + \mod{u_n - l'} = \mod{u_n - l} + \mod{l' -u_n} \geq \mod{u_n - l - u_n + l'} = \mod{l' - l}$.
+    
+    Donc: $\forall \epsilon \in \bdR_+$, $0 \leq \mod{l' - l} \leq \epsilon$. \quad $\mod{l' - l}$ minore $\bdR_+$ tout entier et est positif, donc $\mod{l' - l} = 0$.
+    
+    Ainsi $l' - l = 0$, donc finalement \boxsol{$l = l'$}.
+    }
+    
+    \item Toute suite convergente est bornée
+    
+    \boxans{
+        Soit $(u_n)_{n \in \bdN} \in \bdK^\bdN$ et $l \in \bdK$ tel que $u \lima l$. Par définition de la convergence de $u$ vers $l$:
+        \[\forall \epsilon \in \bdR_+,\ \exists n_0 \in \bdN,\ \forall n \in \bdN,\ n \geq n_0 \implies \mod{u_n - l} \leq 1\]
+        
+        On a $\mod{u_n} = \mod{u_n - l + l} \leq \mod{u_n - l} + \mod{l}$. En prenant $\epsilon = 1$ et $n_0 \in \bdN$ associé, on a :
+        \[ \forall n \in \bdN,\ n \geq n_0 \implies \mod{u_n} \leq 1 + \mod{l}\]
+        Donc $\mod{u}$ est majorée à partir du rang $n_0$ par $1 + \mod{l}$.
+        
+        Avant ce rang il n'y a qu'un nombre fini d'indices $n \in \left\llbracket0, n_0\right\llbracket$, $\mod{u}$ ne prend donc qu'un nombre fini de valeurs dans $\left\{\mod{u_n}, n \in \left\llbracket0, n_0\right\llbracket\right\}$, elle y est donc majorée par le plus grand d'entre eux. Finalement:
+        \[\forall n \in \bdN,\qquad \mod{u_n} \leq \left\{\ \mod{u_n}, n \in \left\llbracket0, n_0\right\llbracket \ \right\} \cup \left\{\ 1+\mod{l}\ \right\}\]
+        
+        La suite $\mod{u}$ est toujours majorée donc \boxsol{la suite $u$ est bornée}.
+    }
+    
+    \item Montrer les propositions :
+    \begin{enumerate}
+        \itarr si APCR, $\mod{u_n - l} \leq v_n$ et $v \xrightarrow{} 0$, alors $u \lima l$.
+        \itarr si $u \lima l$, avec $l > a$, alors APCR $u_n > a$.
+    \end{enumerate}
+    
+    \boxans{
+        \begin{enumerate} 
+        \itvararr Soit $\left((u_n)_{n \in \bdN},((v_n)_{n \in \bdN}\right) \in \left(\bdR^\bdN\right)^2$ et $n_0 \in \bdN$, tel que $v \lima 0$ et  $\forall n \in \bdN$, $n \geq n_0 \implies \mod{u_n - l} \leq v_n$.
+        
+        Par définition de la convergence de $v$ vers $0$:
+        \begin{align*}
+            && \forall \epsilon \in \bdR_+,\ \exists n_1 \in \bdN,\ \forall n \in \bdN,&& n \geq n_1 &\implies \mod{v_n} \leq \epsilon \\
+            \text{donc} && \forall \epsilon \in \bdR_+,\ \exists n_1 \in \bdN,\ \forall n \in \bdN,&& n \geq \max{n_0, n_1} &\implies  \mod{u_n - l} \leq v_n \leq \mod{v_n} \leq \epsilon \\
+            \text{donc} && \forall \epsilon \in \bdR_+,\ \exists n_2 \in \bdN,\ \forall n \in \bdN,&& n \geq n_2 &\implies  \mod{u_n - l} \leq \epsilon
+        \end{align*}
+        Donc par définition, \boxsol{$u_n \xrightarrow{n \to +\infty} l$}.
+        
+        \itvararr Soit $(u_n)_{n \in \bdN} \in \bdR^\bdN$, et$(l,a) \in \bdR^2$ tel que $u \lima l$ avec $l > a$.
+        
+        Par définition de la convergence de $u$ vers $l$:
+        \[\forall \epsilon \in \bdR_+,\ \exists n_0 \in \bdN,\ \forall n \in \bdN,\qquad n \geq n_0 \implies \mod{u_n - l} \leq \epsilon\]
+        
+        En prenant $\epsilon = \dfrac{l-a}{2}$ et $n_0 \in \bdN$ associé, on a :
+        
+        $\forall n \in \bdN$, $n \geq n_0 \implies \mod{u_n - l} \leq \dfrac{l-a}{2} \implies \dfrac{a-l}{2} \leq u_n - l \implies u_n \geq \dfrac{a+l}{2}$.
+        
+        Or $l > a$ donc $\dfrac{a+l}{2} > \dfrac{a+a}{2} = a$. Donc \boxsol{$\exists n_0 \in \bdN$, $\forall n \in \bdN$, $n \geq n_0 \implies u_n > a$}
+        
+        \end{enumerate}
+    }
+    
+    \item Limite d’une somme et d’un produit de suites convergentes, avec lemme.
+    
+     \begin{lemma*}{}{}
+        Soit $\left((u_n)_{n \in \bdN},((v_n)_{n \in \bdN}\right) \in \left(\bdK^\bdN\right)^2$ et $\lambda \in \bdK$. On a
+        \begin{enumerate}
+            \itarr \quad $u \lima 0$ et $v \lima 0 \ \implies u+v \lima 0$ \hfill $(1)$
+            \itarr \quad $u \lima 0$ et $v \lima 0 \ \implies u \times v \lima 0$\hfill $(2)$ 
+            \itarr \quad $\qquad u \lima 0 \qquad \, \implies \lambda \times u \lima 0$\hfill $(3)$ 
+        \end{enumerate}
+    \end{lemma*}
+        
+    \demo{
+        Soit $\epsilon \in \bdR_+$ et $\left((u_n)_{n \in \bdN},((v_n)_{n \in \bdN}\right) \in \left(\bdK^\bdN\right)^2$.
+        
+        \itvararr Démontrons $(1)$. Par définition de la convergence de $u$ et $v$ vers $0$ :
+        
+        \[\exists (n_0, n_1) \in \bdN^2,\ \forall n \in \bdN,\qquad n \geq n_0 \implies \mod{u_n} \leq \dfrac{\epsilon}{2} \qquad \text{et} \qquad n \geq n_1 \implies \mod{v_n} \leq \dfrac{\epsilon}{2}\]
+        On pose $n_2 = \max{n_0, n_1} \in \bdN$. On a donc $\forall n \in \bdN$, $n \geq n_2 \implies \mod{u_n} + \mod{v_n} \leq \dfrac{\epsilon}{2} + \dfrac{\epsilon}{2}$.
+        
+        Par inégalité triangulaire, on a
+        $\forall n \in \bdN$, $n \geq n_2 \implies \mod{u_n + v_n} \leq \epsilon$, donc par définition \boxsol{$u + v \lima 0$}.
+        
+        \itvararr Démontrons $(2)$. Par définition de la convergence de $u$ et $v$ vers $0$ :
+        \[\exists (n_3, n_4) \in \bdN^2,\ \forall n \in \bdN,\qquad n \geq n_3 \implies \mod{u_n} \leq \sqrt{\epsilon} \qquad \text{et} \qquad n \geq n_1 \implies \mod{v_n} \leq \sqrt{\epsilon}\]
+        Comme précédemment, on a $\forall n \in \bdN$, $n \geq \max{n_3, n_4} \implies \mod{u_n}\mod{v_n} \leq \sqrt{\epsilon}\times\sqrt{\epsilon} \implies \mod{u_nv_n} \leq \epsilon$.
+        
+        Donc par définition, \boxsol{$u\times v \lima 0$}.
+        
+         \itvararr Démontrons $(3)$. Soit $\lambda \in \bdK$. Si $\lambda = 0$, il est évident que $\lambda u \lima 0$.
+         
+         Sinon, avec $\lambda \neq 0$ et par définition de la convergence de $u$ vers $0$ :
+        \[\exists n_5 \in \bdN,\ \forall n \in \bdN,\qquad n \leq n_5 \implies \mod{u_n} \leq \dfrac{\epsilon}{\mod{\lambda}} \implies \mod{\lambda u_n} \leq \epsilon \quad \text{donc} \quad \lambda u \lima 0.\]
+        Donc finalement, \boxsol{$\forall \lambda \in \bdK$, $\lambda u \lima 0$}.
+        
+        
+        
+    }
+    \boxans{
+        Soit $\left((u_n)_{n \in \bdN},((v_n)_{n \in \bdN}\right) \in \left(\bdK^\bdN\right)^2$, $(\lambda, \mu) \in \bdR^2$ et $(l, l') \in \bdR^2$ tels que $u \lima l$ et $v \lima l'$.
+        
+        On a donc $(u - l) \lima 0$ et $(v - l') \lima 0$. $(1)$ et $(3)$ livrent $(\lambda(u - l)  + \mu(v - l')) \lima 0$.
+        
+        En réarrangeant on a $(\lambda u + \mu v - (\lambda l + \mu l')) \lima 0$, donc \boxsol{$\lambda u + \mu v \lima \lambda l + \mu l'$}.
+        
+        On a $uv - ll' = (u - l + l)v - ll' = (u-l)v + l(v -l')$.
+         Or $v$ converge donc $v$ est bornée.
+         
+        $(3)$ livre donc $(u-l)v \lima 0$ et $l(v -l') \lima 0$ donc $uv - ll' \lima 0$ donc \boxsol{$uv \lima ll'$}.
+    }
+    
+    \item Limite de $\dfrac{1}{u_n}$ si $u$ converge vers $l \neq 0$.
+    
+    \boxans{
+        Soit $(u_n)_{n \in \bdN} \in \bdK^\bdN$ tel que $u \lima l \in \bdR$, $l \neq 0$. Par défintion de la convergence de $u$ vers $l$:
+        \[ \exists n_0 \in \bdN,\ \forall n \in \bdN,\qquad n \geq n_0 \implies \mod{u_n} > 0\]
+        \newline
+        
+        \begin{center}
+            \begin{tikzpicture}
+            \draw[pattern=north east lines, pattern color=blue!70, draw=blue!30] (1,-0.3) rectangle (5,0.8); 
+            \node at (3, 1) {\color{blue}$u_n$, $n \geq 0$};
+            \draw[->,ultra thick] (-5,0)--(6,0) node[right]{$u_n$};
+            \node[circle,fill,inner sep=1.5pt,label=above:$0$] at (0,0) {};
+            \node[circle,fill,inner sep=1.5pt,label=above:$l$] at (3,0) {};
+        \end{tikzpicture}
+        \end{center}
+        
+        La suite $\left(\dfrac{1}{u_n}\right)_{n \geq n_0}$ étant donc bien définie à partir d'un certain rang, on peut donc l'étudier. Donc :
+        
+        \[ \exists n_0 \in \bdN,\ \forall n \in \bdN,\qquad n \geq n_0 \implies \mod{\dfrac{1}{u_n} - \dfrac{1}{l}} = \mod{\dfrac{l-u_n}{lu_n}} = \mod{u_n -l}\times\dfrac{1}{\mod{l}}\times\dfrac{1}{\mod{u_n}}\]
+        Or $\mod{u} \lima \mod{l}$ donc:
+        
+        \[\exists n_1 \in \bdN,\ \forall n \in \bdN,\ n \geq n_1 \implies \mod{\mod{u_n} - \mod{l}} \leq \dfrac{\mod{l}}{2} \implies \mod{l} - \mod{u_n} \leq \dfrac{\mod{l}}{2} \implies \mod{u_n} \geq \dfrac{\mod{l}}{2}\]
+        Donc $\exists n_1 \in \bdN$, $\forall n \in \bdN$, $n \geq n_1 \implies \dfrac{1}{\mod{u_n}} \leq \dfrac{2}{\mod{l}}$, donc :
+        \[ \exists (n_0, n_1) \in \bdN^2,\ \forall n \in \bdN,\qquad n \geq \max{n_0, n_1} \implies \mod{\dfrac{1}{u_n} - \dfrac{1}{l}} \leq \mod{u_n - l}\times\dfrac{2}{l^2}\]
+        Par définition de la convergence de $u$ vers $l$ :
+        \[ \forall \epsilon \in \bdR_+,\ \exists n_2 \in \bdN,\ \forall n \in \bdN,\qquad n \geq n_2 \implies \mod{u_n - l} \leq \epsilon \dfrac{ l^2}{2}\]
+        Finalement :
+        \[\forall \epsilon \in \bdR_+,\ \exists (n_0, n_1, n_2) \in \bdN^3,\ \forall n \in \bdN,\qquad n \geq \max{n_0, n_1, n_2} \implies \mod{\dfrac{1}{u_n} - \dfrac{1}{l}} \leq \epsilon\]
+        Donc par définition, \boxsol{$\dfrac{1}{u} \lima \dfrac{1}{l}$}
+    }
+    
+    \item Théorème d'encadrement.
+    
+    \begin{theorem*}{Théorème d'encadrement}{}
+        Soit trois suites $\left((u_n)_{n \in \bdN}, (v_n)_{n \in \bdN}, (w_n)_{n \in \bdN}\right) \in \left(\bdR^\bdN\right)^3$.
+        
+        \[ \left.\begin{array}{ll}
+            \exists \ n_0 \in \bdN,\ \forall n \in \bdN, &n \geq n_0 \implies u_n \leq v_n \leq w_n \\
+            &\\
+            \exists \ l \in \bdR, &u \lima l \ \text{et} \ w \lima l
+        \end{array}\right\rbrace \implies v \lima l\]
+    \end{theorem*}
+    \demoth{
+        Soit trois suites $\left((u_n)_{n \in \bdN}, (v_n)_{n \in \bdN}, (w_n)_{n \in \bdN}\right) \in \left(\bdR^\bdN\right)^3$, telles que :
+        \[ \left\lbrace\begin{array}{ll}
+            \exists \ n_0 \in \bdN,\ \forall n \in \bdN, &n \geq n_0 \implies u_n \leq v_n \leq w_n \\
+            &\\
+            \exists \ l \in \bdR, &u \lima l \ \text{et} \ w \lima l
+        \end{array}\right.\]
+        \[ \text{donc} \qquad\quad \forall n \in \bdN, \ n \geq n_0 \implies 0 \leq v_n - u_n \leq w_n - u_n \implies \mod{v_n - u_n} \leq w_n - u_n \qquad\qquad\qquad\]
+        Les suites $(u_n)_{n \in \bdN}$ et $(w_n)_{n \in \bdN}$ convergent donc par somme, la suite $(w_n - u_n)_{n \in \bdN}$ converge.
+        
+        On a donc $w - u \lima l - l$ donc $u - w \lima 0$. Donc par définition de la limite:
+        \[ \forall \epsilon \in \bdR_+,\ \exists n_1 \in \bdN,\ \forall n \in \bdN,\ n \geq n_1 \implies \mod{w_n - u_n} \leq \epsilon\]
+        Donc :
+        \[ \forall \epsilon \in \bdR_+,\ \exists n_1 \in \bdN,\ \forall n \in \bdN,\ n \geq \max{n_0; n_1} \implies \mod{w_n - u_n} \implies \mod{v_n - u_n} \leq \epsilon\]
+        Donc :
+         \[ \forall \epsilon \in \bdR_+,\ \exists n_2 \in \bdN,\ \forall n \in \bdN,\ n \geq n_2 \implies \mod{v_n - u_n} \leq \epsilon\]
+        Par définition, $(v_n - u_n)_{n \in \bdN}$ converge et $v-u \lima 0$.
+        La suite $(u_n)_{n \in \bdN}$ converge, avec $u \lima l$.
+        
+        Par somme, la suite $(v_n - u_n + u_n)_{n \in \bdN} = (v_n)_{n \in \bdN}$ converge également. On a :
+        \[\lim\limits_{n \to +\infty} v_n = \lim\limits_{n \to +\infty} v_n - u_n + \lim\limits_{n \to +\infty} u_n  = 0 + l = l\]
+        
+        Donc $v \lima l$. Finalement :
+        
+        \[ \boxsol{$\left.\begin{array}{ll}
+            \exists \ n_0 \in \bdN,\ \forall n \in \bdN, &n \geq n_0 \implies u_n \leq v_n \leq w_n \\
+            &\\
+            \exists \ l \in \bdR, &u \lima l \ \text{et} \ w \lima l
+        \end{array}\right\rbrace \implies v \lima l$}\]
+        
+        
+    }
+    
+    \item Théorème de la limite monotone.
+
+    \begin{theorem*}{Théorème de la limite monotone}{}
+        Soit la suite $(u_n)_{n \in \bdN} \in \bdR^\bdN$.
+        
+        \[u \quad \ \text{croissante} \ \implies \left\lbrace\begin{array}{ll}
+            u \ \text{majorée} &\implies u \lima \sup \ \{u_n \ | \ n \in \bdN\} \\
+            u \ \text{non majorée} &\implies u \lima +\infty
+        \end{array}\right.\]
+        
+        \[u \ \text{décroissante} \implies \left\lbrace\begin{array}{ll}
+            u \ \text{minorée} &\implies u \lima \inf \ \{u_n \ | \ n \in \bdN\} \\
+            u \ \text{non minorée} &\implies u \lima -\infty
+        \end{array}\right.\]
+    \end{theorem*}
+    \demoth{
+        Soit la suite $(u_n)_{n \in \bdN} \in \bdR^\bdN$. On pose $A = \{u_n \ | \ n \in \bdN\}$ l'ensemble des termes de $u$.
+        
+        \begin{enumerate}
+            \itb Si $u$ est croissante, alors :
+            
+            \begin{enumerate}
+                \itvararr  Si $u$ est majorée, alors l'ensemble $A$ admet une borne supérieure. On note $l = \sup A$.
+        
+                On a alors $\forall n \in \bdN$, $u_n \leq l$. \qquad Soit $\epsilon \in \bdR_+$, on a donc $\forall n \in \bdN$, $u_n \leq l + \epsilon$. 
+        
+                De plus $l - \epsilon < l$, et $l$ est la borne supérieure de $A$, donc $\exists n_0 \in \bdN$, $u_{n_0} \geq l - \epsilon$.
+        
+                Par croissance de $u$, $\forall n \in \bdN$, $n > n_0 \implies u_n \geq u_{n_0} \implies u_n \geq l - \epsilon$. Donc :
+                \[ \forall \epsilon \in \bdR_+,\ \exists n_0 \in \bdN,\ \forall n \in \bdN, n \geq n_0 \implies l - \epsilon \leq u_n \leq l + \epsilon \implies \mod{u_n-l} \leq \epsilon\]
+                Par définition, on a donc $u \lima l$.
+                \itvararr Si $u$ n'est pas majorée, alors $\forall M \in \bdR_+$, $\exists n_0 \in \bdN$, $u_{n_0} \geq M$.
+        
+                Par croissance de $u$, on a $\forall n \in \bdN$, $n \geq n_0 \implies u_n \geq u_{n_0} \implies u_n \geq M$. Donc :
+        
+                \[ \forall M \in \bdR_+,\ \exists n_0 \in \bdN,\ \forall n \in \bdN,\ n \geq n_0 \implies u_n \geq M\]
+        
+                Par définition, on a donc $u \lima +\infty$.
+            \end{enumerate}
+            Finalement \boxsol{$u$ croissante $\implies \left\lbrace\begin{array}{ll}
+                u \ \text{majorée} &\implies u \lima \sup \ \{u_n \ | \ n \in \bdN\} \\
+                u \ \text{non majorée} &\implies u \lima +\infty
+            \end{array}\right.$}.
+        
+        \itb Si $u$ est décroissante, alors :
+            
+            \begin{enumerate}
+                \itvararr  Si $u$ est minorée, alors l'ensemble $A$ admet une borne inférieure. On note $l = \inf A$.
+                
+                on pose la suite $(v_n)_{n \in \bdN} = (-u_n)_{n \in \bdN}$. $v$ est croissante et majorée donc :
+                \[ v \lima \sup \ \{v_n \ | \ n \in \bdN\} = \sup \ \{-u_n \ | \ n \in \bdN\} = - \inf \{u_n \ | \ n \in \bdN\} = - l\] 
+                
+                Donc $-u \lima -l$ d'où $u \lima l$.
+                
+                \itvararr Si $u$ n'est pas minorée, alors $\forall m \in \bdR_+$, $\exists n_0 \in \bdN$, $u_{n_0} \leq m$.
+        
+                Par décroissance de $u$, on a $\forall n \in \bdN$, $n \geq n_0 \implies u_n \leq u_{n_0} \implies u_n \leq m$. Donc :
+        
+                \[ \forall m \in \bdR_+,\ \exists n_0 \in \bdN,\ \forall n \in \bdN,\ n \geq n_0 \implies u_n \leq m\]
+        
+                Par définition, on a donc $u \lima -\infty$.
+            \end{enumerate}
+            Finalement \boxsol{$u$ décroissante $\implies \left\lbrace\begin{array}{ll}
+            u \ \text{minorée} &\implies u \lima \inf \ \{u_n \ | \ n \in \bdN\} \\
+            u \ \text{non minorée} &\implies u \lima -\infty
+        \end{array}\right.$}.
+        \end{enumerate}
+        
+        
+        
+        
+        
+
+    }
+    
+\end{enumerate}
+\end{document}

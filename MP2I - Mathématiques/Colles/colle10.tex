@@ -1,0 +1,234 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Programme de khôlle 10}{Énoncés et résolutions}
+\section*{Suites réelles}
+
+\subsection*{Généralités sur les suites}
+
+Définitions. Opérations.
+
+Suites usuelles : stationnaire, arithmétique, géométrique, arithmético-géométrique.
+
+Suite majorée, minorée, bornée. Monotonie, stricte monotonie.
+
+\subsection*{Limite d’une suite}
+
+\begin{enumerate}
+    \itarr Convergence, définition. Unicité de la limite. Toute suite convergente est bornée.
+    \itarr Limites infinies. Définitions.
+    \itarr Limite et ordre : si APCR, $\mod{u_n - l} \leq v_n$ et $v \xrightarrow{} 0$, alors $u \lima l$. 
+    
+    Si $u$ converge vers $l$, avec $l > a$, alors APCR, $u_n > a$. Passage à la limite dans une inégalité large.
+    \itarr Opérations sur les limites : Somme, produit, inverse, dans le cas des limites finies et infinies.
+    \itarr Théorèmes d’existence de limites : th. d’encadrement, divergence par minoration ou majoration.
+    \itarr Th. de la limite monotone (bornée ou non bornée). Suites adjacentes.
+    \itarr Suites extraites, définition, exemples. Toute suite extraite d’une suite convergente de limite $\ell$ est convergente et de même limite $\ell$. Si $(u_{2n})$ et $(u_{2n+1})$convergent vers la même limite $\ell$, alors u converge vers $\ell$.
+    \itarr Théorème de Bolzano-Weierstrass.
+    \itarr Traduction séquentielle d’une partie dense de $\bdR$. Caractérisation séquentielle de la borne supérieure.
+    \itarr Étude de suites implicites.
+    
+\end{enumerate}
+
+\subsection*{Extension aux suites à valeurs complexes}
+
+Suite complexe. Partie réelle, imaginaire. Suite bornée. Convergence.
+
+Unicité de la limite. Opérations : somme, produit, inverse. Th. de Bolzano-Weierstrass.
+
+\section*{Analyse Asymptotique}
+
+\subsection*{Comparaison des suites}
+
+Suites dominées, négligeables, équivalentes. Notations de Landau $\o$, $\O$, $\asymp$.
+
+Croissances comparées. Opérations sur les équivalents : signe, limite, produit, quotient, puissances. Limites de fonctions usuelles et équivalents.
+
+\subsection*{Comparaison des fonctions}
+
+Voisinage. Fonctions dominées, négligeables, équivalentes.
+
+Propriétés et Opérations. Changement de variable. Croissances comparées. Équivalents usuels.
+
+\subsection*{Développements Limités [Cours uniquement]}
+
+\begin{enumerate}
+    \itb Définition d’une fonction admettant un développement limité à l’ordre $n$ au voisinage de $a \in \bdR$.
+    
+    \itb Partie régulière d’un DL, unicité des coefficients d’un DL. Application aux fonctions paires, impaires.
+    
+    \itb Troncature d’un DL à l’ordre $p < n$.
+    
+    \itb Équivalence entre continuité et existence d’un DL à l’ordre $0$ ; entre dérivabilité et existence d’un DL à l’ordre $1$. Contre-exemple pour l’ordre $n \geq 2$.
+    
+    \itb Formule de Taylor-Young (admise pour le moment) pour une fonction de classe $\mathcal{C}^n$ en $a \in \bdR$.
+\end{enumerate}
+\begin{center}
+    \boxed{\begin{array}{l}
+    \underline{\textbf{DL usuels en $0$ à connaître : }}\\
+    e^x,\ \ch x,\ \sh x, \cos x,\ \sin x,\ \left(1+x\right)^a,\ \ln{1+x}, \dfrac{1}{1-x},\ \dfrac{1}{1+x} \ \text{à tous ordres ;} \ \tan x \ \text{et} \th x \ \text{à l'ordre} \ 5.
+\end{array}}
+\end{center}
+\textit{Les opérations sur les DL ainsi que la pratique de ceux-ci n'ont pas encore été évoqués.}
+
+\section*{Questions / Exercices de cours / Savoir faire}
+
+\begin{enumerate}
+    \item Étudier $\suite{x_n}$ définie comme l'unique solution dans $\bdRp$ de l'équation $(E_n) : nx + \ln x = 0$.
+    
+    On montrera que la suite $\suite{x_n}$ converge en étudiant sa monotonie et on cherchera sa limite.
+    
+    \boxans{
+        Soit $n \in \bdN$. On pose $f_n$ de $\bdRp$ dans $\bdR$ tel que $\forall x \in \bdRp$, $f_n(x) = nx + \ln x$. On a donc $f(x_n) = 0$.
+        
+        Par opérations, $f_n$ est dérivable sur $\bdRp$ et on a :
+        \[ \forall x \in \bdRp,\ f_n'(x) = n + \dfrac{1}{x} \qquad \ \text{donc} \ \forall x \in \bdRp,\ f_n'(x) > 0 \ \text{donc} \ f_n(x) \ \text{est strictement croissante sur} \ \bdRp\]
+        On a $\lim\limits_{x \to 0^+} f_n(x) = \lim\limits_{x \to 0^+} \ln(x) = -\infty$ et $\lim\limits_{x \to +\infty} f_n(x) = +\infty$, donc $f_n$ est une bijection de $\bdRp$ dans $\bdR$, de réciproque $f^{-1}$ strictement croissante. Ainsi, il existe un unique $x_n$ tel que $f_n(x_n) = 0$ soit $x_n = f^{-1}_n(0)$.\\
+        
+        On a $f_{n+1}(x_{n+1}) = 0$ donc $(n+1)x_{n+1} + \ln{x_{n+1}} = 0$ donc $x_{n+1} + \left(nx_{n+1} + \ln{x_{n+1}}\right)=0$. Donc $x_{n+1}+f_n(x_{n+1}) = 0$, d'où $f_n(x_{n+1}) = -x_{n+1}$. Or $f_n(x_n) = 0$ donc $f_n(x_{n+1}) - f_n(x_n) = -x_{n+1} < 0$. 
+        
+        Or $f_n$ est croissante donc $x_{n+1} < x_n$, donc la suite $\suite{x_n}$ est strictement décroissante.
+        
+        De plus $x_n > 0$ donc par théorème de la limite monotone, \boxsol{la suite $\suite{x_n}$ converge vers un réel $l \in \bdR$.}
+        
+        Par l'absurde, on suppose que $\lim\limits_{n \to +\infty} = l \in \bdRp$. On a alors $nx_n \asymp{+\infty} n\epsilon$ donc $\lim\limits_{n \to +\infty} nx_n + \ln{x_n} = +\infty$.
+        
+        Or par définition $\lim\limits_{n \to +\infty} nx_n + \ln{x_n} = 0$. Il y a contradiction, donc \boxsol{$\lim\limits_{n \to +\infty} x_n = l = 0$.}
+    }
+    
+    \item Étude des suites $\displaystyle u_n = \sum_{k=0}^n \dfrac{1}{k!}$ et $v_n = u_n + \dfrac{1}{n!}$. Application à l'irrationalité de $e$.
+    
+    \boxans{
+        Soit $n \in \bdN$. On a $u_{n+1} - u_n = \dfrac{1}{(n+1)!} > 0$, donc \boxsol{la suite $\suite{u_n}$ est croissante.} De plus :
+        
+        \[v_{n+1} - v_n = u_{n+1} - u_n + \dfrac{1}{(n+1)!} - \dfrac{1}{n!} = \dfrac{1-n-1}{(n+1)!} = \dfrac{1-n}{(n+1)!}\]
+        Donc \boxsol{la suite $\suite{v_n}$ est décroissante à partir du rang $1$.} Enfin, on a : $\lim\limits_{n \to +\infty} v_n - u_n = \lim\limits_{n \to +\infty}\dfrac{1}{n!} = 0$ donc par théorème des suites adjacentes, \boxsol{les suites $\suite{u_n}$ et $\suite{v_n}$ convergent vers un réel $l$.}
+        
+        Par définition de $\exp$, on obtient $\lim\limits u_n = \exp{1} = e$ donc $l = e$.\\
+        
+        Par l'absurde, supposons $e \in \bdQ$, donc $\exists (p, q) \in \left(\bdN^*\right)^2$ tels que $e = \dfrac{p}{q}$. On a $\forall n \in \bdN$, $n \geq 2$, $u_n < \dfrac{p}{q} < v_n$.
+        
+        Or a $e \not\in \bdN$ donc $q \neq 1$ donc $q \geq 2$, donc $u_q < \dfrac{p}{q} < v_n$. On multiplie alors par $q!$ et on obtient :
+        \[ q!\sum_{k=0}^q \frac{1}{k!} < (q-1)!\times p < q!\sum_{k=0}^q \frac{1}{k!} + 1 \qquad \text{donc} \ \exists N \in \bdN,\ N < (q-1)!p < N + 1\]
+        Or $(q-1)!p \in \bdN$ On aurait donc un entier situé entre deux entiers successifs, et étant différent des deux, ce qui contredit la construction même de $\bdN$. On a donc \boxsol{$e \not\in \bdQ$.}
+        
+    }
+    
+    \item Soit $H_n = \displaystyle \sum_{k=1}^n \dfrac{1}{k}$ la somme harmonique.\qquad En comparant avec une intégrale, montrer que $H_n \asymp{+\infty} \ln n$.
+    
+    \boxans{
+        Soit $n \in \bdN$. La fonction $x \mapsto \dfrac{1}{x}$ est décroissante sur $\bdRp$ donc $\forall k \in \llbracket1, n\rrbracket$, $\displaystyle \dfrac{1}{k+1} \leq \int_k^{k+1} \dfrac{\dif t}{t} \leq \dfrac{1}{k}$.
+        
+        En sommant pour $k$ entre $1$ et $n-1$, on obtient :
+        \[ \sum_{k=1}^{n-1} \dfrac{1}{k+1} \leq \sum_{k=1}^{n-1} \int_k^{k+1} \dfrac{\dif t}{t} \ \text{donc} \ \sum_{k=2}^n \dfrac{1}{k} \leq \int_1^n \dfrac{\dif t}{t} \ \text{donc} \ H_n - 1 \leq \ln{n} \]
+        En sommant de manière similaire pour $k$ entre $1$ et $n$, on obtient :
+        \[ \sum_{k=1}^{n} \int_k^{k+1} \dfrac{\dif t}{t} \leq \sum_{k=1}^{n} \dfrac{1}{k}\ \text{donc} \ \int_1^n \dfrac{\dif t}{t} \leq H_n \ \text{donc} \ \ln{n+1} \leq H_n \]
+        En combinant, on a donc $\ln{n+1} \leq H_n \leq 1 + \ln{n}$, soit $\dfrac{\ln{n+1}}{\ln{n}} \leq \dfrac{H_n}{\ln n} \leq 1 + \dfrac{1}{\ln{n}}$.
+        
+        Par théorème d'encadrement, on a donc $\lim\limits \dfrac{H_n}{\ln n} = 1$, autrement dit \boxsol{$H_n \asymp{n \to +\infty} \ln n$}.
+    }
+    
+    \item Si $\left(\dfrac{u_{n+1}}{u_n}\right)$ converge vers $k \in [0, 1[$. Alors $(u_n)$ converge vers $0$.
+    
+    Application aux limites des suites $\left(\dfrac{q^n}{n!}\right)$ (avec $q > 1)$ et $\left(\dfrac{n!}{n^n}\right)$ pour montrer : \quad $q^n \eq{+\infty} \o{}{n!}$ et $n! \eq{+\infty} \o{}{n^n}$.
+    
+    \boxans{
+        Prenons $k \in [0, 1[$ tel que $\lim\limits_{n \to +\infty} \dfrac{u_{n+1}}{u_n} = k$. Par définition, on a :
+        \[\forall \epsilon \in \bdRp,\ \exists n_0 \in \bdN,\ \forall n \in \bdN,\quad n \geq n_0 \implies \mod{\dfrac{u_{n+1}}{u_n} - k} \leq \epsilon \implies \mod{\dfrac{u_{n+1}}{u_n}} - k \leq \epsilon\]
+        On prend $\epsilon = \dfrac{1-k}{2} > 0$, donc il existe $n_0 \in \bdN$, $\forall n \in \bdN$, $n \geq n_0 \implies \mod{\dfrac{u_{n+1}}{u_n}} \leq \dfrac{k+1}{2}$. Soit $n \in \bdN$, on a 
+        \[ \prod_{i=n_0}^{n} \mod{\dfrac{u_{i+1}}{u_i}} \leq \prod_{i=n_0}^{n} \dfrac{k+1}{2} \ \text{donc} \ \dfrac{\mod{u_n}}{\mod{u_{n_0}}} \leq \left(\dfrac{k+1}{2}\right)^{n-n_0} \ \text{donc} \ \mod{u_n} \leq \left(\dfrac{k+1}{2}\right)^{n-n_0}\mod{u_{n_0}}\]
+        Or $0 \leq k < 1$ donc $0 \leq \dfrac{k+1}{2} < 1$. En passant à la limite, on obtient $\lim\limits_{n \to +\infty} \mod{u_n} \leq 0$ donc \boxsol{$\lim\limits_{n \to +\infty} u_n = 0$.}
+        
+        L'application est immédiate : Soit $q \in \bdR$, $q > 1$. $\dfrac{q^{n+1}}{(n+1)!}\times\dfrac{n!}{q^n}=\dfrac{q}{n+1}\lima{n \to +\infty} 0$ donc \boxsol{$q^n \eq{+\infty} \o{}{n!}$.}
+        De même, $\dfrac{(n+1)!}{(n+1)^{(n+1)}}\times\dfrac{n^n}{n!}=\left(\dfrac{n}{n+1}\right)^n=\left(\dfrac{n+1}{n}\right)^{-n}=\exp{-n\ln{1+\dfrac{1}{n}}}\lima{n\to+\infty}\exp{-1}$.
+        
+        Or $0 \leq \exp{-1} < 1$ donc \boxsol{$n! \eq{+\infty} \o{}{n^n}$}.
+    }
+    
+    \item Théorème de Césaro.
+    
+    \begin{theorem*}{Théorème de Césaro}{}
+    Soit les suites $\left(\suiteZ{u_n}, \suiteZ{c_n}\right) \in \left(\bdR^{\bdN^*}\right)^2$ tel que $\forall n \in \bdN$, $\displaystyle c_n = \dfrac{1}{n}\sum_{k=1}^{n} u_k$.
+    \[ \lim\limits_{n \to +\infty} u_n = \ell \implies \lim\limits_{n \to +\infty} c_n = \ell\]
+    \end{theorem*}
+    
+    \demoth{
+    Soit les suites ci-dessus et $l \in \bdR$ tel que $\lim\limits_{n \to +\infty} u_n = \ell$. Soit $n \in \bdN^*$.
+    
+    On a $c_n - \ell = \displaystyle\dfrac{1}{n}\sum_{k=1}^{n} u_k - \ell = \dfrac{1}{n}\left(\sum_{k=1}^{n} u_k - n\ell\right)=\dfrac{1}{n}\sum_{k=1}^{n}\left(u_k-\ell\right)$. Or $\lim\limits_{n \to +\infty} u_n = \ell$ donc par définition :
+    \[ \forall \epsilon \in \bdRp,\ \exists n_0 \in \bdN^*,\ \forall n \in \bdN^*,\ n \geq n_0 \implies \mod{u_n - \ell} \leq \epsilon\]
+    Soit $\epsilon \in \bdRp$ et $n_0 \in \bdN^*$ associé. Par inégalité triangulaire, $\displaystyle \mod{u_n - \ell} = \mod{\dfrac{1}{n}\sum_{k=1}^{n}\left(u_k-\ell\right)} \leq \dfrac{1}{n}\sum_{k=1}^{n}\mod{u_k-\ell}$.
+    
+    Donc $\displaystyle \mod{u_n - \ell}  \leq \dfrac{1}{n}\sum_{k=1}^{n_0 - 1} \mod{u_k - \ell} + \dfrac{1}{n}\sum_{k=n_0}^n \mod{u_k - \ell}$. Or on a $\displaystyle \dfrac{1}{n}\sum_{k=n_0}^n \mod{u_k - \ell} \leq \epsilon$.
+    
+    De plus, $\displaystyle \dfrac{1}{n}\sum_{k=1}^{n_0 - 1} \mod{u_k - \ell} \lima{n \to +\infty} 0$ donc par définition ;
+    \[ \exists n_1 \in \bdN^*,\ \forall n \in \bdN,\ n\geq n_1 \implies \dfrac{1}{n}\sum_{k=1}^{n_0 - 1} \mod{u_k - \ell} \leq \epsilon\].
+    Ainsi, $\forall n \in \bdN$, $n \geq \max{n_0, n_1} \implies \mod{c_n - \ell} \leq 2\epsilon$.
+    
+    Ceci étant vrai pour tout $\epsilon \in \bdRp$, on en déduit que $c_n - \ell \lima{n \to +\infty} 0$ donc \boxsol{$\lim\limits_{n \to +\infty} c_n = \ell$}.
+    
+    }
+    
+    \item Énoncer la formule de Taylor-Young pour un DL d’ordre $n$ au voisinage de $a$ (écriture avec le $\o{}{(x-a)^n}$) lorsque $x$ tend vers $a$ et aussi l'écriture avec le $\o{}{h^n}$ lorsque $h= x - a$ tend vers $0$)
+    
+    \begin{form*}{Formule de Taylor-Young}{}
+    Soit $f$ une fonction de classe $\mathcal{C}^n$ sur un intervalle $I$. Alors $f$ admet un $DL_n(a)$ en tout point $a$ de $I$ et on a :
+    \[ f(x) = f(a) + f'(a)(x-a) + \dots + \dfrac{f^{(n)}(a)}{n!}(x-a)^n + \o{x \to a}{(x-a)^n} = \sum_{k=0}^n \dfrac{f^{(k)}(a)}{k!}(x-a)^k + \o{x \to a}{(x-a)^n}\]
+    Ou encore, $f(a+h)=f(a)+f'(a)h + \dots + \dfrac{f^{(n)(a)}}{n!}h^n + \o{h \to 0}{h^n} = \sum_{k=0}^n \dfrac{f^{(k)(a)}}{k!}h^k + \o{h \to 0}{h^n}$.
+    \end{form*}
+    
+    \item Montrer que la fonction $f : x \mapsto x^3\sin{\dfrac{1}{x}}$ admet un DL en $0$ à l'ordre $2$, mais n'est pas deux fois dérivable en $0$.
+    
+    \boxans{
+    On a $\dfrac{f(x)}{x^2} = x\sin{\dfrac{1}{x}} \lima{x \to 0} 0$ donc $f(x) \eq{x \to 0} \o{}{x^2}$. Ainsi, \boxsol{$f$ admet un $DL_2(0): f(x) \eq{x \to 0} \o{}{x^2}$}.
+    
+    Par troncature, $f$ admet un $DL_1(0): f(x) \eq{x \to 0} \o{}{x}$.
+    
+    Par opérations, $f$ est dérivable sur $\bdR^*$ et tel que :
+    \[ \forall x \in \bdR^*,\ f'(x) = 3x^2\sin{\dfrac{1}{x}} + x^3\left(\dfrac{-1}{x^2}\right)\cos{\dfrac{1}{x}} = 3x^2\sin{\dfrac{1}{x}} - x\cos{\dfrac{1}{x}}\]
+    On remarque que $\cos{\dfrac{1}{x}}$ n'a pas de limite en $0$ donc $f'$ n'est pas dérivable en $0$.
+    
+    Donc \boxsol{$f$ n'est pas deux fois dérivable en $0$.}
+    }
+    
+    
+    \item Montrer qu'il existe un unique réel $x_n \in \left]n\pi - \dfrac{\pi}{2}; n\pi + \dfrac{\pi}{2}\right[$ tel que $\tan(x_n) = x_n$ puis montrer que 
+    
+    \[x_n \eq{+\infty} n\pi +\dfrac{\pi}{2}-\dfrac{1}{n\pi}+\o{}{\dfrac{1}{n}}\]
+    
+    \boxans{
+        \begin{enumerate}
+        \item On pose la fonction $f : x \mapsto \tanh{x} -x$ sur $\bdR \ \left\{n\pi + \dfrac{\pi}{2} | n \in \bdZ\right\}$.
+        
+        $f$ est dérivable sur chaque intervalle $I_n$, telle que $\forall n \in \bdN$, $\forall x \in I_n$, $f'(x) = \tan^2(x) \geq 0$, donc $f$ est croissante sur chaque intervalle $I_n$. 
+        
+        Soit $n \in \bdN$, $f$ est continue et strictement monotone sur $I_n$ donc d'après le théorème de la bijection continue $f$ est une bijection de $I_n$ dans $f(I_n) = \bdR$. Donc \boxsol{$\exists ! x_n \in I_n$ tel que $f(x_n) = 0$.}
+        
+        \item On a $\forall n \in \bdN^*$ $n\pi < x_n < n\pi + \dfrac{\pi}{2}$. Donc $\forall n \in \bdN$*, $ 1 < \dfrac{x_n}{n\pi} < 1 + \dfrac{1}{2n}$.
+        
+        Par théorème d'encadrement, $\dfrac{x_n}{n\pi} \lima{n \to +\infty} 1$, donc $x_n \asymp{+\infty} n\pi$ donc $x_n \eq{+\infty n\pi + o(n)}$.
+        
+        Pour en savoir plus, on pose $y_n = x_n - n\pi$, on a donc $y_n = o(n)$.
+        
+        Or $\tan{y_n} = \tan{x_n - n\pi} = \tan{x_n} = x_n$ donc $\arctan{\tan{y_n}} = \arctan{x_n}$.
+        
+        Or $n\pi \leq x_n < n\pi + \dfrac{\pi}{2}$ donc $0 \leq y_n < \dfrac{\pi}{2}$, donc $\arctan{\tan{y_n}} = y_n$ donc $y_n = \arctan{x_n}$.
+        
+        Or $x_n \lima{n \to +\infty} +\infty$ (car $x_n \asymp{+\infty} n\pi$ donc $y_n \lima{n \to +\infty} \dfrac{\pi}{2}$ d'où $y_n \asymp{+\infty} \dfrac{\pi}{2}$ soit $y_n \eq{+\infty} \dfrac{\pi}{2} + o(1)$.
+        
+        A ce stade, on a donc $x_n = n\pi + y_n$ soit $x_n \eq{+\infty} n\pi + \dfrac{\pi}{2} + o(1)$.
+        On continue en posant $z_n = x_n - n\pi - \dfrac{\pi}{2}$, on a donc $z_n \eq{+\infty} o(1)$, donc $z_n \lima{n \to +\infty} 0$ d'où $\tan{z_n} \asymp{+\infty} z_n$.
+        
+        Or $\tan{z_n} = \tan{x_n - n\pi - \dfrac{\pi}{2}} = \tan{x_n - \dfrac{\pi}{2}} = -\dfrac{1}{\tan{x_n}} = -\dfrac{1}{x_n}$.
+        
+         Or $x_n \asymp{+\infty} n\pi$ donc $-\dfrac{1}{x_n} \asymp{+\infty} - \dfrac{1}{n\pi}$ donc $z_n \asymp{+\infty} -\dfrac{1}{n\pi}$, d'où $z_n \eq{+\infty} -\dfrac{1}{n\pi} + o\left(\dfrac{1}{n}\right)$.
+         
+         En conclusion, $x_n = n\pi + \dfrac{\pi}{2} + z_n$ donc \boxsol{$x_n \eq{+\infty} n\pi + \dfrac{\pi}{2} - \dfrac{1}{n\pi} + o\left(\dfrac{1}{n}\right)$.}
+    \end{enumerate}
+    }
+    
+
+    
+\end{enumerate}
+\end{document}

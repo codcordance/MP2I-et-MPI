@@ -1,0 +1,1051 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Chapitre 10}{Analyse asymptotique}
+\initcours
+
+
+\section{Analyse asymptotique sur les suites}
+Le but de ce chapitre est de présenter des outils aidant à la comparaison de suites. On considère des suites $\suite{u_n}$ et $\suite{v_n}$, à valeur dans $\bdK$ (soit $\bdR$, soit $\bdC$), où la suite  $\suite{v_n}$ ne s'annule plus à partir d'un certain rang :
+\[ \exists n_0 \in \bdN,\ \forall n \in \bdN,\ n \geq n_0 \implies v_n \neq 0\]
+Ainsi le quotient $\suite{\dfrac{u_n}{v_n}}$ est-il lui aussi bien défini à partir d'un certain rang.
+
+
+\subsection{Domination}
+\begin{definition}{Domination}{}
+    Soit $\left(\suite{u_n}, \suite{v_n}\right) \in \left(\bdK^\bdN\right)^2$. On dit que $u$ est \bf{dominée} par $v$ si et seulement si $\dfrac{u}{v}$ est bornée, soit
+    
+    \[ \exists M \in \bdR_+,\ \exists n_0 \in \bdN, \forall n \in \bdN,\ n \geq n_0 \implies \left\lbrace\begin{array}{lll}
+        \mod{\dfrac{u_n}{v_n}} &\leq& M \\
+        &\text{soit}&\\
+        \mod{u_n} &\leq& M \mod{v_n}
+    \end{array}\right.\]
+    \hg{De manière équivalente :} $\suite{u_n}$ est dominée par $\suite{v_n}$ si et seulement s’il existe une suite bornée $\suite{\mu_n}$ telle qu'à partir d'un certain rang $u_n = \mu_nv_n$.
+\end{definition}
+
+On utilise pour désigner la phrase \guill{$\suite{u_n}$ est dominée par $\suite{v_n}$} la notation de Landau $\underline{u_n \eq{n \to +\infty} O(v_n)}$, que l'on peut aussi prononcer \guill{$\suite{u_n}$ est un grand $O$ de $\suite{v_n}$}.
+
+\begin{example}{}{}
+    Soit $\left(\suite{u_n}, \suite{v_n}\right) \in \left(\bdR^\bdN\right)^2$, avec $\forall n \in \bdN$, $u_n = 3n^2 + 4n + \log (n+1)$ et $v_n = 7n^2$.
+    
+    On a alors $\forall n \in \bdN^*$, $\mod{\dfrac{u_n}{v_n}} = \mod{\dfrac{3n^2+4n+\log (n+1)}{7n^2}}=\mod{\dfrac{3}{7} + \dfrac{4}{7n} + \dfrac{\log (n+1)}{7n^2}} \leq 1 + \dfrac{\log 2}{7}$.
+    
+    Le quotient $\dfrac{u_n}{v_n}$ est borné, donc \hg{$u_n = O(v_n)$}.
+\end{example}
+
+\begin{property}{Relation binaire $. = O(.)$}{}
+    $. = O(.)$ est une relation binaire transitive et réflexive.
+\end{property}
+
+\demo{Soit $\left(\suite{u_n}, \suite{v_n}, \suite{w_n}\right) \in \left(\bdK^\bdN\right)^3$.
+
+    \begin{enumerate}
+        \itarr $\forall n \in \bdN$, $\mod{u_n} \leq 1\times\mod{u_n}$ donc avec $M = 1$, on a bien $u_n = O(u_n)$. Donc $. = O(.)$ est réflexive.
+    
+        \itarr Si $u = O(v)$ et $v = O(w)$, alors par définition :
+        \[ \left\lbrace\begin{array}{l}
+            \exists M_1 \in \bdR^+,\ \exists n_1 \in \bdN,\ \forall n \in \bdN, \ n \geq n_1 \implies \mod{u_n} \leq M_1 \mod{v_n} \\
+            \exists M_2 \in \bdR^+,\ \exists n_2 \in \bdN,\ \forall n \in \bdN, \ n \geq n_2 \implies \mod{v_n} \leq M_2 \mod{w_n}
+        \end{array}\right.\]
+        Donc
+        \[ \exists (M_1, M_2) \in {\bdR^+}^2,\ \exists (n_1, n_2) \in \bdN^2,\ \forall n \in \bdN,\ n \geq \max{n_0, n_1} \implies \mod{u_n} \leq M_1M_2\mod{w_n}\]
+        Donc par définition, $u_n = O(w_n)$, donc $. = O(.)$ est transitive.
+    \end{enumerate}
+}
+
+\begin{exercise}{}{}
+    Soit $\left(\suite{u_n}, \suite{v_n}\right) \in \left(\bdK^\bdN\right)^2$, avec $\exists m \in \bdR_+$, $\exists M \in \bdR_+$, $\forall n \in \bdN$, $n \geq n_0 \implies 0 \leq m\mod{v_n} \leq \mod{u_n} \leq M\mod{v_n}$. 
+    
+    Que peut-on alors dire de $(u_n)$ et de $(v_n)$ ?
+    \tcblower
+    On a $0 \leq m \leq \mod{\dfrac{u_n}{v_n}} \leq M$ et  donc $u_n = O(v_n)$ et $\mod{\dfrac{v_n}{u_n}} \leq \dfrac{1}{m}$ donc $v_n = O(u_n)$.
+\end{exercise}
+
+\subsection{Négligeabilité / Prépondérance}
+\begin{definition}{Négligeabilité}{}
+    Soit $\left(\suite{u_n}, \suite{v_n}\right) \in \left(\bdK^\bdN\right)^2$. On dit que $u$ est \bf{négligeable} devant $v$ si et seulement si $\dfrac{u}{v}$ converge vers $0$, soit
+    
+    \[ \forall \epsilon \in \bdR_+,\ \exists n_0 \in \bdN, \ \forall n \in \bdN,\ n \geq n_0 \implies \left\lbrace\begin{array}{lll}
+        \mod{\dfrac{u_n}{v_n}} &\leq& \epsilon \\
+        &\text{soit}&\\
+        \mod{u_n} &\leq& M=\epsilon \mod{v_n}
+    \end{array}\right.\]
+    
+    \hg{De manière équivalente :} $\suite{u_n}$ est négligeable devant $\suite{v_n}$ si et seulement s’il existe une suite $\suite{\epsilon_n}$ telle qu'à partir d'un certain rang $u_n = \epsilon_nv_n$ et $\lim\limits_{n \to +\infty} \epsilon_n = 0$.
+\end{definition}
+
+On utilise ici aussi pour désigner la phrase \guill{$(u_n)$ est \textbf{négligeable} devant $(v_n)$} la notation de Landau $\underline{u_n \eq{n \to +\infty} o(v_n)}$, que l'on peut prononcer \guill{$(u_n)$ est un petit $o$ de $(v_n)$}. On peut également dire que \guill{$\suite{v_n}$ est \textbf{prépondérante} devant $\suite{u_n}$. }
+
+\begin{example}{}{}
+    Soit $\left(\suite{u_n}, \suite{v_n}\right) \in \left(\bdR^\bdN\right)^2$, avec $\forall n \in \bdN$, $u_n = 3n + \log (n+1)$ et $v_n = 7n^3$.
+    
+    On a alors $\forall n \in \bdN^*$, $\dfrac{u_n}{v_n} = \dfrac{3n+\log{n+1}}{7n^3} = \dfrac{3}{7n^2} + \dfrac{\log{n+1}}{7n^3}$ donc $\lim\limits_{n \to + \infty} \dfrac{u_n}{v_n} = 0$.
+    
+    La suite $\left(\dfrac{u_n}{v_n}\right)_{n \in \bdN^*}$ converge vers $0$, donc \hg{$u_n = o(v_n)$}.
+\end{example}
+
+\begin{property}{Relation binaire $. = o(.)$}{}
+    $. = o(.)$ est une relation binaire transitive.
+\end{property}
+
+\demo{Soit $\left(\suite{u_n}, \suite{v_n}, \suite{w_n}\right) \in \left(\bdK^\bdN\right)^3$ et $\epsilon \in \bdR_+$. Si $u = o(v)$ et $v = o(w)$, alors par définition :
+
+    \[ \left\lbrace\begin{array}{l}
+        \exists n_1 \in \bdN,\ \forall n \in \bdN, \ n \geq n_1 \implies \mod{u_n} \leq \sqrt{\epsilon} \mod{v_n} \\
+        \exists n_2 \in \bdN,\ \forall n \in \bdN, \ n \geq n_2 \implies \mod{v_n} \leq \sqrt{\epsilon} \mod{w_n}
+    \end{array}\right.\]
+    Donc $\exists (n_1, n_2) \in \bdN^2$,$\forall n \in \bdN$,$ n \geq \max{n_0, n_1} \implies \mod{u_n} \leq \epsilon\mod{w_n}$. Donc par définition, $u_n = o(w_n)$.
+    
+    Donc $. = O(.)$ est transitive.
+}
+
+\begin{property}{}{}
+    Soit $\left(\suite{u_n}, \suite{v_n}\right) \in \left(\bdK^\bdN\right)^2$. 
+    \[ u_n = o(v_n) \implies u_n = O(v_n)\]
+\end{property}
+
+\demo{
+    Soit $\left(\suite{u_n}, \suite{v_n}\right) \in \left(\bdK^\bdN\right)^2$.
+    
+    \[u_n = o(v_n) \implies \dfrac{u}{v} \lima 0 \implies \exists M \in \bdR_+,\ \forall n \in \bdN,\ \mod{\dfrac{u_n}{v_n}} \leq M \implies u_n = O(v_n)\]
+}
+
+L'on a ici que si une certaine suite est négligeable devant une autre, alors elle est également dominée par cette autre suite. Cependant, la réciproque de ce principe n'est, en ce qui la concerne, généralement pas vraie. Il suffit pour s'en rendre compte de constater que la relation binaire \guill{est un grand O de} ($. = O(.)$) est réflexive, alors que la relation binaire \guill{est un petit o de } ($. = o(.)$) ne l'est pas. Ainsi pour toute suite $\suite{u_n} \in \bdR^\bdN$, on a :
+\[ u_n = O(u_n) \qquad \text{mais} \qquad u_n \neq o(u_n) \]
+On peut comprendre ceci par le fait que la notion de négligeabilité est \guill{plus forte} que celle de domination, ce que l'on voit aussi dans la propriété ci-dessous  :
+
+\begin{property}{Transitivité large de $o$ et $O$}{}
+      Soit $\left(\suite{u_n}, \suite{v_n}, \suite{w_n}\right) \in \left(\bdK^\bdN\right)^3$.
+      \[ \left\lbrace\begin{array}{ll}
+          u_n = o(v_n) \ \text{et} \ v_n = O(w_n) &\implies u_n = o(w_n)  \\
+          u_n = O(v_n) \ \text{et} \ v_n = o(w_n) &\implies u_n = o(w_n) 
+      \end{array}\right.\]
+\end{property}
+
+\demo{
+    Soit $\left(\suite{u_n}, \suite{v_n}, \suite{w_n}\right) \in \left(\bdK^\bdN\right)^3$ telles que $u_n = o(v_n)$ et $v_n = O(w_n)$.
+    
+    \[ \forall n \in \bdN,\ \dfrac{u_n}{w_n} = \dfrac{u_n}{v_n} \times \dfrac{v_n}{w_n} \]
+    Or le quotient $\dfrac{u_n}{v_n}$ converge vers $0$ et le quotient $\dfrac{v_n}{w_n}$ est borné donc le quotient $\dfrac{u_n}{w_n}$ converge vers $0$. 
+    
+    Donc $u_n = o(w_n)$. La situation où $u_n = O(v_n)$ et $v_n = o(w_n)$ se démontre de la même manière.
+}
+
+Il peut être intéressant d'employer les notations de Landau avec la constante $1$. En effet, plutôt que définir à chaque fois une suite, ou de détailler une de ses propriétés, on pourra directement employer le symbole associé (parmi les notations de Landau $O$, $o$, $\dots$) avec $1$. 
+Soit par exemple une suite $\suite{u_n} \in \bdK^\bdN$. On a :
+\[ u_n \eq{n \to +\infty} o(1) \iff \dfrac{u_n}{1} = u_n \lima{n \to +\infty} 0\] c'est-à-dire si et seulement si la suite $\suite{u_n}$ converge vers $0$. Ainsi, pour dire qu'une suite $\suite{v_n} \in \bdK^\bdN$ converge vers $0$, il suffira d'écrire $v_n = o(1)$, et pour une suite $\suite{w_n} \in \bdK^\bdN$, telle que, par exemple, \[\forall n \in \bdN, \qquad w_n = 2n + \dfrac{1}{n} + e^{-n}\]
+on pourra simplifier en écrivant $w_n = 2n + o(1)$. De même, $u_n \eq{n \to +\infty} O(1)$ si et seulement si le quotient $\dfrac{u_n}{1}$ est borné, c'est-à-dire si et seulement si la suite $\suite{u_n}$ est borné. On pourra donc utiliser $O(1)$ comme on l'a précédemment fait avec $o(1)$.
+
+\subsection{Équivalence}
+\begin{definition}{Équivalence}{}
+    Soit $\left(\suite{u_n}, \suite{v_n}\right) \in \left(\bdK^\bdN\right)^2$. On dit que $u$ et $v$ sont \bf{équivalentes} si et seulement si $\dfrac{u}{v}$ converge vers $1$.
+\end{definition}
+
+On utilise pour désigner la phrase \guill{$(u_n)$ et $(v_n)$ sont équivalentes} la notation de Landau $u_n \asymp{n \to +\infty} v_n$.
+
+On remarquera également que l'on dit ici \guill{$(u_n)$ et $(v_n)$ sont équivalentes} et non pas \guill{$(u_n)$ est équivalente à $(v_n)$}, soulignant de la sorte l'aspect évidemment symétrique de la relation, qui, comme vu plus loin, est en fait bien une relation d'équivalence.
+
+\begin{example}{}{}
+    Soit $\left(\suite{u_n}, \suite{v_n}\right) \in \left(\bdR^\bdN\right)^2$, avec $\forall n \in \bdN$, $u_n = n + 3$ et $v_n = n + 4$.
+    
+    On a alors $\forall n \in \bdN^*$, $\dfrac{u_n}{v_n} = \dfrac{n+3}{n+4} = \dfrac{1+\frac{3}{n}}{1+\frac{4}{n}}$ donc $\lim\limits_{n \to + \infty} \dfrac{u_n}{v_n} = \dfrac{1}{1}=1$.
+    
+    La suite $\left(\dfrac{u_n}{v_n}\right)_{n \in \bdN^*}$ converge vers $1$, donc \hg{$u_n \asymp{n \to + \infty} v_n$}.
+\end{example}
+
+\begin{property}{Relation d'équivalence $\asymp$}{}
+    $\asymp$ est une relation d'équivalence sur les suites qui ne s'annulent pas à partir d'un certain rang.
+\end{property}
+
+\demo{
+    Montrons que $\asymp$ est une relation d'équivalence, c'est-à-dire une relation binaire réflexive, symétrique et transitive. Soit $\left(\suite{u_n}, \suite{v_n}, \suite{w_n}\right) \in \left(\bdK^\bdN\right)^3$.
+    
+    \begin{enumerate}
+        \itarr $u_n \asymp{+\infty} v_n \implies \dfrac{u_n}{v_n} \lima{+\infty} 1 \implies \dfrac{v_n}{u_n} \lima{+\infty} \dfrac{1}{1} = 1 \implies v_n \asymp u_n$.
+        Donc $\asymp$ est symétrique.
+        \itarr $\dfrac{u_n}{u_n}=1$ donc $\dfrac{u_n}{u_n} \lima{+\infty} 1$ donc $u_n \asymp{+\infty} u_n$. Donc $\asymp$ est réfléxive.
+        \itarr $\dfrac{u_n}{w_n} = \dfrac{u_n}{v_n} \times \dfrac{u_n}{w_n}$. Donc
+        $ u_n \asymp{+\infty} v_n$ et $v_n \asymp{+\infty} w_n \implies \dfrac{u_n}{v_n} \times \dfrac{u_n}{w_n} \lima{+\infty} 1\times 1 \implies \dfrac{u_n}{w_n} \lima{+\infty} 1 \implies u_n \asymp{+\infty} w_n$. 
+        
+        Donc $\asymp$ est transitive.
+    \end{enumerate}
+    $\asymp$ est une relation binaire symétrique, réflexive et transitive, donc $\asymp$ est une relation d'équivalence.
+}
+
+La notion d'équivalent permet donc d'exprimer autrement la notion de limite, en apportant une précision quant à la \guill{vitesse} de diverge. Par exemple, si l'on regarde les suites $\suite{n^2+4}$ et $\left(\ln{n} - \dfrac{1}{n}\right)_{n \in \bdN^*}$, on a :
+
+\[\lim\limits_{n \to +\infty} n^2 + 4 = +\infty \qquad \text{et} \qquad \lim\limits_{n \to +\infty} \ln{n} - \dfrac{1}{n} = +\infty\]
+Ici les deux limites sont égales. Pour autant on peut étudier autrement les limites de ces suites, et obtenir plus d'information :
+\[n^2 + 4 \asymp{n \to +\infty} n^2  \qquad \text{et} \qquad \ln{n} - \dfrac{1}{n} \asymp{n \to +\infty} \ln{n}\]
+On remarquera d'ailleurs que $\ln n = o(n^2)$, ainsi la croissance de la deuxième suite reste négligeable devant la première.
+
+On peut également faire un lien entre limite finie non nulle et équivalence :
+
+\begin{property}{Lien entre limite et équivalence}{}
+    Soit $l \in \bdK^*$ et $\suite{u_n} \in \bdK^\bdN$.
+    \[ \lim\limits_{n \to +\infty} u_n = l \iff u_n \asymp{n \to +\infty} l\]
+\end{property}
+
+\demo{
+    Soit $l \in \bdK^*$ et $\suite{u_n} \in \bdK^\bdN$.
+    \[ u_n \lima{l \to +\infty} l \iff \dfrac{u_n}{l} \lima{n \to +\infty} 1 \iff u_n \asymp{n \to +\infty} l\]
+}
+\begin{warning}{}{}
+    Il ne faut \bf{JAMAIS} écrire $u_n \asymp{n \to +\infty} 0$. En effet, cela signifierai par définition que $\dfrac{u_n}{0} \asymp{n \to +\infty} 1$, ce qui n'a pas de sens.
+    
+    Autrement, cela induirait que $u_n = 0$ pour tout $n \in \bdN$ à partir d'un certain rang. 
+    
+    \hg{On gardera donc la notation $\lim\limits_{n \to +\infty} u_n = 0$ ou $u_n \lima{n \to +\infty} 0$.}
+\end{warning}
+
+Comme pour la limite, on peut aussi faire un lien entre négligeabilité et équivalence :
+
+\begin{property}{Lien entre négligeabilité et équivalence}{}
+     Soit $\left(\suite{u_n},\suite{v_n}\right) \in \left(\bdK^\bdN\right)^2$.
+     \[ u_n \asymp{n \to +\infty} v_n \iff u_n - v_n = o(v_n)\]
+\end{property}
+
+\demo{
+    Soit $\left(\suite{u_n},\suite{v_n}\right) \in \left(\bdK^\bdN\right)^2$.
+    \[ u_n - v_n = o(v_n) \iff \dfrac{u_n - v_n}{v_n} \lima{+\infty} 0 \iff \dfrac{u_n}{v_n} - 1 \lima{+\infty} 0 \iff \dfrac{u_n}{v_n} \lima{+\infty} 1 \iff u_n \asymp{+\infty} v_n\]
+}
+
+Ceci justifie que l'on a $u_n \asymp{+\infty} v_n$ si et seulement si $u_n \eq{+\infty} v_n + o(v_n)$, soit encore :
+\[ \forall n \in \bdN, u_n = v_n + w_n \qquad \text{où} \ w_n \eq{+\infty} o(v_n)\]
+
+\subsection{Utilisation des notations de Landau}
+
+
+Les notations $. = O(.)$, $. = o(.)$, $. \asymp .$, appelées notations de Landau, ont été présentées plus haut. Généralement, celles-ci seront utilisés avec une suite $\suite{v_n}$ de référence, telle que :
+\[ n^\alpha,\quad q^n,\quad \left(\ln n\right)^\beta,\quad \sqrt{n},\quad \dots\]
+
+\begin{example}{}{}
+    \begin{enumerate}
+        \itarr $\O{+\infty}(1)$ désigne une suite bornée. Par exemple, soit $\suite{u_n} \in \bdR^\bdN$ telle que
+        \begin{align*}
+            && \forall n \in \bdN, && \ u_n &= n \underbrace{- \sin(n) + 10(-1)^n} && \qquad\qquad\qquad\\
+            \text{donc} && \forall n \in \bdN, && \ u_n &= n \ \ \ + \quad \O{n \to +\infty}(1)
+        \end{align*}
+        \itarr $\o{+\infty}(1)$ désigne une suite convergente vers $0$ en $+\infty$.  Par exemple, soit $\suiteZ{v_n} \in \bdR^{\bdN^*}$ telle que
+        \begin{align*}
+        && \forall n \in \bdN^*, && v_n &= \dfrac{2n^2 + n + \ln{n} + (-1)^n}{n} && \qquad\qquad\\
+        \text{donc} && \forall n \in \bdN^*, && u_n &= 2n +1 + \dfrac{\ln{n}}{n} + \dfrac{(-1)^n}{n}\\
+        \text{donc} && \forall n \in \bdN^*, && u_n &= 2n + 1 + \o{N \to +\infty}(1)
+        \end{align*}
+        
+        On remarquera également que l'on a $v_n \eq{+\infty} 2n +1 + O(1)$. Or $1 = \O{+\infty}{1}$ donc \hg{$v_n \eq{+\infty} 2n + O(1)$}.
+        
+    \end{enumerate}
+\end{example}
+
+En ce qui concerne l'équivalence $\asymp$ entre deux suites, celle-ci n'apporte par d'information particulière sur une suite au delà d'un certain terme. En effet, en reprenant la suite $\suiteZ{v_n}$ de l'exemple ci-dessous, il vient directement $v_n \asymp{+\infty} 2n +1$. Cependant, l'on a aussi $v_n \asymp{+\infty} 2n + 42$ car :
+\[ \dfrac{v_n}{2n + 42} = \dfrac{2n+1+o(1)}{2n+42} = \dfrac{2n+1}{2n+42} + o(1) \lima{n \to +\infty} 1\]
+On aurait bien sûr pu prendre n'importe quel autre nombre que $42$, le résultat n'en aurait pas été changé. De manière similaire, il vient $v_n \asymp{n \to +\infty} 2n + \ln{n}$, $v_n \asymp{n \to +\infty} 2n + \sqrt{n}$, $\dots$ L'on remarque donc que le terme après $2n$ n'est pas pertinent.
+
+\begin{warning}{}{}
+    L' \hg{équivalence} sert uniquement à détecter, travailler, et manipuler le \bf{terme précédent}.
+\end{warning}
+
+Ainsi, pour réaliser un développement asymptotique l'on utilisera successivement l'équivalence et la négligeabilité. Pour conclure sur cet exemple de la suite $\suiteZ{v_n}$, l'on partira donc de $v_n \asymp{+\infty} 2n$. On travaillera alors ensuite sur l'expression de $v_n - 2n$. Ici, $v_n - 2n = 1 + \o{+\infty}{1}$, donc $u_n - 2n \asymp{n \to +\infty} 1$. 
+
+L'on procédera de la sorte pour les étapes suivantes, obtenant donc $u_n - 2n - 1 \asymp{n \to +\infty} \dfrac{\ln{n}}{n}$.
+        
+\subsection{Opérations sur les suites dominées et négligeables}
+
+\begin{property}{Disparition des constantes mutliplicatives}{}
+    Soit $\left(\suite{u_n},\suite{v_n}\right) \in \left(\bdK^\bdN\right)^2$.
+    \begin{align*}
+        u_n \eq{n \to +\infty} O(v_n) &\implies \forall \lambda \in \bdK^*,\qquad \lambda u_n \eq{n \to +\infty} O(v_n)\\
+        u_n \eq{n \to +\infty} o(v_n) &\implies \forall \lambda \in \bdK^*,\qquad \lambda u_n \eq{n \to +\infty} o(v_n)
+    \end{align*} 
+\end{property}
+
+\demo{
+    Soit $\left(\suite{u_n},\suite{v_n}\right) \in \left(\bdK^\bdN\right)^2$, $\lambda \in \bdK^*$ et $n \in \bdN$.
+    \[ u_n \eq{+\infty} O(v_n) \implies \exists M \in \bdRp, \mod{\lambda}\times\mod{\dfrac{u_n}{v_n}} \leq \mod{\lambda}M \implies \exists M' \in \bdRp, \mod{\dfrac{\lambda u_n}{v_n}} \leq M' \implies \lambda u_n \eq{+\infty} O(v_n)\]
+    \[ u_n \eq{+\infty} o(v_n) \implies \dfrac{u_n}{v_n} \lima{n \to +\infty} 0 \implies \dfrac{\lambda u_n}{v_n} \lima{n \to +\infty} 0 \implies \lambda u_n \eq{+\infty} o(v_n) \]
+}
+
+On fera attention au fait que $\lambda$ est \underline{non nul} ($\lambda \in \bdK^*$) dans la propriété ci-dessus.
+
+\begin{example}{}{}
+    En pratique, la disparition des constantes mutliplicatives sert généralement dans les situations suivantes
+    \[-3O(n) = O\left(-\dfrac{1}{\pi}\times n^2\right) = \hg{O(n^2)}\]
+\end{example}
+
+\begin{property}{Stabilité par combinaison linéaire}{}
+    Soit $\left(\suite{u_n},\suite{v_n}, \suite{w_n}\right) \in \left(\bdK^\bdN\right)^3$.
+    \begin{align*}
+        u_n \eq{+\infty} O(v_n) \quad \text{et} \quad v_n \eq{+\infty} O(W_n) &\implies \forall (\lambda, \mu) \in \bdK^2, \quad \lambda u_n + \mu v_n \eq{+\infty} O(w_n)\\
+        u_n \eq{+\infty} o(v_n) \quad \text{et} \quad v_n \eq{+\infty} o(W_n) &\implies \forall (\lambda, \mu) \in \bdK^2, \quad \lambda u_n + \mu v_n \eq{+\infty} o(w_n) 
+    \end{align*} 
+\end{property}
+
+\demo{
+    Soit $\left(\suite{u_n},\suite{v_n}, \suite{w_n}\right) \in \left(\bdK^\bdN\right)^3$ et  $(\lambda, \mu) \in \bdK^2$.
+     \[u_n \eq{+\infty} O(v_n) \quad \text{et} \quad v_n \eq{+\infty} O(W_n) \implies \lambda u_n + \mu v_n \eq{+\infty} O(v_n) + O(w_n) \eq{+\infty} O(w_n) \]
+    \[u_n \eq{+\infty} o(v_n) \quad \text{et} \quad v_n \eq{+\infty} o(W_n) \implies \lambda u_n + \mu v_n \eq{+\infty} o(v_n) + o(w_n) \eq{+\infty} o(w_n) \]
+}
+
+\begin{example}{}{}
+    Soit $\left(\suite{u_n},\suite{v_n}\right) \in \left(\bdR^\bdN\right)^2$, telles que \[ \forall n \in \bdN, \qquad \left\lbrace\begin{array}{ll}
+        u_n &= 5n^2-3n+1+\dfrac{2}{n} + \o{+\infty}{\dfrac{1}{n}} \\
+        v_n &= 5n^2 - 3n + 2 + \o{+\infty}{1}
+    \end{array}\right.\]
+    Que peut-on dire de $u_n - v_n$ ? \tcblower
+    
+    On a $u_n - v_n = -1 + \dfrac{2}{n} - o(1) + o\left(\dfrac{1}{n}\right)$. Or $\dfrac{1}{n}=o(1)$ donc $o\left(\dfrac{1}{n}\right) = o(1)$.
+    
+    On obtient donc finalement $\hg{u_n - v_n \eq{n \to +\infty} -1 + o(1)}$
+\end{example}
+
+
+
+\subsection{Croissances comparées}
+
+\begin{theorem}{Croissances comparées}{}
+    Soit $\left(\alpha, \beta\right) \in \left(\bdRp\right)^2$.
+    
+    \begin{enumerate}
+    \begin{multicols}{2}
+        \itarr $n^\alpha \eq{n \to +\infty} \o{}{e^\beta n}$
+        \itarr $e^{-\alpha n} \eq{n \to +\infty} \o{}{\dfrac{1}{n^\beta}}$
+        \itarr $\ln{n}^\alpha \eq{n \to +\infty} \o{}{n^\beta}$
+        \itarr $\dfrac{1}{n^\alpha} \eq{n \to +\infty} \o{}{\dfrac{1}{\ln{n}^\beta}}$
+    \end{multicols}
+    \end{enumerate}
+\end{theorem}
+\demoth{
+    Soit $\left(\alpha, \beta\right) \in \left(\bdRp\right)^2$.
+    \begin{enumerate}
+        \itvararr $\dfrac{n\alpha}{e^{\beta n}} \lima{n \to +\infty} 0$ donc par définition $n^\alpha \eq{n \to +\infty} \o{}{e^\beta n}$.
+        \itvararr $\dfrac{e^{-\alpha n}}{\dfrac{1}{n^\beta}} = \dfrac{n^\beta}{e^{\alpha n}} \lima{n \to +\infty} 0$ donc par définition $e^{-\alpha n} \eq{n \to +\infty} \o{}{\dfrac{1}{n^\beta}}$
+        \itvararr $\dfrac{\ln{n}^\alpha}{n^\beta} \lima{n \to +\infty} 0$ donc par définition $\ln{n}^\alpha \eq{n \to +\infty} \o{}{n^\beta}$.
+        \itvararr $\dfrac{\dfrac{1}{n^\alpha}}{\dfrac{1}{\ln{n}^\beta}} = \dfrac{\ln{n}^\beta}{n^\alpha} \lima{n \to +\infty} 0$ donc par définition $\dfrac{1}{n^\alpha} \eq{n \to +\infty} \o{}{\dfrac{1}{\ln{n}^\beta}}$.
+    \end{enumerate}
+}
+
+Schématiquement, pour deux suites $\suite{u_n}$ et $\suite{v_n}$, on pourra noter $u_n \lll v_n$ pour $u_n \eq{n \to +\infty} o(v_n)$.
+
+Ainsi, les croissances comparées amènent :
+\[\forall \left(\alpha, \beta, \gamma\right) \in \left(\bdRp\right)^3, \qquad \ln{n}^\alpha \lll n^\beta \lll e^{\gamma n}\]
+Ou encore
+\[\forall \left(\alpha, \beta, \gamma\right) \in \left(\bdRp\right)^3, \qquad e^{-\alpha n} \lll \dfrac{1}{n^\beta} \lll \dfrac{1}{\ln{n}^\gamma}\]
+
+On en déduit que pour un réel $q$ fixé, avec $q > 1$, les suites puissances de $n$ sont négligeables devant les suites géométrique (exponentielles) :
+\[ \underbrace{n^\alpha}_{\text{puissances}} \lll \underbrace{q^n}_{\text{exponentielles}} \qquad\qquad \text{car}\qquad \left\lbrace\begin{array}{ll}
+    \gamma & = \ln q > 0  \\
+    e^{\gamma n} &= \left(e^{\ln q}\right)^n = q^n
+\end{array}\right.\]
+On en déduit donc les comportements limites suivants :
+\begin{enumerate}
+\begin{multicols}{2}
+    \ithand En $+\infty$, avec $q > 1$ et $\alpha > 0$, $n^\alpha \eq{+\infty} o\left(q^n\right)$
+    \ithand En $0$, avec $q \left]0,1\right[$ et $\alpha > 0$, $q^n \eq{+\infty} o\left(\dfrac{1}{n^\alpha}\right)$
+\end{multicols}
+\end{enumerate}
+
+\begin{theorem}{}{}
+    Soit $q \in \bdR$, tel que $q > 1$. 
+    \begin{enumerate}
+    \begin{multicols}{2}
+    \itarr $q^n \eq{+\infty} o(n!)$
+    \itarr $n! \eq{+\infty} o(n^n)$
+    \itarr $q^n \lll n! \lll n^n$
+\end{multicols}
+\end{enumerate}
+\end{theorem}
+
+\demoth{
+Soit $\suite{u_n} \in \bdR^\bdN$ et $q \in \bdR$, tel que $q > 1$ et $\forall n \in \bdN$, $u_n = \dfrac{q^n}{n!}$. 
+
+On a $\forall n \in \bdN$, $\dfrac{u_{n+1}}{u_n} = \dfrac{q^{n+1}}{q^n}=\dfrac{q}{n+1}<1$, or $\lim\limits_{n \to +\infty} \dfrac{q}{n+1} = 0$, donc par définition de la limite :
+\[ \forall \epsilon \in \bdRp,\ \exists n_0 \in \bdN,\ \forall n \in \bdN, \qquad n \geq n_0 \implies \mod{\dfrac{u_{n+1}}{u_n}} \leq \epsilon \]
+On prend $\epsilon < 1$, par exemple $\epsilon = 1$. $\suite{u_n}$ est toujours positive donc 
+\[\exists n_0 \in \bdN,\ \forall n \in \bdN, \qquad n \geq n_0 \implies 0 \leq \dfrac{u_{n+1}}{u_n} \leq \dfrac{1}{2} \]
+Soit $n \in \bdN$, $n > n_0$, on fait le produit des $\dfrac{u_{n+1}}{u_n}$ pour $k \in \llbracket n_0, n - 1\rrbracket$ :
+\[ 0 \leq \prod_{k=n_0}^{n-1} \dfrac{u_{n+1}}{u_n} \leq \prod_{k=n_0}^{n-1} \dfrac{1}{2} \qquad \text{donc} \qquad 0 \leq \dfrac{u_n}{u_{n_0}} \leq \left(\dfrac{1}{2}\right)^{n-n_0}\]
+Par théorème d'encadrement, $\lim\limits_{n \to +\infty} \dfrac{u_n}{u_{n_0}} = 0$.
+On a ${u_{n_0}} = \dfrac{q^0}{0!} = 1$, donc $\lim\limits_{n \to +\infty} \dfrac{q^n}{n!} = 0$ soit $q^n \eq{+\infty} o(n!)$.
+
+Le résultat $n! \eq{+\infty} o(n^n)$ est laissé en exercice ci-dessous. Par transitivité de $. = o(.)$, on déduit donc $q^n \lll n! \lll n^n$.
+}
+
+
+
+\begin{exercise}{}{}
+    Montrer que \[n ! \eq{n \to +\infty} o(n^n)\]
+    \tcblower
+    On pose $\forall n \in \bdN$, $u_n = \dfrac{n!}{n^n}$. Montrons que $\suite{u_n}$ converge vers $0$.
+    
+    Soit $n \in \bdN$. Comme $u_n > 0$, alors: \[\dfrac{u_{n+1}}{u_n} = \dfrac{(n+1)!}{(n=1)^{(n+1)}}\times\dfrac{n^n}{n!}=\left(\dfrac{n}{n+1}\right)^n=\left(\dfrac{n+1}{n}\right)^{-n} = \left(1+\dfrac{1}{n}\right)^{-n}=\exp{-n\ln{1+\dfrac{1}{n}}}\]
+    Or $\lim\limits_{u \to 0} \dfrac{\ln{1+u}}{u}= 1$ donc $\lim\limits_{n \to +\infty} \dfrac{\ln{1+\dfrac{1}{n}}}{\dfrac{1}{n}}= 1$ donc $\lim\limits_{n \to +\infty} -n\ln{1+\dfrac{1}{n}}=-1 1$.
+    
+    Par continuité de la fonction $\exp$, $\dfrac{u_{n+1}}{u_n} \lima e^{-1}$. Puisque $\dfrac{1}{e} \in \left[0, 1\right[$, \hg{la suite $\suite{u_n}$ converge vers $0$}.
+\end{exercise}
+
+Ainsi, l'on aura en bilan une échelle des croissances comparées. Avec $\alpha \in \bdR_+^*$, $\beta \in \bdR_+^*$, $q \in \bdR$, $q > 1$ :
+\[ \left(\ln n\right)^\beta \lll n^\alpha \lll q^n \lll n! \lll n^n\]
+
+\begin{example}{}{}
+    Soit la suite $\suite{u_n} \in \bdR^\bdN$ telle que 
+    \[ \forall n \in \bdN, \qquad u_n = 2^n - n\ln n + 5n^2 - \dfrac{1}{n}+e^{-3n}\]
+    Donner un équivalent de $u_n$ en $+\infty$.
+    \tcblower
+    On a $n^2 = o(2^n)$. De plus $\dfrac{1}{n} \lima{n \to +\infty} 0$ et $\dfrac{1}{n}+e^{-3n} \lima{n \to +\infty} 0$. Donc $\dfrac{1}{n}+e^{-3n} = o(1)$ soit $\dfrac{1}{n}+e^{-3n} = o(2^n)$.
+    On a $\dfrac{n\ln n}{n^2} = \dfrac{\ln n}{n} \lima{n \to +\infty} 0$ donc $n\ln{n}=o(n^2)$ donc $n\ln{n}=o(2^n)$. Finalement, \hg{$u_n \eq{+\infty} o(2^n)$}.
+\end{example}
+
+A COMPLÉTER
+
+\subsection{Opérations sur les suites équivalentes}
+
+\begin{property}{Signe}{}
+    Soient deux suites $(\suite{u_n}, \suite{v_n}) \in \left(\bdR^\bdN\right)^2$ telles que $u_n \asymp{n \to +\infty} v_n$. 
+    Alors $u_n$ et $v_n$ sont de même signe à partir d'un certain rang.
+\end{property}
+
+\demo{
+    A COMPLÉTER
+}
+
+\begin{property}{Équivalents et limites}{}
+    Soient deux suites $(\suite{u_n}, \suite{v_n}) \in \left(\bdK^\bdN\right)^2$.
+    
+    \[ u_n \asymp{n \to +\infty} v_n \ \text{et} \ \lim\limits_{n \to +\infty} v_n = l \in \overline{\bdR} \cup \bdC \implies \lim\limits_{n \to +\infty} u_n = l\]
+    
+    Réciproquement 
+    \[\lim\limits_{n \to +\infty} u_n = \lim\limits_{n \to +\infty} v_n = l \in \bdK^* \implies u_n \asymp{n \to +\infty} v_n \]
+\end{property}
+
+\demo{
+    Soient deux suites $(\suite{u_n}, \suite{v_n}) \in \left(\bdK^\bdN\right)^2$. 
+    
+    Si $u \lima l$ et $\dfrac{u}{v} \lima 1$, alors $u_n = \dfrac{u_n}{v_n}\times v_n \lima{n \to +\infty} l$.
+    
+    Si $\lim\limits_{n \to +\infty} u_n = \lim\limits_{n \to +\infty} v_n = l \in \bdK^*$, alors $\dfrac{u}{v} \lima \dfrac{l}{l} = 1$ donc $u_n \asymp{n \to +\infty} v_n$.
+}
+
+Il faut faire attention dans le cas de la réciproque. En effet, $l$ n'est pas égal à $0$ et $l$ n'est pas égal à $\pm \infty$. Ainsi :
+\begin{enumerate}
+    \ithand $\lim\limits_{n \to +\infty} n  = \lim\limits_{n \to +\infty} n^2 = +\infty$ mais $n \not\asymp n^2$
+    \ithand $\lim\limits_{n \to +\infty} \dfrac{1}{n}  = \lim\limits_{n \to +\infty} \dfrac{1}{n^2} = 0$ mais $\dfrac{1}{n} \not\asymp \dfrac{1}{n^2}$
+\end{enumerate}
+
+\begin{property}{Opérations}{}
+     Soient trois suites $\left(\suite{u_n}, \suite{v_n}, \suite{w_n}\right) \in \left(\bdR^\bdN\right)^3$. 
+     \begin{align*}
+        \text{\ding{226}} && u_n \asymp{n \to +\infty} v_n &&\implies&& u_n \times w_n &\asymp{n \to +\infty} v_n \times w_n\\
+        \text{\ding{226}} && u_n \asymp{n \to +\infty} v_n &&\implies&& \dfrac{u_n}{w_n} &\asymp{n \to +\infty} \dfrac{v_n}{w_n}\\
+        \text{\ding{226}} && u_n \asymp{n \to +\infty} v_n \ \text{et} \ \exists n_0 \in \bdN,\ \forall n \in \bdN, n \geq n_0 \implies u_n > 0 &&\implies&& \forall \alpha \in \bdR, \ {u_n}^\alpha &\asymp{n \to +\infty} {v_n}^{\alpha}\\
+        \text{\ding{226}} && u_n \asymp{n \to +\infty} v_n &&\implies&& \forall p \in \bdZ, \ {u_n}^p &\asymp{n \to +\infty} {v_n}^p
+     \end{align*}
+\end{property}
+\demo{
+Soient trois suites $\left(\suite{u_n}, \suite{v_n}, \suite{w_n}\right) \in \left(\bdR^\bdN\right)^3$ telles que $u_n \asymp{n \to +\infty} v_n$.
+
+\begin{enumerate}
+    \itvararr On a $\dfrac{u_n}{v_n} \lima{n \to +\infty} 1$ donc $\dfrac{w_nu_n}{w_nv_n} \lima{n \to +\infty} 1$ donc $u_n \times w_n \asymp{n \to +\infty} v_n \times w_n$.
+    \itvararr On a  $\dfrac{u_n}{v_n} \lima{n \to +\infty} 1$ donc $\dfrac{\sfrac{u_n}{w_n}}{\sfrac{v_n}{w_n}} \lima{n \to +\infty} 1$ donc $\dfrac{u_n}{w_n} \asymp{n \to +\infty} \dfrac{v_n}{w_n}$.
+    \itvararr $u_n$ est strictement positif à partir d'un certain rang, donc $v_n$ aussi. On pose donc $n_1 \in \bdN$ tel que \[\forall n \in \bdN,\ n\geq n_1\implies \left(u_n > 0 \ \text{et} \ v_n > 0\right)\]
+    
+    Soit $n \in \bdN$, $n \geq n_1$ et $\alpha \in \bdR$. On a $\dfrac{u_n}{v_n} \lima{n \to +\infty} 1$ donc $\left(\dfrac{u_n}{v_n}\right)^\alpha = \dfrac{{u_n}^\alpha}{{v_n}^\alpha} \lima{+\infty} 1^\alpha = 1$ donc ${u_n}^\alpha \asymp{n \to +\infty} {v_n}^\alpha$.
+    \itvararr Soit $p \in \bdZ$. On a $\dfrac{u_n}{v_n} \lima{n \to +\infty} 1$ donc $\left(\dfrac{u_n}{v_n}\right)^p = \dfrac{{u_n}^p}{{v_n}^p} \lima{n\to+\infty} 1^p = 1$ donc ${u_n}^p \asymp{n \to +\infty} {v_n}^p$.
+\end{enumerate}
+}
+
+\begin{example}{}{}
+    Soit la suite $\suite{u_n} \in \bdR^\bdN$ telle que $\forall n \in \bdN$, $u_n = \dfrac{(-2)^n + 5n! - \ln{n^2}}{n^3 - 3n^n}$. Que serait un équivalent de $\suite{u_n}$ ?
+    \tcblower
+    
+    A COMPLÉTER
+    
+\end{example}
+
+\begin{warning}{}{}
+    \bf{On ne peut pas faire la somme d'équivalents !} Soient deux suites $(\suite{u_n}, \suite{v_n}) \in \left(\bdK^\bdN\right)^2$ et $n \in \bdN$.
+    \[ \left\lbrace\begin{array}{lll}
+        u_n &= n + \ln{n} &\implies u_n \asymp{+\infty} n \\
+        v_n &= - n + \dfrac{1}{n} &\implies v_n \asymp{+\infty} -n
+    \end{array}\right.\]
+    Or $u_n + v_n = \ln{n} + \dfrac{1}{n} \implies u_n + v_n \asymp{+\infty} \ln{n} \neq 0$. 
+\end{warning}
+
+Si on veut sommer des équivalents, il faudra en fait revenir à la négligeabilité avec $. = o(.)$.
+
+A COMPLÉTER
+
+\subsection{Limites de fonctions usuelles et équivalents}
+
+Une idée est que si l'on a une fonction réelle $f \in \bdR^\bdR$ et $l$ est un réel non nul, telle que $\lim\limits_{x \to a} f(x) = l$, et que si $\lim\limits_{n \to + \infty} u_n = a$, alors $\lim\limits_{n \to +\infty} f(u_n) = l$, ce qu'on pourrait écrire $f(u_n) \asymp{+\infty} l$. En particulier, cette idée trouve un sens avec les taux d'accroissement. Si $\lim\limits_{x \to 0} \dfrac{f(x) - f(0)}{x} = f'(0) \neq 0$ et si $u_n \lima{n \to +\infty} 0$, alors $\dfrac{f(u_n) - f(0)}{u_n} \asymp{n \to +\infty} f'(0)$.
+
+\begin{theorem}{Équivalents usuels}{}
+    Soit la suite $\suite{u_n} \in \bdR^\bdN$, telle que $\lim\limits_{n \to +\infty} u = 0$.
+    \begin{enumerate}
+    \begin{multicols}{2}
+
+        \itarr $\left(e^{u_n} -1\right) \asymp{n \to +\infty} u_n$
+        \itarr $\ln{1+u_n} \asymp{n \to +\infty} u_n$
+        \itarr $\sin{u_n} \asymp{n \to +\infty} u_n$
+        \itarr $\tan{u_n}\asymp{n \to +\infty} u_n$
+        \itarr $\left(1-\cos{u_n}\right) \asymp{n \to +\infty} \dfrac{1}{2}u_n$
+        \itarr $\left(\sqrt{1+u_n} -1\right) \asymp{n \to +\infty} \dfrac{1}{2}u_n$
+        \itarr $\forall \alpha \in \bdR$, $\left(1+u_n\right)^\alpha -1 \asymp{n \to +\infty} \alpha u_n$
+        \itarr $\sh{u_n} \asymp{n \to +\infty} u_n$
+        \itarr $\th{u_n} \asymp{n \to +\infty} u_n$
+        \itarr $\arcsin{u_n} \asymp{n \to +\infty} u_n$
+        \itarr $\arctan{u_n} \asymp{n \to +\infty} u_n$
+    \end{multicols}
+    \end{enumerate}
+\end{theorem}
+\demoth{
+A COMPLÉTER
+}
+
+Les équivalents usuels peuvent être utilisés directement, par exemple :
+\begin{example}{}{}
+    \begin{enumerate}
+    \begin{multicols}{2}
+        \itarr \hg{$\sin{\dfrac{1}{n^2}} \asymp{n \to +\infty} \dfrac{1}{n^2}$}
+        \itarr \hg{$\ln{1+\dfrac{1}{n^3}} \asymp{n \to +\infty} \dfrac{1}{n^3}$}
+    \end{multicols}
+    \end{enumerate}
+\end{example}
+Les équivalents usuels permettent également de déterminer la limite d'une suite.
+\begin{example}{}{}
+        Soit la suite $\suiteZ{u_n} \in \bdR^{\bdN^*}$, telle que $\forall n \in \bdN^*$, $\exp{n^2\sin{\dfrac{1}{n^2}}}$.
+        Quelle est la limite de la suite $\suiteZ{u_n}$ ?
+        \tcblower 
+        On a l'équivalent usuel donc $\sin{\dfrac{1}{n^2}} \asymp{n \to +\infty} n^2$ donc $n^2 \times \sin{\dfrac{1}{n^2}} \asymp{n \to +\infty} n^2 \times \dfrac{1}{n^2} = 1$.
+        
+        Donc $n^2 \times \sin{\dfrac{1}{n^2}}$ converge vers $1$. En composant la par la fonction $\exp$ : \hg{$\exp{n^2\sin{\dfrac{1}{n^2}}} \lima{n \to +\infty} e$}.
+        
+\end{example}
+\begin{example}{}{}
+        $U_n = \sqrt{n^2 + n - 1} - n \qquad \dots$ Équivalent ? On a $(n^2 + n - 1)  \asymp{n \to +\infty} n^2$ donc $\sqrt{n^2 + n - 1}  \asymp{n \to +\infty} n$. 
+        
+        Donc $\sqrt{n^2 + n - 1} = n + o(n)$ d'où $u_n = n + o(n) - n = o(n) \qquad \dots$ Vrai mais n'apporte rien.
+        A COMPLÉTER
+        
+\end{example}
+\begin{example}{}{}
+        $u_n = \ln{n^2 + 1} = \ln{n^2\left[1+\dfrac{1}{n^2}\right]} = \ln{n^2} + \ln{1+\dfrac{1}{n^2}} = 2\ln{n} + \dfrac{1}{n^2} + o\left(\dfrac{1}{n^2}\right)$
+        
+        Or $\dfrac{1}{n^2} \lima 0$ donc $\ln{1+\dfrac{1}{n^2}} \asymp{n \to +\infty} \dfrac{1}{n^2}$ donc $\ln{1+\dfrac{1}{n^2}} = \dfrac{1}{n^2} + o\left(\dfrac{1}{n^2}\right)$.
+        
+        On peut prendre en précision $u_n = 2\ln n + o\left(\dfrac{1}{n^2}\right) = 2\ln n + o\left(\dfrac{1}{n^2}\right)$ d'où $u_n \asymp{n \to +\infty} 2\ln n$.
+        
+        On constate $u_n - 2\ln n = \dfrac{1}{n^2} + o\left(\dfrac{1}{n^2}\right)$ d'où $u_n - 2\ln n \asymp{n \to +\infty} \dfrac{1}{n^2}$, ce qui est très précis.
+\end{example}
+
+\begin{warning}{}{}
+    Comme pour la somme, \bf{on ne peut pas faire de composition d'équivalents !}
+    
+    Soit $\left(\suite{u_n}, \suite{v_n}\right) \in \left(\bdK^\bdN\right)^2$ et $f \in \bdK^\bdK$. $ u_n \asymp{n \to +\infty} v_n \centernot\implies f(u_n) \asymp{n \to +\infty} f(v_n)$.Par exemple :
+    \begin{enumerate}
+        \itarr $n + 42 \asymp{n \to +\infty} n$ mais $e^{n + 42} \centernot{\asymp{n \to +\infty}} e^n$.
+        \itarr $1 - \dfrac{1}{n^2} \asymp{n \to +\infty} 1 + \dfrac{1}{\sqrt{n}}$ mais $\left\lbrace\begin{array}{ll}
+            \ln{1 - \dfrac{1}{n^2}} &\asymp{n \to +\infty} - \dfrac{1}{n^2}\\
+            \ln{1 + \dfrac{1}{\sqrt{n}}} &\asymp{n \to +\infty} \dfrac{1}{\sqrt{n}}
+        \end{array}\right.$ et $-\dfrac{1}{n^2} \centernot{\asymp{n \to +\infty}} \dfrac{1}{\sqrt{n}}$
+    \end{enumerate}
+\end{warning}
+Ceci trouve une application dans l'exemple ci-dessous :
+\begin{example}{}{}
+    Donnons un équivalent de $\ln{\sin{\dfrac{1}{n^2}}}$. On a $\dfrac{1}{n^2} \lima{n \to +\infty} 0$, donc $\sin{\dfrac{1}{n^2}} \asymp{n \o +\infty} \dfrac{1}{n^2}$.
+    
+    \begin{centering}
+    \ding{43} Ici l'on a envie de composer par $\ln$, mais il faut en fait revenir à l'analyse asymptotique.
+    \end{centering}
+    
+    Donc $\sin{\dfrac{1}{n^2}} = \dfrac{1}{n^2} + o\left(\dfrac{1}{n^2}\right)$, donc $\ln{\sin{\dfrac{1}{n^2}}} = \ln{\dfrac{1}{n^2} + o\left(\dfrac{1}{n^2}\right)} = \ln{\dfrac{1}{n^2}\times\left[1+o(1)\right]}$.
+    
+    Donc $\ln{\sin{\dfrac{1}{n^2}}} = \ln{\dfrac{1}{n^2}} + \ln{1+o(1)} = -2\ln{n} + o(1)$.
+    
+    Finalement, $\ln{\sin{\dfrac{1}{n^2}}} \asymp{n \to +\infty} -2\ln{n}$
+\end{example}
+\subsection{Application aux suites implicites}
+\begin{exercise}{}{}
+    On pose l'équation $\boxedcol{\tan x = x}$ et pour tout $n \in \bdN$, on pose $I_n = \left]n\pi - \dfrac{\pi}{2}, n\pi + \dfrac{\pi}{2}\right[$.
+    \pgfplotsset{width=11cm}
+        \center \begin{tikzpicture}
+            \begin{axis}[
+                axis lines          = middle,
+                xlabel=$x$,
+    ylabel=$y$,
+    domain=-2*pi:2*pi,
+    xmin=-6,
+    xmax=6,
+    ymin=-5,
+    ymax=5,
+    trig format plots=rad, %<- 
+    xtick={-2*pi,-3*pi/2, -pi, -pi/2,pi/2,pi,3*pi/2,2*pi},
+    xticklabels={$-2\pi$, $-\frac{3\pi}{2}$, $-\pi$, $-\frac{\pi}{2}$, $\frac{\pi}{2}$,$\pi$,$\frac{3\pi}{2}$,$2\pi$},
+    every axis y label/.style={rotate=0, black, at={(0.5,1.05)},},
+    every axis x label/.style={rotate=0, black, at={(1.05,0.5)},},,
+    font=\footnotesize,     
+                trig format=rad,
+                grid                = both,
+                grid style          = {line width = .1pt, draw = gray!30},
+                major grid style    = {line width=.2pt,draw=gray!50},
+                legend pos          = north west,
+            ]
+        \pgfplotsinvokeforeach{-5,-3,...,3}{
+\pgfmathsetmacro{\xmin}{ifthenelse(#1==-5,-2*pi,#1*pi/2+0.01)}
+\pgfmathsetmacro{\xmax}{ifthenelse(#1==3,2*pi,#1*pi/2+pi-0.01)}
+\addplot[color=main20,samples=51,smooth,domain=\xmin:\xmax]{tan(x)};
+\draw[densely dotted, color=main20] (#1*pi/2,\pgfkeysvalueof{/pgfplots/ymin})
+ -- (#1*pi/2,\pgfkeysvalueof{/pgfplots/ymax});
+}
+        \end{axis}
+    \end{tikzpicture}
+    \begin{enumerate}
+        \item Montrer que $\forall n \in \bdN$, $\exists ! x_n \in I_n$, $\tan(x_n) = x_n$.
+        \item Trouver un développement asymptotique de $\suite{x_n}$.
+    \end{enumerate}
+    \tcblower
+    \begin{enumerate}
+        \item On pose la fonction $f : x \mapsto \tanh{x} -x$ sur $\bdR \ \left\{n\pi + \dfrac{\pi}{2} | n \in \bdZ\right\}$.
+        
+        $f$ est dérivable sur chaque intervalle $I_n$, telle que $\forall n \in \bdN$, $\forall x \in I_n$, $f'(x) = \tan^2(x) \geq 0$, donc $f$ est croissante sur chaque intervalle $I_n$. 
+        
+        Soit $n \in \bdN$, $f$ est continue et strictement monotone sur $I_n$ donc d'après le théorème de la bijection continue $f$ est une bijection de $I_n$ dans $f(I_n) = \bdR$.
+        
+        Donc $\exists ! x_n \in I_n$ tel que $f(x_n) = 0$.
+        
+        \item On a $\forall n \in \bdN^*$ $n\pi < x_n < n\pi + \dfrac{\pi}{2}$. Donc $\forall n \in \bdN$*, $ 1 < \dfrac{x_n}{n\pi} < 1 + \dfrac{1}{2n}$.
+        
+        Par théorème d'encadrement, $\dfrac{x_n}{n\pi} \lima{n \to +\infty} 1$, donc $\boxedcol{x_n \asymp{+\infty} n\pi}$ donc $\boxedcol{x_n \eq{+\infty} n\pi + o(n)}$.
+        
+        \hguo{Pour en savoir plus}, on pose $y_n = x_n - n\pi$, on a donc $y_n = o(n)$.
+        
+        Or $\tan{y_n} = \tan{x_n - n\pi} = \tan{x_n} = x_n$ donc $\arctan{\tan{y_n}} = \arctan{x_n}$.
+        
+        Or $n\pi \leq x_n < n\pi + \dfrac{\pi}{2}$ donc $0 \leq y_n < \dfrac{\pi}{2}$, donc $\arctan{\tan{y_n}} = y_n$ donc $y_n = \arctan{x_n}$.
+        
+        Or $x_n \lima{n \to +\infty} +\infty$ (car $x_n \asymp{+\infty} n\pi$ donc $y_n \lima{n \to +\infty} \dfrac{\pi}{2}$ d'où $y_n \asymp{+\infty} \dfrac{\pi}{2}$ soit $y_n \eq{+\infty} \dfrac{\pi}{2} + o(1)$.
+        
+        \hguo{A ce stade}, on a donc $x_n = n\pi + y_n$ soit $x_n \eq{+\infty} n\pi + \dfrac{\pi}{2} + o(1)$.
+        On continue en posant $z_n = x_n - n\pi - \dfrac{\pi}{2}$, on a donc $z_n \eq{+\infty} o(1)$, donc $z_n \lima{n \to +\infty} 0$ d'où $\tan{z_n} \asymp{+\infty} z_n$.
+        
+        Or $\tan{z_n} = \tan{x_n - n\pi - \dfrac{\pi}{2}} = \tan{x_n - \dfrac{\pi}{2}} = -\dfrac{1}{\tan{x_n}} = -\dfrac{1}{x_n}$.
+        
+         Or $x_n \asymp{+\infty} n\pi$ donc $-\dfrac{1}{x_n} \asymp{+\infty} - \dfrac{1}{n\pi}$ donc $z_n \asymp{+\infty} -\dfrac{1}{n\pi}$, d'où $z_n \eq{+\infty} -\dfrac{1}{n\pi} + o\left(\dfrac{1}{n}\right)$.
+         
+         \hguo{En conclusion}, $x_n = n\pi + \dfrac{\pi}{2} + z_n$ donc $\boxedcol{x_n \eq{+\infty} n\pi + \dfrac{\pi}{2} - \dfrac{1}{n\pi} + o\left(\dfrac{1}{n}\right)}$.
+    \end{enumerate}
+\end{exercise}
+
+\section{Analyse asymptotique sur les fonctions}
+
+On reprend les notations de Landau \guill{petit o} ($. = o(.)$), \guill{grand $O$} ($. = O(.)$), \guill{équivalent} ($. \asymp .$) pour les fonctions. $I$ désigne un intervalle d'intérieur non vide de $\bdR$. Les fonctions seront définies sur $I$ à valeur dans $\bdK$ (soit $\bdR$, soit $\bdC$). On veut \underline{étudier localement} ces fonctions au \guill{voisinage} d'un point fini de $I$ ou d'une extrémité de $I$.
+
+\begin{definition}{Voisinage}{}
+    Soit un intervalle $I \in \overline{\bdR}$, $f$ une fonction de $I$ dans $\bdK$ et $x$ une extrémité de $I$ ou un point de $I$.
+    
+    \begin{enumerate}
+        \itarr Si $x \in \bdR$ (i.e. si $x$ est fini), un \bf{voisinage $V$ de $x$} est :
+        \[ V = I \cup \left]x - \eta, x + \eta\right[\]
+        \itarr Si $x = +\infty$, avec $A \in \bdR$ un \bf{voisinage de $+\infty$} est :
+        \[ V = I \cup \left[A, +\infty\right[\]
+        \itarr Si $x = -\infty$, avec $B \in \bdR$ un \bf{voisinage de $-\infty$} est :
+        \[ V = I \cup \left]-\infty, B\right[\]
+    \end{enumerate}
+\end{definition}
+On remarque en fait que la notion de voisinage remplace pour les fonctions la notion de \guill{à partir d'un certain rang} pour les suites.
+
+\subsection{Domination, Négligeabilité, Équivalence}
+
+\begin{definition}{Domination}{}
+    Soient deux fonctions $f$ et $g$ de $I$ dans $\bdK$. $f$ est \bf{dominée} par $g$ si et seulement si
+\end{definition}
+
+\begin{definition}{Négligeabilité}{}
+    Soient deux fonctions $f$ et $g$ de $I$ dans $\bdK$. $f$ est \bf{négligeable} devant $g$ au voisinage de $a$ si et seulement si
+    \[ \lim\limits_{x \to a} \dfrac{f(x)}{g(x)} = 0\]
+\end{definition}
+
+\begin{definition}{Équivalence}{}
+    Soient deux fonctions $f$ et $g$ de $I$ dans $\bdK$. $f$ et $g$ sont \bf{équivalentes} au voisinage de $a$ si et seulement si
+    \[ \lim\limits_{x \to a} \dfrac{f(x)}{g(x)} = 1\]
+\end{definition}
+
+\begin{property}{}{}
+     Soient deux fonctions $f$ et $g$ de $I$ dans $\bdK$ et $a \in \overline{\bdR}$.
+     \[ f(x) \asymp{x \to a} g(x) \iff f(x) \eq{x \to a} g(x) + o(g(x))\]
+\end{property}
+\demo{
+
+}
+
+On a les mêmes propriétés d'opérations et de manipulation que sur les fonctions.
+
+\begin{warning}{}{}
+    Avec les fonctions, on préciseras \underline{toujours le voisinage} sur lequel on se place. 
+\end{warning}
+
+\begin{example}{Fonctions rationelles}{}
+    Si $P(x) = a_0 + a_1x + \dots + a_dx^d$ où $a_d \neq 0$
+    
+    et $Q(x) = b_0 + b_1x + \dots + b_mx^m$ où $b_m \neq 0$, soit $P$ et $Q$ sont des fonctions polynomiales, on a
+    \[ \left\lbrace\begin{array}{ll}
+        P(x) &\asymp{x \to +\infty} a_dx^d  \\
+        Q(x) &\asymp{x \to +\infty} b_mx^m
+    \end{array}\right. \qquad \text{donc} \qquad \boxedcol{\dfrac{P(x)}{Q(x)}\asymp{x \to +\infty} \dfrac{a_d}{b_m}x^{d-m}}\]
+    \tcblower
+    En effet, $\forall k \in \llbracket 0, d-1 \rrbracket$, $a_k x^k \eq{x\to+\infty} o(x^d)$ car $\dfrac{a_kx^k}{x^d}=\dfrac{a^k}{x^{d-k}} \lima{x\to +\infty} 0$.
+    
+    \[P(x) \eq{x \to +\infty} a^dx^d + o(x^d) + o(x^d) + \dots + o(x^d) \qquad \text{donc} \qquad P(x) \eq{x \to +\infty} a^dx^d + o(x^d)\]
+\end{example}
+
+\begin{property}{Changement de variable}{}
+     Soient deux fonctions $f$ et $g$ définies sur $I$ dans $\bdK$. Soit $\varphi$ une fonction telle que $\lim\limits_{x \to b} \varphi(x) = a$.
+     \begin{align*}
+         \text{\ding{226}} f(y) = 
+     \end{align*}
+\end{property}
+\demo{
+}
+On notera que le changement de variable s'applique sur la comparaison des limites.
+\[ \left\lbrace\begin{array}{ll}
+    \lim\limits_{x \to b} \varphi(x) &= a \\
+    \lim\limits_{y \to a} \dfrac{f(y)}{g(y)} &= l
+\end{array}\right. \implies \lim\limits_{x \to b} \dfrac{f(\varphi(x))}{g(\varphi(x))} = l\]
+On a alors accès aux équivalents usuels en $0$.
+
+\begin{theorem}{Équivalents usuels}{}
+    \begin{enumerate}
+    \begin{multicols}{2}
+
+        \itarr $\left(e^x -1\right) \asymp{x \to 0} x$
+        \itarr $\ln{1+x} \asymp{x \to 0} x$
+        \itarr $\sin{x} \asymp{x \to 0}  x$
+        \itarr $\tan{x}\asymp{x \to 0}  x$
+        \itarr $\left(1-\cos{x}\right) \asymp{x \to 0}  \dfrac{1}{2}x^2$
+        \itarr $\left(\sqrt{1+x} -1\right) \asymp{x \to 0}  \dfrac{1}{2}x$
+        \itarr $\forall \alpha \in \bdR$, $\left(1+x\right)^\alpha -1 \asymp{x \to 0}  \alpha x$
+        \itarr $\sh{x} \asymp{x \to 0}  x$
+        \itarr $\th{x} \asymp{x \to 0}  x$
+        \itarr $\arcsin{x} \asymp{x \to 0}  x$
+        \itarr $\arctan{x} \asymp{x \to 0}  x$
+    \end{multicols}
+    \end{enumerate}
+\end{theorem}
+\demo{
+A faire.
+}
+\underline{Méthode :} Si l'on veut étudier $f$ au voisinage de $a \neq 0$, traite donc le cas où $a \in \bdR$ ($a$ fini) et le cas ou $a = \pm \infty$.
+
+\begin{enumerate}
+    \itarr Si $a \in \bdR$ ($a$ fini), on pose $h = x- a \lima{x \to a} 0$, donc $f(x)=f(a+h)$ avec $h \lima 0$.
+    \itarr Si $a = +\infty$, on pose $h = \dfrac{1}{x} \lima{x \to a} 0$, don $f(x)=f\left(\dfrac{1}{h}\right)$ avec $h \lima 0$.
+\end{enumerate}
+
+\begin{example}{}{}
+    Équivalence en $0$ de $ x \mapsto \ln{\cos{x}}$
+    \tcblower
+    \[ \ln{\cos{x}} = \ln{1 + \left[\cos{x} - 1\right]} \asymp{x \to 0} \cos(x) - 1 \asymp{x \to 0} -\dfrac{1}{2}x^2\]
+\end{example}
+
+\begin{example}{}{}
+    Limite en $0$ de $\dfrac{\tan{ax}}{--}$
+    \tcblower
+    --
+\end{example}
+
+On reprend les principes d'étude locale de la section précédente.
+
+L'idée est d'approcher une fonction $f$ au voisinage de $a$ par une fonction polynomiale.
+
+\subsection{Développement limité}
+
+\begin{definition}{$DL_n(a)$}{}
+    Soit une fonction $f$ de $I$ dans $R$, $a \in \bdR$ ($a$ fini), et $n \in \bdN$.
+    
+    On dit que $f$ admet un \bf{développement limité en $a$ d'ordre $n$} si et seulement si :
+    \begin{align*}
+        \exists (\alpha_0, \alpha_1, \dots, \alpha_n) \in \bdR^{n+1},\qquad f(x) &\eq{x \to a} \alpha_0 +  \alpha_1(x-a) + \alpha_2(x-a)^2 + \dots + \alpha_n(x-a)^n + o\left((x-a)^n\right)\\
+        &\eq{x \to a} \sum_{k=0}^n \alpha_k(x-a)^k + o\left((x-a)^n\right)
+    \end{align*} 
+\end{definition}
+On note cette égalité $DL_n(a)$. 
+
+Un \underline{cas particulier} de cette égalité est au voisinage de $0$ ($a = 0$) :
+\[ DL_n(0): \ f(x) \eq{x \to 0} \alpha_0 + \alpha_1x + \dots + \alpha_nx^n + o(x^n)\]
+On remarquera que les termes du développement limité sont par ordre de négligeabilité : pour $x \lima 0$,
+\[ 1 \ggg x \ggg x^2 \ggg \dots \ggg x^n\]
+
+\begin{example}{}{}
+    Soit la fonction $f$ définie au voisinage de $0$ par $f(x) = \dfrac{1}{1-x}$.
+    
+    $f$ admet un développement limité à tous ordres en $0$.
+    \tcblower
+    On sait que $\displaystyle \sum_{k=0}^n x^k = \dfrac{1-x^{n+1}}{1-x}$, avec $x \neq 1$.
+    
+    Donc \underline{Au voisinage de $0$} :
+    \[ \forall n \in \bdN,\ f(x) = \dfrac{1}{1-x} = \sum_{k=0}^, z^k + \dfrac{x^{n+1}}{1-x}\]
+    Or $\dfrac{x^{n+1}}{1-x} \eq{x \to 0} o(x^n)$ car $\dfrac{\left(\dfrac{x^{n+1}}{1-x}\right)}{x^n} = \dfrac{x^n}{1-x} \lima{x \to 0} 0$.
+    
+    Donc au voisinage de $0$ :
+    \[ \dfrac{1}{1-x} = 1 + x + x^2 + \dots + x^n + o(x^n)\]
+\end{example}
+
+\subsection{Existence de $DL_n(0)$ pour les fonctions usuelles}
+
+\begin{theorem}{Théorème de Taylor-Young}{}
+    Soit $n \in \bdN$, $f \in \cc{n}{I}{\bdK}$ et $a \in I$. $f$ possède un $DL_n(a)$ tel que :
+    \[ f(x) \eq{x \to a} \sum_{k=0}^n \dfrac{f^{(k)}(a)}{k!}(x-a)^k + o\left((x-a)^n\right)\]
+\end{theorem}
+
+\demo{
+}
+
+\begin{property}{Cas particulier pour $DL_n(0)$}{}
+    Soit $n \in \bdN$, $f \in \cc{n}{I}{\bdK}$ tel que $0 \in I$. $f$ possède un $DL_n(0)$ tel que :
+     \[ f(x) \eq{x \to 0} f(0) + f'(0)x + \dfrac{f''(x)}{2}x^2 + \dots + \dfrac{f^{(n)}(x)}{n!} + o(x^n) \eq{x \to 0} \sum_{k=0}^n \dfrac{f^{(k)}(0)}{k!}x^k + o(x^n)\]
+\end{property}
+
+\demo{Soit $n \in \bdN$ et $f \in \cc{n}{I}{\bdK}$ tel que $0 \in I$.
+
+On applique le théorème de Taylor-Young en $a = 0$. Le résultat est immédiat.
+}
+
+\section*{TODO}
+
+\underline{\textbf{Rappel}} :
+
+$f$ admet un $DL_n(a) \iff \exists (a_0, a_1, \dots a_n) \in \bdR^n$ tels que $f(x) = a_0 + a_1(x-a) + \dots + a_n(x-a)^n + \o{+\infty}{(x-a)^n}$
+
+De manière équivalente, on peut raisonner avec $h = x-a \lima{x \to a} 0$ (donc $x=a + h$).
+
+On a alors $f$ admet un $DL_n(a) \iff \exists (a_0, a_1, \dots a_n) \in \bdR^n$ tels que $f(a+h) \eq{h \to 0} a_0 + a_1h+\dots+a_nh^n+\o{}{h^n}$
+
+Un autre critère d'existence est le théorème de Taylor Young.
+
+$f$ est de classe $\mathcal{C}^n$ sur $I$ avec $a \in I \implies$ \underline{$f$ admet un $DL_n(a)$}
+
+\[f(x) \eq{x \to a} f(a) + f'(a)(x-a) + \dfrac{f''(a)}{2}(x-a)^2 + \dots + \dfrac{f^{(n)(a)}}{n!}(x-a)^n + \o{}{(x-a)^n}\]
+
+-------- TODO ---- \newline
+Soit $f$ une fonction usuelle, on veut utiliser comme outil les $DL$ usuels en $0$.
+
+On doit alors se ramener à $0$, ainsi si on veut $DL_n(a)$ de $x \mapsto f(x)$ on pose $h = x - a$, et ainsi $h \lima{x \to a} 0$.
+
+On a $f(x) = f(a+h)$. On calculera alors un $DL_n(0)$ de $h \mapsto f(a+h)$.
+
+\begin{example}{}{}
+    Calculer $DL_4(2)$ de $\exp$.
+    \tcblower
+    On pourrait calculer directement $\exp{x} \eq{x \to 2} a_0 + a_1(x-2) + a_2(x-2)^2 + \dots$, cependant, de manière bien moins fastidieuse, on peut poser $h = x - 2$. On a donc $\exp{x} \eq{x \to 2} \exp{2+h} = e^2\times e^h$.
+    
+    Or $e^h \eq{h \to 0} = 1 + h + \dfrac{h^2}{2} + \dfrac{h^3}{3!} + \dfrac{h^4}{4!}+\o{}{h^4}$.
+    
+    Donc $\boxedcol{e^2 + e^2(x-2) + \dfrac{e^2}{2}(x-2)^2 + \dfrac{e^2}{6}(x-2)^3 + \dfrac{e^2}{24}(x-2)^4 + \o{}{(x-2)^4}}$.
+\end{example}
+
+On peut procéder selon une idée similaire au voisinage de $+\infty$.
+
+Ainsi, si on veut étudier le comportement asymptotique de $f$ au voisinage de $\pm\infty$, on peut poser $h = \dfrac{1}{x} \lima{x \o \pm\infty} 0$.
+
+On peut alors revenir aux $DL_n(0)$.
+
+\begin{example}{}{}
+    Calculer un développement asymptotique de $f : x \mapsto \sqrt{1+x}$ au voisinage de $+\infty$
+    \tcblower
+    On a $(x+1) \asymp{+\infty} x$ donc $\sqrt{x+1} \asymp{+\infty} \sqrt{x}$, donc $f(x) \eq{+\infty} \sqrt{x} + \o{}{\sqrt{x}}$.
+    
+    (Pour en savoir plus, on vaudrait un équivalent de $f(x) - \sqrt{x}$ en $+\infty$.)
+    
+    On peut aller directement à haute précision : $f(x) = \sqrt{x\times\left(1+\dfrac{1}{x}\right)}=\sqrt{x}\times\sqrt{1+\dfrac{1}{x}}$ avec $\dfrac{1}{x} \lima{x \to +\infty} 0$.
+    
+    Il suffit d'utiliser $\sqrt{1+h}$, avec $h \lima 0$. En prenant un $DL_3(0)$ de $(1+h)^\alpha$ avec $\alpha = \sfrac{1}{2}$, on a:
+    
+    \[\sqrt{1+h} \eq{h \to 0} 1+\dfrac{1}{2}h - \dfrac{1}{8}h^2 + \o{}{h^2}\]
+    
+    Ainsi $\sqrt{1+\dfrac{1}{x}} = 1 + \dfrac{1}{2x} - \dfrac{1}{8x^2} + \o{}{\dfrac{1}{x^2}}$. Donc $\boxedcol{\sqrt{1+x} \eq{+\infty} \sqrt{x} + \dfrac{1}{2\sqrt{x}} - \dfrac{1}{8x\sqrt{x}} + \o{}{\dfrac{1}{x\sqrt{x}}}}$.
+\end{example}
+
+\subsection{Opérations sur les $DL$}
+
+\subsubsection{Somme}
+
+\begin{property}{Somme de $DL_n(a)$}{}
+    Soit deux fonctions $f$ et $g$ et $a \in \bdR$.
+    \[ f \ \text{et} g \ \text{admettent un } \ DL_n(a) \implies \forall (\lambda, \mu) \in \bdK^2, \lambda f + \mu g \ \text{admet un} \ DL_n(a)\]
+    
+    En notant $P$ la partie régulière du $DL_n(a)$ de $f$ et $Q$ celle de $g$, $\lambda P + \mu Q$ sera la partie régulière du $DL_n(a)$ de $\lambda f + \mu g$.
+\end{property}
+
+\demo{}
+
+L'addition de développements limités permet de calculer les développements limités de fonctions \guill{moins} usuelles, comme illustré ci-dessous :
+\begin{example}{}{}
+    Soit $n \in \bdN$. Calculer un $DL_{n}(0)$ de $\ch$.
+    \tcblower
+    On a $ch(x) = \dfrac{e^x+e^{-x}}{2} = \dfrac{1}{2}e^x+\dfrac{1}{2}e^{-x}$.
+    
+    Or $e^x \eq{x \to 0} \displaystyle \sum_{k=0}^{2n} \dfrac{1}{k!}x^k + \o{}{x^{2n}}$, et $e^{-x} \eq{x \to 0} \displaystyle \sum_{k=0}^{2n} \dfrac{1}{k!}x^k + \o{}{(-x)^{2n}}$.
+    
+    En sommant, on obtient $\ch(x) \eq{x \to 0} \displaystyle \sum_{k=0}^{n} \dfrac{x^{2k}}{(2k)!} + \o{}{x^{2n}}$ donc $\boxedcol{\ch(x) \eq{x \to 0} 1 + \dfrac{x^2}{2}+\dfrac{x^4}{4!} + \dots + \dfrac{x^{2n}}{(2n)!} + \o{}{x^{2n}}}$.
+\end{example}
+
+On peut d'ailleurs obtenir un $DL_n(0)$ de $\sh$ de la même manière, car $\sh(x) = \dfrac{e^x-e^{-x}}{2}$. On aurait en fait:
+
+\[\sh{x} \eq{+\infty} \dfrac{x^3}{3!} + \dfrac{x^5}{5!} + \dots + \dfrac{x^{2n-1}}{(2n-1)!} + \o{}{x^{2n}}\]
+
+Plus concrètement peut-être, l'addition de développements limités sert aussi à calculer des développements limités de fonctions usuelles dont on connaît des $DL_n(0)$ mais pas des $DL_n(a)$.
+
+\begin{example}{}{}
+    Calculer un $DL_4\left(\dfrac{\pi}{4}\right)$ de $\sin$.
+    \tcblower
+    On a $x \lima{x \to \sfrac{\pi}{4}} \dfrac{\pi}{4}$ donc on pose $h = x - \dfrac{\pi}{4} \lima{x \to \sfrac{\pi}{4}} 0$.
+    
+    On a $\sin(x) = \sin{\dfrac{\pi}{4}+h} = \sin{}$
+\end{example}
+
+\begin{example}{}{}
+    Déterminer un $DL_{2n+2}(0)$ de $x \mapsto \ln{\sqrt{\dfrac{1+x}{1-x}}}$
+    \tcblower
+\end{example}
+
+\subsubsection{Intégration}
+
+\begin{theorem}{Primitive d'un $DL_n(0)$}{}
+    Si $f$ admet un $DL_n(0)$ et si $f$ est continue sur un intervalle $I$ contenant $0$, alors toute primitive $F$ de $f$ sur $I$ admet un $DL_{n+1}(0)$.
+    En notant $P$ la partie régulière du $DL_n(0)$ de $f$, la partie régulière du $DL_{n+1}(0)$ de $F$ est une primitive de $F$.
+\end{theorem}
+
+\subsubsection{Produit}
+
+On remarque que pour deux fonctions $f$ et $g$ et un entier $n$, telles que $f$ et $g$ admettent un $DL_n(0)$, alors $f \times g$ admet un $DL_n(0)$, obtenu en multipliant les $DL$ de $f$ et $g$ et en tronquant à précision $\o{}{x^n}$. On a :
+\begin{align*}
+    f(x) \times g(x) &\eq{x \to 0} \left(a_0+a_1x+a_2x^2 + \dots + a_nx^n + \o{}{x^n}\right)\times\left(b_0+b_1x+b_2x^2+\dots+b_nx^n + \o{}{x^n}\right)\\
+    &\eq{x \to 0} a_0b_0 + (a_0b_1 + a_1b_0)x + (a_0b_2+a_1b_1+a_2b_0)x^2 + \dots + (a_0b_n + a_1b_{n-1} + \dots + a_{n-1}b_1 + a_nb_0)x^n + \o{}{x^n}
+\end{align*} 
+On a en fait un multiplication de deux polynômes, ainsi on peut réécrire :
+\begin{align*}
+    f(x) \times g(x) &\eq{x \to 0} \left(\sum_{i=0}^n a_ix^i + \o{}{x^n }\right)\times\left(\sum_{j=0}^n b_jx^j + \o{}{x^n }\right)
+    \eq{x \to 0} \sum_{i=0}^n \sum_{j=0}^n a_ib_jx^{i+j}\eq{x \to 0} \sum_{k\geq0}\left(\sum_{\substack{i, j \ \text{tels que}\\i+j=k}}a_ib_j\right)x^k
+\end{align*} 
+Ainsi le coefficient devant $x^k$ pour $k \in \llbracket0, n\rrbracket$ est :
+\[\sum_{\substack{i, j \ \text{tels que}\\i+j=k}} a_ib_j = \sum_{i=0}^k a_ib_{k-i}=\underbrace{(a_0b_k + a_1b_{k-1}+\dots+a_kb_0)}_{\text{le coefficient devant} \ x^k \ \text{dans \underline{le produit}}}\]
+
+Parfois, la multiplication directe et sans étape préliminaire peut alourdir les calculs inutilement, comme montré dans l'exemple ci-dessous :
+\begin{example}{}{}
+    Donner le $DL_8(0)$ de $(\underbrace{1-\cos x}_{DL_8(0)})\times(\underbrace{1-\cos x}_{DL_8(0)})$, on peut partir directement des $DL_8(0)$ de $\cos x$ et $\sin x $:
+    \[ \begin{array}{ll}
+        \cos x &\eq{x \to 0} 1 - \dfrac{x^2}{2} + \dfrac{x^4}{4!} - \dfrac{x^6}{6!} + \dfrac{x^8}{8!} + \o{}{x^8}\\
+        \\
+        \sin x &\eq{x \to 0} x - \dfrac{x^3}{3!}- \dfrac{x^5}{5!} - \dfrac{x^7}{7!} + \o{}{x^8}
+    \end{array}\]
+    Donc $(1-\cos x)(\sin x - x) = \left(\dfrac{x^2}{2} - \dfrac{x^4}{4!} + \dfrac{x^6}{6!} - \dfrac{x^8}{8!} + \o{}{x^8}\right)\left(- \dfrac{x^3}{3!} +  \dfrac{x^5}{5!} - \dfrac{x^7}{7!} + \o{}{x^8}\right)=\dfrac{-1}{12}x^5 + \dots$.
+
+\end{example}
+    Ici, on voit que l'on a poussé trop loin les précisions de $(1-\cos x)$ et $(\sin x -x)$. Pour pallier ce problème, on peut travailler avec les \textit{formes normalisées des développements limités}.
+    
+\begin{definition}{Forme normalisée d'un $DL_n(a)$}{}
+    
+\end{definition}
+
+Pour revenir sur l'exemple précédent, on a :
+
+TODO
+
+Il suffisait donc de pousser le développement limité de $\cos$ à l'ordre $5$ et de $\sin$ à l'ordre 6.
+
+\subsubsection{Composition}
+
+La composition repose sur le principe suivant :
+
+\begin{property}{Composition dans un $DL$}{}
+si $g(u) \eq{u \to 0} \underbrace{a_0 + a_1u + \dots + a_nu^n + \o{}{u^n}}_{DL_n(0)}$, et si $f(x) \lima{x \to 0} 0$, alors :
+\[ g(f(x)) \eq{x \to 0} a_0 + a_1f(x) + a_2f(x)^2 + \dots + a_nf(x) + \o{}{f(x)^n}\]
+\end{property}
+
+\demo{
+    TODO
+}
+
+Ainsi si $f$ admet un $DL(0)$ on peut remplacer $f(x)$ par son $DL$ dans $g(f(x))$, ce qui permet de composer.
+
+Pour la composition, on peut également chercher à faire les calculs de manière plus intelligente, en s'arrêtant à un certain degré, comme illustré ci-dessous :
+
+\begin{example}{}{}
+    Calculer le $DL_6(0)$ de $x \mapsto \ln{1+x^2+x^3}$.
+    \tcblower
+    On pose $u(x) = x^2+x^3$. On a bien $u(x) \lima{x \to 0} 0$.
+    De plus, $\ln{1+y} \eq{u \to 0} u - \dfrac{u^2}{2} + \dfrac{u^3}{3} + \o{}{u^3}$.
+    
+    On a $u(x) \asymp{x \to 0} x^2$, donc $u(x)^3 \asymp{x \to 0} x^6$ donc $\o{}{u(x)^3} = \o{}{x^6}$.
+    
+    On arrête donc le $DL$ de $\ln{1+u}$ à l'ordre $3$. En composant :
+    
+    \[ \ln{1+x^2+x^3} \eq{x \to 0} u(x) - \dfrac{u(x)^2}{2}+\dfrac{u(x)^3}{3}+\o{}{u(x)^3}=(x^2+x^3) - \dfrac{1}{2}(x^2+x^3)^2 + \dfrac{1}{3}(x^2+x^3)^3 + \o{}{(x^2+x^3)^3}\]
+    
+    On développe et on s'arrête à $x^6$, donc on a :
+    
+    \[\boxedcol{\ln{1+x^2+x^3} \eq{x \to 0} x^2+x^3-\dfrac{1}{2}x^4 - x^5 - \dfrac{1}{6}x^6 + \o{}{x^6}}\]
+\end{example}
+
+Parfois cependant, il est moins évident que l'on peut s'arrêter à un certain stade, et il faut pour le voir utiliser une propriété de la fonction par laquelle on compose pour séparer une partie qui gène.
+
+\begin{example}{}{}
+    Calculer le $DL_4(0)$ de $x \mapsto e^{\cos{x}}$.
+    \tcblower
+    On a $\cos{x} \eq{x \to 0} 1 - \dfrac{x^2}{2} + \dfrac{x^4}{4!} + \o{}{x^4}$ donc $\exp{\cos x} \eq{x \to 0} \exp{1 - \dfrac{x^2}{2} + \dfrac{x^4}{4!} + \o{}{x^4}}$.
+    
+    Or, on a $1 - \dfrac{x^2}{2} + \dfrac{x^4}{4!} + \o{}{x^4} \lima{x \to 0} 1$. Pour pallier ce problème, on utilise :
+    \[ \exp{1 - \dfrac{x^2}{2} + \dfrac{x^4}{4!} + \o{}{x^4}} = e\times\exp{- \dfrac{x^2}{2} + \dfrac{x^4}{4!} + \o{}{x^4}}\]
+    On a $e^u \eq{u \to 0} = 1 + u + \dfrac{u^2}{2} + \dfrac{u^3}{3!} + \o{}{u^2}$.
+    Mais comme $u(x) \asymp{x \to 0} -\dfrac{x^2}{2}$, donc $u(x)^2 \asymp{x \to 0} \dfrac{x^2}{4}$, $\o{}{u(x)^2}$ sera un $\o{}{x^4}$. On n'a donc pas besoin du terme en $\dfrac{u^3}{3!}$ dans le développement limité de $e^u$ ! Celui-ci donnerait en fait au minimum du $x^6$ ... En composant on a donc :
+    \[ e^{\cos{x}} = e \times \left(1+u(x)+\dfrac{1}{2}u(x)^2+\o{}{u(x)^2}\right) = e\left(1-\dfrac{x^2}{2}+\left(\dfrac{1}{4!}+\dfrac{1}{8}\right)x^4 + \o{}{x^4}\right)\]
+    Donc finalement, $\boxedcol{e^{\cos{x}} \eq{x \to 0} e - \dfrac{e}{2}x^2+\dfrac{e}{6}x^4+\o{}{x^4}}$.
+\end{example}
+
+\subsubsection{Inverse et quotient}
+
+Il n'y a pas de formule simple pour trouver l'inverse d'un développement limité. Une stratégie cependant consiste à composer avec le $DL$ de $\dfrac{1}{1-u}$ lorsque $\lim u = 0$.
+
+\begin{property}{}{}
+    Si $f$ admet un $DL_n(0)$ et si $f(x) \lima{x \to 0} 0$, alors $\dfrac{1}{1-f(x)}$ admet un $DL_n(0)$.
+\end{property}
+
+\demo{
+    TODO
+}
+
+\begin{example}{}{}
+    Calculer le $DL_6(0)$ de $\dfrac{1}{\cos(x)}$.
+    \tcblower
+    On a $\cos x \eq{0} 1 - \dfrac{x^2}{2} + \dfrac{x^4}{4!} - \dfrac{x^6}{6!} + \o{}{x^6}$.
+    Donc $\dfrac{1}{\cos x} = \dfrac{1}{1-u(x)}$ où $u(x) = \dfrac{x^2}{2} - \dfrac{x^4}{4!}+\dfrac{x^6}{6!}+\o{}{x^6}$.
+    On a bien $\lim\limits_{x \to 0} u(x) = 0$, donc on peut composer par $\dfrac{1}{1-u}$. Or $u(x) \asymp{x \to 0} \dfrac{x^2}{2}$ donc $u(x)^3 \asymp{x \to 0} \dfrac{x^6}{8}$ donc $\o{}{u(x)^3} = \o{}{x^6}$.
+    On a $\dfrac{1}{1-u} = 1 + u + u^2 + u^3 + \o{}{u^3}$, et $\left\lbrace\begin{array}{ll}
+        u(x) &\eq{x \to 0} \dfrac{x^2}{2} - \dfrac{x^4}{4!} + \dfrac{x^6}{6!} + \o{}{x^6}\\
+        u(x)^2 &\eq{x \to 0} \dfrac{x^4}{4} + 2\times\dfrac{x^2}{2}\times\dfrac{-x^4}{4!} + \o{}{x^6}\\
+        u(x)^3 &\eq{x \to 0} \dfrac{x^6}{8} + \o{}{x^6}
+    \end{array}\right.$. Donc finalement :
+    \[\boxedcol{\dfrac{1}{\cos{x}} \eq{x \to 0} 1 + \dfrac{x^2}{2} + \left(\dfrac{1}{4}-\dfrac{1}{4!}\right)x^4 + \left(\dfrac{1}{6!}-\dfrac{1}{4!}+\dfrac{1}{8}\right)x^6 + \o{}{x^6}}\]
+\end{example}
+
+Un phénomène similaire au gain de précision que l'on avait plus haut avec le produit de développements limités survient avec l'inverse de développements limités. Cependant, il s'agit ici d'une perte de précision (puisqu'il s'agit ici d'un quotient et non d'un produit). Un exemple de cette situation est illustré ci-dessous :
+
+\begin{example}{}{}
+    Y a-t-il un $DL_2(0)$ de $f(x) = \dfrac{\sin x - x}{\cos x - 1}$ ?
+    \tcblower
+    On a $\left.\begin{array}{ll}
+         &  \\
+         & 
+    \end{array}\right\lbrace$ donc TODO
+    
+    On a perdu $2$ degrés de précision à cause du $x^2$ du dénominateur. On augmente alors les précisions initiales.
+    $\sin x - x \eq{x \to 0} -\dfrac{x^3}{3!} + \o{}{x^4}=x^3\left(-\dfrac{1}{6}+\o{}{x}\right)$ et $\cos{x} - 1 \eq{x \to 0} -\dfrac{x^2}{2}+\dfrac{x^4}{4!}+\o{}{x^4}=x^2\left(-\dfrac{1}{2}+\dfrac{x^2}{24}+\o{}{x^2}\right)$.
+    
+    Donc $\dfrac{\sin x - x}{\cos x} = x\times\left(-\dfrac{1}{6}+\o{}{x}\right)\times\dfrac{1}{-\dfrac{1}{2}+\dfrac{x^2}{24}+\o{}{x^2}} = x\times\left(-\dfrac{1}{6}+\o{}{x}\right)\times\dfrac{1}{-\dfrac{1}{2}+\o{}{x}}$.
+    
+    Or $\dfrac{1}{-\dfrac{1}{2}+\o{}{x}} = \dfrac{1}{-\dfrac{1}{2}}\times\frac{1}{1+\o{}{x}} = -2\times(1+\o{}{x})$.
+    Donc $\boxedcol{\dfrac{\sin x - x}{\cos x} = \dfrac{1}{3}x + \o{}{x^2}}$.
+\end{example}
+
+\end{document}

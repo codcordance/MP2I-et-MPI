@@ -1,0 +1,224 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Programme de khôlle 8}{Énoncés et résolutions}
+
+\section*{Calculs de primitives et intégrales}
+
+\subsection*{Primitives}
+Définition d’une primitive. Ensemble des primitives d’une fonction $f$ continue sur un intervalle $I$, à valeurs dans $\bdK$ ($\bdR$ ou $\bdC$). Rappel des primitives des fonctions usuelles, avec l’intervalle de validité. \textbf{Méthodes :}
+\begin{enumerate}
+    \itarr Changements affine : primitive de $x \mapsto \lambda f(ax + b)$.
+    \itarr Linéarité : primitive de $x \mapsto \lambda f + \mu g$.
+    \itarr Primitive de $x \mapsto \dfrac{1}{(x-a)(x-b)}$ avec $a$ et $b$ deux réels distincts.
+    \itarr Primitive de $x \mapsto u'(x)f(u'(x))$.
+    \itarr Rappels de trigonométrie : linéarisation.
+    \itarr Primitive de $x \mapsto \dfrac{1}{x^2+px+q}$ avec $q$ et $p$ deux réels.
+    \itarr Primitive de $x \mapsto \dfrac{1}{x + \alpha}$ avec $\alpha \in \bdC$.
+\end{enumerate}
+
+\subsection*{Intégrales}
+Intégrale d’une fonction continue sur un intervalle $I$, à valeurs dans $\bdR$ ou $\bdC$.
+
+Théorème fondamental de l’analyse. Intégration par parties. Changement de variables.
+
+\section*{Équations différentielles linéaires d’ordre 1}
+
+Définitions. Structure des solutions. Résolution de l’équation homogène. Recherche d’une solution particulière de l’équation avec second membre : solution évidente, méthode de variation de la constante, principe
+de superposition.
+
+Cas des équations différentielles à coefficients constants. Problème de Cauchy.
+
+Cas où l’équation n’est pas normalisée : recollement.
+
+\section*{Équations différentielles linéaires d’ordre 2 [Début]}
+
+Définitions. Structure des solutions. Résolution de l’équation homogène : cas complexe et cas réel.
+
+\section*{Questions / Exercices de cours / Savoir faire}
+
+Savoir calculer une intégrale par intégration par parties.
+Savoir calculer une intégrale par changement de variable.
+
+Savoir résoudre une Équation Différentielle Linéaire d’ordre 1, avec second membre.
+
+Savoir résoudre une Équation Différentielle Linéaire d’ordre 2 homogène à coefficients constants.
+
+\begin{enumerate}
+    \item Déterminer les primitives de $x \mapsto \dfrac{1}{\sh x}$ sur $\bdR_+^*$. \quad \textit{(on posera $u = e^t$)}
+    
+    \boxans{
+        Soit $x \in \bdR_+^*$. On cherche $\displaystyle \int^x \dfrac{\text dt}{\sh t} = \int^x \dfrac{2\text dt}{e^t - e^{-t}}$. On pose $u = e^t$, donc $t = \ln u$ d'où $\text dt = \dfrac{\text du}{u}$.
+        
+        Lorsque $t = x$, $u = e^x$ donc $\displaystyle \int^x \dfrac{\text dt}{\sh t} = \int^{e^x} \dfrac{2\text du}{u - \dfrac{1}{u}} = \int^{e^x} \dfrac{2\text du}{u^2 -1} = \int^{e^x} \left(\dfrac{1}{u-1}-\dfrac{1}{u+1}\right)\text du$. Donc :
+        \[ \int^x \dfrac{\text dt}{\sh t} = \ln\left(e^x - 1\right) - \ln\left(e^x + 1\right) = \ln\left(\dfrac{e^x - 1}{e^x + 1}\right) = \ln\left(\th{\dfrac{x}{2}}\right)\]
+        Donc \boxsol{les primitives de $x \mapsto \dfrac{1}{\sh x}$ sur $\bdR_+^*$ sont $\left\{x \mapsto \ln\left(\th{\dfrac{x}{2}}\right) + c, c \in \bdR \right\}$}.
+    }
+    
+    \item Déterminer les primitives de $x \mapsto \sqrt{1-x^2}$ sur $\left]-1,1\right[$. \quad \textit{(on posera $x = \sin \theta$)}
+    
+    \boxans{
+        Soit $x \in \left]-1,1\right[$. On pose $t = \sin \theta$, d'où $\text dt = \cos \theta \; \text d\theta$. Lorsque $t = \sin \theta = x$, $\theta = \arcsin x$ donc $\displaystyle \int^x \sqrt{1-t^2}\text dt = \int^{\arcsin x} \sqrt{1-\sin^2 \theta}\cos \theta \; \text d\theta = \int^{\arcsin x} \mod{\cos \theta}\cos \theta \; \text d\theta$. Or $t \in \left]-1,1\right[$ donc $\theta \in \left]-\dfrac{\pi}{2},\dfrac{\pi}{2}\right[$ donc $\cos \theta \geq 0$. On cherche donc $\displaystyle \int^{\arcsin x} \cos^2 \theta \; \text d\theta = \dfrac{1}{2}\int^{\arcsin x} \left(\cos(2t) +1\right)\text d\theta = \dfrac{1}{4}\sin{2\arcsin x} - \dfrac{1}{2}\arcsin{x}$. Or $\sin{2\arcsin x} = 2\sin{\arcsin x}\cos{\arcsin x} = 2x\sqrt{1-x^2}$
+        \[\text{Donc} \qquad \displaystyle \int^x \sqrt{1-t^2}\text dt = \dfrac{1}{4}2x\sqrt{1-x^2} + \dfrac{1}{2}\arcsin x = \dfrac{1}{2}\left(x\sqrt{1-x^2}+\arcsin x\right) \]
+        Donc \boxsol{les primitives de $x \mapsto \sqrt{1-x^2}$ sur $\left]-1,1\right[$ sont $\left\{x \mapsto \dfrac{1}{2}\left(x\sqrt{1-x^2}+\arcsin x\right) + c, c \in \bdR \right\}$}.
+    }
+    
+    \item  Déterminer les primitives de $x \mapsto \dfrac{1}{\sin x}$ sur $\left]0,\pi\right[$. \quad \textit{(on posera $u = \tan{\frac{t}{2}}$)}
+    
+    \boxans{
+        Soit $x \in \left]0,\pi\right[$. On pose $u = \tan{\frac{t}{2}}$, donc $\text du = \dfrac{1+u^2}{2}\text dt$ d'où $\text dt = \dfrac{2\text du}{1+u^2}$. Les formules de l'angle moitié livrent $\sin t = \dfrac{2u}{1+u^2}$ donc $\dfrac{1}{\sin t} = \dfrac{1+u^2}{2\text du}$. Lorsque $t = x$, on a $u = \tan{\dfrac{x}{2}}$. 
+        
+        Donc $\displaystyle \int^x \dfrac{\text dt}{\sin t} = \int^{\tan{\dfrac{x}{2}}} \dfrac{1+u^2}{2u}\dfrac{2\text du}{1+u^2} = \int^{\tan{\dfrac{x}{2}}} \dfrac{\text du}{u} = \ln\mod{\tan \dfrac{x}{2}}$. Or $\tan$ est positive sur $\left]0,\dfrac{\pi}{2}\right[$. 
+        
+        Donc \boxsol{les primitives de  $x \mapsto \dfrac{1}{\sin x}$ sur $\left]0,\pi\right[$ sont $\left\{\ln\left(\tan{\dfrac{x}{2}}\right) + c, c \in \bdR \right\}$}.
+    }
+    \item Soit $\mathbf{(H)}: y' + a(x)y = 0$ avec $a$ continue sur un intervalle $I$.
+    
+    Démontrer que $S_H = \{ x \mapsto \lambda e^{-A(x)}, \lambda \in \bdK\}$ où $A$ est une primitive de $a$ sur $I$.
+    
+    \boxans{
+        Soit $a \in \cc{0}{I}{\bdK}$ de primitive $A$ et $f$ une solution de $\mathbf{(H)}$ sur $I$. Posons $y: \begin{array}{ll}
+            I &\to \bdK  \\
+            x &\mapsto f(x)\exp{A(x)} 
+        \end{array}$.
+        
+        $\begin{array}{lll}
+           y \ \text{est dérivable sur} \ I \ \text{telle que} \ \forall x \in I, y'(x) &= f'(x)\exp{A(x)} + f(x)A'(x)\exp{A(x)}  \\
+            &= \exp{A(x)}\left[f'(x) + a(x)f(x)\right]\\
+            &= \exp{A(x))}\times0 & \text{donc} \ y'(x) = 0.
+        \end{array}$
+        $y'$ est nulle donc $y$ est constante, donc $\exists \lambda \in \bdK$, $\forall x \in I$, $y(x) = f(x)\exp{A(x)} = \lambda$ donc $f(x)=\lambda e^{-A(x)}$.
+        \[ \text{Donc} \ S_H \subset \left\{x \mapsto \lambda e^{-A(x)}, \lambda \in \bdK \right\}\]
+        
+        Réciproquement, soit $f \in \left\{x \mapsto \lambda e^{-A(x)}, \lambda \in \bdK \right\}$. Montrons que $f \in S_H$.
+        \[ \forall x \in I, \quad f'(x) + a(x)f(x) = -\lambda a(x)e^{-A(x)} + \lambda a(x)e^{-A(x)}\]
+        $f$ est solution de $\mathbf{(H)}$ donc $f$ est bien dans $S_H$, donc $\left\{x \mapsto \lambda e^{-A(x)}, \lambda \in \bdK \right\} \subset S_H$.
+        
+        On en déduit donc \boxsol{$S_H = \left\{x \mapsto \lambda e^{-A(x)}, \lambda \in \bdK \right\}$}
+    }
+    
+    \item  Résoudre $y' + \dfrac{1}{x}y = \dfrac{x}{x-1}$ sur $\left]1;+\infty\right[$.
+    
+    \boxans{
+    On résout l'équation homogène $\mathbf{(H)}: y' + \dfrac{1}{x}y = 0$ sur $I = \left]1;+\infty\right[$.
+    La fonction inverse $x \mapsto \dfrac{1}{x}$ est primitivable sur $I$ en la fonction logarithme népérien $x \mapsto \ln x$. On a donc $f(x) = \lambda e^{-\ln x} = \dfrac{\lambda}{x}$ une solution de $\mathbf{(H)}$ sur $I$ avec $\lambda \in \bdR$, donc $ S_H = \left\{x\mapsto \dfrac{\lambda}{x}, \lambda \in \bdR\right\}$. \qquad Notons $h_0 \in S_H$, avec $\forall x \in I$, $h_0(x) = \dfrac{1}{x}$.
+    
+    Soit $\lambda \in \cc{1}{I}{\bdR}$ et $f_p(x) = \lambda(x)h_0(x)$ une solution de l'équation $\mathbf{(E)}: y' + \dfrac{1}{x}y = \dfrac{x}{x-1}$ sur $I$. Or :
+    \[ f_p'(x) + \dfrac{f_p(x)}{x} = \lambda'(x)h_0(x) + \lambda(x){h_0}'(x) + \dfrac{\lambda(x)h_0(x)}{x} = \lambda'(x)h_0(x) + \lambda(x)\left[{h_0}'(x) + \dfrac{1}{x}h_0(x)\right] = \lambda'(x)h_0(x)\]
+    
+    Donc $\lambda'(x)h_0(x) = \dfrac{x}{x-1}$ donc $\lambda'(x) = \dfrac{x}{(x-1)h_0(x)} = \dfrac{x^2}{x-1} = \dfrac{x^2 - 1 + 1}{x-1} = x + 1 + \dfrac{1}{x-1}$
+    
+    Donc $\exists \ c \in \bdR$ tel que $\lambda(x) = \dfrac{x^2}{2} + x + \ln{x-1} + c$ d'où $f_p(x) = \dfrac{x}{2} + 1 + \dfrac{\ln{x-1}}{x} + \dfrac{c}{x}$.
+    
+    Finalement, \boxsol{$S_E = \left\{x \mapsto \dfrac{\lambda+\ln{x-1}}{x} + \dfrac{x}{2}+1, \lambda \in \bdR \right\}$}
+    }
+    
+    \item Résoudre $2y' - 3y = \sin^2(t)$ sur $\bdR$.
+    
+    \boxans{
+        $2y' - 3y = \sin^2(x) \iff y' - \dfrac{3}{2}y = \dfrac{\sin^2(x)}{2}$. On résout $\mathbf{(H)}: y' - \dfrac{3}{2}y = 0$ sur $\bdR$. De manière évidente :
+   
+        $S_H = \left\{ x \mapsto \lambda e^{\sfrac{3x}{2}}, \lambda \in \bdR\right\}$. On cherche une solution particulière à $\mathbf{(E)}: 2y' -3y = \sin^2(x) = \dfrac{1-\cos(2x)}{2}$.
+        Par superposition, on cherche une solution $f_{p,1}$ à $\mathbf{(E_1)}: 2y' - 3y = \dfrac{1}{2}$ et $f_{p,2}$ à $\mathbf{(E_2)}: 2y' - 3y = -\dfrac{\cos(2x)}{2}$.
+        Pour $\mathbf{(E_1)}$, on la cherche sous la forme d'une constante $f_{p,1}(x) = k$ : $-3k = \dfrac{1}{2} \iff k = -\dfrac{1}{6}$. 
+        
+        Pour $\mathbf{(E_2)}$, on passe dans le monde complexe en trouvant une solution $f_{p,2,\bdC}$ à $\mathbf{({E_2}^\bdC)} : 6y - 4y' = e^{2ix}$.
+        
+        On a alors $f_{p,2} = \Re{f_{p,2,\bdC}}$. On pose $f_{p,2,\bdC}(x) = \lambda e^{2ix}$. Alors:
+        \[6f_{p,2,\bdC}(x) - 4{f_{p,2,\bdC}}'(x) = 6\lambda e^{2ix} - 8i\lambda e^{2ix} = \lambda e^{2ix} \left(6-8i\right) = e^{2ix} \iff \lambda = \dfrac{1}{6-8i} = \dfrac{6+8i}{100}\]
+        Donc $f_{p,2} = \Re{f_{p,2,\bdC}} = \Re{\dfrac{6+8i}{100}\times e^{2ix}} = \dfrac{6\cos(2x) - 8\sin(2x)}{100} = \dfrac{3\cos(2x)-4\sin(2x)}{50}$
+        
+        Finalement, \boxsol{$S_E = \left\{ x \mapsto \lambda e^{\sfrac{3x}{2}} - \dfrac{1}{6}  + \dfrac{3\cos(2x)}{50}- \dfrac{2\sin(2x)}{25}, \lambda \in \bdR \right\}$}
+    }
+    
+    \item Résoudre sur $\bdR$ l'équation $(1-x)y' - y = x$, avec recollement.
+    
+    \boxans{
+    Soit l'équation différentielle $\mathbf{(E)}: (1-x)y' -y = x$ sur $\bdR$. On normalise l'équation $\mathbf{(E)}$ en l'équation $\mathbf{(E_n)}: y' - \dfrac{1}{1-x}y = \dfrac{x}{1-x}$ sur $I = \left]1;+\infty\right[$ ou $I = \left]-\infty;1\right[$. La résolution de l'équation sous forme homogène $\mathbf{(H)}: y' - \dfrac{1}{1-x}y = 0$ donne $S_H = \left\{ x \mapsto \dfrac{\lambda}{x-1}, \lambda \in \bdR \right\}$. 
+    
+    soit $h_0 \in S_H$ tel que $\forall x \in I$, $h_0(x) = \dfrac{1}{x-1}$ et $\lambda \in \cc{1}{I}{\bdR}$ tel que $f_p(x) = \lambda(x)h_0(x)$ est une solution de l'équation $\mathbf{(E_n)}$ sur $I$. Donc $f_p(x) - \dfrac{1}{1-x}f_p(x) = \lambda'(x)h_0(x) = \dfrac{x}{1-x} \iff \lambda'(x) = -x$
+    
+    Donc $\exists \ c \in \bdR$, $\lambda(x) = -\dfrac{x^2}{2} + c$ d'où $f_p = \dfrac{x^2+c}{2(1-x)}$. Donc $S_E = \left\{x \mapsto \dfrac{\lambda - \frac{x^2}{2}}{x-1}, \lambda \in \bdR\right\}$.
+    Soit $f$ une solution de $\mathbf{(E)}$. $\exists \ (\lambda, \mu) \in \bdR^2$ tels que $f(x) = \left\lbrace\begin{array}{ll}
+        \dfrac{\lambda - \frac{x^2}{2}}{x-1} & \text{si} \ x > 0 \\
+        \dfrac{\mu - \frac{x^2}{2}}{x-1} & \text{si} \ x < 0
+    \end{array}\right.$. Or $\mathbf{(E)}$ impose la continuité et la dérivabilité de $f$ en $1$. La limite de $f$ en $1$ à droite existe si et seulement si $\lambda - \dfrac{x^2}{2}$ annule $x-1$, soit si $\lambda = \dfrac{1}{2}$. De même à gauche, il faut que $\mu = \lambda = \dfrac{1}{2}$.
+    En simplifiant, on a  $f(x) = \dfrac{1}{2}(x+1)$ sur $\bdR$, qui est bien dérivable sur $\bdR$.
+    
+    Finalement, \boxsol{l'équation  $\mathbf{(E)}$ admet une unique solution sur $\bdR$: $x \mapsto  \dfrac{1}{2}(x+1)$}
+    }
+    
+    \item  Énoncer la forme des solutions de l’équation  $\mathbf{(H)}: y'' + ay' + by = 0$, avec $a$, $b$ deux constantes.
+    
+    Solutions dans $\bdK = \bdC$, et solutions dans $\bdK = \bdR$.
+    
+    \begin{lemma*}{}{}
+        Soit $\varphi_r: x \mapsto e^{rx}$ défini et deux fois dérivable sur $I$.
+            \[ \varphi_r \in S_H \iff r \ \text{est solution de} \ \mathbf{(EC)}\]
+    \end{lemma*}
+    
+    \demo{
+        Soit $\varphi_r: x \mapsto e^{rx}$ deux fois     dérivable sur $I$. On a ${\varphi_r}' = re^{rx}$ et ${\varphi_r}'' = r^2e^{rx}$. Donc :
+        
+        $ \varphi_r \in S_H \iff r^2e^{rx} + are^{rx} + be^{rx} = 0 \iff (r^2 + ar +b)e^{rx} = 0 \iff r^2 + ar + b = 0$
+    }
+    
+    \boxans{
+        On note l'équation caractéristique $\mathbf{(EC)}: r^2 + ar + b = 0$ sur $\bdK$ et $I$ un intervalle non vide de $\bdR$.
+        
+        \underline{Premier cas : $\bdK = \bdC$}. Soit $r$ une racine de $\mathbf{(EC)}$ et $f$ une solution de $\mathbf{(H)}$. On pose $\alpha: \begin{array}{ll}
+            I &\to \bdK  \\
+            x &\mapsto e^{-rx}f(x) 
+        \end{array}$.
+        
+        Soit $x \in I$, $\left\lbrace\begin{array}{ll}
+           f(x) &= e^{rx}\alpha(x) \\
+            f'(x) &= e^{rx}\left[\alpha'(x) + r\alpha(x)\right]\\
+            f''(x) &= e^{rx}\left[\alpha''(x) + 2r\alpha'(x) + r^2\alpha(x)\right]
+        \end{array}\right.$. Or $f \in S_H$ donc $f''(x) + af'(x)+bf(x)=0$.
+        
+        Donc $e^{rx}\left[\alpha''(x) + 2r\alpha'(x) +r^2\alpha(x) + a(\alpha'(x) +r\alpha(x)) + b\alpha(x)\right] = 0$
+        
+        Donc $\alpha''(x) + (2r+a)\alpha'(x) + (r^2+ar+b)\alpha(x) = 0$
+    
+    Donc $\alpha''(x) + (2r+a)\alpha'(x) = 0$, donc $\alpha'$ est solution de $y' + (2r+a)y = 0$. 
+        
+    On distingue alors deux cas selon le discriminant $\Delta = a^2 - 4b$ de l'équation caractéristique. Si $\Delta = 0$, alors $r$ est une racine double telle que $r = -\dfrac{a}{2} \iff 2r+a = 0$. Donc $\alpha''(x) = 0$ donc $\exists (\lambda,\mu) \in \bdK^2$, $\alpha(x) = \lambda x + \mu$.
+    
+    Donc $f(x) = \left(\lambda x + \mu\right)e^{rx}$. Si $\Delta \neq 0$ alors $2r + a \neq 0$. On a alors deux racines distinctes $r = r_1$ et $r_2$, avec $r_1 + r_2 = -a \iff r_1 + a = -r_2$. L'équation différentielle sur $\alpha'$ donne:
+    
+    \[ \exists \ (\gamma,\mu) \in \bdK \in \bdK, \quad \alpha'(x) = \gamma e^{-(2r_1 +a)x} \ \text{donc} \ \alpha = \dfrac{\gamma}{-(2r_1 + \alpha)}e^{-(2r_1 +a)x} + \mu \]
+    On pose $\lambda = \dfrac{\gamma}{-(2r_1 + \alpha)}$, on a alors $f(x) = \alpha(x)e^{r_1x} = \lambda e^{-(r_1 +a)x}+ \mu e^{r_1x} = \lambda e^{r_2x} + \mu e^{r_1x}$.
+    
+    Donc \boxsol{$S_H = \left\lbrace\begin{array}{ll}
+        \left\{ x \mapsto (\lambda x + \mu)e^{rx}, (\lambda,\mu) \in \bdC^2\right\} & \text{si} \ \Delta = 0\\[5pt]
+        \left\{ x \mapsto \lambda e^{r_1x} + \mu e^{r_2x}, (\lambda,\mu) \in \bdC^2\right\} & \text{si} \ \Delta \neq 0
+    \end{array}\right.$}
+    
+    \text{}\\\text{}\\
+    \underline{Deuxième cas : $\bdK = \bdR$}. Il suffit d'étudier le cas où les racines sont complexes, soit le cas où $\Delta < 0$.
+    
+    On garde donc $S_H = \left\lbrace\begin{array}{ll}
+        \left\{ x \mapsto (\lambda x + \mu)e^{rx}, (\lambda,\mu) \in \bdR^2\right\} & \text{si} \ \Delta = 0\\[5pt]
+        \left\{ x \mapsto \lambda e^{r_1x} + \mu e^{r_2x}, (\lambda,\mu) \in \bdR^2\right\} & \text{si} \ \Delta > 0
+    \end{array}\right.$. Si $\Delta < 0$, alors on a $f_\bdC$ une solution dans $\bdC$ telle que $\exists \  (A, B) \in \bdC^2$ $f_\bdC(x) = Ae^{r_1x} + Be^{r_2x}$ et $f$ la solution dans $R$ est telle que $f = \Re{f_\bdC}$.
+    
+    On a $\Delta = a^2 - 4b = -(4b - a^2) = \left(i\sqrt{4b - a^2}\right)$ donc $r_1 = \dfrac{-a+i\sqrt{4b - a^2}}{2}$ et $r_2 = \dfrac{-a-i\sqrt{4b - a^2}}{2}$.
+    
+    On pose alors $\alpha = -\dfrac{a}{2}$ et $\beta = \dfrac{\sqrt{4b - a^2}}{2}$ de sorte que $r_1 = \alpha + i\beta$ et $r_2 = \alpha - i\beta$.
+    
+    On a $f(x) = \Re{f_\bdC(x)} = \dfrac{f_\bdC(x) + \overline{f_\bdC(x)}}{2} = \dfrac{1}{2}\left(Ae^{(\alpha+i\beta)x}+Be^{(\alpha-i\beta)x}+\overline Ae^{(\alpha+i\beta)x}+\overline Be^{(\alpha-i\beta)x}\right)$ donc:
+    \[ f(x) = \dfrac{e^{\alpha x}}{2}\left[e^{i\beta x}(A+\overline{B}) + e^{-i\beta x}(B + \overline A)\right] =\dfrac{e^{\alpha x}}{2}\left[\cos{\beta x}(A + \overline{A}) + \sin{\beta x}(B + \overline B)\right] \]
+    On pose $\lambda = \Re{A}$ et $\mu = \Re{\beta}$. Alors :
+    \[ f(x) = \dfrac{e^{\alpha x}}{2}\left[\cos{\beta x}\times 2\lambda + \sin{\beta x}\times 2\mu \right] = \lambda e^{\alpha x}\cos{\beta x} + \mu e^{\alpha x}\sin{\beta x}\]
+    
+    Donc \boxsol{$S_H = \left\lbrace\begin{array}{ll}
+        \left\{ x \mapsto (\lambda x + \mu)e^{rx}, (\lambda,\mu) \in \bdR^2\right\} & \text{si} \ \Delta = 0\\[5pt]
+        \left\{ x \mapsto \lambda e^{r_1x} + \mu e^{r_2x}, (\lambda,\mu) \in \bdR^2\right\} & \text{si} \ \Delta > 0\\[5pt]
+        \left\{ x \mapsto \lambda e^{\alpha x}\cos{\beta x} + \mu e^{\alpha x}\sin{\beta x}, (\lambda,\mu) \in \bdR^2\right\} & \text{si} \ \Delta < 0\\
+    \end{array}\right.$}
+     }
+    
+\end{enumerate}
+\end{document}

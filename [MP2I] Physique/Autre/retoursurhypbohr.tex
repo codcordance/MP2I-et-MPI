@@ -1,0 +1,56 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+
+\stylizeDoc{Physique}{Autre}{Retour sur l'hypothèse de Bohr}
+
+\section*{\centering\EBGaramond\itshape\Large Retour sur l'hypothèse de Bohr}
+    
+\begin{minipage}{0.48\linewidth}
+
+\begin{form}{Hypothèse de Bohr}{}{}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[main3, dashed] circle (1.5);
+
+            \draw[main2, fill=main2!10] circle (0.1) node[right=3pt] {\textit{\EBGaramond proton}};
+    
+            \draw[main7, ->] (0, 1.5)  --node[midway, above] {$\vec{u_\theta}$} (-1, 1.5);
+        
+            \draw[main7, ->] (0, 1.5)  --node[midway, right] {$\vec{u_r}$} (0, 2.5);
+    
+            \draw[main5, fill=main2!10] (0, 1.5) circle (0.1) node[below=3pt] {\textit{\EBGaramond électron}};
+
+        \end{tikzpicture}
+    \end{center}
+    L'hyptohèse de Bohr est la suivante :
+    %
+    \[ \boxedcol{\hg{\norm{\vec{\sigma_O}} = n\hbar}}\]
+    %
+    Ce qui amène $\left\lbrace\begin{array}{rl}
+        R_n &= R_0n^2  \\
+        E_n &= - \dfrac{E_0}{n^2} 
+        \end{array}\right.$
+\end{form}
+\end{minipage}
+%
+\hfill
+%
+\begin{minipage}{0.48\linewidth}
+    \begin{align*}
+        &&\vec{\sigma_0} &= m_\text{e} \vec{OM} \wedge \vec{v}\\
+        \text{donc} && &= mR\vec{u_R} \wedge R\dot \theta \vec{u_\theta}\\
+        \text{donc} &&     &= m\underbrace{R\dot\theta}_{v} \vec{u_z}\\
+    \text{donc} && n \hbar &= mRv = Rp\\
+    \text{soit} && n\dfrac{h}{2\pi} &= Rp\\
+    \text{donc} && n\dfrac{h}{p} &= 2\pi R\\
+    \text{soit} && n\lambda_\text{dB} &= 2\pi R
+    \end{align*}
+    
+    Ainsi, l'onde associée à $e^-$ doit être en phase avec elle-même au bout d'un tour.
+\end{minipage}
+
+\end{document}

@@ -1,0 +1,295 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+\stylizeDoc{Physique}{Compte-rendu du TP 23}{Calorimétrie}
+
+\boxhtp{
+    \itstar Mettre en œuvre un capteur de température.
+    \itstar Effectuer des bilans d'énergie et mettre en œuvre une technique de calorimétrie.
+    \itstar Mesurer des grandeurs thermodynamiques énergétiques : capacité thermique, enthalpie de changement d'états.
+}{
+    \itstar Calorimètre, thermomètre, balance, plaque chauffante.
+    \itstar Solides à faire chauffer (aluminium, laiton, fer, zinc, plomb)
+}
+
+\text{}\hfill\\
+
+\textbf{Remarques importantes concernant les mesures en thermodynamique}
+% Curieux, besoin de cet espace vide pour que le premier que "triangle" de l'enum 
+% s'affiche
+\hfill
+%
+\begin{minipage}{0.35\linewidth}
+	\centering
+	\begin{tabular}{c|c}
+	\end{tabular}
+\end{minipage}
+%
+\begin{enumerate}
+    \itt En thermodynamique, il n'est pas rare d'obtenir des incertitudes-type de l'ordre \SI{50}{\percent}. Ce n'est toutefois pas une raison pour manipuler n'importe comment, ne serait-ce que pour la sécurité lorsque l'on manipule des éléments chauds.
+    
+    \itt Attention à bien peser et mesurer les températures des fluides utilisés : on pourra par exemple poser le calorimètre contenant uniquement les instruments sur la balance et tarer celle-ci, les valeurs affichées par la balance correspondant alors à la masse du contenu.
+\end{enumerate}
+
+On donne $c_\text{eau} = \SI{4.18e3}{\joule \cdot \K^{-1} \cdot \kg^{-1}}$ la capacité thermique massique de l'eau liquide, supposée globalement indépendante de la température.
+
+
+\section{Mesure de la valeur en eau du calorimètre}
+
+\subsection{Le calorimètre}
+
+Vous disposez d'un calorimètre, dispositif conçu de manière à pouvoir raisonnablement négliger, sur la durée d'une expérience, les échanges thermiques avec l'extérieur, de sorte que $Q \approx 0$.
+
+\begin{enumerate}
+    \item Lister les dispositifs permettant de limiter les transferts thermiques.
+    
+    \boxans{
+        Les dispositifs du calorimètre permettant de limiter les transferts thermiques sont :
+        %
+        \begin{enumerate}
+            \itt la paroi métallique réfléchissante à l'intérieur du calorimètre ;
+            
+            \itt la double paroi, séparant l'intérieur de l'extérieur du calorimètre avec du vide ou de l'air ;
+            
+            \itt le couvercle recouvrant presque la totalité du calorimètre.
+        \end{enumerate}
+    }
+\end{enumerate}
+
+Les expériences réalisées dans un calorimètre sont effectuées en contact avec l'atmosphère.
+
+\begin{enumerate}[resume]
+    \item Quelle forme prend alors le premier principe ?
+    
+    \boxans{
+        Le premier principe livre :
+        %
+        \[\Delta U = \Delta Q + \Delta W \]
+        %
+        Or ici on a $Q = 0$ d'où $\Delta Q = 0$ Le premier principe se réécrit donc :
+        %
+        \[ \Delta U. = \Delta W\]
+    }
+\end{enumerate}
+
+Le système thermodynamique $\Sigma$ étudié est
+
+\begin{equation}
+    \Sigma = \left\{\text{calorimètre} + \text{instruments} + \text{contenu}\right\}
+\end{equation}
+
+Il faut donc considérer la capacité thermique $C_\text{calo}$ du calorimètre et des instruments lorsque l'on applique le premier principe, puisque celle-ci n'est généralement pas négligeable devant celle du contenu. On se propose ainsi de déterminer la valeur en eau $µ$ du calorimètre qui vérifie
+
+\begin{equation}
+    C_\text{calo} = \mu c_\text{eau}
+\end{equation}
+
+\subsection{Méthode des mélanges}
+
+\noafter
+%
+\boxans{
+    \begin{experience}{Mesure de la valeur en eau du calorimètre}{}
+        \begin{enumerate}
+            \ithand Placer une masse $m_1$ d'eau \guill{froide} à la température $T_1$ dans le calorimètre.
+    
+            \ithand Placer la sonde de température dans le calorimètre et la relier à la carte d'acquisition. Attendre quelques minutes que l'eau et le calorimètre soient alors à la même température et la noter.
+            
+            \ithand Ajouter une masse $m_2$ d'eau \guill{chaude} à la température $T_2$.
+            
+            \ithand Fermer le couvercle, agiter, et relever l'évolution de la température au cours du temps. Déterminer la température finale $T_\text f$ lorsque l'équilibre est atteint dans le calorimètre.
+        \end{enumerate}
+    \end{experience}
+}
+%
+\nobefore\yesafter
+%
+\begin{expcom} \text{}
+    \begin{enumerate}
+        \itt On a $m_1 = \SI{560}{\g}$ à la température $T_1' = \SI{18}{\celsius}$.
+        \itt On atteint la température $T_1 = \SI{15}{\celsius}$.
+        \itt On ajoute $m_2 = \SI{238}{\g}$ à la température $T_2 = \SI{60}{\celsius}$
+        \itt On atteint la température finale $T_\text f = \SI{25.4}{\celsius}$
+    \end{enumerate}
+\end{expcom}
+%
+\yesbefore
+
+\begin{enumerate}[resume]
+    \item Montrer que la valeur en eau du calorimètre est donnée par
+    
+    \begin{equation}
+        \mu = \dfrac{m_1\left(T_1 - T_\text f\right) + m_2\left(T_2 - T_\text f\right)}{T_f - T_1}
+    \end{equation}
+    
+    faire l'application numérique avec vos valeurs.
+    
+    \boxans{    
+        La transformation subie par un système placé dans un calorimètre est monobare, en équilibre mécanique à l'état intial et final, et adiabatique. Ainsi $\Delta H = 0$. Or $\Delta H = \Delta H_\text{calorimètre} + \Delta H_\text{instruments} + \Delta H_\text{contenu}$.
+        
+        \begin{enumerate}
+        
+            \itt On a $\Delta H_\text{calorimètre} = C_\text{calo}\left(T_f - T_1\right) = \mu c_\text{eau}\left(T_f - T_1\right)$
+        
+            \itt On néglige, du fait de leur taille, l'influence des instruments, donc $\Delta H_\text{instruments} = 0$.
+            
+            
+            \itt Le contenu du calorimètre n'étant que de l'eau, on a $\Delta H_\text{contenu} = \Delta H_\text{eau froide} + \Delta H_\text{eau chaude}$, d'où :
+            %
+            \[ \Delta H_\text{contenu} = c_\text{eau}m_1\left(T_\text f - T_1\right) + c_\text{eau}m_2\left(T_\text f - T_2\right) = c_\text{eau}\left(m_1\left(T_\text f - T_1\right) + m_2\left(T_\text f - T_2\right)\right)\]
+        \end{enumerate}
+        %
+        On a donc :
+        %
+        \[ 0 = \mu c_\text{eau}\left(T_f - T_1\right) + c_\text{eau}m_1\left(T_\text f - T_1\right) + c_\text{eau}m_2\left(T_\text f - T_2\right) = c_\text{eau}\left(m_1\left(T_\text f - T_1\right) + m_2\left(T_\text f - T_2\right)\right) \]
+        %
+        On divise par $c_\text{eau}$, donc on a :
+        %
+        \[\mu\left(T_ 1 - T_ \text f\right) = m_1\left(T_\text f - T_1\right) + m_2\left(T_\text f - T_2\right) \qquad\text{donc}\qquad \mu = \dfrac{m_1\left(T_1 - T_\text f\right) + m_2\left(T_2 - T_\text f\right)}{T_f - T_1}\]
+        
+        L'application numérique livre $\mu = \SI{0.23}{\kg}$.
+    }
+\end{enumerate}
+
+Avec les calorimètres utilisés la valeur attendue est généralement de l'ordre de $\mu^\text{attendue} = \SI{15}{\g}$.
+
+\noafter
+%
+\boxans{
+    \begin{experience}{Comparaison avec la valeur attendue}{}
+        \begin{enumerate}
+            \ithand Estimer l'incertitude-type $u\left(\mu\right)$ sur la valeur de $\mu$ en réalisant une simulation Monte-Carlo.
+            
+            \ithand Comparer alors valeur mesurée et valeur attendue. Conclure.
+        \end{enumerate}
+    \end{experience}
+}
+%
+\nobefore\yesafter
+%
+\begin{expcom} \text{}
+    \begin{enumerate}
+        \itt Après avoir effectué la simulation de Monte-Carlo, on obtient $\overline{\mu} = \SI{0.23}{\kg}$ et $u\left(\mu\right) = \SI{0.02}{\kg}$.
+        
+        \itt On calcule alors le z-score selon :
+        %
+        \[ z = \dfrac{\mod{\overline{\mu} - \mu^\text{attendue}}}{u\left(\mu\right)}\]
+        %
+        On obtient $z = 10$. Ce score n'est pas particulièrement bon, mais les remarques importantes données en introduction semblent le nuancer.
+    \end{enumerate}
+\end{expcom}
+%
+\yesbefore
+
+\section{Capacité thermique des métaux - loi de Dulong et Petit}
+
+On peut estimer la capacité thermique d'un métal par la loi de Dulong et Petit.
+
+\begin{property*}{Loi de Dulong et Petit}{}
+    Pour une température \guill{suffisamment} grande (température de Debye, qui dépend du métal), \hg{la capacité thermique molaire d'un métal vaut $C_\text m = 3R$} et cela quelque soit le métal.
+\end{property*}
+
+On donne ci-dessus plusieurs valeurs tabulées pour les métaux disponibles au laboratoire.
+
+\begin{center}
+    	\begin{tabular}{c||c|c|c|c|c|c}
+		Métal 				& Cuivre & Fer & Laiton & Zinc & Plomb & Aluminium	\\ \hline\hline
+		$c \left(\SI{}{\joule \cdot \kelvin^{-1} \cdot \kg^{-1}}\right)$ 	& 385 & 44 & 377 & 380 & 129 & 897 \\
+		$M \left(\SI{}{\g \cdot \mol^{-1}}\right)$ & 63,5 & 55,8 & - & 65,4 & 207 & 27,0 \\
+		$\rho \left(\SI{}{\kg \cdot \L^{-1}}\right)$ & 8,96 & 7,87 & - & 7,13 & 11,4 & 2,7
+	\end{tabular}
+\end{center}
+
+\begin{enumerate}[resume]
+    \item Pourquoi la masse molaire du laiton ainsi que sa masse volumique ne sont-elles pas indiquées ?
+    
+    \boxans{
+        Car il s'agit d'un alliage, ces valeurs dépendent donc des proportions des différentes espèces, qui varient selon les échantillons.
+    }
+    
+    \item Les valeurs numériques données dans le tableau sont-elles cohérentes avec la loi de Dulong et Petit ?
+    
+    \boxans{
+        On fait le produit des deux premières lignes, pour obtenir $C_\text m = cM$ :
+        \begin{center}
+            \begin{tabular}{c||c|c|c|c|c|c}
+		Métal 				& Cuivre & Fer & Laiton & Zinc & Plomb & Aluminium	\\ \hline\hline
+		$C_\text m \left(\SI{}{\joule \cdot \kelvin^{-1} \cdot \mol^{-1}}\right)$ & 24,4 & 24,8 & - & 24,9 & 26,7 & 24,2
+	\end{tabular}
+        \end{center}
+        
+	On remarque les valeurs obtenues semblent être les mêmes qu'importe les métaux, ce qui est cohérent avec la loi de Dulong et Petit.
+    }
+\end{enumerate}
+
+On souhaite mesurer la capacité thermique d'un métal. On utilise une méthode similaire à la partie précédente.
+
+\noafter
+%
+\boxans{
+    \begin{experience}{Mesure de la capacité thermique d'un morceau de métal}{}
+        \begin{enumerate}
+            \ithand Verser une masse $m_\text{eau}$ d'eau dans le calorimètre. Attendre l'équilibre et noter $T_1$ la température dans le calorimètre.
+            
+            \ithand Prendre et identifier un morceau de métal qui chauffe au bain-marie sur la paillasse centrale. \bf{Attention à ne pas vous brûler}.
+            
+            \ithand On note $m$ sa masse, $C = mc$ sa capacité thermique et $T_2$ sa température initiale.
+            
+            \ithand Plonger rapidement ce morceau de métal dans le calorimètre et suivre l'évolution de la température en homogénéisant régulièrement le mélange.
+            
+            \ithand Estimer $T_\text f$ la température finale dans le calorimètre lorsque l'équilibre thermique est atteint.
+        \end{enumerate}
+    \end{experience}
+}
+%
+\nobefore\yesafter
+%
+\begin{expcom} \text{}
+\begin{enumerate}
+    \itt On verse $m_\text{eau} = \SI{640}{\g}$ d'eau, de température à l'équilibre $T_1 = \SI{17}{\celsius}$.
+    
+    \itt La masse du métal (qu'on identifie à de l'aluminium) est $m = \SI{130}{\g}$ et sa température $T_2 = \SI{85}{\celsius}$.
+    
+    \itt On atteint la température finale $T_f = \SI{20}{\celsius}$
+\end{enumerate}
+\end{expcom}
+%
+\yesbefore
+
+\begin{enumerate}[resume]
+    \item Montrer que la capacité thermique du métal est donnée par
+    
+    \begin{equation}
+        C = \left(m_\text{eau} + \mu\right) c_\text{eau} \dfrac{T_\text f - T_1}{T_2 - T_f}
+    \end{equation}
+    
+    \boxans{
+        On a $\Delta H = 0$ et $\Delta H = \Delta_\text{calorimètre} + \Delta_\text{eau} + \Delta_\text{métal}$.
+        %
+        \begin{enumerate}
+            \begin{multicols}{3}
+                    \itt $\Delta H_\text{calorimètre} = \mu c_\text{eau}\left(T_\text f - T_1\right)$.
+                    \itt $\Delta H_\text{eau} = m_\text{eau}c_\text{eau}\left(T_\text f - T_1\right)$.
+                    \itt $\Delta H_\text{métal} = C\left(T_\text f - T_2\right)$.
+            \end{multicols}
+
+        \end{enumerate}
+        %
+        Donc $C\left(T_\text f - T_2\right) + \mu c_\text{eau}\left(T_f - T_1\right) + \Delta H_\text{métal} = C\left(T_f - T_2\right)$ d'où $C = \left(m_\text{eau} + \mu\right) c_\text{eau} \dfrac{T_\text f - T_1}{T_2 - T_f}$.
+    }
+    
+    \item Faire l'application numérique et comparer avec la valeur attendue et déterminant les incertitudes-type.
+    
+    \boxans{
+        L'application numérique avec l'expression ci-dessus $C = \SI{126}{\joule \cdot \kelvin^{-1}}$.
+        
+        La valeur attendue est $C = mc = \SI{117}{\joule \cdot \kelvin^{-1}}$.
+        
+        On obtient donc des résultats assez cohérents. Manque de temps pour le calcul des incertitudes et du z-score.
+    }
+\end{enumerate}
+
+\end{document}

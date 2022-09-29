@@ -1,0 +1,95 @@
+\documentclass[french,bookmarks]{article}
+
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    total={170mm,257mm},
+    left=20mm,
+    top=20mm
+}
+
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+ 
+\begin{document}
+
+    \pagestyle{fancy}
+    \fancyhf{}
+    \rhead{2022-2023}
+    \lhead{MP2I}
+    \chead{Colle 0}
+    \cfoot{\thepage}
+    
+    \section*{Révisions de Tle}
+    
+    \subsection*{Ensembles, combinatoire et dénombrement}
+    
+    \begin{enumerate}
+        \item[$\bullet$] Raisonnement par récurrence. Récurrence double, forte.
+        
+        \item[$\bullet$] Nombre d'éléments d'une réunion d'ensembles, nombre d'éléments d'un produit cartésien. Nombre de $k$-uplets (ou $k$-listes) d'un ensemble à $n$ éléments.
+        
+        \item[$\bullet$] Définition de $n!$. Notion de permutation, arrangements ($k$-uplets d'éléments distincts d'un ensemble à $n$ éléments), combinaisons. Coefficient binomiaux et propriétés. Relation et triangle de Pascal.
+    \end{enumerate}
+    
+    \subsection*{Limites de suites et de fonctions}
+    
+    \begin{enumerate}
+        \item[$\bullet$] Limite infinie une suite $(u_n)$ tend vers $+\infty$ si tout intervalle de la forme $[a ; +\infty[$ contient toutes les valeurs $u_n$ à partir d'un certain rang. Suite tendant vers $-\infty$.
+        
+        \item[$\bullet$] Limite finie d'une suite : la suite $(u_n)$ converge vers le nombre réel $\ell$ si tout intervalle ouvert contenant $\ell$ contient toutes les valeurs $u_n$ à partir d'un certain rang.
+        
+        \item[$\bullet$] Théorèmes de comparaison, théorème des gendarmes et de convergence monotone (toute suite croissante majorée et décroissante minorée converge). Opérations sur les limites.
+        
+        \item[$\bullet$] Limite finie ou infinie d'une fonction, en $+\infty$, en $-\infty$, en un point. Théorèmes.
+        
+        \item [$\bullet$] Limites des fonctions de références étudiées en classe de première : puissances entières $x \mapsto x^n$, racine carrée $x \mapsto \sqrt{x}$, fonction exponentielle $x \mapsto e^x$. Croissance comparée de $x \mapsto e^x$ et $x \mapsto x^n$ en $+\infty$.
+    \end{enumerate}
+    
+    \subsection*{Fonctions usuelles et dérivation}
+    
+    \begin{enumerate}
+        \item[$\bullet$] Fonction logarithme népérien $\ln$, comme réciproque de la fonction exponentielle. Propriétés algébriques, dérivée, variations. Limite en $0$ et en $+\infty$, croissance comparée.
+        
+        \item[$\bullet$] Fonctions trigonométrique sinus et cosinus. Dérivées, variations, courbes représentatives.
+        
+        \item[$\bullet$] Composée de deux fonctions et dérivée.
+        
+        \item[$\bullet$] Dérivée seconde d'une fonction, convexité : définition par la position relative de la courbe représentative et des sécantes. Propriétés. Notion de point d'inflexion.
+    \end{enumerate}
+    
+    \subsection*{Continuité, primitives, équations différentielles et calcul intégral}
+    
+    \begin{enumerate}
+        \item[$\bullet$] Fonction continue en un point (définition par les limites), sur un intervalle. Toute fonction dérivable est continue. Théorème des valeurs intermédiaires.
+        
+        \item[$\bullet$] Equation différentielle $y' = f$. Notion de primitive d'une fonction continue sur un intervalle. Primitives des fonctions de référence. Equation différentielle $y' = ay + b$, où $a$ et $b$ sont des nombres réels.
+        
+        \item[$\bullet$] Définition de l'intégrale d'une fonction continue positive sur un segment $[a; b]$, comme aire sous la courbe représentative de $f$. 
+        
+        \item[$\bullet$] Si $f$ est une fonction continue positive sur $[a, b]$, alors la fonction $F_a$ définie sur $[a; b]$ par $F_a(x) = \displaystyle \int_a^x f(t)\textrm{d}t$ est la primitive de $f$ qui s'annule en $a$. Relation $F(b) - F(a) = \displaystyle\int_a^b f(x)\textrm{d}x$ où $F$ est une primitive de $f$.
+            
+        \item[$\bullet$] Propriétés de l'intégrale. Linéarité, positivité et intégration des inégalités. Relation de Chasles.
+        
+        \item[$\bullet$] Valeur moyenne d'une fonction. Intégration par parties.
+    \end{enumerate}
+    
+    \section*{Questions / Exercices de cours}
+    
+    \begin{enumerate}
+        \item Montrer par récurrence que pour tout entier naturel $n$ non nul, \qquad $1^3 + 2^3 + \dots + n^3 = \left(\displaystyle\frac{n(n+1)}{2}\right)^2$
+        
+        %\item Déterminer la limite de la suite $(a_n)$ telle que $a_0 = 1$ et pour tout entier $n$, \qquad $a_{n+1} = a_n + n^2$.
+        
+        \item Déterminer la limite en $+\infty$ et en $-1$ de la fonction $f$ définie sur $] -1; +\infty [$ par \qquad $f(x) = \displaystyle\frac{4x + 5}{x + 1}$.
+        
+        \item $f$ est la fonction définie sur $[0; 1]$ par \qquad $f(x) = 2 + 3e^{-x}$.
+        
+        Démontrer qu'il existe au moins un réel $c$ compris entre $0$ et $1$ et tel que $f(c) = 4$.
+        
+        \item Déterminer la solution $g$ de l'équation différentielle $y' = y + 1$ telle que $g(1) = 2$.
+        
+        \item Déterminer, à l'aide de l'intégration par partie, une primitive de $\ln$.
+    \end{enumerate}
+\end{document}

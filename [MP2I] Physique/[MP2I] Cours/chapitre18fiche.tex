@@ -1,0 +1,174 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylizeDoc{Physique}{Fiche Chapitre 18}{Introduction à la physique quantique}
+
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}    \renewcommand{\thesubsubsection}{\thesubsection.\alph{subsubsection})}
+
+\section{Dualité onde-corpuscule de la lumière}
+
+\subsection{Caractéristique particulaire}
+
+L'effet photoélectrique mis en évidence par \textsc{A. Einstein} permet de considérer la lumière comme un ensemble de particules, sorte de \guill{grains d'énergies} : les \textit{\color{main1} photons}, de symbole $\gamma$ :
+
+\begin{definition}{photons}{}
+    Les \hg{photons} sont des \guill{particules de lumière}, de \hg{symbole $\gamma$} et de :
+    \begin{enumerate}
+        \ithand \hg{masse nulle $m_\gamma = \SI{0}{\kg}$} ;
+        \ithand \hg{charge nulle $q_\gamma = \SI{0}{\coulomb}$} ;
+        \ithand \hg{vitesse $c = \SI{3.00e8}{\m \cdot \s^{-1}}$ (vitesse de la lumière)}.
+    \end{enumerate}
+\end{definition}
+
+
+
+On peut alors chercher à réinvestir la notion fondamentale en mécanique (classique) du point de quantité de mouvement $\vec{p} = m \vec{v}$, sauf qu'ici $m = m_\gamma$ est nul, donc cette définition ne convient pas ici (cf. ci-dessous)
+
+\subsection{Caractéristique ondulatoire}
+
+Des expériences (avec des fentes d'Young par exemple) montrent des phénomènes d'interférence et de diffraction avec la lumière, en bref des phénomènes ondulatoires. On peut donc considérer la lumière comme un onde de vitesse  $c = \SI{3.00e8}{\m \cdot \s^{-1}}$, en se basant ce qu'on a déjà vu en physique ondulatoire :
+\begin{enumerate}
+    \itt l'onde peut être modélisée par une fonction $s\left(x, t\right)$ (cf. notion de fonction d'onde) ;
+    \itt une onde monochromatique a une période (temporelle) $T$ et une période spatiale / une \textit{\color{main1} longueur d'onde} $\lambda$ ;
+    \itt y sont associés une pulsation (temporelle) $\omega = \dfrac{2\pi}{T}$ et une pulsation spatiale / un \textit{\color{main1} vecteur d'onde} $k = \dfrac{2\pi}{\lambda}$ ;
+    \itt pour les ondes lumineuses et dans le cadre de ce chapitre, on note $\nu$ \texttt{(nu)} la fréquence $\nu = \dfrac{1}{T} = \dfrac{\omega}{2\pi}$.
+\end{enumerate}
+
+\begin{property}{Relation de dispersion}{}
+    Pour un rayonnement \hg{monochromatique}, on rappelle la \hg{relation de dispersion} \textit{facilement trouvée par AD} :
+    %
+    \[ \hg{ \lambda = \dfrac{c}{\nu} = cT \iff c = \lambda \nu \iff \omega = k c } \]
+\end{property}
+
+\subsection{Relations de Planck-Estein}
+
+\begin{definition}{Constantes de Planck}{}
+    \begin{enumerate}
+        \ithand On appelle \hg{constante de Planck} la quantité \hg{$h = \SI{6.63e-34}{\joule \cdot \s}$}.
+        
+        \ithand On appelle et \hg{constante de Planck \textbf{réduite}} la quantité \hg{$\hbar = \dfrac{h}{2\pi}$} \texttt{(h-barre)}.
+    \end{enumerate}
+\end{definition}
+
+On cherche alors a relier le caractère particulaire et ondulatoire de la lumière. Pour ce faire, on \guill{trouve} une \textit{énergie} et une \textit{quantité de mouvement} pour les photons.
+
+\begin{definition}{Première relation de Planck-Estein}{}
+    L'\hg{énergie d'un photon} associé à une onde monochromatique est $\hg{\epsilon = h\nu = \hbar\omega}$.
+\end{definition}
+
+\begin{definition}{Deuxième relation de Planck-Estein}{}
+    La \hg{quantité de mouvement d'un photon} associé à une onde monochromatique est :
+    %
+    \[ \hg{\vec{p} = \dfrac{h}{\lambda}\vec{e_x} = \dfrac{h\nu}{c}\vec{e_x} = \hbar k\vec{e_x}} \qquad\text{où} \ \vec{e_x} \ \text{donne le sens de propagation de l'onde}\]
+\end{definition}
+
+\subsection{De Broglie, ou les ondes de matières}
+
+La dualité onde-corpuscule précédent introduite pour la lumière est en fait plus \guill{générale} que ça. On constate aussi des phénomènes de diffraction en faisant l'expérience des doubles fentes avec des électrons. C'est \textsc{L. de Broglie} qui a l'idée de considérer des \textit{\color{main1} ondes de matière}. Il attribue à toute particule matérielle une longueur d'onde $\lambda_\text{dB}$ (longueur d'onde de de Broglie), dépendant de sa quantité de mouvement $p = mv$, ici non nulle :
+
+\begin{definition}{Longeur d'onde de de Broglie}{}
+    On appelle \hg{longueur d'onde de de Broglie} d'une particule matérielle la quantité \hg{$\lambda_\text{dB} = \dfrac{h}{p} = \dfrac{h}{mv}$}.
+\end{definition}
+
+\begin{hpnote}
+    L'énergie d'une onde de de Broglie suit une expression similaire à la première relation de Planck-Estein. En effet, la relation de dispersion donne $\omega = kv = \dfrac{2\pi v}{\lambda} = \dfrac{2\pi pv}{h} = \dfrac{pv}{\hbar} = \dfrac{mv^2}{\hbar}$. 
+    
+    Par ailleurs, en mécanique classique, l'énergie cinétique donne $E_\text c = \dfrac{1}{2}mv^2 = \dfrac{1}{2}\hbar\omega$.
+\end{hpnote}
+
+\section{Interaction lumière-matière}
+
+\subsection{Effet photoélectrique}
+
+Pour constater l'effet électrique avec métal $s$ donné, \ie l'émission d'électron lorsque celui-ci est soumis à un rayonnement électromagnétique, la fréquence de rayonnement doit être supérieure à une valeur seuil $\nu_\text s$. Le \textit{travail d'extraction} est alors $W = h\nu_\text s$.
+
+\begin{property}{Énergie d'un photonélectron}{}
+    L'\hg{énergie cinétique d'un photoélectron} est la quantité \hg{$\epsilon_\text c = h\nu - W = h\left(\nu - \nu_\text s\right)$}.
+\end{property}
+
+\subsection{Structures microscopiques}
+
+On s'appuie sur l'hypothèse de \texttt{N. Bohr} pour l'atome d'hydrogène $(H)$ :
+
+\begin{property}{Hypothèse de Bohr}{}{}
+    \begin{minipage}{0.40\linewidth}
+        \begin{center}
+            \begin{tikzpicture}
+                \draw[main5, dashed] circle (1.5);
+
+                \draw[main1, fill=main1!10] circle (0.1) node[right=3pt] {\textit{\EBGaramond proton}};
+    
+                \draw[main9, ->] (0, 1.5)  --node[midway, above] {$\vec{u_\theta}$} (-1, 1.5);
+        
+                \draw[main9, ->] (0, 1.5)  --node[midway, right] {$\vec{u_r}$} (0, 2.5);
+    
+                \draw[main3, fill=main3!10] (0, 1.5) circle (0.1) node[below=3pt] {\textit{\EBGaramond électron} $M$};
+            \end{tikzpicture}
+        \end{center}
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}{0.60\linewidth}
+        Le \hg{moment cinétique orbital d'un électron} est \hg{quantifié} :
+        %
+        \[\hg{\norm{\vec{\sigma_0}\left(M\right)} = \hbar n,\qquad n \in \bdN^*} \]
+        %
+        On en déduit que le rayon, la vitesse et l'énergie sont \hgu{quantifiés} :
+        %
+        \[ \hg{R_n = R_0n^2 \qquad v_n = \dfrac{v_0}{n} \qquad E_n = -\dfrac{E_0}{n^2}}\]
+        %
+        De plus la longueur d'onde de de Broglie donne \hg{$\lambda_\text{dB} = 2\pi R_0 n$}.
+    \end{minipage}
+\end{property}
+
+\begin{nproof}
+    On a $\norm{\vec{\sigma_0)}\left(M\right)} = m\dot \theta R^2 = mR v$ donc par hypothèse de Bohr $mRv = n\hbar$, soit $R = \dfrac{n\hbar}{mv}$.
+
+    \begin{enumerate}
+        \itt La trajectoire est circulaire donc $R = \dfrac{mC^2}{K} = \dfrac{mR^2v^2}{K}$ donc $1 = \dfrac{mRv^2}{K}$ soit $v = v_n = \dfrac{K}{mRv} = \dfrac{K}{n\hbar} = \dfrac{v_0}{n}$.
+        
+        \itt On a donc $R = R_n = \dfrac{n\hbar}{m\frac{K}{n\hbar}} = \dfrac{\hbar^2n^2}{mK} = R_0n^2$. 
+        
+        \itt Enfin $E = \dfrac{1}{2}m{v_n}^2 - \dfrac{K}{R_n} = \dfrac{mK^2}{2n^2\hbar^2} - \dfrac{K}{\frac{n^2\hbar^2}{mK}} = \dfrac{mK^2}{2n^2\hbar^2} - \dfrac{mK^2}{n^2\hbar^2} = -\dfrac{mK^2}{2\hbar^2n^2} = -\dfrac{E_0}{n^2}$.
+    \end{enumerate}
+    
+    On a $n\hbar = mR_nv_n = R_np$ donc $n\dfrac{h}{2\pi} = Rp$ donc $n \dfrac{h}{p} = 2\pi R_0n^2$ donc $\lambda_\text{dB} = 2\pi R_0 n$.
+\end{nproof}
+
+On comprend que l'onde associé à l'électron doit être en phase avec elle-même au bout d'un tour.
+
+\subsection{Émission et absorption de photons}
+
+La transition d'une entité entre deux niveaux d'énergie discrets $E_1$ et $E_2 > E_1$ s'accompagne de l'absorption ($E_1 \to E_2 > E_1$) de l'émission ($E_2 \to E_1 < E_2$) d'un photon.
+
+\begin{property}{Énergie d'un photon absorbé ou émis}{}
+    L'\hg{énergie d'un photon émis ou absorbé} lors d'une transition énergétique \hg{$\Delta E = E_2 - E_1$} est \hg{$h\nu = \Delta E$}.
+\end{property}
+
+\section{Fonction d'onde et interprétation probabiliste}
+
+Comme précisé plus haut, la description complète d'un objet quantique se fait par l'étude d'une fonction \textit{complexe}, appelé \textit{\color{main1} fonction d'onde}, de forme $\psi\left(M, t\right) = \psi\left(x, y, z, t\right)$ continue par rapport aux différentes variables de l'espace.
+
+\begin{hpnote}
+    La fonction $\psi$ est en fait donnée par l'équation de \textsc{Schrodinger}.  À une dimension et pour une particule de masse $m$ elle s'écrit :
+    
+    \[ i\hbar \dfrac{\partial \psi}{\partial t} = -\dfrac{\hbar^2}{2m}\dfrac{\partial^2\psi}{\partial x^2} + V\left(x\right)\Psi\left(x, t\right) \qquad\text{où} \ V\left(x\right) \ \text{est le potentiel d'interaction de la particule}\]
+\end{hpnote}
+
+
+\begin{property}{Probabilité de présence}{}
+    La \hg{probabilité de trouver l'objet quantique au point $M$ et à l'instant $t$} vérifie
+    %
+    \[ \hg{\bdP\left(M, t\right) \propto \mod{\psi\left(M, t\right)}^2} \qquad\text{ou plus précissement}\qquad \hg{\dif \bdP = \mod{\psi}^2\dif V}\]
+\end{property}
+
+Puisque la particule est forcément quelque part, on obtient la condition de normalisation :
+
+\begin{property}{Condition de normalisation}{}
+    \[ \hg{\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \mod{\psi}^2\;\dif x\; \dif y\; \dif z = 1}\]
+\end{property}
+
+
+\end{document}

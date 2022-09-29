@@ -1,0 +1,120 @@
+\documentclass[a4paper,french,bookmarks]{book}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\dominitoc
+
+\titleformat{\chapter}[display]
+    {\EBGaramond\Huge\itshape\filcenter}
+    {\sffamily\normalsize\chaptertitlename\,\scalebox{2.24}{\color{main1}\thechapter}}
+  {20pt} {}
+
+\begin{document}
+    
+    \begin{titlepage}
+        
+    \end{titlepage}
+
+    \chapter*{Préface}
+    
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc at ante mattis, dapibus orci id, porta ex. Pellentesque efficitur ut libero in pharetra. Maecenas imperdiet lorem id libero fermentum tempor. Cras ut aliquam ante. Aenean diam lorem, laoreet vitae justo vel, aliquet semper augue. Cras at molestie ex. Phasellus venenatis, justo eu ornare aliquam, felis enim vulputate felis, eget dictum metus ante tincidunt odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at metus odio.
+
+    Sed tempus velit eget enim commodo tempor. Donec non faucibus quam. Duis mauris nunc, maximus nec ligula id, laoreet porta odio. Praesent semper nunc sit amet porta bibendum. Etiam ut nibh porttitor, auctor lectus a, mollis metus. Etiam euismod tellus vitae consectetur lacinia. Curabitur turpis mauris, vulputate nec ligula et, tempor posuere lectus. Vivamus vehicula rhoncus mauris, id venenatis erat sodales id. Fusce at sollicitudin sapien, tempus luctus ipsum. Maecenas sit amet blandit elit. Fusce a neque commodo, vestibulum est at, tristique nisl. Vivamus id cursus purus, sit amet vehicula sapien.
+
+    Donec vitae felis quis ex pharetra egestas. Suspendisse lacinia in nulla ut commodo. Sed fermentum scelerisque sapien et varius. Donec ligula enim, interdum sit amet ornare ut, consectetur mattis sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc condimentum lectus sodales, malesuada enim id, maximus eros. Nunc turpis ipsum, cursus non aliquet at, placerat eget urna. Aliquam vel diam ligula. Vivamus dolor orci, rutrum quis odio vel, volutpat laoreet est. Nam mollis ornare dui, lobortis vehicula mi. Integer gravida, lorem ut mattis congue, risus eros iaculis ante, elementum molestie orci sapien et erat.
+
+    Donec in aliquet elit. Etiam ex tellus, consectetur nec lorem maximus, facilisis varius lectus. Sed fermentum et lorem eget vulputate. Nullam consectetur blandit arcu, sollicitudin pulvinar eros cursus et. Nunc a libero eget arcu tempus porttitor. Mauris non nisl nulla. Vivamus consequat orci eu fermentum pharetra.
+
+    Donec feugiat, ante ac rutrum mattis, augue leo fermentum felis, vitae porttitor sem felis nec dolor. Vivamus id ex sollicitudin, tempor augue et, iaculis lectus. Mauris non aliquam dui, ac convallis nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus sit amet lectus vel mi dictum fermentum ut eu velit. In sed purus non ligula imperdiet pellentesque. Proin lacus est, feugiat nec massa eu, ultrices ultricies purus.
+
+    \tableofcontents
+    
+    \part{Fondements}
+    
+    \chapter{Logique}
+    
+    \chapter{Calculs algébriques}
+    
+    \chapter{Ensembles et applications}
+    
+    \chapter{Complexes}
+    
+    \chapter{Relations et ordre sur les réels}
+    
+    \part{Analyse I}
+    
+    \chapter{Fonctions de la variable réelle}
+    
+    \chapter{Suites réelles}
+    
+    \chapter{Analyse asymptotique}
+    
+    \part{Algèbre I}
+    
+    \chapter{Arithmétique des entiers}
+    
+    \chapter{Structures algébriques}
+    
+    \chapter{Polynômes}
+    
+    \chapter{Calcul matriciel}
+    
+    \part{Analyse II}
+    
+    \chapter{Limites et continuité}
+    
+    \chapter{Dérivation}
+    
+    \chapter{Suites récurrentes}
+    
+    \chapter{Convexité}
+    
+    \part{Algèbre II}
+    
+    \chapter{Espaces vectoriels et applications linéaires}
+    
+    \chapter{Dimension finie}
+    
+    \chapter{Matrices et applications linéaires}
+    
+    \part{Analyse III}
+    
+    \chapter{Séries}
+    
+    \chapter{Intégration}
+    
+    \part{Probabilités}
+    
+    \chapter{Dénombrement}
+    
+    \chapter{Probabilités finies}
+    
+    \chapter{Variables aléatoires}
+    
+    \part{Algèbre III}
+
+    \chapter{Déterminants}
+        
+    \stylizeDoc{Mathématiques}{Chapitre 26}{Déterminants}
+    
+    Ce vingt-sixième chapitre de Mathématiques démarre la troisième et dernière partie d'algèbre de l'année, après celle sur l'algèbre linéaire. Il porte sur l'étude des \textit{déterminants}, quantités numériques que l'on peut associer en dimension finie à des familles de vecteurs, des applications linéaires ou des matrices, et dont l'étude est même au cœur de l'\textit{algèbre multilinéaire} (extension de l'algèbre linéaire). Historiquement, les déterminants sont introduit au \textsc{\romannumeral 16}\textsuperscript{e}~siècle, soit bien avant les matrices (\textsc{\romannumeral 19}\textsuperscript{e}~siècle).
+
+    \initcourschapter{}
+
+    \section{Le groupe symétrique $\bfS_n$}
+    
+    La première partie de ce cours porte sur une (légère) étude des groupes symétriques, 
+
+    \subsection{Généralités}
+    
+    \begin{definition}{Groupe symétrique}{}
+        Soit un ensemble $E$. On appelle \hg{groupe symétrique de $E$} l'\hg{ensemble des applications bijectives de $E$ dans $E$ muni de la composition}.
+    \end{definition}
+    
+    Dans la suite, $n$ désigne un entier naturel non nul ($n \in \bdN^*$).
+    
+    \begin{definition}{Groupe symétrique}{}
+        Soit $n \in \bdN^*$. On appelle \hg{groupe symétrique} l'ensemble des permutations de $\left\llbracket 1, n\right\rrbracket$.
+    \end{definition}
+    
+\end{document}

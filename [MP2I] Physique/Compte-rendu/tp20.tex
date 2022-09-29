@@ -1,0 +1,148 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+\stylizeDoc{Physique}{Compte-rendu du TP 20}{Étude d'un filtre inconnu}
+
+\boxhtp{
+    \itstar Déterminer la nature d'un filtre inconnu
+}{
+    \itstar Un filtre inconnu, un oscilloscope, un GBF
+}
+
+Vous disposez sur votre paillasse d'un filtre inconnu inclus dans une \guill{boîte noire}, d'un oscilloscope et d'un GBF.
+
+\noafter
+\boxans{
+    
+    \begin{experience}{Diagramme de Bode}{}
+        \begin{enumerate}
+            \ithand Faire une analyse qualitative du filtre et déterminer son type : passe-bas, passe-haut, passe-bande, etc.
+    
+            \ithand Déterminer expérimentalement le gain maximal du filtre muni de son incertitude. Donner aussi la pulsation $\omega_\text{max}$ associée à ce gain (cette pulsation peut être égale à $0$ ou $+\infty$).
+        
+            \ithand Déterminer expérimentalement la ou les pulsations de coupure du filtre munies de leurs incertitudes.
+        
+            \ithand Tracer expérimentalement le diagramme de Bode du filtre. Resserrer les points autour des pulsations pertinentes.
+        \end{enumerate}
+    \end{experience}
+    
+    \begin{center}
+        Appeler le professeur pour montrer le diagramme de Bode.
+    \end{center}
+}
+%
+\nobefore\yesafter
+%
+\begin{expcom}
+    Il s'agit du filtre inconnu 3. On effectue le montage suivant :
+    
+    \begin{center}
+	    \begin{tikzpicture}
+		  \draw(0,2) to (4,2) to[R,l_=$\text{Filtre inconnu} \ $,v^<={$u_\text{s}$}] (4,0) node[cground,scale=0.8] {} ;
+		  \draw (0,0) node[cground,scale=0.8] {} to[open,v^>={$u_\text{e}$}] (0,2) ;
+	    \end{tikzpicture}
+    \end{center}
+    
+    En faisant varier la fréquence $u_\text{e}$ du GBF, et en observant la fréquence $u_\text{s}$ de sortie sur l'oscilloscope, on comprend que le filtre est un passe-haut. On obtient le diagramme de Bode suivant :
+    %
+    \begin{center}
+        \begin{minipage}{0.48\linewidth}
+            \pgfplotsset{width=\textwidth}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = left,
+                    xlabel=$\mathsf{f \ \textsf{(Hz)}}$,
+                    ylabel=$\mathsf{G}_\textsf{dB} \ \textsf{(dB)}$,
+                    domain=0.08:12,
+                    xmode=log,
+                    log basis x={10},
+                    xmin=10,
+                    xmax=1000000,
+                    ymin=-42,
+                    ymax=1,
+                    log ticks with fixed point,
+                  xticklabel={$\mathsf{10^{\pgfmathprintnumber{\tick}}}$},
+                    yticklabel={$\mathsf{\pgfmathprintnumber{\tick}}$},
+                    font=\footnotesize,
+                    grid = both,
+                    grid style = {line width = .1pt, draw = gray!30},
+                    major grid style = {line width=.2pt,draw=gray!50},
+                ]
+                    \addplot[mark=+, main1, line width=0.2mm, only marks] coordinates {(1, -39.82) (5, -36.30)  (10, -33.89) (15, -30.97) (20, -29.03) (30, -26.85) (50, -24.35) (100, -18.24) (200, -13.98) (300, -10.55) (400, -8.42) (500, -6.56) (600, -5.39) (700, -4.67) (800, -4.06) (900, -3.34) (1000, -2.87) (2000, -0.87) (3000, -0.59) (4000, -0.44) (5000, -0.15) (6000, -0.15) (7000, -0.15) (8000, -0.07) (9000, -0.07) (10000, -0.04) (100000, -0.15) (1000000, -0.22)};
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+        %
+        \hfill
+        %
+        \begin{minipage}{0.48\linewidth}
+            \pgfplotsset{width=\textwidth}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = left,
+                    xlabel=$\mathsf{f} \ \textsf{(Hz)}$,
+                    ylabel=$\mathsf{\varphi} \ \textsf{(}{}^{\circ}\textsf{)}$,
+                    domain=0.08:12,
+                    xmode=log,
+                    log basis x={10},
+                    xmin=10,
+                    xmax=1000000,
+                    ymin=0,
+                    ymax=100,
+                    log ticks with fixed point,
+                  xticklabel={$\mathsf{10^{\pgfmathprintnumber{\tick}}}$},
+                    yticklabel={$\mathsf{\pgfmathprintnumber{\tick}}$},
+                    font=\footnotesize,
+                    grid = both,
+                    grid style = {line width = .1pt, draw = gray!30},
+                    major grid style = {line width=.2pt,draw=gray!50},
+                ]
+                    \addplot[mark=+, main1, line width=0.2mm, only marks] coordinates {(10, 90) (15, 90) (20, 89) (30, 89) (50, 88) (100, 85) (200, 78) (300, 72) (400, 65) (500, 61) (600, 55) (700, 52) (800, 49) (900, 46) (1000, 43) (2000, 25) (3000, 16) (4000, 12) (5000, 9) (6000, 8) (7000, 7) (8000, 6) (9000, 5.5) (10000, 5) (100000, 0) (1000000, 0)};
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+    \end{center}
+\end{expcom}
+%
+\yesbefore
+
+\begin{enumerate}
+    \item Discuter du caractère intégrateur ou dérivateur du filtre en fonction de la fréquence.
+    
+    \boxans{
+        On se place à \SI{100}{\hertz} et on envoie un signal triangle. On remarque alors qu'on obtient un signal créneau en sortie, ce qui montre le caractère dérivateur du filtre à basse fréquence.
+    }
+
+    \item Proposer un circuit possible pour votre filtre inconnu, sachant qu'il n'est composé que de dipôles linéaires d'ordre 1 (résistances, condensateurs, bobines).
+    
+    \boxans{
+        \begin{minipage}{0.45\linewidth}
+            Ce peut être un filtre $RL$ :
+            
+            \begin{tikzpicture}
+		        \draw(0,2) to[R,l=$R$] (4,2) to[L,l_=$L$,v^<={$u_\text{s}$}] (4,0) node[cground,scale=0.8] {} ;
+		        \draw (0,0) node[cground,scale=0.8] {} to[open,v^>={$u_\text{e}$}] (0,2) ;
+	        \end{tikzpicture}
+        \end{minipage}
+        %
+        \hfill
+        %
+        \begin{minipage}{0.45\linewidth}
+            Ou un filtre $CR$ :
+            
+            \begin{tikzpicture}
+		        \draw(0,2) to[C,l=$C$] (4,2) to[R,l_=$R$,v^<={$u_\text{s}$}] (4,0) node[cground,scale=0.8] {} ;
+		        \draw (0,0) node[cground,scale=0.8] {} to[open,v^>={$u_\text{e}$}] (0,2) ;
+	        \end{tikzpicture}
+        \end{minipage}
+        
+        \hfill\\
+        Après vérification, il s'agit d'un filtre $CR$.
+    }
+\end{enumerate}
+
+
+\end{document}

@@ -1,0 +1,481 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\renewcommand{\thesubsection}{\Roman{subsection}.}
+\begin{document}
+
+\stylizeDoc{Mathématiques}{Programme de khôlle 12}{Énoncés et résolutions}
+
+\section*{Arithmétique dans $\bdZ$}
+
+\subsection{Divisibilité et division euclidienne}
+
+\begin{enumerate}
+    \ithand Théorème de division euclidienne.
+    
+    \ithand Divisibilité dans $\bdZ$, diviseurs et multiples : définitions, propriétés de la relation de divisibilité.
+    
+    \ithand Congruences : définition, propriétés de la relation de la congruence modulo un entier (somme, produit, multiplication par un entier non nul).
+\end{enumerate}
+
+\subsection{Divisibilité et division euclidienne}
+
+\begin{enumerate}
+    \ithand Définition du $\pgcd$ de deux entiers et premières propriétés.
+    
+    \ithand Algorithme d’Euclide. Caractérisation du $\pgcd$, propriétés d’associativité et factorisation par un diviseur commun.
+    
+    \ithand Relation de Bézout pour deux entiers. $a\bdZ + b\bdZ = (a\land b)\bdZ$. $\pgcd$ d’une famille finie d’entiers.
+    
+    \ithand $\ppcm$ : définition et premières propriétés. $a\bdZ \cap b\bdZ = \ppcm(a, b)\bdZ$. Propriétés d’associativité et de factorisation par un diviseur commun.
+\end{enumerate}
+
+\subsection{Entiers premiers entre eux}
+
+\begin{enumerate}
+    \ithand Définitions et propriétés : nombres premiers entre eux, premiers entre eux dans leur ensemble, deux à deux. 
+    \ithand Théorème de Bézout, théorème de Gauss. Propriétés. Généralisation des propriétés aux entiers premiers entre eux et produits d’entiers.
+    
+    \ithand Forme irréductible d’un rationnel.
+
+    \ithand Relation entre $\pgcd$ et $\ppcm$.
+\end{enumerate}
+
+
+\subsection{Nombres premiers}
+
+\begin{enumerate}
+    \ithand Définition, existence de la factorisation première, infinité de l’ensemble des nombres premiers.
+    
+    \ithand Décomposition et valuation p-adique, additivité des valuations $p$-adiques, unicité de la décomposition d’un entier entre produit de facteurs premiers.
+    
+    \ithand Divisibilité, décomposition du $\pgcd$ et $\ppcm$.
+    
+    \ithand Petit théorème de Fermat.
+\end{enumerate}
+
+\section*{Structures algébriques}
+
+\subsection{Lois de composition interne}
+
+\begin{enumerate}
+    \ithand Associativité, commutativité. Exemples. Élément neutre, inversibilité. Distributivité.
+    
+    \ithand Partie stable pour une loi.
+\end{enumerate}
+
+\subsection{Structure de groupe}
+
+\begin{enumerate}
+    \ithand Définition. Exemples. Itéré d’un élément.
+
+    \ithand Sous-groupe, caractérisation. Sous-groupes de $(\bdZ,+)$. Intersection de sous-groupes.
+
+    \ithand Morphisme de groupes. Image et image réciproque d’un sous-groupe par un morphisme.
+
+    \ithand Image et noyau d’un morphisme. Injectivité. Isomorphisme.
+\end{enumerate}
+
+\subsection{Structure d’anneau, de corps}
+
+\begin{enumerate}
+    \ithand Définition. Exemples. Calculs dans un anneau. Formule du binôme et $a^n - b^n$ si les éléments $a$ et $b$ commutent.
+    
+    \ithand Intégrité. Groupe des inversibles d’un anneau. Sous-anneau. Corps, sous-corps.
+\end{enumerate}
+
+\newpage
+
+\section*{Questions / Exercices de cours / Savoir faire}
+
+\begin{enumerate}
+    \item Théorème de la division euclidienne : énoncé et démonstration.
+    
+    \begin{theorem*}{Division euclidienne}{}
+        Soit $a \in \bdZ$ et $b \in \bdN^*$. On a :
+    
+        \[ \exists ! (q, r) \in \bdZ^2,\quad a = bq + r \et 0 \leq r < b\]
+    
+        On appelle \bf{$q$ le quotient} et \bf{$r$ le reste} de cette \hg{division euclidienne de $a$ par $b$}.
+    \end{theorem*}
+
+    \demoth{
+        Soit $a \in \bdZ$ et $b \in \bdN^*$.
+    
+        \begin{enumerate}
+            \ithand \underline{Existence :} On pose $A = \{ k \in \bdZ \mid kb \leq a \}$. Or on a 
+    
+            \[b \in \bdN^* \quad \text{donc} \quad b \geq 1 \quad \text{donc} \quad \mod{a}b \geq \mod{a} \quad \text{donc} \quad -\mod{a} \leq -\mod{a} \leq a\]
+    
+            Donc on a toujours $k=-\mod{a} \in A$. De plus, $\forall k \in A$, $k \leq a$ par définition, donc $A$ est une partie non vide et majorée de $\bdZ$, elle admet donc un plus grand élément. On pose donc ce maximum $q = \max A$. Par définition on a $bq \leq a$, et puisque $q$ est le maximum de $A$ on a $q + 1 \not\in A$ donc $b(q+1) > a$. On pose finalement $r = a - bq$. On a donc bien $0 \leq r < b$. Donc $a = bq + r$ et $0 \leq r < b$.
+    
+            \ithand \underline{Unicité :} On suppose qu'il existe deux couples $(q, r) \in \bdZ^2$ et $(q', r') \in \bdZ^2$ tels que :
+    
+            \[ a = bq + r \ \text{et} \ 0 \leq r < b \qquad a = bq' + r' \ \text{et} \ 0 \leq r' < b\]
+    
+            On obtient alors $ -b < r - r' < b$ soit $\mod{r - r'} < b$.  Or $r - r' = b(q - q')$ donc $\mod{q - q'} < 1$.
+            
+            On a $\mod{q-q'} \in \bdN$ donc $q - q' = 0$. On a donc $q = q'$, et donc $r = r'$. Ainsi $(q, r) = (q', r')$. 
+
+        \end{enumerate}
+    }
+    
+    \item Description de l’algorithme d’Euclide et démonstration de la propriété ci-dessous. Application à la caractérisation du $\pgcd$ (dernier reste non nul).
+    
+    \begin{property*}{Idée fondamentale de l’algorithme d’Euclide}{}
+        \[ \forall (a, b, k) \in \bdZ^3,\quad \hg{a \wedge b = (a + kb) \wedge b} \]
+    \end{property*}
+    
+
+
+    \demo{
+        Soit $(a, b, k) \in \bdZ^3$. On a par définition du $\pgcd$ l'implication suivante :
+        
+        \[\bsD(a) \cap \bsD(b) = \bsD(a + kb) \cap \bsD(b) \implies a \wedge b = (a + kb) \wedge b\]
+        
+        On démontre donc par double inclusion que $\bsD(a) \cap \bsD(b) = \bsD(a + kb) \cap \bsD(b)$.
+        
+        \begin{enumerate}
+            \ithand Montrons $\boxed{\subseteq}$ : Soit $d \in \bdZ$ tel que $d \in \bsD(a) \cap \bsD(b)$, donc $d \in \bsD(a)$ et $d \in \bsD(b)$.
+            
+            \[\text{On a} \ d \mid a \ \et \ d \mid b \ \text{donc} \ d \mid a + kb,\ \text{ainsi} \ d \in \bsD(a + kb)\]
+            
+            Puisque $d \in \bsD(b)$, on a $d \in \bsD(a + kb) \cap \bsD(b)$. Donc $\bsD(a) \cap \bsD(b) \subseteq \bsD(a + kb) \cap \bsD(b)$.
+            
+            \ithand Montrons $\boxed{\supseteq}$ : Soit $d \in \bdZ$ tel que $d \in \bsD(a + kb) \cap \bsD(b)$, donc $d \in \bcD(a + kb)$ et $d \in \bcD(b)$.
+            
+             \[\text{On a} \ d \mid b \ \text{donc} \ d \mid -kb \text{. Or} \ d \mid a + kb \ \text{donc} \ d \mid a + kb - kb ,\ \text{ainsi} \ d \mid \bsD(a) \]
+             
+             Puisque $d \in \bsD(b)$, on a $d \in \bsD(a) \cap \bsD(b)$. Donc $\bsD(a + kb) \cap \bsD(b) \subseteq \bsD(a) \cap \bsD(b)$.
+             
+        \end{enumerate}
+        
+       On a donc $\bsD(a) \cap \bsD(b) = \bsD(a + kb) \cap \bsD(b)$ donc $a \wedge b = (a + kb) \wedge b$. 
+    }
+
+    \begin{lemma*}{Lemme d'Euclide (Corollaire)}{}
+        Soit $a \in \bdZ$ et $b \in \bdN^*$. Soit $(q, r) \in \bdZ\times\llbracket0, b-1\rrbracket$ tel que  $a = bq + r$ est la division euclidienne de $a$ par $b$. 
+        
+        \[ \hg{\text{On a} \quad a \land b = b \land r}\]
+    \end{lemma*}
+
+    \demolm{
+        Soit $a \in \bdZ$, $b \in \bdN^*$, $(q, r) \in \bdZ\times\llbracket0, b-1\rrbracket$ tels que  $a = bq + r$ est la division euclidienne de $a$ par $b$. La propriété précédente amène directement :
+        
+        \[ a \land b = (bq +r) \land b = r \land b = b \land r\]
+        
+    }
+    
+    \begin{form}{Algorithme d'Euclide}{}
+        Soit $(a, b) \in (\bdN^*)^2$. On présente l'algorithme d'Euclide qui calcule le $\pgcd$ de $a$ et $b$.
+        
+        \begin{enumerate}
+            \ithand Avec $n \in \bdN^*$, on construit une séquence finie d'entiers $(r_k)_{k \in \llbracket0, n\rrbracket} \in \bdN^n\times\{0\}$ avec $r_0 = a$ et $r_1 = b$.
+            
+            \ithand Pour un entier $k \in \bdN^*$, on construit la séquence $(r_k)$ de la façon suivante :
+            
+            \begin{enumerate}
+                \itstar Si $r_k = 0$, on s'arrête et on revoie $r_{k-1}$.
+                
+                \itstar Si $r_k > 0$, on pose la division euclidienne de $r_{k-1}$ par $r_k$, et $r_{k+1}$ est le reste de cette division :
+                
+                \[ \exists (q, r_{n+1}) \in \bdN^2, \qquad r_{n-1} = qr_n + r_{n+1} \quad\et\quad 0 \leq r_{n+1} < r_n\]
+            \end{enumerate}
+            
+        \end{enumerate}
+        
+        \hfill
+        
+        \boxform{
+            \begin{proof}
+            Montrons la terminaison et la correction de l'algorithme d'Euclide.
+        
+            \begin{enumerate}
+                \ithand \underline{Terminaison :} On remarquera que $r_k > 0 \implies r_k > r_{k+1} \geq 0$, donc par récurrence simple :
+        
+                \[\forall k \in \llbracket 0, n-1 \rrbracket,\qquad r_k > r_{k+1} \geq 0\]
+        
+                Puisque la séquence $(r_k)_{k \in \llbracket0, n\rrbracket}$ est une séquence d'entiers naturels strictement décroissante, il existe bien un (unique) entier naturel $n \in \bdN$ tel que $r_n = 0$, donc l'algorithme s'arrête bien.
+        
+                \ithand \underline{Correction :} On montre par récurrence grâce au lemme d'Euclide que :
+        
+                \[ a \land b \; = \; r_0 \land r_1 \; = \; r_1 \land r_2 \; = \; \dots \; = \;  r_{n-1} \land r_n \; = \; r_{n-1} \land 0 \; = \; r_{n-1}\]
+        
+                Or l'algorithme renvoie $r_{n-1} = a \land b$, donc l'algorithme renvoie bien le $\pgcd$ de $a$ et $b$.
+            \end{enumerate}
+            \end{proof}
+        }
+        
+    \end{form}
+    
+    \item Démonstrations du théorème de Bézout et de celui de Gauss.
+    
+    \begin{theorem*}{Petit théorème de Bézout / Identité de Bézout}{}
+        Soit $(a, b) \in \bdZ^2$.
+        
+        \[ \exists (u, v) \in \bdZ^2,\quad² au + bv = \pgcd(a, b)\]
+    \end{theorem*}
+
+    \demoth{
+        Soit $(a, b) \in \bdZ^2$. 
+        
+        \begin{enumerate}
+            \ithand Si $a = 0$ et $b = 0$, on a $a \land b = 0$. Dès lors on a que tout couple $(u, v) \in \bdZ^2$ est solution.
+            
+            \ithand Sinon, considérons $a \neq 0$. On a alors $\mod{a} + \mod{b} \in \left(a\bdZ + b\bdZ\right) \cap \bdN^*$ donc l'ensemble $\left(a\bdZ + b\bdZ\right) \cap \bdN^*$ est une partie non vide de $\bdN^*$. Il possède donc un plus petit élément, qu'on note $d$. Ainsi :
+            \[\exists (u, v) \in \bdZ^2,\qquad d = au + bv\]
+            
+            \begin{enumerate}
+                \itstar Montrons alors que $d = a \land b$. On a $a \land b \mid a$ et $a \land b \mid b$ donc $a \land b \mid (au + bv)$ soit $a \land b \mid d$.
+                
+                \itstar Réciproquement, on veut montrer que $d \mid a \land b$, donc que $d \mid a $ et $d \mid b$. On pose :
+            
+                \[ \exists ! (q, r) \in \bdZ\times\bdN,\qquad a = dq + r \quad \land \quad 0 \leq r < d\]
+            
+                Donc $r = a - dq = a - (au +bv)q = (1-uq)a - (vq)b \in a\bdZ + b\bdZ$. 
+                
+                \itstar De même, on montre que $d \mid b$ donc $d \mid a \land b$. Or $d \in \bdN$ et $a \land b \in \bdN$, donc $d = a \land b$.
+            
+            \end{enumerate}
+            
+        \end{enumerate}
+    }
+    
+    \begin{theorem*}{Théorème de Bézout}{}
+        Soit $(a, b) \in \bdZ^2$. $a$ et $b$ sont premiers entre eux si et seulement s'il existe $(u, v) \in \bdZ^2$ tels que $au + bv = 1$.
+        
+        \[ \hg{a \land b = 1 \iff \exists (u, v) \in \bdZ^2,\qquad au + bv = 1}\]
+    \end{theorem*}
+    
+    \demoth{
+        Soit $(a, b) \in \bdZ^2$. Le petit théorème de Bézout livre :
+        
+        \[ a \land b = 1 \implies \exists (u, v) \in \bdZ^2,\qquad au + bv = a \land b = 1 \]
+        
+        Réciproquement, on a $a \land b \mid a$ et $a \land b \mid b$ donc $\forall (u, v) \in \bdZ^2$, $a \land b \mid au + bv$. Donc :
+        
+        \[ \exists (u, v) \in \bdZ^2,\qquad au + bv = 1 \implies a \land b \mid au + bv \implies a \land b = 1\]
+        
+        Donc $\qquad a \land b = 1 \iff \exists (u, v) \in \bdZ^2,\qquad au + bv = 1$.
+    }
+    
+    \begin{lemma*}{Lemme de Gauss}{}
+        Soit $(a, b, c) \in \bdZ^3$. Si $a$ divise $bc$ et si $a$ et $b$ sont premiers entre eux, alors $a$ divise $c$.
+        
+        \[ \hg{a \mid bc \ \et a \land b = 1 \implies a \mid c}\]
+    \end{lemma*}{}
+    
+    \demolm{
+        Soit $(a, b, c) \in \bdZ^3$, tels que $a \mid bc$ et $a \land b = 1$.
+        
+        Puisque $a \land b = 1$, on a $\exists (u, v) \in \bdZ^2$, $au + bv = 1$. De plus $a \mid bc$ donc $\exists q \in \bdZ$, $bc = aq$. Ainsi :
+        
+        \[ auc + bvc = c \ \text{donc} \ auc + aqv = c \ \text{donc} \ a(uc + qv) = c\]
+        
+        Donc $a \mid c$.
+    }
+    
+    \item Énoncé et démonstration du petit théorème de Fermat, avec la démonstration du lemme.
+    
+    \begin{lemma*}{}{}
+        Soit $p$ un nombre premier. Pour tout entier $k$ dans $\llbracket 1, p-1 \rrbracket$, $p$ divise $\binom{p}{k}$.
+        
+        \[ \hg{\forall p \in \bsP,\quad \forall k \in \llbracket 1, p-1 \rrbracket,\qquad p \mid \binom{p}{k}}\]
+    \end{lemma*}
+    
+    \demolm{
+        Soit $p \in \bsP$ et $k \in \llbracket 1, p-1 \rrbracket$. On a :
+        
+        \[ k \binom{p}{k} = p \binom{p-1}{k-1} \quad \text{donc} \quad p \mid k \binom{p}{k}  \]
+        
+        Or $p > k$ donc $p$ ne divise pas $k$. Donc $p \land k = 1$. Le lemme de Gauss livre alors $p \mid \binom{p}{k}$.
+    }
+    
+    \begin{theorem*}{}{}
+        Soit $p \in \bsP$ et $a \in \bdZ$. On a $a^p \equiv a \ [p]$. De plus si $p \nmid a$, alors $a^{p-1} \equiv 1 \ [p]$.
+        
+        \[ \hg{\forall (p, a) \in \bsP\times\bdZ,\qquad a^p \equiv a \ [p] \quad\et\quad p \nmid a \implies a^{p-1} \equiv 1 \ [p]}\]
+    \end{theorem*}
+    
+    \demoth{
+         Soit $p \in \bsP$. Pour $a \in \llbracket 0, p-1\rrbracket$, on pose $H(a): a^p \equiv a \ [p]$. 
+         
+         \begin{enumerate}
+             \ithand On a $0^p = 0$ donc $0^p \equiv 0 \ [p]$ donc $H(0)$ est vrai.
+             
+             \ithand Soit $a \in \llbracket 0, p-2\rrbracket$ tel que $H(a)$ est vrai. On a alors :
+             
+             \[ (a+1)^p = \sum_{k=0}^p \binom{p}{k} a^k = a^0 + a^p + \sum_{k=1}^{p-1} \binom{p}{k}a^k\]
+             
+             Or pour $k \in \llbracket 1, p-1 \rrbracket$, $p \mid \binom{p}{k}$. Donc $\displaystyle p \mid \sum_{k=1}^{p-1} \binom{p}{k}a^k$ d'où $\displaystyle \sum_{k=1}^{p-1} \binom{p}{k}a^k \equiv 0 \ [p]$.
+             
+             Donc $(a+1)^p \equiv a^p + 1 \equiv a + 1\ [p]$. Donc $H(a+1)$ est vrai.
+             
+             \ithand $H(0)$ est vrai, et pour tout $a \in \llbracket 0, p-2\rrbracket$, $H(a) \implies H(a+1)$, donc par principe de récurrence, $\forall a \in \llbracket 0, p-1 \rrbracket$, $a^p \equiv a \ [p]$. Puisque qu'on raisonne modulo $p$, le résultat se généralise pour $a \in \bdZ$.
+             
+             \ithand On a :
+             
+             \[ a^p \equiv a \ [p] \quad \text{donc} \quad a^p - a \equiv 0 \ [p] \quad \text{donc} \quad p \mid a^p - a \quad \text{donc} \quad p \mid a(a^{p-1} - 1)\]
+             
+             Si $p \nmid a$, alors $a \land p = 1$ donc le lemme de Gauss livre $p \mid a^{p-1} - 1$, d'où $a^{p-1} \equiv 1 \ [p]$.
+         \end{enumerate}
+    }
+    
+    \item Déterminer les sous-groupes de $(\bdZ, +)$.
+    
+    \boxans{
+        Montrons que les sous-groupes de $(\bdZ, +)$ sont exactement les $n\bdZ$. Soit $n \bdN$.
+
+        \begin{enumerate}
+            \ithand Montrons d'abord que tout $n\bdZ$ est un sous-groupe de $(\bdZ, +)$.
+    
+            On a $n\bdZ \subset \bdZ$ et $0 = 0\times n \in n\bdZ$ donc $n\bdZ \neq \emptyset$.
+   
+            Pour $(a,b)\in (n\bdZ)^2$, on a $a \equiv 0 \ [n]$ et $b \equiv 0 \ [n]$ donc $a-b \equiv 0 \ [n]$ donc $a-b \in n\bdZ$.
+   
+            Par caractérisation, $n\bdZ$ est un sous-groupe de $(\bdZ, +)$.
+   
+            \ithand Montrons maintenant que tout sous-groupe de $(\bdZ, +)$ est un $n\bdZ$ avec $n \in \bdN$.
+   
+            Soit $H$ une partie de $Z$ tel que $(H, +)$ est un sous-groupe de $(\bdZ, +)$.
+   
+            Si $H = \{0\}$, alors $H = 0\bdZ$. Sinon si $H \neq \{0\}$, alors $\exists n \in H$ tel que $n \neq 0$. Or $H$ est un groupe donc $-n \in H$, donc $\mod{n} \in H\cap\bdN^*$.
+       
+            On a $H \cap \bdN^*$ une partie non vide de $\bdN^*$, donc on peut prendre $n = \min\left(\bdN^* \cap H\right)$. 
+       
+            Vérifions maintenant que $H = n\bdZ$ : 
+            \begin{enumerate}
+    
+                \itstar Montrons $\boxed{\supseteq}$ : $n \in H$, donc tous les itérés de $n$ sont aussi dans $H$, donc $kn \in H$ avec $k \in \bdZ$.
+        
+                \itstar Montrons $\boxed{\subseteq}$ : Soit $h \in H$. On pose la division euclidienne de $h$ par $n$.
+        
+                \[ \exists (q, r) \in \bdZ^2,\quad k = nq + r \qquad\et\quad 0 \leq r < n\]
+        
+                Or $h \in H$ et $nq \in n\bdZ \subset H$ donc $h - nq \in H$ donc $r \in H$.
+        
+                Ainsi, $r \in H \cap N$ et $r < n = \min\left(H \cap \bdN^*\right)$. Donc $r = 0$. Donc, $h = nq$ donc $h \in n\bdZ$, donc $H \subset n\bdZ$. \qquad\qquad Donc $H = n\bdZ$.
+            \end{enumerate}
+    
+        \end{enumerate}
+
+    }
+    
+    \item Montrer qu’une intersection de sous-groupes d’un groupe $(G, \star)$ est un sous-groupe de $(G, \star)$.
+
+    \boxans{
+        Soit $(G, \star)$ un groupe de neutre $e_G$ et $(H_i)_{i \in I}$ une famille de sous-groupes de $(G, \star)*$. Posons :
+
+        \[\displaystyle H = \bigcap_{i \in I} H_i\]
+
+        Tout $H_i$ étant un sous-groupe de $G$, $\forall i \in I$, $e_G \in I$. Ainsi : \qquad\qquad $e_G \in \bigcap_{i \in I} H_i \qquad \text{donc}\qquad e_G \in H$.
+        
+        Soit $(x, y) \in H^2$, donc $\forall i \in I$, $x \in H_i$ et $y \in H_i$. Or chaque $H_i$ étant un sous-groupe, on a que :
+        
+        \[\forall i \in I,\quad x \star y^{-1} \in H_i\qquad\text{donc}\qquad x \star y^{-1} \in \bigcap_{i \in I} H_i\]
+    
+        On a donc montré que $x \star y^{-1} _in H$. Par caractérisation $\displaystyle \bigcap_{i \in I} H_i$ est un sous-groupe de $G$.
+    }
+    
+    \item Montrer que l’image directe d’un sous-groupe par un morphisme de groupes est un sous-groupe.
+
+    \boxans{
+        Soit deux groupes $(G, \star)$ et $(H, \lozenge)$ de neutre $e_G$ et $e_H$, et $f: G \to H$ un morphisme de groupes.
+    
+        Soit $G' \leq (G, \star)$ un sous-groupe de $G$ et $H' \leq (H, \lozenge)$ un sous-groupe de $H$.
+
+        \begin{enumerate}
+            \ithand On a $f(G') = \{f(x) \mid x \in G'\}$. Puisque $f: G \to H$ et $G' \subset G$ on a déjà $f(G') \subset H$.
+
+            Or $G'$ est un sous-groupe de $G$ donc $e_G \in G'$. Puisque $f(e_G) = e_H$, on a $e_H \in f(G')$, donc $f(G') \neq \emptyset$.
+
+            Soient $(a, b) \in f(G')^2$. Donc $\exists (x, y) \in G'^2$, $a = f(x)$ et $b = f(y)$. Donc :
+        
+            \[a \ \lozenge \ b^{-1} = f(x) \ \lozenge \ f(y)^{-1} = f(x) \ \lozenge \ f(y^{-1}) = f(x \star y^{-1})\]
+
+            Or $x \in G'$, $y \in G'$, et $G'$ est un groupe donc $x \star y^{-1} \in G'$. Donc $f(x \star y^{-1}) \in f(G')$ donc $a \ \lozenge \ b^{-1} \in f(G')$.
+
+            \[ \text{Par caractérisation} \ f(G') \leq (H, \lozenge) \ \text{est un sous-groupe de} \ H\]
+        
+        \end{enumerate}
+
+        On a bien montré que $\forall G' \leq (G, \star)$, $f(G') \leq (H, \lozenge)$ et $\forall H' \leq (H, \lozenge)$, $f^{-1}(H') \leq (G, \star)$.
+    }
+    
+    \item Montrer que l’image réciproque d’un sous-groupe par un morphisme de groupes est un sous-groupe.
+    
+    \boxans{
+        Soit deux groupes $(G, \star)$ et $(H, \lozenge)$ de neutre $e_G$ et $e_H$, et $f: G \to H$ un morphisme de groupes.
+    
+        Soit $G' \leq (G, \star)$ un sous-groupe de $G$ et $H' \leq (H, \lozenge)$ un sous-groupe de $H$.
+
+        \begin{enumerate}
+
+            \ithand On a $f^{-1}(H') = \{ x \in G \mid f(x) \in H'\}$. De même, par définition de $f$, on a déjà $f^{-1}(H') \subset G$.
+        
+            $H'$ est un sous-groupe de $H$ donc $e_H \in H'$. Or $f(e_G) = e_H$ donc $f(e_G) \in H'$ donc $e_G \in f^{-1}(H') \neq \emptyset$.
+        
+            Soient $(x, y) \in f^{-1}(H')^2$. On a $x \in f^{-1}(H')$ et $y \in f^{-1}(H')$, donc $f(x) \in H'$ et $f(y) \in H'$.
+        
+            Or $H'$ est un sous-groupe, donc $f(x) \ \lozenge \ f(y)^{-1} \in H'$. Or 
+        
+            \[ f(x) \ \lozenge \ f(y)^{-1} = f(x) \ \lozenge \ f(y^{-1}) = f(x \star y^{-1}) \qquad\text{donc}\qquad f(x \star y^{-1}) \in H' \quad\text{donc} \ \]
+        
+            Donc par définition, on a bien $x \star y^{-1} \in f^{-1}(H')$.
+        
+            \[ \text{Par caractérisation} \ f^{-1}(H') \leq (G, \star) \ \text{est un sous-groupe de} \ G\]
+        
+        \end{enumerate}
+    }
+    
+    \item Montrer qu’un morphisme de groupes est injectif si et seulement si son noyau est réduit à l’élément neutre.
+    
+    \boxans{
+        Soit deux groupes $(G, \star)$ de neutre $e_G$ et $(H, \lozenge)$ de neutre $e_H$ et $f: G \to H$ un morphisme de groupes. Montrons que $f$ est injective si et seulement si $\Ker(f) = \{e_G\}$.
+
+        \begin{enumerate}
+            \ithand Montrons $\boxed{\implies}$ : Si $f$ est injective.
+        
+            Comme $f$ est un morphisme, $f(e_G) = e_H$ donc $e_G \in \Ker f$. Donc $\{e_G\} \subset \Ker f$.
+        
+            Soit $x \in \Ker f$. Alors, $f(x) = e_H = f(e_G)$. Par injectivité de $f$, $x = e_G$. Donc $\Ker f \subset \{ e_G\}$. Ainsi $\Ker f = \{ e_G\}$.
+        
+            \ithand Montrons $\boxed{\impliedby}$ : Si $\Ker f = \{ e_G \}$. Montrons que $f$ est injective.
+        
+            Soient $(a, b) \in G^2$ tels que $f(a) = f(b)$. On a $f(b) \in H$ et $H$ un groupe de $f(b)^{-1} \in H$ et $f(a) \ \lozenge \ f(b)^{-1} = e_H$.
+        
+            Puisque $f$ est un morphisme, $f(a \star b^{-1}) = e_H$ donc $a \star b^{-1} \in \Ker f = \{ e_G \}$ d'où $a \star b^{-1} = e_G$ donc $a = b$.
+        \end{enumerate}
+    
+    }
+    
+    \item Montrer que la composée de deux morphismes de groupes est un morphisme de groupes, et que la réciproque d’un isomorphisme de groupes est un isomorphisme de groupe.
+    
+    \boxans{
+    
+        \begin{enumerate}
+            \ithand Soit $(G, \star)$, $(H, \lozenge)$ et $(K, \otimes)$ trois groupes et $f: G \to H$ et $g: H \to K$ deux morphismes de groupes. Soient $(x, y) \in G^2$. On a :
+
+            \[(g \circ f)(x \star y) = g(f(x \star y)) = g\left(f(x) \ \lozenge f(y)\right) = g(f(x)) \otimes g(f(y)) = (g\circ f)(x) \otimes (g \circ f)(y)\]
+    
+            Donc $(g \circ f) : G \to K$ est un morphisme de groupes.
+        
+            \ithand Soit  $(G, \star)$ et $(H, \lozenge)$ deux groupes. Soit $f: G \to H$ un isomorphisme de groupes.
+
+            On sait déjà que $f: G \to H$ est bijective, et admet donc une bijection réciproque $f^{-1}: H \to G$.
+
+            Soient $(a, b) \in H^2$. On a $f^{-1}(a) \in G$ et $f^{-1}(b) \in G$ donc $f^{-1}(a) \star f^{-1}(b) \in G$. Or $f$ est un morphisme donc :
+
+            \[ f\left(f^{-1}(a) \star f^{-1}(b)\right) = f\left(f^{-1}(a)\right) \ \lozenge \ f\left(f^{-1}(b)\right) a \ \lozenge \ b \in H\]
+
+            Donc en appliquant $f^{-1}$:
+
+            \[ f(a \ \lozenge \ b) = f^{-1}\left(f\left(f^{-1}(a) \star f^{-1}(b)\right)\right) = f^{-1}(a) \star f^{-1}(b)\]
+
+            Donc $f^{-1}$ est un morphisme de groupes, donc un isomorphisme de groupes.
+        \end{enumerate}
+
+}
+\end{enumerate}
+
+\end{document}

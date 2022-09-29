@@ -1,0 +1,513 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+
+\stylizeDoc{Mathématiques}{Programme de khôlle 18}{Énoncés et
+résolutions}
+
+\section*{Algèbre Linéaire (sans dimension)}
+
+\subsection*{Espaces vectoriels et applications linéaires}
+
+\textit{c.f. programme précédent}
+
+\subsection*{Sommes, sommes directes, supplémentaires}
+
+\begin{enumerate}
+    \ithand Somme. Définition de la somme de deux sev.
+    
+    \ithand Somme directe (définition : la somme $F + G$ est directe si
+    la décomposition est unique). Caractérisation : la somme $F + G$ est
+    directe si et seulement si $F \cap G = \{0_E\}$.
+
+    \ithand Sous-espaces supplémentaires dans $E$. Exemples.
+    
+    \ithand Projecteurs. Définition. Image, noyau. Prop : $p \circ p =
+    p$. \quad $E = \Ker(p - \Id) \oplus \Ker(p) = \Imm (p) \circ \Ker
+    (p)$.
+    
+    \ithand Symétries. Définition. Caractérisation par $s \circ s =
+    \Id_E$. \quad $E = \Ker(s - \Id) \oplus \Ker(s + \Id)$.
+    
+    \ithand Si $E = F \circ G$, une application linéaire de $E$ dans un
+    ev $H$ est entièrement déterminée par ses restrictions aux sev $F$
+    et $G$, c'est-à-dire que pour $u \in \bcL(F, H)$ et $v \in \bcL(G,
+    H)$, il existe une unique application linéaire $f \in \bcL(E, H)$
+    telle que $f_{\vert F} = u$ et $f_{\vert G} = v$.
+\end{enumerate}
+
+\subsection*{Formes linéaires et hyperplans}
+
+\begin{enumerate}
+    \ithand Un hyperplan de $E$ est le noyau d’une forme linéaire non
+    nulle.
+    
+    \ithand Équivalence entre hyperplan et existence d’une droite
+    supplémentaire.
+
+    \ithand Si $H$ est un hyperplan de $E$ et si $x_0 \not\in H$, alors
+    $E = H \oplus \Vect(x_0)$.
+\end{enumerate}
+
+\subsection*{Familles génératrice, familles libres}
+
+\begin{enumerate}
+    \ithand Famille génératrice, famille libre, famille liée.
+\end{enumerate}
+
+\savoirfaire
+
+\begin{enumerate}
+    \item[1 à 5.] \textit{c.f. programme précédent}
+    
+    \item[6.] Savoir montrer qu’un sev de $E$ est un hyperplan.
+    
+    \item[7.] Savoir montrer qu’une famille de vecteurs est libre.
+\end{enumerate}
+
+\questionsdecours
+
+\textbf{\sffamily N.B.} Attention, les deux premières rédactions
+ci-dessous sont assez loin de celles vues en cours, en particulier les
+caractérisations géométriques. De même pour le terme de
+\textit{diagonalisation}, non abordé. 
+
+\begin{enumerate}
+    \item Si $p \in \bcL(E)$ vérifie $p \circ p = p$ alors $E = \Ker(p)
+    \oplus \Ker(p - \Id)$ et $p$ est la projection de $E$ sur $\Ker(p -
+    \Id)$ parallèlement à $\Ker p$.
+    
+    \noafter
+    \boxans{
+        \begin{property}{Caractérisation de l'image d'un
+        projecteur}{CIP}
+            Soit $E$ un $\bdK$-espace vectoriel et $p \in \bcL(E)$. Si
+            \hg{$p$ un projecteur de $E$}, alors $\hg{\Imm(p) = \Ker(p -
+            \Id_E)}$.
+        \end{property}
+    }
+    %
+    \nobefore
+    %
+    \begin{nproof}
+            Soit $E$ un $\bdK$-espace vectoriel et $p \in \bcL(E)$ un
+            projecteur de $E$.
+            
+            \begin{enumerate}
+                \itt Soit $x \in E$. On a (pour toute AL) $\Ker(p -
+                \Id_E) \subset \Imm(p)$, en effet :
+                %
+                \[ x \in \Ker(p - \Id_E) \implies (p - \Id_E)(x) = 0
+                \implies p(x) = \Id_E(x) \implies p(x) = x \implies x
+                \in \Imm(p)\]
+                %
+                \itt Supposons maintenant $x \in \Imm(p)$.  On pose $y
+                \in E$ son antécédent (tel que $p(y) = x$). Remarquons
+                que $p(p(y)) = p(y)$, donc $p(x) = x$. Dès lors $p(x) -
+                x = 0$, donc $x \in \Ker(p - \Id_E)$, donc $\Ker(p -
+                \Id_E) \supset \Imm(p)$.
+        \end{enumerate}
+        
+         On conclut par double inclusion.
+    \end{nproof}
+
+    \boxans{
+        \begin{theorem}{Diagonalisation d'un projecteur}{DP}
+            Soit $E$ un $\bdK$-espace vectoriel et $p \in \bcL(E)$. Si
+            \hg{$p$ un projecteur de $E$}, alors $\hg{E =
+            \Ker\left(p\right) \oplus \Ker\left(p - \Id_E\right)}$.
+        \end{theorem}
+    }
+    %
+    \begin{nproof}
+        Soit $E$ un $\bdK$-espace vectoriel et $p \in \bcL(E)$ un
+        projecteur de $E$.
+        
+        \begin{enumerate}
+            \itt Montrons d'abord que $\Ker(p)$ et $\Ker(p - \Id_E)$
+            sont en somme directe. Soit $x \in \Ker(p) \cap \Ker(p -
+            \Id_E)$.
+            
+            On a donc $p(x) - x = 0$ donc $x = p(x)$. Or $x \in \Ker p$,
+            donc $p(x) = 0$, d'où $\Ker(p) \cap \Ker(p - \Id_E) \subset
+            \{0_E\}$. L'inclusion dans l'autre sens est évidente, donc
+            on a bien $\Ker(p) \oplus \Ker(p - \Id_E)$.
+            
+            \itt Montrons maintenant que $E = \Ker(p) + \Ker(p -
+            \Id_E)$. On se donne pour cela un $x \in E$. 
+            
+            On peut écrire $x = p(x) + \left(x - p(x)\right)$. Or $p(x)
+            \in \Imm(p)$ donc par \propref{CIP}, $p(x) \in \Ker(p -
+            \Id_E)$. Par ailleurs on a :
+            %
+            \[ p\left(x - p(x)\right) = p(x) - p(p(x)) = p(x) - p(x) = 0
+            \qquad\text{donc}\qquad x - p(x) \in \Ker(p)\]
+        \end{enumerate}
+        
+        On a $x$ comme la somme d'un élément de $\Ker(p)$ et d'un
+        élément de $\Ker(p - \Id_E)$. La conclusion est immédiate.
+    \end{nproof}
+    %
+    \boxans{
+        \begin{corollary}{Caractérisation géométrique d'un projecteur}{}
+            Soit $E$ un $\bdK$-espace vectoriel et $p \in \bcL(E)$.
+            \hg{$p$ est un projecteur} si et seulement si \hg{$\Ker(p)
+            \oplus \Ker(p - \Id_E)$} et \hg{$p$ est la projection
+            géométrique de $E$ sur $\Ker(p - \id_E)$ parallèlement à
+            $\Ker(p)$}, \ie :
+            %
+            \[ \hg{\forall x \in \Ker(p),\qquad \forall y \in \Ker(p -
+            \Id_E),\qquad p(y + x) = y}\]
+        \end{corollary}
+    }
+    %
+    \yesafter
+    %
+    \begin{nproof}
+         Soit $E$ un $\bdK$-espace vectoriel et $p \in \bcL(E)$. 
+         
+         \begin{enumerate}
+             \itt $\boxed{\implies}$ $\forall x \in \Ker(p)$, $p(x) =
+             0$, et $\forall y \in \Ker(p - \Id_E)$, $p(y) = y$ donc
+             $p(y + x) = p(y) + p(x) = y$. Si $p$ est un projecteur, par
+             \thref{DP} on a $\Ker(p) \oplus \Ker(p - \Id_E)$.
+             
+             \itt $\boxed{\impliedby}$ Soit $a \in E$. On a $\Ker(p)
+             \oplus \Ker(p - \Id_E)$ donc $\exists (x, y) \in
+             \Ker(p)\times\Ker(p - \Id_E)$, $a = x + y$.
+             
+             Dès lors $p(a) = p(x + y) = x$. Or $x \in \Ker(p - \Id_E)$,
+             donc $p(x) = x$, donc $p(p(a)) = p(a)$.
+         \end{enumerate}
+         
+         On a donc bien $p \circ p = p$.
+    \end{nproof}
+    %
+    \yesbefore
+    
+    \item Si $s \in \bcL(E)$ vérifie $s \circ s = \Id$ alors $E = \Ker(s
+    - \Id) \oplus \Ker (s + \Id)$ et $s$ est une symétrie vectorielle.
+    
+    \noafter
+    %
+    \boxans{
+        
+        \begin{theorem}{Diagonalisation d'une symétrie}{DS}
+            Soit $E$ un $\bdK$-espace vectoriel, $s \in \bcL(E)$. Si
+            \hg{$s$ une symétrie de $E$}, alors $\hg{E = \Ker\left(s +
+            \Id_E\right) \oplus \Ker\left(s - \Id_E\right)}$.
+        \end{theorem}
+    }
+    %
+    \nobefore
+    %
+    \begin{nproof}
+        Soit $E$ un $\bdK$-espace vectoriel et $s \in \bcL(E)$ une
+        symétrie de $E$.
+            
+        On pose $p = \frac{1}{2}\left(s + \Id_E\right)$. On a $(s,
+        \Id_E) \in \bcL(E)^2$ donc $p \in \bcL(E)$. Puisque $s$ et
+        $\Id_E$ commutent, on a :
+        %
+        \[ p \circ p = \left(\dfrac{1}{2}\left(s + \Id_E\right)\right)^2
+        = \dfrac{1}{4}\left(s^2 + 2s + \Id_E\right) =
+        \dfrac{1}{4}\left(2s + 2\Id_E\right) = \dfrac{1}{2}\left(p +
+        \Id_E\right) = p\]
+        %
+        Donc $p$ est un projecteur. Par \thref{DP}, $E = \Ker(p) \oplus
+        \Ker(p - \Id_E)$. Or :
+        %
+        \[ \Ker(p) = \Ker\left(\frac{1}{2}s + \frac{1}{2}\Id_E\right) =
+        \Ker\left(s + \Id_E\right)
+        \]
+        %
+        De plus :
+        %
+        \[ \Ker(p - \Id_E) = \Ker\left(\frac{1}{2}s + \frac{1}{2}\Id_E -
+        \Id_E\right) = \Ker\left(\frac{1}{2}s - \frac{1}{2}\Id_E\right)
+        = \Ker\left(s - \Id_E\right) \]
+        %
+        On a bien $E = \Ker\left(s + \Id_E\right) \oplus \Ker\left(s -
+        \Id_E\right)$.
+    \end{nproof}
+    %
+    \boxans{
+        \begin{corollary}{Caractérisation géométrique d'une symétrie}{}
+            Soit $E$ un $\bdK$-espace vectoriel, $s \in \bcL(E)$.
+            \hg{$s$ est une symétrie} si et seulement si \hg{$\Ker(s +
+            \id_E) \oplus \Ker(s - \id_E)$} et \hg{$s$ est la symétrie
+            géométrique de $E$ par rapport à $\Ker(s - \id_E)$
+            parallèlement à $\Ker(s + \id_E)$}, \ie :
+            %
+            \[ \hg{\forall x \in \Ker(s + \id_E),\qquad \forall y \in
+            \Ker(s - \id_E),\qquad s(y + x) = y - x}\]
+        \end{corollary}
+    }
+    %
+    \yesafter
+    %
+    \begin{nproof}
+         Soit $E$ un $\bdK$-espace vectoriel et $s \in \bcL(E)$. 
+         
+         \begin{enumerate}
+             \itt $\boxed{\implies}$ $\forall x \in \Ker(s + \Id_E)$,
+             $s(x) = -x$ et $\forall y \in \Ker(s - \Id_E)$, $s(y) = y$
+             donc $s(y + x) = y - x$. Si $p$ est une symétrie, en vertu
+             de la \thref{DS} on obtient $\Ker(s + \id_E) \oplus \Ker(s
+             - \id_E)$.
+             
+             \itt $\boxed{\impliedby}$ Soit $a \in E$. On a $\Ker(s +
+             \id_E) \oplus \Ker(s - \id_E)$ donc $\exists (x, y) \in
+             \Ker(s + \Id_E) \times \Ker(s - \Id_E)$, $a = x + y$.
+             %
+             \[ s(s(a)) = s(s(x+y)) = s(s(x) + s(y)) = s(-x + y) = -s(x)
+             + s(y) = x + y = a\]
+         \end{enumerate}
+         
+         On a bien $p \circ p = \Id_E$.
+    \end{nproof}
+    %
+    \yesbefore
+    
+    \item Montrer que pour $(a, b) \in \bdR^2$, $F = \left\{ f \in
+    \bcC^0(\bdR) \middle\vert \displaystyle \int_a^b f(t)\dif t =
+    0\right\}$ a pour supplémentaire l'ensemble des fonctions
+    constantes.
+    
+    \boxans{
+        Soit $(a, b) \in \bdR^2$. On pose $\varphi :
+        \begin{array}[t]{rcl}
+            \bcC^0(\bdR) &\to& \bdR  \\
+            f &\mapsto& \int_a^b f(t)\dif t
+        \end{array}$. On a alors $F = \Ker(\varphi)$.
+        
+        On montre facilement que $\varphi$ est $\bcL(\bcC^0(\bdR),
+        \bdR)$, grâce à linéarité de l'intégrale notamment. Puisque
+        $\varphi$ est une forme linéaire non nulle, $F$ est donc un
+        hyperplan de $\bcC^0(\bdR)$ et $\bcC^0(\bdR) = F \oplus
+        \Vect(f)$ où $f \not\in \Ker(\varphi)$.
+        
+        Une fonction constante $x \mapsto \lambda \in \bdR$ convient
+        pour $f$ puisque $\varphi(x \mapsto \lambda) = \lambda(b-a)$,
+        donc $\Vect(f)$ peut bien être l'ensemble des fonctions
+        constantes.
+    }
+    
+    \item Soit $H$ un sev de $E$. Montrer l'équivalence : $H$ est un
+    hyperplan de $E$ si et seulement si $H$ possède une droite comme
+    supplémentaire.
+    
+    \noafter 
+    %
+    \boxans{
+        \begin{theorem}{Caractérisation d'un hyperplan par son
+        supplémentaire}{}
+            Soit $E$ un $\bdK$-espace vectoriel et $H$ un sous-espace
+            vectoriel de $E$. \hg{$H$ est un hyperplan} de $E$ si et
+            seulement si \hg{$H$ possède comme supplémentaire une
+            droite} de $E$.
+        \end{theorem}   
+    }
+    %
+    \nobefore\yesafter
+    %
+    \begin{nproof}
+         Soit $E$ un $\bdK$-espace vectoriel et $H$ un sous-espace
+         vectoriel de $E$.
+         
+         \begin{enumerate}
+             \itt $\boxed{\implies}$ Si $H$ est un hyperplan de $E$,
+             alors $H = \Ker(\varphi)$ où $\varphi \in \bcL(E, \bdK)$ et
+             $\varphi \neq \widetilde 0$. On peut donc considérer $x_0
+             \in E$ tel que $\varphi(x_0) \neq 0_\bdK$, ainsi $x \not
+             \in H$ et $x \neq 0_E$. On pose $D = \Vect(x_0)$ la droite
+             de $E$ générée par $x_0$.
+             
+             Soit $x \in E$, on a  $x = x - \lambda x_0 + \lambda x_0$
+             où $\lambda = \dfrac{\varphi(x)}{\varphi(x_0)} \in \bdK$.
+             On a bien $\lambda x_0 \in D$. De plus :
+             %
+             \[ \varphi(x - \lambda x_0) = \varphi(x) - \lambda
+             \varphi(x_0) = \varphi(x) -
+             \dfrac{\varphi(x)}{\varphi(x_0)}\varphi(x_0) = \varphi(x) -
+             \varphi(x) = 0\]
+             %
+             Donc $x - \lambda x_0 \in \Ker(\varphi) = H$. Puisque $D
+             \cap H = \{0\}$, on a bien $E = H \oplus D$.
+             
+             \itt $\boxed{\impliedby}$ Soit $x_0 \in E$, tel que $x_0
+             \neq 0$ et $E = H + \Vect(x_0)$.
+             
+             On construit $\varphi \in \bcF(E, \bdK)$ qu'on veut
+             linéaire. Tout d'abord $\forall x \in H$, on pose
+             $\varphi(x) = 0$. Donc $\varphi_{\vert H} \in \bcL(H,
+             \bdK)$. 
+             
+             Pour tout $x \in \Vect(x_0)$, on a $x = \lambda x_0$. On
+             pose $\lambda_0 = \varphi(x_0) \in \bdK$ et $\varphi(x) =
+             \lambda \varphi(x_0) = \lambda \lambda_0$. Donc $\varphi$
+             est aussi linéaire de $\Vect(x_0)$ dans $E$. Donc
+             $\varphi$ est une forme linéaire. $H = \Ker \varphi$ donc
+             $H$ est un hyperplan.
+         \end{enumerate}
+    \end{nproof}
+    %
+    \yesbefore
+\end{enumerate}
+
+\newpage
+
+\section*{Convexité}
+
+\begin{enumerate}
+    \ithand Une fonction $f: I \to \bdR$ est convexe si
+    %
+    \[ \forall (x, y) \in \bdR^2,\qquad \forall \lambda \in [0, 1],\quad
+    f((1-\lambda)a °\lambda b) \leq (1-\lambda)f(a) + \lambda f(b)\]
+    
+    \ithand Position du graphe d'une fonction convexe par rapport à ses
+    sécantes. Caractérisation de la convexité par la croissance des
+    pentes.
+    
+    \ithand Caractérisation des fonctions convexes dérivables. Position
+    du graphe d’une fonction convexe dérivable par rapport à ses
+    tangentes.
+    
+    \ithand Caractérisation des fonctions convexes deux fois dérivables.
+    
+    \ithand Inégalité de Jensen : si $f$ est convexe sur un intervalle
+    $I$, alors pour tous $\lambda_1,\dots, \lambda_n \in [0, 1]$ de
+    somme $1$ et pour tous $x_1, \dots, x_n \in I$, $f\left(\sum_{i=1}^n
+    \lambda_ix_i\right) \leq \sum_{i=1}^n \lambda_if(x_i)$
+\end{enumerate}
+
+\questionsdecours
+
+\begin{enumerate}
+    \item Démontrer l'inégalité de Jensen.
+    
+    \noafter
+    %
+    \boxans{
+        \begin{theorem}{Inégalité de Jensen}{InJensen}
+            Soit un intervalle $I$, $f \in \bcF(I, \bdR)$ convexe sur
+            $I$, $n \in \bdN^*$ et $\left(\lambda_1, \lambda_2, \dots,
+            \lambda_n\right) \in \left(\bdR_+\right)^n$ tels que $
+            \sum_{k=1}^n \lambda_k = 1$.
+            %
+            \[ \hg{\forall \left(x_1, x_2, \dots, x_n\right) \in
+            I^n,\qquad f\left(\sum_{k=1}^n \lambda_kx_k\right) \leq
+            \sum_{k=1}^n \lambda_kf(x_k)}\]
+        \end{theorem}
+    }
+    %
+    \nobefore\yesafter
+    %
+    \begin{nproof}
+        Soit un intervalle $I$, $f \in \bcF(I, \bdR)$ convexe sur $I$,
+        $n \in \bdN^*$ et $\left(\lambda_1, \lambda_2, \dots,
+        \lambda_n\right) \in \left(\bdR_+\right)^n$ tels que
+        $\displaystyle \sum_{k=1}^n \lambda_k = 1$.
+        %
+        \[\forall k \in \llbracket 1, n\rrbracket,\qquad x_k \in I \quad
+        \text{donc} \quad \lambda_k\inf I \leq \lambda_kx_k \leq
+        \lambda_k \sup I \quad \text{donc} \quad \sum_{k=1}^n \lambda_k
+        \inf I \leq \sum_{k=1}^n \lambda_kx_k \leq \sum_{k=1}^n
+        \lambda_k \sup I\]
+        %
+        Donc $\displaystyle \inf I \leq \sum_{k=1}^n \lambda_kx_k \leq
+        \sup I$, soit\footnote{ce résultat préliminaire, bien qu'assez
+        évident, semble dans une certaine mesure \textit{nécessaire}
+        dans l'hérédité.} $\displaystyle \sum_{k=1}^n \lambda_kx_k \in
+        I$. On procède maintenant par récurrence sur $\bdN^*$ selon :
+        %
+        \[ \forall n \in \bdN^*,\qquad H(n) : \forall \left(x_1, x_2,
+        \dots, x_n\right) \in I^n,\qquad f\left(\sum_{k=1}^n
+        \lambda_kx_k\right) \leq \sum_{k=1}^n \lambda_kf(x_k)\]
+        %
+        \begin{enumerate}
+            \itt \underline{Initialisation :} Pour $n=1$, on prend
+            $\lambda_1 = 1$, on a bien $\forall x_1 \in I$, on a $f(x_1)
+            \leq f(x_1)$ donc $H(1)$ est vrai. Par ailleurs, $H(2)$
+            correspond à la définition de la convexité donc $H(2)$ est
+            vrai.
+            
+            \itt \underline{Hérédité :} Soit $n \in \bdN^* \backslash \{
+            1 \}$, tel que $H(n)$ est vrai. Soit $\left(x_1, \dots,
+            x_{n+1}\right) \in I^{n+1}$ et $\left(\lambda_1, \dots,
+            \lambda_{n+1}\right) \left(\bdR_+\right)^{n+1}$ tel que
+            $\displaystyle\sum_{k=1}^{n+1} \lambda_k = 1$. Si $s =
+            \displaystyle\sum_{k=1}^n \lambda_k = 0$, alors
+            $\lambda_{n+1} = 1$. Or  $f(x_{n+1}) \leq f(x_{n+1})$ donc
+            $H(n+1)$ est vrai.
+            
+            Sinon, $\dfrac{s}{s} = 1$ soit
+            $\dfrac{1}{s}\displaystyle\sum_{k=1}^n \lambda_n = 1$. Or
+            $\displaystyle \sum_{k=1}^{n+1} \lambda_kx_k =
+            \sum_{k=1}^{n} \lambda_kx_k + \lambda_{n+1}x_{k+1} =
+            s\left(\sum_{k=1}^{n} \dfrac{\lambda_k}{s}x_k\right) +
+            (1-s)x_{k+1}$. Par convexité de $f$ sur $I$, on a :
+            %
+            \[ f\left(\sum_{k=1}^{n+1} \lambda_ix_i\right) = f\left(
+            s\left(\sum_{k=1}^{n} \dfrac{\lambda_k}{s}x_k\right) +
+            (1-s)x_{n+1}\right) \leq s\times f\left(\sum_{k=1}^n
+            \dfrac{\lambda_k}{s}x_k\right) + (1-s)f(x_{n+1})\]
+            %
+            Par hypothèse de récurrence, on obtient :
+            %
+            \[ f\left(\sum_{k=1}^{n+1} \lambda_ix_i\right) \leq s\times
+            \sum_{k=1}^n \dfrac{\lambda_k}{s}f\left(x_k\right) +
+            (1-s)f(x_{n+1}) = \sum_{k=1}^n \lambda_kf(x_k) +
+            \lambda_{n+1}f(x_{n+1}) =
+            \sum_{k=1}^{n=1}\lambda_kf(x_{n+1})\]
+            %
+            Donc on a bien $H(n+1)$.
+            
+            \itt \underline{Conclusion :} On conclut simplement par
+            principe de récurrence.
+        \end{enumerate}
+    \end{nproof}
+    %
+    \yesbefore
+    
+    \item Montrer les inégalités suivantes : pour $x_1, \dots, x_n \in
+    \bdRp$,
+    %
+    \[ \dfrac{n}{\displaystyle\sum_{i=k}^n \frac{1}{x_k}} \leq
+    \sqrt[n]{\prod_{k=1}^n x_k} \leq \dfrac{1}{n}\sum_{k=1}^n x_k\]
+    
+    \boxans{
+        Soit $n \in \bdN^*$ et $(x_1, x_2, \dots, x_n) \in
+        \left(\bdRp\right)^n$. On a les équivalences :
+        %
+        \[ \sqrt[n]{\prod_{k=1}^n x_k} \leq \dfrac{1}{n}\sum_{k=1}^n x_k
+        \iff \ln{\sqrt[n]{\prod_{k=1}^n x_k}} \leq
+        \ln{\dfrac{1}{n}\sum_{k=1}^n x_k} \iff \sum_{k=1}^n
+        \dfrac{1}{n}\ln{x_k} \leq \ln{\sum_{k=1}^n \dfrac{1}{n} x_k}\]
+        %
+        Remarquons que $\displaystyle\sum_{k=1}^n \dfrac{1}{n} = n\times
+        \dfrac{1}{n} = 1$ donc la dernière expression est vraie par
+        \thref{InJensen} (version concave, puisque $\ln$ est concave).
+        On a de plus les équivalences :
+        %
+        \[ \dfrac{n}{\displaystyle\sum_{i=k}^n \frac{1}{x_k}} \leq
+        \sqrt[n]{\prod_{k=1}^n x_k} \iff \dfrac{1}{n}\sum_{k=1}^n
+        \dfrac{1}{x^k} \geq
+        \dfrac{1}{\sqrt[n]{\displaystyle\prod_{k=1}^n x_k}} \iff
+        \sqrt[n]{\prod_{k=1}^n \dfrac{1}{x_k}} \geq
+        \dfrac{1}{n}\sum_{k=1}^n \dfrac{1}{x_k}\]
+        %
+        En posant pour tout $k \in \llbracket 1, n \rrbracket$, $y_k =
+        \dfrac{1}{x_k}$, on se ramène à l'inégalité précédente. On a
+        donc bien :
+        %
+        \[ \dfrac{n}{\displaystyle\sum_{i=k}^n \frac{1}{x_k}} \leq
+        \sqrt[n]{\prod_{k=1}^n x_k} \leq \dfrac{1}{n}\sum_{k=1}^n x_k\]
+    }
+    
+\end{enumerate}
+
+\end{document}

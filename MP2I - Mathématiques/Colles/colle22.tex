@@ -1,0 +1,746 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+
+    \stylizeDoc{Mathématiques}{Programme de khôlle 22}{Énoncés et résolutions}
+
+    \section*{Probabilités finies}
+
+    \begin{center}
+        \begin{minipage}{0.8\linewidth}
+            \begin{tcolorbox}[
+                breakable,
+                enhanced,
+                interior style      = {left color=main4!15,right color=main2!12},
+                borderline north    = {.5pt}{0pt}{main2!10},
+                borderline south    = {.5pt}{0pt}{main2!10},
+                borderline west     = {.5pt}{0pt}{main2!10},
+                borderline east     = {.5pt}{0pt}{main2!10},
+                sharp corners       = downhill,
+                arc                 = 0 cm,
+                boxrule             = 0.5pt,
+                drop fuzzy shadow   = black!40!white,
+                nobeforeafter,
+            ]
+                \centering\textbf{\sffamily Contexte de MP2I :} les expériences aléatoires
+                seront modélisées par un univers \textit{fini}.
+            \end{tcolorbox}
+        \end{minipage}
+    \end{center}
+
+    \subsection*{Univers et événements}
+
+    \begin{enumerate}
+        \ithand Expérience aléatoire, univers.
+    
+        \ithand Événements : événement certain, impossible, élémentaire. Événement contraire, disjonction et conjonction d'événements.
+
+        \ithand Événements incompatibles, système complet d'événements.
+    \end{enumerate}
+
+    \subsection*{Probabilité}
+
+    \begin{enumerate}
+        \ithand Définition d'une probabilité. Espace probabilisé $\left(\Omega,
+        \bcP\left(\Omega\right),\bdP\right)$. Propriétés d'une probabilité (vide, contraire,
+        union de deux/trois événements, croissance, union incompatible, union, et système
+        complet d'événements).
+        
+        \ithand Détermination d'une probabilité par les images des événements élémentaires
+        (singletons).
+        
+        \ithand Équiprobabilité sur un univers fini $\Omega$.
+    \end{enumerate}
+
+    \subsection*{Probabilités conditionnelles}
+
+    \begin{enumerate}
+        \ithand Définition de la probabilité d'un événement $B$ sachant $A$, où $A$ est de
+        probabilité non nulle.
+        
+        \ithand L'application $\bdP_A$ est une probabilité sur $\Omega$.
+        
+        \ithand Formule des probabilités composées.
+        
+        \ithand Formule des probabilités totales, avec un système complet d'événements fini
+        $\left(A_i\right)_{1 \leq i \leq n}$.
+        
+        \ithand Formule de \textsc{Bayes}.
+    \end{enumerate}
+
+    \subsection*{Indépendance}
+
+    \begin{enumerate}
+        \ithand Indépendance de deux événements. Indépendance mutuelle de $n$ événements.
+        L'indépendance mutuelle de $n$ événements implique l'indépendance deux à deux des
+        événements. Contre-exemple pour la réciproque.
+    \end{enumerate}
+
+    \questionsdecours
+
+    \begin{enumerate}
+        \item Définition d'une probabilité, d'une probabilité conditionnelle.
+        
+        Montrer que $\bdP_A$ est une probabilité sur $\Omega$ (lorsque 
+        $\bdP\left(A\right) \neq 0$).
+        
+        \noafter
+        %
+        \boxans{
+            %
+            \begin{definition}{Mesure de probabilité}{}
+                Soit un espace probabilisable $\left(\Omega, \bcP\left(\Omega\right)\right)$
+                \textit{d'univers $\Omega$ fini}. On appelle \hg{mesure de probabilité sur
+                $\left(\Omega, \bcP\left(\Omega\right)\right)$} toute \hg{application $\bdP :
+                \bcP\left(\Omega\right) \to \left[0, 1\right]$} telle que :
+                %
+                \begin{psse}
+                    \item $\hg{\bcP\left(\Omega\right) = 1}$ ;
+                    \item $\hg{\forall \left(A, B\right) \in \bcP\left(\Omega\right)^2,\qquad A
+                    \cap B = \emptyset \implies \bdP\left(A \sqcup B\right) = 
+                    \bdP\left(A\right) + \bdP\left(B\right)}$. 
+                \end{psse}
+            \end{definition}
+            %
+            \begin{definition}{Probabilité conditionnelle}{}
+                Soient un espace probabilisé $\left(\Omega, \bcP\left(\Omega\right),
+                \bdP\right)$ \textit{d'univers $\Omega$ fini} et deux évènements $\left(A,
+                B\right) \in\bcP\left(\Omega\right)^2$ tels que $B$ n'est pas presque-impossible
+                (\ie $\bdP\left(B\right) \neq 0$). On appelle \hg{probabilité de $A$ sachant
+                $B$} la quantité \hg{$\dfrac{\bdP\left(A \cap B\right)}{\bdP\left(B\right)}$}.
+            \end{definition}
+            %
+        }
+        %
+        \nobefore
+        %
+        \begin{notation}
+            La probabilité de $A$ sachant $B$ est généralement notée
+            $\bdP_B\left(A\right)$ ou $\bdP\left(A \mid B\right)$.
+        \end{notation}
+        %
+        \boxans{
+            %
+            \begin{property}{Mesure de probabilité conditionnelle}{}
+                Soient un espace probabilisé $\left(\Omega, \bcP\left(\Omega\right),
+                \bdP\right)$ \textit{d'univers $\Omega$ fini} et un évènement $A \in
+                \bcP\left(\Omega\right)$ tel que $A$  n'est pas presque-impossible.
+                \hg{$\bdP_A$ définit une mesure de probabilité} sur l'espace
+                probabilisable $\left(\Omega, \bcP\left(\Omega\right)\right)$.
+            \end{property}
+            %
+        }
+        %
+        \yesafter
+        %
+        \begin{nproof}
+            Soient un espace probabilisé $\left(\Omega, \bcP\left(\Omega\right), \bdP\right)$
+            et un évènement $A \in \bcP\left(\Omega\right)$ tel que $A$ n'est pas
+            presque-impossible. Montrons que l'application $\bdP_A$ définit une mesure de
+            probabilité :
+            %
+            \begin{enumerate}
+                \itt Pour tout $B \in \bcP\left(\Omega\right)$ on a $\bdP\left(A \cap B\right)
+                \geq 0$, et $\bdP\left(A\right) > 0$, donc $0 \leq \frac{\bdP\left(A \cap
+                B\right)}{\bdP\left(A\right)}$. De plus $\left(A \cap B\right) \subset A$ d'où
+                $\bdP\left(A \cap B\right) \leq \bdP\left(A\right)$, donc $0 \leq
+                \bdP_A\left(B\right) = \frac{\bdP\left(A \cap B\right)}{\bdP\left(A\right)}
+                \leq 1$. On a donc bien $\bdP_A \in \bcF\left(\bcP\left(\Omega\right),
+                \left[0, 1\right]\right)$.
+                %
+                \itt Soient deux évènements $\left(B, C\right) \in \bcP\left(\Omega\right)^2$
+                incompatibles, donc $B \cap C = \emptyset$. On a :
+                %
+                \[ \bdP_A\left(B \sqcup B\right) = \dfrac{\bdP\left(A \cap \left(B \sqcup
+                C\right)\right)}{\bdP\left(A\right)} = \dfrac{\bdP\left(\left(A \cap B\right)
+                \sqcup \left(A \cap C\right)\right)}{\bdP\left(A\right)} = \dfrac{\bdP\left(A
+                \cap B\right) + \bdP\left(A \cap C\right)}{\bdP\left(A\right)} =
+                \bdP_A\left(B\right) + \bdP_A\left(C\right)\]
+                %
+            \end{enumerate}
+            %
+            \text{}\\[-15pt]
+        \end{nproof}
+        %
+        \yesbefore
+        
+        
+        \item Démonstration de la formule des probabilités composées. \textit{Exemple :} Une
+        urne contient une boule rouge et une boule blanche. On effectue $n$ tirages successifs :
+        lorsque l'on tire une boule, on la remet en ajoutant une boule de la même couleur.
+        Quelle est la probabilité de tirer (au moins une fois) la boule rouge lors des $n$
+        tirages ?
+        
+        \noafter
+        %
+        \boxans{
+            %
+            \begin{theorem}{Formule des probabilités composées}{}
+                Soient un espace probabilisé $\left(\Omega, \bcP\left(\Omega\right),
+                \bdP\right)$ \textit{d'univers $\Omega$ fini}, un entier $n \in \left\llbracket
+                2, +\infty\right\llbracket$ et
+                une famille d'évènements $\left(A_i\right)_{1 \leq i \leq n}$ tels que
+                $\bigcap_{i=1}^{n-1} A_i$ n'est pas presque-impossible. On a :
+                %
+                \[ \hg{ \bdP\left( \bigcap_{i=1}^n A_i \right) = \bdP\left(A_1\right) \times
+                \prod_{i=2}^n \bdP\left(A_i \; \middle\vert \; \bigcap_{j=1}^{i-1} A_j \right)
+                }\]
+            \end{theorem}
+            %
+        }
+        %
+        \nobefore
+        %
+        \begin{nproof}
+            Soient un espace probabilisé $\left(\Omega, \bcP\left(\Omega\right), \bdP\right)$,
+            un entier $n \in \left\llbracket 2, +\infty\right\llbracket$ et une famille
+            d'évènements $\left(A_i\right)_{1 \leq i \leq n}$ tels que
+            $\bigcap_{i=1}^{n-1} A_i$ n'est pas presque-impossible. On a :
+            %
+            \[ \bdP\left(A_1\right) \times \prod_{i=2}^n \bdP\left(A_i \; \middle\vert \;
+            \bigcap_{j=1}^{i-1} A_j \right) = \bdP\left(A_1\right) \times \prod_{i=2}^n
+            \dfrac{\bdP\left(\bigcap_{j=1}^{i} A_j\right)}{\bdP\left(\bigcap_{j=1}^{i-1}
+            A_j\right)} \eq{\text{téléscopage}} \bdP\left(A_1\right) \times
+            \dfrac{\bdP\left(\bigcap_{j=1}^n A_j\right)}{\bdP\left(A_1\right)} =
+            \bdP\left(\bigcap_{j=1}^n A_j\right)\]
+            %
+            \text{}\\[-10pt]
+        \end{nproof}
+        %
+        \yesafter
+        %
+        \boxans{
+            \begin{example}{}{}
+                Une urne contient une boule rouge et une boule blanche. On effectue $n \in \bdN$
+                tirages successifs, avec remise, et en rajoutant à chaque fois une boule de la
+                couleur tirée. Quelle est la probabilité de tirer (au moins une fois) la boule
+                rouge lors des $n$ tirages ?
+                %
+                \[ \forall n \in \bdN^*,\qquad \left\lbrace\begin{array}{lc}
+                    A_n : &\text{\guill{\itshape au \begin{math}n\end{math}-ième tirage, au
+                    moins une boule rouge a été tirée}} \\
+                    B_n : &\text{\guill{\itshape au \begin{math}n\end{math}-ième tirage, on ne
+                    tire pas de boule rouge}} 
+                \end{array}\right.\]
+                %
+                On remarque que $\overline{A_n}$ correspond à l'évènement \guill{\textit{au
+                $n$-ième tirage, la boule rouge n'a jamais été tirée}}, ce qui correspond à ne
+                pas avoir tiré la boule rouge, ni au premier tirage, ni au deuxième, \dots, ni
+                au $n$-ième tirage. En d'autres termes, $\overline{A_n} = \bigcap_{i=1}^n B_n$.
+                Par la \textit{formule des probabilités composées}, on a :
+                %
+                \[ \bdP\left(A_n\right) = 1 - \bdP\left(\overline{A_n}\right) = 1 -
+                \bdP\left(\bigcap_{i=1}^n B_n\right) = 1 - \bdP\left(B_1\right) \times
+                \prod_{i=2}^n \bdP\left(B_i \middle\vert \bigcap_{j=1}^{i-1} B_j\right)\]
+                %
+                Or $\bdP\left(B_i \middle\vert \bigcap_{j=1}^{i-1} B_j\right)$ correspond à la
+                probabilité de une boule blanche au $i$-ième tirage sachant qu'on a tiré que des
+                boules blanches auparavant (qu'on a donc remise en ajoutant une autre boule
+                blanche), donc la probabilité de tirer l'une des $i$ boules blanches parmi les
+                $i+1$. Donc :
+                %
+                \[ \bdP\left(A_n\right) = 1 - \dfrac{1}{2} \times \prod_{i=2}^n \dfrac{i}{i+1} =
+                1 - \prod_{i=1}^n \dfrac{i}{i+1} = 1 - \dfrac{1}{n+1} = \dfrac{n}{n+1}\]
+            \end{example}
+        }
+        %
+        \yesbefore
+        
+        \item Définition et exemples d'un système complet d'événements. Montrer la formule des
+        probabilités totales.
+        
+        \noafter
+        %
+        \boxans{
+            %
+            \begin{definition}{Système complet d'événements}{}
+                Soient un univers $\Omega$ \textit{fini} et un ensemble $I$ indexant une famille
+                $\left(A_i\right)_{i \in I} \in \bcP\left(\Omega\right)^{\mod{I}}$
+                d'évènements. On dit que $\left(A_i\right)_{i \in I}$ est un \hg{système complet
+                d'évènements} lorsque :
+                %
+                \begin{psse}
+                    \item \hg{$\bigcup\limits_{i \in I} A_i = \Omega$} ;
+                    \item \hg{$\forall \left(i, j\right) \in I^2,\qquad i \neq j \implies A_i
+                    \cap A_j = \emptyset$}.
+                \end{psse}
+            \end{definition}
+            %
+            \begin{example}{}{}
+                \begin{enumerate}
+                    \itt Pour $A \in \bcP\left(\Omega\right)$, la famille \hg{$\left(A,
+                    \overline{A}\right)$} est un système complet d'évènement.
+                    \itt La famille \hg{$\left\{ \omega \right\}_{\omega \in \Omega}$} est un
+                    système complet d'évènement.
+                \end{enumerate}
+            \end{example}
+            %
+            \begin{theorem}{Formule des probabilités totales}{}
+                Soient un espace probabilisé $\left(\Omega, \bcP\left(\Omega\right),
+                \bdP\right)$ \textit{d'univers $\Omega$ fini}, un ensemble $I$ indexant un
+                système complet d'évènements $\left(A_i\right)_{i \in I}$, et un évènement $B
+                \in \bcP\left(\Omega\right)$. On a :
+                %
+                \[ \hg{ \bdP\left(B\right) = \sum_{i \in I} \bdP\left(B \cap A_i\right) =
+                \sum_{i \in I} \bdP\left(A_i\right)
+                \bdP_{A_i}\left(B\right) }\]
+            \end{theorem}
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \begin{nproof}
+            Soient un espace probabilisé $\left(\Omega, \bcP\left(\Omega\right),
+            \bdP\right)$ \textit{d'univers $\Omega$ fini}, un ensemble $I$ indexant un
+            système complet d'évènements $\left(A_i\right)_{i \in I}$, et un évènement $B
+            \in \bcP\left(\Omega\right)$. On a :
+            %
+            \[ \bdP\left(B\right) = \bdP\left(B \cap \Omega\right) = \bdP\left(B \cap
+            \left(\bigcup_{i \in I} A_i\right)\right) = \bdP\left(\bigcup_{i \in
+            I} \left(B \cap A_i\right)\right) \eq{\text{indep.}} \sum_{i \in I} \bdP\left(B
+            \cap A_i\right) = \sum_{i \in I} \bdP\left(A_i\right) \bdP_{A_i}\left(B\right)\]
+            %
+            \text{}\\[-20pt]
+        \end{nproof}
+        %
+        \yesbefore
+        
+        \item Démonstration de la formule de \textsc{Bayes}. \textit{Exemple :} on dispose de
+        deux dés : un équilibré et un truqué donnant toujours $6$. On choisit au hasard un dé
+        que l'on lance successivement $n$ fois. Quelle est la probabilité d'avoir tiré le dé
+        équilibré sachant que l'on a toujours obtenu $6$ ?
+        
+        \noafter
+        %
+        \boxans{
+            %
+            \begin{theorem}{Formule de Bayes}{}
+                Soient un espace probabilisé $\left(\Omega, \bcP\left(\Omega\right),
+                \bdP\right)$ \textit{d'univers $\Omega$ fini} et deux évènements $\left(A,
+                B\right) \in \bcP\left(\Omega\right)^2$ tels que $A$ et $B$ ne sont pas
+                presque-impossible. On a :
+                %
+                \[ \hg{ \bdP_B\left(A\right) = \dfrac{\bdP\left(A\right)
+                \bdP_A\left(B\right)}{\bdP\left(B\right)} }\]
+            \end{theorem}
+            %
+        }
+        %
+        \nobefore
+        %
+        \begin{nproof}
+            Soient un espace probabilisé $\left(\Omega, \bcP\left(\Omega\right),
+            \bdP\right)$ \textit{d'univers $\Omega$ fini} et deux évènements $\left(A,
+            B\right) \in \bcP\left(\Omega\right)^2$ tels que $A$ et $B$ ne sont pas
+            presque-impossible. On a $\bdP_B\left(A\right) = \dfrac{\bdP\left(A \cap
+            B\right)}{\bdP\left(B\right)} =
+            \dfrac{\bdP\left(A\right)\bdP_A\left(B\right)}{\bdP\left(B\right)}$
+        \end{nproof}
+        %
+        \yesafter
+        %
+        \boxans{
+        \begin{example}{}{}
+            On choisi un dé parmi deux proposés, l'un équilibré et l'autre truqué, donnant
+            toujours $6$. Sachant que l'on n'obtient que des $6$ sur $n \in \bdN$ lancés,
+            quelle est la probabilité que le dé soit pipé ?
+            %
+            \[ \left\lbrace\begin{array}{llcl}
+                    & T : &\text{\guill{\itshape on a le dé truqué}} & \qquad\bdP\left(T\right)
+                    = \sfrac{1}{2}\\
+                    \forall i \in \left\llbracket 1, n\right\rrbracket & A_i :
+                    &\text{\guill{\itshape au \begin{math}i\end{math}-ième lancé, on fait 6}} &
+                    \qquad\bdP_T\left(A_i\right) = 1 \et \bdP_{\overline T}\left(A_i\right) =
+                    \sfrac{1}{6}\\
+                    & A = \bigcap_{i=1}^n A_i :  &\text{\guill{\itshape on obtient que des 6}} 
+                    &  \qquad\bdP_T\left(A\right) = 1 \et \bdP_{\overline T}\left(A\right) =
+                    \sfrac{1}{6^n}
+                \end{array}\right.\]
+            %
+            Donc par formule de \textsc{Bayes}, et puisque $\left(T, \overline{T}\right)$ est
+            un système complet d'évènements :
+            %
+            \[ \bdP_A\left(T\right) =
+            \dfrac{\bdP\left(T\right)\bdP_T\left(A\right)}{\bdP\left(A\right)} =
+            \dfrac{\sfrac{1}{2}\times 1}{\bdP\left(T\right)\bdP_T\left(A\right) +
+            \bdP\left(\overline{T}\right)\bdP_{\overline{T}}\left(A\right)} =
+            \dfrac{\sfrac{1}{2}}{\sfrac{1}{2}\times 1 + \sfrac{1}{2}\times\sfrac{1}{6^n}} =
+            \dfrac{6^n}{1 + G^n} \]
+        \end{example}
+        
+        }
+        %
+        \yesbefore
+        
+        \item Définition de l'indépendance pour deux événements, pour $n$ événements (deux 
+        à deux indépendants, et mutuellement indépendants).
+        
+        \boxans{
+            %
+            \begin{definition}{Événements indépendants}{}
+                Soient $\left(\Omega, \bcP\left(\Omega\right),\bdP\right)$ un espace
+                probabilisé \textit{d'univers $\Omega$ fini} et deux évènements 
+                $\left(A, B\right) \in \bcP\left(\Omega\right)^2$. On dit que 
+                \hg{$A$ et $B$ sont indépendants} lorsque :
+                %
+                \[ \hg{ \bdP\left(A \cap B\right) = \bdP\left(A\right)\bdP\left(B\right) } \]
+            \end{definition}
+            %
+            \begin{definition}{Indépendance mutuelle}{}
+                Soient $\left(\Omega, \bcP\left(\Omega\right),\bdP\right)$ un espace 
+                probabilisé \textit{d'univers $\Omega$ fini} et un ensemble $I$ indexant
+                une famille $\left(A_i\right)_{i \in I} \in \bcP\left(\Omega\right)^{\mod{I}}$
+                d'évènements. On dit que les \hg{$\left(A_i\right)_{i \in I}$ sont mutuellement
+                indépendants} lorsque :
+                %
+                \[ \hg { \bdP\left(\bigcap_{i \in I} A_i \right) = \prod_{i \in I}
+                \bdP\left(A_i\right) } \]
+            \end{definition}
+            %
+            \begin{definition}{Indépendance deux-à-deux}{}
+                Soient $\left(\Omega, \bcP\left(\Omega\right),\bdP\right)$ un espace 
+                probabilisé \textit{d'univers $\Omega$ fini} et un ensemble $I$ indexant
+                une famille $\left(A_i\right)_{i \in I} \in \bcP\left(\Omega\right)^{\mod{I}}$
+                d'évènements. On dit que les \hg{$\left(A_i\right)_{i \in I}$ sont indépendants
+                deux-à-deux} lorsque :
+                %
+                \[ \hg { \forall \left(i, j\right) \in I^2,\qquad i \neq i \implies
+                \bcP\left(A_i \cap A_j\right) = \bdP\left(A_i\right)\bdP\left(A_j\right)} \]
+            \end{definition}
+            
+            On remarquera notamment que l'indépendance mutuelle d'une famille d'évènements
+            est une condition suffisante à son indépendance deux à deux.
+        }
+    \end{enumerate}
+    
+    \newpage
+
+    \section*{Variables aléatoires sur un espace probabilisé fini}
+    
+    \subsection*{Variable aléatoire}
+    
+    \begin{enumerate}
+        \ithand Définition, variable aléatoire réelle, univers $X\left(\Omega\right)$.
+        Événements $\left[X \in A\right]$.
+        
+        \ithand Cas d'une variable aléatoire réelle : $\left[X = x\right]$,
+        $\left[X \leq x\right]$, $\left[X \geq x\right]$ avec $x \in \bdR$.
+        
+        \ithand  Système complet d'événements associé à $X$ : 
+        $\left[X = x\right]_{x \in X\left(\Omega\right)}$.
+        
+        \ithand Loi d'une variable aléatoire. Fonction d'une v.a.r $f\left(X\right)$. Loi de
+        $X + Y$ et de $XY$.
+    \end{enumerate}
+    
+    \subsection*{Moment d'une variable aléatoire}
+    
+    \begin{enumerate}
+        \ithand Espérance. Propriétés de l'espérance : linéarité, positivité, croissance.
+        
+        \ithand Variable centrée. Inégalité de \textsc{Markov}. Théorème de transfert. 
+        
+        \ithand Moment d'ordre k : $m_K\left(X\right) = \bdE\left(X^k\right)$.
+        
+        \ithand Variance, écart-type. Formule de \textsc{Koenig}-\textsc{Huygens}. 
+        Variance de $aX + b$.
+        
+        \ithand Variable réduite. Variable aléatoire $X^\star = 
+        \frac{X - E\left(X\right)}{\sigma\left(X\right)}$ centrée réduite associée à $X$.
+        
+        \ithand Inégalité de \textsc{Bienaymé}-\textsc{Tchebychev}.
+    \end{enumerate}
+    
+    \subsection*{Lois usuelles}
+    
+    \begin{enumerate}
+        \ithand Loi uniforme sur $\left\llbracket1, n\right\rrbracket$, loi de
+        \textsc{Bernoulli}, loi binomiale : définitions, espérances, variances.
+        
+        \ithand La somme de $n$ variables aléatoires de Bernoulli $\bcB\left(p\right)$
+        indépendantes suit une loi binomiale $\bcB\left(n, p\right)$.
+
+    \end{enumerate}
+    
+    \subsection*{Couple de variables aléatoires}
+    
+    \begin{enumerate}
+        \ithand Loi conjointe, lois marginales. La loi du couple détermine les lois
+        marginales, réciproque fausse.
+        
+        \ithand Loi conditionnelle de $Y$ sachant $\left[X = x\right]$.
+
+    \end{enumerate}
+    
+    \subsection*{Indépendance de variables aléatoires}
+    
+    \begin{enumerate}
+        \ithand Couple de variables aléatoires indépendantes. Dans ce cas, 
+        les lois marginales déterminent la loi conjointe.
+        
+        \ithand Si $X$ et $Y$ sont indépendantes, $f\left(X\right)$ et $g\left(Y\right)$ 
+        sont indépendantes.
+        
+        \ithand Espérance d'un produit de v.a.r. indépendantes : 
+        $\bdE\left(XY\right) = \bdE\left(X\right)\bdE\left(Y\right).$ Réciproque fausse.
+        
+        \ithand Indépendance (mutuelle) de $n$ variables aléatoires.
+        
+        \ithand Somme de variables aléatoires binomiales indépendantes de même paramètre $p$.
+    \end{enumerate}
+    
+    \questionsdecours
+    
+    \begin{enumerate}
+        \item Montrer les inégalités de \textsc{Markov} et de
+        \textsc{Bienaymé}-\textsc{Tchebychev}.
+        
+        \noafter
+        %
+        \boxans{
+            \begin{theorem}{Inégalité de Markov}{}
+                Soit $X$ une variable aléatoire réelle définie sur un espace probabilisé
+                $(\Omega, \bcP\left(\Omega\right),\bdP)$ \textit{d'univers $\Omega$ fini} et
+                supposée presque sûrement positive ou nulle. On a :
+                %
+                \[ \hg{ \forall \alpha \in \bdRp,\qquad \bdP\left(X\geq \alpha\right) \leq
+                \dfrac{\bdE(X)}{\alpha} }\]
+            \end{theorem}
+        }
+        %
+        \nobefore
+        %
+        \begin{nproof}
+            Soit $X$ une variable aléatoire réelle définie sur un espace probabilisé
+            $(\Omega, \bcP\left(\Omega\right),\bdP)$ \textit{d'univers $\Omega$ fini}
+            et supposée presque sûrement positive ou nulle. On se donne $\alpha \in \bdRp$ et
+            $\bdOne_\alpha$ la fonction indicatrice de l'évènement $\left[X \geq \alpha\right]$.
+            %
+            \[ \forall \omega \in \Omega,\qquad \alpha \cdot \bdOne_\alpha\left(\omega\right)
+            \leq X\left(\omega\right) \cdot \bdOne_\alpha\left(\omega\right)
+            \qquad\text{donc}\qquad \forall \omega \in \Omega,\qquad \alpha \cdot
+            \bdOne_\alpha\left(\omega\right) \leq X\left(\omega\right)\]
+            %
+            Ainsi par croissance de l'espérance, on a $\bdE\left(\alpha \cdot
+            \bdOne_\alpha\right) \leq \bdE\left(X\right)$. Or par linéarité : 
+            %
+            \[ \bdE\left(\alpha \cdot \bdOne_\alpha\right) = \alpha
+            \bdE\left(\bdOne_\alpha\right) = a\left( 1 \times \bdP\left(X \geq \alpha\right)
+            + 0 \times \bdP\left(X < \alpha\right)\right) = 
+            \alpha\bdP\left(X \geq \alpha\right) \]
+            %
+            On obtient donc finalement $\alpha \bdP\left(X \geq \alpha\right) \leq
+            \bdE\left(X\right)$, soit $\bdP\left(X\geq \alpha\right) \leq
+            \dfrac{\bdE(X)}{\alpha}$.
+        \end{nproof}
+        %
+        \boxans{
+            \begin{theorem}{Inégalité de Bienaymé-Tchebychev}{}
+                Soit $X$ une variable aléatoire réelle définie sur un espace probabilisé
+                $(\Omega, \bcP\left(\Omega\right),\bdP)$ \textit{d'univers $\Omega$ fini}.
+                On a :
+                %
+                \[ \hg{ \forall \alpha \in \bdR_+,\qquad \bdP\left(\mod{X - \bdE\left(X\right)}
+                \geq \alpha \right) \leq \dfrac{\bdV\left(X\right)}{\alpha^2}} \]
+            \end{theorem}
+        }
+        %
+        \yesafter
+        %
+        \begin{nproof}
+            Soit $X$ une variable aléatoire réelle définie sur un espace probabilisé $(\Omega,
+            \bcP\left(\Omega\right),\bdP)$ \textit{d'univers $\Omega$ fini}.
+            On remarque que $ \left[\mod{X-\bdE\left(X\right)}\geq \alpha \right] =
+            \left[\mod{X-\bdE\left(X\right)}^2 \geq \alpha^2 \right]$. On applique donc
+            simplement l'\textit{inégalité de \textsc{Markov}}.
+        \end{nproof}
+        %
+        \yesbefore
+        
+        \item Calculer $\bdE\left(X\right)$ et $\bdV\left(X\right)$ de deux manières lorsque
+        $X$ suit une loi binomiale $\bcB\left(n, p\right)$.
+        
+        \noafter
+        %
+        \boxans{
+            \begin{property}{Espérance et variance de la loi binomiale}{}
+                Soient $X$ une variable aléatoire réelle définie sur un espace probabilisé
+                $(\Omega, \bcP\left(\Omega\right),\bdP)$ \textit{d'univers $\Omega$ fini}, $n
+                \in \bdN^*$ et $p \in \left]0, 1\right[$ tel que $X \hookrightarrow \bcB\left(n,
+                p\right)$. On a :
+                %
+                \[ \hg{\bdE\left(X\right) = np \qquad\et \bdV\left(X\right) = np\left(1-
+                p\right) }\]
+            \end{property}
+        }
+        %
+        \nobefore\yesafter
+        %
+        \begin{nproof}
+            Soient $X$ une variable aléatoire réelle définie sur un espace probabilisé $(\Omega,
+            \bcP\left(\Omega\right),\bdP)$ \textit{d'univers $\Omega$ fini}, $n
+            \in \bdN^*$ et $p \in \left]0, 1\right[$ tel que $X \hookrightarrow \bcB\left(n,
+            p\right)$.
+            %
+            \medskip
+            
+            \begin{center}
+                \itshape\EBGaramond\large Première méthode, où l'on considère les évènements
+                unitaires
+            \end{center}
+            %
+            $X$ représente le nombre de succès sur $n$ répétions indépendances d'une identique
+            épreuve de \textsc{Bernoulli} de paramètre $p$, qu'on représente par la variable
+            aléatoire réelle $X_i \hookrightarrow \bcB\left(1, p\right)$, où
+            $i \in \left\llbracket 1, n\right\rrbracket$.
+            %
+            \[ X = \sum_{i = 1}^n X_i \qquad\text{donc}\quad \left\lbrace\begin{array}{l}
+                \displaystyle \bdE\left(X\right) = \bdE\left(\sum_{i = 1}^n X_i\right) =
+                \sum_{i = 1}^n \bdE\left(X_i\right) = \sum_{i=1}^n p = np\\[5pt]
+                \displaystyle \bdV\left(X\right) = \bdV\left(\sum_{i = 1}^n X_i\right)
+                = \sum_{i = 1}^n \bdV\left(X_i\right) = \sum_{i=1}^n p\left(1-p\right) =
+                np\left(1-p\right)
+            \end{array}\right.\]
+            %
+            \text{}\medskip
+            
+            \begin{center}
+                \itshape\EBGaramond\large Deuxième méthode, où l'on calcule sans finesse\dots
+            \end{center}
+            %
+            \begin{align*}
+                 \bdE\left(X\right) &= \sum_{k=1}^n k \times \bdP\left(X = k\right) =
+                 \sum_{k=1}^n k \binom{n}{k} p^k \left(1-p\right)^{n-k} = \sum_{k=1}^n n
+                 \binom{n-1}{k-1}p^k \left(1-p\right)^{n-k}\\
+                 &= \sum_{k=1}^{n} np \binom{n-1}{k-1}p^{k-1}
+                 \left(1-p\right)^{n-1-\left(k-1\right)} = np\sum_{k=0}^{n-1} \binom{n-1}{k}
+                 p^k\left(1-p\right)^{n-1-k}\\
+                 &= np\left(p + 1 - p\right)^{n-1} = np
+            \end{align*}
+            %
+            Pour calculer la variance, on utilise la formule de
+            \textsc{Koenig}-\textsc{Huyghens} : 
+            %
+            \[ \bdV\left(X\right) = \bdE\left(X^2\right) - \bdE\left(X\right)^2 =
+            \bdE\left(X^2\right) - \bdE\left(X\right) + \bdE\left(X\right) -
+            \bdE\left(X\right)^2 = \bdE\left(X\left(X-1\right)\right) + np - \left(np\right)^2
+            \]
+            On développe $\bdE\left(X\left(X-1\right)\right)$ comme précédemment :
+            %
+            \begin{align*}
+                \bdE\left(X\left(X-1\right)\right) &= \sum_{k=1}^n k\left(k-1\right)
+                \bdP\left(X = k\right) = \sum_{k=2}^n k\left(k-1\right)\binom{n}{k}
+                p^k\left(1-p\right)^{n-k}\\
+                &= \sum_{k=2}^n np^2 \left(n-1\right) \binom{n-2}{k-2} p^{k-2}
+                \left(1-p\right)^{n-2-\left(k-2\right)}\\
+                &= n\left(n-1\right)p^2 \sum_{k=0}^{n-2}
+                \binom{n-2}{k} p^k\left(1-p\right)^{n-2-k} \\
+                &= n\left(n-1\right)p^2 \left(p + 1 - p\right)^{n-2} = n\left(n-1\right)p^2 
+            \end{align*}
+            %
+            On a donc $\bdV\left(X\right) = np^2\left(n-1\right) - np\left(1 - np\right) =
+            np\left(np - p + 1 - np\right) = np\left(1 - p\right)$.
+        \end{nproof}
+        %
+        \yesbefore
+        
+        \item Montrer que si $X$ et $Y$ sont indépendantes, alors $\bdE\left(XY\right) =
+        \bdE\left(X\right)\bdE\left(Y\right)$.
+        
+        \noafter
+        %
+        \boxans{
+            \begin{theorem}{Espérance de deux variables indépendantes}{}
+                Soient $X$ et $Y$ deux variables aléatoires réelles définies sur un même espace
+                probabilisé $(\Omega, \bcP\left(\Omega\right),\bdP)$ \textit{d'univers $\Omega$
+                fini}, et telles que $X$ et $Y$ sont indépendantes. On a :
+                %
+                \[ \hg{ \bdE\left(XY\right) = \bdE\left(X\right)\bdE\left(Y\right) }\]
+            \end{theorem}
+        }
+        %
+        \nobefore\yesafter
+        %
+        \begin{nproof}
+             Soient $X$ et $Y$ deux variables aléatoires réelles définies sur un même espace
+             probabilisé $(\Omega, \bcP\left(\Omega\right),\bdP)$ \textit{d'univers $\Omega$
+             fini}, et telles que $X$ et $Y$ sont indépendantes. D'après la formule de
+             transfert, on a :
+            %
+            \[ \bdE\left(XY\right) = \sum_{x\in X\left(\Omega\right)} \sum_{y\in
+            Y\left(\Omega\right)} xy \bdP\left( \left[X=x\right] \cap \left[Y=y\right]\right)\]
+            %   
+            Puisque les variables sont indépendantes on a donc :
+            %
+            \[ \bdE\left(XY\right) = \sum_{x\in X\left(\Omega\right)} \sum_{y \in
+            Y\left(\Omega\right)} xy \bdP\left(X = x\right)\bdP\left(Y = y\right) =
+            \left(\sum_{x \in X\left(\Omega\right)} x \bdP\left(X = x\right)\right)
+            \left(\sum_{y \in Y\left(\Omega\right)} y \bdP\left(Y = y\right)\right) =
+            \bdE\left(X\right)\bdE\left(Y\right) \]
+        \end{nproof}
+        %
+        \yesbefore
+        
+        \item Montrer que si $X \hookrightarrow \bcB\left(n, p\right)$ et 
+        $X \hookrightarrow \bcB\left(m, p\right)$ avec $X$ et $Y$ indépendantes, alors 
+        $X+Y \hookrightarrow \bcB\left(n+m, p\right)$.
+        
+        \noafter
+        %
+        \boxans{
+            \begin{theorem}{Somme de binomiales indépendantes}{}
+                Soient $X$ et $Y$ deux variables aléatoires réelles définies sur un même espace
+                probabilisé $(\Omega, \bcP\left(\Omega\right),\bdP)$ \textit{d'univers $\Omega$
+                fini}, telles que $X$ et $Y$ sont indépendantes.
+                %
+                \[ \hg{ \exists \left(p, n, m\right) \in \left]0, 1\right[ \times
+                \left(\bdN^*\right)^2,\qquad \left\lbrace\begin{array}{c}
+                    X \hookrightarrow \bcB\left(n, p\right)  \\
+                    Y \hookrightarrow \bcB\left(m, p\right) 
+                \end{array}\right. \implies X + Y \hookrightarrow 
+                \bcB\left(n + m, p\right) }\]
+            \end{theorem}
+        }
+        %
+        \nobefore\yesafter
+        %
+        \begin{nproof}
+            Soient $X$ et $Y$ deux variables aléatoires réelles définies sur un même espace
+            probabilisé $(\Omega, \bcP\left(\Omega\right),\bdP)$ \textit{d'univers $\Omega$
+            fini}, $p \in \left]0, 1\right[$ et $\left(n, m\right) \in \left(\bdN^*\right)^2$
+            tels que $X$ et $Y$ sont indépendants, $X \hookrightarrow \bcB\left(n, p\right)$ et
+            $Y \hookrightarrow \bcB\left(m, p\right)$.\medskip
+            
+            Le support de $X + Y$ est $\left(X + Y\right)\left(\Omega\right) = \left\llbracket 0, n+ m\right\rrbracket$. Les deux évènements sont indépendants
+            donc :
+            %
+            \[ \forall k \in \left\llbracket 0, n + m\right\rrbracket,\qquad
+            \bdP\left(X+Y = k\right) = \sum_{\substack{x \in \left\llbracket 0,
+            n\right\rrbracket\\
+            y \in \left\llbracket 0, m\right\rrbracket\\ x + y = k}} \bdP\left(X = x\right)
+            \times
+            \bdP\left(Y=y\right)\]
+            %
+            On peut dès lors développer les probabilités :
+            %
+            \[ \bdP\left(X = x\right) \times \bdP\left(Y=y\right) = \binom{n}{x} p^x \left(1 - p\right)^{n - x} \times \binom{m}{y} p^y \left(1 - p\right)^{m - y} = \binom{n}{x}\binom{m}{y} p{x + y}\left(1 - p\right)^{n + m - \left(x + y\right)} \]
+            %
+            Donc avec la somme, et par formule de \textsc{Vandermonde} :
+            %
+            \[ \forall k \in \left\llbracket 0, n + m\right\rrbracket,\qquad
+            \bdP\left(X+Y = k\right) = p^k \left(1 - p\right)^{n + m - k}\sum_{\substack{x \in \left\llbracket 0,
+            n\right\rrbracket\\
+            y \in \left\llbracket 0, m\right\rrbracket\\ x + y = k}} \binom{n}{x}\binom{m}{y} = \binom{n + m}{k} p^k\left(1 - p\right)^{n + m - k}\]
+            %
+            On obtient bien une loi binomiale $X + Y \hookrightarrow \bcB\left(n + m, p\right)$.
+        \end{nproof}
+        %
+        \yesbefore
+        
+    \end{enumerate}
+\end{document}

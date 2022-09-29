@@ -1,0 +1,906 @@
+\documentclass[a4paper,french,bookmarks]{book}
+
+\usepackage{booktabs}
+\usepackage{minitoc}
+\usepackage{./Structure/4PE18TEXTB}
+\usepackage{proof}
+\usepackage{pdfpages}
+
+\newboxans
+\renewcommand{\questionsdecours}{\section*{\centering\EBGaramond\Large Questions~ de~ cours}}
+\renewcommand{\thechapter}{\Roman{chapter}}
+\renewcommand{\thesection}{\arabic{section}}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{0}
+\mtcsettitle{minitoc}{}
+\usepackage{lscape}
+%\renewcommand{\thesection}{\hspace{-11pt}}
+%\renewcommand{\thesubsection}{}
+
+\newcommand{\chaptertoc}[0]{
+    \setcounter{minitocdepth}{4}
+    \begin{tcolorbox}[
+        enhanced,
+        frame hidden,
+        sharp corners,
+        detach title,
+        spread outwards     = 5pt,
+        halign              = center,
+        valign              = center,
+        borderline west     = {3pt}{0pt}{main20!50!main2!95!gray!90},
+        coltitle            = main20!50!main2!95!gray!90, 
+        interior style      = {
+            left color      = main1white2!65!gray!11,
+            middle color    = main1white2!50!gray!10,
+            right color     = main1white2!35!gray!9
+        },
+        arc                 = 0 cm,
+        title               = SOMMAIRE,
+        fonttitle           = \bfseries\sffamily,
+        overlay             = {
+            \node[rotate=90, minimum width=1cm, anchor=south,yshift=-0.8cm] at (frame.west) {\tcbtitle};
+        }
+    ]
+        \begin{minipage}{0.83\linewidth}
+            \sffamily
+            \minitoc
+        \end{minipage}
+    \end{tcolorbox}
+}
+
+\begin{document}
+    
+    %==============================
+    % METADONNEES
+    %==============================
+    
+    \title{TD d'Informatique de MPI/MPI* (2022-2023)}
+    \author{SIAHAAN--GENSOLLEN Rémy}
+    \date{\today}
+    \hypersetup{
+        pdftitle={TD de Physique de MPI/MPI* (2022-2023)},
+        pdfauthor={SIAHAAN--GENSOLLEN Rémy},
+        pdflang={fr-FR},
+        pdfsubject={MPI/MPI*, TD d'Informatique},
+        pdfkeywords={MPI/MPI*, TD d'Informatique, 2022-2023}
+        pdfstartview=
+    }
+    
+    %==============================
+    % MISE EN PAGE
+    %==============================
+    
+    \titleformat{\chapter}[display]{\normalfont\huge\bfseries}{}{0pt}{
+        \begin{tcolorbox}[
+            enhanced,
+            frame hidden,
+            sharp corners,
+            spread sidewards    = 5pt,
+            halign              = center,
+            valign              = center,
+            interior style      = {color=main10!20},
+            arc                 = 0 cm,
+            fontupper           = \color{black}\sffamily\bfseries\huge,
+            fonttitle           = \normalfont\color{white}\sffamily\small,
+            top                 = 1cm, 
+            bottom              = 0.7cm,
+            title               = Chapitre \thechapter,
+            attach boxed title to bottom center = {
+                yshift=\tcboxedtitleheight/2,
+            },
+            boxed title style = {
+                frame code={
+                \path[left color=main21!95!gray!90,right color=main21!95!gray!90] 
+                    ([xshift=-10mm]frame.north west) -- 
+                    ([xshift=10mm]frame.north east) -- 
+                    ([xshift=10mm]frame.south east) -- 
+                    ([xshift=-10mm]frame.south west) -- 
+                    cycle;
+                },
+                interior engine=empty
+            }
+        ]
+            #1
+        \end{tcolorbox}%
+    }
+    \titlespacing*{\chapter}{0pt}{-120pt}{-15pt}
+    \titleformat{name=\chapter,numberless}[display]{\normalfont\huge\bfseries}{}{0pt}{
+        \begin{tcolorbox}[
+            enhanced,
+            frame hidden,
+            sharp corners,
+            spread sidewards    = 5pt,
+            halign              = center,
+            valign              = center,
+            interior style      = {color=main10!20},
+            arc                 = 0 cm,
+            outer arc           = 0pt,
+            leftrule            = 0pt,
+            rightrule           = 0pt,
+            fontupper           = \color{black}\sffamily\bfseries\huge,
+            enlarge left by     = -1in-\hoffset-\oddsidemargin, 
+            enlarge right by    = -\paperwidth+1in+\hoffset+\oddsidemargin+\textwidth,
+            width               = \paperwidth, 
+            left                = 1in+\hoffset+\oddsidemargin, 
+            right               = \paperwidth-1in-\hoffset-\oddsidemargin-\textwidth,
+            top                 = 1cm, 
+            bottom              = 1cm
+        ]
+            #1
+        \end{tcolorbox}%
+    }
+    \titlespacing*{name=\chapter,numberless}{0pt}{-115pt}{0pt}
+    
+    %==============================
+    % PREMIERE DE COUVERTURE
+    %==============================
+
+    %\includepdf[pages={1},scale=1.15,offset=0mm -18mm]{LDCCover.pdf}
+    
+    %==============================
+    % PAGE VIDE
+    %==============================
+    
+    %\pagestyle{empty}
+    
+    %==============================
+    % PAGE DE COUVERTURE INTERNE
+    %==============================
+    
+    \begin{titlepage}
+	    \begin{center}
+	        {\scshape SIAHAAN--GENSOLLEN Rémy\par}
+	        \vspace{2cm}
+	        {\huge\sffamily TD d'\par}
+	        \vspace{0.5cm}
+	        {\Huge\bfseries\sffamily INFORMATIQUE\par}
+	        \vspace{1cm}
+	        {\Large\textit{donné pendant mon année de \textsf{MPI/MPI*} à
+	        Janson-de-Sailly}\\[5pt]\texttt{(2022-2023)}\par}
+	        \vfill
+	        {\large\EBGaramond Dernière compilation le \today\par}
+        \end{center}
+    \end{titlepage}
+    
+    %==============================
+    % PAGE VIDE
+    %==============================
+    
+    \pagestyle{empty}\text{}\newpage
+    
+    %==============================
+    % STYLE DES EN-TÊTES ET PIEDS DE PAGES
+    %==============================
+    
+    \renewcommand\chaptermark[1]{\markboth{#1}{}}
+    
+    \fancypagestyle{intro}{
+        \fancyhf{}
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0pt}\fancyfoot[RO,LE]{\GillSansMTMedium\color{white5}\thepage\;/\;\pageref{LastPage}}
+        \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries TD DE PHYSIQUE}
+        \fancyhead[RE]{\GillSansMTMedium\color{white5}Avant-propos}
+        \fancyhead[LO]{\GillSansMTMedium\color{white5}\rightmark}
+        \fancyhead[RO]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} 2022-2023 \quad Janson-de-Sailly}
+    }
+    
+    \fancypagestyle{toc}{
+        \fancyhf{}
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0pt}\fancyfoot[RO,LE]{\GillSansMTMedium\color{white5}\thepage\;/\;\pageref{LastPage}}
+        \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries TD DE PHYSIQUE}
+        \fancyhead[RE]{\GillSansMTMedium\color{white5}Table des matières}
+        \fancyhead[LO]{\GillSansMTMedium\color{white5}\rightmark}
+        \fancyhead[RO]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} 2022-2023 \quad Janson-de-Sailly}
+    }
+    
+    \fancypagestyle{plain}{
+        \fancyhf{}
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0pt}\fancyfoot[RO,LE]{\GillSansMTMedium\color{white5}\thepage\;/\;\pageref{LastPage}}
+        \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries TD DE PHYSIQUE}
+        \fancyhead[RE]{\GillSansMTMedium\color{white5}Chapitre \thechapter : \nouppercase{\leftmark}}
+        \fancyhead[LO]{\GillSansMTMedium\color{white5}\nouppercase{\rightmark}}
+        \fancyhead[RO]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} 2022-2023 \quad Janson-de-Sailly}
+    }
+    
+    %==============================
+    % PREFACE 
+    %==============================
+    
+    \chapter*{Avant-propos}
+    \thispagestyle{intro}
+    \addcontentsline{toc}{chapter}{Avant-propos}
+    
+    \text{\Large\EBGaramond\itshape À tout lecteur potentiel, quelques mots...}\newline\newline\newline
+    
+    \begin{center}
+        \begin{minipage}{0.85\linewidth}
+            \large \qquad Ce livre contient la résolution des exercices de TD donnés pendant les cours d'informatique de mon année de MPI/MPI*. Il vient en complément du livre de cours associé.\newline\newline\newline\text{}
+        \end{minipage}
+    \end{center}
+    
+    \hfill{\large\textsc{Siahaan--Gensollen Rémy}}
+    
+    \pagestyle{intro}
+    
+    %==============================
+    % TABLE DES MATIERES
+    %==============================
+    
+    \newpage
+    \dominitoc\nomtcrule 
+    {\sffamily\tableofcontents}\mtcaddchapter\pagestyle{toc}
+    
+    \cleardoublepage
+    
+    %==============================
+    % COURS
+    %==============================
+    
+    \pagestyle{plain}
+    
+    \chapter{Logique et systèmes de preuve}
+    
+    \section{Révisions MP2I}
+    
+    \textbf{Exercice 1.} Soit $\varphi = \p{\p{x_1 \rightarrow \neg x_2} \rightarrow \neg x_1} \land x_3$.
+    
+    \begin{enumerate}
+        \item Ecrire l'arbre syntaxique de $\varphi$.
+        
+        \boxansconc{
+            On a l'arbre syntaxique suivant :
+            %
+            \begin{center}
+                \begin{tikzpicture}[nodes={}, ->,
+                    level 1/.style = {sibling distance = 4cm},
+                    level 2/.style = {sibling distance = 3cm},
+                    level 3/.style = {sibling distance = 2cm},
+                ]
+            
+            \node[circle, fill=main21,draw=white,text=white]{$\land$}
+                child {
+                    node[circle, fill=main21,draw=white,text=white]{$\rightarrow$}
+                    child {
+                        node[circle, fill=main21,draw=white,text=white]{$\rightarrow$}
+                        child { node {$x_1$} }
+                        child {
+                            node[circle, fill=main21,draw=white,text=white]{$\neg$}
+                            child { node {$x_2$} }
+                        }
+                    }
+                    child {
+                        node[circle, fill=main21,draw=white,text=white]{$\neg$}
+                        child { node {$x_1$} }
+                    }
+                }
+                child { 
+                    node {$x_3$}
+                };
+            \end{tikzpicture}
+            \end{center}
+        }
+        
+        \item Donner la table de vérité de $\varphi$.
+        
+        \boxansconc{
+            On a la table de vérité suivante :
+            %
+            \begin{center}
+            \NiceMatrixOptions{cell-space-top-limit=3pt}
+            \begin{NiceTabular}{|ccc|ccc|}[]
+                \CodeBefore
+                    \rowcolor{main3!10}{1}
+                    \rectanglecolor{main20!15}{2-4}{9-6}
+                    \cellcolor{main21!15}{4-4, 5-4, 2-5, 3-5, 2-6, 3-6, 5-6, 7-6, 9-6}
+                \Body
+                    \toprule
+                    $x_1$ & $x_2$ & $x_3$ & $x_1 \rightarrow \neg x_2$ & $\p{x_1 \rightarrow \neg x_2} \rightarrow \neg x_1$ & $\p{\p{x_1 \rightarrow \neg x_2} \rightarrow \neg x_1} \land x_3$ \\ \midrule
+                    1 & 0 & 1 & 1 & 0 & 0\\
+                    1 & 0 & 0 & 1 & 0 & 0\\
+                    1 & 1 & 1 & 0 & 1 & 1\\
+                    1 & 1 & 0 & 0 & 1 & 0\\
+                    0 & 0 & 1 & 1 & 1 & 1\\
+                    0 & 0 & 0 & 1 & 1 & 0\\
+                    0 & 1 & 1 & 1 & 1 & 1\\
+                    0 & 1 & 0 & 1 & 1 & 0\\
+                    \bottomrule
+            \end{NiceTabular}
+            \end{center}
+        }
+        
+    \item $\varphi$ est-elle valide ? Est-elle satisfiable ?
+    
+    \noafter
+    %
+    \boxans{
+        Soit $\bcv$ la valuation telle que $\bcv \vDash x_1$, $\bcv \vDash x_2$, $\bcv \vDash x_3$. D'après la table ci-dessus, on a $\bcv \vDash \varphi$.
+        
+        Soit $\bcv$ la valuation telle que $\bcv \vDash x_1$ et $\bcv \vDash x_3$, mais $\bcv\p{x_2} = 0$. D'après la table, $\bcv\p{\varphi} = 0$.
+    }
+    %
+    \nobefore\yesafter
+    %
+    \boxansconc{
+        Il existe une valuation qui satisfait $\varphi$ et une qui ne la satisfait pas, donc $\varphi$ est satisfiable mais pas valide.
+    }
+    %
+    \yesbefore
+    
+    \item Donner la forme normale disjonctive canonique de $\varphi$.
+    
+    \boxansconc{
+        On a en utilisant la table de vérité :
+        %
+        \[ \varphi = \p{x_1 \land x_2 \land x_3} \lor \p{\neg x_1 \land \neg x_2 \land x_3} \lor \p{\neg x_1 \land x_2 \land x_3}\]
+    }
+    
+    \item Donner la forme normale conjonctive canonique de $\varphi$.
+    
+    \boxansconc{
+        On a en utilisant la table de vérité :
+        %
+        \[ \varphi = \p{\neg x_1 \lor x_2 \lor \neg x_3} \land \p{\neg x_1 \lor x_2 \lor x_3} \land \p{\neg x_1 \lor \neg x_2 \lor x_3} \land \p{x_1 \lor x_2 \lor x_3} \land \p{x_1 \lor \neg x_2 \lor x_3}\]
+    }
+    \end{enumerate}
+    
+    \textbf{Exercice 2.} Pour les formules suivantes, dire si ce sont ou non des tautologies. Dans le cas d'une réponse négative, exhiber un contre modèle.
+    
+    \begin{enumerate}
+        \begin{minipage}[t]{0.48\linewidth}
+            \item $\p{p_1 \rightarrow p_1} \rightarrow p_2$
+            
+            \boxansconc{
+                Ce n'est pas une tautologie : $p_2$ faux est un contre modèle.
+            }
+            
+            \item $\p{p_1 \rightarrow p_2} \rightarrow p_1$
+            
+            \boxansconc{
+                Ce n'est pas une tautologie : $p_1$ faux est un contre modèle.
+            }
+            
+            \item $\p{p_2 \rightarrow p_1} \rightarrow p_1$
+            
+            \boxansconc{
+                Ce n'est pas une tautologie : $p_2$ et $p_1$ faux est un contre modèle.
+            }
+            
+            \item $\p{\neg p_1 \rightarrow p_1} \rightarrow p_1$
+            
+            \boxansconc{
+                C'est une tautologie.
+            }
+            
+            \item $\p{p_1 \rightarrow p_2} \rightarrow \p{\p{p_1 \land p_3} \rightarrow p_2}$
+            
+            \boxansconc{
+                C'est une tautologie.
+            }
+        \end{minipage}
+        %
+        \hfill
+        %
+        \begin{minipage}[t]{0.48\linewidth}
+            \item $p_1 \rightarrow \p{p_1 \rightarrow p_2}$
+            
+            \boxansconc{
+                Ce n'est pas une tautologie : $p_1$ vrai et $p_2$ faux est un contre modèle.
+            }
+            
+            \item $p_1 \rightarrow \p{p_2 \rightarrow p_1}$
+            
+            \boxansconc{
+                C'est une tautologie.
+            }
+            
+            \item $p_2 \rightarrow \p{p_1 \rightarrow p_1}$
+            
+            \boxansconc{
+                C'est une tautologie.
+            }
+            
+            \item $\p{\p{p_1 \lor p_3} \rightarrow p_2} \rightarrow \p{\p{p_4 \rightarrow p_1} \rightarrow \p{p_4 \rightarrow p_2}}$
+            
+            \boxansconc{
+                C'est une tautologie.
+            }
+            
+            \item $\p{p_1 \rightarrow p_2} \rightarrow \neg\p{p_1 \land \neg p_2}$
+            
+            \boxansconc{
+                C'est une tautologie.
+            }
+        \end{minipage}
+        
+    \end{enumerate}
+    
+    \textbf{Exercice 3.} Donner la forme normale disjonctive (resp. conjonctive) canonique des formules de l'exercice 2.
+    
+    \boxansconc{
+        \begin{enumerate}
+            \begin{minipage}[t]{0.48\linewidth}
+                \item Disjonctive : $\p{p_1 \land p_2} \lor \p{\neg p_1 \land p_2}$ 
+            
+                Conjonctive : $\p{p_1 \lor p_2} \land \p{\neg p_1 \lor p_2}$
+            
+                \item Disjonctive : $\p{p_1 \land p_2} \lor \p{p_1 \land \neg p_2}$ 
+            
+                Conjonctive : $\p{p_1 \lor p_2} \land \p{p_1 \lor \neg p_2}$
+            
+                \item Disjonctive : $\p{p_1 \land p_2} \lor \p{p_1 \land \neg p_2} \lor \p{\neg p_1 \land p_2}$
+            
+                Conjonctive : $p_2 \lor p_1$
+            
+                \item Tautologie
+            
+                \item Tautologie
+            \end{minipage}
+            %
+            \hfill
+            %
+            \begin{minipage}[t]{0.48\linewidth}
+                \item Disjonctive : $\p{p_1 \land p_2} \lor \p{\neg p_1 \lor p_2} \lor \p{\neg p_1 \lor \neg p_2}$
+                
+                Conjonctive : $\neg p_1 \lor p_2$ 
+                
+                \item Tautologie
+                
+                \item Tautologie
+                
+                \item Tautologie
+                
+                \item Tautologie
+            \end{minipage}
+        \end{enumerate}
+    }
+    
+    \textbf{Exercice 4.} On définit le connecteur de \textsc{Scheffer}, ou d'incompatibilité, par $x_1 \diamond x_2 = \neg x_1 \lor \neg x_2$.
+    
+    \begin{enumerate}
+        \item Construire la table de vérité de $\diamond$.
+
+        \boxansconc{
+            On a la table de vérité suivante :
+            %
+            \begin{center}
+            \NiceMatrixOptions{cell-space-top-limit=3pt}
+            \begin{NiceTabular}{|cc|c|}[]
+                \CodeBefore
+                    \rowcolor{main3!10}{1}
+                    \rectanglecolor{main20!15}{2-3}{5-3}
+                    \cellcolor{main21!15}{3-3}
+                \Body
+                    \toprule
+                    $x_1$ & $x_2$ & $\neg x_1 \lor \neg x_2$ \\ \midrule
+                    1 & 0 & 1\\
+                    1 & 1 & 0\\
+                    0 & 1 & 1\\
+                    0 & 0 & 1\\
+                    \bottomrule
+            \end{NiceTabular}
+            \end{center}
+        }
+
+        \item Donner une formule équivalente à $x_1 \diamond x_2$ n'utilisant que les connecteurs $\neg$ et $\land$.
+
+        \noafter
+        %
+        \boxans{
+            On a $x_1 \diamond x_2 \equiv \neg x_1 \lor \neg x_2 \equiv \neg\p{\neg\p{\neg x_1 \lor \neg x_2}}$. Par formule de \textsc{De Morgan}, on a $x_1 \diamond x_2 \equiv \neg\p{\neg\p{\neg x_1} \land \neg\p{\neg x_2}}$, soit :
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            \[ x_1 \diamond x_2 \equiv \neg\p{x_1 \land x_2}\]
+        }
+        \yesbefore
+
+        \item Donner une formule équivalente à $\neg x_1$ n'utilisant que le connecteur $\diamond$.
+        
+        \boxansconc{
+            On a $\neg x_1 \equiv x_1 \diamond \top$.
+        }
+        
+        \item Démontrer par induction structurelle que toute formule propositionnelle est équivalente à une formule utilisant uniquement le connecteur $\diamond$.
+        
+        \noafter
+        %
+        \boxans{
+            Soit $\bcV$ un ensemble de variables propositionnelles et $\Gamma$ l'ensemble des formules propositionnelles à variables dans $\bcV$, défini par induction. On construit l'application $\bch : \Gamma \to \Gamma$ telle que :
+            %
+            \begin{enumerate}
+                \itast $\bch\p{\top} = \top \equiv \top$ et  $\bch\p{\bot} = \bot \equiv \bot$
+                \itast $\forall v \in \bcV$, \qquad $\bch\p{v} = v$
+                \itast $\forall \p{\varphi, \psi} \in \Gamma^2,\qquad \left\lbrace\begin{array}{ccccc}
+                    \bch\p{\neg \varphi} &=& \varphi \diamond \top &\equiv& \neg \varphi \\
+                    \bch\p{\varphi \land \psi} &=& \p{\varphi \diamond \psi} \diamond \top &\equiv& \varphi \land \psi\\
+                    \bch\p{\varphi \lor \psi} &=& \p{\varphi \diamond \top} \diamond \p{\psi \diamond \top} &\equiv& \varphi \lor \psi\\
+                    \p{\varphi \rightarrow \psi} &=& \varphi \diamond \p{\psi \diamond \top} &\equiv& \varphi \rightarrow \psi
+                \end{array}\right.$
+            \end{enumerate}
+            %
+            On vérifie facilement que $\bch\p{\Gamma}$ ne contient que des formules utilisant uniquement le connecteur $\diamond$. De plus pour tout $\varphi \in \Gamma$, on a $\bch\p{\varphi} \equiv \varphi$, ainsi :
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Toute formule propositionnelle $\varphi$ est équivalente à une formule $\bch\p{\varphi}$ utilisant uniquement le connecteur $\gamma$.
+        }
+        \yesbefore
+    \end{enumerate}
+    
+    \textbf{Exercice 5.} Montrer que toute formule propositionnelle est équivalente à une formule utilisant uniquement le connecteur $\rightarrow$.
+    
+    \noafter
+    %
+    \boxans{
+        On a $x_1 \rightarrow x_2 \equiv \neg x_1 \lor x_2$ ce qui livre $\neg x_1 \equiv x_1 \rightarrow \bot$ et $x_1 \rightarrow x_2 \equiv \neg\p{x_1 \land \neg x_2}$. On procède donc par induction.
+        
+        Soit $\bcV$ un ensemble de variables propositionnelles et $\Gamma$ l'ensemble des formules propositionnelles à variables dans $\bcV$, défini par induction. On construit l'application $\bch : \Gamma \to \Gamma$ telle que :
+            %
+            \begin{enumerate}
+                \itast $\bch\p{\top} = \top \equiv \top$ et  $\bch\p{\bot} = \bot \equiv \bot$
+                \itast $\forall v \in \bcV$, \qquad $\bch\p{v} = v$
+                \itast $\forall \p{\varphi, \psi} \in \Gamma^2,\qquad \left\lbrace\begin{array}{ccccc}
+                    \bch\p{\neg \varphi} &=& \varphi \rightarrow \bot &\equiv& \neg \varphi \\
+                    \bch\p{\varphi \land \psi} &=& \p{\varphi \rightarrow \p{\psi \rightarrow \bot}} \rightarrow \bot &\equiv& \varphi \land \psi\\
+                    \bch\p{\varphi \lor \psi} &=& \p{\varphi \rightarrow \bot} \rightarrow \psi &\equiv& \varphi \lor \psi
+                \end{array}\right.$
+            \end{enumerate}
+            %
+            On vérifie facilement que $\bch\p{\Gamma}$ ne contient que des formules utilisant uniquement le connecteur $\rightarrow$. De plus pour tout $\varphi \in \Gamma$, on a $\bch\p{\varphi} \equiv \varphi$, ainsi :
+    }
+    %
+    \nobefore\yesafter
+    %
+    \boxansconc{
+        Toute formule propositionnelle $\varphi$ est équivalente à une formule $\bch\p{\varphi}$ utilisant uniquement le connecteur $\gamma$.
+    }
+    %
+    \yesbefore
+    
+    \textbf{Exercice 6.} Appliquer l'algorithme de \textsc{Quine} aux formules suivantes, et dire si elles sont satisfiables (resp. valides) :
+     
+    \begin{enumerate}
+        \begin{minipage}{0.48\linewidth}
+            \item $\p{a \rightarrow b} \lor \p{b \rightarrow a}$
+            
+            
+             
+            \item $\p{\p{a \rightarrow b} \rightarrow a} \rightarrow a$
+            
+            \boxans{
+                Avec $\top \mid a$ :
+                %
+                \begin{align*}
+                    \p{\p{a \rightarrow b} \rightarrow a} \rightarrow a &\equiv \p{\p{\top \rightarrow b} \rightarrow \top} \rightarrow \top\\
+                    &\equiv \p{b \rightarrow \top} \rightarrow \top\\
+                    &\equiv \top \rightarrow \top &\equiv \top
+                \end{align*}
+                %
+                Avec $\bot \mid a$ :
+                %
+                \begin{align*}
+                    \p{\p{a \rightarrow b} \rightarrow a} \rightarrow a &\equiv \p{\p{\bot \rightarrow b} \rightarrow \bot} \rightarrow \bot\\
+                    &\equiv \p{\top \rightarrow \bot} \rightarrow \bot\\
+                    &\equiv \bot \rightarrow \bot &\equiv \top
+                \end{align*}
+            }
+             
+            \item $\p{\p{a \rightarrow b} \rightarrow a} \rightarrow b$
+             
+            \item $a \rightarrow \p{\p{a \rightarrow b} \rightarrow b}$
+             
+            \item $\p{\p{x_1 \rightarrow \neg x_2} \rightarrow \neg _1} \lor x_3$
+             
+            \item $\p{\p{p_1 \lor p_3} \rightarrow p_2} \rightarrow \p{\p{p_4 \rightarrow p_1} \rightarrow \p{p_4 \rightarrow p_2}}$
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}{0.48\linewidth}
+        \item $\p{\neg a \lor \p{b \land c}} \land \p{\p{a \land \neg b} \lor \p{a \land \neg c}}$
+             
+        \item $\p{a \rightarrow b} \rightarrow \p{\p{b \rightarrow c} \rightarrow \p{a \rightarrow c}}$
+             
+        \item $\p{\p{a \land \neg b} \lor \p{a \rightarrow \p{b \lor c}}} \rightarrow \p{\neg a \land \neg c}$
+             
+        \item $\p{\p{s \rightarrow \p{b \lor t}} \land \p{\p{b \lor a} \rightarrow \p{r \land m}} \land \neg r} \rightarrow \p{s \rightarrow t}$
+             
+        \item $\p{\p{p \rightarrow q} \lor \p{\neg p \rightarrow \neg q}} \land \p{q \land r \rightarrow \neg p}$
+    \end{minipage}
+    \end{enumerate}
+    
+     \textbf{Exercice 7.} Montrer les conséquences logiques suivantes :
+     
+     \begin{enumerate}
+         \item $\p{p \land q \lor r \land \neg\p{q \lor s}} \lor \neg q \land \p{s \rightarrow p} \vDash q \rightarrow p$
+         
+         \item $\varphi \vDash \psi \rightarrow \varphi$
+         
+         
+         \noafter
+         %
+         \boxans{
+            Soit $\bcv$ une valuation telle que $\bcv \vDash \varphi$, donc $\bcv\p{\varphi} = 1$. On a :
+            %
+            \[ \bcv\p{\psi \rightarrow \varphi} = \bcv\p{\neg \psi \lor \varphi} = \bcv\p{\neg \psi} + \bcv\p{\varphi} - \bcv\p{\neg \psi}\bcv\p{\varphi} = \bcv\p{\neg \psi} + 1 - \bcv\p{\neg \psi} = 1\]
+            %
+         }
+         %
+         \nobefore\yesafter
+         %
+         \boxansconc{
+            Donc $\bcv \vDash \psi \rightarrow \varphi$, ainsi on a bien $\varphi \vDash \psi \rightarrow \varphi$.
+         }
+         %
+         
+         \item $\varphi, \varphi \rightarrow \psi \vDash \psi$
+    \end{enumerate}
+    
+    \section{Logique du premier ordre}
+    
+    \textbf{Exercice 1.} Soit :
+    %
+    \begin{enumerate}
+        \itt $a$ et $b$ des symboles de constantes ;
+        \itt $f$ (resp. $R$) un symbole de fonction (resp. relation) unaire ;
+        \itt $g$ (resp. $S$) un symbole de fonction (resp. relation) binaire.
+    \end{enumerate}
+    
+    Les expressions suivantes sont-elles des termes ? Des formules ? Si oui, quelle en est la taille ? Si c'est une formule quelles sont ses variables livres et ses variables liées ?
+    
+    \begin{enumerate}
+        \item $g\p{a, f\p{b}}$
+        
+        \item $f\p{g\p{f\p{x}, g\p{a, f\p{y}}}}$
+    \end{enumerate}
+    
+    \textbf{Exercice 4.} Démontrer les formules suivantes à l'aide de la déduction naturelle ;
+    %
+    \begin{enumerate}
+        \item $\exists x \  \p{\varphi \land \psi} \rightarrow \p{\exists x \ \varphi} \land \p{\exists x \ \psi}$
+        %
+        \boxansconc{
+            \[ 
+                \infer[(\rightarrow_i)]{\exists x \  \p{\varphi \land \psi} \rightarrow \p{\exists x \ \varphi} \land \p{\exists x \ \psi}}{
+                    \infer[(\land_i)]{\exists x \ \p{\varphi \land \psi} \vdash \p{\exists x \ \varphi} \land \p{\exists x \ \varphi}}{
+                        \infer[(\exists_i)]{\exists x \ \p{\varphi \land \psi} \vdash \exists x \ \varphi}{
+                            \infer[(\land_e^d)]{\exists x \ \p{\varphi \land \psi} \vdash \varphi}{
+                                \infer[]{\exists x \ \p{\varphi \land \psi} \vdash \varphi \land \psi}{
+                                }
+                            }
+                        } &
+                        \infer[(\exists_i)]{\exists x \ \p{\varphi \land \psi} \vdash \exists x \ \varphi}{
+                        }
+                    }
+                }
+            \]
+        }
+        
+    
+     \textbf{Exercice 6.} Soit $f\p{1}$ un symbole de fonction et $T\p{2}$ un symbole de relation. Montrer $\varphi_1, \varphi_2, \varphi_3 \vdash \varphi$, où :
+     %
+     \begin{enumerate}
+         \itt $\varphi_1 : \forall x \p{\p{\exists y \ T\p{x, y}} \to T\p{x, f\p{x}}}$
+         
+         \itt $\varphi_2 : \forall x \p{\exists y \ T\p{x, y}}$
+         
+         \itt $\varphi_3 : \exists x \ T\p{f\p{f\p{x}}, x}$
+         
+         \itt $\varphi : \exists x \exists y \exists z \p{T\p{x, y} \land T\p{y, z} \land T\p{z, x}}$
+         
+         \
+         \boxansconc{
+            On pose :
+            %
+            \begin{enumerate}
+                \itt $\varphi_1' : \p{\exists y \ T\p{x, y}} \to T\p{x, f\p{x}}$
+                
+                \itt $\varphi_2' : \exists y \ T\p{x, y}$
+                
+                \itt $\varphi_3' : T\p{f\p{f\p{x}}, x}$
+                
+                \itt $\varphi_4' : T\p{x, f\p{x}}$
+            \end{enumerate}
+            
+         }
+     \end{enumerate}
+    \end{enumerate}
+    \newpage
+    
+    \begin{landscape}
+    On pose les formules :
+    %
+    \begin{enumerate}
+        \begin{minipage}{0.48\linewidth}
+            \itt $\varphi_1' : \p{\exists y \ T\p{x, y}} \to T\p{x, f\p{x}}$
+                
+            \itt $\varphi_2' : \exists y \ T\p{x, y}$
+                
+            \itt $\varphi_3' : T\p{f\p{f\p{x}}, x}$
+                
+            \itt $\varphi_4' : T\p{x, f\p{x}}$
+        \end{minipage}
+        %
+        \hfill
+        %
+        \begin{minipage}{0.48\linewidth}
+            \itt $\phi_1 : \varphi_1'\intc{x := f\p{x}}$
+            
+            \itt $\phi_2 : \varphi_2' \intc{x := f\p{x}}$
+            
+            \itt $\phi_4 : \varphi_4'\intc{x := f\p{x}}$
+        \end{minipage}
+                
+    \end{enumerate}
+    %
+    On a alors :
+    %
+    \[  \resizebox{\linewidth}{!}{
+                \infer[(\exists_e)]{
+                    \varphi_1, \varphi_2, \varphi_3 \vdash \varphi
+                }{
+                    \infer[(Ax)]{
+                        \varphi_1, \varphi_2, \varphi_3 \vdash \varphi_3
+                    }{} &
+                    \infer[(\rightarrow_e)]{
+                        \varphi_1, \varphi_2, \varphi_3, \varphi_3' \vdash \varphi
+                    }{
+                        \infer[(\forall_e)]{
+                            \varphi_1, \varphi_2, \varphi_3, \varphi_3' \vdash \varphi_1'
+                        }{
+                            \infer[(Ax)]{
+                                \varphi_1, \varphi_2, \varphi_3, \varphi_3' \vdash \varphi_1
+                            }{}
+                        } &
+                        \infer[(\rightarrow_i)]{
+                            \varphi_1, \varphi_2, \varphi_3, \varphi_3' \vdash \varphi_1' \rightarrow \varphi
+                        }{
+                            \infer[(\rightarrow_e)]{
+                                \varphi_1, \varphi_2, \varphi_3, \varphi_1', \varphi_3' \vdash \varphi
+                            }{
+                                \infer[(\forall e)]{
+                                    \varphi_1, \varphi_2, \varphi_3, \varphi_1', \varphi_3' \vdash \varphi_2'
+                                }{
+                                    \infer[(Ax)]{
+                                        \varphi_1, \varphi_2, \varphi_3, \varphi_1', \varphi_3' \vdash \varphi_2
+                                    }{}
+                                } & 
+                                \infer[(\rightarrow_i)]{
+                                    \varphi_1, \varphi_2, \varphi_3, \varphi_1', \varphi_3' \vdash \varphi_2' \rightarrow \varphi
+                                }{
+                                    \infer[(Aff)]{
+                                        \varphi_1, \varphi_2, \varphi_3, \varphi_1', \varphi_2', \varphi_3' \vdash \varphi
+                                    }{
+                                        \infer[(Abs)]{
+                                            \varphi_1, \varpi_2, \varphi_1', \varphi_2', \varphi_3' \vdash \varphi
+                                        }{
+                                            \infer[(\neg_e)]{
+                                                \varphi_1, \varphi_2, \varphi_1', \varphi_2', \varphi_3', \neg \varphi \vdash \bot
+                                            }{
+                                                \infer[(\rightarrow_e)]{
+                                                    \varphi_1, \varphi_2, \varphi_1', \varphi_2', \varphi_3', \neg \varphi \vdash T\p{x, f\p{x}}
+                                                }{
+                                                    \infer[(Ax)]{
+                                                    \varphi_1, \varphi_2, \varphi_1', \varphi_2', \varphi_3', \neg \varphi \vdash \varphi_1'
+                                                    }{} &
+                                                    \infer[(Ax)]{
+                                                    \varphi_1, \varphi_2, \varphi_1', \varphi_2', \varphi_3', \neg \varphi \vdash \varphi_2'
+                                                    }{}
+                                                } &
+                                                \infer[(\neg_i)]{
+                                                    \varphi_1, \varphi_2, \varphi_1', \varphi_2', \varphi_3', \neg \varphi \vdash \neg T\p{x, f\p{x}}
+                                                }{
+                                                    \infer[(\neg_e)]{
+                                                        \varphi_1, \varphi_2, \varphi_1', \varphi_2', \varphi_3', \neg \varphi, T\p{x, f\p{x}} \vdash \bot
+                                                    }{
+                                                        \infer[(Ax)]{
+                                                            \varphi_1, \varphi_2, \varphi_1', \varphi_2', \varphi_3', \neg \varphi, T\p{x, f\p{x}} \vdash \varphi
+                                                        }{} &
+                                                        \infer[(Aff)]{
+                                                            \varphi_1, \varphi_2, \varphi_1', \varphi_2', \varphi_3', \neg \varphi, T\p{x, f\p{x}} \vdash \varphi
+                                                        }{
+    \infer[(\rightarrow_e)]{
+        \varphi_1, \varphi_2, \varphi_3', \varphi_4' \vdash \varphi
+    }{
+        \infer[(\forall_e)]{
+            \varphi_1, \varphi_2, \varphi_3',\varphi_4' \vdash \varphi_1'\intc{x := f\p{x}}
+        }{
+            \infer[(Ax)]{
+                \varphi_1, \varphi_2, \varphi_3',\varphi_4' \vdash \varphi_1
+            }{}
+        } &
+        \infer[(Aff)]{
+            \varphi_1, \varphi_2, \varphi_3', \varphi_4' \vdash \phi_1' \rightarrow \varphi
+        }{
+            \infer[(\rightarrow_i)]{
+                \varphi_2, \varphi_3', \varphi_4' \vdash \phi_1 \rightarrow \varphi
+            }{
+                \infer[(\rightarrow_i)]{
+                    \phi_1, \varphi_2, \varphi_3', \varphi_4' \vdash \varphi
+                }{
+                    \infer[(Abs)]{
+                        \phi_1, \phi_2, \varphi_3', \varphi_4' \vdash \varphi
+                    }{
+                        \infer[(\rightarrow_e)]{
+                            \phi_1, \phi_2, \varphi_3', \varphi_4, \neg \varphi \vdash \phi_4
+                        }{
+                            \infer[(Ax)]{
+                                \phi_1, \phi_2, \varphi_3', \varphi_4, \neg \varphi \vdash \phi_1
+                            }{} &
+                            \infer[(Ax)]{
+                                \phi_1, \phi_2, \varphi_3', \varphi_4, \neg \varphi \vdash \phi_2
+                            }{}
+                        } &
+                        \infer[(Aff)]{
+                            \phi_1, \phi_2, \varphi_3', \varphi_4', \neg \varphi \vdash \neg \phi_4
+                        }{
+                            \infer[(\neg_i)]{
+                                \varphi_3', \varphi_4', \neg \varphi \vdash \neg \phi_4
+                            }{
+                                \infer[(\neg_e)]{
+                                    \varphi_3', \varphi_4', \phi_4, \neg \varphi \vdash \bot
+                                }{
+                                    \infer[(Ax)]{
+                                        \varphi_3', \varphi_4', \phi_4, \neg \varphi \vdash \neg \varphi
+                                    }{} &
+                                    \infer[(Aff)]{
+                                        \varphi_3', \varphi_4', \phi_4, \neg \varphi \vdash \varphi
+                                    }{
+                                        \infer[(\exists_i) \ \intc{x := x}]{
+                                            \varphi_3', \varphi_4', \phi_4 \vdash \varphi
+                                        }{
+                                            \infer[(\exists_i) \ \intc{y := f\p{x}}]{
+                                                \varphi_3', \varphi_4', \phi_4 \vdash \exists y \exists z \p{T\p{x, y} \land T\p{y, z} \land T\p{z, x}}
+                                            }{
+                                                \infer[(\exists_i) \ \intc{z := f\p{x}}]{
+                                                     \varphi_3', \varphi_4', \phi_4 \vdash \exists z \ T\p{x, f\p{x}} \land T\p{f\p{x}, z} \land T\p{z, x}
+                                                }{
+                                                    \infer[(\land_i)]{
+                                                        \varphi_3', \varphi_4', \phi_4 \vdash \varphi_4' \land \phi_4 \land \varphi_3'
+                                                    }{
+                                                        \infer[(Ax)]{
+                                                            \varphi_3', \varphi_4', \phi_4 \vdash \varphi_4'
+                                                        }{} &
+                                                        \infer[(\land_i)]{
+                                                            \varphi_3', \varphi_4', \phi_4 \vdash \phi_4 \land \varphi_3'
+                                                        }{
+                                                            \infer[(Ax)]{
+                                                                \varphi_3', \varphi_4', \phi_4 \vdash \phi_4 \land \phi_4
+                                                            }{} &
+                                                            \infer[(Ax)]{
+                                                                 \varphi_3', \varphi_4', \phi_4 \vdash \phi_4 \land \varphi_3' \vdash \varphi_3'
+                                                            }{}
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+        }\]
+    \end{landscape}
+\end{document}

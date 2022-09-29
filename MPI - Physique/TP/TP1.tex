@@ -1,0 +1,60 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\thesection.\arabic{enumi}.\arabic{enumii}.}
+    
+    \stylizeDocSpe{Physique}{Travaux pratiques n° 1}{Oscilloscope et mesure d'impédance}{Le mercredi 14 septembre 2022}
+    
+    \section{Observation du signal d'un Générateur Basse Fréquence}
+    
+    \noafter
+    %
+    \boxans{
+        
+        \begin{experience}{Entraînement}{}
+            \begin{enumerate}
+                \ithand Régler le menu \texttt{déclenchement} (\texttt{trigger}), notamment les paramètres \texttt{voix} (\texttt{source}) et \texttt{niveau} (\texttt{level}).
+                
+                \ithand Choisir entre les mode \textsf{\hg{CHOP}} et \textsf{\hg{ALTERN}} selon la fréquence (pour les oscillateurs analogiques).
+            \end{enumerate}
+        \end{experience}
+    }
+    %
+    \nobefore\yesafter
+    %
+    \begin{expcom}
+        On prend un signal sinusoïdal de fréquence $f = \SI{1.00}{\kilo\hertz}$ et d'amplitude $A = \SI{20}{\volt}$.
+    \end{expcom}
+    %
+    \yesbefore
+    
+    \begin{enumerate}
+        \item Ne pas oublier que pour augmenter la précision des mesures les courbes doivent occuper un espace maximum sur l'écran de l'oscilloscope. Expliquer pourquoi ?
+        
+        \boxans{
+            On veut être sûr que la courbe qu'on observe est bien celle qu'on cherche à observer, ainsi maximiser la taille permet de s'assurer que l'on n'est pas simplement face à du bruit. Par ailleurs, cela permet de régler le menu \texttt{déclenchement} avec plus de précision.
+        }
+    \end{enumerate}
+    
+    Dorénavant choisir les calibres temporels et en tension qui permettent les meilleures mesures possibles.
+    
+    $\bdC \ \bcC \ \bsC \ \bfC \ \bbC \ C$
+    
+    \noafter
+    %
+    \boxans{
+        \begin{experience}{}{}
+            
+        \end{experience}
+    }
+    
+\end{document}

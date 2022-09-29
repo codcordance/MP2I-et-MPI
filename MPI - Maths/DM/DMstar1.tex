@@ -1,0 +1,931 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\thesection}{Partie \Roman{section}}
+    \renewcommand{\labelenumi}{\Roman{section}.\arabic{enumi}.}
+        \renewcommand*{\labelenumii}{\alph{enumii}.}
+    
+    \stylizeDocSpe{Maths}{Devoir maison $\star$  n° 1}{Centrale P MATH 1 1985}{Pour le vendredi 16 septembre 2022}
+    
+    Dans tout le problème, $\bdK$ désignera $\bdR$ ou $\bdC$. On appellera $\bdK$-\textit{algèbre} commutative tout ensemble $A$ espace vectoriel sur $\bdK$ muni d'une multiplication interne (notée $xy$) associative, commutative, distributive par rapport à l'addition et possédant par rapport à la multiplication externe la propriété suivante :
+    %
+    \[ \forall \lambda \in \bdK,\qquad \forall \p{x, y} \in A^2,\qquad \lambda\p{xy} = \p{\lambda x}y = x\p{\lambda y}\]
+    %
+    $\bdK^n$ est un $\bdK$-espace vectoriel et on le munie d'une structure d'algèbre avec la multiplication interne définie par
+    %
+    \[ \p{x_1, x_2, \dots, x_n}\p{y_1, y_2, \dots, y_n} = \p{x_1y_1, x_2y_2, \dots, x_ny_n} \]
+    %
+    On appelle $e_i$ le $i^\text{ème}$ vecteur de la base canonique $\bcE$ de $\bdK^n$ et on note 
+    %
+    \[ \epsilon = e_1 + e_2 + \dots + c_n = \p{1, 1, \dots, 1}\]
+    %
+    qui est manifestement l'élément unité de l'algèbre.
+    
+    \section{}
+    
+    \begin{enumerate}
+        \item On dit que la forme linéaire $\varphi$ définie sur $\bdK^n$ est multiplicative si :
+        %
+        \[ \forall x \in \bdK^n,\qquad, \forall y \in \bdK^n,\qquad \varphi\p{xy} = \varphi\p{x}\varphi\p{y} \]
+        
+        Établir que les seules formes multiplicatives de $\bdK^n$ sont la forme nulle et les formes $c_1, \dots, c_n$ où $c_i$ désigne la $i^\text{ème}$ forme coordonnée de la base canonique $\bcE$ (on pourra utiliser les images par $\varphi$ des vecteurs de $\bcE$).
+        
+        \noafter
+        %
+        \boxans{
+            La forme nulle et les formes $c_1, c_2, \dots, c_n$ sont manifestement multiplicatives. Réciproquement, soit $\varphi \in \p{\bdK^n}^*$. On a la base duale $\bcE^* = \p{c_1, c_2, \dots, c_n}$ donc il existe un unique $n$-uplet $\p{\lambda_1, \lambda_2, \dots \lambda_n} \in \bdK^n$ tel que :
+            %
+            \[ \varphi = \lambda_1c_1 + \lambda_2c_2 + \dots + \lambda_nc_n = \sum_{i=1}^n \lambda_ic_i \qquad\text{donc}\qquad \forall i \in \iint{1, n},\qquad \varphi\p{e_i} = \lambda_i\]
+            %
+            Si $\varphi = 0$, c'est manifestement une forme multiplicative. Sinon, il existe $i \in \iint{1, n}$ tel que $\varphi\p{e_i} = \lambda_i \neq 0$. Par définition du produit, pour tout $j \in \iint{1, n}$ avec $j \neq i$, on a $e_ie_j = 0$ donc $\varphi\p{e_ie_j} = 0$. Or si $\varphi$ est multiplicative :
+            %
+            \[ \varphi\p{e_ie_j} = \varphi\p{e_i}\varphi\p{e_j} = \lambda_i\lambda_j\qquad\qquad\text{donc}\qquad \lambda_j = 0\]
+            %
+            De plus ${e_i}^2 = e_i$ donc $\varphi\p{e_i} = \varphi\p{e_i}^2 = \varphi\p{e_i}^2 = {\lambda_i}^2$ d'où $\lambda_i = {\lambda_i}^2$ soit $\lambda_i = 1$. Ainsi $\varphi = c_i$.
+        }
+        %
+        \yesafter\nobefore
+        %
+        \boxansconc{
+            Les formes multiplicatives de $\bdK^n$ sont exactement la forme nulle et les formes $c_1, c_2, \dots, c_n$.
+        }
+        %
+        \yesbefore
+        
+        \item \begin{enumerate}
+            \item Soit $f$ un automorphisme d'algèbre de $\bdK^n$ : $f$ est une bijection de $\bdK^n$ vers $\bdK^n$ compatible avec les trois lois, c'est-à-dire $f$ est linéaire et, de plus :
+            %
+            \[ \forall x \in \bdK^n,\qquad \forall y \in \bdK^n,\qquad f\p{xy} = f\p{x}f\p{y}\]
+            
+            Si $\varphi$ est une forme linéaire multiplicative de $\bdK^n$ autre que la forme nulle, que dire de $\varphi \circ f$ ?
+            
+            \noafter
+            \boxans{
+                \text{}\\[-15pt]
+                \[ \forall x \in \bdK^n,\qquad \forall y \in \bdK^n,\qquad \varphi \circ f \p{xy} = \varphi\p{f\p{xy}} = \varphi\p{f\p{x}f\p{y}} = \varphi\p{f\p{x}}\varphi\p{f\p{y}} = \varphi \circ f \p{x} \varphi \circ f\p{y}\]
+                %
+                \text{}\\[-10pt]
+            }
+            %
+            \yesafter\nobefore
+            %
+            \boxansconc{
+                Donc $\varphi \circ f$ est une forme linéaire multiplicative.
+            }
+            %
+            \yesbefore
+            
+            \item En déduire tous les automorphismes d'algèbre de $\bdK^n$? Quel est leur nombre ?
+            
+            \noafter
+            %
+            \boxans{
+                Soit $f$ un automorphisme d'algèbre de $\bdK^n$, on pose $\Mat_\bcE f = \p{\lambda_{i, j}}_{\p{i, j} \in \iint{1, n}^2}$, soit :
+                %
+                \[ f = \sum_{i=1}^n \p{\lambda_{1, i}, \lambda_{2, i}, \dots, \lambda_{n, i}}c_i \]
+                %
+                Soit $i \in \iint{1, n}$, $c_i \circ f$ est une forme multiplicative. Or $c_i \circ f = \lambda_{i, 1}c_1 + \lambda_{i, 2}c_2 + \dots + \lambda_{i, n}c_n = \displaystyle\sum_{j=1}^n \lambda_{i, j}c_j$.
+                
+                Puisque $f$ est bijective, $c_i \circ f = 0 \implies c_i = 0$ ce qui est absurde, donc il existe $j \in \iint{1, n}$ tel que $c_i \circ f = c_j$. En posant $\sigma\p{i} = j$, on a par identification dans la base duale $\lambda_{i, j} = \delta_{i, \sigma\p{i}} = \left\lbrace\begin{array}{rl}
+                    1 &\text{si} \ i = \sigma\p{i}  \\
+                    0 &\text{sinon} 
+                \end{array}\right.$. 
+                
+                On a donc :
+                %
+                \[ \forall x \in \bdK^n,\qquad f\p{x} = \p{c_{\sigma\p{1}}\p{x}, c_{\sigma\p{2}}\p{x}, \dots, c_{\sigma\p{n}}\p{x}}\]
+                %
+                Si pour $\p{i, j} \in \iint{1, n}^2$ tels que $i \neq j$, on a $\sigma\p{i} = \sigma\p{j}$, alors $\rg f < n$ ce qui est absurde puisque $f$ est bijective. Ainsi, $\sigma$ est une bijection, et plus précisément $\sigma$ est une permutation. Le sens réciproque étant évident, on construit donc un isomorphisme entre les automorphismes d'algèbre de $\bdK^n$ et $\bfS_n$. Ainsi :
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Les automorphismes d'algèbres de $\bdK^n$ sont exactement les permutations de coordonnées, de nombre $\mod{\bfS_n} = n!$.
+            }
+            %
+            \yesbefore
+        \end{enumerate}
+        
+        \textit{Dans ce problème, on appellera sous-algèbre de $\bdK^n$ tout sous-espace vectoriel de $\bdK^n$ contenant l'élément unité $\epsilon$ et stable par multiplication interne. La sous-algèbre engendrée par une partie $P$ de $\bdK^n$ est l'intersection de toutes les sous-algèbres la contenant, on admettra que c'est encore une sous-algèbre.}
+        
+        \item \begin{enumerate}
+            \item Soit $a$ un élément de $\bdK^n$, on suppose que les coordonnées $\p{a_i}$ de $a$ dans la base $\bcE$ sont toutes distinctes. Calculer $\p{a - a_1\epsilon}\p{a - a_2\epsilon}\p{\dots}\p{a - a_{n-1}\epsilon}$.
+            
+            \noafter
+            %
+            \boxans{
+                Par définition du produit de $\bdK^n$, on obtient :
+                \[ \prod_{i=1}^{n-1} \p{a - a_i\epsilon} = \sum_{j=1}^n c_j\p{\prod_{i=1}^{n-1} \p{a - a_i\epsilon}}e_j \eq{def} \sum_{j=1}^n \p{\prod_{i=1}^{n-1} c_j\p{a - a_i\epsilon}}e_j = \sum_{j=1}^n \p{\prod_{i=1}^{n-1} \p{a_j - a_i}} e_j \]
+                %
+                Si $j \in \iint{1, n-1}$, alors $\displaystyle\prod_{i=1}^{n-1} \p{a_j - a_i} = \p{a_j - a_j}\prod_{i=1,\ i \neq j}^{n-1} \p{a_j - a_i} = 0$. Ainsi :
+                %
+                \[ \prod_{i=1}^{n - 1} \p{a - a_i\epsilon} = \intc{\sum_{j=1}^{n-1} \p{\prod_{i=1}^{n-1} \p{a_j - a_i}} e_j} + \p{\prod_{i=1}^{n-1} a_n - a_i}e_n = \p{\prod_{i=1}^{n-1} a_n - a_i}e_n\]
+                %
+                Par hypothèse les coordonnées $\p{a_i}$ sont toutes distinctes donc pour $i \in \iint{1, n-1}$ on a $a_j - a_i \neq 0$, d'où :
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                \[ \p{a - a_1\epsilon}\p{a - a_2\epsilon}\p{\dots}\p{a - a_{n-1}\epsilon} = \p{\prod_{i=1}^{n-1} a_n - a_i}e_n \neq 0 \]
+            }
+            %
+            \yesbefore
+            
+            \item En déduire l'équivalence suivante : la sous-algèbre engendrée par $a$ est $\bdK^n$ si et seulement si les coordonnées de $a$ dans la base $\bcE$ sont toutes distinctes.
+            
+            \noafter
+            %
+            \boxans{
+                On a montré à la question précédente que si les coordonnées $\p{a_i}$ dans la base $\bcE$ sont toutes distinctes, alors il existe un scalaire $\lambda_n$ non nul tel que le produit $\p{a - a_1\epsilon}\p{a - a_2\epsilon}\p{\dots}\p{a - a_{n-1}\epsilon} = \lambda_ne_n$.
+                
+                Ce résultat est invariant par permutation des vecteurs de la base $\bcE$, en vertu de quoi :
+                %
+                \[ \forall j \in \iint{1, n},\qquad \exists \lambda_j \neq 0,\quad \prod_{i = 1,\ i \neq j}^{n}\p{a - a_i\epsilon} = \lambda_je_j\]
+                
+                Soit $A$ la sous-algèbre engendrée par $a$. Puisque $A$ est stable par multiplication interne et contient $\epsilon$, il contient chacun des produits ci-dessus. Ainsi, si les coordonnées de $a$ dans la base $\bcE$ sont toutes distinctes, alors les $\lambda_1e_1, \lambda_2e_2, \dots, \lambda_ne_n \in A$ et puisque les $\p{\lambda_i}_{i \in \iint{1, n}}$ sont tous non nuls, $\bdK^n \subset A$ (d'où $\bdK^n = A$).
+                
+                Réciproquement, supposons qu'il existe $\p{i, j} \in \iint{1, n}^2$ tels que $i \neq j$ et $a_i = a_j$. On a :
+                %
+                \[ a = \sum_{k=1}^n a_ke_k = a_ie_i + a_je_j + \sum_{k = 1,\ k \neq i, j}^n a_ke_k = a_i\p{e_i + e_j} + \sum_{k = 1,\ k \neq i, j}^n a_ke_k\]
+                %
+                On pose $\bcB = \p{e_1, e_2, \dots, e_i + e_j, \dots, e_n}$. On remarque que $\Vect{\bcB}$ est stable par multiplication interne :\\[-7pt]
+                %
+                \[ \p{x_1, \dots, x_i, \dots, x_i, \dots, x_n}\p{y_1, \dots, y_i, \dots, y_i, \dots, y_n} = \p{x_1y_1, \dots, x_iy_i, \dots, x_iy_i, \dots x_ny_n}\]
+                %
+                De plus $\Vect{\bcB}$ contient $a$ et $\epsilon$, donc c'est une sous-algèbre de $\bdK^n$ contenant $a$, d'où $A \subset \Vect{\bcB}$. Or $\dim  \Vect{\bcB}= n-1$ donc $\dim{A} \leq n-1$ d'où $A \neq \bdK$. Finalement :
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                La sous-algèbre engendrée par $a$ est $\bdK^n$ si et seulement si les coordonnées $a_i$ sont toutes distinctes.
+            }
+            %
+            \yesbefore
+        \end{enumerate}
+        
+        \item Soit $A$ une sous-algèbre de $\bdK^n$ ; on note $\overline c_1, \overline c_2, \dots, \overline c_n$ les restrictions de $c_1, c_2, \dots, c_n$ à $A$ (voir définition des $c_i$ en \textbf{\color{white5!60!black}\sffamily I.1}). On suppose ici qu'il existe $k$ tel que $\overline c_1, \overline c_2, \dots, \overline c_k$ soient distinctes, et que, pour tout $i > k$, il existe $j \leq k$ vérifiant $\overline c_i = \overline c_j$.
+        
+        \begin{enumerate}
+            \item Établir que $\overline c_1, \overline c_2, \dots, \overline c_n$ sont toutes nulles.
+            
+            \noafter
+            %
+            \boxans{
+                Puisque $A$ est une sous-algèbre de $\bdK^n$ elle contient l'élément unité $\epsilon = e_1 + e_2 + \dots + e_n$. Il en résulte que pour tout entier $i \in \iint{1, n}$, on a $\overline c_i\p{\epsilon} = 1$.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Ainsi les $\overline c_1, \overline c_2, \dots, \overline c_n$ sont tous non nuls.
+            }
+            %
+            \yesbefore
+            
+            \item Montrer que, pour tout couple $\p{i, j}$ d'entiers tels que
+            %
+            \[ i \neq j,\qquad 1 \leq i \leq k,\qquad 1 \leq j \leq k\]
+            %
+            Il existe $u_{ij} \in A$ tel que $c_i\p{u_{ij}} = 1$, $c_j\p{u_{ij}} = 0$. En donner une expression.
+            
+            \noafter
+            %
+            \boxans{
+                Soit un couple $\p{i, j} \in \iint{1, k}^2$ tels que $i \neq j$. Par hypothèse $\overline c_i$ et $\overline c_j$ sont distincts, \ie il existe $x \in A$ tel que $\overline c_i\p{x} \neq \overline c_j\p{x}$. On pose alors $y = x - \overline c_i\p{x}\epsilon$, qui est dans $A$ par stabilité par combinaison linéaire.
+                %
+                \[ \overline c_i\p{y} = \overline c_i\p{x - \overline c_i{x}\epsilon} = \overline c_i\p{x} - \overline c_i\p{x}\overline c_i\p{\epsilon} = \overline c_i\p{x} - \overline c_i\p{x} = 0 \quad\et\quad \overline c_j\p{y} = \overline c_j\p{x} - \overline c_i\p{x} \neq 0\]
+                %
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                $u_{ji} = \dfrac{y}{\overline c_j\p{x} - \overline c_i\p{x}} = \dfrac{x - \overline c_i\p{x}\epsilon}{\overline c_j\p{x} - \overline c_i\p{x}}$ est dans $A$ par combinaison et vérifie $\overline c_j\p{u_{ji}} = 1$ et $\overline c_i\p{u_{ji}} = 0$.
+            }
+            %
+            \yesbefore
+            
+            \item En déduire l'existence, pour tout entier $l$ allant de $1$ à $k$, d'un $w_l \in A$ tel que $c_l\p{w_l} = 1$ et $c_j\p{w_l} = 0$ pour tout $j$ vérifiant $j \neq l$ et $1 \leq j \leq k$ (exprimer $w_l$ en fonction des $u_{ij}$).
+            
+            \noafter
+            %
+            \boxans{
+                Soit $l \in \iint{1, k}$. On construit selon la question précédente, les vecteurs $\p{u_{lj}}_{j \in \iint{1, k} \backslash \ens{l}} \in A^{k-1}$ tels que :
+                %
+                \[ \forall j \in \iint{1, k} \backslash \ens{l},\qquad \overline c_l\p{u_{lj}} = 1 \quad\et\quad \overline c_j\p{u_{lj}} = 0\]
+                %
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                $w_l = \displaystyle\prod_{j=1,\ j \neq l}^k u_{lj}$, est dans $A$ par multiplication interne, et vérifie pour tout $j \in \iint{1, k}$,  $\overline c_j\p{w_l} = \delta_{j, l}$.
+            }
+            %
+            \yesbefore
+            
+            \item Les vecteurs $w_1, w_2, \dots, w_k$ sont-ils liés ? Quel est leur somme ? Quel est le sous-espace vectoriel qu'ils engendrent ?
+            
+            \noafter
+            %
+            \boxans{
+                Soit $j \in \iint{1, k}$, on note $u_j$ la somme des $e_i$ pour $i \in \iint{k+1, n}$ tel que $\overline c_i = \overline c_j$. On a :
+                %
+                \[ w_j = \sum_{i=1}^n \overline c_i\p{w_j}e_i = \sum_{i=1}^k \overline c_i\p{w_j}e_i + \sum_{i=k+1}^n \overline c_i\p{w_j}e_i = e_j + \sum_{\substack{i=k+1\\\overline c_i = \overline c_j}}^n \overline c_i\p{w_j}e_i + \sum_{\substack{i=k+1\\\overline c_i \neq \overline c_j}}^n \overline c_i\p{w_j}e_i = e_j + u_j\]
+                %%
+                Or pour $\p{i, j} \in \iint{1, k}^2$ et $k \in \iint{1, n}$, considérer $u_i = \dots + u_k + \dots $ et $u_j = \dots + u_k + \dots$ revient à dire $\overline c_i = \overline c_j$, ce qui amène $i = j$. Ainsi, aucun des vecteurs de la base $\bcC = \p{e_i}_{i \in \iint{1, n}}$ n'est présent dans la somme de deux $\p{u_j}_{j \in \iint{1, k}}$ distincts. Ainsi les $\p{w_j}_{j \in \iint{1, k}}$ sont libres. En posant $z$ la somme de ces vecteurs, on a :
+                %
+                \[ w_1 + w_2 + \dots + w_k = z c_1\p{z}e_1 + c_2\p{z}e_2 + \dots + c_n\p{z}e_n = e_1 + e_2 + \dots + e_n = \epsilon \]
+    
+                Les $w_1, w_2, \dots, w_k$ engendrent l'espace $\Vect{e_1 + u_1, e_2 + u_2, \dots, e_k + u_k} \subset A$. Or pour tout $a \in A$ :
+                %
+                \[ a = \sum_{i=1}^n \overline c_i\p{a}e_i = \sum_{i=1}^k \overline c_i\p{a}e_i + \sum_{i=k+1}^n \overline c_i\p{a}e_i = \sum_{i=1}^k \overline c_i\p{a}e_i + \sum_{i=1}^k \overline c_i\p{a} u_i = \sum_{i=1}^k \overline c_i\p{a}\p{e_i + u_i}\]
+                %
+                Donc $a \in \Vect{e_1 + u_1, e_2 + u_2, \dots, e_k + u_k} = A$ par double inclusion. Finalement :
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Les $\p{w_j}_{j \in \iint{1, k}}$ sont libres, leur somme vaut $\epsilon$ et ils engendrent $A$.
+            }
+            %
+            \yesbefore
+        \end{enumerate}
+        
+        \item \begin{enumerate}
+            \item Donner la liste des sous-algèbres (autres que $\bdK^n$ elle-même) de $\bdK^n$ dans les cas $n = 2, 3$. Il est signalé que, par exemple, l'ensemble des $\p{\alpha, \alpha, \beta}$ où $\p{\alpha, \beta} \in \bdK^2$ est une sous-algèbre de dimension $2$ de $\bdK^3$.
+            
+            On demande, pour chacune des sous-algèbres de $\bdK^n$ de donner un mode de génération analogue à celui-là.
+            
+            \boxansconc{
+                L'unique sous-algèbre de $\bdK^2$ distincte de $\bdK^2$ est $\epsilon\bdK$. 
+                %
+                Les sous-algèbres de $\bdK^3$ distinctes de $\bdK^3$ sont les ensembles de triplets de forme $\p{\alpha, \alpha, \alpha} = \alpha\epsilon$ , $\p{\alpha, \beta, \beta}$, $\p{\alpha, \beta, \alpha}$ et $\p{\beta, \alpha, \alpha}$ où $\p{\alpha, \beta} \in \bdK^2$.
+            }
+            
+            
+            
+            \item Combien $\bdK^n$ a-t-elle de sous-algèbres de dimension $2$, de dimension $n-1$ ?
+            
+            \boxansconc{
+                Les sous-algèbres de $\bdK^n$ de dimension $2$ sont les ensembles de $n$-uplets de forme $\p{\alpha, \beta, \beta, \dots, \beta},\ \p{\beta, \alpha, \beta, \dots, \beta},\ \dots,\ \p{\beta, \beta, \beta, \dots, \alpha}$ où $\p{\alpha, \beta} \in \bdK^2$. Leur nombre est donc déterminé par la position de $\alpha$, donc il y en a $n$.\medskip
+                
+                Similairement, les sous-algèbres de $\bdK^n$ de dimension $2$ sont les ensembles de $n$-uplets de forme $\p{\gamma_1, \gamma_2, \dots, \gamma_n}$ avec $\p{\gamma_i}_{i \in \iint{1, n}} \in \bdK^n$ tel qu'il existe un couple $\p{i, j} \in \iint{1, n}^2$ avec $i \neq j$ et $\gamma_i = \gamma_j$. Il en existe donc $n\p{n-1} = n^2 - n$.
+            }
+        \end{enumerate}
+    \end{enumerate}
+    
+    \section{}
+    
+    On rappelle que la trace d'une matrice est égale à la somme des coefficients de sa diagonale :
+    %
+    \[ \Tr{A} = \sum_{i=1}^n a_{ii}\]
+    %
+    où $A = \p{a_{ij}}$. On a alors la propriété suivante :\quad $\Tr{AB} = \Tr{BA}$, ce qui permet de définir la trace d'un endomorphisme : \quad $\Tr\p{u} = \Tr{A} = \Tr{P^{-1}AP}$, où $A$ est une matrice de $u$ dans une base quelconque.
+    
+    \begin{enumerate}
+        \item Soit $a$ un élément de $\bdK^n$, on définit $\mu_a$ l'endomorphisme de $\bdK^n$ qui à tout $x$ associe $ax$. Calculer la trace de $\mu_a$ en fonction des $c_i\p{a}$ où $c_i\p{a}$ désigne la $i^\text{ème}$ coordonnée de $a$ dans la base $\bcE$. Ce nombre sera dit trace de $a$ et sera noté $\Tr{a}$.
+        
+        \noafter
+        %
+        \boxans{
+            Soit $A = \p{a_{ij}}_{\p{i, j} \in \iint{1, n}^2} = \Mat_\bcC\p{u}$ la matrice de $\mu_a$ dans la base canonique. On a :
+            %
+            \[ \Tr{\mu} = \Tr{A} = \sum_{i=1}^n a_{ii} = \sum_{i=1}^n c_i\p{\mu_i\p{e_i}} = \sum_{i=1}^n c_i\p{ae_i} = \sum_{i=1}^n c_i\p{a}c_i\p{e_i} = \sum_{i=1}^n c_i\p{a}\]
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            La trace de $\mu_a$ est la somme des coordonnées de $a$ dans la base $\bcE$.
+        }
+        %
+        \yesbefore
+        
+        \textit{On étudie dans toute la suite du problème les bases $\bcB = \p{v_1, v_2, \dots, v_n} \in \bdK^n$ ayant la propriété suivante :}
+        %
+        \[ \forall \p{i, j} \in \iint{1, n}^2,\qquad \exists k \in \iint{1, n} \ \text{tel que} \ v_iv_j = v_k\] 
+        %
+        \textit{une telle base sera dite base stable de $\bdK^n$.}
+        
+        \item \begin{enumerate}
+            \item Établir que, si $n$ vecteurs forment une base stable de $\bdK^n$, leurs images par tout automorphisme d'algèbre de $\bdK^n$ forment une base stable.
+            
+            \noafter
+            %
+            \boxans{
+                Soit $\bcB = \p{v_1, v_2, \dots, v_n} \in \bdK^n$ une base stable de $\bdK^n$ et $f$ un automorphisme d'algèbre de $\bdK^n$. L'image de la base $\bcB$ par un automorphisme (donc bijectif) est une base $\bcB' = \p{v_1' = f\p{v_1}, v_2' = f\p{v_2}, \dots, v_n' = f\p{v_n}}$. Il reste donc à montrer qu'elle est stable :
+                %
+                \[ \forall \p{i, j} \in \iint{1, n}^2,\qquad \exists k \in \iint{1, n} \ \text{tel que} \ v_iv_j = v_k \qquad\text{donc}\qquad v_k' = f\p{v_k} = f\p{v_iv_j} = f\p{v_i}f\p{v_j} = v_i'v_j'\] 
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                L'image d'une base stable par un automorphisme  est donc une base stable.
+            }
+            %
+            \yesbefore
+            
+            \item Montrer que, si une matrice $M$ carrée d'ordre $n$ sur $\bdK$ est la matrice de passage de $\bcE$ à une base stable, il en est de même de toute matrice déduite de $M$ par permutation des lignes ou par permutation des colonnes.
+            
+            \boxansconc{
+                Soit $T$ la matrice de transposition en question. On a montré à la question \textbf{\color{white5!60!black}\sffamily I.2.b} que les permutations sont exactement les automorphismes d'algèbre de $\bdK^n$, donc $T$ est la matrice d'un automorphisme. Le résultat de la question précédente permet de conclure.
+            }
+        \end{enumerate}
+        
+        \item \begin{enumerate}
+            \item Soit $\bcB$ une base stable de $\bdK^n$, prouver que la forme linéaire qui prend la valeur $1$ pour chacun des vecteurs de $\bcB$ est multiplicative (\cf \textbf{\color{white5!60!black}\sffamily I.1.}).
+            
+            \noafter
+            %
+            \boxans{
+                Soit $\bcB = \p{v_1, v_2, \dots, v_n} \in \bdK^n$ une base stable de $\bdK^n$ et $\varphi$ la forme linéaire qui prend la valeur $1$ pour chacun des vecteurs de $\bcB$. Soit ${x, y} \in \p{\bdK^n}^2$ de coordonnées $\p{x_i}_{i \in \iint{1, n}}$ et $\p{y_i}_{i \in \iint{1, n}}$dans $\bcB$. On a :
+                
+                \[ \varphi\p{xy} = \varphi\p{\p{\sum_{i=1}^n x_iv_i}\p{\sum_{i=1}^n y_iv_i}} = \varphi\p{\sum_{i=1}^n \sum_{j=1}^n x_iy_jv_iv_j} = \sum_{i=1}^n \sum_{j=1}^n x_iy_i\varphi\p{v_iv_j}\]
+                %
+                Or pour tout couple $\p{i, j} \in \iint{1, n}^2$, il existe par stabilité $k \in \iint{1, n}$ tel que $v_iv_j = v_k$. Donc $\varphi\p{v_iv_j} = \varphi\p{v_k} = 1 = \varphi\p{v_i}\varphi\p{v_j}$, d'où :
+                %
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                \[ \varphi\p{xy} = \sum_{i=1}^n \sum_{j=1}^n x_iy_i\varphi\p{v_i}\varphi\p{v_j} = \p{\sum_{i=1}^n x_i\varphi\p{v_i}}\p{\sum_{j=1}^n x_j\varphi\p{v_j}} = \varphi\p{x}\varphi\p{y}\]
+            }
+            %
+            \yesbefore
+            
+            \item Étant donné une base $\bcB$ de $\bdK^n$, on appellera matrice de $\bcB$ et on notera $M_\bcB$ la matrice de passage de $\bcE$ à $\bcB$, c'est-à-dire la matrice de $\bcB$ dont le terme situé dans la ligne $i$ et la colonne $j$ est la $i^\text{ème}$ coordonnée dans $\bcE$ du $j^\text{ème}$ vecteur de $\bcB$. Montrer que, si $\bcB$ est stable, $M_\bcB$ comporte une ligne et une seule dont tous les termes sont égaux à $1$.
+            
+            \noafter
+            %
+            \boxans{
+                Soit $\bcB = \p{v_1, v_2, \dots, v_n} \in \bdK^n$ une base stable de $\bdK^n$ et $\varphi$ la forme linéaire qui prend la valeur $1$ pour chacun des vecteurs de $\bcB$. On a montré que $\varphi$ était multiplicative, donc en vertu du résultat déterminé en  \textbf{\color{white5!60!black}\sffamily I.1.}), et puisqu'elle n'est pas nulle ($\varphi\p{v_1} = 1$), il existe $k \in \iint{1, n}$ tel que $\varphi = c_i$. Or :
+                %
+                \[ \forall j \in \iint{1, n}\qquad \intc{M_\bcB}_{i, j} = c_i\p{v_j} = \varphi_{v_j} = 1\]
+                %
+                Donc tous les termes de la ligne $i$ sont égaux à $1$. Il ne peut exister une deuxième ligne pour laquelle ce soit le cas, puisque sinon $\det{M_\bcB} = 0$, donc la matrice ne serait pas inversible. Or $M_\bcB$ est une matrice de passage donc inversible.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Donc si $\bcB$ est stable, $M_\bcB$ comporte une ligne et une seule dont tous les termes sont égaux à $1$.
+            }
+            %
+            \yesbefore
+        
+        \end{enumerate}
+        
+        \item Donner les matrices de toutes les bases stables de $\bdK^2$.
+        
+        \boxansconc{
+            \[ \begin{pNiceMatrix}
+            1 & 1\\
+            1 & -1
+            \end{pNiceMatrix},\quad \begin{pNiceMatrix}
+            1 & 1\\
+            -1 & 1
+            \end{pNiceMatrix},\quad \begin{pNiceMatrix}
+            -1 & 1\\
+            1 & 1
+            \end{pNiceMatrix},\quad \begin{pNiceMatrix}
+            1 & -1\\
+            1 & 1
+            \end{pNiceMatrix},\quad \begin{pNiceMatrix}
+            1 & 1\\
+            1 & 0
+            \end{pNiceMatrix},\quad \begin{pNiceMatrix}
+            1 & 1\\
+            0 & 1
+            \end{pNiceMatrix},\quad \begin{pNiceMatrix}
+            0 & 1\\
+            1 & 1
+            \end{pNiceMatrix},\quad \begin{pNiceMatrix}
+            1 & 0\\
+            1 & 1
+            \end{pNiceMatrix}\]
+        }
+        
+        \item Soit $\bcB$ une base stable, $a$ un élément de $\bcB$.
+        
+        \begin{enumerate}
+            \item Établir l'existence d'un entier $p > 0$ tel que $a^{p+1} = a$. On aura intérêt à se servir de la suite $a, a^2, a^3, \dots$.
+            
+            \noafter
+            %
+            \boxans{
+                Soit un élément $a = \p{a_1, a_2, \dots a_n}$ d'une base stable $\bcB$. Par récurrence simple, on montre que :
+                %
+                \[ \forall k \in \bdN^*,\qquad a^k = \p{{a_1}^k, \p{a_2}^k, \dots, \p{a_n}^k} \in \bcB\]
+                %
+                Puisqu'il y a un nombre fini de vecteurs dans $\bcB$, il existe $\p{k, p} \in {\bdN^*}^2$ tels que $a^{k+p} = a^k$. Soit $i \in \iint{1, n}$, on a ${a_i}^{k+p} = {a_i}^k$.
+                %
+                \begin{enumerate}
+                    \itt Si $a_i = 0$, alors on a ${a_i}^{p+1} = 0 = a_i$.
+                    
+                    \itt Sinon, on a $a_i^{k+p} = {a_i}^k$ d'où $a_i^{p} = 1$ d'où ${a_i}^{p+1} = a_i$.
+                \end{enumerate}
+                %
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Donc $a^{p+1} = \p{{a_1}^{p+1}, {a_2}^{p+1}, \dots, {a_n}^{p+1}} = \p{a_1, a_2, \dots, a_n} = a$.
+            }
+            %
+            \yesbefore
+            
+            
+            \item Dans le cas de l'algèbre $\bdR^n$, trouver une valeur $p$ indépendante de $\bcB$ et de $a$.
+            
+            \noafter
+            %
+            \boxans{
+                Soit $a = \p{a_1, a_2, \dots a_n}$ un vecteur quelconque d'une base quelconque $\bcB$ de $\bdR^n$. Il existe un entier $p \in \bdN^*$ tel que pour tout $i \in \iint{1, n}$, ${a_i}^{p+1} = a_i$. Or $a_i \in \bdR$ donc les seules valeurs possibles sont $1$ et $-1$. Or :
+                %
+                \[ 1^3 = 1^{2 + 1} = 1 \qquad\qquad \p{-1}^3 = \p{-1}^{2 + 1} = -1\]
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Donc $p = 2$ convient.
+            }
+            %
+            \yesbefore
+
+        \end{enumerate}
+        
+        \item Montrer que le nombre de bases stables de $\bdK^n$ est fini.
+        
+        \noafter
+        %
+        \boxans{
+            Tout vecteur $a = \p{a_1, a_2, \dots, a_n}$ d'une base stable $\bcB$ de $\bdK^n$ vérifie qu'il existe $p \in \bdN$ tel que $a^{p+1} = a$. Or les itérés $\suiteZ{a^n}$ sont tous dans $\bcb$ par stabilité. En considérant le $p$ minimal dans la propriété précédentes, on en déduit que $a, a^2, \dots, a^p$ sont tous différents. On a donc $p$ vecteurs différents dans $\bcB$, en vertu de quoi $p < n$.\medskip
+            
+            De plus, pour tout $i \in \iint{1, n}$, on a ${a_i}^{p+1} = a_i$ donc $a_i$ est racine du polynôme $X^p - X$, qui a par degré $p$ au plus $p$ racines distinctes, donc $p$ possibilités pour $a_i$. Il y a donc au plus $pn \leq n^2$ possibilités pour tout vecteur $a$ de $\bcB$, et puisqu'il y a $n$ vecteurs dans $\bcB$ on obtient que : 
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Le nombre de bases stables de $\bdK^n$ est majoré par $n^3$ donc fini.
+        }
+        %
+        \yesbefore
+        
+        \item Soit $\bcB$ une base stable de $\bdK^n$, $a$ un élément de $\bcB$. En utilisant l'application $\mu_a$ définie au \textbf{\color{white5!60!black}\sffamily II.1.} et sa matrice dans une base convenable, établir que la trace de $a$ est un entier compris au sens large entre $0$ et $n$. A quelle condition a-t-on $\Tr{a} = n$ ?
+        
+        \noafter
+        %
+        \boxans{
+            Déterminons $A = \Mat\bcB\p{\mu_a}$ la matrice de $\mu_a$ dans la base $\bcB = \p{v_1, v_2, \dots, v_n}$. Celle-ci est entièrement déterminé par l'image des vecteurs de $\bcB$ par $\mu_a$, soit les $\p{\mu_a\p{v_j}}_{j \in \iint{1, n}}$. Or $a \in \bcB$ donc par stabilité :
+            %
+            \[ \forall j \in \iint{1, n},\qquad \exists \sigma\p{j} \in \iint{1, n},\qquad \mu_a\p{v_j} = av_j = v_{\sigma\p{j}} \in \bcB\]
+            %
+            Ainsi $A$ se décrit de la manière suivante :
+            %
+            \[ \forall j \in \iint{1, n}, \qquad \exists \sigma\p{j} \in \iint{1, n},\qquad \forall j \in \iint{1, n},\qquad \intc{A}_{i, j} = \delta_{i, \sigma\p{j}}\]
+            %
+            Donc pour tout $i \in \iint{1, n}$, on a $\intc{A}_{i, i} \in \ens{0, 1}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Donc $\Tr{a} = \Tr{\mu_a} = \displaystyle\sum_{i=1}^n \intc{A}_{i, i}$ est un entier compris entre $0$ et $n$.
+            De plus $\Tr{a} = n$ si et seulement si pour tout $i \in \iint{1, n}$, on a $\intc{A}_{i, i} = 1$, c'est-à-dire $\mu_a{v_i} = av_i = v_i$, soit $a = \epsilon$.
+        }
+        %
+        \yesbefore
+        
+        \begin{enumerate}
+            \item Soit $M_\bcB$ une base stable de $\bdK^n$, établir que $M_\bcB$ comporte au moins $2n - 1$ coefficients non nuls.
+            
+            \noafter
+            %
+            \boxans{
+                On a montré à la question \textbf{\color{white5!60!black}\sffamily II.3.b} que toute matrice $M_\bcB$ comportait une ligne dont les termes sont tous égaux $1$. De plus, il existe au moins un coefficient non nul sur les autres lignes, sans quoi on aurait $\det M_\bcB = 0$ ce qui n'est pas le cas car $M_\bcB$ est inversible (matrice de passage).
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Il y a donc au moins $n + n-1 = 2n - 1$ coefficients non nuls.
+            }
+            %
+            \yesbefore
+            
+            \item On suppose que $M_\bcB$ comporte exactement $2n - 1$ coefficients non nuls. Établir que $M_\bcB$ se déduit par permutation de lignes et de colonnes de la matrice $N$ dont tous les éléments sont nuls sauf ceux de la première ligne et de la première diagonale qui, eux, sont égaux à $1$.
+            
+            \noafter
+            %
+            \boxans{
+                On a montré que les $2n - 1$ coefficients non nuls minimum de $M_\bcB$ étaient exactement disposés de manière à remplir tous les termes d'une seule même ligne $i$ avec $1$, et que les $n-1$ restants étaient disposés sur les $n-1$ lignes restantes. Si deux d'entre eux sont disposés sur la même colonne, alors il y a deux colonnes identiques, ne possédant ne possédant qu'un coefficient non nul égal à $1$ sur la ligne $i$. Dès lors $\det M_\bcB = 0$, donc $M_\bcB$ n'est pas inversible, ce qui est absurde. Ainsi les $n-1$ coefficients non nuls restants sont disposés sur $n-1$ colonnes distinctes.\medskip
+                
+                Considérons un de ces coefficients, donc une coordonnée $a_j$ d'un vecteur $a = \p{a_1, a_2, \dots a_n} \in \bcB$, avec $j \neq i$. Il est le seul coefficient non nul de sa ligne, ce qui signifie que la $j^\text{ème}$ coordonnées des autres vecteurs de $\bcB$ est nulle. Or par stabilité, pour tout $k \in \bdN$, on a que ${a_j}^k$ est la $j^\text{ème}$ coordonnée d'un vecteur de $\bcB$. Il en résulte que puisque ${a_j}^k$ est non nul, on a ${a_j}^k = a_j$, et donc $a_j = 1$.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Donc $M_\bcB$ se déduit bien par permutation de lignes et de colonnes de la matrice $N$.
+            }
+            %
+            \yesbefore
+            
+            \item Montrer que $N$ est bien la matrice d'une base stable.
+            
+            \noafter
+            %
+            \boxans{
+                La matrice 
+                %
+                \[ N = \begin{pNiceMatrix}
+                    1      & \Cdots &        &        & 1\\
+                    0      & 1      & 0      & \Cdots & 0\\
+                    \Vdots & \Ddots & \Ddots & \Ddots & \Vdots\\
+                           &        &        &        & 0\\
+                    0      & \Cdots &        & 0      & 1      
+                \end{pNiceMatrix}_{\intc{n}} \]
+                %
+                Est échelonnée donc décrit une famille de $n$ vecteurs libre. Or $\dim \bdK^n = n$ donc la famille en question est une base. Elle est donnée par les vecteurs :
+                %
+                \[ v_1= \p{1, 0, 0, 0, \dots, 0},\quad v_2 = \p{1, 1, 0, 0, \dots, 0},\quad v_3 = \p{1, 0, 1, 0 \dots, 0},\quad \dots,\quad v_n =\p{1, 0, 0, 0, \dots, 1}\]
+                %
+                C'est-à-dire $v_1 = e_1$ et pour tout $i \in \iint{2, n}$, $v_i = e_1 + e_i$. On vérifie sa stabilité :
+                %
+                \[ \forall \p{i, j} \in \iint{2, n} \ \text{avec} \ i \neq j,\qquad \left\lbrace\begin{array}{rcl}v_iv_j &=& \p{e_1 + e_i}\p{e_1 + e_j} = {e_1}^2 + e_1e_i + e_je_1 + e_ie_j = e_1 = v_1\\
+                v_iv_1 &=& \p{e_1 + e_i}e_1 = {e_1}^2 + e_1e_i = e_1 = v_1\\
+                {v_1}^2 &=& {e_1}^2 = e_1 = v_1\end{array}\right.\]
+                %
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Donc $N$ est bien la matrice d'une base stable.
+            }
+        \end{enumerate}
+    \end{enumerate}
+    
+    \section{}
+    
+    On étudie désormais les bases stables de $\bdK^n$ dont tout élément $a$ est inversible (c'est-à-dire qu'il existe $b \in \bdK^n$ tel que $ab = \epsilon$). Ces bases seront dites bases stables inversibles.
+    
+    \begin{enumerate}
+        \item \begin{enumerate}
+            \item Montrer que si $\bcB$ est une base stable inversible, alors l'un des vecteurs de $\bcB$ est $\epsilon$.
+            
+            \noafter
+            %
+            \boxans{
+                Soit $\bcB$ une base stable inversible et $a \in \bcB$ un de ses vecteurs, d'inverse $b$. On a montré à la question \textbf{\color{white5!60!black}\sffamily II.5.a} qu'il existe $p \in \bdN^*$ tel que $a^{p+1} = a$, donc $a^{p+1}b = ab$, donc $a^pab = \epsilon$, donc $a^p = \epsilon$.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                 Par stabilité, $a^n \in \bcB$ donc $\epsilon \in \bcb$.
+            }
+            %
+            \yesbefore
+            
+            \item Montrer que les coefficients de la matrice $M_\bcB$ d'une base stable inversible sont tous de module $1$.
+            
+            \noafter
+            %
+            \boxans{
+                Soit $\bcB$ une base stable inversible et $a = \p{a_1, a_2, \dots, a_n} \in \bcB$ un de ses vecteurs. On sait que pour tout $k \in \bdN$, $a^k = \p{{a_1}^k, {a_2}^k \dots, {a_n}^k}\in \bcB$ donc pour tout $i \in \iint{1, n}$, ${a_i}^k$ est un coefficient de $M_\bcB$. Si $\mod{a_i} \neq 1$, alors la suite $\suiteZ{\mod{a_i}^n}$ prend une infinité de valeurs, et on peut donc générer une infinité de coefficients distincts de $M_\bcB$.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Donc les coefficients de la matrice $M_\bcB$ d'une base stable inversible sont tous de module $1$.
+            }
+        \end{enumerate}
+        
+        \item En raisonnant comme en \textbf{\color{white5!60!black}\sffamily II.7} établir que pour tout élément $a$ d'une base stable inversible tel que $a \neq \epsilon$, on a
+        %
+        \[ \Tr{a} = 0\]
+        
+        \noafter
+        %
+        \boxans{
+            Soit une base $\bcB$ stable inversible, et $a = \p{a_1, a_2, \dots, a_n} \in \bcB$ un vecteur de cette base. On a montré à la question \textbf{\color{white5!60!black}\sffamily II.7} que si $\Tr{a} \neq 0$, c'est qu'il existe $i \in \iint{1, n}$ tel que $\mu_a\p{v_i} = v_i$, donc tel que $av_i = v_i$. En prenant $b \in \bdK^n$ l'inverse de $v_i$, soit tel que $v_ib = \epsilon$, on a $av_ib = v_ib$, soit $a = \epsilon$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Par contraposée, pour tout élément $a$ d'une base stable inversible tel que $a \neq \epsilon$, on a $\Tr{a} = 0$.
+        }
+        %
+        \yesbefore
+        
+        \item Soit $\bcB = \p{v_1, v_2, \dots, v_n}$ une base stable inversible et $s$ la somme de ses vecteurs. Calculer $\Tr{s}$ ; calculer $sv_i$ pour $i$ allant de $1$ à $n$, puis $s^2$. En déduire que $s$ est le produit par $n$ d'un vecteur de $\bcE$.
+        
+        \noafter
+        %
+        \boxans{
+            Il existe $i \in \iint{1, n}$ tel que $v_i = \epsilon$ et tel que pour $j \in \iint{1, n}$ avec $j \neq i$, $v_j \neq \epsilon$. Dès lors :
+        }
+        %
+        \nobefore
+        %
+        \boxansconc{
+            \[ \Tr{s} = \Tr{\sum_{j = 1}^n v_j} = \sum_{j=1}^n \Tr{v_j} = \Tr{v_i} + \sum_{j=1,\ j \neq i}^n \Tr{v_j} = n + \sum_{j=1,\ j \neq i}^n 0 = n\]
+        }
+        %
+        \boxans{
+            Soit $i \in \iint{1, n}$, on a $sv_i = \p{v_1 + v_2 + \dots + v_n}v_i = v_1v_i + v_2v_i + \dots + v_nv_i$. Par stabilité, pour tout $j \in \iint{1, n}$, il existe $k \in \iint{1, n}$ tel que $v_jv_i = v_k$. Supposons qu'il existe $\p{j'} \in \iint{1, n}$ tel que $v_{j'}v_i = v_k$. On a $v_jv_i = v_{j'}v_i$, donc en multipliant par l'inverse de $v_i$, on a $v_{j'} = v_j$ d'où $j' = j$. Cette unicité livre $sv_i = s$. Dès lors :
+            %
+            \[ s^2 = ss = s\p{\sum_{i=1}^n v_i} = \sum_{i=1}^n sv_i = \sum_{i=1}^n s = ns\]
+            %
+            Posons $s = \p{s_1, s_2, \dots, s_n}$. On a $s^2 = ns$ donc pour tout $i \in \iint{1, n}$, on a ${s_i}^2 = ns$ d'où $s_i = 0$ ou $s_i = n$. Or, $\Tr{s} = n = \displaystyle \sum_{i=1}^n c_i\p{s} = \sum_{i=1}^n s_i$. Il en résulte qu'il existe un unique $i \in \iint{1, n}$ tel que $s_i = 1$.
+        }
+        %
+        \yesafter
+        %
+        \boxansconc{
+            Donc pour tout $i \in \iint{1, n}$, on a $sv_i = s$ d'où $s^2 = ns$. Ainsi il existe $i \in \iint{1, n}$ tel que $s = ne_i$.
+        }
+        %
+        \yesbefore
+        
+        \item Montrer que la matrice $M_\bcB$ de toute base inversible $\bcB$ de $\bdC^3$ se déduit par permutations de lignes et de colonnes d'une matrice que l'on donnera.
+        
+        \noafter
+        %
+        \boxans{
+            On a montré à la question \textbf{\color{white5!60!black}\sffamily I.2.b} que les automorphismes d'algèbre de $\bdK^n$ (donc de $\bdC^3$) étaient les permutations de coordonnées. Il suffit donc de déterminer la matrice $M_\bcB$ d'une base $\bcB$ de $\bdC^3$ pour que les matrices de toutes les autres bases se déduisent par permutation des lignes ou des colonnes. On a montré qu'il existait une ligne de la matrice (on prendra la première) ne contenant que des $1$, et que $\epsilon \in \bcB$, donc une colonne (on prendra la première) ne contenant que des $1$. Ainsi $M_\bcB$ est de la forme :
+            %
+            \[ \begin{pNiceMatrix}
+                1 & 1 & 1\\
+                1 & a & b\\
+                1 & c & d
+            \end{pNiceMatrix}\qquad \text{avec} \ \p{a, b, c, d} \in \bdC^4 \ \text{à déterminer}\]
+            %
+            Or $s = \p{3, 1 + a + b, 1 + c + d}$ est égal à $ne_1 = \p{n, 0, 0}$, $ne_2 = \p{0, n, 0}$ ou $ne_3 = \p{0, 0, n}$. La première coordonnée étant non nulle et égale à $3$, on a $s = \p{3, 0, 0}$. Ainsi $1 + a + b = 0$ et $1 + c + d = 0$.
+            
+            De plus, par stabilité, on a $\p{a^2, c^2} \in \ens{\p{1, 1}, {a, c}, {b, d}}$.
+            %
+            \begin{enumerate}
+                \itt Si $\p{a^2, c^2} = \p{1, 1}$, on a forcément $a = c = -1$ (sinon les colonnes $1$ et $2$ sont identiques). Dès lors $b = d = 0$, ce qui est impossible car les lignes $2$ et $3$ sont identiques.
+                
+                \itt Donc $\p{a^2, c^2} = \p{b, d}$. Donc $1 + a + a^2 = 0$ et $c + d + d^2 = 0$, et $a \neq c$ car sinon les colonnes $2$ et $3$ seraient identiques. On peut alors prendre la solution $a = j$ et $c = j^2$, donc :
+            \end{enumerate}
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            La matrice $M_\bcB$ de toute base inversible $\bcB$ de $\bdC^3$ se déduit par permutations de lignes et de colonnes de
+            %
+            \[ \begin{pNiceMatrix}
+                1 & 1 & 1\\
+                1 & \jj & \jj^2\\
+                1 & \jj^2 & \jj
+            \end{pNiceMatrix}\]
+        }
+        %
+        \yesbefore
+        
+        
+        
+        \item \begin{enumerate}
+            \item Montrer que l'ensemble des vecteurs d'une base stable inversible de $\bdK^n$ est un groupe multiplicatif.
+            
+            \noafter
+            %
+            \boxans{
+                Soit $\bcB$ une base stable inversible de $\bdK^n$. Par stabilité, la multiplication interne des vecteurs de $v_1$ est une loi de composition interne sur $\bcB$. De plus $\epsilon$ est neutre pour cette multiplication, et on a montré en \textbf{\color{white5!60!black}\sffamily III.1.a} que $\epsilon \in \bcB$. Enfin, en considérant un vecteur $a \in \bcB$, on a montré qu'il existe $p \in \bdN^*$ tel que $a^n = \epsilon$, et donc $a^{n-1}ab = b$ soit $a^{n-1} = b$. Or $a^{n-1} \in \bcB$ par stabilité donc $b \in \bcB$.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                $\bcB$ est stable par multiplication interne, passage à l'inverse et possède un neutre, c'est donc un groupe.
+            }
+            %
+            \yesbefore
+            
+            \item Montrer que, si $\bcB$ est une telle base, alors :
+            %
+            \[ \mtrans{M_\bcB}\overline{M_\bcB} = nI_n\]
+            %
+            (On distinguera les deux cas $\bdK = \bdR$ et $\bdK = \bdC$.)
+            
+            \noafter
+            %
+            \boxans{
+                Soit $\bcB = \p{v_1, v_2, \dots, v_n}$ une telle base et un couple $\p{i, j} \in \iint{1, n}^2$ quelconque. On a :
+                %
+                \[ \intc{\mtrans{M_\bcB}\overline{M_\bcB}}_{i, j} = \sum_{k=1}^n \intc{\mtrans{M_\bcB}}_{i, k}\intc{\overline{M_\bcB}}_{k, j} = \sum_{k=1}^n \intc{M_\bcB}_{k, i}\overline{\intc{M_\bcB}_{k, j}} = \sum_{k=1}^n c_k\p{v_i}\overline{c_k\p{v_j}}\]
+                \[ \text{Or} \ \forall x = \p{x_1, x_2, \dots, x_n} \in \bdC^n,\qquad \overline x = \overline{\sum_{k=1}^n x_ke_k} = \sum_{k=1}^n \overline{x_k}e_k \qquad\text{donc} \ \forall k \in \iint{1, n},\qquad \overline{c_k\p{x}} = \overline{x_k} = c_k\p{\overline{x}}\]
+                %
+                Donc $\displaystyle \intc{\mtrans{M_\bcB}\overline{M_\bcB}}_{i, j} = \sum_{k=1}^n c_k\p{v_i}c_k\p{\overline{v_j}} = \sum_{k=1}^n c_k\p{v_i\overline{v_j}} = \Tr{v_i\overline{v_j}}$. On a dès lors :
+                %
+                \begin{enumerate}
+                    \itt Si $i = j$, $v_i\overline{v_j} = v_i\overline{v_i} = \mod{v_i}^2 = \p{1, 1, \dots, 1}$ donc $\intc{\mtrans{M_\bcB}\overline{M_\bcB}}_{i, i} = n$.
+                    
+                    \itt Pour tout complexe $z \in \bdU$ de module $1$, on a $\overline{z} = z^{-1}$. Or $\bcB$ est stable par inverse, et les coordonnées de ses vecteurs sont de module $1$, donc $\bcB$ est stable par conjugaison $\overline{\cdot}$. Il en résulte que pour $v_j \in \bcB$ on a $\overline{v_j} \in \bcB$ donc $v_i\overline{v_j} \in \bcB$. Or si $i \neq j$ on a $v_i\overline{v_j} \neq \epsilon$ donc $\Tr{v_i\overline{v_j}} = 0 = \intc{\mtrans{M_\bcB}\overline{M_\bcB}}_{i, j \neq i}$.
+                \end{enumerate}
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                On a donc $\mtrans{M_\bcB}\overline{M_\bcB} = nI_n$.
+            }
+            %
+            \yesbefore
+            
+            \item En déduire le module du déterminant de $M_\bcB$.
+            
+            \noafter
+            %
+            \boxans{
+                $n^n = n^n\det{I_n} = \det{nI_n} = \det{\mtrans{M_\bcB}\overline{M_\bcB}} = \det{M_\bcB}\det{\overline{M_\bcB}} = \det{M_\bcB}\overline{\det{M_\bcB}} = \mod{\det{M_\bcB}}^2$.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Donc puisque $\mod{\det M_\bcB} \geq 0$ on a $\mod{\det M_\bcB} = \sqrt{n^n}$.
+            }
+            %
+            \yesbefore
+        \end{enumerate}
+        
+        \item On prend ici $\bdK = \bdC$ ; on appelle $P_z$ la matrice carrée d'ordre $n$ dont le terme général (ligne $j$, colonne $k$) est $z^{\p{j-1}\p{k-1}}$. Établir que $P_z$ est la matrice d'une base stable inversible de $\bdC^n$ si et seulement si $z$ engendre $\bdU_n$ groupe des racines $n^\text{ème}$ de l'unité. Donner une valeur de $z$ possédant ces propriétés.
+        
+        \noafter
+        %
+        \boxans{
+            \[ P_z = \begin{pNiceMatrix}
+                1      & 1      & 1 & \Cdots & 1\\
+                1      & z      & z^2 & \Cdots & z^{n-1} \\
+                1      & z^2    & z^4    & \Cdots & z^{2\p{n-1}}\\
+                \Vdots & \Vdots & \Vdots & \Ddots & \Vdots\\
+                1      & z^{n-1}& z^{2\p{n-1}} & \Cdots & z^{\p{n-1}^2}
+            \end{pNiceMatrix}\footnote{On reconnaît une matrice de \textsc{Vandermonde} de paramètres $1, z, z^2, \dots, z^{n-1}$.} \]
+        }
+        %
+        \nobefore
+        %
+        \boxans{
+            \begin{enumerate}
+                \itt $\boxed{\implies}$ Supposons que $P_z$ est une base $\bcB = \p{v_1, v_2, \dots, v_n}$ stable inversible de $\bdC^n$. On a manifestement $z \neq 1$. De plus il existe $i \in \iint{1, n}$ tel que $ne_i = v_1 + v_2 + \dots v_n$. Or :
+                %
+                \[ nc_1\p{e_i} = c_1\p{ne_i} = c_1\p{\sum_{j=1}^n v_j} = \sum_{j=1}^n c_1\p{v_j} = \sum_{j=1}^n \intc{P_z}_{1, j} = \sum_{j=1}^n 1 = n \qquad\text{donc}\qquad c_1\p{e_i} = 1\]
+                %
+                Il en résulte que $e_i = e_1$ (soit $i = 1$). On en déduit alors que :
+                %
+                \[ 0 = c_2\p{ne_1} = c_2\p{\sum_{j=1}^n v_j} = \sum_{j=1}^n c_2\p{v_j} = \sum_{j=1}^n \intc{P_z}_{2, j} = \sum_{i=1}^n z^{i-1} = \sum_{i=0}^{n-1} z^i \eq{z \neq 1} \dfrac{z^n - 1}{z - 1} \]
+                %
+                Donc $z^n - 1 = 0$, d'où $z^n = 1$, soit $z \in \bdU_n$. Puisque les $n-1$ vecteurs (colonnes de $2$ à $n$) sont distinctes, $z$ est la première racine $n^\text{ème}$ de l'unité, d'où $z$ engendre $\bdU_n$.
+                
+                \itt $\boxed{\impliedby}$ Supposons que $z$ engendre $\bdU_n$, donc $z$ est la première racine $n^\text{ème}$ de l'unité. On vérifie facilement que $P_z$ est une base stable inversible de $\bdC^n$.
+            \end{enumerate}
+        }
+        %
+        \yesafter
+        %
+        \boxansconc{
+            Donc $P_z$ est la matrice d'une base stable inversible de $\bdC^n$ si et seulement si $z$ engendre $\bdU_n$.
+        }
+        %
+        \yesbefore
+        
+        \item On suppose ici que $\bdR^n$ a au moins une base stable inversible $\bcB = \p{v_1, \dots, v_n}$. Une partie $\p{v_{i_1}, v_{i_2}, \dots, v_{i_p}}$ sera dite partie génératrice de $\bcB$ si tout élément de $\bcB$ peut s'écrire sous la forme d'un produit 
+        %
+        \[ v_{i_1}^{m_1}v_{i_2}^{m_2}\dots v_{i_p}^{m_p}\]
+        %
+        où $m_1, m_2, \dots, m_p$ sont des entiers relatifs (on pose, pour tout élément $a$ non nul de $\bdR^n$, $a^0 = \epsilon$).
+        
+        \begin{enumerate}
+            \item Montrer que $\bcB$ possède une partie génératrice et que tout élément de $\bcB$ a pour carré $\epsilon$.
+            
+            \boxansconc{
+                On a montré à la question \textbf{\color{white5!60!black}\sffamily II.5.b} que pour toute base $\bcB$ de $\bdR^n$, on avait que chaque coordonnée au carré donnait $1$, ainsi tout élément de $\bcB$ a pour carré $\epsilon$. De plus $\bcB$ est une partie génératrice de $\bcB$.
+            }
+            
+            \item Soit $\bcG = \p{v_{j_1}, v_{j_2}, \dots, v_{j_k}}$ une partie génératrice de $\bcB$ dont le nombre d'éléments $k$ est le plus petit possible. Établir que tout élément de $\bcB$ peut s'écrire, et de façon unique, sous la forme
+            %
+            \[ v_{j_1}^{r_1}v_{j_2}^{r_2}\dots v_{j_k}^{r_k}\]
+            %
+            où chacun des exposants $r_1, r_2, \dots r_k$ vaut $0$ ou $1$.
+            
+            \boxansconc{
+                Puisque pour tout $i \in \iint{1, n}$ on a ${v_i}^2 = \epsilon = {v_i}^0$, on a $\ens{{v_i}^n}_{n \in \bdN} = \ens{{v_i}^0, {v_i}^1}$ donc chacun des $\p{r_i}_{i \in \iint{1, k}}$ vaut $0$ ou $1$. Supposons qu'il existe $\p{\p{r_i}_{i \in \iint{1, k}}, \p{r_i'}_{i \in \iint{1, k}}} \in \p{\ens{0, 1}^k}^2$ tels que :
+                %
+                \[ v_{j_1}^{r_1}v_{j_2}^{r_2}\dots v_{j_k}^{r_k} = v_{j_1}^{r_1'}v_{j_2}^{r_2'}\dots v_{j_k}^{r_k'} \qquad\text{donc}\qquad v_{j_1}^{r_1 - r_1'}v_{j_2}^{r_2 - r_2'}\dots v_{j_k}^{r_k - r_k'} = \epsilon\]
+                %
+                S'il existe $m \in \iint{1, n}$ tel que $r_m \neq r_m'$, alors $r_m - r_m' \neq 0$ donc $v_m = \displaystyle\prod_{i=1,\ i \neq m}^k {v_{j_i}}^{r_i' - r_i}$, ce qui contredit la minimalité de $\bcG$. Par l'absurde l'écriture est donc unique.
+            }
+            
+            \item Quelle relation existe-t-il entre $n$ et $k$ ?
+            
+            \boxansconc{
+                Comme montré à la question précédente, la minimalité de $\bcG$ entraîne sa liberté. Considérons alors la famille $\bcP\p{\bcG}$, dont la liberté découle de celle de $\bsG$. Son caractère générateur est donné par la définition d'une partie génératrice ($\bcG$ en étant une), ainsi c'est une base de $\bdR^n$. Il vient donc $n = \mod{\bcP\p{\bcG}} = 2^{\mod{\bcG}} = 2^k$.
+            }
+        \end{enumerate}
+        
+        \item \begin{enumerate}
+            \item On recherche les bases stables inversibles de $\bdR^4$. Montrer qu'il y en a une et une seule, $\bcB_0$, dont la matrice $M_0$ a sa première ligne formée de quatre $1$, a une trace égale à $4$ et est symétrique.
+            
+            \noafter
+            %
+            \boxans{
+                Le caractère symétrique est livré par le résultat de la question \textbf{\color{white5!60!black}\sffamily III.5.b}) : $\mtrans{M_\bcB}\overline{M_\bcB} = nI_n$. De par le même raisonnement qu'aux questions précédentes, toute matrice $M$ qui convient vérifie
+                %
+                \[ M = \begin{pNiceMatrix}
+                    1 & 1 & 1 & 1\\
+                    1 & 1 & a & b\\
+                    1 & a & 1 & c\\
+                    1 & b & c & 1
+                \end{pNiceMatrix} \qquad\text{avec} \ \p{a, b, c} \in \ens{1, -1}^3 \ \text{à déterminer}\]
+                %
+                On a $1 + a + 1 + c = 0$ d'où $a + c = -2$ d'où $a = -1$ et $b = -1$. De même $b + c = -2$ d'où $c = -2$.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                \[ \text{on a donc une unique solution} \ M_0 = \begin{pNiceMatrix}
+                    1 & 1 & 1 & 1\\
+                    1 & 1 & -1 & -1\\
+                    1 & -1 & 1 & -1\\
+                    1 & -1 & -1 & 1
+                \end{pNiceMatrix}\]
+            }
+            %
+            \yesbefore
+            
+            \item Les matrices des autres bases stables inversibles de $\bdR^4$ se déduisent-elles de $M_0$ par permutation des lignes et des colonnes ?
+            
+            \boxansconc{
+                Oui, immédiat par le résultat de la question \textbf{\color{white5!60!black}\sffamily I.2.b}.
+            }
+        \end{enumerate}
+        
+        \item {\color{main3}\textbf{\sffamily N.B. :} \textit{Du à un manque de temps, ne figurent aux questions ci-dessous que des ébauches de réponse.}}
+        
+        \begin{enumerate}
+            \item Soit $A$ la matrice d'une base stable inversible de $\bdR^n$. Que dire de la matrice carrée réelle d'ordre $2n$ définie par 
+            %
+            \[ M = \begin{pNiceMatrix}
+                A & A\\
+                A & -A\\
+            \end{pNiceMatrix}_{\intc{2n}}\]
+            %
+            \boxans{
+                On reconnaît une des matrices stables inversibles de la question \textbf{\color{white5!60!black}\sffamily II.4}. On peut alors remarquer que $\bdR^n$ est un corps, et considérer le $\bdR^n$-espace vectoriel $\p{\bdR^n}^2$ de dimension $2$, qu'on muni de la structure d'algèbre induite par celle sur $\bdK^n$. 
+                
+                Puisque $A$ est une base de $\bdR^n$, il joue le même rôle dans $\p{\bdR^n}^2$ que $1$ (base de $\bdR$) dans $\bdR^2$. Les résultats des deux premières parties se généralisent facilement, et la matrice $M' = \begin{pNiceMatrix}
+                A & A\\
+                A & -A\\
+            \end{pNiceMatrix} \in \bcM_2\p{\bdR^n}$ est celle d'une base stable inversible de $\p{\bdR^n}^2$. On construit de même facilement un isomorphisme entre $\p{\bdR^n}^2$ et $\bdR^{2n}$ en concaténant les coordonnées, et qui transforme $M'$ en $M$. On obtient alors que $M$ est une base stable inversible de $\bdR^{2n}$.\medskip
+            
+            Différemment, en posant $\bcB = \p{v_1, v_2, \dots, v_n}$ la base de matrice $A$, on peut aussi écrire
+            %
+            \[ M = \begin{pNiceArray}{cccc|cccc}
+                & \\
+                v_1 & v_2 & \dots & v_n & v_1 & v_2 & \dots & v_n\\
+                & \\ \hline
+                & \\
+                v_1 & v_2 & \dots & v_n & -v_1 & -v_2 & \dots & v_n\\
+                & 
+            \end{pNiceArray} \]
+            %
+            On montre facilement que les vecteurs d'une telle matrice respectent les propriétés d'une base stable inversible de $\bdR^{2n}$.
+            }
+            
+            \item Pour quels $n$ l'algèbre $\bdR^n$ a-t-elle au moins une base stable inversible ?
+            
+            \boxans{
+                D'après la question \textbf{\color{white5!60!black}\sffamily II.7.c}, si une base stable inversible existe alors il existe $k \in \bdN$ tel que $n = 2^k$. Réciproquement, on a montré à la question  \textbf{\color{white5!60!black}\sffamily II.4} que la matrice $\begin{pNiceMatrix}
+                1 & 1
+                1 & -1\end{pNiceMatrix}$ livrait une base stable inversible de $\bdR^2$. Par le résultat de la question précédente, on peut donc générer une base stable inversible pour les $\suiteZ{{\bdR^2}^n}$, soit les $n$ pairs.
+            }
+        \end{enumerate}
+    \end{enumerate}
+    
+\end{document}

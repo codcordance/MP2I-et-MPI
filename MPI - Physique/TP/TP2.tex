@@ -1,0 +1,96 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\thesection.\arabic{enumi}.\arabic{enumii}.}
+    
+    \stylizeDocSpe{Physique}{Travaux pratiques n° 2}{Mesures simples en électrocinétique}{Le mercredi 21 septembre 2022}
+    
+    \section{Etude d'un circuit $RC$}
+    
+    \subsection{Charge et décharge, réponse à un échelon de tension}
+    
+    On considère le circuit $RC$ ci-dessous, dont on cherche à étudier rigoureusement la charge et la décharge.
+    
+    \begin{minipage}{0.58\linewidth}
+        
+        \begin{enumerate}
+            \item On prend une grande période pour le signal créneau en entrée. Pourquoi ?
+            
+            \boxansconc{
+                On cherche à observer la charge complète du condensateur, laquelle s'effectue principalement sur une durée $\approx 5\tau$ (où $\tau$ est le temps caractéristique du système). Pendant toute la durée de cette charge, il faut que la tension d'entrée soit une constante, donc $e\p{t} = E$. On comprend donc qu'il faut choisir une période $T$ telle que $\frac{T}{2} \geq 5\tau$ soit $T \geq 10\tau$.
+            }
+        \end{enumerate}
+        
+        
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}{0.4\linewidth}
+        \begin{center}
+            \begin{tikzpicture}
+                \draw (0, 0) to[vsourcesquare, v^=$e\p{t}$] ++(0, 2) --++(1, 0) to[R, l=$R$, v=$u_R\p{t}$] ++(2, 0) --++(1, 0) to[C, l_=$C$, v^=$u_C\p{t}$] ++(0, -2) to[short, i=$i\p{t}$] ++(-4, 0);
+            \end{tikzpicture}
+        \end{center}
+    \end{minipage}
+    
+    \begin{enumerate}
+        \setcounter{enumi}{1}
+        
+        \item Déterminer l'équation de $u_C\p{t}$ durant la charge (on prendra $t = 0$ le moment où le créneau passe de $-E$ à $E$).
+        
+        \boxansconc{
+            Par \textit{loi des mailles} on a $E = u_R + u_C$, puis par \textit{loi d'\textsc{Ohm}} 
+        }
+    \end{enumerate}
+    
+    \noafter
+    %
+    \boxans{
+        \begin{experience}{Entraînement}{}
+            \begin{enumerate}
+                \ithand Régler le menu \texttt{déclenchement} (\texttt{trigger}), notamment les paramètres \texttt{voix} (\texttt{source}) et \texttt{niveau} (\texttt{level}).
+                
+                \ithand Choisir entre les mode \textsf{\hg{CHOP}} et \textsf{\hg{ALTERN}} selon la fréquence (pour les oscillateurs analogiques).
+            \end{enumerate}
+        \end{experience}
+    }
+    %
+    \nobefore\yesafter
+    %
+    \begin{expcom}
+        On prend un signal sinusoïdal de fréquence $f = \SI{1.00}{\kilo\hertz}$ et d'amplitude $A = \SI{20}{\volt}$.
+    \end{expcom}
+    %
+    \yesbefore
+    
+    \begin{enumerate}
+        \item Ne pas oublier que pour augmenter la précision des mesures les courbes doivent occuper un espace maximum sur l'écran de l'oscilloscope. Expliquer pourquoi ?
+        
+        \boxans{
+            On veut être sûr que la courbe qu'on observe est bien celle qu'on cherche à observer, ainsi maximiser la taille permet de s'assurer que l'on n'est pas simplement face à du bruit. Par ailleurs, cela permet de régler le menu \texttt{déclenchement} avec plus de précision.
+        }
+    \end{enumerate}
+    
+    Dorénavant choisir les calibres temporels et en tension qui permettent les meilleures mesures possibles.
+    
+    $\bdC \ \bcC \ \bsC \ \bfC \ \bbC \ C$
+    
+    \noafter
+    %
+    \boxans{
+        \begin{experience}{}{}
+            
+        \end{experience}
+    }
+    
+\end{document}

@@ -1,0 +1,491 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{slantsc}
+\usepackage{booktabs}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans{}
+
+\AtBeginDocument{% Italic Small Caps
+  \DeclareFontShape{T1}{lmr}{m}{scit}{<->ssub*lmr/m/scsl}{}%
+}
+
+\renewcommand{\thesubsection}{\Roman{subsection}}
+
+\begin{document}
+
+    \stylizeDoc{Mathématiques}{Devoir Maison 18}{Séries numériques}
+    
+    \hfill\\[-35pt]
+    \begin{center}
+        \begin{minipage}{0.8\linewidth}
+            \begin{tcolorbox}[
+                breakable,
+                enhanced,
+                interior style      = {left color=main4!15,right color=main2!12},
+                borderline north    = {.5pt}{0pt}{main2!10},
+                borderline south    = {.5pt}{0pt}{main2!10},
+                borderline west     = {.5pt}{0pt}{main2!10},
+                borderline east     = {.5pt}{0pt}{main2!10},
+                sharp corners       = downhill,
+                arc                 = 0 cm,
+                boxrule             = 0.5pt,
+                drop fuzzy shadow   = black!40!white,
+                nobeforeafter,
+            ]
+                \centering\GillSansMT Les trois parties de ce problème sont indépendantes
+                et peuvent se traiter séparément.
+            \end{tcolorbox}
+        \end{minipage}
+    \end{center}
+
+    \section*{Quelques critères sur les séries}
+    
+    \subsection{Reste des séries de Riemann convergentes}
+    
+    \begin{enumerate}
+        \item Soit $f$ une fonction réelle, définie, continue et décroissante sur
+        $\left[\alpha, +\infty\right[$, où $\alpha \in \bdR$.
+        
+        Montrer que pour tout entier $k \in \left[a + 1, +\infty\right[$, on a : \quad
+        $\displaystyle \int_k^{k+1} f\left(x\right)\dif x \leq f\left(k\right) \leq
+        \int_{k-1}^k f\left(x\right)\dif x$.
+        
+        \boxans{
+            \begin{minipage}{0.48\linewidth}
+                \resizebox{\linewidth}{!}{
+                \begin{tikzpicture}
+                    \begin{axis}[
+                        axis lines = left,
+                        axis line style={thick axis arrow},
+                        xlabel=$x$,
+                        ylabel=$f\left(x\right)$,
+                        xlabel style = {at={(axis description cs:1,0)},anchor=north east},
+                        ylabel style = {at={(axis description cs:0,1)},anchor=north east,
+                        rotate=-90},
+                        domain=0:10,
+                        xmin=0,
+                        xmax=10,
+                        ymin=0,
+                        ymax=10,
+                        xtick = {2, 4},
+                        ytick ={4.56, 2.99},
+                        xticklabels={$\color{main1} k$, $\color{main3} k+1$},
+                        yticklabels={$\color{main1} f\left(k\right)$, $\color{main3}
+                        f\left(k+1\right)$},
+                        grid = none,
+                        axis on top
+                    ]
+                        \addplot[smooth, thick, main1comp2, name path=f] {7 - 4/3*ln((x +
+                        1/2)^2)};
+                        \addplot[draw=none,name path=g] {0};
+                        
+                        \addplot[draw=none, name path=h] {4.56};
+                        
+                        \addplot[draw=none, name path=i] {2.99};
+                        
+                        \addplot[pattern=north east lines, pattern color=main1!40] fill
+                        between[of=h and g,soft clip={domain=2:4}];
+                        
+                        \addplot[main1comp2!35,opacity=0.8] fill between[of=f and g,soft
+                        clip={domain=2:4}];
+                        
+                        \addplot[pattern=north west lines, pattern color=main3!40] fill
+                        between[of=i and g,soft clip={domain=2:4}];
+                        
+                        \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates 
+                        {(0, 4.56) (2, 4.56) (2, 0)};
+                        \filldraw[main1, fill=main1!50] (2, 4.56) circle (0.08);
+                        
+                        \addplot[mark=none, main3, line width=0.1mm, dashed] coordinates 
+                        {(0, 2.99) (4, 2.99) (4, 0)};
+                        \filldraw[main3, fill=main3!50] (4, 2.99) circle (0.08);
+                        
+                        \node at (3, 4.8) [right] {\resizebox{0.3\textwidth}{!}{$\color{main1}
+                        f\left(k\right) \times \left(k + 1 - k\right) = f\left(k\right)$}};
+                        
+                        \node at (2.1, 2) [left] {\resizebox{0.16\textwidth}{!}{
+                        $\color{main1comp2} \displaystyle \int_k^{k+1} f\left(x\right)\dif x$}};
+                        
+                        \node at (4, 0.5) [right] {\resizebox{0.35\textwidth}{!}{$\color{main3}
+                        f\left(k+1\right) \times \left(k + 1 - k\right) = f\left(k+1\right)$}};
+                    \end{axis}
+                \end{tikzpicture}
+                }
+            \end{minipage}
+            %
+            \hfill
+            %
+            \begin{minipage}{0.50\linewidth}
+                Considérons $k \in \left[\alpha, +\infty\right[$. Par décroissance de $f$ :
+                %
+                \[ \forall x \in \left[k, k+1\right],\qquad f\left(k\right) \geq 
+                f\left(x\right) \leq f\left(k+1\right)\]
+                %
+                En intégrant, on obtient alors :
+                %
+                \[ \forall k' \in \left[\alpha,+\infty\right[,\quad f\left(k\right) 
+                \geq \int_k^{k+1} f\left(x\right)\dif x \geq f\left(k+1\right)\]
+                %
+                On obtient la minoration voulue. En prenant $k' = k + 1$, on obtient de plus :
+                %
+                \[ \forall k' \in \left[\alpha + 1,+\infty\right[,\quad f\left(k' - 1\right)
+                \geq \int_{k' - 1}^{k'} f\left(x\right)\dif x \geq f\left(k'\right)\]
+            \end{minipage}
+            %
+            Ainsi, pour tout entier $k \in \left[a + 1, +\infty\right[$, on a bien 
+            $\displaystyle \int_k^{k+1} f\left(x\right)\dif x \leq f\left(k\right) \leq
+        \int_{k-1}^k f\left(x\right)\dif x$.
+        }
+        %
+        
+        \item\label{question:I2} Donner un encadrement de $S_n^N = \displaystyle\sum_{k=n}^N 
+        \dfrac{1}{k^\alpha}$ pour tout $N \geq n \geq 1$.
+        
+        En déduire la nature de la série de \textsc{Riemann} $\sum\limits_{n \geq 1} 
+        \frac{1}{n^\alpha}$ selon la valeur de $\alpha \in \bdR$.
+        
+        \boxans{
+            En considérant la fonction $f : x \to \dfrac{1}{x^\alpha}$ (bien réelle, définie,
+            continue et décroissante sur $\bdRp$), on a d'après la question précédente :
+            %
+            \[ \forall n \in \bdN \backslash \left\{0, 1\right\},\qquad \forall N \in
+            \left\llbracket n,+\infty\right\llbracket,\qquad \forall k \in \left\llbracket
+            n,N\right\rrbracket,\qquad \int_k^{k+1} \dfrac{\dif x}{x^\alpha} \leq
+            \dfrac{1}{k^\alpha} \leq \int_{k-1}^k \dfrac{\dif x}{x^\alpha}\]
+            %
+            On somme alors pour $k$ entre $n$ et $N$, et par relation de \textsc{Chasles}, on
+            obtient :
+            %
+            \[  \forall n \in \bdN \backslash \left\{0, 1\right\},\qquad \forall N \in
+            \left\llbracket n,+\infty\right\llbracket,\qquad \int_n^{N+1} \dfrac{\dif
+            x}{x^\alpha} \leq \sum_{k=n}^N \dfrac{1}{k^\alpha} \leq \int_{n-1}^N \dfrac{\dif
+            x}{x^\alpha}\]
+            %
+            \begin{enumerate}
+                \itt Si $\alpha = 1$, on obtient $\ln{\dfrac{N+1}{n}} \leq S_n^N \leq
+                \ln{\dfrac{N}{n-1}}$.
+                
+                \itt Si $\alpha \neq 1$, on obtient $\dfrac{\left(N+1\right)^{1-\alpha} -
+                n^{1-\alpha}}{1-\alpha} \leq S_n^N \leq \dfrac{N^{1-\alpha} -
+                \left(n-1\right)^{1-\alpha}}{1-\alpha}$
+            \end{enumerate}
+            %
+            On retrouve ainsi le \textsc{critère des séries de \textsc{Riemann}} :
+            %
+            \begin{enumerate}
+                \itt Lorsque $\alpha = 1$, on a $\lim\limits_{N \to +\infty} \ln{\dfrac{N+1}{n}} = +\infty$ donc par minoration $\lim\limits_{N \to +\infty} = +\infty$ : la série diverge.
+                
+                \itt Lorsque $\alpha < 1$, on a $\lim\limits_{N \to +\infty} \dfrac{\left(N+1\right)^{1-\alpha} -
+                n^{1-\alpha}}{1-\alpha} = +\infty$ donc par minoration $\lim\limits_{N \to +\infty} = +\infty$ : la série diverge.
+                
+                \itt Lorsque $\alpha > 1$, on a $\lim\limits_{N \to +\infty} 
+                \dfrac{N^{1-\alpha} - \left(n-1\right)^{1-\alpha}}{1-\alpha} = \dfrac{\left(n-1\right)^{1-\alpha}}{1-\alpha}$, donc $\left(S_n^N\right)_{N \in \bdN^*}$ est majorée. Puisque $\left(S_n^N\right)_{N \in \bdN^*}$ est croissante, le \textit{théorème de convergence monotone} livre la convergence de $\left(S_n^N\right)_{N \in \bdN^*}$ et donc de la série.
+            \end{enumerate}
+        }
+    \end{enumerate}
+    
+    En cas de convergence, on pose $S\left(\alpha\right) = \displaystyle 
+    \sum_{n=1}^{+\infty} \dfrac{1}{n^\alpha}$.
+    
+    \begin{enumerate}[resume]
+        \item Pour tout réel $\alpha > 1$, montrer que $\dfrac{1}{\alpha - 1} \leq
+        S\left(\alpha\right) \leq 1 + \dfrac{1}{\alpha - 1}$.
+        
+        \boxans{
+            On a en fait $S\left(\alpha\right) = \lim\limits_{N \to +\infty} S_1^N$. De plus $S_1^N = \dfrac{1}{1^\alpha} + S_2^N = 1 + S_2^N$ donc $S\left(\alpha\right) = \lim\limits_{N \to +\infty} 1 + S_2^N$. Or d'après la question précédente, on a :
+            %
+            \[ \dfrac{\left(N+1\right)^{1-\alpha} - 1^{1 - \alpha}}{1 - \alpha} \leq S_1^N \qquad\et\qquad S_2^N \leq \dfrac{N^{1-\alpha} - 1^{1-\alpha}}{1-\alpha} \]
+            %
+            Donc lorsque $N$ tend vers $+\infty$, on a $-\dfrac{1}{1 - \alpha} \leq \lim\limits_{N \to +\infty} S_1^N$ et $\lim\limits_{N \to +\infty} S_2^N \leq -\dfrac{1}{1 - \alpha}$.
+            
+            On retrouve bien $\dfrac{1}{\alpha - 1} \leq S\left(\alpha\right) \leq 1 + \dfrac{1}{\alpha - 1}$.
+        }
+    \end{enumerate}
+    
+    Pour tout réel $\alpha > 1$ et pour tout entier naturel non nul $n$, on pose $\displaystyle
+    R_{n-1}\left(\alpha\right) = \sum_{k=n}^{+\infty} \dfrac{1}{k^\alpha}$.
+    
+    \begin{enumerate}[resume]
+        \item En utilisant l'encadrement de la question \enumref{question:I2}, montrer que
+        $R_{n-1}\left(\alpha\right) \eq{n \to +\infty} \dfrac{1}{\left(\alpha - 1\right)n^{\alpha - 1}} +
+        \O{}{\dfrac{1}{n^\alpha}}$.
+        
+        \boxans{
+            On a en fait $R_{n-1}\left(\alpha\right) = \lim\limits_{N \to +\infty} S_n^N$. En passant à la limite ($N \to +\infty$) dans l'encadrement de la question \enumref{question:I2}, on obtient :
+            %
+            \[ \dfrac{-n^{1-\alpha}}{1 - \alpha} \leq R_{n-1}\left(\alpha\right) \leq \dfrac{-\left(n - 1\right)^{1-\alpha}}{1 - \alpha} \qquad\text{donc}\qquad \dfrac{1}{\left(\alpha - 1\right)n^{\alpha - 1}} \leq R_{n-1}\left(\alpha\right) \leq \dfrac{1}{\left(\alpha - 1\right)\left(n-1\right)^{\alpha - 1}}\]
+            %
+            On a alors $1 \leq \left(\alpha - 1\right)n^{\alpha - 1}R_{n-1}\left(\alpha\right) \leq \left(\dfrac{n}{n-1}\right)^{\alpha -1}$. Or $\lim\limits_{n \to +\infty} \dfrac{n}{n-1} = 1$ donc $\lim\limits_{n \to +\infty} \left(\dfrac{n}{n-1}\right)^{\alpha - 1} = 1$ donc par \textit{théorème d'encadrement} on a $\lim\limits_{n \to +\infty}\left(\alpha - 1\right)n^{\alpha - 1}R_{n-1}\left(\alpha\right) = 1$, soit $R_{n-1}\left(\alpha\right) \asymp{n \to +\infty} \dfrac{1}{\left(\alpha - 1\right)n^{\alpha - 1}}$.
+            
+            On a bien $R_{n-1}\left(\alpha\right) \eq{n \to +\infty} \dfrac{1}{\left(\alpha - 1\right)n^{\alpha - 1}} + \O{}{\dfrac{1}{n^\alpha}}$.
+        }
+        
+        \item Pour quelles valeurs de $\alpha$ la série de terme général $R_{n-1}\left(\alpha\right)$ est-elle convergente ?
+        
+        \boxans{
+            D'après le résultat ci-dessus, on a $R_{n-1}\left(\alpha\right) \eq{n \to +\infty} \O{}{\dfrac{1}{n^{\alpha - 1}}}$. Par \textit{critère des séries de \textsc{Riemann}}, $\sum\limits_{n \in \bdN^*} R_{n-1}\left(\alpha\right)$ converge si et seulement si $\alpha - 1 > 1$, soit si et seulement si $\alpha > 2$.
+        }
+        
+        \item Soit $f$ la fonction définie sur $\bdRp$ par $f\left(x\right) = 
+        \dfrac{1}{\left(1 - \alpha\right)x^{\alpha - 1}}$. En appliquant à $f$ 
+        l'inégalité de \textsc{Taylor}-\textsc{Lagrange} à l'ordre 2 sur
+        $\left[k, k+1\right]$, montrer que pour tout $k \in \bdN^*$ :
+        %
+        \[ f\left(k+1\right) - f\left(k\right) = \dfrac{1}{k^\alpha} -
+        \dfrac{\alpha}{2}\dfrac{1}{k^{\alpha + 1}} + A_k\]
+        %
+        où $A_k$ est un réel vérifiant $0 \leq A_k \leq \dfrac{\alpha\left(\alpha +
+        1\right)}{6k^{\alpha + 2}}$.
+        
+        \boxans{
+            La fonction $f$ est bien dérivable trois fois sur $\bdRp$. Soit donc $k \in \bdRp$. On applique l'inégalité à l'ordre 2 :
+            
+            \[ \resizebox{\linewidth}{!}{$\displaystyle \inf \limits_{\left[k, k+1\right]} f^{(3)} \times \dfrac{\left(k+1-k\right)^3}{3!} \leq f\left(k+1\right) - f\left(k\right)\dfrac{\left(k+1-k\right)^0}{0!} - f'\left(k\right)\dfrac{\left(k+1-k\right)^1}{1!} - f''\left(k\right)\dfrac{\left(k+1-k\right)^2}{2!} \leq \sup\limits_{\left[k, k+1\right]} f^{(3)} \times \dfrac{\left(k+1-k\right)^3}{3!}$}\]
+            %
+            Donc en simplifiant :
+            %
+            \[ \dfrac{1}{6}\inf \limits_{\left[k, k+1\right]} f^{(3)} \leq f\left(k+1\right) - f\left(k\right) - f'\left(k\right) - \dfrac{1}{2}f''\left(k\right)\leq \dfrac{1}{6} \sup \limits_{\left[k, k+1\right]} f^{(3)} \]
+            %
+            Pour tout $x \in \bdRp$ on a $f'\left(x\right) = \dfrac{1}{x^\alpha}$ $f''\left(x\right) = -\dfrac{\alpha}{x^{\alpha+1}}$ et $f^{(3)}\left(x\right) = \dfrac{\alpha\left(\alpha + 1\right)}{x^{\alpha + 2}}$ donc :
+            %
+            \[ \inf \left\{ \dfrac{\alpha\left(\alpha + 1\right)}{6x^{\alpha + 2}},\; x \in \left[k, k+1\right] \right\} \leq f\left(k+1\right) - f\left(k\right) - \dfrac{1}{k^\alpha} + \dfrac{\alpha}{2k^{\alpha + 1}} \leq \sup \left\{ \dfrac{\alpha\left(\alpha + 1\right)}{6x^{\alpha + 2}},\; x \in \left[k, k+1\right] \right\} \]
+            %
+            Posons $A_k = f\left(k+1\right) - f\left(k\right) - \dfrac{1}{k^\alpha} + \dfrac{\alpha}{2k^{\alpha + 1}}$, ainsi $f\left(k+1\right) - f\left(k\right) = \dfrac{1}{k^\alpha} - \dfrac{\alpha}{2k^{\alpha + 1}} + A_k$ et :
+            %
+            \[ \inf \left\{ \dfrac{\alpha\left(\alpha + 1\right)}{6x^{\alpha + 2}},\; x \in \left[k, k+1\right] \right\} \leq A_k \leq \sup \left\{ \dfrac{\alpha\left(\alpha + 1\right)}{6x^{\alpha + 2}},\; x \in \left[k, k+1\right] \right\} \]
+            %
+            Or $x \to \dfrac{1}{x^{\alpha + 2}}$ est décroissante donc $x \mapsto \dfrac{\alpha\left(\alpha + 1\right)}{6x^{\alpha + 2}}$ est décroissante ainsi $0 \leq \dfrac{\alpha\left(\alpha + 1\right)}{6\left(k+1\right)^{\alpha + 2}} \leq A_k \leq \dfrac{\alpha\left(\alpha + 1\right)}{6k^{\alpha + 2}}$.
+        }
+
+        \item En déduire que :
+        %
+        \[ R_{n-1}\left(\alpha\right) \eq{n \to +\infty} \dfrac{1}{\left(\alpha - 1\right)n^{\alpha - 1}} +
+        \dfrac{1}{2n^\alpha} + \O{}{\dfrac{1}{n^{\alpha + 1}}}\]
+        
+        \boxans{
+            On a $R_{n-1}\left(\alpha\right) \eq{n \to +\infty} \dfrac{1}{\left(\alpha - 1\right)n^{\alpha - 1}} + \O{}{\dfrac{1}{n^\alpha}}$. On pose alors la suite des $\suite{\epsilon_n}$ telle que :
+            %
+            \[ \forall n \in \bdN^*,\qquad \epsilon_{n-1} = R_{n-1}\left(\alpha\right) - \dfrac{1}{\left(\alpha - 1\right)n^{\alpha - 1}} = R_{n-1}\left(\alpha\right) + \dfrac{1}{\left(1 - \alpha\right)n^{\alpha - 1}} = R_{n-1}\left(\alpha\right) + f\left(n\right)\]
+            %
+            Or on a $\displaystyle\sum_{k=1}^{n-1} \left(\epsilon_{k} - \epsilon_{k-1}\right) = \epsilon_{n-1} - \epsilon_0 = \epsilon_{n-1} - R_0\left(\alpha\right) - f\left(1\right) = \epsilon_{n-1} - S\left(\alpha\right) - \dfrac{1}{1-\alpha}$, d'où :
+            %
+            \begin{align*}
+                \epsilon_{n-1} &= \sum_{k=1}^{n-1} \left(\epsilon_k - \epsilon_{k-1}\right) + S\left(\alpha\right) + \dfrac{1}{1 - \alpha} = \sum_{k=1}^{n-1} \left(R_k\left(\alpha\right) + f\left(k+1\right) - R_{k-1}\left(\alpha\right) - f\left(k\right)\right) + S\left(\alpha\right) + \dfrac{1}{1 - \alpha}\\
+                &= \sum_{k=1}^{n-1} \left(R_{k-1}\left(\alpha\right) - \dfrac{1}{k^\alpha} - R_{k-1}\left(\alpha\right)\right) + \sum_{k=1}^{n-1} \left(f\left(k+1\right) - f\left(k\right)\right) + S\left(\alpha\right) + \dfrac{1}{1-\alpha}\\
+                &= -\sum_{k=1}^{n-1} \dfrac{1}{k^\alpha} + \sum_{k=1}^{n-1} \left(\dfrac{1}{k^\alpha} - \dfrac{\alpha}{2k^{\alpha + 1}} + A_k\right) + S\left(\alpha\right) - \dfrac{1}{\alpha - 1}\\
+                &= -\dfrac{\alpha}{2}\sum_{k=1}^{n-1} \dfrac{1}{k^{\alpha + 1}} + \sum_{k=1}^{n-1} A_k + S\left(\alpha\right) - \dfrac{1}{\alpha - 1} = -\dfrac{\alpha}{2}\left(\sum_{k=1}^{+\infty} \dfrac{1}{k^{\alpha + 1}} - \sum_{k=n}^{+\infty} \dfrac{1}{k^{\alpha + 1}}\right) + \sum_{k=1}^{n-1} A_k + S\left(\alpha\right) - \dfrac{1}{\alpha - 1}\\
+                &= -\dfrac{\alpha}{2}\left(S\left(\alpha + 1\right) - R_{n-1}\left(\alpha + 1\right) \right) + \sum_{k=1}^{n-1} A_k + S\left(\alpha\right) - \dfrac{1}{\alpha - 1}\\
+                &= \dfrac{\alpha}{2}\left(-S\left(\alpha + 1\right) + \dfrac{1}{\alpha n^\alpha} + \O{n \to +\infty}{\dfrac{1}{n^{\alpha + 1}}}\right) + \sum_{k=1}^{n-1} A_k + S\left(\alpha\right) - \dfrac{1}{\alpha - 1}\\
+                &= \dfrac{1}{2n^\alpha} + \O{n \to +\infty}{\dfrac{1}{n^{\alpha + 1}}} + \sum_{k=1}^{n-1} A_k + \underbrace{S\left(\alpha\right) - \dfrac{\alpha S\left(\alpha + 1\right)}{2} - \dfrac{1}{\alpha - 1}}_{\ell_1} = \sum_{k=1}^{n-1} A_k + \ell_1 + \dfrac{1}{2n^\alpha} + \O{n \to +\infty}{\dfrac{1}{n^{\alpha + 1}}}
+            \end{align*}
+            %
+            \text{}\\[10pt]
+            %
+            Or $\dfrac{\alpha\left(\alpha + 1\right)}{6\left(k+1\right)^{\alpha +2}} \leq A_k \leq \dfrac{\alpha\left(\alpha + 1\right)}{6k^{\alpha +2}}$ donc $\displaystyle  \dfrac{\alpha\left(\alpha +1\right)}{6}\sum_{k=1}^{n-1} \dfrac{1}{\left(k+1\right)^{\alpha +2}} \leq \sum_{k=1}^{n-1} A_k \leq \dfrac{\alpha\left(\alpha +1\right)}{6}\sum_{k=1}^{n-1} \dfrac{1}{k^{\alpha +2}}$. On a :
+            %
+            \[ \left\lbrace\begin{array}{c}
+                \displaystyle\dfrac{\alpha\left(\alpha +1\right)}{6}\sum_{k=1}^{n-1} \dfrac{1}{k^{\alpha +2}} = \dfrac{\alpha\left(\alpha +1\right)}{6}\left(S\left(\alpha + 2\right) - R_{n-1}\left(\alpha + 2\right)\right) \eq{n \to +\infty} \dfrac{\alpha\left(\alpha + 1\right)S\left(\alpha + 2\right)}{6} + \O{}{\dfrac{1}{n^{\alpha + 1}}}\\
+                \displaystyle \dfrac{\alpha\left(\alpha +1\right)}{6}\sum_{k=1}^{n-1} \dfrac{1}{\left(k+1\right)^{\alpha +2}} = \dfrac{\alpha\left(\alpha +1\right)}{6}\left(\sum_{k=1}^{n-1} \dfrac{1}{k^{\alpha + 2}} - 1 + \dfrac{1}{n^{\alpha + 2}}\right) \eq{n \to +\infty} \dfrac{\alpha\left(\alpha + 1\right)\left(S\left(\alpha + 2\right) - 1\right)}{6} + \O{}{\dfrac{1}{n^{\alpha + 1}}}
+                \end{array}\right. \]
+            %
+            \text{}\\[10pt]
+            %
+            On a donc $\displaystyle \sum_{k=1}^{n-1} A_k \eq{n \to +\infty} \ell_2 + \O{}{\dfrac{1}{n^{\alpha + 1}}}$, d'où $\epsilon_{n-1} \eq{n \to +\infty} \ell_2 + \ell_1 + \dfrac{1}{2n^\alpha} + \O{}{\dfrac{1}{n^{\alpha + 1}}}$. Or :
+            %
+            \[ \epsilon_{n-1} = R_{n-1}\left(\alpha\right) - \dfrac{1}{\left(\alpha -1\right)n^{\alpha - 1}} \eq{n \to +\infty} \dfrac{1}{\left(\alpha -1\right)n^{\alpha - 1}} + \O{}{\dfrac{1}{n^{\alpha}}} - \dfrac{1}{\left(\alpha -1\right)n^{\alpha - 1}} \eq{n \to +\infty} \O{}{\dfrac{1}{n^\alpha}}\]
+            %
+            Ainsi il ne peut y avoir de partie constante dans $\epsilon_{n-1}$, d'où $\ell_2 + \ell_1 = 0$, donc finalement :
+            %
+            \[ \epsilon_{n+1} \eq{n \to +\infty} \dfrac{1}{2n^\alpha} + \O{}{\dfrac{1}{n^{\alpha + 1}}} \qquad\text{donc}\qquad R_{n-1}\left(\alpha\right) \eq{n \to +\infty} \dfrac{1}{\left(\alpha - 1\right)n^{\alpha - 1}} +
+        \dfrac{1}{2n^\alpha} + \O{}{\dfrac{1}{n^{\alpha + 1}}}\]
+        }
+    \end{enumerate}
+    
+    \subsection{Critère de Cauchy}
+    
+    Soit $\suite{u_n}$ une suite de complexes vérifiant :
+    %
+    \[ \lim\limits_{n \to +\infty} \mod{u_n}^\frac{1}{n} = L,\qquad \text{avec}
+    \quad L \in \bdR_+ \cup \left\{+\infty\right\}\]
+    %
+    \begin{enumerate}
+        \item Le cas $0 \leq L < 1$.
+        
+        \begin{enumerate}
+            \item Justifier l'existence d'un réel $\rho \in \left[0, 1\right[$ et d'un
+            entier $n_0 \in \bdN$ tels que :
+            %
+            \[ \forall n \in \bdN,\qquad n \geq n_0 \implies \mod{u_n} \leq \rho^n\]
+            
+            \boxans{
+                Par définition de la limite :
+                %
+                \[ \forall \epsilon \in \bdRp,\qquad \exists n_0 \in \bdN,\qquad \forall n \in \bdN,\qquad n \geq n_0 \implies \mod{\mod{u_n}^\frac{1}{n} - L} \leq \epsilon \implies \mod{u_n} \leq \left(\epsilon + L\right)^n\]
+                %
+                On pose $\rho = \epsilon + L$, donc :
+                %
+                \[ \forall \rho \in \left]L, +\infty\right[,\qquad \exists n_0 \in \bdN,\qquad \forall n \in \bdN,\qquad n \geq n_0 \implies \mod{u_n} \leq \rho^n\]
+                %
+                Puisque $0 \leq L < 1$, il existe bien un $\rho \in \left[0, 1\right[$ (et le $n_0 \in \bdN$ associé) qui satisfasse la propriété. 
+            }
+            
+            \item Montrer que la série $\sum\limits_{n \geq n_0} u_n$ est absolument
+            convergente.
+            
+            \boxans{
+                Puisque $0 \leq \rho < 1$, et en vertu du \textit{théorème des séries géométriques}, la série $\sum\limits_{n \geq n_0} \rho^n$ est convergente. Or $\sum\limits_{n \geq n_0} \mod{u_n} \leq \sum\limits_{n \geq n_0} \rho^n$, donc la série $\sum\limits_{n \geq n_0} \mod{u_n}$ est majorée. Elle est également croissante, puisque c'est une somme de modules, soit de termes positifs. Par \textit{théorème de la limite monotone}, la série $\sum\limits_{n \geq n_0} \mod{u_n}$ est donc elle aussi convergente, ainsi la série $\sum\limits_{n \geq n_0} u_n$ est absolument convergente.
+            }
+            
+            \item On pose alors $R_n$ le reste d'indice $n$ : $R_n =
+            \displaystyle\sum_{k=n+1}^{+\infty} u_k$. Montrer que pour tout entier
+            $n \geq n_0$ :
+            %
+            \[ \mod{R_n} \leq \dfrac{\rho^{n+1}}{1 - \rho}\]
+            %
+            \boxans{
+                \[ \mod{R_n} = \mod{\sum_{k=n+1}^{+\infty} u_k} \leq \sum_{k=n+1}^{+\infty} \mod{u_k} \leq \sum_{k=n+1}^{+\infty} \mod{u_k} \leq \sum_{k=n+1}^{+\infty} \rho^n = \lim\limits_{N \to +\infty} \sum_{k=n+1}^{N} \rho^n = \lim\limits_{N \to +\infty} \rho^{n+1}\dfrac{1-\rho^{N-n}}{1 - \rho} = \dfrac{\rho^{n+1}}{1 - \rho}\]
+            }
+        \end{enumerate}
+        
+        \item Le cas $L > 1$. Montrer que la série $\sum\limits_{n \geq 0} u_n$ diverge
+        grossièrement.
+        
+        \boxans{
+            \[ \forall \epsilon \in \bdRp,\qquad \exists n_0 \in \bdN,\qquad \forall n \in \bdN,\qquad n \geq n_0 \implies \mod{\mod{u_n}^\frac{1}{n} - L} \leq \epsilon \implies \mod{u_n} \geq \left(L - \epsilon \right)^n\]
+            %
+            On pose $\rho = L - \epsilon$, donc $\rho \in \left]-\infty, L\right[$. Puisque $L > 1$, il existe un $\rho > 1$, donc tel qu'à partir d'un certain rang $\mod{u_n} \geq \rho^n \lima{n \to +\infty} +\infty$. Par minoration, $\lim\limits_{n \to +\infty} u_n = \pm\infty$, donc la série $\sum\limits_{n \geq 0} u_n$ diverge grossièrement.
+        }
+        
+        \item Le cas $L = 1$. Utiliser les séries de \textsc{Riemann} et justifier que l'on
+        ne peut rien conclure en général dans ce cas.
+        
+        \boxans{
+            Soit $\alpha \in \bdR$, on considère la suite $\suiteZ{u_n\left(\alpha\right)}$ telle que pour tout $n \in \bdN$, $u_n\left(\alpha\right) = \dfrac{1}{n^\alpha}$, donc :
+            %
+            \[ \mod{u_n\left(\alpha\right)}^\frac{1}{n} = \exp{\dfrac{1}{n}\ln{\mod{n^{-\alpha}}}} = \exp{\dfrac{-\alpha \ln{n}}{n}} \lima{n \to +\infty} 1\]
+            %
+            Donc pour tout $\alpha$, $\lim\limits_{n \to +\infty} \mod{u_n}^\frac{1}{n} = 1$. Pourtant, le \textit{critère des séries de \textsc{Riemann}} enseigne que $\sum\limits_{n \in \bdN^*} u_n\left(\alpha\right)$ (\ie la série de \textsc{Riemann} de paramètre $\alpha$) converge si et seulement si $\alpha > 1$. On ne peut donc rien conclure dans le cas où $L = 1$.
+        }
+    \end{enumerate}
+    
+    \subsection{Transformation d'Abel [Facultatif]}
+    
+    Soit $\theta \in \bdR$ tel que $\theta \not\equiv 0 \ [2\pi]$ et soit $\alpha \in \bdRp$. On définit pour tout entier naturel $n$ non nul :
+    %
+    \[ u_n = \dfrac{e^{\ii n\theta}}{n^\alpha} \qquad\et\qquad A_n = \sum_{k=0}^n e^{\ii k\theta}\]
+    %
+    \begin{enumerate}
+        \item Calculer $A_n$ explicitement et justifier que la suite $\suite{A_n}$ est bornée.
+        
+        \boxans{
+            \[ A_n = \sum_{k=0}^n (\underbrace{e^{\ii \theta}}_{\neq 1 \ \text{car} \ \theta \not\equiv 0 \ [2\pi]})^k = \dfrac{1 - e^{\ii\theta\left(n+1\right)}}{1 - e^{\ii \theta}}\]
+            %
+            On a $\mod{e^{\ii \theta \left(n+1\right)}} = 1$ donc $\mod{1 - e^{\ii \theta \left(n+1\right)}} \leq 2$ donc $\mod{A_n} \leq \dfrac{2}{\mod{1-e^{i\theta}}}$ donc la suite $\suite{A_n}$ est bornée.
+        }
+        
+        \item En constatant que $e^{\ii n\theta} = A_n - A_{n-1}$, montrer que pour tout enter naturel $n$ non nul :
+        %
+        \[ \sum_{k=1}^n u_k = \dfrac{A_n}{\left(n+1\right)^\alpha} - 1 + \sum_{k=1}^n A_k\left(\dfrac{1}{k^\alpha} - \dfrac{1}{\left(k+1\right)^\alpha}\right)\]
+        
+        \boxans{
+            Par télescopage, on a $e^{\ii n\theta} = A_n - A_{n-1}$. Donc :
+            %
+            \[
+                 \sum_{k=1}^n u_k = \sum_{k=1}^n \dfrac{e^{\ii n\theta}}{k^\alpha} = \sum_{k=1}^n \dfrac{A_k - A_{k-1}}{k^\alpha} = \sum_{k=1}^n \dfrac{A_k}{k^\alpha} - \sum_{k=1}^n \dfrac{A_{k-1}}{k^\alpha}
+            \]
+            Donc en réorganisant les sommes :
+            %
+            \[ = \sum_{k=1}^n \dfrac{A_k}{k^\alpha} - \sum_{k=0}^{n} \dfrac{A_{k}}{\left(k+1\right)^\alpha} = \dfrac{A_n}{\left(n+1\right)^\alpha} - 1 + \sum_{k=1}^n A_k\left(\dfrac{1}{k^\alpha} - \dfrac{1}{\left(k+1\right)^\alpha}\right)
+            \]
+        }
+        
+        \item Montrer que $\dfrac{1}{k^\alpha} - \dfrac{1}{\left(k+1\right)^\alpha} \eq{k \to +\infty} \dfrac{\alpha}{k^{\alpha + 1}} + \O{}{\dfrac{1}{k^{\alpha + 2}}}$.
+        
+        \boxans{
+            On a :
+            %
+            \[ \dfrac{1}{\left(k+1\right)^\alpha} = \dfrac{1}{k^\alpha}\cdot\dfrac{1}{\left(1 + \frac{1}{k}\right)^\alpha} \eq{k \to +\infty} \dfrac{1}{k^\alpha}\cdot \left(1 - \dfrac{\alpha}{k} + \O{}{\dfrac{1}{k^2}}\right) = \dfrac{1}{k^\alpha} - \dfrac{\alpha}{k^{\alpha + 1}} + \O{}{\dfrac{1}{k^{\alpha + 2}}}\]
+            %
+            Donc :
+            %
+            \[ \dfrac{1}{k^\alpha} - \dfrac{1}{\left(k+1\right)^\alpha} \eq{k \to +\infty} \dfrac{1}{k^\alpha} - \dfrac{1}{k^\alpha} + \dfrac{\alpha}{k^{\alpha + 1}} + \O{}{\dfrac{1}{k^{\alpha + 2}}} \eq{k \to +\infty} \dfrac{\alpha}{k^{\alpha + 1}} + \O{}{\dfrac{1}{k^{\alpha + 2}}} \]
+        }
+        
+        \item En déduire les valeurs de $\alpha$ pour lesquelles la série $\sum\limits_{n \in \bdN^*} u_n$ converge.
+        
+        \boxans{
+            On a $\displaystyle\sum_{k=1}^n u_k = \dfrac{A_n}{\left(n+1\right)^\alpha} - 1 + \sum_{k=1}^n \dfrac{\alpha A_k}{k^{\alpha + 1}} + \O{n \to +\infty}{\dfrac{1}{k^{\alpha + 2}}}$. Ainsi $\sum\limits_{k \in \bdN^*} \dfrac{\alpha A_k}{k^{\alpha + 1}} \eq{n \to +\infty} \O{}{\dfrac{1}{k^{\alpha + 1}}}$.
+            
+            Par \textit{théorème de comparaison} et \textit{critère des séries de \textsc{Riemann}}, $\sum\limits_{k \in \bdN^*} \dfrac{\alpha A_k}{k^{\alpha + 1}}$ converge si et seulement si $\alpha + 1 > 1$, c'est-à-dire si et seulement si $\alpha > 0$ - ce qui est toujours le cas puisque $\alpha \in \bdRp$. La série $\sum\limits_{n \in \bdN^*} u_n$ converge donc tout le temps.
+        }
+        
+        \item Pour quelles valeurs de $\alpha$ la série $\sum\limits_{n \in \bdN^*} u_n$ est-elle absolument convergente ?
+        
+        \boxans{
+            On a :
+            %
+            \[ \mod{u_n} = \mod{\dfrac{e^{\ii n \theta}}{n^\alpha}} = \dfrac{\mod{e^{\ii n \theta}}}{n^\alpha} = \dfrac{1}{n^\alpha} \qquad\text{donc}\qquad \sum\limits_{n \in \bdN^*} \mod{u_n} = \sum\limits_{n \in \bdN^*} \dfrac{1}{n^\alpha}\]
+            %
+            Donc  $\sum\limits_{n \in \bdN^*} \mod{u_n}$ est la série de \textsc{Riemann} de paramètre $\alpha$. Ainsi par \textit{critère des séries de \textsc{Riemann}}, la série $\sum\limits_{n \in \bdN^*} u_n$ est absolument convergente si et seulement si $\alpha > 1$.
+        }
+        
+        \item \textbf{Applications :} on pose $c_n = \dfrac{\cos{n\theta}}{n^\alpha}$ et $s_n = \dfrac{\sin{n\theta}}{n^\alpha}$.
+        
+        \begin{enumerate}
+            \item Pour quelles valeurs de $\alpha$ les séries $\sum\limits_{n \in \bdN^*} c_n$ et $\sum\limits_{n \in \bdN^*} s_n$ sont-elles convergentes ?
+            
+            \boxans{
+                On a $c_n = \Re{u_n}$ et $s_n = \Im{u_n}$. Par linéarité des parties réelles et imaginaires, qu'on interverti avec la somme, les séries $\sum\limits_{n \in \bdN^*} c_n$ et $\sum\limits_{n \in \bdN^*} s_n$ sont toujours convergentes (pour $\alpha > 0$).
+            }
+            
+            \item On pose place dans le cas {\color{main1} $\alpha > 1$}. Les séries $\sum\limits_{n \in \bdN^*} c_n$ et $\sum\limits_{n \in \bdN^*} s_n$ sont-elles absolument convergentes ?
+            
+            \boxans{
+                La série $\sum\limits_{n \in \bdN^*} u_n$ est absolument convergente dans ce cas. Par le même argument qu'à la question précédentes, les séries $\sum\limits_{n \in \bdN^*} c_n$ et $\sum\limits_{n \in \bdN^*} s_n$ sont absolument convergentes.
+            }
+            
+            \item On pose place dans le cas {\color{main1} $0 < \alpha \leq 1$}. Justifier que $\mod{c_n} \geq \dfrac{1}{2n^\alpha} + \dfrac{\cos{2n\theta}}{2n^\alpha} \geq 0$.
+            
+            En déduire la divergence de la série $\sum\limits_{n \in \bdN^*} \mod{c_n}$.
+            
+            \boxans{
+                On a $0 \leq \mod{\cos{n\theta}} \leq 1$ donc $\mod{\cos{n\theta}} \geq \mod{\cos{n\theta}}^2 = \dfrac{1+\cos{2n\theta}}{2} \geq 0$.
+                
+                On a donc bien $\mod{c_n} \geq \dfrac{1}{2n^\alpha} + \dfrac{\cos{2n\theta}}{2n^\alpha} \geq 0$.
+                
+                Par \textit{critère des séries de Riemann}, la série $\sum\limits_{n \in \bdN} \dfrac{1}{n^\alpha}$ diverge puisque $\alpha \leq 1$. Or $\mod{c_n} \eq{n \to +\infty} \O{}{\dfrac{1}{n^\alpha}}$ donc par \textit{théorème de comparaison}, la série $\sum\limits_{n \in \bdN^*} c_n$. diverge absolument.
+            }
+            
+            \item Qu'en est-il de la convergence absolue de $\sum\limits_{n \in \bdN^*} s_n$ lorsque $0 < \alpha \leq 1$ ?
+            
+            \boxans{
+                On a $\mod{\sin{n\theta}} \geq \mod{\sin{n\theta}^2} = \dfrac{1-\cos{2n\theta}}{2}$ donc pour les mêmes raisons, la série $\sum\limits_{n \in \bdN^*} s_n$ diverge absolument.
+            }
+            
+            \item Dresser un bilan selon $\alpha$ de la convergence et convergence absolue de $\sum\limits_{n \in \bdN^*} c_n$ et $\sum\limits_{n \in \bdN^*} s_n$.
+            
+            \boxans{
+                On a :
+                %
+                \begin{center}
+                    \NiceMatrixOptions{cell-space-top-limit=3pt}
+                    \begin{NiceTabular}{|cccc|}[]
+                    \CodeBefore
+                        \rowcolor{main1!10}{1}
+                        \rectanglecolor{main20!15}{2-3}{5-4}
+                        \cellcolor{main21!15}{3-3,5-3}
+                    \Body
+                        \toprule
+                        \Block{1-2}{série} & & $0 \leq \alpha < 1$ & $\alpha > 1$\\ \midrule
+                        \Block{2-1}{$\sum\limits_{n \in \bdN^*} c_n$} & convergente  & oui & oui\\
+                        \cmidrule(rl){2-4} & absolument convergente & non & oui\\ \midrule
+                        \Block{2-1}{$\sum\limits_{n \in \bdN^*} s_n$} & convergente & oui & oui\\
+                        \cmidrule(rl){2-4} & absolument convergente & non & oui\\ \bottomrule
+                    \end{NiceTabular}
+                \end{center}
+            }
+        \end{enumerate}
+    \end{enumerate}
+\end{document}

@@ -1,0 +1,1788 @@
+%===============================
+% 
+% 4PE18 TEX ToolBox
+% Package personnalisé pour les documents en LaTeX.
+%
+% - Rémy SIAHAAN--GENSOLLEN
+%
+%===============================
+
+\ProvidesPackage{4PE18TEXTB}
+
+%===============================
+% Packages importés
+%===============================
+
+\usepackage[explicit]{titlesec}
+\usepackage{fontspec}
+\usepackage[DefaultFeatures={Scale=0.85}]{plex-otf}
+%ATTENTION CIDESSUS
+
+
+%\usepackage{roboto}
+%\usepackage{calligra}
+%\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{lastpage}
+\usepackage[usenames, dvipsnames]{color}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{siunitx}
+
+\sisetup{
+    detect-all,
+    output-decimal-marker={,},
+    group-minimum-digits = 3,
+    group-separator={~},
+    number-unit-separator={~},
+    inter-unit-product={~},
+    output-complex-root = \jj,
+}
+
+
+\usepackage{caption}
+\DeclareCaptionFont{GillSansMTMedium}{\GillSansMTMedium}
+\DeclareCaptionLabelSeparator{arrow}{\ \lozenge \ }
+%\captionsetup[figure]{font=figurefont}
+\captionsetup[figure]{labelfont=sc, labelsep=arrow}
+%\renewcommand{\figurename}{{\GillSansMTMedium\bf Figure}
+\usepackage[autolanguage]{numprint}
+\usepackage[
+    top         = 2cm,
+    bottom      = 1.8cm,
+    inner       = 2cm,
+    outer       = 1.5cm,
+    headheight  = 1cm,
+    headsep     = 0.5cm,
+    footskip    = 0.5cm,
+    twoside
+    ]{geometry}
+\usepackage{expl3,amsmath}
+\usepackage{nicefrac}
+\usepackage{nicematrix}
+\usepackage{bbm}
+\usepackage{listings}
+\usepackage[
+    most,
+    skins,
+    breakable,
+    listings
+    ]{tcolorbox}
+\usepackage{xparse}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{pifont}
+\usepackage{stmaryrd}
+\usepackage{mathtools}
+\usepackage{ulem}
+\usepackage{amssymb}
+\usepackage{minitoc}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{nameref}
+\usepackage{lipsum}
+\usepackage{tabularx}
+\usepackage{mathrsfs}
+\usepackage{xfrac}
+\usepackage{fancybox}
+\usepackage{fontawesome}
+\usepackage{tikz}
+\usetikzlibrary{angles, quotes, graphdrawing.trees, tikzmark, decorations.markings, positioning, 3d, shapes.misc, shapes.geometric}
+\usepackage[european, straightvoltages, RPvoltages, american inductors]{circuitikz}
+\tikzset{cross/.style={cross out, draw=black, fill=none, minimum size=2*(#1-\pgflinewidth), inner sep=0pt, outer sep=0pt}, cross/.default={2pt}}
+
+\tikzset{%
+  dots/.style args={#1per #2}{%
+    line cap=round,
+    dash pattern=on 0 off #2/#1
+  }
+}
+\usetikzlibrary{decorations.markings}
+\tikzset{ressort/.style={black,smooth}}
+\usepackage{tkz-tab}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{hyperxmp}
+\usepackage[
+    bookmarks,
+    pdftex,
+    pdfauthor   = {SIAHAAN--GENSOLLEN Remy},
+    pdflang     = {fr-FR}
+    ]{hyperref}
+\usepackage{xifthen}
+\usepackage{pgfplots}
+\usepgfplotslibrary{fillbetween}
+\usepackage{anyfontsize}
+\usepackage{atveryend}
+\usepackage{afterpage}
+\usepackage{centernot}
+\usepackage{esint}
+
+\DeclareDocumentCommand\niint{}{\iint}
+
+\tikzset{gradientdraw/.style n args={3}{
+    postaction={
+    decorate,
+    decoration={
+    markings,
+    mark=between positions 0 and \pgfdecoratedpathlength step 0.5pt with {
+    \pgfmathsetmacro\myval{multiply(
+        divide(
+        \pgfkeysvalueof{/pgf/decoration/mark info/distance from start}, \pgfdecoratedpathlength
+        ),
+        100
+    )};
+    \pgfsetfillcolor{#3!\myval!#2};
+    \pgfpathcircle{\pgfpointorigin}{#1};
+    \pgfusepath{fill};}
+}}}}
+
+
+\makeatletter
+\tikzset{
+    nomorepostaction/.code=\makeatletter\let\tikz@postactions\pgfutil@empty, % From https://tex.stackexchange.com/questions/3184/applying-a-postaction-to-every-path-in-tikz/5354#5354
+    thick axis arrow/.style={
+        postaction={
+            decoration={
+                markings,
+                mark=at position 1 with {
+                    \arrow[thick]{latex}
+                }
+            },
+            decorate,
+            nomorepostaction
+        },
+        thin,
+        -, % switch off other arrow tips
+        every path/.append style=thick axis arrow % this is necessary so it works both with "axis lines=left" and "axis lines=middle"
+    }
+}
+\makeatother
+
+
+\DeclareDocumentCommand\moretikzsetup{}{
+    \tikzset{
+        gradientarrow/.style n args={3}{
+            postaction={
+                decorate,
+                decoration = {
+                    markings,
+                    mark = at position \pgfdecoratedpathlength-0.5pt with { \arrow[##3, line width = 0.8pt] {>}; },
+                     mark = between positions 0 and \pgfdecoratedpathlength step 0.2pt with {
+                        \pgfmathsetmacro\myval{
+                            multiply(
+                                divide(
+                                    \pgfkeysvalueof{/pgf/decoration/mark info/distance from start},
+                                    \pgfdecoratedpathlength
+                                ),
+                                100
+                            )
+                        };
+                        \pgfsetfillcolor{##3!\myval!##2};
+                        \pgfpathcircle{\pgfpointorigin}{##1};
+                        \pgfusepath{fill};
+                    }
+                }
+            }
+        }
+    }
+}
+
+%===============================
+% Mise en page
+%===============================
+
+\frenchspacing
+
+\setlist[enumerate]{font=\color{white5!60!black}\sffamily}
+\newcommand{\enumref}[1]{{\color{white5!60!black}\sffamily{\ref{#1}}}}
+
+\setlength{\parindent}{0mm}
+\pgfplotsset{compat=1.17}
+%\titlespacing{\section}{0pc}{0.5pc}{0pc}
+%\titlespacing{\subsection}{0pc}{0.5pc}{0pc}
+
+
+\newcommand{\stylize}[2]{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \fancyhead[RE]{\textbf{\color{white5}\MakeUppercase{#1}}}
+    \fancyhead[LO]{\color{white5}#2}
+    \fancyfoot[RE]{\color{white5}\textbf{MP2I} \ 2021 - 2022}
+    \fancyfoot[LO]{\color{white5}SIAHAAN--GENSOLLEN Rémy}
+    \fancyfoot[RO,LE]{\color{white5}\thepage\;/\;\pageref{LastPage}}
+    \fancypagestyle{noheader}{\fancyhead{}}
+    \thispagestyle{noheader}
+    {\color{main1!30!main4}\fontsize{26}{31.2}\Impact\MakeUppercase{#1}}
+    
+    {\color{black2}\fontsize{10.5}{12.6}\MakeUppercase{#2}}
+    \text{}\\
+}
+
+\newcommand{\stylizeDoc}[3]{
+    \title{MP2I - \MakeUppercase{#1} - #2 (#3)}
+    \author{SIAHAAN--GENSOLLEN Rémy}
+    \date{\today}
+    \hypersetup{%
+        pdftitle={#2 : #3},
+        pdfauthor={SIAHAAN--GENSOLLEN Rémy},
+        pdflang={fr-FR},
+        pdfsubject={MP2I - #1 - #2: #3},
+        pdfkeywords={MP2I, #1, 2021-2022, #2, #3}
+        pdfstartview=
+    }
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \fancyhead[RE]{\GillSansMTMedium\textbf{\color{white5}\MakeUppercase{#1}}}
+    \fancyhead[LO]{\GillSansMTMedium\color{white5}#2: #3}
+    \fancyfoot[RE]{\GillSansMTMedium\color{white5}\textbf{MP2I} \ 2021 - 2022}
+    \fancyfoot[LO]{\GillSansMTMedium\color{white5}SIAHAAN--GENSOLLEN Rémy}
+    \fancyfoot[RO,LE]{\GillSansMTMedium\color{white5}\thepage\;/\;\pageref{LastPage}}
+    \fancypagestyle{noheader}{\fancyhead{}}
+    \thispagestyle{noheader}
+    \text{}\\[-40pt]
+    \begin{minipage}[t]{.5\linewidth}
+        {\color{main1!30!main2!90!black}\fontsize{26}{31.2}\Impact\MakeUppercase{#1}}
+    
+    \end{minipage}
+    \begin{minipage}[t]{.5\linewidth}
+        {\color{black2}\fontsize{10.5}{12.6}\GillSansMTMedium\MakeUppercase{#2:\\ #3}}
+    \end{minipage}
+    
+    \text{}\\ \\
+}
+
+\newcommand{\stylizeDocSpe}[4]{
+    \title{MPI - \MakeUppercase{#1} - #2 (#3)}
+    \author{SIAHAAN--GENSOLLEN Rémy}
+    \date{\today}
+    \hypersetup{%
+        pdftitle={#2 : #3},
+        pdfauthor={SIAHAAN--GENSOLLEN Rémy},
+        pdflang={fr-FR},
+        pdfsubject={MPI/MPI* - #1 - #2: #3},
+        pdfkeywords={MPI/MPI*, #1, 2021-2022, #2, #3}
+        pdfstartview=
+    }
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \fancyhead[RE]{\GillSansMTMedium\textbf{\color{white5}\MakeUppercase{#1}}}
+    \fancyhead[LO]{\GillSansMTMedium\color{white5}#2 \ #3}
+    \fancyfoot[RE]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} \ 2022 - 2023}
+    \fancyfoot[LO]{\GillSansMTMedium\color{white5}SIAHAAN--GENSOLLEN Rémy}
+    \fancyfoot[RO,LE]{\GillSansMTMedium\color{white5}\thepage\;/\;\pageref{LastPage}}
+    \fancypagestyle{noheader}{\fancyhead{}}
+    \thispagestyle{noheader}
+    \text{}\\[-40pt]
+    
+    \begin{tcolorbox}[
+        enhanced,
+        frame hidden,
+        detach title,
+        sharp corners,
+        spread outwards     = 5pt,
+        top                 = 0.4cm,
+        bottom              = 0.4cm,
+        halign              = center,
+        valign              = center,
+        boxrule             = 0pt,
+        borderline west     = {18pt}{0pt}{main3!50!main2!95!gray!90},
+        coltitle            = white, 
+        interior style      = {
+            left color      = main3!80!main1white2!65!gray!11,
+            middle color    = main3!80!main1white2!50!gray!10,
+            right color     = main3!80!main1white2!35!gray!9
+        },
+        arc                 = 0 cm,
+        title               = \MakeUppercase{#1},
+        fonttitle           = \bfseries\sffamily,
+        overlay             = {
+            \node[rotate=90, minimum width=1cm, anchor=south,yshift=-0.6cm] at (frame.west) {\tcbtitle};
+        }
+    ]
+        \raggedright\begin{minipage}{0.9\linewidth}
+            \center
+            {\sffamily\Large #2}\\
+            {\sffamily #3}\text{}\\
+            \textit{\color{main3!50!main2!95!gray!90}#4}
+        \end{minipage}
+    \end{tcolorbox}
+}
+
+\newcommand{\initcours}[0]{
+    \setcounter{tocdepth}{2}
+    \renewcommand{\contentsname}{Plan}
+    \renewcommand{\thesection}{\Roman{section}} 
+    \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+    \renewcommand{\thesubsubsection}{\thesubsection.\alph{subsubsection})}
+    \begin{tcolorbox}[
+        enhanced,
+        frame hidden,
+        sharp corners,
+        spread sidewards    = 5pt,
+        halign              = center,
+        valign              = center,
+        interior style      = {left color=main4!15, right color=main2!12},
+        arc                 = 0 cm
+    ]
+        \begin{minipage}{0.83\linewidth}
+            \sffamily
+            \tableofcontents
+        \end{minipage}
+    \end{tcolorbox}
+}
+
+
+
+\newcommand{\initcourschapter}[0]{
+    \setcounter{minitocdepth}{2}
+    \renewcommand{\thesection}{\Roman{section}} 
+    \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+    \renewcommand{\thesubsubsection}{\thesubsection.\alph{subsubsection})}
+    \begin{tcolorbox}[
+        breakable,
+        enhanced,
+        interior style      = {left color=main2!12,right color=main6!12,middle color=main4!8},
+        borderline north    = {.5pt}{0pt}{main2!10},
+        borderline south    = {.5pt}{0pt}{main2!10},
+        borderline west     = {.5pt}{0pt}{main2!10},
+        borderline east     = {.5pt}{0pt}{main2!10},
+        sharp corners       = downhill,
+        arc                 = 0 cm,
+        boxrule             = 0pt,
+        drop fuzzy shadow   = black!50!white,
+        frame hidden,
+        before skip balanced = 0.4cm,
+    ]
+        \sffamily
+        \minitoc 
+    \end{tcolorbox}
+}
+
+\newcommand{\inittd}[0]{
+    \renewcommand{\contentsname}{Plan}
+    \renewcommand{\thesection}{\arabic{section}} 
+    \renewcommand{\thesubsection}{Exercice \arabic{subsection} -}
+    \renewcommand{\thesubsubsection}{ \alph{subsubsection})}
+}
+
+%===============================
+% Police
+%===============================
+
+\providefontfamily\GillSansMT{Gill-Sans-MT}[
+    Path            =  ../../Fonts/,
+    Extension       = .ttf,
+    UprightFont     = *-Light,
+    ItalicFont      = *-Light-Italic,
+    BoldFont        = *-Bold,
+    BoldItalicFont  = *-Bold-Italic,
+]
+
+\providefontfamily\GillSansMTMedium{Gill-Sans-MT}[
+    Path            =  ../../Fonts/,
+    Extension       = .ttf,
+    UprightFont     = *-Medium,
+    ItalicFont      = *-Medium-Italic,
+    BoldFont        = *-Bold,
+    BoldItalicFont  = *-Bold-Italic,
+]
+
+\providefontfamily\Impact{Impact}[
+    Path            =  ../../Fonts/,
+    Extension       = .ttf
+]
+
+%\defaultfontfeatures{RawFeature={+hlig,+clig,+liga,+cv11,+cv90,+calt,+ccmp,+swsh},Ligatures=TeX} %+dlig ?
+\newfontfamily{\EBGaramond}{EBGaramond}[RawFeature={+clig,+liga,+cv11,+cv90,+calt,+ccmp,+swsh},Ligatures=TeX]
+
+
+%\usepackage[standard-baselineskips]{cmbright}
+%\setmainfont{Roboto}
+%\setmainfont[
+%    Scale=1,
+%    %Ligatures=Rare,
+%    Ligatures={Required,%
+%Common,Contextual,Rare,Historic,TeX,Discretionary},
+%    %Ligatures = ,   % ou RawFeature = +dlig, (ct, st)
+%    Style = Swash,
+%    SmallCapsFont={* Caps},
+%    %SlantedFont={* Slant}
+%]{Latin Modern Roman}
+
+\setmainfont[
+    Scale=1,
+    %Ligatures=Rare,
+%    Ligatures={Required,%
+%Common,Contextual,Rare,Historic,TeX,Discretionary},
+%    %Ligatures = ,   % ou RawFeature = +dlig, (ct, st)
+%    Style = Swash,
+    SmallCapsFont={* Caps},
+    %SlantedFont={* Slant}
+]{Latin Modern Roman}
+%\setmainfont{EBGaramond}
+
+
+% Version longue à cause du paramètre "explicit" de titlesec.
+\titleformat{\section}{\normalfont\sffamily\bfseries\Large}{\thesection}{1em}{#1}
+\titleformat{\subsection}{\normalfont\sffamily\bfseries\large}{\thesubsection}{1em}{#1}
+\titleformat{\subsubsection}{\normalfont\sffamily\bfseries}{\thesubsubsection}{1em}{#1}
+
+
+%\setmainfont{Gill-Sans-MT}[
+%    Path            = ../../Fonts/,
+%    Extension       = .ttf,
+%    UprightFont     = *-Book,
+%    ItalicFont      = *-Book-Italic,
+%    BoldFont        = *-Bold,
+%    BoldItalicFont  = *-Bold-Italic,
+%]
+
+%\setsansfont{Gill-Sans-MT}[
+%    Path            = ../../Fonts/,
+%    Extension       = .ttf,
+%    UprightFont     = *-Book,
+%    ItalicFont      = *-Book-Italic,
+%    BoldFont        = *-Bold,
+%    BoldItalicFont  = *-Bold-Italic,
+%]
+
+
+%\usepackage{cmbright}
+
+%===============================
+% Couleurs 
+%===============================
+
+\definecolor{main1} {RGB}{8, 127, 196}
+
+\definecolor{main1comp} {RGB}{218, 65, 103}
+\definecolor{main1comp2} {RGB}{119, 186, 153}
+\definecolor{main1white} {RGB}{121, 129, 134}
+\definecolor{main1white2} {RGB}{204, 204, 204}
+\definecolor{main2} {RGB}{64, 115, 192}
+\definecolor{main3} {RGB}{96, 102, 183}
+\definecolor{main4} {RGB}{120, 86, 169}
+\definecolor{main5} {RGB}{139, 69, 149}
+\definecolor{main6} {RGB}{152, 51, 126}
+\definecolor{main7} {RGB}{158, 30, 100}
+\definecolor{main8} {RGB}{159, 4, 72}
+\definecolor{main9} {RGB}{153, 0, 44}
+\definecolor{main10} {RGB}{142, 1, 15}
+\definecolor{main10comp} {RGB}{250, 126, 97}
+\definecolor{main10comp2} {RGB}{63, 136, 197}
+
+\definecolor{main20} {RGB}{7, 163, 106}
+\definecolor{main21} {RGB}{184, 0, 0}
+
+\definecolor{ocamlColor} {RGB}{242, 130, 17}
+
+\colorlet{main22} {main1!50!main20}
+\colorlet{colexp} {main3!50!main21!80!main5}
+\colorlet{colform} {main1!50!main20}
+
+%OLD OLD OLD
+\definecolor{blue}      {RGB}{068, 114, 196}
+\definecolor{red}       {RGB}{196, 68, 68}
+\definecolor{green}       {RGB}{68, 196, 149}
+\definecolor{orange}    {RGB}{237, 125, 049}
+\definecolor{orange1}   {RGB}{251, 229, 213}
+\definecolor{orange2}   {RGB}{237, 203, 172}
+\definecolor{orange3}   {RGB}{244, 177, 131}
+\definecolor{orange4}   {RGB}{197, 90, 17}
+\definecolor{orange5}   {RGB}{131, 60, 11}
+\definecolor{black2}{RGB}{89, 89, 89}
+\definecolor{white5}{RGB}{128, 128, 128}
+\definecolor{ggyl1}    {RGB}{169, 209, 142}
+\definecolor{ggyl2}    {RGB}{186, 213, 131}
+\definecolor{ggyl3}    {RGB}{207, 216, 119}
+\definecolor{ggyl4}    {RGB}{230, 217, 109}
+\definecolor{ggyl5}    {RGB}{255, 217, 102}
+\definecolor{gypl1}    {RGB}{209, 142, 193}
+\definecolor{gypl2}    {RGB}{251, 146, 175}
+\definecolor{gypl3}    {RGB}{255, 160, 146}
+\definecolor{gypl4}    {RGB}{255, 185, 117}
+\definecolor{gypl5}    {RGB}{255, 217, 102}
+%OLD OLD OLD
+
+%===============================
+% Boites
+%===============================
+
+\newcommand{\boxsol}[1]{
+    \begin{tcolorbox}[
+        colback             = main1white!85!gray!12,
+        borderline west     = {.10pt}{0pt}{main1white!30},
+        borderline north    = {.10pt}{0pt}{main1white!30},
+        borderline east     = {.10pt}{0pt}{main1white!30},
+        borderline south    = {.10pt}{0pt}{main1white!30},
+        arc                 = 0pt,
+        boxsep              = -1mm,
+        frame hidden, nobeforeafter, tcbox raise base,
+        enhanced, arc is angular, hbox
+    ]
+        #1
+    \end{tcolorbox}
+}
+
+\newcommand{\boxsoll}[1]{
+    \begin{tcolorbox}[
+        colback             = main1!85!gray!12,
+        borderline west     = {.10pt}{0pt}{main1!30},
+        borderline north    = {.10pt}{0pt}{main1!30},
+        borderline south    = {.10pt}{0pt}{main1!30},
+        arc                 = 0pt,
+        boxsep              = -1mm,
+        frame hidden, nobeforeafter, tcbox raise base,
+        enhanced, arc is angular, hbox
+    ]
+        #1
+    \end{tcolorbox}
+}
+
+\newcommand{\boxsolr}[1]{
+    \begin{tcolorbox}[
+        colback             = main1!85!gray!12,
+        borderline north    = {.10pt}{0pt}{main1!30},
+        borderline east     = {.10pt}{0pt}{main1!30},
+        borderline south    = {.10pt}{0pt}{main1!30},
+        arc                 = 0pt,
+        boxsep              = -1mm,
+        frame hidden, nobeforeafter, tcbox raise base,
+        enhanced, arc is angular, hbox
+    ]
+        #1
+    \end{tcolorbox}
+}
+
+
+\newcounter{boxansversion}
+\setcounter{boxansversion}{1}
+
+\DeclareDocumentCommand\newboxans{}{\setcounter{boxansversion}{2}}
+    
+\newcommand{\boxans}[1]{
+    \ifnum \value{boxansversion}=1 {
+        \begin{tcolorbox}[
+            breakable,
+            enhanced,
+            interior style      = {
+                left color      = main1!65!gray!8,
+                middle color    = main1!50!gray!7,
+                right color     = main1!35!gray!6
+            },
+            borderline north    = {.3pt}{0pt}{main1!10},
+            borderline south    = {.3pt}{0pt}{main1!10},
+            borderline west     = {2pt}{0pt}{main1!30},
+            sharp corners       = downhill,
+            arc                 = 0 cm,
+            boxrule             = 0 cm,
+            %nobeforeafter,
+            %after=\par\nointerlineskip
+        ]
+            %\rmfamily\small
+            #1
+        \end{tcolorbox}
+    } \else {
+        \begin{tcolorbox}[
+            breakable,
+            enhanced,
+            interior style      = {
+                left color      = main1white2!65!gray!8,
+                middle color    = main1white2!50!gray!7,
+                right color     = main1white2!35!gray!6
+            },
+            %borderline north    = {.3pt}{0pt}{main1white!10},
+            %borderline south    = {.3pt}{0pt}{main1white!10},
+            frame hidden,
+            borderline west     = {2pt}{0pt}{main1white!30},
+            sharp corners       = downhill,
+            arc                 = 0 cm,
+            boxrule             = 0 cm,
+            %nobeforeafter,
+            %before={},
+            nobeforeSTYLE,
+            noafterSTYLE,
+            %after=\par\nointerlineskip
+        ]
+            \rmfamily\small #1
+        \end{tcolorbox}
+    }
+    \fi
+}
+
+\newcommand{\boxansconc}[1]{
+    \begin{tcolorbox}[
+            breakable,
+            enhanced,
+            interior style      = {
+                left color      = main1white2!65!gray!12,
+                middle color    = main1white2!50!gray!11,
+                right color     = main1white2!35!gray!10
+            },
+            %borderline north    = {.3pt}{0pt}{main1white!10},
+            %borderline south    = {.3pt}{0pt}{main1white!10},
+            frame hidden,
+            borderline west     = {2pt}{0pt}{main3!50!main2!95!gray!90},
+            sharp corners       = downhill,
+            arc                 = 0 cm,
+            boxrule             = 0 cm,
+            %nobeforeafter,
+            %before={},
+            nobeforeSTYLE,
+            noafterSTYLE,
+            %after=\par\nointerlineskip
+        ]
+            \rmfamily\small #1
+        \end{tcolorbox}
+}
+
+\newcommand{\boxhtp}[2]{
+
+\renewcommand\qedsymbol{\phantom{$\blacksquare$}}
+    \renewcommand{\thesection}{\Roman{section}} 
+    \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+    \begin{tcolorbox}[
+        breakable,
+        enhanced,
+        interior style      = {left color=main2!15,right color=main6!12,middle color=main4!8},
+        borderline north    = {.5pt}{0pt}{main2!10},
+        borderline south    = {.5pt}{0pt}{main2!10},
+        borderline west     = {.5pt}{0pt}{main2!10},
+        borderline east     = {.5pt}{0pt}{main2!10},
+        sharp corners       = downhill,
+        arc                 = 0 cm,
+        boxrule             = 1pt,
+        drop fuzzy shadow   = black!50!white,
+        frame hidden,
+    ]
+    \begin{center}\sffamily\textbf{Objectif :}\end{center}
+    \begin{enumerate}
+        #1
+    \end{enumerate}
+    \begin{center}\sffamily\textbf{Matériel :}\end{center}
+    \begin{enumerate}
+        #2
+    \end{enumerate}
+    \end{tcolorbox}
+}
+
+\newcommand{\boxexp}[1]{\begin{tcolorbox}[
+        breakable,
+        enhanced,
+        interior style      = {
+            left color      = colexp!66!gray!11,
+            middle color    = colexp!33!gray!8,
+            right color     = colexp!0!gray!5
+        },
+        borderline north    = {.3pt}{0pt}{colexp!10},
+        borderline south    = {.3pt}{0pt}{colexp!10},
+        borderline west     = {2pt}{0pt}{colexp!99!gray!30},
+        sharp corners       = downhill,
+        arc                 = 0 cm,
+        boxrule             = 0 cm
+    ]
+            #1
+    \end{tcolorbox}
+    
+}
+
+\newcommand{\boxform}[1]{\begin{tcolorbox}[
+        breakable,
+        enhanced,
+        interior style      = {
+            left color      = colform!66!gray!11,
+            middle color    = colform!33!gray!8,
+            right color     = colform!0!gray!5
+        },
+        borderline north    = {.3pt}{0pt}{colform!10},
+        borderline south    = {.3pt}{0pt}{colform!10},
+        borderline west     = {2pt}{0pt}{colform!99!gray!30},
+        sharp corners       = downhill,
+        arc                 = 0 cm,
+        boxrule             = 0 cm,
+        nobeforeafter,
+        after=\par\nointerlineskip
+    ]
+            #1
+    \end{tcolorbox}
+    
+}
+
+\newcommand\digitstyle{\color{main1}}
+\makeatletter
+\newcommand{\ProcessDigit}[1]
+{%
+  \ifnum\lst@mode=\lst@Pmode\relax%
+   {\digitstyle #1}%
+  \else
+    #1%
+  \fi
+}
+\newcommand{\ProcessComma}[1]
+{%
+  \ifnum\lst@mode=\lst@Pmode\relax%
+   {\color{orange} #1}%
+  \else
+    #1%
+  \fi
+}
+\makeatother
+
+%\lstset{literate=
+%    {.}{{{\ProcessDigit{.}}}}1
+%    {,}{{{\ProcessComma{,}}}}1
+%    {0}{{{\ProcessDigit{0}}}}1
+%    {1}{{{\ProcessDigit{1}}}}1
+%    {2}{{{\ProcessDigit{2}}}}1
+%    {3}{{{\ProcessDigit{3}}}}1
+%    {4}{{{\ProcessDigit{4}}}}1
+%    {5}{{{\ProcessDigit{5}}}}1
+%    {6}{{{\ProcessDigit{6}}}}1
+%    {7}{{{\ProcessDigit{7}}}}1
+%    {8}{{{\ProcessDigit{8}}}}1
+%    {9}{{{\ProcessDigit{9}}}}1
+%    {<=}{{\(\leq\)}}1,
+%    morestring=[b]",
+%    morestring=[b]',
+%    morecomment=[l]//,
+%}
+
+\newcommand\codecom{\color{main20!20!gray}}
+
+\lstdefinelanguage{OCaml}{
+    morekeywords=[1]{
+        and, as, assert, begin, class, constraint, do, done, downto, else, end, exception, external, for, fun, function, functor, if, in, include, inherit, initializer, lazy, let, match, method, module, mutable, new, object, of, open, or, private, rec, sig, struct, then, to, try, type, val, virtual, when, while, with, return, continue, ref
+    },
+    morekeywords=[2]{true,false},
+    morekeywords=[3]{Relation,Queue,Set,failwith},
+    morekeywords=[4]{int,array,unit,bool},
+    %morecomment=[l]{#},
+    keepspaces=true,
+    showstringspaces=false,
+    morestring=[b]",
+    %comment=[s]{(*)}{*)},
+    comment=[n]{(*}{*)},
+    tabsize=3,
+    extendedchars=true,
+    sensitive=true,
+    breaklines=true,
+    basicstyle=\ttfamily,
+    columns=[l]fullflexible,
+    %numbers=left,
+    numbersep=3pt,
+    keywordstyle=[1]{\ttfamily\color{main4}},
+    keywordstyle=[2]{\ttfamily\color{main20}},
+    keywordstyle=[3]{\ttfamily\color{main21}},
+    keywordstyle=[4]{\ttfamily\color{main10}},
+    stringstyle=\ttfamily\itshape\color{main20},
+    commentstyle=\ttfamily\itshape\color{ocamlColor},
+    escapechar=?,
+    literate=*
+        %{0}{{\color{main1}{0}}}1
+        %{1}{{\color{main1}{1}}}1
+        %{2}{{\color{main1}{2}}}1
+        %{3}{{\color{main1}{3}}}1
+        %{4}{{\color{main1}{4}}}1
+        %{5}{{\color{main1}{5}}}1
+        %{6}{{\color{main1}{6}}}1
+        %{7}{{\color{main1}{7}}}1
+        %{8}{{\color{main1}{8}}}1
+        %{9}{{\color{main1}{9}}}1
+        %{)}{{\color{main1}{(}}}1
+        {|}{{\color{main1} |}}{1}
+        {.}{{\color{main1} .}}{1}
+        {,}{{\color{main1} ,}}{1}
+        {;}{{\color{main1}{;}}}1
+        {:}{{\color{main1}{:}}}1
+        {=}{{\color{main1}{=}}}1
+        {<}{{\color{main1}{<}}}1
+        {>}{{\color{main1}{>}}}1
+        {+}{{\color{main1}{+}}}1
+        {-}{{\color{main1}{-}}}1
+        {/}{{\color{main1}{/}}}1
+        {*}{{\color{main1}{*}}}1
+        {!}{{\color{main1}{!}}}1
+        {?}{{\color{main1}{?}}}1
+        %{[blank]}{{\mbox{~}}}1
+        {'a}{{$\alpha$}}1 
+        {'b}{{$\beta$}}1 
+        {'c}{{$\gamma$}}1 
+        %{'s}{{$s$}}1 
+        %{<>}{{$\neq$}}1 
+        %{**}{{$\times$}}1 
+        %{\\prog}{{$\prog$}}1
+        %{\\cup}{{$\cup$}}1
+        %{\\tab}{{$\qquad$}}1
+        %{[blank]}{{\ }}1
+        {&&}{{\color{main20}{\texttt{\&\&}}}}1
+        {||}{{\color{main20}{\texttt{||}}}}1
+        {->}{{$\color{main1}{\rightarrow}$}}1
+        {<-}{{$\color{main1}{\leftarrow}$}}1
+        %{(@}{(*}}1
+        %{ \) }{{\color{main1}{-}}}1,
+}
+
+%\lstnewenvironment{ocaml}{\lstset{language=OCaml}}{}
+
+\newtcblisting{ocaml}{
+    enhanced, breakable,
+    attach boxed title to top right={yshift=-\tcboxedtitleheight},
+    interior style = {
+        left color = main1!12,
+        right color = main1!5
+    },
+    boxed title style = {
+        frame code = {
+            \path[left color=ocamlColor, right color=ocamlColor!80] 
+                (frame.north west)++(-5pt,0) -- 
+                (frame.north east) -- 
+                (frame.south east) -- 
+                (frame.south west) -- 
+                cycle;
+        },
+        interior engine=empty,
+    },
+    sharp corners = downhill,
+    arc = 0 cm,
+    title = {\sffamily Ocaml},
+    boxrule = 0 pt,
+    listing only,
+    %nobeforeafter,
+    %after=\par\nointerlineskip,
+    overlay = {
+        \begin{tcbclipinterior}
+            \fill[main1!30] (frame.south west) rectangle ([xshift=6mm]frame.north west);
+        \end{tcbclipinterior}
+    },
+    listing options = {
+        language = OCaml,
+        numbers=left,
+        numbersep=3.3mm,
+        xleftmargin=3mm,
+        numberstyle={\small\sffamily\color{main1!50!black}},
+        aboveskip=\smallskipamount, 
+        belowskip=\smallskipamount,
+    }
+}
+
+\def\camlline{\lstinline[language=OCaml]}
+
+\newtcblisting{code}[2]{
+    enhanced,
+    breakable,
+    attach boxed title to top right={
+            yshift=-\tcboxedtitleheight,
+    },
+    interior style = {
+        left color      = main1!66!gray!11,
+        right color     = main3!8
+    },
+    sharp corners   = downhill,
+    arc             = 0 cm,
+    title           = #2,
+    boxrule         = 0 pt,
+    listing only,
+    nobeforeafter,
+    after=\par\nointerlineskip,
+    overlay         = {
+        \begin{tcbclipinterior}
+            \fill[main1!99!gray!30] (frame.south west)
+            rectangle ([xshift=6mm]frame.north west);
+        \end{tcbclipinterior}},
+    listing options = {
+        language        = #1,
+        basicstyle      = \fontfamily{AnonymousPro}\selectfont,
+        keywordstyle    = \bfseries\color{main3},
+        stringstyle     = \bfseries\itshape\color{main20},
+        commentstyle    = \bfseries\itshape\color{main20!20!gray},
+        escapeinside={(*@}{@*)},
+        morekeywords={as, ddof},
+        showspaces      = false,
+        showtabs        = false,
+        breaklines      = true,
+        showstringspaces= false,
+        tabsize         = 1,
+        aboveskip=\smallskipamount, 
+        belowskip=\smallskipamount,
+        numbers=left,
+        xleftmargin=1em
+    },
+    boxed title style={
+        size            = normal, colback=main1!99!gray!80,
+        boxrule         = 0pt,
+        sharp corners   = downhill,
+        arc             = 0cm,
+        top             = 1mm,
+        bottom          = 1mm,
+        left            = 1mm,
+        right           = 1mm
+    },
+}
+
+\makeatletter
+\long\def\cana@extract#1#2#3#4#5{\unexpanded{#3}}
+\newcommand\smartref[1]{%
+    \@ifundefined{r@#1}{\relax}{%
+        \edef\cana@temp{%
+            \expandafter\expandafter\expandafter\cana@extract\csname r@#1\endcsname
+        }%
+        \ifx\cana@temp\@empty\autoref{#1}\!\!\!\else\nameref{#1}\!\!\!\fi
+    }%
+}%
+\makeatother
+
+
+%===============================
+% Cours
+%===============================
+
+\newcounter{cours}{}
+
+\DeclareDocumentCommand\declarecours{mmmm}{
+    \newtcbtheorem[auto counter, number within=section, use counter=cours]{AUX_#1}{\vphantom{Ép}#2}{
+        breakable,
+        enhanced,
+        top = 3mm,
+        before skip balanced = \tcboxedtitleheight/2,
+        separator sign={\ \ding{228}},
+        %if odd page={
+            attach boxed title to top left={
+                yshift=-\tcboxedtitleheight/3,
+                xshift=-2mm
+            },
+            boxed title style={
+                frame code={
+                    \path[left color=#4!90!gray!90, right color=#4!85!gray!75] 
+                        (frame.north west) -- 
+                        (frame.north east) -- 
+                        (frame.south east) -- 
+                        (frame.south west) -- 
+                        cycle;
+                },
+                interior engine=empty,
+            },
+        %}{
+        %    attach boxed title to top right={
+        %        yshift=-\tcboxedtitleheight/3,
+        %        xshift=2mm
+        %    },
+        %    boxed title style={
+        %        frame code={
+        %            \path[right color=#4!90!gray!90, left color=#4!85!gray!75]
+        %                (frame.north west) -- 
+        %                (frame.north east) -- 
+        %                (frame.south east) -- 
+        %                (frame.south west) -- 
+        %                cycle;
+        %        },
+        %        interior engine=empty,
+        %    }
+        %},
+        fonttitle           = \sffamily,
+        borderline west     = {.5pt}{0pt}{#4!85!gray!50},
+        borderline north    = {\tcboxedtitleheight/3}{-\tcboxedtitleheight/3}{#4!85!gray!50},
+        borderline east     = {.5pt}{0pt}{#4!85!gray!50},
+        borderline south    = {.5pt}{0pt}{#4!85!gray!50},
+        interior style      = {
+            left color      = #4!100!gray!8,
+            middle color    = #4!75!gray!7,
+            right color     = #4!50!gray!6
+        },
+        sharp corners   = downhill,
+        arc             = 0 cm,
+        boxrule         = 0pt,
+        frame hidden,
+        drop fuzzy shadow=#4!30!white
+    }{#3}
+    \newenvironment{#1}[2]{
+        \begingroup
+        \renewcommand{\bf}[1]{{\color{#4}\textbf{####1}}}
+        \newcommand{\hg}[1]{\begingroup\color{#4}{####1}\endgroup}
+        \newcommand{\hgu}[1]{\begingroup\color{#4}\underline{####1}\endgroup}
+        \newcommand{\hguo}[1]{\begingroup\colorlet{cb@savedHGUO}{.}\color{#4}\underline{\color{cb@savedHGUO}####1}\endgroup}
+        \newcommand{\boxedcol}[1]{\begingroup\colorlet{cb@savedBOX}{.}\color{#4}\boxed{\color{cb@savedBOX}####1}\endgroup}
+        \begin{AUX_#1}{##1}{##2}
+    }{
+        \end{AUX_#1}
+        \endgroup
+        \global\def\nproofcolor{#4}
+    }
+    \newenvironment{#1*}[2]{
+        \begingroup
+        \renewcommand{\bf}[1]{{\color{#4}\textbf{####1}}}
+        \newcommand{\hg}[1]{\begingroup\color{#4}{####1}\endgroup}
+        \newcommand{\hgu}[1]{\begingroup\color{#4}\underline{####1}\endgroup}
+        \newcommand{\hguo}[1]{\begingroup\colorlet{cb@savedHGUO}{.}\color{#4}\underline{\color{cb@savedHGUO}####1}\endgroup}
+        \newcommand{\boxedcol}[1]{\begingroup\colorlet{cb@savedBOX}{.}\color{#4}\boxed{\color{cb@savedBOX}####1}\endgroup}
+        \begin{AUX_#1*}{##1}{##2}
+    }{
+        \end{AUX_#1*}
+        \endgroup
+        \global\def\nproofcolor{#4}
+    }
+    \expandafter\NewDocumentCommand\csname #3ref\endcsname{m}{\textsc{\smartref{#3:##1} }}
+}
+
+\newcounter{cours2}{}
+
+\DeclareDocumentCommand\declarecoursalt{mmmm}{
+    \newtcbtheorem[auto counter, use counter=cours2]{AUX_#1}{#2}{
+        theorem name,
+        breakable,
+        enhanced,
+        top = 3mm,
+        separator sign={\ \ding{228}},
+        attach boxed title to top center={
+            yshift=-\tcboxedtitleheight/2,
+        },
+        colframe            = {#4},
+        borderline west     = {.5pt}{0pt}{#4},
+        borderline north    = {.5pt}{0pt}{#4},
+        borderline east     = {.5pt}{0pt}{#4},
+        borderline south    = {.5pt}{0pt}{#4},
+        colback             = #4!1,
+        fonttitle           = \sffamily,
+        sharp corners       = downhill,
+        arc                 = 0 cm,
+        boxrule             = 0pt,
+        frame hidden,
+        %drop fuzzy shadow=#4!10!white,
+        boxed title style={
+        frame code={
+            \path[left color=#4!95!gray!90,right color=#4!95!gray!90, middle color=#4!70!gray!90, fill=white] 
+                    ([xshift=-2mm]frame.north west) -- 
+                    ([xshift=2mm]frame.north east) -- 
+                    ([xshift=2mm]frame.south east) -- 
+                    ([xshift=-2mm]frame.south west) -- 
+                    cycle;
+        },
+        interior engine=empty,
+        }
+    }{#3}
+    \newenvironment{#1}[2]{
+        \begingroup
+        \renewcommand{\bf}[1]{{\color{#4}\textbf{####1}}}
+        \newcommand{\hg}[1]{\begingroup\color{#4}{####1}\endgroup}
+        \newcommand{\hgu}[1]{\begingroup\color{#4}\underline{####1}\endgroup}
+        \newcommand{\hguo}[1]{\begingroup\colorlet{cb@savedHGUO}{.}\color{#4}\underline{\color{cb@savedHGUO}####1}\endgroup}
+        \newcommand{\boxedcol}[1]{\begingroup\colorlet{cb@savedBOX}{.}\color{#4}\boxed{\color{cb@savedBOX}####1}\endgroup}
+        \begin{AUX_#1}{##1}{##2}
+    }{
+        \end{AUX_#1}
+        \endgroup
+    }
+    \newenvironment{#1*}[2]{
+        \begingroup
+        \renewcommand{\bf}[1]{{\color{#4}\textbf{####1}}}
+        \newcommand{\hg}[1]{\begingroup\color{#4}{####1}\endgroup}
+        \newcommand{\hgu}[1]{\begingroup\color{#4}\underline{####1}\endgroup}
+        \newcommand{\hguo}[1]{\begingroup\colorlet{cb@savedHGUO}{.}\color{#4}\underline{\color{cb@savedHGUO}####1}\endgroup}
+        \newcommand{\boxedcol}[1]{\begingroup\colorlet{cb@savedBOX}{.}\color{#4}\boxed{\color{cb@savedBOX}####1}\endgroup}
+        \begin{AUX_#1*}{##1}{##2}
+    }{
+        \end{AUX_#1*}
+        \endgroup
+    }
+    \expandafter\NewDocumentCommand\csname #3ref\endcsname{m}{\textsc{\smartref{#3:##1}}}
+}
+
+\declarecours{experience}{Expérience}{exp}{colexp}
+\declarecours{definition}{Définition}{def}{main1}
+\declarecours{property}{Propriété}{prop}{main3}
+\declarecours{lemma}{Lemme}{lem}{main6}
+\declarecours{theorem}{Théorème}{th}{main10}
+\declarecours{corollary}{Corollaire}{cor}{main9}
+\declarecoursalt{example}{Exemple}{example}{main2}
+\declarecoursalt{exercise}{Exercice}{exo}{main20}
+\declarecours{exotd}{Exercice}{exotd}{main20}
+\declarecoursalt{warning}{Avertissement}{warn}{main21}
+
+\declarecoursalt{form}{}{form}{colform}
+
+\global\def\nproofcolor{black}
+
+\makeatletter
+\renewenvironment{proof}[1][Preuve]{%
+    %\par\pushQED{\color{\nproofcolor}\qed}\normalfont%
+    \par\pushQED{\color{black}\qed}\normalfont%
+    \topsep6\p@\@plus6\p@\relax
+    %\trivlist\item[\hskip\labelsep\colorbox{black}{\color{white}\EBGaramond\itshape#1\@addpunct{.}}]%
+    \trivlist\item[\hskip\labelsep\colorbox{\nproofcolor!85!gray!20}{\color{\nproofcolor}\EBGaramond\itshape#1\@addpunct{.}}]%
+    \ignorespaces\rmfamily\small
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+
+\newenvironment{proofpure}[1][Preuve]{%
+    %\par\pushQED{\color{\nproofcolor}\qed}\normalfont%
+    \par\pushQED{\color{\nproofcolor}\qed}\normalfont%
+    \topsep6\p@\@plus6\p@\relax
+    %\trivlist\item[\hskip\labelsep\colorbox{black}{\color{white}\EBGaramond\itshape#1\@addpunct{.}}]%
+    \trivlist\item[\hskip\labelsep\colorbox{\nproofcolor!85!gray!20}{\color{\nproofcolor}\EBGaramond\itshape#1\@addpunct{.}}]%
+    \ignorespaces\rmfamily\small
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\DeclareDocumentCommand\nobefore{}{
+    \tcbset{nobeforeSTYLE/.style={before skip=0pt, top=0cm}}
+}
+\DeclareDocumentCommand\yesbefore{}{
+    \tcbset{nobeforeSTYLE/.style={}}
+}
+\DeclareDocumentCommand\noafter{}{
+    \tcbset{noafterSTYLE/.style={after skip=0pt, bottom=0cm}}
+}
+\DeclareDocumentCommand\yesafter{}{
+    \tcbset{noafterSTYLE/.style={}}
+}
+
+\yesbefore{}
+\yesafter{}
+
+\newenvironment{nproof}{
+    \begingroup
+    \begin{tcolorbox}[
+        breakable,
+        enhanced,
+        interior style      = {
+            left color      = main1white2!65!gray!8,
+            middle color    = main1white2!50!gray!7,
+            right color     = main1white2!35!gray!6
+        },
+        %borderline north    = {.3pt}{0pt}{main1white!10},
+        %borderline south    = {.3pt}{0pt}{main1white!10},
+        borderline west     = {2pt}{0pt}{\nproofcolor!85!gray!50},
+        sharp corners       = downhill,
+        frame hidden,
+        arc                 = 0 cm,
+        boxrule             = 0 cm,
+        nobeforeSTYLE,
+        noafterSTYLE,
+    ]
+        \begin{proof}
+}{
+        \end{proof}
+    \end{tcolorbox}
+    \endgroup
+}
+
+\newenvironment{pnm}{
+    \begin{pNiceMatrix}
+    
+}{
+    \end{pNiceMatrix}
+}
+
+\newenvironment{psse}{
+    \begin{enumerate}[label=\textrm{\EBGaramond\itshape(\roman*)}]
+}{
+    \end{enumerate}
+}
+
+\newcommand{\pssenum}[1]{\textrm{\EBGaramond\itshape(#1)}}
+
+\newenvironment{expcom}{
+    \begingroup
+    \begin{tcolorbox}[
+        breakable,
+        enhanced,
+        interior style      = {
+            left color      = main1white2!65!gray!8,
+            middle color    = main1white2!50!gray!7,
+            right color     = main1white2!35!gray!6
+        },
+        %borderline north    = {.3pt}{0pt}{main1white!10},
+        %borderline south    = {.3pt}{0pt}{main1white!10},
+        %borderline west     = {2pt}{0pt}{colexp!85!gray!50},
+        sharp corners       = downhill,
+        frame hidden,
+        arc                 = 0 cm,
+        boxrule             = 0 cm,
+        nobeforeSTYLE,
+        noafterSTYLE,
+        overlay={\begin{tcbclipinterior}
+            \path[top color=colexp!85!gray!45, middle color=colexp!85!gray!55, bottom color=colexp!85!gray!55, fill=white] 
+                    (interior.north west) -- 
+                    ([xshift=2pt]interior.north west) -- 
+                    ([xshift=2pt]interior.south west) -- 
+                    (interior.south west) -- 
+                    cycle;
+                    
+        \end{tcbclipinterior}}
+    ]
+        \begin{proofpure}[Compte-rendu]
+}{
+        \end{proofpure}
+    \end{tcolorbox}
+    \endgroup
+}
+
+\newenvironment{notation}{
+    \begingroup
+    \begin{tcolorbox}[
+        breakable,
+        enhanced,
+        interior style      = {
+            left color      = main1white2!65!gray!8,
+            middle color    = main1white2!50!gray!7,
+            right color     = main1white2!35!gray!6
+        },
+        sharp corners       = downhill,
+        frame hidden,
+        arc                 = 0 cm,
+        boxrule             = 0 cm,
+        nobeforeSTYLE,
+        noafterSTYLE,
+        overlay={\begin{tcbclipinterior}
+            \path[top color=main1!95!gray!90, bottom color=main1!90!gray!70, fill=white] 
+                    (interior.north west) -- 
+                    ([xshift=2pt]interior.north west) -- 
+                    ([xshift=2pt]interior.south west) -- 
+                    (interior.south west) -- 
+                    cycle;
+                    
+        \end{tcbclipinterior}}
+    ]
+        \small\textbf{\color{main1!95!gray!90} \textsf{(Notation)}}\newcommand{\hg}[1]{\begingroup\color{main1!95!gray!90}{##1}\endgroup}
+}{
+    \end{tcolorbox}
+    \endgroup
+}
+
+\newenvironment{hpnote}{
+    \begingroup
+    \begin{tcolorbox}[
+        breakable,
+        enhanced,
+        interior style      = {
+            left color      = main1white2!65!gray!8,
+            middle color    = main1white2!50!gray!7,
+            right color     = main1white2!35!gray!6
+        },
+        sharp corners       = downhill,
+        frame hidden,
+        arc                 = 0 cm,
+        boxrule             = 0 cm,
+        nobeforeSTYLE,
+        noafterSTYLE,
+        overlay={\begin{tcbclipinterior}
+            \path[top color=main1!85!gray!70, bottom color=main1!85!gray!50, fill=white] 
+                    (interior.north west) -- 
+                    ([xshift=2pt]interior.north west) -- 
+                    ([xshift=2pt]interior.south west) -- 
+                    (interior.south west) -- 
+                    cycle;
+                    
+        \end{tcbclipinterior}}
+    ]
+        \textbf{\color{main1!95!gray!90} \textsf{(HP)}}
+}{
+        
+    \end{tcolorbox}
+    \endgroup
+}
+    
+\newcommand{\demo}[1]{
+    \begin{tcolorbox}[
+        breakable,
+        enhanced,
+        interior style      = {
+            left color      = main3!66!gray!13,
+            middle color    = main3!33!gray!9,
+            right color     = main3!0!gray!5
+        },
+        borderline north    = {.3pt}{0pt}{main3!5},
+        borderline south    = {.3pt}{0pt}{main3!5},
+        borderline west     = {1.5pt}{0pt}{main3!30},
+        sharp corners       = downhill,
+        arc                 = 0 cm,
+        boxrule             = 0 cm,
+    ]
+
+        \begin{proof}
+            #1
+        \end{proof}
+    \end{tcolorbox}
+}
+
+\newcommand{\demoth}[1]{
+    \begin{tcolorbox}[
+        breakable,
+        enhanced,
+        interior style      = {
+            left color      = main10!66!gray!13,
+            middle color    = main10!33!gray!9,
+            right color     = main10!0!gray!5
+        },
+        borderline north    = {.3pt}{0pt}{main10!5},
+        borderline south    = {.3pt}{0pt}{main10!5},
+        borderline west     = {1.5pt}{0pt}{main10!30},
+        sharp corners       = downhill,
+        arc                 = 0 cm,
+        boxrule             = 0 cm
+    ]
+
+        \begin{proof}
+            #1
+        \end{proof}
+    \end{tcolorbox}
+}
+
+\newcommand{\demolm}[1]{
+    \begin{tcolorbox}[
+        breakable,
+        enhanced,
+        interior style      = {
+            left color      = main6!66!gray!13,
+            middle color    = main6!33!gray!9,
+            right color     = main6!0!gray!5
+        },
+        borderline north    = {.3pt}{0pt}{main6!5},
+        borderline south    = {.3pt}{0pt}{main6!5},
+        borderline west     = {1.5pt}{0pt}{main6!30},
+        sharp corners       = downhill,
+        arc                 = 0 cm,
+        boxrule             = 0 cm
+    ]
+
+        \begin{proof}
+            #1
+        \end{proof}
+    \end{tcolorbox}
+}
+    
+\makeatletter
+\newcommand{\exlower}{%
+  \begin{tikzpicture}
+  \path[use as bounding box] (0,0) -- (\linewidth,0);
+  \draw[color=main2, dash dot]
+        (0-\kvtcb@leftlower-\kvtcb@boxsep,0) --
+        (\linewidth+\kvtcb@rightlower+\kvtcb@boxsep,0);
+  \end{tikzpicture}%
+  }
+\makeatother
+
+\DeclareDocumentCommand\suite{m}{{\left(#1\right)_{n \in \bdN}}} 
+\DeclareDocumentCommand\suiteZ{m}{{\left(#1\right)_{n \in \bdN^*}}}
+
+\DeclareDocumentCommand\serie{}{\textstyle{\sum\limits_{n \in \bdN}}}
+\newcommand{\bdRp}{\mathbb{R}_+^*}
+%note : bien mettre avant ExplSyntaxOn
+
+\DeclareDocumentCommand\guill{m}{\og #1\fg{}}
+
+
+
+
+\ExplSyntaxOn
+
+\DeclareDocumentCommand\funlv{mg}{
+  \qopname\relax o{#1}
+  \IfNoValueTF{#2}{}{\left(#2\right)}
+}
+
+\DeclareDocumentCommand\floor{m}{\left\lfloor#1\right\rfloor}
+
+
+\DeclareDocumentCommand\funlvi{m}{
+    \expandafter\DeclareDocumentCommand\expandafter{\csname #1\endcsname}{g}{\funlv{#1}{##1}}
+}
+
+
+\DeclareDocumentCommand\funlfv{mg}{
+    \mathfrak{#1}
+    \IfNoValueTF{#2}{}{\left(#2\right)}
+}
+
+
+
+\DeclareDocumentCommand\asymp{g}{%
+    \IfNoValueTF{#1}{\sim}{\underset{#1}{\sim}}
+}
+
+\DeclareDocumentCommand\eq{g}{
+    \IfNoValueTF{#1}{=}{\underset{#1}{=}}
+}
+
+%TODO: OPTIMISER EN CAS DUN SEUL ARG
+\DeclareDocumentCommand\o{gg}{
+    \IfNoValueTF{#1}{\bco}{\underset{#1}{\bco}}
+    \IfNoValueTF{#2}{}{\left(#2\right)}
+}
+
+\DeclareDocumentCommand\O{gg}{
+    \IfNoValueTF{#1}{\bcO}{\underset{#1}{\bcO}}
+    \IfNoValueTF{#2}{}{\left(#2\right)}
+}
+
+\DeclareDocumentCommand\lima{g}{
+    \IfNoValueTF{#1}{\xrightarrow[]{}}{\xrightarrow[#1]{}}
+}
+
+\DeclareDocumentCommand\rleq{}{\preccurlyeq}
+
+\newcommand{\transp}{^\mathsf{T}}
+\DeclareDocumentCommand\mtrans{m}{\,{}^\mathsf{t}\!#1}
+\newcommand{\ii}{\mathrm{i\mkern1mu}}
+\newcommand{\jj}{\mathrm{j\mkern1mu}}
+
+\DeclareDocumentCommand\phyavg{m}{\big\langle#1\big\rangle}
+
+\DeclareDocumentCommand\vec{m}{\overrightarrow{#1}}
+\DeclareDocumentCommand\sfrac{mm}{\nicefrac{#1}{#2}}
+\DeclareDocumentCommand\itb{}{\item[\bullet]}
+\DeclareDocumentCommand\itob{}{\item[\circ]}
+\DeclareDocumentCommand\itt{}{\item[\triangleright]}
+\DeclareDocumentCommand\itast{}{\item[\ast]}
+\DeclareDocumentCommand\its{m}{\item[\ding{#1}]}
+\DeclareDocumentCommand\ithand{}{\its{43}}
+\DeclareDocumentCommand\itstar{}{\its{73}}
+\DeclareDocumentCommand\itvarstar{}{\its{72}}
+\DeclareDocumentCommand\itarr{}{\its{226}}
+\DeclareDocumentCommand\itvararr{}{\its{227}}
+\DeclareDocumentCommand\itbox{}{\its{113}}
+\DeclareDocumentCommand\itvarbox{}{\its{114}}
+\DeclareDocumentCommand\cc{mmm}{\mathcal{C}^{#1}\left({#2},{#3}\right)}
+
+%===============================
+% Commandes pour les complexes
+%===============================
+
+\DeclareDocumentCommand\Bernoulli{}{\textsc{Bernoulli}}
+\newcommand{\Pascal}{\textsc{Pascal}}
+\newcommand{\Newton}{\textsc{Newton}}
+\newcommand{\Euler}{\textsc{Euler}}
+
+\DeclareDocumentCommand\Re{g}{\funlfv{Re}{#1}}
+\DeclareDocumentCommand\Im{g}{\funlfv{Im}{#1}}
+\DeclareDocumentCommand{\mod}{m}{\left|#1\right|}
+\DeclareDocumentCommand{\norm}{m}{\left\Vert#1\right\Vert}
+
+\DeclareDocumentCommand{\indication}{m}{{\EBGaramond Indication :} \ {\footnotesize\itshape #1}}
+\DeclareDocumentCommand{\indef}{m}{\textit{\color{main1}#1}}
+\DeclareDocumentCommand{\ens}{m}{\left\{#1\right\}}
+
+\DeclareDocumentCommand{\dep}{m}{\left.#1\right\vert}
+
+\DeclareDocumentCommand{\enstq}{}{\;\middle\vert\;}
+
+\DeclareDocumentCommand{\intc}{m}{\left[#1\right]}
+\DeclareDocumentCommand{\iint}{m}{\left\llbracket#1\right\rrbracket}
+
+\DeclareDocumentCommand{\into}{m}{\left]#1\right[}
+\DeclareDocumentCommand{\iinto}{m}{\left\rrbracket#1\right\llbracket}
+
+\DeclareDocumentCommand{\intor}{m}{\left[#1\right[}
+\DeclareDocumentCommand{\iintor}{m}{\left\llbracket#1\right\llbracket}
+
+\DeclareDocumentCommand{\intol}{m}{\left]#1\right]}
+\DeclareDocumentCommand{\iintol}{m}{\left\rrbracket#1\right\rrbracket}
+
+\DeclareDocumentCommand{\p}{m}{\!\left(#1\right)}
+
+
+\DeclareDocumentCommand\arg{g}{\funlv{arg}{#1}}
+\DeclareDocumentCommand{\expc}{m}{e^{i#1}}
+
+\DeclareFontFamily{U}{mathc}{}
+\DeclareFontShape{U}{mathc}{m}{it}%
+{<->s*[1.03] mathc10}{}
+
+\DeclareMathAlphabet{\mathcal}{U}{mathc}{m}{it}
+
+%=====================================================%
+%                                                     %
+%   Commandes pour les lettres en "blackboard bold"   %
+%  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  %
+%                                                     %
+%   Chaque "\bd[*]" où [*] est une lettre majuscule   %
+%   est un alias à \mathbb{[*]}. On l'utilise géné-   %
+%   ralement pour désigner les ensembles : N, Z, Q,   %
+%   R pour les entiers, rationnels, réels, ...        %
+%   La fonte de \mathbb utilisé ici est celle de la   %
+%   distribution par défaut (LuaLaTeX est utilisé).   %
+%                                                     %
+%   Est aussi présente la commande \bdOne, laquelle   %
+%   est un alias à \mathbbm{1}, et permet d'obtenir   %
+%   le chiffre "1" en police "blackboard bold", qui   %
+%   est utilisé pour désigner une fonction indica-    %
+%   trice d'un ensemble.                              %
+%   La fonte est importée par le package "bbm", qui   %
+%   crée également la commande \mathbbm. Le chiffre   %
+%   "1" n'est en effet pas disponible dans la fonte   %
+%   par défaut de la distribution.                    %
+%=====================================================%
+
+
+\newcommand{\bdOne}{\mathbbm{1}}
+
+\newcommand{\bdA}{\mathbb{A}}
+\newcommand{\bdB}{\mathbb{B}}
+\newcommand{\bdC}{\mathbb{C}}
+\newcommand{\bdD}{\mathbb{D}}
+\newcommand{\bdE}{\mathbb{E}}
+\newcommand{\bdF}{\mathbb{F}}
+\newcommand{\bdG}{\mathbb{G}}
+\newcommand{\bdH}{\mathbb{H}}
+\newcommand{\bdI}{\mathbb{I}}
+\newcommand{\bdJ}{\mathbb{J}}
+\newcommand{\bdK}{\mathbb{K}}
+\newcommand{\bdL}{\mathbb{L}}
+\newcommand{\bdM}{\mathbb{M}}
+\newcommand{\bdN}{\mathbb{N}}
+\newcommand{\bdO}{\mathbb{O}}
+\newcommand{\bdP}{\mathbb{P}}
+\newcommand{\bdQ}{\mathbb{Q}}
+\newcommand{\bdR}{\mathbb{R}}
+\newcommand{\bdS}{\mathbb{S}}
+\newcommand{\bdT}{\mathbb{T}}
+\newcommand{\bdU}{\mathbb{U}}
+\newcommand{\bdV}{\mathbb{V}}
+\newcommand{\bdW}{\mathbb{W}}
+\newcommand{\bdX}{\mathbb{X}}
+\newcommand{\bdY}{\mathbb{Y}}
+\newcommand{\bdZ}{\mathbb{Z}}
+
+
+\newcommand{\bcA}{\mathcal{A}}
+\newcommand{\bcB}{\mathcal{B}}
+\newcommand{\bcC}{\mathcal{C}}
+\newcommand{\bcD}{\mathcal{D}}
+\newcommand{\bcE}{\mathcal{E}}
+\newcommand{\bcF}{\mathcal{F}}
+\newcommand{\bcG}{\mathcal{G}}
+\newcommand{\bcH}{\mathcal{H}}
+\newcommand{\bcI}{\mathcal{I}}
+\newcommand{\bcJ}{\mathcal{J}}
+\newcommand{\bcK}{\mathcal{K}}
+\newcommand{\bcL}{\mathcal{L}}
+\newcommand{\bcM}{\mathcal{M}}
+\newcommand{\bcN}{\mathcal{N}}
+\newcommand{\bcO}{\mathcal{O}}
+\newcommand{\bcP}{\mathcal{P}}
+\newcommand{\bcQ}{\mathcal{Q}}
+\newcommand{\bcR}{\mathcal{R}}
+\newcommand{\bcS}{\mathcal{S}}
+\newcommand{\bcT}{\mathcal{T}}
+\newcommand{\bcU}{\mathcal{U}}
+\newcommand{\bcV}{\mathcal{V}}
+\newcommand{\bcW}{\mathcal{W}}
+\newcommand{\bcX}{\mathcal{X}}
+\newcommand{\bcY}{\mathcal{Y}}
+\newcommand{\bcZ}{\mathcal{Z}}
+
+\newcommand{\bca}{\mathcal{a}}
+\newcommand{\bcb}{\mathcal{b}}
+\newcommand{\bcc}{\mathcal{c}}
+\newcommand{\bcd}{\mathcal{d}}
+\newcommand{\bce}{\mathcal{e}}
+\newcommand{\bcf}{\mathcal{f}}
+\newcommand{\bcg}{\mathcal{g}}
+\newcommand{\bch}{\mathcal{h}}
+\newcommand{\bci}{\mathcal{i}}
+\newcommand{\bcj}{\mathcal{j}}
+\newcommand{\bck}{\mathcal{k}}
+\newcommand{\bcl}{\mathcal{l}}
+\newcommand{\bcm}{\mathcal{m}}
+\newcommand{\bcn}{\mathcal{n}}
+\newcommand{\bco}{\mathcal{o}}
+\newcommand{\bcp}{\mathcal{p}}
+\newcommand{\bcq}{\mathcal{q}}
+\newcommand{\bcr}{\mathcal{r}}
+\newcommand{\bcs}{\mathcal{s}}
+\newcommand{\bct}{\mathcal{t}}
+\newcommand{\bcu}{\mathcal{u}}
+\newcommand{\bcv}{\mathcal{v}}
+\newcommand{\bcw}{\mathcal{w}}
+\newcommand{\bcx}{\mathcal{x}}
+\newcommand{\bcy}{\mathcal{y}}
+\newcommand{\bcz}{\mathcal{z}}
+
+\newcommand{\bsA}{\mathscr{A}}
+\newcommand{\bsB}{\mathscr{B}}
+\newcommand{\bsC}{\mathscr{C}}
+\newcommand{\bsD}{\mathscr{D}}
+\newcommand{\bsE}{\mathscr{E}}
+\newcommand{\bsF}{\mathscr{F}}
+\newcommand{\bsG}{\mathscr{G}}
+\newcommand{\bsH}{\mathscr{H}}
+\newcommand{\bsI}{\mathscr{I}}
+\newcommand{\bsJ}{\mathscr{J}}
+\newcommand{\bsK}{\mathscr{K}}
+\newcommand{\bsL}{\mathscr{L}}
+\newcommand{\bsM}{\mathscr{M}}
+\newcommand{\bsN}{\mathscr{N}}
+\newcommand{\bsO}{\mathscr{O}}
+\newcommand{\bsP}{\mathscr{P}}
+\newcommand{\bsQ}{\mathscr{Q}}
+\newcommand{\bsR}{\mathscr{R}}
+\newcommand{\bsS}{\mathscr{S}}
+\newcommand{\bsT}{\mathscr{T}}
+\newcommand{\bsU}{\mathscr{U}}
+\newcommand{\bsV}{\mathscr{V}}
+\newcommand{\bsW}{\mathscr{W}}
+\newcommand{\bsX}{\mathscr{X}}
+\newcommand{\bsY}{\mathscr{Y}}
+\newcommand{\bsZ}{\mathscr{Z}}
+
+\newcommand{\bfA}{\mathfrak{A}}
+\newcommand{\bfB}{\mathfrak{B}}
+\newcommand{\bfC}{\mathfrak{C}}
+\newcommand{\bfD}{\mathfrak{D}}
+\newcommand{\bfE}{\mathfrak{E}}
+\newcommand{\bfF}{\mathfrak{F}}
+\newcommand{\bfG}{\mathfrak{G}}
+\newcommand{\bfH}{\mathfrak{H}}
+\newcommand{\bfI}{\mathfrak{I}}
+\newcommand{\bfJ}{\mathfrak{J}}
+\newcommand{\bfK}{\mathfrak{K}}
+\newcommand{\bfL}{\mathfrak{L}}
+\newcommand{\bfM}{\mathfrak{M}}
+\newcommand{\bfN}{\mathfrak{N}}
+\newcommand{\bfO}{\mathfrak{O}}
+\newcommand{\bfP}{\mathfrak{P}}
+\newcommand{\bfQ}{\mathfrak{Q}}
+\newcommand{\bfR}{\mathfrak{R}}
+\newcommand{\bfS}{\mathfrak{S}}
+\newcommand{\bfT}{\mathfrak{T}}
+\newcommand{\bfU}{\mathfrak{U}}
+\newcommand{\bfV}{\mathfrak{V}}
+\newcommand{\bfW}{\mathfrak{W}}
+\newcommand{\bfX}{\mathfrak{X}}
+\newcommand{\bfY}{\mathfrak{Y}}
+\newcommand{\bfZ}{\mathfrak{Z}}
+
+\DeclareDocumentCommand{\prob}{m}{\textbf{P}\!\left(#1\right)}
+
+
+\newcommand{\bbA}{\mathbf{A}}
+\newcommand{\bbB}{\mathbf{B}}
+\newcommand{\bbC}{\mathbf{C}}
+\newcommand{\bbD}{\mathbf{D}}
+\newcommand{\bbE}{\mathbf{E}}
+\newcommand{\bbF}{\mathbf{F}}
+\newcommand{\bbG}{\mathbf{G}}
+\newcommand{\bbH}{\mathbf{H}}
+\newcommand{\bbI}{\mathbf{I}}
+\newcommand{\bbJ}{\mathbf{J}}
+\newcommand{\bbK}{\mathbf{K}}
+\newcommand{\bbL}{\mathbf{L}}
+\newcommand{\bbM}{\mathbf{M}}
+\newcommand{\bbN}{\mathbf{N}}
+\newcommand{\bbO}{\mathbf{O}}
+\newcommand{\bbP}{\mathbf{P}}
+\newcommand{\bbQ}{\mathbf{Q}}
+\newcommand{\bbR}{\mathbf{R}}
+\newcommand{\bbS}{\mathbf{S}}
+\newcommand{\bbT}{\mathbf{T}}
+\newcommand{\bbU}{\mathbf{U}}
+\newcommand{\bbV}{\mathbf{V}}
+\newcommand{\bbW}{\mathbf{W}}
+\newcommand{\bbX}{\mathbf{X}}
+\newcommand{\bbY}{\mathbf{Y}}
+\newcommand{\bbZ}{\mathbf{Z}}
+
+\newcommand{\GL}{\mathop{\mathrm{GL}}\nolimits}
+\newcommand{\Matc}{\mathop{\mathcal{Mat}}\nolimits}
+
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\pgcd}{pgcd}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\rot}{rot}
+\DeclareMathOperator{\odiv}{div}
+\DeclareMathOperator{\ppcm}{ppcm}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Val}{Val}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\Coord}{Coord}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Imm}{Im}
+
+\newcommand{\sthermo}{{\texstyle\sum\text{thermo}}}
+
+\newcommand{\et}{\ \text{et} \ }
+\newcommand{\ou}{\ \text{ou} \ }
+\newcommand{\ie}{\textit{\EBGaramond i.e.} \ }
+\newcommand{\cf}{\textit{\EBGaramond c.f.} \ }
+
+
+\newcommand{\savoirfaire}{\section*{\centering\EBGaramond\Large Savoir-faire}}
+\newcommand{\questionsdecours}{\section*{\centering\EBGaramond\Large Questions~ de~ cours}}
+
+
+
+
+%===============================
+% Commandes de trigo
+%===============================
+
+%\DeclareDocumentCommand\cos{g}{\funlv{cos}{#1}}
+\funlvi{cos}
+\funlvi{sin}
+%\DeclareDocumentCommand\sin{g}{\funlv{sin}{#1}}
+
+\DeclareDocumentCommand\tan{g}{\funlv{tan}{#1}}
+\DeclareDocumentCommand\cot{g}{\funlv{cot}{#1}}
+\DeclareDocumentCommand\Card{g}{\funlv{Card}{#1}}
+\DeclareDocumentCommand\arccos{g}{\funlv{arccos}{#1}}
+\DeclareDocumentCommand\arcsin{g}{\funlv{arcsin}{#1}}
+\DeclareDocumentCommand\arctan{g}{\funlv{arctan}{#1}}
+\DeclareDocumentCommand\ch{g}{\funlv{ch}{#1}}
+\DeclareDocumentCommand\sh{g}{\funlv{sh}{#1}}
+\DeclareDocumentCommand\th{g}{\funlv{th}{#1}}
+\DeclareDocumentCommand\argch{g}{\funlv{argch}{#1}}
+\DeclareDocumentCommand\argsh{g}{\funlv{argsh}{#1}}
+\DeclareDocumentCommand\argth{g}{\funlv{argth}{#1}}
+
+\DeclareDocumentCommand\ln{g}{\funlv{ln}{#1}}
+\DeclareDocumentCommand\sgn{g}{\funlv{sgn}{#1}}
+\DeclareDocumentCommand\log{g}{\funlv{log}{#1}}
+\DeclareDocumentCommand\min{g}{\funlv{min}{#1}}
+\DeclareDocumentCommand\round{g}{\funlv{round}{#1}}
+\DeclareDocumentCommand\max{g}{\funlv{max}{#1}}
+\DeclareDocumentCommand\exp{g}{\funlv{exp}{#1}}
+
+\DeclareDocumentCommand\dim{g}{\funlv{dim}{#1}}
+
+\DeclareDocumentCommand\Vect{g}{\funlv{Vect}{#1}}
+
+\DeclareDocumentCommand\cov{g}{\funlv{cov}{#1}}
+\DeclareDocumentCommand\cor{g}{\funlv{cor}{#1}}
+\DeclareDocumentCommand\det{g}{\funlv{det}{#1}}
+\DeclareDocumentCommand\Inv{g}{\funlv{Inv}{#1}}
+\DeclareDocumentCommand\Tr{g}{\funlv{Tr}{#1}}
+\DeclareDocumentCommand{\diag}{g}{\funlv{diag}{#1}}
+
+\newcommand{\lap}[1]{\mathcal{L}\left[#1\right]}
+\newcommand{\dif}{\mathrm d}
+\newcommand{\difft}[1]{\dfrac{\dif #1}{\dif t}}
+
+\ExplSyntaxOff
+
+% Typographie 
+
+\renewcommand\epsilon{\varepsilon}
+
+\let\oldchi\chi
+\makeatletter
+\newcommand\lchi{\@ifnextchar_\sub@chi\oldchi}
+\newcommand{\sub@chi}[2]{
+  \@ifnextchar^{\subsup@chi{#2}}{\oldchi^{}_{#2}}
+}
+\newcommand{\subsup@chi}[3]{
+  \oldchi_{#1}^{#3}
+}
+\makeatother
+\DeclareRobustCommand{\chi}{{\mathpalette\ihchi\relax}}
+\newcommand{\ihchi}[2]{\raisebox{0.7\depth}{$#1\lchi$}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}

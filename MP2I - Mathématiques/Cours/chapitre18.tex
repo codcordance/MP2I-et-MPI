@@ -1,0 +1,242 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Chapitre 18}{Algèbre linéaire sans dimension}
+
+\initcours{}
+
+On s'intéresse aux mondes dans lesquels on dispose d'une loi de composition interne \(+\), souvent notée additivement, ainsi que d'une loi de composition externe \(\lambda \cdot\), comme une \guill{multiplication par un scalaire \(\lambda\)}. Ces mondes sont très courants en mathématiques, et même dans les sciences en général ; l'on dira d'eux qu'ils sont \text{vectoriels}. C'est bien sûr le cas de la droite ($\bdR$), du plan ($\bdR^2$), ou de l'espace ($\bdR^3$), mais aussi de bien d'autres, ce qui motive l'étude des propriétés générales de ces espaces.
+
+\section{Espace vectoriel}
+
+Dans toute la suite, on se donne un corps (commutatif) $\bdK(+, \times)$, qui n'est dans le cadre du programme autre que $\bdR$ ou $\bdC$. On commence donc par définir la notion d'espace vectoriel.
+
+\subsection{Définitions}
+
+\begin{definition}{Espace vectoriel}{}
+    Soit un ensemble $E$, muni d'une loi de composition interne $+ : E \times E \to E$ et d'une loi externe $\cdot : \begin{array}{rcl}
+        \bdK\times E &\to E  \\
+        (\lambda, x) &\mapsto \lambda \cdot x 
+    \end{array}$.
+    
+    On dit que \bf{$(E, +, \cdot)$ est un \textit{$\bdK$-espace vectoriel}} lorsque :
+    
+    \begin{enumerate}[label=\EBGaramond(\roman*)]
+        \item $(E, +)$ est un groupe abélien ;
+       
+        \item Pour tout $(\lambda, \mu) \in \bdK^2$, et pour tout $(x, y) \in E^2$, on a :
+        
+        \begin{enumerate}[label=\EBGaramond\itshape\alph*.]
+            \itt \( (\lambda + \mu) \cdot x = \lambda \cdot x + \mu \cdot x \)
+            
+            \itt \( \lambda \cdot (x + y) = \lambda \cdot x + \lambda \cdot y \)
+            
+            \itt \( (\lambda \times \mu) \cdot x = \lambda \cdot (\mu \cdot x)\)
+            
+            \itt \( 1_\bdK \cdot x = x \)
+        \end{enumerate}
+    \end{enumerate}
+\end{definition}
+
+On dira en abrégé que $E$ est un $\bdK$-ev. On emploie une terminologie spécifique : les éléments $\lambda \in \bdK$ sont appelés scalaires, et les $x \in E$ sont appelés vecteurs. 
+
+\begin{warning}{}{}
+    \begin{enumerate}
+        \ithand \bf{On distinguera le scalaire nul $0_\bdK \in \bdK$} (ou simplement $0 \in \bdK$) \bf{du vecteur nul $O_E \in E$}.
+        
+        \ithand \bf{On écrira toujours $\lambda \cdot x$ et jamais $x \cdot \lambda$}. En effet, $\cdot : \bdK \times E \to E$ et non $\cdot : E \times \bdK \to E$.
+        
+        \ithand \bf{On n'a ni multiplication de deux vecteurs $x \times y$, ni division $\frac{x}{y}$}. 
+    \end{enumerate}
+\end{warning}
+
+On donne ci-dessous quelques exemples d'espaces vectoriels connus.
+
+\begin{example}{Quelques exemples d'espaces vectoriels}{}
+    \begin{enumerate}
+        \ithand \(\hg{(\bdR, +, \cdot)}\), qui est un \(\bdR\)-espace vectoriel.
+        
+        \ithand \(\hg{(\bdC, +, \cdot)}\), qui est un \(\bdC\)-espace vectoriel.
+        
+        \ithand On peut aussi voir \(\hg{(\bdC, +, \cdot)}\), sous la forme d'un \(\bdR\)-espace vectoriel :
+        %
+        \[ todo \]
+        %
+        Avec cette vision, les éléments de $\bdC$ sont les vecteurs et ceux de $\bdR$ sont les scalaires. Remarquons alors que tous les calculs ne sont pas, par exemple $2\ii - 5\ii = -3\ii$ est bien un calcul dans ce $\bdR$-ev, en revanche $\ii \times \ii = -1$ n'en est pas un.
+        
+        \ithand \(\hg{(\bdR^2, +, \cdot)}\) est un $\bdR$-espace vectoriel, où :
+        %
+        \[ + : \begin{array}[t]{rcl}
+            \bdR^2 \times \bdR^2 &\to& \bdR^2  \\
+            (\vec u, \vec v) &\mapsto& \vec{u + v}
+        \end{array} \qquad\text{où} \ \vec u = (x, y) \in \bdR^2,\ \vec v = (x', y') \in \bdR^2 \et \vec{u + v} = (x + x', y + y') \in \bdR^2\]
+        %
+        Et :
+        %
+        \[ \cdot : \begin{array}[t]{rcl}
+            \bdR \times \bdR^2 &\to& \bdR^2  \\
+            (\lambda, \vec u) &\mapsto& \lambda \cdot \vec{u}
+        \end{array} \qquad\text{où} \ \vec u = (x, y) \in \bdR^2 \et \lambda \cdot \vec{u} = (\lambda \cdot x, \lambda \cdot y) \in \bdR^2\]
+    \end{enumerate}
+\end{example}
+
+\begin{exercise}{Quelques exemples matriciels}{}
+    Vérifier que les matrices diagonales $(\bcD_n(\bdR), +, \cdot)$, les matrices triangulaires supérieures $(\bcT_n^+(\bdR), +, \cdot)$ et inférieures $(\bcT_n^-(\bdR), +, \cdot)$, les matrices symétriques $(\bcS_n(\bdR), +, \cdot)$ et antisymétriques $(\bcA_n(\bdR), +, \cdot)$ sont des \hg{$\bdR$-espaces vectoriels}.
+\end{exercise}
+
+\strong{Produit cartésien d'espaces vectoriels}
+
+Soient \(E, +, \cdot\) et \(F, +, \cdot\) deux $\bdK$-espaces vectoriels. On construit l'addition sur $E \times F$ :
+%
+\[ + : \begin{array}[t]{ccc}
+    (E \times F) \times (E\times F) &\to& (E\times F)  \\
+    \left((x, y), (x', y')\right) &\mapsto& (x + x', y + y') 
+\end{array}\]
+%
+On construit également la multiplication par un scalaire :
+%
+\[ \cdot : \begin{array}[t]{ccc}
+    (E \times F) \times (E\times F) &\to& (E\times F)  \\
+    \left((x, y), (x', y')\right) &\mapsto& (x + x', y + y') 
+\end{array}\]
+
+\section{Applications linéaires}
+
+\subsection{TODO}
+
+\subsection{Applications particulières}
+
+\begin{definition}{Endomorphisme d'espace vectoriel}{}
+    Soit $E$ un espace vectoriel et $f$ un morphisme d'ev. On dit que $f$ est un \bf{endomorphisme de $E$} lorsque \hg{$f \in \bcL(E, E)$}. 
+    
+    On note \hg{$\bcL(E)$ l'ensemble des endomorphismes de $E$}.
+\end{definition}
+
+\begin{definition}{Isomorphisme d'espace vectoriel}{}
+    Soit $E$ et $F$ deux espaces vectoriels et $f \in \bcL(E, F)$. On dit que $f$ est un \bf{isomorphisme de $E$ dans $F$} lorsque \hg{$f$ est bijective}.
+\end{definition}
+
+\begin{definition}{Automorphisme d'espace vectoriel}{}
+    Soit $E$ un espace vectoriel et $f$ un morphisme d'ev. On dit que $f$ est un \bf{automorphisme de $E$} lorsque \hg{$f \in \bcL(E)$ et $f$ est bijective}, i.e. lorsque $f$ est un endomorphisme et un isomorphisme.
+    
+    n note \hg{$\GL(E)$ l'ensemble des automorphismes de $E$}.
+\end{definition}
+
+\begin{example}{}{}
+    \begin{enumerate}
+        \ithand L'identité $\id_E : \begin{array}[t]{rcl}
+            E &\to& E  \\
+            x &\mapsto& x 
+        \end{array}$ est un automorphisme : \hg{$\id_E \in \GL(E)$}.
+    \end{enumerate}
+\end{example}
+
+\section{Projecteurs et symétries}
+
+\subsection{Projecteurs}
+
+\begin{minipage}{0.5\linewidth}
+    \begin{tikzpicture}[rotate around z=-15,rotate around x=5,rounded corners=0.5pt]%[fill=blue,fill opacity=0.7,draw,scale=3,rounded corners=0.5pt]
+    %\draw[main1, ->] (0, 0, 0) -- (0, 0, 2);
+    %\draw[main3, ->] (0, 0, 0) -- (0, 2, 0);
+    %\draw[main5, ->] (0, 0, 0) -- (2, 0, 0);
+    
+    \draw[main1comp2, thick] (0, -0.5, 0) -- (0, 1, 0);
+    
+    \fill[left color=main1!40, right color=main2!60, opacity=0.7] (-2, 1, 2) -- (-2, 1, -2) -- (2, 1, -2) -- (2, 1, 2) node[color=main2, anchor=west] {$F$};
+    
+    \draw[main1comp2, thick, ->] (0, 1, 0) -- (0, 3, 0) node[anchor=west] {$G$};
+    
+    \draw[main7, thick, ->] (0, 1, 0) -- (1, 2, -1) node[anchor=west] {$x$};
+    \draw[main5, dashed] (1, 2, -1) --  (1, 2, 0);
+    \draw[main5, dashed] (1, 2, 0) --  (1, 1, 0);
+    \draw[main5, dashed] (1, 2, 0) --  (0, 2, 0);
+    \draw[main5, dashed] (1, 2, -1) --  (0, 2, -1);
+    \draw[main5, dashed] (1, 1, -1) --  (0, 1, -1);
+    \draw[main5, dashed] (0, 1, 0) --  (0, 1, -1);
+    \draw[main5, dashed] (0, 2, 0) --  (0, 2, -1);
+    \draw[main5, dashed] (1, 2, -1) --  (1, 1, -1);
+    \draw[main5, dashed] (1, 1, -1) --  (1, 1, 0);
+    \draw[main5, dashed] (0, 1, -1) --  (0, 2, -1);
+    \draw[main5, dashed] (0, 1, 0) -- (1, 1, 0);
+    
+    \draw[main1] (0, 1, 0) -- (1, 1, -1) node[anchor=west] {$p(x)$};
+	%\filldraw[fill=main1] (0,0,0) -- ++(0,0,1) -- ++(0,1,1) -- ++(0, 0, 0) -- cycle;
+	%\filldraw[fill=blue!50!black!50] (0.5,0.5,0.5) -- ++(-1,0,0) -- ++(0,0,-1) -- ++(1, 0, 0) -- cycle;
+	%\filldraw[fill=blue!20!black!80] (0.5,0.5,0.5) -- ++(0,-1,0) -- ++(0,0,-1) -- ++(0, 1, 0) -- cycle;
+\end{tikzpicture}
+\end{minipage}
+%
+\hfill
+%
+\begin{minipage}{0.5\linewidth}
+    L'idée derrière les projecteurs est assez simple. 
+\end{minipage}
+
+
+\begin{definition}{Projecteur}{}
+    Soit $E$ un $\bdK$-espace vectoriel et $p \in \bcL(E)$. On dit que \hg{$p$} est un projecteur lorsque \hg{$p \circ p = p$}.
+\end{definition}
+
+\begin{theorem}{}{}
+    Soit $E$ un $\bdK$-espace vectoriel et $p \in \bcL(E)$ un projecteur.
+    
+    \begin{enumerate}
+        \ithand $\Imm p$ et $\Ker p$ sont supplémentaires, \textit{i.e.} \hg{$E = \Imm(p) \oplus \Ker(p)$}.
+        
+        \ithand \hg{$p$ est la projection vectorielle sur $\Imm p$ parallèlement à $\Ker p$}.
+    \end{enumerate}
+\end{theorem}
+
+Ici, on aurait donc $F = \Imm p = \Ker(p - \id)$ et $G = \Ker p$. 
+
+\begin{nproof}
+    Soit $E$ un $\bdK$-espace vectoriel et $p \in \bcL(E)$ un projecteur.
+    
+    \begin{enumerate}
+        \itt Calculons $p_{\vert\Imm p}$ et $p_{\vert\Ker p}$. Soit $x \in \Imm p$. Alors il existe $a \in E$ tel que $x = p\left(a\right)$. Alors :
+        %
+        \[ p(x) = p\left(p\left(a\right)\right) = \left(p \circ p\right)(a) = p(a) = x\]
+        %
+        Ainsi on a bien $p_{\vert\Imm(p)} = \id$. De plus, on a montré que $\Imm p \subset \Ker\left(p - \id\right)$.  L'autre inclusion est immédiate car :
+        %
+        \[ ??\]
+        
+        \itt Soit $x \in \Ker p$. On a $p\left(x\right) = 0_E$ donc $p_{\vert \Ker p} = \widetilde 0$.
+    \end{enumerate}
+\end{nproof}
+
+\begin{example}{}{}
+    On considère $E = \bdK\left[X\right]$ les polynômes à coefficients dans $\bdK$. Soit $B \in \bdK[X]$ avec $n = \deg B$ où $n \in \bdN^*$.
+    
+    Soit $f : \begin{array}[t]{rcl}
+        \bdK[X] &\to& \bdK[X]  \\
+        P &\mapsto& f(P) 
+    \end{array}$ où $f(P)$ est me reste de la division euclidienne de $P$ par $B$. 
+    
+    Montrons alors que $f$ est un projecteur et déduisons en deux supplémentaires.
+    
+    \tcblower
+    
+    Soit $P \in \bdK[X]$. Il existe $Q \in \bdK[X]$, tel que $P = Q\times B + f(P)$, avec $\deg(f(P)) < \deg(B)$. Or $f(P) = Q_1\times B + f(f(P))$. Or $f(P) = 0 \times B + f(P)$ est aussi la division euclidienne de $f(P)$ par $B$, puisque $\deg(f(P)) < \deg(B)$. Par unicité de la division euclidienne, on obtient alors $f(P) = f(f(P))$. Ainsi, $f = f \circ f$.
+    
+    Vérifions maintenant que $f$ est linéaire. Soient $P, Q \in \bdK[X]$ et $\lambda, \mu \in \bdK$. Les divisions euclidiennes de $P$ et $Q$ par $B$ donnent :
+    %
+    \[ \exists (A_1, A_2) \in \bdK[X]^2,\qquad P = A_1 \times B + f(P) \qquad\et\qquad Q = A_2 \times B + f(Q)\]
+    %
+    Avec $f(P)$ et $f(Q)$ de degré inférieur à $\deg(B)$. Alors :
+    %
+    \[\lambda P + \mu Q = (\lambda A_1 + \mu A_2)B + \underbrace{\lambda f(P) + \mu f(Q)}_{\in \bdK_{\deg(B) - 1}[X]}\]
+    %
+    Par unicité de la division euclidienne, $\lambda f(P) + \mu f(Q)$ est le reste de la division euclidienne de $\lambda P + \mu Q$ par $B$, c'est donc $f(\lambda P + \mu Q)$. On a donc :
+    %
+    \[ f(\lambda P + \mu Q) = \lambda f(P) + \mu f(Q) \qquad\text{donc}\qquad f \in \bcL(\bdK[X])\]
+    
+    Donc $f$ est bien un projecteur de $\bdK[X]$.
+\end{example}
+
+\subsection{Symétries}
+
+
+\end{document}

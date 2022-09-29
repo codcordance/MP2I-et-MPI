@@ -1,0 +1,192 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylize{Mathématiques}{Devoir Maison 7 : Intégrales de Wallis et de Gauss}
+
+\section*{Problème. Les intégrales de Wallis et de Gauss}
+
+L'objectif de ce problème est le calcul de l'intégrale de Gauss $\displaystyle \dfrac{1}{\sqrt{2\pi}}\int_0^{+\infty} e^{-\frac{t^2}{2}} \text dt$.
+
+\textbf{Notations :}
+\begin{enumerate}
+    \item[\bullet] On dit que $ u_n \asymp{n \to +\infty} v_n$ (la suite $u$ est équivalente à la suite $v$) si $\lim\limits_{n \to +\infty} \dfrac{u_n}{v_n} = 1$
+    \item[\bullet] La notation $\displaystyle \int_0^{+\infty} f(t)\text dt$ désigne la limite (si elle existe) de $\displaystyle \int_0^X f(t)\text dt$ lorsque $X$ tend vers $+\infty$
+    
+\end{enumerate}
+
+\subsection*{Partie 1. Intégrales de Wallis}
+
+Pour $n \in \bdN$, on définit $\displaystyle I_n = \int_0^{\sfrac{\pi}{2}} \cos^n(t) \text dt$.
+
+\begin{enumerate}
+    \setcounter{enumi}{-1}
+    \item Montrer que $\displaystyle I_n = \int_0^{\sfrac{\pi}{2}} \sin^n(t)\text dt$. \qquad \textit{(on fera un changement de variable)}
+    
+    \boxans{
+    On a : $\displaystyle I_n = \int_0^{\sfrac{\pi}{2}} \cos^n(t) \text dt = - \int_{\sfrac{\pi}{2}}^0 \cos^n(t) \text dt$.
+        On pose $u = t - \dfrac{\pi}{2}$, donc $\text du = \text dt$.
+        
+        Donc $\displaystyle I_n = -\int_0^{\sfrac{\pi}{2}} \cos^n\left(u+\dfrac{\pi}{2}\right) \text dt = -\int_0^{\sfrac{\pi}{2}} -\sin^n(u) \text dt$.
+        Donc \boxsol{ $\displaystyle I_n = \int_0^{\sfrac{\pi}{2}} \sin^n(t)\text dt$}.
+    }
+
+    \item A l'aide d'une intégration par parties, montrer que $I_{n+2} = \dfrac{n+1}{n+2}I_n$.
+    
+    \small{Indication : On pourra écrire $\cos^{n+2}(t) = \cos^{n+1}(t)\cos(t)$}
+    \boxans{
+        Soit $n \in \bdN$. On intègre par partie en dérivant $\cos^{n+1}$ et en intégrant $\sin$:
+        \begin{align*}
+            && I_{n+2} &= \int_0^{\sfrac{\pi}{2}} \cos^{n+2}(t)\text dt\\
+            \text{donc} && I_{n+2} &= \int_0^{\sfrac{\pi}{2}} \cos(t)\cos^{n+1}(t)\text dt\\
+            \text{donc} && I_{n+2} &= \left[\sin(t)\cos^{n+1}(t)\right]_0^{\sfrac{\pi}{2}}  - \int_0^{\sfrac{\pi}{2}} \sin(t)\times\left(-\sin(t)\right)\cos^n(t)\text dt\\
+            \text{donc} &&  I_{n+2} &= 1\times0^{n+1} - 0\times 1^{n+1} +\int_0^{\sfrac{\pi}{2}} (n+1)\sin^2(t)\cos^n(t) \text dt\\
+            \text{donc} &&  I_{n+2} &= (n+1)\int_0^{\sfrac{\pi}{2}} \left(1-\cos^2(t)\right)\cos^n(t) \text dt\\
+            \text{donc} && I_{n+2} &= 0 + (n+1)\left(\int_0^{\sfrac{\pi}{2}} \cos^n(t) \text dt - \int_0^{\sfrac{\pi}{2}} \cos^{n+2}(t) \text dt\right)\\
+            \text{donc} && I_{n+2} &= 0 + (n+1)I_n - (n+1)I_{n+2}\\
+            \text{donc} && I_{n+2}(1+n+1) &= (n+1)I_n
+        \end{align*}
+        Donc \boxsol{$\forall n \in \bdN$, $I_{n+2} = \dfrac{n+1}{n+2}I_n$}
+    }
+    \item Calculer $I_0$ et $I_1$.
+    
+    \boxans{
+        On a $\displaystyle I_0 = \int_0^{\sfrac{\pi}{2}} \cos^0(t)\text dt = \int_0^{\sfrac{\pi}{2}} \text dt = \left[t\right]_0^{\sfrac{\pi}{2}} = \dfrac{\pi}{2} - 0$ donc \boxsol{$I_0 = \dfrac{\pi}{2}$}.
+        
+        On a $\displaystyle I_1 = \int_0^{\sfrac{\pi}{2}} \cos^1(t)\text dt = \int_0^{\sfrac{\pi}{2}} \cos(t) \text dt = \left[\sin(t)\right]_0^{\sfrac{\pi}{2}} = 1 - 0$ donc \boxsol{$I_1 = 1$}.
+    }
+    \item Soit $n \in \bdN$.
+    
+    Exprimer le produit $\displaystyle 1 \times 3 \times 5 \times \dots \times (2n-1) = \prod_{k=1}^{n} (2k-1)$ en fonction de $n$, en utilisant les factorielles.
+    
+    \boxans{
+        \[ \boxsoll{$\displaystyle \displaystyle\prod_{k=1}^{n} (2k-1)$} = \dfrac{\displaystyle \prod_{k=1}^{n} (2k-1) \times \prod_{k=1}^{n} 2k}{\displaystyle \prod_{k=1}^{n} 2k} = \dfrac{\displaystyle \prod_{\substack{k=1\\k\equiv1 [2]} }^{2n} k \times \prod_{\substack{k=1\\k\equiv0 [2]} }^{2n} k}{\displaystyle 2^n\prod_{k=1}^{n}k} = \dfrac{\displaystyle \prod_{k=1}^{2n}k}{2^n n!} \boxsolr{$= \dfrac{(2n)!}{2^n n!}$} \]
+    }
+    
+    \item Déduire des questions précédentes l'expression de $I_{2n}$ et $I_{2n+1}$ en fonction de $n$.
+    
+    \boxans{
+        On procède par récurrence. $\forall n \in \bdN$, on pose $P(n) :  \left\lbrace\begin{array}{rl}
+            I_{2n} &=\dfrac{1\times3\times\dots\times(2n-1)}{ 2\times4\times\dots\times (2n)}I_0 \\
+            &\\
+            I_{2n+1} &= \dfrac{2\times4\times\dots\times(2n)}{ 1\times3\times\dots\times (2n+1)}I_1
+        \end{array}\right.$
+        
+        Pour $n=0$ les produit devant $I_0$ et $I_1$ dans les formule de $P(0)$ sont vides, et valent par convention $1$. Ainsi $P(0)$ est vrai.
+        
+        Soit $n \in \bdN^*$ tel que $P(n)$ est vrai. On a $I_{2(n+1)} = I_{2n+2} = \dfrac{2n+1}{2n+2}I_{2n}$ et $I_{2(n+1)+1} = I_{2n+3} = \dfrac{2n+2}{2n+3}I_{2n+1}$.
+        
+        Par hypothèse de récurrence $\left\lbrace\begin{array}{rl} I_{2(n+1)}  &= \dfrac{1\times3\times\dots\times(2n-1)\times(2n+1)}{ 2\times4\times\dots\times (2n)\times(2n+2)}I_0\\
+        &\\
+        I_{2(n+1)+1} &= \dfrac{2\times4\times\dots\times(2n)\times(2n+2)}{ 1\times3\times\dots\times (2n+1)\times(2n+3)}I_1\end{array}\right.$.
+        Donc $P(n+1)$ est vrai.
+        
+        $P(0)$ est vrai et  $\forall n \in \bdN^*$, $P(n) \implies P(n+1)$, donc d'après le théorème de récurrence  $\forall n \in \bdN$, $P(n)$ est vrai.
+        
+        Soit $n \in \bdN$. $I_{2n} = \dfrac{\displaystyle \prod_{k=1}^n (2k+1)}{\displaystyle \prod_{k=1}^n 2k}\times I_0$ donc \boxsol{$I_{2n} = \dfrac{\pi(2n)!}{2\left(2^n\times n!\right)^2}$}. 
+        
+        $I_{2n+1} = \dfrac{\displaystyle \prod_{k=1}^n 2k}{\displaystyle \prod_{k=1}^{n+1} 2k}\times I_1 = \dfrac{\displaystyle \prod_{k=1}^n 2k}{\displaystyle (2n+1)\prod_{k=1}^{n} 2k} \times 1 = \dfrac{I_0}{(2n+1)I_{2n}} = \dfrac{\left(2^n\times n!\right)^2}{\left(2n+1\right)(2n)!}$ donc \boxsol{$I_{2n+1} = \dfrac{\left(2^n\times n!\right)^2}{\left(2n+1\right)!}$}.
+    }
+    \item Montrer que pour tout entier $n$ on a les inégalités $I_{n+2} \leq I_{n+1} \leq I_n$.
+    
+    En déduire que $I_{n+1} \asymp{n \to +\infty} I_n$.\qquad \textit{(on encadrera pour cela $\dfrac{I_{n+1}}{I_n}$)}.
+    
+    \boxans{
+        Soit $n \in \bdN$. Soit $x \in \left[0;\dfrac{\pi}{2}\right]$, $0 \leq \cos x \leq x$. Par croissance de la fonction $x \mapsto x^n$ sur $\bdR_+$, on a $0 \leq \cos^n$. En multipliant, on a donc $0 \leq cos^{n+1} x \leq cos^n x$. Par conservation de l'ordre de l'intégrale, on a donc $\displaystyle\int_0^{\sfrac{\pi}{2}} \cos^{n+1} \text dt \leq \int_0^{\sfrac{\pi}{2}} \cos^{n} \text dt$ soit $I_{n+1} \leq I_{n}$. Il s'en déduit directement \boxsol{$\forall n \in \bdN$, $I_{n+2} \leq I_{n+1} \leq I_n$}.
+        
+        On a donc $\dfrac{I_{n+2}}{I_n} \leq \dfrac{I_{n+1}}{I_n} \leq \dfrac{I_{n}}{I_n}$. Or $I_{n+2} = \dfrac{n+1}{n+2}I_n$ donc $\dfrac{n+2}{n+1} \leq \dfrac{I_{n+1}}{I_n} \leq 1$. Or $\dfrac{n+1}{n+2} = \dfrac{1+\frac{1}{n}}{1+\frac{2}{n}}\xrightarrow{n \to +\infty} 1$.
+        
+        Par théorème d'encadrement, on a donc $\dfrac{I_{n+1}}{I_n} \xrightarrow{n \to +\infty} 1$, soit \boxsol{$I_{n+1} \asymp{n \to +\infty} I_n$}
+    }
+
+    \item Montrer que la suite $((n+1)I_{n+1}I_n)_{n \in \bdN}$ est constante.
+    
+    En déduire : \quad $I_n \asymp{n \to +\infty} \sqrt{\dfrac{\pi}{2n}}$. \quad On calculera pour cela la limite de $n(I_n)^2$ par encadrement.
+        
+    \boxans{
+        Soit $n \in \bdN$. Si $n$ est pair, $I_{n+1}=I_{2p+1}=\dfrac{I_0}{(2p+1)I_{2p}}=\dfrac{I_0}{(n+1)I_n}$ donc $(n+1)I_{n+1}I_n = \dfrac{I_0(n+1)I_n}{(n+1)I_n} = I_0$
+        
+        
+        Si $n$ est impair, $I_{n} = I_{2p+1} = \dfrac{I_0}{(2p+1)I_{2p}} = \dfrac{I_0}{nI_{n-1}}$ et $I_{n+1} = I_{2p+2} =\dfrac{2p+1}{2p+2}I_{2p} = \dfrac{n}{n+1}I_{n-1}$.
+        
+        Donc $(n+1)I_{n+1}I_n = \dfrac{I_0n(n+1)I_{n-1}}{n(n+1)I_{n-1}} = I_0$. Donc \boxsol{$\forall n \in \bdN$, $(n+1)I_{n+1}I_n = I_0 = \dfrac{\pi}{2}$}
+    }
+    \boxans{
+    Donc \boxsol{la suite $((n+1)I_{n+1}I_n)_{n \in \bdN}$ est constante}.
+    
+    On a $I_{n+1} \asymp{n \to +\infty} I_n$, donc les suites $((n+1)I_{n+1}I_n)_{n \in \bdN}$ et $(n(I_n)^2)_{n\in\bdN}$ sont asymptotiques lorsque $n$ tend vers $+\infty$. Ainsi $n(I_n)^2 \xrightarrow{n \to +\infty} \dfrac{\pi}{2}$ et donc \boxsol{$I_n \asymp{n \to +\infty} \sqrt{\dfrac{\pi}{2n}}$}.
+    }
+\end{enumerate}
+
+\subsection*{Partie 2. Application au calcul de $\displaystyle \int_0^{+\infty} e^{-\sfrac{x^2}{2}}${\normalfont{d}$x$}}
+
+\begin{enumerate}
+    \item Justifier l'inégalité $\forall x > -1$, $\ln(1+x)\leq x$.
+    
+    En déduire, pour $n$ entier $\geq 1$, les inégalités :
+    \[ \forall x \in \left[-\sqrt{n}; \sqrt{n}\right], \left(1-\dfrac{x^2}{n}\right)^n \leq e^{-x^2} \qquad \text{et} \qquad e^{-x^2} \leq \left(1+\dfrac{x^2}{n}\right)^{-n}.\]
+    
+    \boxans{
+        La tangente à $\ln$ en $1$ est $y = x - 1$. $\ln$ étant concave, on a $\forall x > 0$, $\ln(x) \leq x + 1$. 
+        
+        Donc \boxsol{$\forall x > -1$, $\ln(1+x)\leq x$}.
+        Soit $n \in \bdN$, $n \geq 1$. On applique l'inégalité avec $-\dfrac{x^2}{n}$.
+        
+        On a alors $\forall x \in \left[-\sqrt{n}; \sqrt{n}\right]$, $\ln\left(1-\dfrac{x^2}{n}\right) \leq -\dfrac{x^2}{n}$. En multipliant par $n$, on a $\ln\left(\left(1-\dfrac{x^2}{n}\right)^n\right) \leq -x^2$ donc par croissance de la fonction exponentielle, on a finalement \boxsol{$\forall x \in \left[-\sqrt{n}; \sqrt{n}\right]$, $\left(1-\dfrac{x^2}{n}\right)^n \leq e^{-x^2}$}.
+        
+        On applique de manière similaire l'inégalité avec $\dfrac{x^2}{n}$. En multipliant par $-n$ et par croissance de la fonction exponentielle sur $\bdR$ on trouve \boxsol{$\forall x \in \left[-\sqrt{n}; \sqrt{n}\right]$, $e^{-x^2} \leq \left(1+\dfrac{x^2}{n}\right)^{-n}$}.
+        
+    }
+    \item On pose pour tout entier $n \geq 1 $ pour $X > 0$ :
+    \[B_n(X) = \int_0^X \dfrac{\text dx}{\left(1+\frac{x^2}{n}\right)^n} \qquad \text{et} \qquad C_n = \int_0^{\sqrt n} \left(1-\dfrac{x^2}{n}\right)^n \text dx.\]
+    \begin{enumerate}
+        \item Soit $X \in \bdR_+^*$. En effectuant le changement de variable $x = \sqrt{n}\tan\varphi$ exprimer d'une autre manière l'intégrale $B_n(X)$, puis montrer que $\lim\limits_{X \mapsto +\infty} B_n(X)$ existe et exprimer cette limite à l'aide de $n$ et de $I_{2n-2}$.
+        
+        \boxans{
+            On pose $x = \sqrt{n}\tan\varphi$ avec $\varphi \in \left[0;\dfrac{\pi}{2}\right[$. La fonction $\tan$ est bien dérivable sur $\left[0;\dfrac{\pi}{2}\right[$ et telle que $\text dx = \sqrt n (1+\tan^2\varphi) \text d\varphi$.
+            
+            Lorsque $x = 0$, $\sqrt n \tan \varphi = 0$ donc $\tan\varphi = 0$, donc $\varphi = 0$. Lorsque $x = X$, $\sqrt n \tan \varphi = X$ donc $\tan \varphi = \dfrac{X}{\sqrt n}$ donc $X \in [0;\sqrt{n}[$, donc $\varphi = \arctan{\dfrac{X}{\sqrt n}}$.
+            
+            Ainsi $\displaystyle B_n(X) = \int_0^{\arctan{\sfrac{X}{\sqrt n}}} \dfrac{\sqrt n\left(1 + \tan^2\varphi \right)}{\left(1 + \tan^2\varphi \right)^{n}} \text d\varphi = \sqrt n\int_0^{\arctan{\sfrac{X}{\sqrt n}}} \left(\dfrac{1}{1 + \tan^2\varphi}\right)^{n-1} \text d\varphi $.
+            
+            On a $\dfrac{1}{cos^2(x)}=1+\tan^2(x)$ donc \boxsol{$\displaystyle B_n(X) = \sqrt n \int_0^{\arctan{\sfrac{X}{\sqrt n}}} \cos^{2(n-1)}(\varphi) \text d\varphi$}
+            
+            Les fonctions $\cos$ et $x \mapsto x^{2(n-1)}$ sont continues sur $\left[0;\dfrac{\pi}{2}\right[$ donc par composition et par intégrale $B_n(X)$ est continue sur $\bdR_+^*$. Ainsi \boxsol{$B_n(X)$ admet une limite quand $X$ tend vers $+\infty$}.
+            
+            De plus $\arctan{\dfrac{X}{\sqrt n}} \xrightarrow{X \to +\infty} \dfrac{\pi}{2}$, donc \boxsol{$B_n(X) \xrightarrow{X \to +\infty} \sqrt n I_{2n-2}$}.
+        }
+        \item Transformer $C_n$ grâce au changement de $x = \sqrt{n}\sin\varphi$.
+        
+        \boxans{
+        On a $0 \leq x \leq \sqrt{n}$, ce qui nous permet de poser $x = \sqrt n \sin \varphi$ avec $\varphi \in \left[0;\dfrac{\pi}{2}\right]$. La fonction $\sin$ est bien dérivable sur $\left[0;\dfrac{\pi}{2}\right]$ et telle que $\text dx = \sqrt n \cos \varphi \text d\varphi$.
+        }
+        
+        \boxans{
+        Lorsque $x = 0$, on a $\sqrt n \sin \varphi = 0$ donc $\varphi = 0$. Lorsque $x = \sqrt n$, $\sqrt n \sin \varphi = \sqrt n$ donc $\varphi = \dfrac{\pi}{2}$.
+        
+        Ainsi $\displaystyle C_n = \sqrt n \int_0^{\sfrac{\pi}{2}} \left(1-\sin^2\varphi\right)^n\cos\varphi \text d\varphi = \sqrt n \int_0^{\sfrac{\pi}{2}} \left(\cos^2 \varphi \right)^n\cos \varphi \text d\varphi = \sqrt n \int_0^{\sfrac{\pi}{2}} \cos^{2n+1} \varphi \text d\varphi$.
+        Donc \boxsol{$C_n = \sqrt n I_{2n+1}$}
+        }
+    \end{enumerate}
+    \item En déduire l'existence et la valeur de $\displaystyle \int_0^{+\infty} e^{-x^2}\text dx$.
+    \boxans{
+    Soit $n \in \bdN$ et $x \in \bdR_+$. On a $\left(1-\dfrac{x^2}{n}\right)^n \leq e^{-x^2} \leq \left(1+\dfrac{x^2}{n}\right)^{-n}$. Par conservation de l'ordre par l'intégrale, on a donc : 
+    \[ \forall n \in \bdN, \quad \forall X \in \bdR_+, \qquad \int_0^{X} \left(1-\dfrac{x^2}{n}\right)^n \text dx \leq \int_0^{X} e^{-x^2} \text dx \leq \int_0^{X} \left(1+\dfrac{x^2}{n}\right)^{-n} \text dx\]
+    
+    On remarque facilement que $x \mapsto 1+\dfrac{x^2}{n}$ est croissant, donc par composition avec la fonction $x \mapsto \dfrac{1}{x^n}$, la fonction $x \mapsto \left(1+\dfrac{x^2}{n}\right)^{-n}$ est décroissante. En prenant $X \geq {\sqrt n}$, on a donc :
+    \[ \forall n \in \bdN, \quad \forall X \in \bdR_+, \quad X > \sqrt n, \qquad B_n(X) \leq \int_0^{X} e^{-x^2} \text dx \leq C_n\]
+    Or $B_n(X) \xrightarrow{X \to +\infty} \sqrt n I_{2n-2}$, $C_n = \sqrt n I_{2n+1}$ et $I_n \asymp{n \to +\infty} \sqrt{\dfrac{\pi}{2}}\times\dfrac{1}{\sqrt n}$.
+    On considère donc $B_n(X)$ et $C_n$ lorsque $X$ et $n$ tendent vers $+\infty$. On a $B_n(X) \xrightarrow[X \to +\infty]{n\to+\infty} \sqrt{\dfrac{\pi}{2}}\times\dfrac{\sqrt{n}}{\sqrt{2n-2)}} \xrightarrow[X \to +\infty]{n\to+\infty} \dfrac{\sqrt 2}{2}$, et $C_n \xrightarrow{n\to+\infty} \sqrt{\dfrac{\pi}{2}}\times\dfrac{\sqrt n}{\sqrt{2n+1}} \xrightarrow{n\to+\infty} \dfrac{\sqrt \pi}{2}$.
+    Par théorème d'encadrement, \boxsol{$\displaystyle \int_0^{+\infty} e^{-x^2}\text dx$ existe et vaut $\displaystyle \int_0^{+\infty} e^{-x^2}\text dx = \dfrac{\sqrt \pi}{2}$}
+    
+    }
+    \item Donner enfin la valeur de $\displaystyle \int_0^{+\infty} e^{-\sfrac{x^2}{2}} \text dx$.
+    
+    \boxans{
+        On applique un simple changement d'indice sur l'intégrale précédente avec $x^2 = \dfrac{X^2}{2}$, avec $X \in \bdR_+$. Donc $x = \dfrac{X}{\sqrt2}$, ainsi $\text dx = \dfrac{1}{\sqrt 2} \text dX$.
+        Les bornes étant $0$ et $+\infty$, elles restent inchangées par la multiplication par $\sqrt 2$. Ainsi :
+        $\displaystyle \int_0^{+\infty} e^{-x^2}\text dx = \sqrt 2 \int_0^{+\infty} e^{-\sfrac{x^2}{2}} \text dx$. Finalement, \boxsol{$\int_0^{+\infty} e^{-\sfrac{x^2}{2}} \text dx = \sqrt{\dfrac{\pi}{2}}$}.
+    }
+\end{enumerate}
+
+\end{document}

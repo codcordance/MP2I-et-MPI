@@ -1,0 +1,232 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+\stylizeDoc{Mathématiques}{TD - Chapitre 16}{Dérivation}
+\inittd
+
+\begin{center}
+    \begin{minipage}{.7\linewidth}
+        \begin{tcolorbox}[
+            breakable,
+            breakable,
+            enhanced,
+            interior style      = {left color=main4!15,right color=main2!12},
+            borderline north    = {.5pt}{0pt}{main2!10},
+            borderline south    = {.5pt}{0pt}{main2!10},
+            borderline west     = {.5pt}{0pt}{main2!10},
+            borderline east     = {.5pt}{0pt}{main2!10},
+            sharp corners       = downhill,
+            arc                 = 0 cm,
+            boxrule             = 0.5pt,
+            drop fuzzy shadow   = black!40!white,
+            nobeforeafter,
+        ]
+        \centering Les exercices 2, --- ont été corrigés en séance de TD.
+    \end{tcolorbox}
+\end{minipage}
+\end{center}
+
+\section{Dérivabilité}
+
+\begin{exotd}{Dérivabilité}{}
+    Soit $\alpha \in \bdR$. Étudier la dérivabilité sur $\bdR$ de la fonction $f_\alpha : x \to \left\lbrace \begin{array}{ll}
+        \mod{x}^\alpha\sin{\sfrac{1}{x}} &\text{si} \ x \neq 0  \\
+        0 &\text{sinon}
+    \end{array}\right.$.
+    
+    Préciser les nombres $\alpha$ pour lesquels $f_\alpha$ est de classe $\bcC^1$ sur $\bdR$.
+\end{exotd}
+
+\boxans{
+
+}
+
+\begin{exotd}{Dérivabilité}{}
+    Soit $f$ une fonction de classe $\bcC^2$ sur $[0, 1]$ et $a \in [0, 1]$.
+    
+    \begin{enumerate}
+        \item Montrer que la fonction $\tau_a : \begin{array}[t]{rcl}
+            [0, 1] \backslash \{a\} &\to& \bdR  \\
+            x &\mapsto& \dfrac{f(x) - f(a)}{x - a}
+        \end{array}$ se prolonge par continuité en $a$.
+        
+        \item Montrer que son prolongement est de classe $\bcC^1$ sur $[0, 1]$.
+    \end{enumerate}
+\end{exotd}
+
+\boxans{
+    \begin{enumerate}
+        \item On a $\lim\limits_{x \to a} \tau_a(x) = \lim\limits_{x \to a} \dfrac{f(x) - f(a)}{x - a} = f'(a)$ car $f$ est dérivable en $a$. Donc $\tau_a$ se prolonge par continuité en posant $\tau_a(a) = f'(a)$, ainsi $\tau_a$ est continue en $a$, donc sur $[0, 1]$ tout entier.
+        
+        \item $\tau_a$ est dérivable sur $[0, 1] \backslash \{a\}$ selon :
+        %
+        \[ \tau'(x) = \dfrac{f'(x)(x-a) - \left(f(x) - f(a)\right)}{\left(x-a\right)^2} = \dfrac{f''(x) - \tau_a(x)}{x-a} \]
+        %
+        Or $f$ est $\bcC^2$ donc par Taylor-Young, on a :
+        %
+        \[ f(x) \eq{x \to a} f(a) + f'(a)(x-a) + \dfrac{f''(a)}{2}(x-a)^2 + \o{}{(x-a)^2} \]
+        %
+        Donc $\tau_a(x) \eq{x \to a} f'(a) + \dfrac{f''(a)}{2}(x-a) + \o{}{x - a}$. De plus $f'$ est $\bcC^1$ donc son $\mathsf{DL}_1(a)$ est :
+        %
+        \[ f'(x) \eq{x \to a} f'(a) + f''(a)(x-a) + \o{}{x-a}\]
+        %
+        Alors $f'(x) - \tau_a(x) = \left(f''(a) - \dfrac{f''(a)}{2}\right)(x-a) + \o{}{x-a}$ donc $\dfrac{f'(x)-\tau_a(x)}{(x-a)} \eq{x \to a} \dfrac{f''(a)}{2} + \o{}{1}$, ainsi :
+        %
+        \[ \tau'_a(x) \eq{x \to a} \dfrac{f''(a)}{2} + o(1) \qquad\text{donc}\qquad \lim\limits_{x \to a} \tau'_a(x) = \dfrac{f''(a)}{2}\]
+        %
+        Or $\tau_a$ est $\bcC^1$ sur $[0, 1] \backslash \{ a \}$, $\tau_a$ est continue sur $[0, 1]$ et $\lim_{x \to a} \tau'_a(x) = \dfrac{1}{2}f''(a)$. En vertu du théorème de prolongement $\bcC^1$, on a :
+        %
+        \[ \tau_a \in \bcC^1([0, 1], \bdR) \qquad\et\qquad \tau_a'(a) = \dfrac{1}{2}f''(a)\]
+    \end{enumerate}
+}
+
+\begin{exotd}{}{}
+    Soit $f$ ....
+\end{exotd}
+
+\boxans{
+
+}
+
+\begin{exotd}{Un exemple de min local en $a$ sans croissance à droite de $a$)}{}
+   
+    \begin{enumerate}
+        \item Montrer que $f$ admet en $0$ un minimum local et que $f$ est dérivable en $0$.
+        
+        \item Déterminer l'expression de la dérivée de $f$ sur $\bdR^*$.
+    \end{enumerate}
+\end{exotd}
+
+\boxans{
+    \begin{enumerate}
+        \item On a:
+        %
+        \[ \lim\limits_{x \to 0} f(x) = \lim\limits_{x \to 0} x^2\sin^2\left(\sfrac{1}{x}\right) = 0 = f(0)\]
+        %
+        Donc $f$ est continue en $0$. De plus $\lim\limits_{x \to 0} \dfrac{f(x)-f(0)}{x-0)} = \lim\limits_{x \to 0} x\sin^2\left(\sfrac{1}{x}\right) = 0$. On a une limite finie, donc $f$ est dérivable en $0$ et $f'(0) = 0$. Enfin, pour tout réel $x \in \bdR$, on a $f(x) \geq 0 = f(0)$ donc on a un minimum global en $0$.
+        
+        \item \begin{minipage}[t]{0.4\linewidth}
+            $f$ évolue entre $x \mapsto x^2$ (violet) et $0$ :
+            
+            \pgfplotsset{width=\textwidth}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xlabel=$\mathsf{x}$,
+                    ylabel=$\mathsf{x^2\textsf{sin}^2(\sfrac{1}{x})}$,
+                    xmin=-0.25,
+                    xmax=0.25,
+                    ymin=0,
+                    ymax=0.1,
+                    %xtick distance={2},
+                    %ytick distance={2},
+                    xtick = {0},
+                    ytick = {0},
+                    %xticklabels={$\color{main1}\mathsf{a}$, $\color{main1}\mathsf{b}$},
+                    %yticklabels={$\color{main1}\mathsf{f(a)}$, $\color{main1}\mathsf{f(a)}$},
+                    %minor x tick num=4,
+                    %minor y tick num=4,
+                    x tick label style={/pgf/number format/1000 sep=\,},
+                    font=\footnotesize,
+                    grid = none,
+                    %grid style = {line width = .1pt, draw = gray!30},
+                    %major grid style = {line width=.2pt,draw=gray!50},
+                    trig format plots=rad,
+                ]
+                    \addplot[color=main1, line width=0.3mm, domain=-0.25:0.25,samples=500]{sin(1/x)^2*x^2};
+                    %\addplot[color=main1, line width=0.2mm, domain=-0.25:-,samples=500]{sin(1/x)^2*x^2};
+                    
+                    \addplot[color=main3, line width=0.2mm, domain=-0.25:0.25,samples=500]{x^2};
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+        %
+        \hfill
+        %
+        \begin{minipage}[t]{0.6\linewidth}
+            Soit $x \in \bdR^*$, on a :
+            %
+            \[ f'(x) = 2x\sin^2\left(\sfrac{1}{x}\right) + x^2\times\left(-\dfrac{1}{x^2}\sin{\dfrac{1}{x}}\times2\cos{\dfrac{1}{x}}\right)\]
+            %
+            On a donc :
+            %
+            \[ \qquad f'(x) = 2x\sin^2\left(\sfrac{1}{x}\right) - 2\sin{\sfrac{1}{x}}\cos{\sfrac{1}{x}}\]
+            %
+            Soit finalement :
+            %
+            \[ f'(x) = 2x\sin^2\left(\sfrac{1}{x}\right) - \sin{\sfrac{2}{x}}\]
+        \end{minipage}
+    \end{enumerate}
+}
+
+\begin{exotd}{Utilisation de la formule de Leibniz}{}
+    Soit $f : [0, 1] \to \bdR$ définie par $f(x) = \arcsin x$.
+\end{exotd}
+
+\section{Théorème de Rolle et applications}
+
+\setcounter{cours}{8}
+
+\begin{exotd}{Application directe du théorème de Rolle}{}
+    Soit $f$ une fonction dérivable sur $\bdR$. On suppose que $f$ est $1$-périodique et admet $n$ zéros sur l'intervalle $[0, 1[$. Montrer que $f'$ admet $n$ zéros sur ce même intervalle.
+\end{exotd}
+
+\boxans{
+    Si on note $0 \leq \alpha_0 < \alpha_1 < \dots < \alpha_{n-1} < 1$ les $n$ valeurs telles que $f(\alpha_i) = 0$ pour $i \in \llbracket 0, n-1\rrbracket$.
+    
+    En appliquant Rolle sur chaque intervalle $[\alpha_i, \alpha_{i+1}]$, on obtient que :
+    %
+    \[ \exists \alpha_i < \beta_i < \alpha_{i+1} \qquad\text{tel que} \ f'(\beta_i) = 0 \qquad 0 \leq i \leq n-2 \]
+    %
+    Cela donne $(n-1)$ zéros pour $f'$ :
+    %
+    \[ 0 \leq \alpha_0 < \beta_0 < \beta_1 < \dots < \beta_{n-2} \alpha_{n-1} < 1\]
+    %
+    Or $f$ est $1$-périodique donc $0 = f(\alpha_0) = f(\alpha_0 + 1)$. En appliquant Rolle sur $[\alpha_{n-1}, \alpha_0 + 1]$, on obtient un $\beta_{n-1} \in ]\alpha_{n-1}, \alpha_0 + 1[$ tel que $f'(\beta_{n-1}) = 0$.
+    
+    Si $\beta_{n-1} \in ]\alpha_{n-1}, 1[$, on a bien $n$ racines de $f'$ dans $[0, 1[$. Sinon, $\beta_{n-1} \in [1, 1 +\alpha_0[$ donc $\beta_{n-1} - 1 \in [0, \alpha_0[$.
+    
+    $f$ est $1$-périodique donc $f'$ est aussi $1$-périodique, donc $f'(\beta_{n-1}) = f'(\beta_{n-1} -1) = 0$. On a donc bien obtenu $n$ racines de $f'$ dans $[0, 1[$.
+}
+
+\begin{exotd}{Application récursive du théorème de Rolle}{}
+    Les questions sont indépendantes.
+
+    \begin{enumerate}
+        \item Soit $f$ une fonction dérivable $n$ fois sur un intervalle $I$. On suppose que $f$ admet $n+1$ zéros distincts dans $I$. Montrer qu'il existe $c \in I$ tel que $f^{(n)}(c) = 0$.
+        
+        \item Soit $n \in \bdN*$ et $P_n = (X^2-1)^n$. Donner le \textsf{DL} à l'ordre $n$ en $1$ et $-1$ pour $P_n(x)$. Montrer que $1$ et $-1$ sont racines de $P_n$ avec multiplicité $n$. Montrer que $P_n^{(n)}$ a $n$ racines distinctes dans $]-1, 1[$.
+    \end{enumerate} 
+\end{exotd}
+
+\boxans{
+    \begin{enumerate}
+        \item On procède par récurrence finie sur $k \in \llbracket 0, n\rrbracket$, selon le prédicat :
+        %
+        \[ H_k : \qquad f^{(k)} \ \text{possède} \ (n+1-k) \ \text{zéros distincts dans} \ I\]
+        %
+        L'initialisation est donnée par l'énoncé. Montrons alors l'hérédité. Soit $k \in \llbracket 0, n-1\rrbracket$ tels que $H_k$ est vrai. Notons :
+        %
+        \[ \alpha_0 < \alpha_1 < \dots < \alpha_{n-k} \quad \text{les} \ (n+1-k) \ \text{zéros de la fonction} \ f^{(k)}\]
+        %
+        Sur chaque intervalle $[\alpha_i, \alpha_{i+1}]$ pour $0 \leq i < n-k$,  $f^{(k)}$ continue et dérivable et $f^{(k)}(\alpha_i) = f^{(k)}(\alpha_{i+1}) = 0$. Alors par théorème de Rolle :
+        %
+        \[ \exists \beta_i \in ]\alpha_i, \alpha_{i+1}[,\qquad \left(f^{(k)}\right)'(\beta_i) = 0\]
+        %
+        Donc on a trouvé $n-k$ zéros ($\beta_0 < \beta_1 < \dots < \beta_{n-k-1}$) de $f^{(k+1)}$ donc $H_{k+1}$ est vérifiée.
+        
+        On a donc montré $H_n$ par récurrence : $f^{(n)}$ s'annule (au moins une fois) sur $I$.
+    \end{enumerate}
+}
+
+\begin{exotd}{Racines de $P'$}{}
+    Montrer que si $P$ est un polynôme réel scindé il en est de même pour $P'$.
+\end{exotd}
+
+\boxans{
+
+}
+\end{document}

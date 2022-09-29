@@ -1,0 +1,383 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Chapitre 16}{Dérivabilité}
+
+\initcours{}
+
+\section{Dérivabilité}
+
+De manière générale, on considérera dans cette section un intervalle $I \subset \bdR$. On se donne de plus une fonction de la variable réelle définie sur cet intervalle, et à valeur dans $\bdR$ : $f \in \bcF(I, \bdR)$. On définit alors, dans un premier temps, la notion de dérivabilité.
+
+\subsection{Définition}
+
+\begin{minipage}{0.45\linewidth}
+    \pgfplotsset{width=\textwidth}
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = center,
+            xlabel=$x$,
+            ylabel=$f(x)$,
+            xmin=-0.5,
+            xmax=10.5,
+            ymin=-0.5,
+            ymax=7.5,
+            %xtick distance={2},
+            %ytick distance={2},
+            xtick = {1.5, 8},
+            ytick = {3.05, 4.37},
+            xticklabels={$\color{main3} a$, $\color{main3} b$},
+            yticklabels={$\color{main3} f(a)$, $\color{main3} f(a)$},
+            %minor x tick num=4,
+            %minor y tick num=4,
+            x tick label style={/pgf/number format/1000 sep=\,},
+            font=\footnotesize,
+            grid = none,
+            %grid style = {line width = .1pt, draw = gray!30},
+            %major grid style = {line width=.2pt,draw=gray!50},
+        ]
+            \addplot[color=main1, line width=0.6mm, domain=0.5:10,samples=500]{0.02*(x-14.1)*(x-4.1)*(x-3.1)+3.5+0.4*x};
+                    
+            \addplot[mark=*,main3, line width=1mm, thick] coordinates {(1.5, 3.05)};
+            \addplot[mark=none, main3, line width=0.3mm, dashed] coordinates {(1.5,0) (1.5,3.05)};
+            \addplot[mark=none, main3, line width=0.3mm, dashed] coordinates {(0,3.05) (1.5,3.05)};
+                    
+            \addplot[mark=*,main3, line width=1mm, thick] coordinates {(8, 4.37)};
+            \addplot[mark=none, main3, line width=0.3mm, dashed] coordinates {(8,0) (8,4.37)};
+            \addplot[mark=none, main3, line width=0.3mm, dashed] coordinates {(0,4.37) (8,4.37)};
+                    
+            \addplot[color=main20, line width=0.4mm, domain=1:9.5,samples=500]{0.20*x+2.75};
+        \end{axis}
+    \end{tikzpicture}
+\end{minipage}
+%
+\begin{minipage}{0.55\linewidth}
+    Le concept de dérivée naît historiquement dans l'étude des variations. En se donnant une fonction \(f\) dont on trace la courbe, on peut considérer deux abscisses \(a\) et \(b\) et leurs ordonnées correspondantes \(f(a)\) et \(f(b)\), puis étudier la variation moyenne de la fonction entre ces deux points avec un taux d'accroissement :
+    %
+    \[ m = \dfrac{f(b) - f(a)}{b - a}\]
+    %
+    Une approche physicienne reviendrait par exemple à considérer le déplacement d'un objet entre deux instants \(t_1\) et \(t_2\), alors situé à deux distances \(d(t_1)\) et \(d(t_2)\) de son point de départ. La vitesse moyenne de cet objet entre \(t_1\) et \(t_2\) serait donc donné par \(m\).
+\end{minipage}
+
+\begin{minipage}{\linewidth}
+    Il est également intéressant de considérer \(m\) graphiquement : il s'agit de la pente de la droite passant par les deux points \((a, f(a))\) et \((b, f(b))\). Plus précisément, celle-ci est donnée explicitement par l'équation :
+    %
+    \[ y = m(x-a) + f(a) = \dfrac{f(b) - f(a)}{b - a}(x-a) + f(a)\]
+    %
+    On comprend alors que cette variation moyenne \text{- vitesse moyenne -} est d'autant plus précise que \(a\) et \(b\) sont proches. Là réside l'essence même de la dérivation : de passer de la variation moyenne, sur une certaine durée, à celle presque instantanée\footnote{L'expression de \guill{variation instantanée}, d'ailleurs oxymoronique, semble assez incorrecte. La dérivation n'est pas un concept ponctuel : pour calculer la dérivée d'une fonction \(f\) en un point \(x\), on doit l'approcher au moyen des points qui l'\textit{avoisinent} ; c'est donc plus un concept local.}, qui survient en un temps infinitésimal ; de capturer cette variation. Dans ce processus, on remarquera que la droite décrite plus haut devient tangente à la courbe. L'étude des tangentes (notamment par \textsl{Pierre de Fermat}, dont les travaux seront repris par \textsl{Huygens}, puis \textsl{Newton} et \textsl{Leibniz}) jouera d'ailleurs un rôle dans l'élaboration de ce calcul différentiel. 
+\end{minipage}
+
+\begin{definition}{Dérivabilté}{}
+    Soit un intervalle ouvert \(I \subset \bdR\), \(f\) une fonction définie sur \(I\) et \(\alpha \in I\). On dit que \bf{\(f\) est dérivable en \(\alpha\)} lorsque \hg{le taux d'accroissement \(\tau_\alpha : \begin{array}[t]{rcl}
+        I\backslash\{\alpha\} &\to&\bdR  \\
+        x &\mapsto& \dfrac{f(x)-f(\alpha)}{x-\alpha}
+    \end{array}\) admet une limite \hgu{finie} en \(\alpha\)}.
+\end{definition}
+
+La valeur de cette limite permet alors de définir la notion de nombre dérivé (ou de dérivée en un point) :
+
+\begin{definition}{Nombre dérivé, dérivée en un point}{}
+    Soit un intervalle ouvert \(I \subset \bdR\), \(f\) une fonction définie sur \(I\) et \(\alpha \in I\) tel que \(f\) est dérivable en \(\alpha\). On appelle \bf{nombre dérivé de \(f\) en \(\alpha\)} ou \bf{dérivée de \(f\) en \(\alpha\)} \hg{la limite du taux d'accroissement \(\tau_\alpha\) en \(\alpha\)}, soit le réel :
+    %
+    \[ \hg{\lim\limits_{x \to \alpha} \tau_\alpha(x) = \lim\limits_{x \to \alpha} \dfrac{f(x) - f(\alpha)}{x - \alpha}} \]
+\end{definition}
+
+On note généralement le nombre 
+
+\section{TODO}
+\subsection{Réciproque et dérivée}
+
+\begin{theorem}{Réciproque et dérivée}{}
+    Soit $f : I \to J$ dérivable, bijective telle que $f'$ ne s'annule pas sur $I$.
+    
+    Alors \bf{sa réciproque $f^{-1} : J \to I$ est dérivable sur $J$ et $\left(f^{-1}\right)' = \dfrac{1}{f' \circ f^{-1}}$}
+\end{theorem}
+
+\demoth{
+    Soit $b \in J$. On pose $a = f^{-1}(b)$. Alors :
+    
+    \[ \forall y \in J \backslash \{ b \},\qquad \dfrac{f^{-1}(y) - f^{-1}(b)}{}\]
+}
+
+\newpage
+
+\section{TODO}
+
+\subsection{1}
+\subsection{Étude de suite récurrente}
+
+Dans cette sous-section, on considère une suite$\suite{u_n}$, définie de façon récurrente par $\forall n \in \bdN$, $u_{n+1} = f(u_n)$.
+
+\begin{example}{}{}
+    Étudions la suite $\suite{u_n}$ telle que $u_0 = 0$ et $\forall n \in \bdN$, $u_{n+1} = \sqrt{2-u_n}$.
+    
+    \tcblower
+    
+    \begin{minipage}{0.5\textwidth}
+        On introduit $f : x \to \sqrt{2-x}$, définie sur $I = \left]-\infty, 2\right]$. On étudie $f$ sur $I$ : $f$ y est continue et dérivable.
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \pgfplotsset{width=\textwidth}
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis lines = center,
+                    xmin = -3,
+                    xmax = 3,
+                    ymin = -1,
+                    ymax = 4,
+                    xlabel = $\mathsf{x}$, 
+                    ylabel = $\mathsf{v(x)}$,
+                    xtick = {0, 0.76, sqrt(2), 2},
+                    ytick = {sqrt(2)},
+                    xticklabels={$\color{main7}\mathsf{u_0}$, $\color{main7}\mathsf{u_2}$, $\color{main7}\mathsf{u_1}$, $\color{main2}\mathsf{2}$},
+                    yticklabels={$\color{main2}\mathsf{\sqrt{2}}$},
+                    font = \footnotesize,
+                    major grid style = {line width=.2pt,draw=gray!50},
+                    trig format plots=rad,
+                ]
+                    \addplot[color=main3, line width=0.6mm, domain=-3:2,samples=500]{sqrt(2-x)};
+                    \addplot[color=main3, line width=0.2mm, domain=-3:3,samples=500]{x};
+                    
+                    %\path[draw=main20, dashed] (0.5,0) -- (0.5,6.1);
+                    %\path[draw=main20, dashed] (8,0) -- (8,3.7);
+                    
+                    %\path[draw=main7, dashed, thick] (1.2,0) -- (1.2,6.7);
+                    %\path[draw=main7, dashed, thick] (6,0) -- (6,1.7);
+                    
+                    %\path[draw=main3, dashed, thick] (0,1.7) -- (6,1.7);
+                    %\path[draw=main3, dashed, thick] (0,6.7) -- (1.2,6.7);
+                    
+                    \addplot[mark=*,main7, line width=1mm, thick] coordinates {(0, 0)};
+                    \addplot[mark=*,main7, line width=1mm, thick] coordinates {(sqrt(2), 0.76)};
+                    \addplot[mark=*,main7, line width=1mm, thick] coordinates {(0.76, 1.11)};
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+        
+        On remarque que $u_0 = 0$, $u_1 = \sqrt{2}$, $u_2 = \sqrt{2 - \sqrt{2}}$, \dots. De manière générale, on a :
+        %
+        \[f\left(\left[0, \sqrt{2}\right]\right) \subset f\left(\left[0, 2\right]\right) = \left[0, \sqrt{2}\right] \subset \qquad\text{donc}\qquad \forall x \in \left[0, \sqrt{2}\right],\qquad f(x) \in \left[0, \sqrt{2}\right] \]
+        
+        On a donc que \hg{$\left[0, \sqrt{2}\right]$ est stable par $f$}. On a $u_0 \in \left[0, \sqrt{2}\right]$ donc par récurrence immédiate pour tout rang $n \in \bdN$, $u_n \in \left[0, \sqrt{2}\right]$. On peut alors chercher les points fixes de $f$ :
+        %
+        \[ \sqrt{2-x} = x \implies 2-x = x^2 \implies x^2 + x - 2 = 0 \implies x = 1 \lor x= -2\]
+        %
+        Or si $f(x) = x$, on a $x \in \bdR_+$, donc $x = 1$. En synthèse, on a bien $f(1) = 1$ donc $x = 1$ est le seul point fixe. On cherche alors à borner la dérivée $f'$ : 
+        %
+        \[ \forall x \in \left[0, \sqrt{2}\right],\qquad f'(x) = -\dfrac{1}{2\sqrt{2-x}} \qquad\text{donc}\qquad \forall x \in \left[0, \sqrt{2}\right],\qquad \mod{f'(x)} = \dfrac{1}{2\sqrt{2-x}}\]
+        %
+        
+        On a $f'(x) \lima{x \to 2^-} = +\infty$ donc on ne peut majorer $f'$ sur $\left[0, 2\right]$. Cependant, si $x \in \left[0, \sqrt{2}\right]$, on a $f(x) \in \left[0, \sqrt{2}\right]$ : $\left[0, \sqrt{2}\right]$ est aussi stable par ... TODO
+    \end{example}
+    
+    \subsection{Limite de la dérivée}
+    
+    \begin{theorem}{Limite de la dérivée}{}
+        Soit un intervalle $I \subset \bdR$, $\alpha \in I$ et $\ell \in \overline \bdR$. Soit $f$ continue sur $I$ et dérivable sur $I \ \{ \alpha\}$ telle que $\lim\limits_{x \to a} f'(x) = \ell$.
+        
+        \begin{enumerate}
+            \ithand Si $l = \pm \infty$, alors $f$ n'est pas dérivable en $\alpha$ (tangente verticale).
+            \ithand Si $l \in \bdR$, alors $f$ est dérivable en $a$ et $f'(a) = \ell$. Dans ce cas, on a $\lim\limits{x \to a} f'(x) = f'(a)$ donc $f$ est $\bcC^1$ en $a$.
+        \end{enumerate}
+    \end{theorem}
+    
+    \demoth{
+        Soit un intervalle $I \subset \bdR$, $\alpha \in I$ et $f \in \bcC(I, \bdR)$, dérivable sur $I \ \{ \alpha\}$ et telle que $\lim\limits_{x \to a} f'(x) = \ell$, avec $\ell \in \overline \bdR$. 
+        
+        \begin{enumerate}
+            \ithand Soit $x \in I$ et $x > a$. $f$ est alors continue sur le segment $[a, x]$ et dérivable sur $]a, x[$. Donc par TAF, il existe $c_x \in ]a, x[$ tel que $f'(c_x) = \dfrac{f(x)-(a)}{x-a}$.
+            
+            \ithand  De même si $x < a$, on a $f$ continue sur $[x, a]$ et dérivable sur $]x, a[$, donc par TAF $\exists c_x \in ]x, a[$, $f'(x) = \dfrac{f(x) - f(a)}{x-a}$.
+            
+            \ithand En conclusion :
+            %
+            \[ \forall x \in I \backslash \{ a \},\qquad \exists c_x \in \left]\min (a, x), \max(a, x)\right[],\qquad f'(c_x) = \dfrac{f(x) - f(a)}{x-a}\]
+            %
+            Faisons alors tendre $x \to a$. Or $c_x \in ]x, a[$ ou $c_x \in ]a, x[$ donc $c_x \lima{x \to a} a$. Or par hypothèse $\lim\limits_{x \to a} f'(x) = \ell$. Par composition des limites, $\lim\limits_{x \to a} f'(c_x) = \ell$. Donc $\lim\limits_{x \to a} \dfrac{f(x) - f(a)}{x-a} = \ell$.
+            
+            \ithand \underline{1er cas :} Si $l = \pm\infty$, $f$ est non dérivable et de tangente verticale.
+            \ithand \underline{2ème cas:} Si $l \in \bdR$, $f$ est dérivable et $f'(a) = \ell$.
+        \end{enumerate}
+    }
+    
+    Remarquons qu'en vertu de ce résultat, la dérivabilité d'une fonction définie en \underline{plusieurs morceaux} peut désormais s'obtenir en étudiant simplement sa continuité et les limites de sa dérivée en les points intéressants.
+    
+    \newpage
+    
+    \subsection{Retour sur les formules de Taylor}
+    
+    La formule de Taylor Young, de la même forme $DL_n(a)$, permet d'obtenir de l'information en un point local, en un voisinage $V \in \bcV(a)$ (de $a$) :
+    
+    \begin{theorem}{Formule de Taylor Young, Rappel}{}
+        Soit $f \in \bcC^n(I, \bdR)$ et $a \in I$. Alors on a (le $DL_n(a)$ suivant) :
+        
+        \[ \hg{f(x) \eq{x \to a} \sum_{k=0}^n \dfrac{f^{(k)}(a)}{k!}(x-a)^k \ + \o{(x-a)^n}}\]
+    \end{theorem}
+    
+    Cette formule n'est pas parfaite, particulièrement le $\o{x \to a}{(x-a)^n}$ pose problème lorsqu'on veut obtenir l'information complète. On peut alors donner une autre formule de Taylor, cette fois avec reste intégral.
+    
+    \begin{theorem}{Formule de Taylor avec reste intégral}{}
+        Soit $f \in \bcC^{n+1}(I, \bdR)$, et $(a, b) \in I$ avec $a < b$. On a :
+        %
+        \[ \hg{f(b) = \sum_{k=0}^n \dfrac{f^{(k)}(a)}{k!}(-a)^k + \int_a^b \dfrac{(b-t)^n}{n!}f^{(n+1)}(t)\dif t}\]
+    \end{theorem}
+    
+    \demoth{
+        Soit $f \in \bcC^{n+1}(I, \bdR)$, et $(a, b) \in I$ avec $a < b$. On procède par récurrence simple sur $\bdN$.
+        
+        \begin{enumerate}
+            \ithand \underline{Initialisation :} Puisque $f$ est $\bcC^1$, on a (théorème fondamental de l'analyse) :
+            %
+            \[ f(b) = f(a) + \int_a^b f\prime(t)\dif t\]
+            
+            \ithand \underline{Hérédité :} Si $f \in \bcC^{n+2}$, alors $f \in \bcC^{n+1}$. Par hypothèse de récurrence :
+            %
+            \[ f(b) = \sum_{k=0}^n \dfrac{f^{(k)}(a)}{k!}(-a)^k + \int_a^b \dfrac{(b-t)^n}{n!}f^{(n+1)}(t)\dif t\]
+            
+            On intègre par partie le reste intégral. $t \mapsto \dfrac{(b-t)^n}{n!}$ est $\bcC^1$ et a pour primitive $t \mapsto \dfrac{-(b-t)^{n+1}}{(n+1)!}$ d'où :
+            %
+            \[ \int_a^b \dfrac{(b-t)^n}{n!}f^{(n+1)}(t)\dif t = \left[-\dfrac{(b-t)^{n+1}}{(n+1)!}f^{n+1}(t)\right]_a^b - \left(- \int_a^b \dfrac{(b-t)^{n+1}}{(n+1)!}f^{n+2}(t)\dif t\right)\]
+            
+            On obtient bien le terme en $k = n+1$ dans la somme, ainsi que le reste intégral au rang suivant.
+            
+            \ithand \underline{Conclusion :} Immédiate par récurrence.
+        \end{enumerate}
+    }
+    
+    On remarquera que le reste intégral mesure en fait l'erreur d'approximation entre $f$ et son polynôme de Taylor en $a$. Or si $(a, b) \in I$ et $f \in \bcC^{n+1}(I, \bdR)$, alors $f^{(n+1)}$ est $\bcC^0$ sur le segment $[a, b]$. Donc par compacité, $f^{(n+1)}$ est bornée et on peut poser $M_{n+1} = \sup\limits_{[a, b]} \mod{f^{(n+1)}}$ (qui est un maximum). Ainsi peut-on majorer le reste intégral :
+    %
+    \[ \forall t \in [a, b],\qquad \mod{f^{(n+1)}(t)} \leq M_{n+1}\]
+    
+    Avec $a < b$, on a par inégalité triangulaire :
+    %
+    \[ \mod{\int_a^b \dfrac{(b-t)^n}{n!}f^{(n+1)}(t)\dif t} \leq \int_a^b \dfrac{\mod{b-t}^n}{n!f^{(n+1)}(t)}\dif t \underset{t \in [a, b] \implies (b-t)^n \geq 0}{\leq} \int_a^b \dfrac{(b-t)^n}{n!}\times M_{(n+1)}\dif t\]
+    %
+    On a donc bien une majoration du reste intégral :
+    %
+    \[ \mod{\int_a^b \dfrac{(b-t)^n}{n!}f^{(n+1)}(t)\dif t} \leq \dfrac{(b-a)^{n+1}}{(n+1)!}\times M_{n+1}\]
+    
+    Ce résultat se généralise quelque peu dans le théorème de Taylor-Lagrange :
+    
+    \begin{theorem}{Inégalité de Taylor-Lagrande}{}
+        Soit $f \in \bcC^{n+1}(I, \bdR)$. On a :
+        %
+        \[ \hg{f^{(n+1)} \ \bf{est bornée sur} \ I \implies \forall (a, b) \in I^2,\qquad \mod{f(b) - \sum_{k=0}^n \dfrac{f^{(k)(a)}}{k!}(b-a)^k} \leq \dfrac{\mod{a-b}^{n+1}}{(n+1)!}\times M_{n+1}}\]
+        %
+        où $\hg{M_{n+1} = \sup\limits_I \mod{f^{(n+1)}} = \norm{f^{(n+1)}}_\infty}$.
+    \end{theorem}
+    
+    On remarquera que si $I$ est un segment, l'existence de $M_{n+1}$ est donnée par le théorème de compacité, car $f^{(n+1)}$ est continue. Ce résultat trouve de nombreuses application, par exemple :
+    
+    \begin{example}{}{}
+        Montrer que $\hg{\forall x \in \bdR,\qquad \exp(x) = \displaystyle \sum_{k=0}^{+\infty} \dfrac{x^k}{k!}}$.
+        
+        \tcblower
+        
+        Soit $x \in \bdR$, et $f = \exp \in \bcC^\infty$ donc $\forall k \in \bdN$, $\exp^{(k)} = \exp$. L'inégalité de Taylor-Lagrange sur $[0, x]$ ou $[x, 0]$ donne :
+        %
+        \[ \forall n \in \bdN,\qquad \mod{\exp(x) - \sum_{k= 0}^n \dfrac{\exp^{(t)}(0)}{k!}x^k} \leq \dfrac{\mod{x}^{n+1}}{(n+1)!}\times \sup\limits_{[x, 0] \ \text{ou} \ [0, x]} \exp\]
+        
+        \begin{enumerate}
+            \itb Si $x \leq 0$, on a $\sup\limits_{[x, 0]} \exp = 1$ donc :
+            %
+            \[ \forall n \in \bdN,\qquad \mod{\exp(x) - \sum_{k= 0}^n \dfrac{x^k}{k!}} \leq \dfrac{\mod{x}^{n+1}}{(n+1)!}\]
+            
+            \itb Si $x \geq 0$, on a $\sup\limits_{[x, 0]} \exp = e^x$ donc :
+            %
+            \[ \forall n \in \bdN,\qquad \mod{\exp(x) - \sum_{k= 0}^n \dfrac{x^k}{k!}} \leq \dfrac{\mod{x}^{n+1}}{(n+1)!}e^x\]
+        \end{enumerate}
+        
+        Or $q^n \eq{n \to +\infty} \o{n!}$. Ainsi $\lim\limits_{n \to +\infty} \dfrac{\mod{x}^{n+1}}{(n+1)!} = 0$. Par théorème d'encadrement, on a :
+        %
+        \[ \forall x \in \bdR,\qquad \lim\limits_{n \to +\infty}\left(\sum_{k= 0}^n \dfrac{x^k}{k!}\right) = \sum_{k= 0}^{+\infty} \dfrac{x^k}{k!} = \exp{x}\]
+    \end{example}
+    
+    On a donc généralisé le $DL_n(0)$ de $\exp$ à tout $\bdR$.
+    
+    \begin{example}{}{}
+        Montrer que $\hg{\forall x \in [0, 1],\qquad \ln{1+x} = \displaystyle \sum_{k=0}^{+\infty} \dfrac{(-1){k+1)}}{k}x^k}$.
+        
+        \tcblower
+        
+        Soit $f : x \to \ln{1+x}$ et $x \in ]-1, +\infty[$. On a $f \in \bcC^{\infty}\left(]-1, +\infty[, \bdR\right)$, et :
+        %
+        \[ f\prime(x) = \dfrac{1}{1+x} \qquad f\prime\prime(x) = \dfrac{-1}{(1+x)^2}\qquad f^{(3)} = \dfrac{2}{(1+x)^3}\]
+        
+        On a en pour tout entier $k \in \bdN^*$ non nul, $f^{(k)}(x) = \dfrac{(-1)^{k-1}(k-1)!}{(1+x)^k}$. En appliquant la formule en $0$, on obtient :
+        %
+        \[ \forall k \in \bdN^*,\qquad f^{(k)}(0) = (-1)^{k-1}(k-1)!\]
+        
+        Ainsi, $\displaystyle \sum_{k=0}^n \dfrac{f^{(k)}(0)}{k!}x^k = f(0) + \displaystyle \sum_{k=1}^n \dfrac{(-1)^{k-1}}{k}x^k$. L'inégalité de Taylor-Lagrange sur $[0, x]$ ou $[x, 0]$ donne :
+        %
+        \[ \mod{\ln(1+x) - \sum_{k=1}^n \dfrac{(-1)^{k-1}}{k}x^k} \leq \dfrac{\mod{x}^{n+1}}{(n+1)!}M_{n+1}\]
+        
+        Avec $M_{n+1} = \sup\limits_{[0, x] \ \text{ou} [x, 0]} \mod{f^{(n+1)}}$. Pour $x \in \bdR^+$ et $t \in [0, x]$, on a :
+        %
+        \[ \mod{f^{(n+1)}(t)} = \dfrac{n!}{(1+t)^{n+1}} \leq n! \qquad\text{car}\qquad \forall t \geq 0,\qquad \dfrac{1}{1+t} \leq 1\]
+        
+        Donc $\sup\limits_{\bdR_+} \mod{f^{(n+1)}} = n!$. En conclusion :
+        %
+        \[ \forall x \in \bdR_+,\qquad \forall n \in \bdN^*,\qquad \mod{\ln{1+x} - \sum_{k=1}^n \dfrac{(-1){k-1}}{k}x^k} \leq \dfrac{\mod{x}^{n+1}}{n+1}\]
+        
+        Donc pour $x \in [0, 1]$, on a $\dfrac{\mod{x}^{n+1}}{n+1} \leq \dfrac{1}{n+1} \lima{n \to +\infty} 0$. Comme précédemment, on conclu par théorème d'encadrement que :
+        %
+        \[ \forall x \in [0, 1],\qquad \sum_{k=1}^{+\infty} \dfrac{(-1)^{k-1}}{k}x^k = \ln{1+x}\]
+    \end{example}
+    
+On remarquera que l'inégalité de Taylor-Lagrange est en fait une généralisation de l'inégalité des accroissements finis. En effet, en appliquant l'inégalité de Taylor-Lagrange avec $n = 0$, on obtient : soit $f \in \bcC^1(I, \bdR)$ et $(a, b) \in I^2$ avec $a \leq b$. On a :
+%
+\[ \mod{f(b) - f(a)} \leq \mod{b-a} \times \sup\limits_{[a, b]} \mod{f'}\]
+    
+On retrouve bien l'inégalité des l'inégalité des accroissements finis.
+    
+\section{Extension des résultats pour les fonctions de $I$ dans $\bdC$}
+
+Les définitions données dans le cadre de l'analyse réelle, s'étendent pour la plupart d'entre elles sans difficultés :
+
+\begin{enumerate}
+    \ithand Dérivabilité (fonctions dérivables), dérivation en un point ;
+    
+    \ithand Dérivabilité (fonctions dérivables), dérivation sur un intervalle ;
+    
+    \ithand Ensembles $\bcC^n$, $\bcC^\infty$ des fonctions continues, de dérivées $n$-ièmes continues ;
+    
+    \ithand Opérations ; \dots.
+\end{enumerate}
+
+Ainsi, si l'on cherche à étudier une fonction $f : I \to \bdC$, on écrira $f = \Re(f) + \ii \Im(f)$. Ainsi, si $f \in \bcC^n$, on aura $f^{(n)} = \Re(f)^{(n)} + \ii \Im(f)^{(n)}$.
+
+\begin{example}{}{}
+    Soit $f : \begin{array}[t]{rcl}
+        \bdR &\to& \bdC  \\
+        t &\mapsto& e^{-rt}\cos{\omega t + \varphi} 
+    \end{array}$. Calculer $f^{(n)}$.
+    
+    \tcblower
+    
+    Posons $g : t \mapsto e^{-rt}e^{\ii(\omega t + \varphi)}$. On a $f = \Re(g)$ ainsi $f^{(n)} = \Re(g^{(n)})$. Or :
+    %
+    \[ \forall t \in \bdR,\qquad g(t) = \exp{-rt + \ii\omega t + i\varphi} = \exp{(-r + \ii\omega)t + \ii \varphi}\]
+    
+    Donc $g^{(n)}(t) = (-r + \ii\omega)^n \exp{(-r + \ii \omega)t + \ii \varphi}$. On pose $A = \mod{-r + \ii\omega} = \sqrt{r^2 + \omega^2}$ et $\theta = \arg(-t + \ii\omega)$. On a $\tan \theta = \dfrac{\sin \theta}{\cos \theta} = -\dfrac{\omega}{\pi}$, d'où $\theta = \arctan{-\dfrac{\omega}{r}}$. Alors :
+    %
+    \[ \forall n \in \bdN,\qquad (-r + i\omega)^n = (Ae^{\ii\theta})^n = A^ne^{\ii n\theta}\]
+    %
+    Donc $g^{(n)}(t) = A^ne^{\ii n\theta}\exp{(-r +\ii \omega)t \ii\varphi} = A^ne^{-rt}e^{\ii(n\theta + \omega t + \varphi)}$. Or $f^{(n)} = \Re(g^{(n)})$ donc :
+    %
+    \[ \forall n \in \bdN,\qquad f^{(n)}(t) = A^ne^{-rt}\cos{\omega t + n\theta + \varphi}\]
+\end{example}
+
+On fera cependant attention au fait que tous les résultats de l'analyse réelle ne se généralisent pas aussi facilement :
+
+\begin{warning}{}{}
+    Pour $f : I \to \bdC$  \bf{les résultats liés à l'ordre sur $\bdR$ ne s'étendent pas}. On n'obtient malheureusement \bf{rien sur $\max$, $\min$, les extrema locaux, le théorème des accroissements fini et ses conséquences}.
+    
+    En revanche, l'inégalité des accroissements et l'inégalité de Taylor-Lagrange restent valables, de part leur utilisation des valeurs absolues qui se généralisent en modules.
+\end{warning}
+
+\end{document}

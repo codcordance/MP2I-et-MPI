@@ -1,0 +1,53 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylize{Mathématiques}{Notes sur le chapitre 9}
+
+\textbf{Exo 13 (Somme harmonique)}
+
+\[ H_n = \sum_{k=1}^{n} \dfrac{1}{k}\]
+
+\begin{enumerate}
+    \item Monotonie de la suite $H_n$ ? $\dots$
+    \boxans{
+    $\displaystyle H_{n+1} = \sum_{k=1}^{n+1} \dfrac{1}{k} = \sum_{k+1}^{n} \dfrac{1}{k} + \dfrac{1}{n+1} = H_n - \dfrac{1}{n+1}$.
+    
+    \boxsol{$\displaystyle H_{n+1} - H_n =\dfrac{1}{n+1} > 0$, donc $(H_n)_n$ strictement croissante.}
+    
+    $H_{2n} - H_n = \sum_{k=n+1}^{2n} \dfrac{1}{k}$.
+    
+    Par minoration grossière, $H_{2n} - H_n \geq \sum_{k=n+1}^{2n} \dfrac{1}{2n} = n \times \dfrac{1}{2n}=\dfrac{1}{2}$.
+    
+    Donc \boxsol{$\forall n \in \bdN$, $H_{2n} - H{n} \geq \dfrac{1}{2}$}.
+    
+    Par théorème de la limite monotone, $(H_n)$ a une limite finie ou en $+\infty$.
+    
+    Supposons qu'elle est finie, $H \lima l \in \bdR$. par passage à la limite, $H_2n - H_n \lima L-L = 0 \geq \dfrac{1}{2}$.
+    
+     Il y a contradiction, donc par l'absurde \boxsol{$H \lima +\infty$}.
+    }
+    
+    \item Trivial
+    
+     \item Se déduit directement (en deux temps par somme puis Chasles du résultat précédent). Ensuite:
+     
+     \boxans{
+        On a $\forall n \in \bdN^*$, $\ln{n+1} \leq H_n \leq 1 + \ln n$.
+        
+        Soit $n \in \bdN$, $n \geq 2$. On a
+        \[ \dfrac{\ln{n+1}}{\ln n} \leq \dfrac{H_n}{\ln n} \leq \dfrac{1}{\ln n} + 1\]
+        Or $\ln{n+1} = \ln{n(1+\sfrac{1}{n}} = \ln n + \ln {1+\sfrac{1}{n}}$ donc $ \dfrac{\ln{n+1}}{\ln n} = 1 + \dfrac{\ln {1+\sfrac{1}{n}}}{\ln n} \lima 1$. 
+        De même $\dfrac{1}{\ln n} + 1 \lima 1$. Par théorème d'encadrement, \boxsol{$\lim\limits_{n \to +\infty} \dfrac{H_n}{\ln n} = 1 \iff H_n \asymp{n \to +\infty} \ln n$}
+        
+        \item Suites adjacentes
+        \boxans{
+            Travail avec $\gamma$ (constantes d'euler) et $o(1)$
+            
+            https://www.desmos.com/calculator/9vqr1atkqc
+        }
+     }
+\end{enumerate}
+    
+
+\end{document}

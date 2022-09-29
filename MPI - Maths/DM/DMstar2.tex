@@ -1,0 +1,465 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{../../Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\thesection}{Partie \Roman{section}}
+    \renewcommand{\labelenumi}{\Roman{section}.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii}.}
+
+    \stylizeDocSpe{Maths}{Devoir maison $\star$  n° 2}
+    {Polytechnique MP MATH 2 1997}{Pour le vendredi 30 septembre 2022}
+
+    On se propose, dans ce problème, d'établir quelques propriétés des
+    polynômes d'interpolation. On fixe un entier $n \in \bdN^*$ et on
+    désigne par
+    %
+    \begin{enumerate}
+        \itt $E_n$ l'espace vectoriel des fonctions polynômes à $n$
+        variables réelles $x_1, x_2, \dots x_n$ et à coefficients
+        réels ;
+
+        \itt $F_n$ le sous-espace vectoriel de $E_n$ formé des fonctions
+        polynômes qui s'annulent dès que deux variables sont égales (dans
+        le cas où $n \geq 2$) ;
+
+        \itt $\partial_i$ (où $i \in \iint{1, n}$) l'opérateur de
+        dérivation partielle $\dfrac{\partial}{\partial x_i}$ ;
+
+        \itt $\bfS_n$ le groupe des permutations de $\iint{1, n}$.
+
+    \end{enumerate}
+
+    On fait agir $\bfS_n$ sur $E_n$ de la façon suivante :
+    %
+    \[ \forall \sigma \in \bfS_n,\quad \forall P \in E_n,\quad T_\sigma
+    \p{P}\p{x_1, \dots, x_n} = P\p{x_{\sigma\p{1}}, \dots,
+        x_{\sigma\p{n}}}\]
+
+    \section{}
+
+    \begin{enumerate}
+        \item Montrer que pour tout $P$ appartenant à $F_2$, il existe
+        un unique $Q_P$ appartenant à $E_2$ tel que :
+        %
+        \[ P\p{x_1, x_2} = \p{x_1 - x_2}Q_P\p{x_1, x_2}\]
+
+        \noafter
+        %
+        \boxans{
+            Soit une fonction polynomiale $P \in F_2$, qu'on associe à \textit{un}
+            polynôme formel $\bcP \in \bdR\intc{X_2, X_1} = \bdR\intc{X_2}\intc{X_1}$.
+            
+            Il s'agit d'un polynôme d'indéterminée $X_1$ à coefficient
+            dans l'anneau commutatif$\ \p{\bdR\intc{X_2}, +, \times}$.
+            
+            \begin{lemma*}{Division euclidienne par $X_1 - X_2$}{}
+                \begin{center}
+                    \( \displaystyle \hg{\forall \bcA \in \bdR\intc{X_2, X_1},\qquad
+                    \exists ! \p{\bcQ, r} \in \bdR\intc{X_2, X_1} \times \bdR,\qquad
+                    \bcA = \p{X_1 - X_2} \bcQ + r} \)
+                \end{center}
+            \end{lemma*}
+        }
+        %
+        \nobefore
+        %
+        \begin{nproof}
+            Montrons d'abord l'existence, en procédant par récurrence sur le degré. 
+            %
+            \begin{enumerate}
+                \itast \underline{Initialisation :} Soit $\bcA \in \bdR\intc{X_2, X_1}$
+                tel que $\deg \bcA < 1$. On peut écrire $\bcA = \p{X_1 - X_2}\times 0 +
+                \bcA = r$.
+                    
+                \itast \underline{Hérédité :} Soit $n \geq p$ tel que la propriété est
+                vraie pour tout polynôme de $\bdR_n\intc{X_2, X_1}$. On considère $\bcA
+                \in \bdR\intc{X_2, X_1}$ de degré exactement $n+1$, et $\p{A_0, A_1,
+                \dots, A_{n+1}} \in \bdR\intc{X_2}^{n+2}$ tels que :
+                %
+                \[ \bcA = A_{n+1}{X_1}^{n+1} + \dots + A_1{X_1} + A_0 = \sum_{k=0}^{n+1}
+                A_k{X_1}^k \qquad\et\qquad A_{n+1} \neq 0\]
+                %
+                On pose $\bcB = \bcA - A_{n+1}{X_1}^{n}\p{X_1 - X_2}$. On a :
+                %
+                \[ \bcB = A_{n+1}{X_1}^{n+1} + \sum_{k=0}^n A_k{X_1}^k -
+                A_{n+1}{X_1}^{n+1} + A_{n+1}{X_1}^nX_2 = \sum_{k=0}^n A_k{X_1}^k +
+                A_{n+1}{X_1}^nX_2
+                \]
+                %
+                Ainsi $\deg \bcB \leq n$, on peut donc appliquer l'hypothèse de récurrence
+                : 
+                %
+                \[ \exists ! \p{\bcQ, r'} \in \bdR\intc{X_2, X_1}\times \bdR,\qquad 
+                \bcB =  \bcA - A_{n+1}{X_1}^{n}\p{X_1 - X_2} = \p{X_1 - X_2}\bcQ + r'\]
+                %
+                Donc $ \bcA = \p{X_1 - X_2}\p{\bcQ + A_{n+1}{X_1}^n} + r$. On a bien
+                l'hérédité.
+            \end{enumerate}
+                
+            Pour l'unicité, on considère $\bcA \in \bcR\intc{X_2, X_1}$ et $\p{\bcQ_1,
+            r_1, \bcQ_2, r_2} \in \p{\bdR\intc{X_2, X_1} \times \bdR}^2$ tel que
+            %
+            \[ \bcA = \p{X_1 - X_2}\bcQ_1 + r_1 \qquad\et\qquad \bcA = 
+            \p{X_1 - X_2}\bcQ_2 + r_2 \]
+            %
+            Dès lors $\p{X_1 - X_2}\p{\bcQ_1 - \bcQ_2} = r_2 - r_1$. Supposons que 
+            $\bcQ_1 \neq \bcQ_2$ donc $\deg\p{\bcQ_1 - \bcQ_2} \geq 0$. Ainsi :
+            %
+            \[ 1 = \deg\p{r - r'} = \deg\p{\p{X_1 - X_2}\p{\bcQ_1 - \bcQ_2}} = 
+            \deg\p{X_1 - X_2} + \deg\p{\bcQ_1 - \bcQ_2} \geq 2\]
+            %
+            Ce qui est absurde, donc $\bcQ_1 = \bcQ_2$, et donc $r_2 - r_1 = 0$ d'où 
+            $r_1 = r_2$. On a bien l'unicité.
+        \end{nproof}
+        %
+        \boxans{
+            Dès lors, il existe un unique $\bcQ_P \in \bdR\intc{X_2, X_1}$ et un unique
+            réel $r$ tel que $\bcP = \p{X_1 - X_2}Q_P + r$. On spécialise $\bcQ_P$ en
+            une unique fonction polynomiale $Q_P \in E_2$, ainsi on a 
+            $P\p{x_1, x_2} = \p{x_1 - x_2}Q_P\p{x_1 - x_2} + r$.
+            
+            On a $P \in F_2$ donc $P\p{x, x} = 0$. Or $P\p{x, x} = \p{x - x}Q_P\p{x, x}
+            + r = 0 + r = r$. Donc $r = 0$.
+        }
+        %
+        \yesafter
+        %
+        \boxansconc{
+            Pour tout $P \in F_2$, il existe bien un unique $Q_P$ tel que $P\p{x_1, x_2}
+            =\p{x_1 - x_2}Q_P\p{x_1, x_2}$.
+        }
+    \end{enumerate}
+    %
+    On admettra que pour $n > 2$ et pour tout $P$ appartenant à $F_n$, il
+    existe un unique $Q_P$ appartenant à $E_n$ tel que
+    %
+    \[ P\p{x_1, \dots, x_n} = \p{\prod_{1 \leq i < j \leq n} x_i - x_j}Q_P\p{x_1,
+    \dots,  x_n}\]
+    %
+    \begin{enumerate}[resume]
+        \item Comparer $Q_{T_\sigma\p{P}}$ et $T_\sigma\p{Q_P}$.
+        
+        \noafter
+        %
+        \boxans{
+            Soit $n \in \bdN^*$ et $P \in F_n$, il existe un unique $Q_P \in E_n$
+            tel que \(\displaystyle P\p{x_1, \dots, x_n} = \p{\prod_{1 \leq i < j \leq n} x_i -
+            x_j}Q_P\p{x_1, \dots,  x_n}\).
+            
+            On considère une permutation $\sigma \in \bfS_n$, qu'on fait agir sur $P$ en $T_\sigma \p{P} \in F_n$ :
+            %
+            \begin{align*}
+                 T_\sigma \p{P}\p{x_1, \dots, x_n} = P\p{x_{\sigma\p{1}}, \dots,
+            x_{\sigma\p{n}}} &= \p{\prod_{1 \leq i < j \leq n} x_{\sigma\p{i}} - x_{\sigma\p{j}}} Q_P\p{x_{\sigma\p{1}}, \dots, x_{\sigma\p{n}}}\\
+            &= \epsilon\p{\sigma}\p{\prod_{1 \leq i < j \leq n} x_i - x_j}T_\sigma\p{Q_P}\p{x_1, \dots, x_n}
+            \end{align*}
+            %
+            De plus il existe un unique $Q_{T_\sigma\p{P}} \in E_n$ tel que $\displaystyle T_\sigma \p{P}\p{x_1, \dots, x_n} = \p{\prod_{1 \leq i < j \leq n} x_i - x_j}Q_{T_\sigma\p{P}}\p{x_1, \dots, x_n}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Donc $Q_{T_\sigma\p{P}} = \epsilon\p{\sigma} T_\sigma\p{Q_P}$
+        }
+        %
+        \yesbefore
+        
+        \item En supposant $n = 2$, exprimer $Q_P\p{x, x}$ en fonction de $\p{\partial_1 P}\p{x, x}$, puis de  $\p{\partial_2 P}\p{x, x}$.
+        
+        \noafter
+        %
+        \boxans{
+            Soit $P \in F_2$, il existe un unique $Q_P \in E_2$ tel que $P\p{x_1, x_2} = \p{x_1 - x_2}Q_P\p{x_1, x_2}$. On a :
+            %
+            \begin{align*}
+                \dfrac{\partial P}{\partial x_1}\p{x_1, x_2} &= Q_P\p{x_1, x_2} - \p{x_1 - x_2}\dfrac{\partial Q_P}{\partial x_1}\p{x_1, x_2} &&\text{d'où}&& \p{\partial_1 P}\p{x, x} = Q_P\p{x, x}\\
+                \dfrac{\partial P}{\partial x_2}\p{x_1, x_2} &= -Q_P\p{x_1, x_2} - \p{x_1 - x_2}\dfrac{\partial Q_P}{\partial x_2}\p{x_1, x_2} &&\text{d'où}&& \p{\partial_2 P}\p{x, x} = -Q_P\p{x, x}
+            \end{align*}
+            %
+            Ainsi :
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Donc $Q_P\p{x, x} = \p{\partial_1 P}\p{x, x} = -\p{\partial_2 P}\p{x, x}$
+        }
+        %
+        \yesbefore
+        
+        \item Supposant $n = 3$, exprimer $Q_P\p{x, x, y}$ en fonction de $\p{\partial_1 P}\p{x, x, y}$ pour $x \neq y$, puis $Q_P\p{x, x, x}$ en fonction de $\p{\partial_1\partial_2^2 P}\p{x, x, x}$.
+        
+        \noafter
+        %
+        \boxans{
+            Soit $P \in F_3$, il existe un unique $Q_P \in E_3$ tel que $P\p{x_1, x_2, x_3} = \p{x_1 - x_2}\p{x_1 - x_3}\p{x_2 - x_3}Q_P\p{x_1, x_2, x_3}$.
+            %
+            Donc $P\p{x_1, x_2, x_3} = \p{{x_1}^2 - \p{x_3 + x_2}x_1 + x_2x_3}\p{x_2 - x_3}Q_P\p{x_1, x_2, x_3}$.
+            %
+            \begin{align*}
+                \dfrac{\partial P}{\partial x_1}\p{x_1, x_2, x_3} &= \p{2x_1 - x_2 - x_3}\p{x_2 - x_3}Q\p{x_1, x_2, x_3} + \p{{x_1}^2 - \p{x_3 + x_2} + x_2x_3}\p{x_2 - x_3}\dfrac{\partial Q_P}{\partial x_1}\p{x_1, x_2, x_3}\\
+                &= \p{2x_1x_2 -2x_1x_3 - {x_2}^2 + {x_3}^2}
+            \end{align*}
+            %
+            Tout polynôme étant de classe $\bcC^\infty$, le \textit{théorème de \textsc{Scharwz}} livre $\dfrac{\partial^3 P}{\partial x_1\partial {x_2}^2} = \dfrac{\partial^3 P}{\partial {x_2}^2\partial x_1}$. Après beaucoup de calculs, on obtient  $\p{\partial_2^2 \partial_1 P}\p{x, x, y} = \p{\partial_1\partial_2^2 P}\p{x, x, x} = -2Q_P\p{x, x, x}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Ainsi $\p{\partial_1 P}\p{x, x, y} = \p{x - y}^2Q_P\p{x, x, y}$ et $Q_P\p{x, y, z} = -\dfrac{1}{2}\p{\partial_1\partial_2^2 P}\p{x, x, x}$. 
+        }
+        %
+        \yesbefore
+        
+    \end{enumerate}
+    
+    \section{}
+    
+    Dans cette partie on fixe un élément $f$ de $E_1$ et on note $P_1$ l'élément de $F_n$ défini par :
+    %
+    \[ P_f\p{x_1, \dots, x_n} = \det{\p{a_{i, j}}_{\p{i, j} \in \iint{1, n}^2}}\]
+    %
+    où
+    %
+    \[ \forall \p{i, j} \in \iint{1, n},\qquad a_{i, 1} = f\p{x_i} \quad\et\quad \forall j \in \iint{2, n},\qquad a_{i, j} = {x_i}^{n -j} \]
+    %
+    On écrira $Q_f$ au lieu de $Q_{P_f}$.
+    
+    \begin{enumerate}[resume]
+        \item Vérifier que, si $f\p{x} = x^{n-1}$, on a :
+        %
+        \[ P_f\p{x_1, \dots, x_n} = \prod_{1 \leq i < j \leq n} \p{x_i - x_j}\]
+        %
+        \noafter
+        %
+        \boxans{
+             On note $\sigma \in \bfS_n$ la permutation qui échange $i \in \iint{1, n}$ avec $n + 1 - i$ ($\sigma$ échange $1$ avec $n$, $2$ avec $n-1$, \dots). La signature de $\sigma$ est $\epsilon\p{\sigma} = \prod_{1 \leq i < j \leq n} \p{-1}$. On a :
+             %
+             \[ P_f\p{x_1, \dots, x_n} = \begin{vNiceMatrix}
+                f\p{x_1} & {x_1}^{n-2} & {x_1}^{n-3} & \Cdots & 1 \\
+                f\p{x_2} & {x_2}^{n-2} & {x_2}^{n-3} & \Cdots & 1 \\
+                f\p{x_3} & {x_3}^{n-2} & {x_3}^{n-3} & \Cdots & 1 \\
+                \Vdots   & \Vdots      & \Vdots & \Ddots & \Vdots\\
+                f\p{x_n} & {x_n}^{n-2} & {x_n}^{n-3} & \Cdots & 1
+            \end{vNiceMatrix} = \p{\prod_{1 \leq i < j \leq n} \p{-1}} \begin{vNiceMatrix}
+                1      & {x_1}  & {x_1}^2 & \Cdots & f\p{x_1} \\
+                1      & {x_2}  & {x_2}^2 & \Cdots & f\p{x_2} \\
+                1      & {x_3}  & {x_3}^2 & \Cdots & f\p{x_3} \\
+                \Vdots & \Vdots & \Vdots  & \Ddots & \Vdots\\
+                1      & {x_n}  & {x_n}^2 & \Cdots &  f\p{x_n}
+            \end{vNiceMatrix} \]
+            %
+            Si $f\p{x} = x^{n-1}$, alors on reconnait une matrice de \textsc{Vandermonde} d'où :
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            \[ P_f\p{x_1, \dots, x_n} = \p{\prod_{1 \leq i < j \leq n} \p{-1}}\p{\prod_{1 \leq i < j \leq n} \p{x_j - x_i}} = \prod_{1 \leq i < j \leq n} \p{x_i - x_j}\]
+        }
+        %
+        \yesbefore
+        
+        \item Trouver des éléments $A_1, \dots, A_n$ de $E_n$ tels que 
+        %
+        \[ \forall f \in E_1,\qquad Q_f\p{x_1, \dots, x_n} = \sum_{i =1}^n \dfrac{f\p{x_i}}{A_i\p{x_1, \dots, x_n}}\]
+        %
+        et démontrer leur unicité.
+        
+        \noafter
+        %
+        \boxans{
+            \[ Q_f\p{x_1, \dots, x_n} = \dfrac{P_f\p{x_1, \dots, x_n}}{\displaystyle\prod_{1 \leq i < j \leq n}\p{x_i - x_j}} = \dfrac{1}{\displaystyle\prod_{i \leq i < j \leq n}\p{x_i - x_j}}\begin{vNiceMatrix}
+                f\p{x_1} & {x_1}^{n-2} & {x_1}^{n-3} & \Cdots & 1 \\
+                f\p{x_2} & {x_2}^{n-2} & {x_2}^{n-3} & \Cdots & 1 \\
+                f\p{x_3} & {x_3}^{n-2} & {x_3}^{n-3} & \Cdots & 1 \\
+                \Vdots   & \Vdots      & \Vdots & \Ddots & \Vdots\\
+                f\p{x_n} & {x_n}^{n-2} & {x_n}^{n-3} & \Cdots & 1
+            \end{vNiceMatrix} \]
+            %
+            On développe alors selon la première colonne :
+            %
+            \begin{align*} Q_f\p{x_1, \dots, x_n} &= \dfrac{1}{\displaystyle\prod_{i \leq i < j \leq n}\p{x_i - x_j}}\left(f\p{x_1}\begin{vNiceMatrix}
+                {x_2}^{n-2} & {x_2}^{n-3} & \Cdots & 1 \\
+                {x_3}^{n-2} & {x_3}^{n-3} & \Cdots & 1 \\
+                \Vdots      & \Vdots & \Ddots & \Vdots\\
+                {x_n}^{n-2} & {x_n}^{n-3} & \Cdots & 1
+            \end{vNiceMatrix} - f\p{x_2}\begin{vNiceMatrix}
+                {x_1}^{n-2} & {x_1}^{n-3} & \Cdots & 1 \\
+                {x_3}^{n-2} & {x_3}^{n-3} & \Cdots & 1 \\
+                \Vdots      & \Vdots & \Ddots & \Vdots\\
+                {x_n}^{n-2} & {x_n}^{n-3} & \Cdots & 1
+            \end{vNiceMatrix}\right. \\
+            &\qquad\left.+ \dots + \p{-1}^{n-1} f\p{x_n}
+            \begin{vNiceMatrix}
+                {x_1}^{n-2} & {x_1}^{n-3} & \Cdots & 1 \\
+                {x_2}^{n-2} & {x_2}^{n-3} & \Cdots & 1 \\
+                {x_3}^{n-2} & {x_3}^{n-3} & \Cdots & 1 \\
+                \Vdots      & \Vdots & \Ddots & \Vdots\\
+                {x_{n-1}}^{n-2} & {x_{n-1}}^{n-3} & \Cdots & 1
+            \end{vNiceMatrix}\right) = \sum_{k=1}^n f\p{x_k}\dfrac{\p{-1}^{n-k}V\p{\p{x_i}_{i \neq k}}}{\displaystyle\prod_{i \leq i < j \leq n}\p{x_i - x_j}}\\
+            &= \sum_{k=1}^n f\p{x_k}\dfrac{\p{-1}^{n-k}\displaystyle \prod_{\substack{1 \leq i < j \leq n\\ i \neq k \quad j \neq k}} \p{x_i - x_j}}{\displaystyle\prod_{1 \leq i < j \leq n} \p{x_i - x_j}} = \sum_{k=1}^n \dfrac{f\p{x_k}}{\p{-1}^{n-k}\displaystyle\prod_{i = 1}^{k-1} \p{x_k - x_i}\prod_{i=k+1}^n \p{x_i - x_k}}
+            \end{align*}
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Donc ils existent d'uniques $A_1, \dots A_n$ tels que décrit avec $A_k = \displaystyle\prod_{i = 1,\ i \neq k}^{n} \p{x_k - x_i}$.
+        }
+        %
+        \yesafter
+        
+        \item Montrer que $Q_f$ est invariant par permutation des variables.
+        
+        \noafter
+        %
+        \boxans{
+            Soit $\sigma \in \bfS_n$. On a $T_\sigma\p{Q_{P_f}} = \epsilon\p{\sigma}Q_{T_\sigma\p{P_f}}$. Or $T_\sigma\p{P_f} \in F_n$ d'où :
+            %
+            \[ T_\sigma\p{Q_f}\p{x_1, \dots, x_n} = \epsilon\p{\sigma}\sum_{i=1}^n \dfrac{f\p{x_i}}{T_\sigma\p{A_i}\p{x_1, \dots, x_n}} = \epsilon\p{\sigma} \sum_{i=1}^n \dfrac{f\p{x_i}}{\epsilon\p{\sigma}A_i\p{x_1, \dots, x_n}} = Q_f\p{x_1, \dots, x_n}\]
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Donc $T_\sigma\p{Q_f} = Q_f$, d'où $Q_f$ est invariant par permutation des variables.
+        }
+        %
+        \yesbefore
+        
+        \item Déterminer $Q_f$ lorsque $f\p{x} x^k$, avec $k = 0, 1, \dots, n$.
+        
+        \boxansconc{
+            Pour $k = n-1$, on a déjà montré que $Q_f = 1$. Pour $k < n-1$, il y a deux colonnes égales dans le déterminant donc $Q_f = 0$. 
+        }
+    \end{enumerate}
+    
+    \section{}
+    
+    Dans cette partie, on fixe des nombres réels deux à deux distincts $a_1, \dots, a_n$ et une fonction $f$ sur $\bdR$ à valeurs réelles.
+    
+    \begin{enumerate}[resume]
+        \item Trouver un polynôme $g_f$ de degré inférieur à $n-1$ vérifiant $g\p{a_i} = f\p{a_i}$ pour tout $i \in \iint{1, n}$ et démontrer son unicité.
+        
+        \noafter
+        %
+        \boxans{
+            Soit $i \in \iint{1, n}$, on pose $L_i$ la fonction polynomiale relle que $L_i\p{x} = \displaystyle \prod_{k = 1,\ k \neq i}^n \dfrac{x - a_k}{a_i - a_k}$.
+            
+            On obtient que $P\p{x_j} = \delta_{i, j}$ et $\deg L_i \leq n-1$
+            
+            On pose alors $g_f = \displaystyle\sum_{k=1}^n f\p{a_k} L_k$, d'où $g_f\p{a_i} = f\p{a_i}$ et $\deg g_f \leq n -1$. En supposant $h_f$ vérifiant les mêmes propriétés, $h_f$ et $g_f$ ont $n$ points communs distincts et sont de degré $n - 1$ au plus, donc par rigidité, $g_f = h_f$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Donc il existe un unique $g_f = \displaystyle\sum_{i=1}^n f\p{a_i}\prod_{k = 1,\ k \neq i}^n \dfrac{x - a_k}{a_i - a_k}$ tel que décrit.
+        }
+        %
+        \yesbefore
+    \end{enumerate}
+    
+    On notera $R_f\p{a_1, \dots, a_n}$ le coefficient $x^{n-1}$ dans $g_f$.
+    
+    \begin{enumerate}[resume]
+        \item Supposant que $f$ est un polynôme, comparer $R_f\p{a_1, \dots, a_n}$ et $Q_f\p{a_1, \dots, a_n}$.
+        
+        \boxansconc{
+            On a directement $R_f\p{a_1, \dots, a_n} = \displaystyle\sum_{k=1}^n f\p{a_k}\dfrac{1}{\displaystyle\prod_{i=1,\ i \neq k}^n \p{a_k - a_i}} = \sum_{k=1}^n \dfrac{f\p{a_k}}{A_k\p{a_1, \dots, a_n}} = Q_f\p{a_1, \dots, a_n}$.
+        }
+        
+        \item Supposant $n = 2$ et $k$ entier supérieur ou égal à $0$, donner une condition suffisante portant sur $f$ pour que $R_f$ se prolonge en une fonction de classe $\bcC^k$ sur $\bdR^2$ (on pourra utiliser la formule de \textsc{Taylor} avec reste intégral à l'ordre $1$).
+        
+        \noafter
+        %
+        \boxans{
+            On a $R_f\p{a_1, a_2} = Q_f\p{a_1, a_2} = \dfrac{f\p{a_1} - f\p{a_2}}{a_1 - a_2}$. Pour que la fonction soit définie sur $\bdR^2$, il faut donc que si $a_1 = a_2$ on ait $f\p{a_1} = f\p{a_2}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+        
+        }
+        %
+    \end{enumerate}
+    
+    \section{}
+    
+    Dans cette partie, on fixe des nombres réels deux à deux distincts $a_1, \dots, a_n$ et des entiers positifs ou nuls $r_1, \dots, r_n$ ; on pose :
+    %
+    \[ r = \p{\sum_{i=1}^n \p{r_i + 1}} - 1\]
+    %
+    On note $G$ l'espace vectoriel des fonctions polynômes à une variable, à coefficients réels, de degré au plus $r$.
+    
+    \begin{enumerate}[resume]
+        \item On se propose d'étudier les familles de polynômes $P_{i, j}$ avec $i \in \iint{1, n}$ et $j \in \iint{0, r_i}$ vérifiant :
+        %
+        \[ P_{i, j}^{\p{k}}\p{a_\ell} = \delta_{i, \ell}\delta_{j, k} \qquad\text{pour}\qquad \ell \in \iint{1, n} \qquad\et\qquad k \in \iint{0, r_\ell} \]
+        %
+        où le $\delta$ désigne le symbole de \textsc{Kronecker}.
+        
+        \begin{enumerate}
+            \item Démontrer l'unicité d'une telle famille $\p{P_{i, j}}$.
+            
+            \noafter
+            %
+            \boxans{
+                Supposons l'existence de deux $P_{i, j}$ et $Q_{i, j}$ satisfaisant les conditions ci-dessus. Montrons que $P_{i, j} = Q_{i, j}$. Puisque ces deux fonctions sont dans $G$, elles sont au plus de degré $r$. On procède par rigidité, en montrant qu'elles possèdes ont $r+1$ points communs.
+                
+                Or pour un $\ell \in \iint{1, n}$ donné, pour tout $k \in \iint{0, r_\ell}$, la propriété ci-dessous livre $P_{i, j}^{\p{k}}\p{a_\ell} = Q_{i, j}^{\p{k}}\p{a_\ell}$. On a donc $\displaystyle\sum_{\ell=1}^n \p{r_\ell + 1} = r + 1$ points communs d'où $P_{i, j} = Q_{i, j}$.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Si deux familles existent et vérifient les propriétés, alors elles sont identiques, il y a donc unicité.
+            }
+            %
+            \yesbefore
+            
+            \item Montrer qu'une telle famille $\p{P_{i, j}}$, si elle existe, est une base de $G$.
+            
+            \boxans{
+            
+            }
+            
+            \item Démontrer l'existence d'une telle famille $\p{P_{i, j}}$.
+            
+            
+            
+            \item Déterminer explicitement la famille $\p{P_{i, j}}$ dans le cas où $n = 2$ et $r_1 = r_2 = 1$.
+        \end{enumerate}
+        
+        \item On suppose maintenant $n = 2$ et $r_1 = r_2 = 1$. Pour tout entier $p \geq 0$ et tout réel $x$ on pose $\phi_p\p{x} = x^p$. Pour tout $f \in E_1$ et tous réels $x_1, x_2$ on pose :
+        %
+        \[ D_f\p{x_1, x_2} = \begin{vNiceMatrix}
+            f\p{x_1} & \phi_2\p{x_1} & \phi_1\p{x_1} & \phi_0\p{x_1} \\
+            f'\p{x_1} & \phi_2'\p{x_1} & \phi_1'\p{x_1} & \phi_0'\p{x_1} \\
+            f\p{x_2} & \phi_2\p{x_2} & \phi_1\p{x_2} & \phi_0\p{x_2} \\
+            f'\p{x_2} & \phi_2'\p{x_2} & \phi_1'\p{x_2} & \phi_0'\p{x_2}
+        \end{vNiceMatrix}\]
+        
+        \begin{enumerate}
+            \item Vérifier que l'on a $\p{\partial_1^k D_f}\p{x, x} =0$ pour $k \in \iint{0, 3}$.
+            
+            \item En déduire l'existence d'un polynôme $\Delta_f \in E_2$ tel que :
+            %
+            \[ D_f\p{x_1, x_2} = \p{x_1 - x_2}^4 \Delta_f\p{x_1, x_2}\]
+            %
+            \item Comparer $\Delta_f\p{a_1, a_2}$ et le coefficient de $x^3$ dans le polynôme $g_f$.
+        \end{enumerate}
+    \end{enumerate}
+\end{document}

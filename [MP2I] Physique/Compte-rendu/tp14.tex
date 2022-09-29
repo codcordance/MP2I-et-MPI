@@ -1,0 +1,462 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\renewcommand{\thesection}{\Roman{section}} 
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+    
+\begin{document}
+\stylizeDoc{Physique}{Compte-rendu du TP 14}{Étude du pendule simple}
+
+
+\section{Éléments théoriques}
+
+On étudie un pendule simple de masse $m$ et de longueur $\ell$ dans le référentiel terrestre supposé galiléen. On néglige les frottements dans la modélisation.
+\begin{enumerate}
+    \item Faire un schéma \textbf{propre} et \textbf{légendé} du dispositif. On notera $\theta$ l’angle que forme le fil avec l’axe vertical.
+    
+    \boxans{
+        \centering\begin{tikzpicture}[scale=1.2]
+        \draw[dashed] (0,0) -- (0,-3);
+            \draw[color=main1,thick] (0,0) -- node [midway,label={east:$\ell$}] {} (1,-2);
+            \node[circle,fill,inner sep=1.5pt,label={[main1]above:$O$},color=main1] at (0,0) {};
+        
+            \draw[-latex',thick,color=main20] (1,-2) -- node[right] {$\vec{u_r}$} (1.4,-2.8);
+            \draw[-latex',thick,color=main20] (1,-2) -- node[right,label={east:$\vec{u_\theta}$}] {} (1.6,-1.7);
+        
+            \draw[-latex',thick,color=main21] (1,-2) -- node[right] {$\vec{T}$} (0.5,-1);
+        \draw[-latex',thick, color=main21] (1,-2) -- node[left] {$\vec{P}$} (1,-3);
+        \draw[-latex',thick,color=main21!50] (2,0) -- node[left] {$\vec{g}$} (2,-1);
+
+        
+        \coordinate (a) at (0,0);
+        \coordinate (b) at (0,-3);
+        \coordinate (c) at (1,-2);
+
+        \draw pic[-latex',draw,angle radius=1cm, "$\theta$",thick] {angle=b--a--c};
+        \node[circle,fill,inner sep=3pt,label={[main3]west:$M, m$},color=main1] at (1,-2) {};
+        \end{tikzpicture}
+    
+    }
+
+    
+    \item Montrer que l’application du PFD à la masse $m$ conduit à
+    
+    \begin{equation}\label{eq1}
+        \boxed{\ddot \theta + \omega_0^2 \sin \theta = 0 \qquad \text{où} \qquad \omega_0 = \sqrt{\dfrac{g}{\ell}}}
+    \end{equation}
+    Que devient cette équation dans l’approximation des petits angles ?
+    
+    \boxans{
+    On fait dans un premier temps le bilan des forces exercées sur le pendule : en négligeant les frottements, s'exercent uniquement le poids $\vec{P}$ et la tension $\vec{T}$ tels que 
+    \[ \vec{P} = mg\cos{\theta}\vec{u_r} - mg\sin{\theta}\vec{u_\theta} \qquad \text{et} \qquad \vec{T} = -T\vec{u_r}\]
+    Dans ce système de coordonnée polaires, on a l'accélération $\vec{a}$ d'expression :
+    \[ \vec{a} = (\ddot r - r\dot\theta^2)\vec{u_r} + (r\ddot \theta + 2\dot r\dot \theta)\vec{u_\theta}\]
+    Avec $\forall t$, $r(t) = \ell$ constant, d'où $\dot r = \ddot r = 0$ et donc $\vec{a} = -\ell\dot\theta^2\vec{u_r} + \ell\ddot\theta\vec{u_\theta}$. Le PFD livre alors :
+    \[ -m\ell \ddot\theta = -T + mg\cos\theta \qquad \text{et} \qquad m\ell\ddot\theta = -mg\sin{\theta}\]
+    L'équation de droite se réécrit $\ddot\theta = -\dfrac{g}{l}\sin{\theta}$ soit $\ddot\theta + \dfrac{g}{l}\sin{\theta} = 0$. On retrouve bien l'équation \eqref{eq1}.
+    
+    Dans l'approximation des petits angles, on a $\sin\theta \approx \theta$. L'équation \eqref{eq1} devient donc $\boxed{\ddot\theta + \omega_0^2\theta = 0}$.
+    
+    }
+    
+    
+    
+    \item Justifier que le système est conservatif. Montrer que l’énergie mécanique s’écrit à une constante près :
+    
+    \begin{equation}\label{eq2}
+        \boxed{E_m = \dfrac{1}{2}m\ell^2\dot\theta^2 - mg\ell \cos \theta }
+    \end{equation}
+    
+    \boxans{
+    Le poids $\vec{P}$ est une force conservatrice, et la tension $\vec{T}$ est dirigée selon $\vec{u_r}$ donc elle ne travaille jamais. Le système est donc conservatif et l'on a 
+    }
+
+\end{enumerate}
+
+\section{Isochronisme des petites oscillations}
+
+\begin{form}{Expérience 1}{}
+    \begin{center}
+        \hgu{Mesure directe de la période}
+    \end{center}
+    \begin{enumerate}
+        \ithand Lâcher le pendule sans vitesse initiale d’un angle $\theta_0 \approx 10^\circ$.
+        \ithand Mesurer directement la période $T_0$ au chronomètre. On effectuera la mesure sur une dizaine de périodes pour améliorer la précision.
+        \ithand En déduire une estimation de la valeur de l’accélération de la pesanteur $g$. Déterminer l’incertitude sur la valeur en réalisant une simulation Monte-Carlo à partir du fichier \verb|TP14_script_1.py| présent sur le site de la classe. Comparer avec la valeur attendue $g_{attendue} = 9,81 \ m \cdot s^{-2}$.
+    \end{enumerate}
+\end{form}
+\boxans{
+On mesure $n = 10$ périodes sur une durée $T_n = 15.2 \ s$. On mesure par ailleurs une longueur $l = 59,0 \ cm$.
+
+On a $T_0 = \dfrac{T_n}{n}$. Or $T_0 = 2\pi\sqrt{\dfrac{l}{g}}$, donc $\dfrac{T_n}{n} = 2\pi\sqrt{\dfrac{l}{g}}$ donc $\left(\dfrac{T_n}{2\pi n}\right)^2 = \dfrac{l}{g}$ donc \boxsol{$g = l\left(\dfrac{2\pi n}{T_n}\right)^2$}.
+
+En faisant la simulation de Monte-Carlo, on obtient $g \approx 10,0 \ m \cdot s^{-2}$ et $u(g) \approx 0,13 \ m \cdot s^{-2}$.
+}
+\begin{code}{Python}{tp14.py}
+import numpy as np
+
+##### On détermine (*@ $\codecom u(T_0)$ @*) par une incertitude de type A
+# Valeurs à compléter en secondes
+T = np.array([15.2, 15.54, 14.93, 15.3, 15.2])/10
+N = len(T)
+T_moy = np.mean(T)
+u_T_moy = np.std(T, ddof=1) / np.sqrt(N)
+
+##### On détermine (*@ $\codecom u(l)$ @*) par une incertitude de type B
+# Valeurs à compléter en mètres
+l = 59 * 10 ** (-2)
+u_l = (0.2 * 10 ** (-2)) / (2 * np.sqrt(3))
+
+##### On détermine (*@ $\codecom u(g)$ @*) par une méthode de Monte-Carlo
+
+# Nombre de simulations de la mesure
+N_simu = 100000
+# Intervalle de précision pour (*@ $\codecom g$ @*) et (*@ $\codecom l$ @*)
+Delta_T = np.sqrt(3) * u_T_moy
+Delta_l = np.sqrt(3) * u_l
+# Calculs avec une distribution de probabilité uniforme
+T_sim = np.random.uniform(T_moy - Delta_T, T_moy + Delta_T, N_simu)
+l_sim = np.random.uniform(l - Delta_l, l + Delta_l, N_simu)
+g_sim = 4 * ((np.pi) ** 2) * l_sim / (T_sim ** 2)
+
+# Calcul et affichage moyenne et écart type
+g_moy = np.mean(g_sim)
+u_g = np.std(g_sim, ddof=1)
+print('Moyenne g =', g_moy)
+print('Ecart type g =', u_g)
+print('z-score =', np.abs(g_moy - 9.81)/u_g)
+\end{code}
+\boxans{
+On calcule le $z$-score avec \boxsol{$z = \dfrac{\mod{g-g_{attendue}}}{u(g)}$}. On obtient $z \approx 1.76$.}
+\section{Conservation de l'énergie mécanique}
+
+\begin{form}{Expérience 2}{}
+    \begin{center}
+        \hgu{Acquisition d’une vidéo par un téléphone portable}
+    \end{center}
+    \begin{enumerate}
+        \ithand Lâcher le pendule sans vitesse initiale d’un angle $\theta_0 \approx 40^\circ$.
+        \ithand Enregistrer une vidéo de quelques oscillations sur un téléphone portable, l’exporter en \verb|.avi| sur l’ordinateur et ouvrir le logiciel \verb|LatisPro|.
+        \ithand Régler l’\verb|Origine| et l’\verb|Échelle|. Obtenir l’abscisse et l’ordonnée du point M en fonction du temps.
+    \end{enumerate}
+\end{form}
+
+\boxans{
+\pgfplotsset{height=7cm, width=13cm}
+        \center \begin{tikzpicture}
+            \begin{axis}[
+                axis lines          = center,
+                xmin                = 0,
+                xmax                = 3.2,
+                xlabel              = $t$,
+                ylabel              = $E$,
+                ymin                = 0,
+                ymax                = 0.7,
+                grid                = both,
+                grid style          = {line width = .1pt, draw = gray!30},
+                major grid style    = {line width=.2pt,draw=gray!50},
+                minor tick num      = 0,
+                legend pos          = north west,
+            ]
+            \addlegendentry{{\color{white5}$E_c(t)$}}
+            \addlegendentry{{\color{white5}$E_ {pp}(t)$}}
+            \addlegendentry{{\color{white5}$E_m(t)$}}
+            \addplot[color=main1, line width=0.5mm]
+            coordinates {
+(0,0.050245039)
+(0.0333333,0.051144717)
+(0.0666666,0.066579786)
+(0.0999999,0.093405655)
+(0.1333332,0.126467827)
+(0.1666665,0.157715577)
+(0.1999998,0.21650961)
+(0.2333331,0.295403073)
+(0.2666664,0.305176686)
+(0.2999997,0.353638189)
+(0.333333,0.401287553)
+(0.3666663,0.287566099)
+(0.3999996,0.255090647)
+(0.4333329,0.318251316)
+(0.4666662,0.283714278)
+(0.4999995,0.191031852)
+(0.5333328,0.152202889)
+(0.5666661,0.143032958)
+(0.5999994,0.088878464)
+(0.6333327,0.037940387)
+(0.666666,0.019819619)
+(0.6999993,0.005662179)
+(0.7333326,6.27899E-05)
+(0.7666659,0.004512355)
+(0.7999992,0.020105294)
+(0.8333325,0.048071627)
+(0.8666658,0.090379092)
+(0.8999991,0.13043426)
+(0.9333324,0.1485891)
+(0.9666657,0.19833071)
+(0.999999,0.291529612)
+(1.0333323,0.333590276)
+(1.0666656,0.306993721)
+(1.0999989,0.28710583)
+(1.1333322,0.314524743)
+(1.1666655,0.327970352)
+(1.1999988,0.30759751)
+(1.2333321,0.273363615)
+(1.2666654,0.218145239)
+(1.2999987,0.173032883)
+(1.333332,0.12959655)
+(1.3666653,0.079585327)
+(1.3999986,0.051542681)
+(1.4333319,0.028810269)
+(1.4666652,0.011060034)
+(1.4999985,0.004367645)
+(1.5333318,0.001515502)
+(1.5666651,0.005605523)
+(1.5999984,0.017619922)
+(1.6333317,0.038945558)
+(1.666665,0.0670559)
+(1.6999983,0.094915935)
+(1.7333316,0.136323086)
+(1.7666649,0.172131109)
+(1.7999982,0.204602799)
+(1.8333315,0.259761919)
+(1.8666648,0.296425671)
+(1.8999981,0.332853425)
+(1.9333314,0.360058474)
+(1.9666647,0.324759294)
+(1.999998,0.30751484)
+(2.0333313,0.321103341)
+(2.0666646,0.283068634)
+(2.0999979,0.199436545)
+(2.1333312,0.15662206)
+(2.1666645,0.129535278)
+(2.1999978,0.084673581)
+(2.2333311,0.036273762)
+(2.2666644,0.018211061)
+(2.2999977,0.007178551)
+(2.333331,0.000321732)
+(2.3666643,0.006683312)
+(2.3999976,0.029272395)
+(2.4333309,0.046760981)
+(2.4666642,0.07387454)
+(2.4999975,0.118407129)
+(2.5333308,0.140333314)
+(2.5666641,0.183756964)
+(2.5999974,0.294381362)
+(2.6333307,0.360515728)
+(2.666664,0.348551157)
+(2.6999973,0.360486348)
+(2.7333306,0.35403163)
+(2.7666639,0.288283994)
+(2.7999972,0.252414026)
+(2.8333305,0.253888054)
+(2.8666638,0.201224217)
+(2.8999971,0.156912937)
+(2.9333304,0.13916628)
+(2.9666637,0.095103469)
+(2.999997,0.054789366)
+(3.0333303,0.024569624)
+(3.0666636,0.00773692)
+(3.0999969,0.000747957)
+(3.1333302,0.000856179)
+(3.1666635,0.012669351)
+            };
+            \addplot[color=main4, line width=0.5mm]
+            coordinates {
+(0,0.310090776)
+(0.0333333,0.282292641)
+(0.0666666,0.26376055)
+(0.0999999,0.222063347)
+(0.1333332,0.189632189)
+(0.1666665,0.143301963)
+(0.1999998,0.12013685)
+(0.2333331,0.083072669)
+(0.2666664,0.059907556)
+(0.2999997,0.036742443)
+(0.333333,0.027476398)
+(0.3666663,0.036742443)
+(0.3999996,0.050641511)
+(0.4333329,0.087705692)
+(0.4666662,0.124769872)
+(0.4999995,0.157201031)
+(0.5333328,0.194265211)
+(0.5666661,0.24522846)
+(0.5999994,0.305457754)
+(0.6333327,0.319356821)
+(0.666666,0.342521934)
+(0.6999993,0.365687047)
+(0.7333326,0.37032007)
+(0.7666659,0.365687047)
+(0.7999992,0.35178798)
+(0.8333325,0.328622867)
+(0.8666658,0.300824731)
+(0.8999991,0.249861483)
+(0.9333324,0.194265211)
+(0.9666657,0.161834053)
+(0.999999,0.12013685)
+(1.0333323,0.083072669)
+(1.0666656,0.046008488)
+(1.0999989,0.041375466)
+(1.1333322,0.027476398)
+(1.1666655,0.046008488)
+(1.1999988,0.064540579)
+(1.2333321,0.087705692)
+(1.2666654,0.124769872)
+(1.2999987,0.143301963)
+(1.333332,0.198898234)
+(1.3666653,0.235962415)
+(1.3999986,0.254494505)
+(1.4333319,0.291558686)
+(1.4666652,0.305457754)
+(1.4999985,0.314723799)
+(1.5333318,0.323989844)
+(1.5666651,0.305457754)
+(1.5999984,0.291558686)
+(1.6333317,0.268393573)
+(1.666665,0.240595437)
+(1.6999983,0.208164279)
+(1.7333316,0.161834053)
+(1.7666649,0.12013685)
+(1.7999982,0.087705692)
+(1.8333315,0.055274533)
+(1.8666648,0.027476398)
+(1.8999981,0.036742443)
+(1.9333314,0.022843375)
+(1.9666647,0.041375466)
+(1.999998,0.046008488)
+(2.0333313,0.069173601)
+(2.0666646,0.092338714)
+(2.0999979,0.147934985)
+(2.1333312,0.194265211)
+(2.1666645,0.240595437)
+(2.1999978,0.286925663)
+(2.2333311,0.323989844)
+(2.2666644,0.328622867)
+(2.2999977,0.361054025)
+(2.333331,0.361054025)
+(2.3666643,0.347154957)
+(2.3999976,0.333255889)
+(2.4333309,0.310090776)
+(2.4666642,0.286925663)
+(2.4999975,0.24522846)
+(2.5333308,0.189632189)
+(2.5666641,0.157201031)
+(2.5999974,0.124769872)
+(2.6333307,0.069173601)
+(2.666664,0.059907556)
+(2.6999973,0.03210942)
+(2.7333306,0.018210353)
+(2.7666639,0.055274533)
+(2.7999972,0.064540579)
+(2.8333305,0.083072669)
+(2.8666638,0.12013685)
+(2.8999971,0.129402895)
+(2.9333304,0.189632189)
+(2.9666637,0.231329392)
+(2.999997,0.26376055)
+(3.0333303,0.296191708)
+(3.0666636,0.319356821)
+(3.0999969,0.323989844)
+(3.1333302,0.323989844)
+(3.1666635,0.319356821)};
+            \addplot[color=main7, line width=0.5mm]
+            coordinates {
+(0,0.360335815)
+(0.0333333,0.333437358)
+(0.0666666,0.330340337)
+(0.0999999,0.315469002)
+(0.1333332,0.316100016)
+(0.1666665,0.30101754)
+(0.1999998,0.33664646)
+(0.2333331,0.378475742)
+(0.2666664,0.365084242)
+(0.2999997,0.390380632)
+(0.333333,0.428763951)
+(0.3666663,0.324308542)
+(0.3999996,0.305732158)
+(0.4333329,0.405957008)
+(0.4666662,0.40848415)
+(0.4999995,0.348232882)
+(0.5333328,0.3464681)
+(0.5666661,0.388261418)
+(0.5999994,0.394336217)
+(0.6333327,0.357297208)
+(0.666666,0.362341554)
+(0.6999993,0.371349226)
+(0.7333326,0.37038286)
+(0.7666659,0.370199403)
+(0.7999992,0.371893274)
+(0.8333325,0.376694494)
+(0.8666658,0.391203823)
+(0.8999991,0.380295743)
+(0.9333324,0.342854312)
+(0.9666657,0.360164763)
+(0.999999,0.411666462)
+(1.0333323,0.416662945)
+(1.0666656,0.353002209)
+(1.0999989,0.328481296)
+(1.1333322,0.342001141)
+(1.1666655,0.37397884)
+(1.1999988,0.372138089)
+(1.2333321,0.361069306)
+(1.2666654,0.342915111)
+(1.2999987,0.316334846)
+(1.333332,0.328494784)
+(1.3666653,0.315547742)
+(1.3999986,0.306037186)
+(1.4333319,0.320368955)
+(1.4666652,0.316517788)
+(1.4999985,0.319091444)
+(1.5333318,0.325505346)
+(1.5666651,0.311063276)
+(1.5999984,0.309178608)
+(1.6333317,0.307339131)
+(1.666665,0.307651338)
+(1.6999983,0.303080214)
+(1.7333316,0.298157139)
+(1.7666649,0.292267959)
+(1.7999982,0.292308491)
+(1.8333315,0.315036452)
+(1.8666648,0.323902068)
+(1.8999981,0.369595868)
+(1.9333314,0.38290185)
+(1.9666647,0.36613476)
+(1.999998,0.353523328)
+(2.0333313,0.390276942)
+(2.0666646,0.375407348)
+(2.0999979,0.347371531)
+(2.1333312,0.350887272)
+(2.1666645,0.370130715)
+(2.1999978,0.371599244)
+(2.2333311,0.360263606)
+(2.2666644,0.346833927)
+(2.2999977,0.368232576)
+(2.333331,0.361375757)
+(2.3666643,0.353838269)
+(2.3999976,0.362528284)
+(2.4333309,0.356851758)
+(2.4666642,0.360800204)
+(2.4999975,0.363635589)
+(2.5333308,0.329965503)
+(2.5666641,0.340957995)
+(2.5999974,0.419151235)
+(2.6333307,0.429689329)
+(2.666664,0.408458713)
+(2.6999973,0.392595768)
+(2.7333306,0.372241983)
+(2.7666639,0.343558528)
+(2.7999972,0.316954605)
+(2.8333305,0.336960723)
+(2.8666638,0.321361066)
+(2.8999971,0.286315832)
+(2.9333304,0.328798469)
+(2.9666637,0.326432861)
+(2.999997,0.318549916)
+(3.0333303,0.320761333)
+(3.0666636,0.327093742)
+(3.0999969,0.324737801)
+(3.1333302,0.324846023)
+(3.1666635,0.332026173)};
+            \end{axis}
+            \end{tikzpicture}
+            }
+\end{document}

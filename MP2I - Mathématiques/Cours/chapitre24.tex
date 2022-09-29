@@ -1,0 +1,105 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Chapitre 24}{Probabilités finies}
+
+Ce deuxième chapitre de probabilités continue les travaux sur les mathématiques discrètes. L'objectif est de modéliser les phénomènes aléatoires, le hasard, dans un cadre \textit{fini}. L'étude dans un cadre infini, mais toujours discret, sera fait l'année prochaine en indexant sur les entiers naturels, et ensuite dans un cadre continu, cette fois-ci avec les réels. Ce chapitre n'explique donc pas comment tirer \guill{au hasard} un réel dans un intervalle donné. Il introduit néanmoins les notions qui y seront utiles plus tard. Il s'agit donc de fournir un cadre rigoureux pour les probabilités.
+
+\initcours{}
+
+\section{Univers et évènements}
+
+\subsection{Notion d'expérience aléatoire}
+
+On commence par définir la notion d'expérience aléatoire :
+
+\begin{definition}{Expérience aléatoire}{}
+    On dit qu'une expérience est une \hg{expérience aléatoire} lorsque \hg{les résultats ne dépendent que du hasard}.
+\end{definition}
+
+Cette définition reste très floue (on pourrait même dire, dans un certain sens philosophique, que c'est une définition négative), et une expérience aléatoire ne se comprend qu'intuitivement.
+
+
+\begin{definition}{Univers des possibles}{}
+    On dit qu'un ensemble est l'\hg{univers des possibles} d'une expérience aléatoire lorsqu'il est égal à l'\hg{ensemble des résultats possibles} de l'expérience aléatoire.
+\end{definition}
+
+L'univers des possibles et parfois appelé simplement univers. Il sera généralement noté $\Omega$ et un élément de l'univers sera noté $w$. $\omega$ correspond donc à un résultat possible. Dans la suite, on ne considèrera que des univers $\Omega$ finis. On donne ci-dessous des exemples d'expériences aléatoires et les univers qui correspondent :
+
+\begin{example}{}{}
+    \begin{enumerate}
+        \itt Le \hg{lancer d'un dé à 6 faces} forme une expérience aléatoire. L'univers des possibles est :
+        %
+        \[ \hg{\Omega = \left\llbracket 1, 6\right\rrbracket} \]
+        
+        \itt Les \hg{$n$ lancers successif d'un dé à 6 faces} forment une expérience aléatoire. L'univers des possibles est
+        %
+        \[ \hg{\Omega = \left\llbracket 1, 6\right\rrbracket^n} \]
+        
+        \itt Les \hg{$n$ tirages successifs avec remise dans une urne contenant $p$ objets distincts} forment une expérience aléatoire. L'univers des possibles est :
+        %
+        \[ \hg{\Omega = \left\llbracket 1, p\right\rrbracket^n} \]
+        
+        \itt Les \hg{$n$ tirages successifs \textit{sans} remise dans une urne contenant $p \geq n$ objets distincts} forment une expérience aléatoire. L'univers des possibles est :
+        
+        \[ \hg{\Omega = \left\{ n\text{-arrangements de} \ \left\llbracket1, p\right\rrbracket\right\}} \qquad\et\qquad \hg{\mod{\Omega} = \dfrac{p!}{\left(p-n\right)!} = p\left(p-1\right)\dots\left(p-n+1\right)} \]
+        
+        \itt La \hg{distribution de $n$ cartes d'un jeu à $p$ cartes} forme une expérience aléatoire. L'univers des possibles est :
+        %
+        \[ \hg{\Omega = \left\{ n\text{-combinaisons de} \ \left\llbracket1, p\right\rrbracket\right\}} \qquad\et\qquad \hg{\mod{\Omega} = \binom{p}{n}} \]
+    \end{enumerate}
+\end{example}
+
+\subsection{Notion d'évènement}
+
+La motivation derrière la notion d'évènement réside dans la volonté de modéliser des propriétés sur les résultats observables. Dans le lancé d'un dé à 6 faces, on pourrait par exemple chercher à savoir quand le résultat du lancé sera pair. On considère donc la propriété selon laquelle le résultat de l'expérience aléatoire est un nombre pair. Plus généralement, on se donne un prédicat $Q$ sur l'expérience aléatoire pour $\omega \in \Omega$, de sorte que l'ensemble des possibles vérifiant la propriété $Q$ est :
+%
+\[ \left\{\vphantom{\int}\omega \in \Omega \ \middle\vert \ Q\left(\omega\right) \ \text{est vrai}\right\} \]
+%
+On remarque qu'il s'agit alors d'une partie de $\Omega$. On définit donc les évènements sur un univers fini
+%
+\begin{definition}{Évènement (univers fini)}{}
+    Soit une expérience aléatoire d'univers des possibles $\Omega$ \textit{fini}. On dit qu'un ensemble est un \hg{évènement} lorsque c'est un \hg{sous-ensemble de $\Omega$}.
+\end{definition}
+
+On remarquera alors que l'ensemble des évènements est $\bcP\left(\Omega\right)$. Dans le cas d'un univers des possibles infini, on sera amené à ne pas forcément considérer chaque sous-ensemble de $\Omega$ comme un évènement. Il faudra alors introduire la notion de \textit{tribu}. On donne ci-dessous des exemples d'évènements.
+
+\begin{example}{}{}
+    TODO
+\end{example}
+
+Cette modélisation des probabilités sur une base ensembliste, permet d'introduire pour la plupart des notions sur les ensembles un équivalent probabiliste. On présente donc le vocabulaire suivant :
+
+\begin{definition}{Terminologie probabiliste}{}
+    Soit une expérience aléatoire d'univers des possibles $\Omega$ \textit{fini}. 
+    
+    \begin{enumerate}
+        \ithand On dit qu'un évènement $A$ est un \hg{évènement impossible} lorsque \hg{$A = \emptyset$}.
+        
+        \ithand On dit qu'un évènement $A$ est un \hg{évènement certain} lorsque \hg{univers des possible $A = \Omega$}.
+        
+        \ithand On dit qu'un évènement $A$ est un \hg{évènement élémentaire} lorsqu'\hg{il existe $\omega \in \Omega$} tel que \hg{$A = \left\{\omega\right\}$}.
+        
+        \ithand On dit qu'un évènement $A$ est l'\hg{évènement contraire} d'un évènement $B$ lorsque \hg{$A = \overline B = \complement_\Omega B = \Omega \backslash B$}.
+        
+        \ithand
+    \end{enumerate}
+\end{definition}
+
+\section{Probabilités, ou la mesure du hasard}
+
+\subsection{Notion de probabilité}
+
+\begin{definition}{Mesure de probabilité}{}
+    Soit une expérience aléatoire d'univers des possibles $\Omega$ et d'ensemble des évènements $\bcP\left(\Omega\right)$. On dit qu'une application $\bcP : \bcP\left(\Omega\right) \to \left[0, 1\right]$ est une \hg{mesure de probabilité} sur $\left(\Omega, \bcP\left(\Omega\right)\right)$ lorsqu'elle vérifie :
+    %
+    \begin{psse}
+        \item $\hg{\bcP\left(\Omega\right) = 1}$ ;
+        \item \hg{pour tous les évènements $A$ et $B$ \textit{incompatibles}, $\bcP\left(A \cup B\right) = \bcP\left(A\right) + \bcP\left(B\right)$}.
+    \end{psse}
+\end{definition}
+
+Une mesure de probabilité est souvent simplement appelé probabilité. Le triplet $\left(\Omega, \bcP\left(\Omega\right), \bdP\right)$ est appelé espace probabilisé.
+
+\end{document}

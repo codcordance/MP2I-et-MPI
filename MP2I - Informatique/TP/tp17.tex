@@ -1,0 +1,38 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\lstset{language=Caml,keywordstyle={\color{main1}}}
+
+\newcommand{\rouge}{{\color{main9} rouge}}
+\newcommand{\rouges}{{\color{main9} rouges}}
+\DeclareMathOperator{\etiquettes}{etiquettes}
+\newboxans
+
+\begin{document}
+\stylizeDoc{Informatique}{TP17}{Réponses aux questions théoriques}
+
+\begin{enumerate}
+    \item Le chemin $A \to B \to C \to A \to D \to C \to B \to D \to E$.
+    
+    \item Le chemin $D \to A \to C \to D \to F \to E \to B \to F \to E \to D$.
+    
+    \item Pour tout chemin eulérien $A_0 \to A_1 \to \dots \to A_n$, alors pour tout noeud à l'intérieur du chemin qui n'est pas une des extrémités, \ie $\forall A_i \in \left\{A_i \middle\vert i \in \llbracket 1, n-1\rrbracket\right\} \backslash \{ A_0, A_n \}$, le chemin ne peut que arriver à $A$ puis en partir (ce n'est pas une extrémité), il y a donc un nombre pair d'arêtes différentes connectées à $A_i$ donc $A_i$ est de degré pair. De plus pour un graphe eulérien, le noeud de départ est aussi le noeud d'arrivé, ce qui justifie la parité de son degré.
+    
+    \item Il faut qu'il y ait soit $0$, soit $2$ noeuds de degré impair.
+    
+    \item On considère que le chemin employé est $A_1 = x \to A_2 \to \dots \to A_{n-1} \to A_n = y$.
+    
+    On sait que $y$ est de degré pair et que toutes les arrêtes de $y$ ont été utilisés, donc il y a $2k$ arrête avec $y$ dans le chemin. Il reste donc $2k-1$ arrêtes avec $y$ dans $A_0 \to A_{n-1}$.
+    
+    Si $x$ apparaît entre $A_1$ et $A_{n-1}$, alors c'est forcément sous la forme $A_i \to x \to A_j$ donc il reste toujours un nombre pair d'arêtes de $x$ qui ne sont pas encore utilisées.
+    
+    Or il faut prendre en compte la toute première arête parcourue, soit $x \to A_2$ qui retire 1 arrête disponible de $x$. Il reste donc un nombre impair d'arêtes disponibles pour $x$.
+    
+    Puisqu'il ne reste qu'une seule arrête à parcourir $A_{n-1} \to A_n = y$, c'est forcément $A_{n-1} \to x = A_n = y$. Donc le noeud d'arrivée est bien $x$.
+    
+    \item L'algorithme décrit précédemment donne un chemin parcourant toutes les arrêtes d'une composante connexe dont les sommets de de degré pair. Si le graphe est connexe et que ses sommets sont tous de degré pair, alors il n'est fait que d'une seule composante connexe, contenant donc tous les sommets. l'algorithme donne alors bien un circuit eulérien. Donc si un graphe connexe a tous ses sommets de degré pair, alors c'est un graphe eulérien. Réciproquement, un graphe eulérien a tous ses sommets de degré pair comme montré plus haut.
+    
+    \item Supposons qu'une composante connexe ne possède que deux sommets de degré impair, et que tous les autres sont de degré pair.
+\end{enumerate}
+
+\end{document}

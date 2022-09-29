@@ -1,0 +1,205 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+\newboxans
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Devoir Maison 14}{Quaternions}
+
+\section*{Quaternions}
+
+On note $\bsH$ le sous ensemble des matrices carrées de taille 2 à coefficients complexes suivant :
+
+\begin{equation}
+    \bsH = \left\{\begin{pNiceMatrix}\overline u & -\overline v\\v & u\end{pNiceMatrix} \in \bcM_2(\bdC),\ (u, v) \in \bdC^2\right\}
+\end{equation}
+
+Les élément de $\bsH$ sont appelés \textit{\color{main1}quaternions}. On introduit les notations suivantes :
+
+\begin{equation}
+     E = I_2, \qquad I = \begin{pNiceMatrix}0 & -1\\1 & 0\end{pNiceMatrix},\qquad J = \begin{pNiceMatrix}0 & i\\i & 0\end{pNiceMatrix}, \qquad K = \begin{pNiceMatrix} -i & 0\\0 & i\end{pNiceMatrix}
+\end{equation}
+
+Enfin, on pose $\bsQ = \{ \pm E, \pm I, \pm J, \pm K\}$ (ensemble à 8 éléments).
+
+\begin{enumerate}
+    \item \begin{enumerate}
+        \item\label{question:1a} Montrer que $\bsH$ est un sous-anneau de $\bcM_2(\bdC)$.
+        
+        \boxans{
+            On a $\bsH \subset \bcM_2(\bdC)$ par définition. De plus $E = I_2 = \begin{pNiceMatrix}1 & 0\\0 & 1\end{pNiceMatrix} = \begin{pNiceMatrix}\overline 1 & 0\\0 & 1\end{pNiceMatrix} \in \bsH$.
+                
+            Soit $(M, N) \in \bsH^2$. On considère $(u, v, w, x) \in \bdC^2$ tels que $M = \begin{pNiceMatrix}\overline u & -\overline v\\v & u\end{pNiceMatrix}$ et $N = \begin{pNiceMatrix}\overline w & -\overline x\\x & w\end{pNiceMatrix}$.
+            \[ \begin{array}{c}
+                M - N = \begin{pNiceMatrix}\overline u & -\overline v\\v & u\end{pNiceMatrix} - \begin{pNiceMatrix}\overline w & -\overline x\\x & w\end{pNiceMatrix} = \begin{pNiceMatrix}\overline u - \overline w & -\overline v + \overline x\\v - x & u - w\end{pNiceMatrix} = \begin{pNiceMatrix}\overline{u - w} & -\overline{v - x}\\ v - x & u - w \end{pNiceMatrix} \in \bsH \\
+                M \times N = \begin{pNiceMatrix}\overline u & -\overline v\\v & u\end{pNiceMatrix} \times \begin{pNiceMatrix}\overline w & -\overline x\\x & w\end{pNiceMatrix} = \begin{pNiceMatrix}\overline u \overline w - \overline v x & -\overline u \overline x - \overline v w\\v\overline w + ux & -v\overline x + uw\end{pNiceMatrix} = \begin{pNiceMatrix}\overline{uw -v\overline x} & -\overline{ux+v\overline w}\\ux+v\overline w & uw-v\overline x\end{pNiceMatrix} \in \bsH
+            \end{array}\]
+            Par caractérisation, \boxsol{$\bsH$ est un sous-anneau de $\left(\bcM_2(\bdC), +, \times\right)$}.
+        }
+        
+        \item\label{question:1b} Déterminer $\bsH^*$ l'ensemble des éléments inversibles de $\bsH$.
+        
+        \boxans{
+            Soit $M = \begin{pNiceMatrix}\overline u & -\overline v\\v & u\end{pNiceMatrix} \in \bsH$, avec $(u, v) \in \bdC^2$. $M$ est inversible dans $\bcM_2(\bdC)$ si et seulement si $\det M \neq 0$. On a de plus les équivalences :
+            \[\det M \neq 0 \iff \overline u u - (- \overline v)v \neq 0 \iff \mod{u}^2 + \mod{v^2} \neq 0 \iff \mod{u}^2 \neq 0 \et \mod{v^2} \neq 0 \iff (u, v) \neq (0, 0)\]
+            Alors $M^{-1} = \dfrac{1}{\det M}\begin{pNiceMatrix}u & \overline v\\-v & \overline u\end{pNiceMatrix}$. Pour $u' = \dfrac{\overline u}{\det M}$ et $v' = \dfrac{v}{\det M}$, on a bien $M^{-1} \in \bsH$. Donc : 
+            \[ M \in \bsH^* \iff (u, v) \neq (0, 0) \iff M \neq 0_2 \qquad \text{donc} \quad \boxsol{$\bsH^* = \bsH \backslash \{ 0_2 \}$}\]
+        }
+        
+    \end{enumerate}
+    
+    \item \begin{enumerate}
+        \item Montrer que l'ensemble $\bsQ$ est stable par produit.
+        
+        \boxans{
+            \begin{minipage}{0.5\linewidth}
+                On obtient la table de multiplication suivante. Puisque $\bsQ = -\bsQ$ par définition, considérer les multiplications avec $-1$, $-i$, $-j$ et $-k$ donne toujours des éléments de $\bsQ$. On obtient donc bien que \boxsol{$\bsQ$ est stable par produit}.
+            \end{minipage}
+            \hfill
+            \begin{minipage}[c]{0.4\linewidth}
+                    \begin{NiceTabular}{>{\color{white}}ccccc}[corners,hvlines,rules/color=[gray]{0.8}]
+                        \CodeBefore
+                            \rectanglecolor{white}{2-2}{5-5}
+                            \columncolor{main1!40}{1}
+                        \Body
+                        \RowStyle[nb-rows=1,rowcolor=main1!40,color=white]{}
+                         & $E$ & $I$ & $J$ & $K$ \\
+                        $E$ & $E$ & $I$ & $J$ & $K$ \\
+                        $I$ & $I$ & $-E$ & $K$ & $-J$ \\
+                        $J$ & $J$ & $-K$ & $-E$ & $I$ \\
+                        $K$ & $K$ & $J$ & $-I$ & $-E$ \\
+                    \end{NiceTabular}
+            \end{minipage}
+        }
+        
+        \item Montrer que $\bsQ$ est un sous-groupe de $\bsH^*$.
+        
+        \boxans{
+            On a $\bsQ \subset \bsH^*$. De plus $E$ est évidemment son propre inverse, et l'on remarque à la question précédente que $I^2 = J^2 = K^2 = -E$. On obtient alors que $I^{-1} = -I \in \bsQ$, $J^{-1} = -J \in \bsQ$ et $K^{-1} = -K \in \bsQ$, ce qui entraîne ${-I}^{-1} = I$, ${-J}^{-1} = J$ et ${-K}^{-1} = K$. Les éléments de $\bsQ$ sont donc tous inversibles et d'inverse dans $\bsQ$ ($\bsQ$ est stable par passage à l'inverse). Puisque $\bsQ$ est aussi stable par produit, on obtient donc :
+            \[ \forall (X, Y) \in \bsQ^2, \qquad X \times Y^{-1} \in \bsQ\]
+            Par caractérisation, on obtient donc que \boxsol{$\bsQ$ est un sous-groupe de $(\bsH^*, \times)$}.
+        }
+    \end{enumerate}
+    
+    \item \begin{enumerate}
+        \item Montrer que :
+    
+        \begin{equation}
+            \forall M \in \bsH,\qquad \exists ! (x, y, z, t) \in \bdR^4,\qquad M = xE + yI + zJ + tK
+        \end{equation}
+        
+        \boxans{
+            Soit $M = \begin{pNiceMatrix}\overline u & -\overline v\\v & u\end{pNiceMatrix} \in \bsH$, avec $(u, v) \in \bdC^2$. L'écriture complexe livre l'existence et l'unicité de quatre réels $x$, $y$, $z$, et tels que $u = x + it$ et $v = y + iz$, d'où :
+            \[ M = \begin{pNiceMatrix} x - it & -y + iz\\y + iz & x + it\end{pNiceMatrix} = M = \begin{pNiceMatrix}x & 0\\0 & x\end{pNiceMatrix} + \begin{pNiceMatrix}-it & 0\\0 & it\end{pNiceMatrix} + \begin{pNiceMatrix}0 & -y\\y & 0\end{pNiceMatrix} + \begin{pNiceMatrix}0 & iz\\iz & 0\end{pNiceMatrix} = xE + tK + yI + zJ\]
+            
+            Donc \boxsol{$\forall M \in \bsH,\qquad \exists ! (x, y, z, t) \in \bdR^4,\qquad M = xE + yI + zJ + tK$}.
+        }
+    
+        \item Montrer que l'ensemble $\bsC = \{xE + yI,\ (x, y) \in \bdR^2\}$ est un sous-anneau \textbf{commutatif} de $\bsH$.
+    
+        Conclure que $\bsC$ est un corps.
+        
+        \boxans{
+            On se donne $(M, N) \in \bsC^2$. Il existe $ (u, v, w, x) \in \bdR^2$ tels que $A = uE + vI$ et $B = wE + xI$. Alors :
+            \[ \begin{array}{c}
+                 M - N = uE + vI - wE - xI = (u - w)E + (v - x)I \in \bsC  \\
+                 M \times N = (uE + vI)(wE + xI) = uwE^2 + uxI + vwI + vxI^2 = (uw - vx)E + (ux + vw)I \in \bsC
+            \end{array}\]
+            Les formes $uw - vx$ et $ux + vw$ sont invariantes lorsqu'on échange $u$ avec $w$ et $v$ avec $x$, c'est-à-dire lorsqu'on considère $M \times N$. On a donc la commutativité $N \times M = M \times N$. De plus, $E \in \bsC$ donc par caractérisation, \boxsol{$\bsC$ est un sous-anneau commutatif de $\bsH$}. D'après \enumref{question:1b}, $M$ est inversible si et seulement si $M \neq 0_2$ et $M^{-1} = \dfrac{u}{\det M}E - \dfrac{v}{\det M}I \in \bsC$, d'où $\bsC^* = \bsC\backslash\{0_2\}$, donc \boxsol{$\bsC$ est un corps}.
+        }
+        
+        On peut interpréter l'ensemble $\bsC$ comme une copie de $\bdC$ à l'intérieur de $\bsH$. De même, on peut voir l'ensemble $\{xE,\ x \in \bdR\}$ comme une copie de $\bdR$. Avec cette remarque, on peut voir l'ensemble $\bsH$ comme une généralisation des nombres complexes.
+    \end{enumerate}
+    
+    \item Pour tout $M \in \bsH$, il existe un unique quadruplet $(x, y, z, t) \in \bdR^4$ tel que $M = xE + yI + zJ + tK$.
+    
+    On appelle norme de $M$ le réel positif suivant :
+    
+    \begin{equation}
+        \norm M = \sqrt{x^2 + y^2 + z^2 + t^2}
+    \end{equation}
+    
+    On dit que $M$ est \textit{\color{main1}unitaire} si et seulement si $\norm M = 1$.
+    
+    \begin{enumerate}
+        \item Simplifier $\det M$ pour tout $M \in \bsH$, puis montrer que :
+        
+        \begin{equation}
+            \forall (M, N) \in \bcM_2(\bdC),\qquad \det (MN) = \det M \times \det N
+        \end{equation}
+        
+        \boxans{
+            Soit $M = \begin{pNiceMatrix}\overline u & -\overline v\\v & u\end{pNiceMatrix} \in \bsH$, $(u, v) \in \bdC^2$. On a $\det M = \overline uu - (\overline v)v$ donc \boxsol{$\det M = \mod{u}^2 + \mod{v^2}= \norm M ^2$}.
+            
+            On se donne $(M, N) \in \bcM_2(\bdC)^2$ et $(a, b, c, d, e, f, g, h) \in \bdC^8$ tels que $M = \begin{pNiceMatrix}a & b\\c & d\end{pNiceMatrix}$ et $N = \begin{pNiceMatrix}e & f\\g & h\end{pNiceMatrix}$.
+            
+            D'une part $\det M \times \det N = (ad-bc)(eh-fg) = adeh - adfg - bceh + bcfg$.
+            
+            D'autre part $MN = \begin{pNiceMatrix}ae+bg & af+bh\\ce+dg & cf+dh\end{pNiceMatrix}$, donc $\det (MN) = (ae+bg)(cf+dh) - (af + bh)(ce + dg)$, soit :
+            \[\det (MN) = aecf + aedh + bgcf + bgdh - afce - afdg - bhce - bhdg = adeh - adfg - bceh + bcfg = \det M \times \det N \]
+            Donc on a bien \boxsol{$\forall (M, N) \in \bcM_2(\bdC),\qquad \det (MN) = \det M \times \det N$}.
+            
+            %On se donne alors $N = \begin{pNiceMatrix}\overline w & -\overline x\\x & w\end{pNiceMatrix} \in \bsH$ avec $(w, x) \in \bdC^2$. On a %d'une part :
+            %\[ \det N = \mod{uw}^2 + \mod{x}^2 \qquad\text{donc}\qquad \det M \times \det N = \left(\mod{u}^2 + \mod{v}^2\right)\left(\mod{w}^2 + \mod{x}^2\right) = \mod{uw}^2 + \mod{ux}^2 + \mod{vw}^2 + \mod{vx}^2\]
+            %D'autre part $M \times N = \begin{pNiceMatrix}\overline{uw -v\overline x} & - \overline{ux+v\overline w}\\ux+v\overline w & uw-v\overline x\end{pNiceMatrix}$. On pose donc  $D = \det (M \times N) = \mod{uw - v\overline x}^2 + \mod{ux + v\overline w}^2$.
+            %\begin{align*}
+            %    %\det (M \times N) &= \Re{uw - v\overline x}^2 + \Re{ux + v\overline w}^2 + \Im{uw - v\overline x}^2 + \Im{ux + v\overline w}^2\\
+            %    \det (M \times N) &= \left(\Re{uw} - \Re{v\overline x}\right)^2 + \left(\Re{ux} + \Re{v\overline w}\right)^2 + \left(\Im{uw} - \Im{v\overline x}\right)^2 + \left(\Im{ux} + \Im{v\overline w}\right)^2\\
+            %    &= \Re{uw}^2 + \Re{v\overline x}^2 + \Re{ux}^2 + \Re{v\overline w}^2 + \Im{uw}^2 + \Im{v\overline x}^2 + \Im{ux}^2 + \Im{v\overline w}^2\\
+            %    &\qquad\quad -2\Re{uw}\Re{v\overline x} + 2\Re{ux}\Re{v\overline w} -2\Im{uw}\Im{v\overline x} + 2\Im{ux}\Im{v\overline w}\\
+            %    &= \boxed{\det M\det N} - 2\left(\Re{uw}\Re{v\overline x} - \Re{ux}\Re{v\overline w} + \Im{uw}\Im{v\overline x} - %\Im{ux}\Im{v\overline w}\right)
+            %\end{align*}
+            %Or on a $\Re{uw}\Re{v\overline x} = \left(\Re{u}\Re{w}-\Im{u}\Im{w}\right)\left(\Re{v}\Re{x}+\Im{v}\Im{x}\right)$ d'où :
+            %\begin{align*}
+            %  \Re{uw}\Re{v\overline x} &= \Re{u}\Re{v}\Re{w}\Re{x} + \Re{u}\Im{v}\Re{w}\Im{x} \\
+            % &\qquad\quad  - \Im{u}\Re{v}\Im{w}\Re{x} - \Im{u}\Im{v}\Im{w}\Im{x} 
+            %\end{align*}
+            
+            %On remarque qu'on a toujours un produit de la partie réelle ou imaginaire de $u$, $v$, $w$ et $x$ que l'on peut toujours prendre dans cet ordre, on peut donc alléger la notation pour développer plus facilement. On notera alors $\underline{RIRI}$ pour $\Re{u}\Im{v}\Re{w}\Im{x}$ et $\underline{RRRR}$ pour $\Re{u}\Re{v}\Re{w}\Re{x}$, etc.\newpage
+        
+            %On a donc $\Re{uw}\Re{v\overline x} = \underline{RRRR} + \underline{RIRI} - \underline{IRIR}  - \underline{IIII}$. Considérer $\Re{ux}\Re{v\overline w}$ revient alors à échanger $x$ et $w$, soit échanger les valeurs 3 et 4 dans $\underline{1234}$, donc $ \Re{uw}\Re{v\overline x} = \underline{RRRR} + \underline{RIIR} - \underline{IRRI} - \underline{IIII}$. \qquad Donc $\Re{uw}\Re{v\overline x} - \Re{ux}\Re{v\overline w} = \underline{RIRI} - \underline{IRIR} - \underline{RIIR} + \underline{IRRI}$.\\
+            
+            %On développe $\Im{uw}\Im{v\overline x} = \left(\underline{R\_ I\_ } + \underline{I\_ R\_ }\right)\left(\underline{\_ I\_ R} - \underline{\_ R\_ I}\right) = \underline{RIIR} - \underline{RRII} + \underline{IIRR} - \underline{IRRI}$.
+            
+            %De même  $\Im{ux}\Im{v\overline w} = \underline{RIRI} - \underline{RRII} + \underline{IIRR} - \underline{IRIR}$. Finalement :
+            %\begin{align*}
+            %    &\Re{uw}\Re{v\overline x} - \Re{ux}\Re{v\overline w} + \Im{uw}\Im{v\overline x} - \Im{ux}\Im{v\overline w}\\
+            %    =\  &\underline{RIRI} - \underline{IRIR} - \underline{RIIR} + \underline{IRRI} + \underline{RIIR} - \underline{IRRI} - \underline{RIRI} + \underline{IRIR} = 0
+            %\end{align*}
+            
+            %Donc on a bien \boxsol{$\forall (M, N) \in \bcM_2(\bdC),\qquad \det (MN) = \det M \times \det N$}.
+        }
+        
+        \item Montrer que l'ensemble $\bsU = \{ M  \in \bsH,\ \norm M = 1\}$ des quaternions unitaires est un sous-groupe de $\GL_2(\bdC)$.
+        
+        \boxans{
+            On a $I_2 = E = 1E + 0I + 0J + 0K$ donc $\norm{I_2} = 1$, d'où $E \in \bsU$. Soit $(M, N) \in \bsU^2$. On a $\norm N = 1$ donc $\det N = 1^2$ donc $\det N \neq 0$ donc $N$ est inversible. Ainsi, $\bsU \subset \GL_2(\bdC)$. De plus:
+            \[ \norm{MN^{-1}}^2 = \det(MN^{-1}) = \det M \times \det \left(N^{-1}\right) = \det M \times {(\det N)}^{-1} = \norm M^2 \times {\norm N ^2}^{-1} = 1^2 \times 1^{-2} = 1\]
+            Or $\norm{MN^{-1}} \in \bdR_+$ donc $\norm{MN^{-1}} = 1$, donc $MN^{-1} \in \bsU$, donc \boxsol{$U$ est un sous-groupe de  $\GL_2(\bdC)$}.
+        }
+    \end{enumerate}
+    
+    \item On note $Z(\bsH)$ le \textit{\color{main1}centre} de $\bsH$, c'est-à-dire l'ensemble des éléments de $\bsH$ qui commutent avec tout élément de $\bsH$ :
+    
+    \begin{equation}
+        Z(\bsH) = \{ M \in \bsH \mid \forall N \in \bsH, \quad MN = NM\}
+    \end{equation}
+    
+    Montrer que $Z(\bsH) = \{ xE,\ x \in \bdR\}$.
+    
+    \boxans{
+        On nomme $A = \{ xE,\ x \in \bdR\}$. Montrons que $Z(\bsH) = A$. On a déjà $A \subset Z(\bsH)$, montrons alors $A \supset Z(\bsH)$.
+    
+        Soit $M \in Z(\bsH)$, montrons que $Z \in A$. On considère $(x, y, z, t) \in \bdR^4$ tel que $M = xE + yI + zJ + tK$. Alors :
+        \[ MI = xI + yI^2 + zJI + tKI = -yE + xI + tJ - zK \qquad\et\qquad IM = xI + yI^2 + zIJ + tIK = -yE + xI - tJ + zK\]
+        On identifie alors $t = -t$ et $z = -z$, soit $t = 0$ et $z = 0$. (Ce qui signifie en fait que $M = xE + yI \subset \bsC)$. Or :
+        \[ MJ = xJ + yIJ = xJ + yK \qquad\et JM = xJ + yJI = xJ - yK\]
+        On identifie donc $y = -y$, soit $y = 0$. On a donc bien $M = xE$, donc $M \in A$. Donc \boxsol{$Z(\bsH) = \{ xE,\ x \in \bdR\}$}.
+    }
+    
+\end{enumerate}\hfill\newline
+
+\textsf{\textbf{Conclusion :}} Les quaternions ont été introduits par Hamilton au cours du \textsc{\romannumeral 19}\textsuperscript{e}~siècle. Ils permettent de travailler avec la géometrie dans l'espace de manière algébrique. En effet, vous savez que la géométrie du plan est interprétée via les nombres complexes et les calculs dans $\bdC$ ont une représentation géométrique dans le plan. De même, la géométrie dans l'espace peut être traduite via les quaternions $\bsH$ et les calculs dans $\bsH$ ont une interprétation géométrique dans l'espace. Par exemple, tout comme le groupe des unités $\bdU$ permet de décrire les rotations du plan, le groupe $\bsU$ permet de décrire les rotations de l'espace.En terme de structures algébriques, $\bsH$ est le premier exemple de \guill{corps non commutatif}.\\[-10pt]
+
+Les quaternions sont notamment utilisés en sciences de l'ingénieur (pour la facilité du calcul des rotations dans l'espace) et en physique quantique (pour représenter le spin des particules).
+\end{document}

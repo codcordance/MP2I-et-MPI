@@ -1,0 +1,729 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+
+\stylizeDoc{Mathématiques}{Programme de khôlle 15}{Énoncés et résolutions}
+
+\section*{Limites et continuité}
+
+\subsection*{Limites}
+
+\begin{enumerate}
+    \ithand Voisinage. Définition des limites (finies, et infinies). Unicité. \textbf{Caractérisation séquentielle de la limite}.
+    
+    \ithand Opérations classiques (combinaison linéaire, produit, inverse, quotient, composition).
+    
+    \ithand Une fonction ayant une limite finie en $\alpha$ est bornée au voisinage de $\alpha$.
+    
+    \ithand Limite à gauche, limite à droite.
+    
+    \ithand \textbf{Théorème de la limite monotone}.
+
+\end{enumerate}
+
+\subsection*{Continuité}
+
+\begin{enumerate}
+    \ithand Définition. Continuité en un point et sur un intervalle. Continuité à gauche, à droite. Opérations classiques sur les fonctions continues. Prolongement par continuité
+    
+    \ithand \textbf{Fonctions lipschitziennes}.
+    
+    \ithand \textbf{Théorème des valeurs intermédiaires}. L'image d'un intervalle par une application continue est un intervalle.
+    
+    \ithand \textbf{Théorème de compacité :} une fonction réelle continue sur un segment est bornée et atteint ses bornes. L’image d’un segment par une fonction continue est un segment.
+    
+    \ithand Continuité, injectivité, monotonie : pour $f : I \to \bdR$ où $I$ est un intervalle, si $f$ est continue sur $I$, alors $f$ est injective sur l’intervalle $I$ si et seulement si $f$ est strictement monotone sur $I$.
+    
+    \ithand Théorème de la bijection continue.
+    
+    \ithand Brève extension aux fonctions à valeurs complexes.
+
+\end{enumerate}
+
+\begin{center}
+    \begin{minipage}{\linewidth}
+        \begin{tcolorbox}[
+            breakable,
+            enhanced,
+            interior style      = {left color=main4!15,right color=main2!12},
+            borderline north    = {.5pt}{0pt}{main2!10},
+            borderline south    = {.5pt}{0pt}{main2!10},
+            borderline west     = {.5pt}{0pt}{main2!10},
+            borderline east     = {.5pt}{0pt}{main2!10},
+            sharp corners       = downhill,
+            arc                 = 0 cm,
+            boxrule             = 0.5pt,
+            drop fuzzy shadow   = black!40!white,
+            nobeforeafter,
+        ]
+        \centering\textbf{\sffamily Note aux colleurs :} La notion de fonction uniformément continue sera vue dans le chapitre Intégration.
+        
+        \textit{À suivre : Dérivabilité et suites récurrentes.}
+    \end{tcolorbox}
+\end{minipage}
+\end{center}
+
+\section*{Questions de cours}
+
+\begin{enumerate}
+    \item Définition formelle (avec quantificateurs) de $f(x) \lima{x \to \alpha} \ell$.
+    
+    (3 cas de figures choisi par l’examinateur parmi les 9 possibles : $\alpha$ fini ou $\pm \infty$, $\ell$ fini ou $\pm \infty$) et illustrer par un dessin.
+    
+    \boxans{
+        L'approche métrique à la notion de limite demande de distinguer 9 cas de figures différents, en fonction de si elle a lieu en un point fini ou nom, et de si la limite est finie ou non. On se donne donc une partie $D \subset \bdR$, $a \in \overline D$ (où $\overline D$ correspond à $D$ en incluant ses bornes) et $f \in \bcF(D, \bdR)$.
+        
+        On définit premièrement la notion de limite pour une valeur finie en un point fini :
+        
+        \begin{definition*}{Limite finie en un point fini}{}
+             On dit que \bf{$f(x)$ tend vers $\ell \in \bdR$ lorsque $x$ tend vers $\alpha$} ssi :
+            %
+            \[ \hg{\forall \epsilon \in \bdRp,\qquad \exists \eta \in \bdRp,\qquad \forall x \in D,\qquad \mod{x - a} \leq \eta \implies \mod{f(x) - \ell} \leq \epsilon} \]
+        \end{definition*}
+        
+        On note alors $\lim\limits_{x \to \alpha} f(x) = \ell$, $\lim\limits_a f = \ell$, $f(x) \lima{x \to \alpha} \ell$ ou encore $f \lima{a} \ell$.
+        
+        \begin{minipage}{0.5\textwidth}
+            Cette définition est assez proche de la notion de limite chez les suites. Ici, cependant, la limite peut avoir lieu en n'importe quel $\alpha$ et pas seulement en $+\infty$. On peut donner à cette définition le sens suivant :
+            
+            Pour tout \guill{tube} centré autour de $\ell$, de rayon $\epsilon$ aussi petit que l'on veut, on peut toujours trouver un autre rayon $\eta$ tel que tout $x$ situés à moins de $\eta$ de $\alpha$, on a $f(x)$ dans le \guill{tube}. 
+        \end{minipage}
+        %
+        \hfill
+        %
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \pgfplotsset{width=\textwidth}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xmin = -1,
+                    xmax = 9,
+                    ymin = -1,
+                    ymax = 9,
+                    xlabel = $\mathsf{x}$, 
+                    ylabel = $\mathsf{f(x)}$,
+                    ytick = {2.5, 3, 3.5},
+                    xtick = {4, 5, 6},
+                    xticklabels={$ $, $\color{main7}\mathsf{\alpha}$, $ $},
+                    yticklabels={$ $, $\color{main2}\mathsf{\ell}$, $ $},
+                    font = \footnotesize,
+                    major grid style = {line width=.2pt,draw=gray!50},
+                    trig format plots=rad,
+                ]
+                    \addplot[color=main20, line width=0.6mm, domain=-1:7.5,samples=500]{-1/15*(x-2)*(x-5)^3*(x-8)+3};
+                    
+                    \fill[fill = main1, fill opacity=0.2] (0,2.5)  rectangle (7.5,3.5);
+                    \fill[fill = main5, fill opacity=0.2] (4,0)  rectangle (6,7.5);
+                    
+                    \path[draw=main3, dashed, thick] (0,3) -- (7.5,3);
+                    \path[draw=main2] (0,2.5) -- (7.5,2.5);
+                    \path[draw=main2] (0,3.5) -- (7.5,3.5);
+                    
+                    \path[draw=main2, to-to] (7.8,3) -- node[right] {$\color{main2}\mathsf{\epsilon}$} (7.8,2.5);
+                    \path[draw=main2, to-to] (7.8,3.5) -- (7.8,3);
+                    
+                    \path[draw=main7, dashed, thick] (5,0) -- (5,7.5);
+                    \path[draw=main6] (4,0) -- (4,7.5);
+                    \path[draw=main6] (6,0) -- (6,7.5);
+                    
+                    \path[draw=main6, to-to] (4,7.8) -- node[above] {$\color{main6}\mathsf{\eta}$} (5,7.8);
+                    \path[draw=main6, to-to] (5,7.8) -- (6,7.8);
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+        
+        On peut alors définir, de manière assez proche, la notion de limite infinie en un point fini :
+        
+        \begin{definition*}{Limite infinie en un point fini}{}
+            On dit que \bf{$f(x)$ tend vers $+\infty$ lorsque $x$ tend vers $\alpha$} ssi :
+            %
+            \[ \hg{\forall A \in \bdR,\qquad \exists \eta \in \bdRp,\qquad \forall x \in D,\qquad \mod{x - a} \leq \eta \implies f(x) \geq A} \]
+            
+            De même, on dit que \bf{$f(x)$ tend vers $-\infty$ lorsque $x$ tend vers $\alpha$} ssi :
+            %
+            \[ \hg{\forall A \in \bdR,\qquad \exists \eta \in \bdRp,\qquad \forall x \in D,\qquad \mod{x - a} \leq \eta \implies f(x) \leq A} \]
+        \end{definition*}
+        
+        On notera de même $\lim\limits_{x \to \alpha} f(x) = +\infty$ ou $\lim\limits_{x \to \alpha} f(x) = -\infty$ , $\lim\limits_a f = +\infty$ ou $\lim\limits_a f = -\infty$, etc \dots.
+        
+        \begin{minipage}{0.2\textwidth}
+            Pour tout seuil $A$ aussi grand que l'on veut, on peut toujours trouver un rayon $\eta$ tel que pour tout $x$ situé à moins de $\eta$ de $\alpha$, $f(x)$ est plus grand (resp. plus petit) que $A$.
+        \end{minipage}
+        %
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \pgfplotsset{width=\textwidth}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xmin = -1,
+                    xmax = 9,
+                    ymin = -1,
+                    ymax = 9,
+                    xlabel = $\mathsf{x}$, 
+                    ylabel = $\mathsf{f(x)}$,
+                    ytick = {5.5},
+                    xtick = {4.5, 5, 5.5},
+                    xticklabels={$ $, $\color{main7}\mathsf{\alpha}$, $ $},
+                    yticklabels={$\color{main2}\mathsf{A}$},
+                    font = \footnotesize,
+                    major grid style = {line width=.2pt,draw=gray!50},
+                    trig format plots=rad,
+                ]
+                    \addplot[color=main20, line width=0.6mm, domain=-1:4.7,samples=500]{1/6*x*(1.2*(x-5)^(-2) - x + 7)};
+                    \addplot[color=main20, line width=0.6mm, domain=5.3:9,samples=500]{1/6*x*(1.2*(x-5)^(-2) - x + 7)};
+                    
+                    \fill[fill = main1, fill opacity=0.2] (0,5.5) rectangle (9,9);
+                    \fill[fill = main5, fill opacity=0.2] (4.5,5.5) rectangle (5.5,9);
+                    
+                    \path[draw=main3, dashed, thick] (0,5.5) -- (9,5.5);
+                    
+                    \path[draw=main7, dashed, thick] (5,0) -- (5,9);
+                    \path[draw=main6] (4.5,0) -- (4.5,9);
+                    \path[draw=main6] (5.5,0) -- (5.5,9);
+                    
+                    \path[draw=main6, to-to] (4.5,0.5) -- node[above] {$\color{main6}\mathsf{\eta}$} (5,0.5);
+                    \path[draw=main6, to-to] (5,0.5) -- (5.5,0.5);
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+        %
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \pgfplotsset{width=\textwidth}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xmin = -1,
+                    xmax = 9,
+                    ymin = -9,
+                    ymax = 1,
+                    xlabel = $\mathsf{x}$, 
+                    ylabel = $\mathsf{f(x)}$,
+                    ytick = {-5.5},
+                    xtick = {4.5, 5, 5.5},
+                    xticklabels={$ $, $\color{main7}\mathsf{\alpha}$, $ $},
+                    yticklabels={$\color{main2}\mathsf{A}$},
+                    font = \footnotesize,
+                    major grid style = {line width=.2pt,draw=gray!50},
+                    trig format plots=rad,
+                    every x tick label/.append style={yshift=0.5cm},
+                ]
+                    \addplot[color=main20, line width=0.6mm, domain=-1:4.7,samples=500]{-1/6*x*(1.2*(x-5)^(-2) - x + 7)};
+                    \addplot[color=main20, line width=0.6mm, domain=5.3:9,samples=500]{-1/6*x*(1.2*(x-5)^(-2) - x + 7)};
+                    
+                    \fill[fill = main1, fill opacity=0.2] (0,-5.5) rectangle (9,-9);
+                    \fill[fill = main5, fill opacity=0.2] (4.5,-5.5) rectangle (5.5,-9);
+                    
+                    \path[draw=main3, dashed, thick] (0,-5.5) -- (9,-5.5);
+                    
+                    \path[draw=main7, dashed, thick] (5,0) -- (5,-9);
+                    \path[draw=main6] (4.5,0) -- (4.5,-9);
+                    \path[draw=main6] (5.5,0) -- (5.5,-9);
+                    
+                    \path[draw=main6, to-to] (4.5,-0.5) -- node[below] {$\color{main6}\mathsf{\eta}$} (5,-0.5);
+                    \path[draw=main6, to-to] (5,-0.5) -- (5.5,-0.5);
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+        
+        En inversant la condition sur $x$ et celle sur $f(x)$, on peut définir la notion de limite en l'infini :
+        
+        \begin{definition*}{Limite finie en l'infini}{}
+            On dit que \bf{$f(x)$ tend vers $\ell \in \bdR$ lorsque $x$ tend vers $+\infty$} ssi :
+            %
+            \[ \hg{\forall \epsilon \in \bdR,\qquad \exists B \in \bdR,\qquad \forall x \in D,\qquad x \geq B \implies \mod{f(x) - \ell} \leq \epsilon} \]
+            
+            De même, on dit que \bf{$f(x)$ tend vers $\ell \in \bdR$ lorsque $x$ tend vers $-\infty$} ssi :
+            %
+            \[ \hg{\forall \epsilon \in \bdR,\qquad \exists B \in \bdR,\qquad \forall x \in D,\qquad x \leq B \implies \mod{f(x) - \ell} \leq \epsilon} \]
+        \end{definition*}
+        
+        On note de même $\lim\limits_{x \to +\infty} f(x) = \ell$ ou $\lim\limits_{x \to -\infty} f(x) = \ell$, $\lim\limits_{+\infty} f = \ell$ ou $\lim\limits_{-\infty} f = \ell$, etc \dots.
+        
+        \begin{minipage}{0.2\textwidth}
+            Pour tout \guill{tube} centré autour de $\ell$, de rayon $\epsilon$ aussi petit que l'on veut, il existe toujours un seuil $B$ tel que pour tout $x$ plus grand (resp. plus petit) que $B$, $f(x)$ est dans le \guill{tube}.
+        \end{minipage}
+        %
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \pgfplotsset{width=\textwidth}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xmin = -1,
+                    xmax = 9,
+                    ymin = -1,
+                    ymax = 9,
+                    xlabel = $\mathsf{x}$, 
+                    ylabel = $\mathsf{f(x)}$,
+                    ytick = {4, 5, 6},
+                    xtick = {2.7},
+                    xticklabels={$\color{main7}\mathsf{B}$},
+                    yticklabels={$ $, $\color{main2}\mathsf{\ell}$},
+                    font = \footnotesize,
+                    major grid style = {line width=.2pt,draw=gray!50},
+                    trig format plots=rad,
+                ]
+                    \addplot[color=main20, line width=0.6mm, domain=-1:9,samples=500]{5*tanh(0.7*x-0.8)+exp(-(x-5.5)^2)};
+                    
+                    \fill[fill = main1, fill opacity=0.2] (2.7,4)  rectangle (9,6);
+                    \fill[fill = main5, fill opacity=0.2] (2.7,0)  rectangle (9,9);
+                    
+                    \path[draw=main3, dashed, thick] (0,5) -- (9,5);
+                    \path[draw=main2] (0,4) -- (9,4);
+                    \path[draw=main2] (0,6) -- (9,6);
+                    
+                    \path[draw=main2, to-to] (0.5,4) -- node[right] {$\color{main2}\mathsf{\epsilon}$} (0.5,5);
+                    \path[draw=main2, to-to] (0.5,5) -- (0.5,6);
+                    
+                    \path[draw=main7, dashed, thick] (2.7,0) -- (2.7,9);
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+        %
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \pgfplotsset{width=\textwidth}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xmin = -9,
+                    xmax = 1,
+                    ymin = -1,
+                    ymax = 9,
+                    xlabel = $\mathsf{x}$, 
+                    ylabel = $\mathsf{f(x)}$,
+                    ytick = {4, 5, 6},
+                    xtick = {-2.7},
+                    xticklabels={$\color{main7}\mathsf{B}$},
+                    yticklabels={$ $, $\color{main2}\mathsf{\ell}$},
+                    font = \footnotesize,
+                    major grid style = {line width=.2pt,draw=gray!50},
+                    trig format plots=rad,
+                    every y tick label/.append style={xshift=0.5cm},
+                ]
+                    \addplot[color=main20, line width=0.6mm, domain=-7.5:1,samples=500]{5*tanh(-0.7*x+0.8)-exp(-(-x-5.5)^2)+exp(x+2.75)};
+                    \addplot[color=main20, line width=0.6mm, domain=-9:-7.5,samples=500]{5};
+                    
+                    \fill[fill = main1, fill opacity=0.2] (-2.7,4) rectangle (-9,6);
+                    \fill[fill = main5, fill opacity=0.2] (-2.7,0) rectangle (-9,9);
+                    
+                    \path[draw=main3, dashed, thick] (0,5) -- (-9,5);
+                    \path[draw=main2] (0,4) -- (-9,4);
+                    \path[draw=main2] (0,6) -- (-9,6);
+                    
+                    \path[draw=main2, to-to] (-0.5,4) -- node[left] {$\color{main2}\mathsf{\epsilon}$} (-0.5,5);
+                    \path[draw=main2, to-to] (-0.5,5) -- (-0.5,6);
+                    
+                    \path[draw=main7, dashed, thick] (-2.7,0) -- (-2.7,9);
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+        
+        Enfin, on peut définir les limites infinie en l'infini :
+        
+        \begin{definition*}{Limite infinie en l'infini}{}
+            \begin{enumerate}
+                \itb On dit que \bf{$f(x)$ tend vers $+\infty$ lorsque $x$ tend vers $+\infty$} ssi :
+                %
+                \[ \hg{\forall A \in \bdR,\qquad \exists B \in \bdR,\qquad \forall x \in D,\qquad x \geq B \implies f(x) \geq A} \]
+                
+                \itb On dit que \bf{$f(x)$ tend vers $-\infty$ lorsque $x$ tend vers $+\infty$} ssi :
+                %
+                \[ \hg{\forall A \in \bdR,\qquad \exists B \in \bdR,\qquad \forall x \in D,\qquad x \geq B \implies f(x) \leq A} \]
+                
+                \itb On dit que \bf{$f(x)$ tend vers $+\infty$ lorsque $x$ tend vers $-\infty$} ssi :
+                %
+                \[ \hg{\forall A \in \bdR,\qquad \exists B \in \bdR,\qquad \forall x \in D,\qquad x \leq B \implies f(x) \geq A} \]
+                
+                \itb On dit que \bf{$f(x)$ tend vers $-\infty$ lorsque $x$ tend vers $-\infty$} ssi :
+                %
+                \[ \hg{\forall A \in \bdR,\qquad \exists B \in \bdR,\qquad \forall x \in D,\qquad x \leq B \implies f(x) \leq A} \]
+            \end{enumerate}
+        \end{definition*}
+        
+        On notera de même $\lim\limits_{x \to +\infty} f(x) = +\infty$, $\lim\limits_{x \to +\infty} f(x) = -\infty$, $\lim\limits_{x \to -\infty} f(x) = +\infty$ ou $\lim\limits_{x \to -\infty} f(x) = -\infty$, etc \dots.
+        
+        \begin{minipage}{0.2\textwidth}
+            Pour tout seuil $A$ aussi grand que l'on veut, on peut toujours trouver un seuil $B$ tel que pour tout $x$ plus grand que $B$, $f(x)$ est plus grand (resp. plus petit) que $A$.
+        \end{minipage}
+        %
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \pgfplotsset{width=\textwidth}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xmin = -1,
+                    xmax = 9,
+                    ymin = -1,
+                    ymax = 9,
+                    xlabel = $\mathsf{x}$, 
+                    ylabel = $\mathsf{f(x)}$,
+                    ytick = {6},
+                    xtick = {4.7},
+                    xticklabels={$\color{main7}\mathsf{B}$},
+                    yticklabels={$\color{main2}\mathsf{A}$},
+                    font = \footnotesize,
+                    major grid style = {line width=.2pt,draw=gray!50},
+                    trig format plots=rad,
+                ]
+                    \addplot[color=main20, line width=0.6mm, domain=-1:9,samples=500]{0.1*x^2*(x-2)};
+                    
+                    \fill[fill = main1, fill opacity=0.2] (0,6) rectangle (9,9);
+                    \fill[fill = main5, fill opacity=0.2] (4.7,0) rectangle (9,9);
+                    
+                    \path[draw=main3, dashed, thick] (0,6) -- (9,6);
+                    
+                    \path[draw=main7, dashed, thick] (4.7,0) -- (4.7,9);
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+        %
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \pgfplotsset{width=\textwidth}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xmin = -1,
+                    xmax = 9,
+                    ymin = -9,
+                    ymax = 1,
+                    xlabel = $\mathsf{x}$, 
+                    ylabel = $\mathsf{f(x)}$,
+                    ytick = {-6},
+                    xtick = {4.7},
+                    xticklabels={$\color{main7}\mathsf{B}$},
+                    yticklabels={$\color{main2}\mathsf{A}$},
+                    font = \footnotesize,
+                    major grid style = {line width=.2pt,draw=gray!50},
+                    trig format plots=rad,
+                    every x tick label/.append style={yshift=0.5cm},
+                    y label style={yshift=-0.4cm},
+                ]
+                    \addplot[color=main20, line width=0.6mm, domain=-1:9,samples=500]{-0.1*x^2*(x-2)};
+                    
+                    \fill[fill = main1, fill opacity=0.2] (0,-6) rectangle (9,-9);
+                    \fill[fill = main5, fill opacity=0.2] (4.7,0) rectangle (9,-9);
+                    
+                    \path[draw=main3, dashed, thick] (0,-6) -- (9,-6);
+                    
+                    \path[draw=main7, dashed, thick] (4.7,0) -- (4.7,-9);
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+        
+        \begin{minipage}{0.2\textwidth}
+            Pour tout seuil $A$ aussi grand que l'on veut, on peut toujours trouver un seuil $B$ tel que pour tout $x$ plus petit que $B$, $f(x)$ est plus grand (resp. plus petit) que $A$.
+        \end{minipage}
+        %
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \pgfplotsset{width=\textwidth}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xmin = -9,
+                    xmax = 1,
+                    ymin = -1,
+                    ymax = 9,
+                    xlabel = $\mathsf{x}$, 
+                    ylabel = $\mathsf{f(x)}$,
+                    ytick = {6},
+                    xtick = {-4.7},
+                    xticklabels={$\color{main7}\mathsf{B}$},
+                    yticklabels={$\color{main2}\mathsf{A}$},
+                    font = \footnotesize,
+                    major grid style = {line width=.2pt,draw=gray!50},
+                    trig format plots=rad,
+                    every y tick label/.append style={xshift=0.5cm},
+                ]
+                    \addplot[color=main20, line width=0.6mm, domain=-9:1,samples=500]{0.1*(-x)^2*((-x)-2)};
+                    
+                    \fill[fill = main1, fill opacity=0.2] (0,6) rectangle (-9,9);
+                    \fill[fill = main5, fill opacity=0.2] (-4.7,0) rectangle (-9,9);
+                    
+                    \path[draw=main3, dashed, thick] (0,6) -- (-9,6);
+                    
+                    \path[draw=main7, dashed, thick] (-4.7,0) -- (-4.7,9);
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+        %
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \pgfplotsset{width=\textwidth}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xmin = -9,
+                    xmax = 1,
+                    ymin = -9,
+                    ymax = 1,
+                    xlabel = $\mathsf{x}$, 
+                    ylabel = $\mathsf{f(x)}$,
+                    ytick = {-6},
+                    xtick = {-4.7},
+                    xticklabels={$\color{main7}\mathsf{B}$},
+                    yticklabels={$\color{main2}\mathsf{A}$},
+                    font = \footnotesize,
+                    major grid style = {line width=.2pt,draw=gray!50},
+                    trig format plots=rad,
+                    every x tick label/.append style={yshift=0.5cm},
+                    every y tick label/.append style={xshift=0.5cm},
+                    y label style={yshift=-0.4cm},
+                ]
+                    \addplot[color=main20, line width=0.6mm, domain=-9:1,samples=500]{-0.1*(-x)^2*((-x)-2)};
+                    
+                    \fill[fill = main1, fill opacity=0.2] (0,-6) rectangle (-9,-9);
+                    \fill[fill = main5, fill opacity=0.2] (-4.7,0) rectangle (-9,-9);
+                    
+                    \path[draw=main3, dashed, thick] (0,-6) -- (-9,-6);
+                    
+                    \path[draw=main7, dashed, thick] (-4.7,0) -- (-4.7,-9);
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+        
+        \textsf{\textbf{N. B.}} Ces 9 définitions métriques peuvent se généraliser sous la définition topologique suivante :
+        
+        \begin{property*}{Caractérisation topologique de la limite}{}
+            Soit $D \subset \bdR$, $f \in \bcF(D, \bdR)$, $\alpha \in \overline{D}$ et $\ell \in \overline{\bdR}$. On a :
+            
+            \[ \hg{\lim\limits_{x \to \alpha} f(x) = \ell \iff \forall V \in \bcV(\ell),\qquad \exists W \in \bcV(\alpha),\qquad \forall x \in D,\qquad x \in W \implies f(x) \in V}\]
+        \end{property*}
+    }
+    
+    \item Caractérisation séquentielle de la limite. Preuve dans le cas où $a \in \bdR$ et $\ell \in \bdR$.
+    
+    \boxans{
+        \begin{theorem*}{Caractérisation séquentielle de la limite}{}
+            Soit $f : D \to \bdR$ définie au voisinage de $\alpha \in \overline{\bdR}$, et $\ell \in \overline{\bdR}$. Les psse :
+            
+            \hg{
+            \begin{enumerate}
+                \item[\textrm{(i)}] $\lim\limits_{x \to \alpha} f(x) = \ell$
+                \item[\textrm{(ii)}]$\forall \suite{x_n} \in D^\bdN$ telle que $x_n \lima{n \to + \infty} \alpha$, on a $f(x_n) \lima{n \to +\infty} \ell$
+            \end{enumerate}
+            }
+        \end{theorem*}
+        
+        \begin{proof}
+            Soit $f : D \to \bdR$ définie au voisinage de $\alpha \in \overline{\bdR}$, et $\ell \in \overline{\bdR}$.
+            \begin{enumerate}
+                \ithand Montrons $\boxed{(i) \implies (ii)}$. On se donne un $\epsilon \in \bdRp$. Si $\lim\limits_{x \to \alpha} f(x) = \ell$, alors :
+                %
+                \[ \exists \eta \in \bdRp,\qquad \forall x \in D,\qquad \mod{x - \alpha} \leq \eta \implies \mod{f(x) - \ell} \leq \epsilon \]
+                %
+                Soit $\suite{x_n} \in D^\bdN$ telle que $x_n \lima{n \to +\infty} \alpha$. Alors :
+                %
+                \[ \forall \delta \in \bdRp,\qquad \exists n_0 \in \bdN,\qquad \forall n \in \bdN,\qquad n \geq n_0 \implies \mod{x_n - \alpha} \leq \delta\]
+                %
+                En appliquant avec $\delta = \eta$, on obtient un rang $n_0$ tel que $\forall n \in \bdN$, $n \geq n_0 \implies \mod{x_n - \alpha} \eta$, donc :
+                %
+                \[ \exists n_0 \in \bdN,\qquad n \geq n_0 \implies \mod{x_n - \alpha} \eta \implies \mod{f(x_n) - \ell} \leq \epsilon\]
+                %
+                Par définition, on a donc $f(x_n) \lima{x \to +\infty} \ell$.
+                
+                \ithand Montrons $\boxed{(ii) \implies (i)}$ par contraposé. Si $\neg \left(\lim\limits_{x \to \alpha} = \ell\right)$, alors il existe un $\epsilon \in \bdRp$ tel que :
+                %
+                \[ \forall \eta \in \bdRp,\qquad \exists x \in D,\qquad \mod{x-\alpha} \leq \eta \land \mod{f(x) - \ell} > \epsilon\]
+                %
+                Pour tout $n \in \bdN$, on pose $\eta_n = \dfrac{1}{2^n} \in \bdRp$. On remarque $\suite{\eta_n}$ est décroissante. De plus :
+                %
+                \[ \forall n \in \bdN,\qquad \exists \eta_n \in \bdRp,\qquad \exists x_n \in D,\qquad \mod{x_n - \alpha} \leq \eta_n \land \mod{f(x_n) - \ell} > \epsilon\]
+                %
+                On a donc construit une suite $\suite{x_n}$. On se donne $\delta \in \bdRp$. On prend $n_0 = \max{0, \left\lfloor-\log_2(\delta)\right\rfloor}$, donc $\eta_{n_0} \leq \delta$. On a alors :
+                %
+                \[ \forall \delta \in \bdRp,\qquad \exists n_0 \in \bdN,\qquad \forall n \in \bdN,\qquad n \geq n_0 \implies \mod{x_n - \alpha} \leq \eta_n \leq \eta_{n_0} \leq \delta\]
+                %
+                Donc $x_n \lima{n \to +\infty} \alpha$. On remarque de plus que $\forall n \in \bdN$, $\mod{f(x_n) - \ell} > \epsilon$. Donc :
+                %
+                \[ \exists \epsilon \in \bdRp,\qquad \forall n \in \bdN,\qquad \exists n_0\footnote{Il suffit de prendre $n_0 = 0$}\in \bdN,\qquad n \geq n_0 \implies \mod{f(x_n) - \ell} \leq \epsilon\]
+                %
+                Donc $\neg\left(f(x_n) \lima{x \to +\infty} \ell\right)$, donc $\neg(i) \implies \neg(ii)$. On a bien montré \boxsol{$(i) \iff (ii)$}.
+            \end{enumerate}
+        \end{proof}
+    }
+    
+    \item Définition d’une fonction $k$-lipschitzienne sur un intervalle. Montrer que toute fonction lipschitzienne sur un intervalle $I$ est continue sur $I$. Montrer que sin est $1$-lipschitzienne sur $\bdR$. Montrer que $x \mapsto \sqrt{x}$ est lipschitzienne sur $[1,+\infty[$, mais pas sur $\bdR_+$.
+    
+    \boxans{
+        \begin{definition*}{Fonction lipschitzienne}{}
+            Soit un intervalle $I \subset \bdR$ et  $f \in \bcF(I, \bdR)$. On dit que \bf{$f$ est lipschitzienne sur $I$} ssi :
+            %
+            \[ \hg{\exists k \in \bdR_+,\qquad \forall (x, y) \in I^2,\qquad \mod{f(x) - f(y)} \leq k\mod{x - y}}\]
+            %
+            On dit que \bf{$k$ est le facteur de Lipschitz de $f$} et que \bf{lipschitzienne}.
+        \end{definition*}
+        
+        \begin{property*}{Continuité des fonctions lipschitzienne}{}
+            Soit un intervalle $I \subset \bdR$ et $f \in \bcF(I, \bdR)$. \bf{Si $f$ est lipschitzienne sur $I$, alors $f$ est continue sur $I$}.
+        \end{property*}
+        
+        \begin{proof}
+            Soit un intervalle $I \subset \bdR$, $f \in \bcF(I, \bdR)$ et $k \in \bdR_+$ tel que $f$ est $k$-lipschitzienne sur $I$.
+            
+            On se donne $\epsilon \in \bdRp$ et $a \in I$. On pose alors $\eta = \dfrac{\epsilon}{k}$, donc :
+            %
+            \[ \forall x \in I,\qquad \mod{x - a} \leq \eta \implies \mod{x - a} \leq \dfrac{\epsilon}{k} \implies k\mod{x - a} \leq \epsilon \implies \mod{f(x) - f(a)} \leq \epsilon\]
+            %
+            Donc par définition \boxsol{$f$ est continue sur $I$}.
+        \end{proof}
+        
+        \begin{enumerate}
+            \itb Montrons que $\sin$ est $1$-lipschitzienne sur $\bdR$ :
+            %
+            \[ \forall (x, y) \in \bdR^2,\qquad \mod{\sin x - \sin y} = \mod{2\cos{\dfrac{x-y}{2}}\sin{\dfrac{x-y}{2}}} \leq 2\mod{\sin{\dfrac{x-y}{2}}} \leq 2\mod{\dfrac{x-y}{2}} \leq \mod{x-y}\]
+            %
+            Donc \boxsol{$\sin$ est $1$-lipschitzienne}.
+        
+            \itb Montrons que $\sqrt{\phantom{x}}$ est $\sfrac{1}{2}$-lipschitzienne sur $[1,+\infty[$, mais pas sur $\bdR_+$.
+            %
+            \[ \forall (x, y) \in \left[1, +\infty\right[,\qquad \sqrt{x} \geq 1 \land \sqrt{y} \geq 1 \ \text{donc} \ \dfrac{1}{\sqrt{x} + \sqrt{y}} \leq \dfrac{1}{2} \ \text{donc} \ \mod{\sqrt{x} - \sqrt{y}} = \dfrac{\mod{x - y}}{\sqrt{x} - \sqrt{y}} \leq \dfrac{1}{2}\mod{x - y}\]
+            %
+            Donc \boxsol{$\sqrt{\phantom{x}}$ est $\sfrac{1}{2}$-lipschitzienne sur $[1,+\infty[$}.
+            
+            Supposons par l'absurde que $\sqrt{\phantom{x}}$ est $k$-lipschitzienne sur $\bdR_+$. Alors avec $y = 0$ :
+            %
+            \[ \forall x \in \bdR_+,\qquad \mod{\sqrt{x}} \leq k\mod{x} \quad \text{donc} \quad \dfrac{1}{\sqrt{x}} \leq k\]
+            %
+            Ce qui est absurde car $\dfrac{1}{\sqrt{x}} \lima{x \to 0^+} +\infty$, donc \boxsol{$\sqrt{\phantom{x}}$ n'est pas lipschitzienne sur $\bdR_+$}.
+        \end{enumerate}
+    }
+    
+    \item Décrire et justifier la méthode de dichotomie pour trouver un zéro d'une fonction continue sur $[a, b]$ telle que $f(a)f(b) \leq 0$ (preuve du Théorème des Valeurs Intermédiaires).
+    
+    \boxans{
+    
+        \begin{theorem*}{Théorème des valeurs intermédiaires}{}
+            Soit $(a, b) \in \bdR^2$ avec $a < b$ et $f \in \bcC([a, b], \bdR)$. On a :
+            %
+            \[ \hg{f(a)f(b) \leq 0 \implies \exists c \in [a, b],\qquad f(c) = 0}\]
+        \end{theorem*}
+        
+        \begin{proof}
+            La démonstration du TVI se fait par la construction par dichotomie d'une solution.
+            
+            Soit $(a, b) \in \bdR^2$ avec $a < b$ et $f \in \bcC([a, b], \bdR)$, telle que $f(a)f(b) \leq 0$. On considère ici $f(a) \leq 0$ et $f(b) \geq 0$. Dans le cas inverse, il suffira de regarder $-f$. On va alors construire deux suites $\suite{a_n}$ et $\suite{b_n}$. On pose tout d'abord $a_0 = a$ et $b_0 = b$. Soit ensuite un entier $n \in \bdN$ tel qu'on a déjà construit $a_0, a_1, \dots, a_n$ et $b_0, b_1, \dots b_n$. On pose alors $c_n = \dfrac{a_n + b_n}{2}$, puis :
+        
+            \begin{enumerate}
+                \ithand Si $f(c_n) < 0$, alors $a_{n+1} = c_n$ et $b_{n+1} = b_n$.
+                \ithand Sinon (si $f(c_n) \geq 0$), alors $a_{n+1} = a_n$ et $b_{n+1} = c_n$.
+            \end{enumerate}
+        
+        Ainsi pour tout entier $n \in \bdN$, $f(a_n) \leq 0$ et $f(b_n) \geq 0$ d'où $f(a_n)f(b_n) \leq 0$. De plus, on a :
+        %
+        \[ b_n - c_n = \dfrac{b_n - a_n}{2} \qquad\et\qquad c_n - a_n = \dfrac{b_n - a_n}{2} \qquad\text{donc}\quad b_n - c_n = c_n - a_n = \dfrac{b_n - a_n}{2}\]
+        %
+        Or $b_{n+1} - a_{n+1} = b_n - c_n$ ou $b_{n+1} - a_{n+1} = c_n - a_n$ donc dans tous les cas $b_{n+1} - a_{n+1} = \dfrac{b_n - a_n}{2}$. Donc :
+        %
+        \[ \forall n \in \bdN,\qquad b_n - a_n = \dfrac{b_0 - a_0}{2^n} = \dfrac{b - a}{2^n} \lima{n \to +\infty} 0\]
+        %
+        Enfin pour tout entier $n \in \bdN$, on a $b_{n+1} \leq b_n$ et $a_{n+1} \geq a_n$ donc $\suite{a_n}$ est croissante et $\suite{b_n}$ est décroissante. Ainsi, les deux suites sont adjacentes, et convergent donc vers la même limite. On pose alors :
+        
+        \[c = \lim\limits_{n \to +\infty} a_n = \lim\limits_{n \to +\infty} b_n \qquad\text{donc}\qquad \forall n \in \bdN,\qquad a \leq a_n \leq c \leq b_n \leq b\qquad\text{donc}\qquad c \in [a, b]\]
+        
+        On a $a_n \lima{+\infty} c$ et $b_n \lima{+\infty} c$ donc par continuité de $f$, $f(a_n) \lima{+\infty} f(c)$ et $f(b_n) \lima{+\infty} f(c)$. En passant à la limite, on a $f(c)f(c) \leq 0$ soit $f(c)^2 \leq 0$, d'où $f(c) = 0$. Donc \boxsol{$\exists c \in [a, b],\qquad f(c) = 0$}.
+        \end{proof}
+    }
+    
+    \item Théorème de compacité (énoncé précis, dessin et démonstration).
+    
+    \boxans{
+        \begin{theorem*}{Théorème de compacité}{}
+            Soit $(a, b) \in \bdR^2$ avec $a < b$ et $f \in \bcC([a, b], \bdR)$. On a :
+            
+            \[ \hg{\exists (c, d) \in [a, b]^2,\qquad \forall x \in [a, b],\qquad f(c) \leq f(x) \leq f(d)}\]
+        \end{theorem*}
+        
+        \begin{minipage}{0.5\textwidth}
+            Le théorème de compacité peut se comprendre par le fait que toute fonction $f$, si continue sur un segment $[a, b]$, est bornée.
+            
+            Par ailleurs, ces mêmes bornes sont données par l'image par la fonction $f$ d'un $c$ et d'un $d$ appartenant au même segment $[a, b]$. On comprend donc que la fonction $f$ atteint donc ses bornes.
+        \end{minipage}
+        %
+        \hfill
+        %
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \pgfplotsset{width=\textwidth}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xmin = -1,
+                    xmax = 9,
+                    ymin = -1,
+                    ymax = 9,
+                    xlabel = $\mathsf{x}$, 
+                    ylabel = $\mathsf{f(x)}$,
+                    xtick = {0.5, 1.2, 6, 8},
+                    ytick = {1.7, 6.7},
+                    xticklabels={$\color{main20}\mathsf{a}$, $\color{main7}\mathsf{c}$, $\color{main7}\mathsf{d}$, $\color{main20}\mathsf{b}$},
+                    yticklabels={$\color{main2}\mathsf{f(d) = \textsf{min}\ f}$, $\color{main2}\mathsf{f(c) = \textsf{max}\ f}$},
+                    font = \footnotesize,
+                    major grid style = {line width=.2pt,draw=gray!50},
+                    trig format plots=rad,
+                ]
+                    \addplot[color=main20, line width=0.6mm, domain=0.5:8,samples=500]{-0.04*(x-15)*(0.2*((x-2)^3) - (x+2)*(x-5))};
+                    
+                    \path[draw=main20, dashed] (0.5,0) -- (0.5,6.1);
+                    \path[draw=main20, dashed] (8,0) -- (8,3.7);
+                    
+                    \path[draw=main7, dashed, thick] (1.2,0) -- (1.2,6.7);
+                    \path[draw=main7, dashed, thick] (6,0) -- (6,1.7);
+                    
+                    \path[draw=main3, dashed, thick] (0,1.7) -- (6,1.7);
+                    \path[draw=main3, dashed, thick] (0,6.7) -- (1.2,6.7);
+                    
+                    \addplot[mark=*,main3!50!main7, line width=1mm, thick] coordinates {(6,1.7)};
+                    \addplot[mark=*,main3!50!main7, line width=1mm, thick] coordinates {(1.2,6.7)};
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+        
+        \begin{proof}
+            Soit $(a, b) \in \bdR^2$ avec $a < b$ et $f \in \bcC([a, b], \bdR)$. On pose $M = \sup\limits_{[a, b]} f = \sup \ \left\{ f(x) \in \overline\bdR,\ x \in [a, b]\right\}$. Il existe une suite $\suite{x_n} \in [a, b]^\bdN$ telle que $\lim\limits_{n \to +\infty} f(x_n) = M$. Par théorème de Bolzano-Weierstrass, on a $\suite{x_n}$ bornée donc il existe une suite extraite $\suite{x_{\varphi(n)}}$ convergente de limite $d$. Or :
+            %
+            \[ \forall n \in \bdN, \qquad x_{\varphi(n)} \in [a, b], \qquad\text{donc}\qquad \lim\limits_{n \to +\infty} x_{\varphi(n)} = d \in [a, b]\]
+            %
+            Par ailleurs, $\suite{f(x_{\varphi(n)})} = \suite{\left(f(x_n)\right)_{\varphi(n)}}$ donc $\suite{f(x_{\varphi(n)})}$ est une suite extraite de $\suite{f(x_n)}$.
+            
+            Donc $\lim\limits_{n \to +\infty} f(x_{\varphi(n)}) = M$. De plus $f$ est continue en $d \in [a, b]$, donc $\lim\limits_{n \to +\infty} f(x_{\varphi(n)}) = f(d)$.
+            
+            On a donc $f(d) = M$ donc la borne $\sup$ est atteinte en $d$. Considérer $-f$ nous donne la borne $\inf$ atteinte en un certain $c \in [a, b]$. On a bien montré que \boxsol{$\exists (c, d) \in [a, b]^2,\qquad \forall x \in [a, b],\qquad f(c) \leq f(x) \leq f(d)$}.
+        \end{proof}
+    }
+    
+    \item Montrer que la suite $\suite{u_n}$ définie par $u_0 \in \bdR$ et $\forall n \in \bdN$, $u_{n+1} = \sin{u_n}$ converge vers $0$. En déduire que les fonctions continues sur $\bdR$ vérifiant $\forall x \in \bdR$, $f(\sin x) = f(x)$ sont les constantes.
+    
+    \boxans{
+        On étudie la suite $\suite{v_n} = \suite{\mod{u_n}}$. $\forall x \in \bdR$, on a $\sin x \in [-1, 1]$, donc $\mod{\sin x} \in [0, 1]$. Ainsi on a :
+        %
+        \[ v_1 = \mod{u_1} = \mod{\sin u_0} \in [0, 1] \subset \left[0, \sfrac{\pi}{2}\right]\]
+        %
+        Or $\sin{\left[0, \dfrac{\pi}{2}\right]} = \left[0, \sfrac{\pi}{2}\right]$, donc par récurrence :
+        %
+        \[ \forall n \in \bdN^*,\qquad v_n \in \left[0, \dfrac{\pi}{2}\right]\]
+        %
+        Or $\forall x \in \left[0, \dfrac{\pi}{2}\right]$, on a $\sin x \leq x$, donc $\forall n \in \bdN$, $v_{n+1} \leq v_n$, donc la suite $\suite{v_n}$ est décroissante. Elle est minorée par $0$, donc par théorème de la limite monotone, $v_n$ converge vers un réel $\ell \in \left[0, \dfrac{\pi}{2}\right]$. 
+        
+        Pour tout entier non nul $n \in \bdN^*$, $v_{n+1} = \sin{v_n}$. Par passage à la limite, on a $\ell = \sin \ell$ donc $\ell = 0$. On a donc $\lim\limits_{n \to +\infty} v_n = \lim\limits_{n \to +\infty} \mod{u_n} = 0$. Donc \boxsol{$\lim\limits_{n \to +\infty} u_n = 0$}.
+        
+        Soit $f \in \bcC(\bdR, \bdR)$ telle que $\forall x \in \bdR$, $f(\sin x) = f(x)$.
+        
+        Soit $x \in \bdR$. On considère la suite $\suite{u_n}$ telle que $u_0 = x$ et $\forall n \in \bdN^*$, $u_{n+1} = \sin{u_n}$. On a :
+        %
+        \[ \forall n \in \bdN,\qquad f(u_{n+1}) = f(\sin u_n) = f(u_n) \qquad\text{donc par récurrence}\qquad f(u_n) = f(u_0) = f(x)\]
+        %
+        Or $\lim\limits_{n \to +\infty} u_n = 0$ donc par continuité, $\lim\limits_{n \to +\infty} f(u_n) = f(0)$. Donc $f(0) = f(x)$. Donc \boxsol{$f$ est constante}.
+    }
+\end{enumerate}
+
+\end{document}

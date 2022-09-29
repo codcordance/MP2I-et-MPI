@@ -1,0 +1,332 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\usepackage{fontawesome}
+\usepackage{circuitikz}
+\tikzset{ressort/.style={black,smooth}}
+
+\renewcommand{\thesection}{\Roman{section}} 
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+    
+\begin{document}
+\stylizeDoc{Physique}{Compte-rendu du TP 15}{Oscillateur mécanique amorti}
+
+\begin{tcolorbox}[
+        breakable,
+        enhanced,
+        interior style      = {left color=main2!15,right color=main6!12,middle color=main4!8},
+        borderline north    = {.5pt}{0pt}{main2!10},
+        borderline south    = {.5pt}{0pt}{main2!10},
+        borderline west     = {.5pt}{0pt}{main2!10},
+        borderline east     = {.5pt}{0pt}{main2!10},
+        sharp corners       = downhill,
+        arc                 = 0 cm,
+        boxrule             = 1pt,
+        drop fuzzy shadow   = black!50!white
+    ]
+    \begin{center}\textbf{Objectif :}\end{center}
+    \begin{enumerate}
+        \itstar Analyser un système masse-ressort amorti pour en mesurer les paramètres.
+    \end{enumerate}
+    \begin{center}\textbf{Matériel :}\end{center}
+    \begin{enumerate}
+        \itstar un système masse-ressort pouvant être plongé dans l’eau ;
+        \itstar un système d’acquisition de vidéo et un ordinateur.
+    \end{enumerate}
+    \end{tcolorbox}
+
+\begin{minipage}{0.7\linewidth}
+    Nous allons étudier un système composé d’une masse reliée à un ressort vertical et soumise à des frottements fluides, linéaires avec la vitesse. Nous nous proposons de déterminer les divers paramètres de ce modèle (raideur du ressort $k$ et coefficient de frottement fluide $\lambda$) à partir de l’exploitation d’acquisitions expérimentales réalisées en régime libre.\\
+
+    L’équation d’évolution d’un OHA mécanique est
+
+    \begin{equation}
+        \boxed{
+            \ddot z + \dfrac{\omega_0}{Q}\dot z + {\omega_0}^2z = {\omega_0}^2z_{eq}
+        }
+    \end{equation}
+
+    On rappelle que si le facteur de qualité $Q$ est supérieur à $\sfrac{1}{2}$, on observe des oscillations et l’expression générale du déplacement de la masse est
+
+    \begin{equation}
+        \boxed{
+            z(t) = z_{eq} + A\cos{\omega t + \phi} \exp{-\dfrac{\omega_0 t}{2Q}}
+        }
+    \end{equation}
+
+    où $\omega$ est la pseudo-pulsation :
+
+    \begin{equation}
+        \boxed{
+            \omega = \omega_0 \sqrt{1-\dfrac{1}{4Q^2}}
+        }
+    \end{equation}
+
+\end{minipage}
+\begin{minipage}{0.3\linewidth}
+    \centering
+    \begin{tikzpicture}[scale=1.1,decoration={coil,aspect=0.4,segment length=3mm,amplitude=3mm}]
+        \node[label={north:$O$}] at (0,0) {};
+        \draw[thick] (-0.2,0) -- (0.2,0);
+        \draw[dashed] (0,0) -- (0,-1.8);
+        \draw[-latex',dashed] (0,-4.5) -- (0,-7);
+        \node[label={south:$z$}] at (0,-7) {};
+        \draw[ressort,decorate] (0,0) --node[right,label={east:$k, \ell_0$}] {} (0,-1.8) ;
+        
+        \draw (0,-1.8) -- (0,-4.5);
+        
+        \draw[fill=gray] (0,-4.7) ellipse [x radius=0.2,y radius=0.04];
+        \draw[fill=gray,draw=none] (-0.2,-4.3) rectangle (0.2,-4.7);
+        \draw[fill=gray] (0,-4.3) ellipse [x radius=0.2,y radius=0.04];
+        \draw (-0.2,-4.3) -- (-0.2,-4.7);
+        \draw (0.2,-4.3) -- (0.2,-4.7);
+        
+        \draw (0,-2.3) ellipse [x radius=0.5,y radius=0.1];
+        \draw[fill=main2!50,opacity=0.8] (0,-6.5) ellipse [x radius=0.5,y radius=0.1];
+        \draw[top color=main2!15,bottom color=main2!50,opacity=0.7,draw=none] (-0.5,-3.5) rectangle (0.5,-6.5);
+        \draw[white,fill=main2!30] (0,-3.5) ellipse [x radius=0.5,y radius=0.1];
+        \draw[white,fill=main2!30] (0,-3.5) ellipse [x radius=0.05,y radius=0.01];
+        \draw (0,-2) -- (0,-3.5);
+        \draw (-0.5,-2.3) -- (-0.5,-6.5);
+        \draw (0.5,-2.3) -- (0.5,-6.5);
+        
+    \end{tikzpicture}
+\end{minipage}
+\section{Comment obtenir la position du système ?}
+
+Deux choix s’offrent à vous pour acquérir la position du système :\\
+
+\textbf{Méthode 1 :} Réaliser une vidéo du mouvement et utiliser \verb|LatisPro| pour remonter à la position en fonction du temps.
+\begin{enumerate}
+    \item[\faThumbsOUp] Avantage : vous connaissez cette méthode.
+    \item[\faThumbsODown] Inconvénient : \verb|LatisPro| est capricieux.
+\end{enumerate}
+
+\textbf{Méthode 2 :} Utiliser le capteur de position pour obtenir une tension qui évolue de manière linéaire avec la position.
+\begin{enumerate}
+    \item[\faThumbsOUp]  Avantage : cette méthode est plus rapide.
+    \item[\faThumbsODown]  Inconvénient : vous devez calibrer le capteur.
+\end{enumerate}
+
+\begin{center}
+    \begin{minipage}{0.6\linewidth}
+    \begin{tcolorbox}[
+        breakable,
+        enhanced,
+        interior style      = {color=colexp!10},
+        borderline north    = {.5pt}{0pt}{colexp!10},
+        borderline south    = {.5pt}{0pt}{colexp!10},
+        borderline west     = {.5pt}{0pt}{colexp!10},
+        borderline east     = {.5pt}{0pt}{colexp!10},
+        sharp corners       = downhill,
+        arc                 = 0 cm,
+        boxrule             = 0.5pt,
+        drop fuzzy shadow   = black!50!white
+    ]
+        Si vous choisissez la première méthode, rendez-vous directement en section \ref{sec:2}. Si vous choisissez la seconde, lisez ce qui suit.
+    \end{tcolorbox}
+\end{minipage}
+\end{center}
+
+Le principe du capteur de position sera expliqué en détails en deuxième année. Pour le moment, on admet que la tension $U(t)$ délivrée par le capteur est une fonction linéaire du déplacement $z(t)$ :
+
+\begin{equation}
+    U(t) = a z(t) + b
+\end{equation}
+
+\setcounter{cours}{-1}
+\begin{experience}{Calibration du capteur de position}{}
+    \begin{enumerate}
+        \ithand Proposer et mettre en œuvre un protocole pour déterminer la valeur du coefficient $a$.
+    \end{enumerate}
+\end{experience}
+
+Comme on ne cherche qu’à déterminer $\omega_0$ et Q, la valeur de b ne nous intéresse pas car elle correspond à un décalage
+constant.
+
+\boxexp{
+Soit $L$ la longueur totale du dispositif. On mesure 
+\begin{enumerate}
+    \begin{multicols}{2}
+        \itstar $z(t_1) = L-17 \ cm$
+        \itstar $u(t_1) = 4.7 \ V$
+        \itstar $z(t_2) = L-10 \ cm$
+        \itstar $u(t_1) = 3.6 \ V$
+    \end{multicols}
+    \itstar On a $a = \dfrac{U(t_2)-U(t_1)}{z(t_2) - z(t_1)}$. L'application numérique donne $a = - 15, 71 \ USI$.
+    \end{enumerate}
+}
+
+\section{Système dans l’air}\label{sec:2}
+
+Le système est initialement en dehors de l’eau. On note $\lambda_{air}$ le coefficient de frottement fluide dû à l’air.
+
+\begin{enumerate}
+    \item En appliquant le PFD au système assimilé à un point matériel, et en notant $Q_{air}$ étant le facteur de qualité du système au sec, montrer que
+    
+    \begin{equation}
+        \omega_0 = \sqrt{\dfrac{k}{m}} \qquad Q_{air} = \dfrac{\sqrt{mk}}{\lambda_{air}} \quad\et\quad z_{eq} = \ell_0 + \dfrac{mg}{l}
+    \end{equation}
+    
+    \boxans{
+        Le système est la masse reliée au ressort, plongé dans le référentiel de laboratoire supposé galiléen.
+        
+        Le bilan des forces donne :
+        
+        \begin{enumerate}
+            \ithand Le poids $\vec{P} = m\vec{g} = mg\vec{u_z}$.
+            \ithand La force de rappel du ressort $\vec{R} = -k(z - \ell_0)\vec{u_z}$.
+            \ithand Une force de frottement fluide linéaire $\vec{F} = -\lambda_{air}\vec{v} = -\lambda_{air}\dfrac{\dif \vec{z}}{\dif t}$.
+        \end{enumerate}
+        
+        Le mouvement se fait uniquement selon l'axe $(0z)$ donc en projetant, le PDF donne :
+        \[ m\ddot z = mg -k(z - \ell_0) -\lambda_{air}\dot z\]
+         donc $m\ddot z + \lambda_air \dot z + kz = mg + k\ell_0$ donc
+         \[ \ddot z + \dfrac{\lambda_{air}}{m}\dot z + \dfrac{k}{m}z = g + \dfrac{k}{m}\ell_0\]
+         On en déduit bien que $\omega_0 = \sqrt{\dfrac{k}{m}}$, donc que $Q_{air} = \dfrac{\sqrt{mk}}{\lambda_{air}}$ et $z_{eq} = \ell_0 + \dfrac{mg}{l}$.
+    }
+    
+\end{enumerate}
+    
+\begin{experience}{Caractérisation du ressort}{}
+    \begin{enumerate}
+        \ithand Mesurer la longueur à vide du ressort, notée $\ell_0$.
+        
+        \ithand Mesurer la valeur de la masse $m$ du système, constitué de la masselotte ainsi que de la tige.
+        
+        \ithand À partir de ces mesures, estimer la valeur de la raideur du ressort $k$. En déduire la valeur de $\omega_0$, la pulsation propre du système au sec.
+    \end{enumerate}
+\end{experience}
+
+\boxexp{
+    \begin{enumerate}
+        \itstar On mesure $\ell_0 = 18 \ cm$ et $m = 138,8 \ g$. On mesure aussi $L = 68.9 \ cm$.
+        
+        \itstar On On mesure $z_{eq} = L - 42 \ cm$. On a :
+        \[ k = \dfrac{mg}{z_{eq}-\ell_0}\]
+        
+        L'application numérique donne $k = 15 \ USI$, et donc $\omega_0 = 10 \ USI$.
+    \end{enumerate}
+}
+
+\begin{experience}{Dynamique au sec}{}
+    \begin{enumerate}
+        \ithand Écarter la masse de sa position d’équilibre verticalement vers le bas et la relâcher.
+        
+        \ithand Compter le nombre d’oscillations du système et en déduire une estimation de $Q_{air}$.
+    \end{enumerate}
+\end{experience} 
+
+\boxexp{
+    \begin{enumerate}
+        \itstar On compte plus d'une centaine et demi d'oscillations donc $Q \approx 150 \ USI$.
+    \end{enumerate}
+}
+
+\section{Système dans l’eau}
+
+On étudie maintenant la dynamique du système dans l’eau. On note $Q_{eau}$ la nouvelle valeur du facteur de qualité.
+
+\begin{experience}{Mise en eau}{}
+    \begin{enumerate}
+        \ithand Remplir le cylindre d’une quantité raisonnable d’eau et le placer sous le système masse-ressort. La masse doit pouvoir être totalement immergée tout au long de son mouvement.
+    \end{enumerate}
+\end{experience} 
+
+\begin{enumerate}[resume]
+    \item À l’équilibre, quelles forces s’exercent sur la masse $m$ ? Montrer que lorsque le système est en mouvement, la pulsation propre $\omega_0$ reste inchangée par rapport aux oscillations dans l’air.
+    
+    \boxans{À l’équilibre, les forces qui s’exercent sur la masse $m$ sont le poids $\vec{P}$, la poussée d'Archimède $\vec{\Pi}$, la force de rappel du ressort $\vec{R}$ et la force de frottement fluide linéaire $\vec{F}$. À l’équilibre, toutes ces forces se compensent.
+    
+    On applique le PFD :
+    \[ m\ddot z = mg - k(z - \ell_0) - \lambda_{eau}\dot z - \rho_{eau}Vg\]
+    Donc $m\ddot z + \lambda_{eau}\dot z + kz = mg+k\ell_0 - \rho_{eau}Vg$ donc
+    \[ \ddot z + \dfrac{\lambda_{eau}}{m} + \dfrac{k}{m}z = g + \dfrac{k}{m}\ell_0 - \dfrac{\rho_{eau}V}{m}g\]
+    On a bien toujours $\omega_0 = \sqrt{\dfrac{k}{m}}$.
+    }
+\end{enumerate}
+
+\begin{experience}{Acquisition}{}
+    \begin{enumerate}
+        \ithand Écarter la masse de sa position d’équilibre verticalement vers le bas et la relâcher.
+        
+        \ithand Enregistrer le mouvement $z(t)$ de la masse avec la méthode de votre choix.
+        
+        \ithand Mesurer la pseudo-période des oscillations $T = \dfrac{2\pi}{\omega}$
+    \end{enumerate}
+\end{experience} 
+
+\boxexp{
+    \begin{enumerate}
+        \ithand On mesure $T \approx 0,45 \ s$.
+    \end{enumerate}
+}
+
+\text{}\\On définit le \textit{décrément logarithmique $\delta(t)$} comme :
+
+\begin{equation}
+    \delta(t) = \ln{\dfrac{z(t) - z_{eq}}{z(t+T)-z_{eq}}}
+\end{equation}
+
+\begin{enumerate}[resume]
+    \item Montrer que
+    \begin{equation}
+        \delta(t) = \dfrac{\omega_0 T}{2Q_{air}} = \delta
+    \end{equation}
+    
+    \boxans{
+        On considère que $Q_{air} \geq \dfrac{1}{2}$. On a donc
+        \[ z(t) = z_{eq} + A\cos{\omega t + \phi} \exp{-\dfrac{\omega_0 t}{2Q_{eau}}}\]
+        
+        On a donc 
+    \[\delta(t) = \ln{\dfrac{A\cos{\omega t + \phi} \exp{-\dfrac{\omega_0 t}{2Q_{eau}}}}{A\cos{\omega t+T + \phi} \exp{-\dfrac{\omega_0(t+T)}{2Q_{eau}}}}}=\ln{\exp{-\dfrac{\omega_0 t}{2Q_{eau}}+\dfrac{\omega_0(t+T)}{2Q_{eau}}}}\]
+    
+    Donc $\delta = \ln{\exp{\dfrac{\omega_0T}{2Q_{eau}}}}$. On a bien :
+    \[ \delta(t) = \dfrac{\omega_0 T}{2Q_{eau}} = \delta \]
+    }
+\end{enumerate}
+
+\begin{experience}{Mesure du décrément logarithmique}{}
+    \begin{enumerate}
+        \ithand À partir de votre acquisition, estimer une valeur de $\delta$.
+        \ithand Utiliser les valeurs expérimentales de $T$ et de $\delta$ pour estimer $\omega_0$ et $Q_{air}$.
+        \ithand Estimer finalement $\lambda_{eau}$, le coefficient de frottement fluide de l’eau.
+    \end{enumerate}
+\end{experience}
+
+\boxexp{
+    \begin{enumerate}
+        \ithand On mesure $z_{eq} = -70 + b \ cm$, $z(t) = -57 + b \ cm$ et $z(t+T) = -67 + b \ cm$. 
+    
+        \ithand L'application numérique donne donc $\delta = 1,5 \ USI$.
+        
+        \ithand On a $Q_{eau} = \dfrac{\sqrt{mk}}{\lambda_{eau}}$, donc $\lambda_{eau} = \dfrac{\sqrt{mk}}{Q_{eau}}$. Or $\delta = \dfrac{\omega_0 T}{2Q_{eau}}$ donc $Q_{eau} =  \dfrac{\omega_0 T}{2\delta}$. Donc $\lambda_{eau} = \dfrac{2\delta\sqrt{mk}}{\omega_0 T}$.
+        
+        L'application numérique donne $\lambda = 0.96 \ USI$.
+    \end{enumerate}
+
+}
+
+\section{Portrait de phase – si le temps le permet}
+
+\begin{experience}{Portrait de phase}{}
+    \begin{enumerate}
+        \ithand Obtenir le portrait de phase pour une évolution du système au sec ou dans l’eau.
+        
+        \ithand  Retrouver le nombre d’oscillations visibles à partir du portrait de phase.
+    \end{enumerate}
+\end{experience}
+
+\boxexp{
+    Cette expérience n'a pas été faite par manque de temps.
+}
+
+\begin{enumerate}[resume]
+    \item Comment la diminution de l’énergie mécanique se manifeste-t-elle sur le portrait de phase ?
+    
+    \boxans{
+        La diminution de l’énergie mécanique se manifeste sur le portrait de phase par le fait que la courbe n'est pas \guill{fermée} mais est plutôt une spirale se rétrécissant vers l'origine, ce qui caractérise plus précisément la perte d'énergie.
+    }
+\end{enumerate}
+
+\end{document}

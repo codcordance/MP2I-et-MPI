@@ -1,0 +1,762 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+
+\stylizeDoc{Mathématiques}{Chapitre 11}{Arithmétique dans $\bdZ$}
+
+\qquad On peut concevoir l'\textit{arithmétique} comme la discipline mathématique visant à étudier les nombres en eux mêmes (arithmétique vient du grec \textit{arithmos}, qui veut dire \textit{nombre}). C'est en fait une des plus vieille branche des mathématiques, puisque ses origines remontent jusqu'au phéniciens, au VI\textsuperscript{e} siècle avant J.-C. L'arithmétique sur les entiers traite généralement des opérations sur ces derniers (addition, multiplication, division euclidienne, \dots) et des algorithmes pour les effectuer (algorithme d'Euclide, \dots). Elle traite aussi de questions plus poussées comme les \textit{équations diophantiennes}, qui sont des équations d'inconnue entière.\\
+
+\qquad L’objectif de ce cours est d’étudier quelques propriétés sur la divisibilité des entiers et des congruences, des notions de plus grand commun diviseur et de plus petit commun multiple. Comme préconisé par le programme, l’approche employée reste \guill{élémentaire en ce qu’elle ne fait pas appel au langage des structures algébriques}.\\
+
+\initcours
+
+\section{Division euclidienne et divisibilité}
+
+\qquad La première partie de ce cours sera consacrée à la division euclidienne et à la divisibilité, deux notions fondamentales en arithmétique et qui permettront de construire dans un deuxième temps des outils plus complexes. Si l'on se fait sans soucis une conception évidente de l'addition, de la soustraction et de la multiplication dans les entiers (construits depuis les axiomes de Peano), la première \guill{vraie question} est celle de la division, ou de l'opération permettant d'\guill{annuler}, ou d'\guill{inverser}, une multiplication.
+
+\subsection{Théorème de la division euclidienne}
+
+La soustraction semble, en ce qui la concerne, toujours possible - cependant ce n'est pas du tout le cas de la division. En effet, il y a de nombreux cas où un nombre ne semble pas directement divisible par un autre, où l'un n'est pas multiple de l'autre. Il n'y même pas besoin d'aller chercher avec de grandes valeurs pour trouver ce scénario, il suffit en fait d'essayer de diviser $3$ par $2$. Il s'agit donc dans un tout premier temps de poser le concept de \guill{division euclidienne}.
+
+\begin{theorem}{Division euclidienne}{}
+    Soit $a \in \bdZ$ et $b \in \bdN^*$. On a :
+    
+    \[ \exists ! (q, r) \in \bdZ^2,\quad a = bq + r \et 0 \leq r < b\]
+    
+    On appelle \bf{$q$ le quotient} et \bf{$r$ le reste} de cette \hg{division euclidienne de $a$ par $b$}.
+\end{theorem}
+
+\newpage
+
+\demoth{
+    Soit $a \in \bdZ$ et $b \in \bdN^*$.
+    
+    \begin{enumerate}
+        \ithand \underline{Existence :} On pose $A = \{ k \in \bdZ \mid kb \leq a \}$. Or on a 
+    
+        \[b \in \bdN^* \quad \text{donc} \quad b \geq 1 \quad \text{donc} \quad \mod{a}b \geq \mod{a} \quad \text{donc} \quad -\mod{a} \leq -\mod{a} \leq a\]
+    
+        Donc on a toujours $k=-\mod{a} \in A$. De plus, $\forall k \in A$, $k \leq a$ par définition, donc $A$ est une partie non vide et majorée de $\bdZ$, elle admet donc un plus grand élément. On pose donc ce maximum $q = \max A$. Par définition on a $bq \leq a$, et puisque $q$ est le maximum de $A$ on a $q + 1 \not\in A$ donc $b(q+1) > a$. On pose finalement $r = a - bq$. On a donc bien $0 \leq r < b$. Donc $a = bq + r$ et $0 \leq r < b$.
+    
+        \ithand \underline{Unicité :} On suppose qu'il existe deux couples $(q, r) \in \bdZ^2$ et $(q', r') \in \bdZ^2$ tels que :
+    
+        \[ a = bq + r \ \text{et} \ 0 \leq r < b \qquad a = bq' + r' \ \text{et} \ 0 \leq r' < b\]
+    
+        On obtient alors $ -b < r - r' < b$ soit $\mod{r - r'} < b$.  Or $r - r' = b(q - q')$ donc $\mod{q - q'} \leq 1$ donc $q - q' = 0$.
+    
+        On a donc $q = q'$, et donc $r = r'$. Ainsi $(q, r) = (q', r')$. 
+
+    \end{enumerate}
+}
+
+\begin{example}{}{}
+    Déterminer la division euclidienne de $367$ par $15$.
+    
+    \tcblower
+    
+    \[ \begin{array}{r|l}
+        367 & 15    \\\cline{2-2}
+        \textit{} &      \\
+        \textit{}
+    \end{array} \qquad \text{donc} \qquad \begin{array}{r|l}
+        367 & 15    \\\cline{2-2}
+        67 & \mathit{20}     \\
+        \textit{}
+    \end{array} \qquad \text{donc} \qquad \begin{array}{r|l}
+        367 & 15    \\\cline{2-2}
+        67 & 24     \\
+        7
+    \end{array} \]
+
+    On a donc la \bf{division euclidienne $367 = 24\times15 + 7$}.
+\end{example}
+
+\subsection{Divisibilité}
+
+Une fois la notion de division euclidienne posée, on peut s'intéresser au cas particulier où le reste est nul, et considérer la notion de divisibilité dans les entiers.
+
+\begin{definition}{Divisibilité}{}
+    Soit $(a, b) \in \bdZ^2$. On dit que \bf{$b$ divise $a$} si et seulement si
+    
+    \[ \exists k \in \bdZ,\quad a = kb\]
+    
+    On dit \bf{$b$ est un diviseur de $a$} et \bf{$a$ est un multiple de $b$}.
+\end{definition}
+Pour dire que $b$ divise $a$, on notera alors $b \mid a$. On a remarquera donc que l'on a bien :
+
+\[ \forall (a, b) \in \bdZ\times\bdN^*,\quad b \mid a \iff \ \text{le reste de la division euclidienne de} \ a \ \text{par} \ b \ \text{est nul} \]
+
+\begin{property}{Particularités de $0$}{}
+    Soit $n \in \bdZ$. On a :
+    
+    \[ n \mid 0 \qquad\qquad\et\qquad\qquad 0 \mid n \iff n = 0\]
+    
+\end{property}
+
+\demo{
+    Soit $n \in \bdZ$. On a $0 = 0 \times n$ donc $n \mid 0$. De plus, $0 \mid n \iff \exists k \in \bdZ, \quad n = k\times0 \iff 0$.
+}
+
+On peut comprendre cette propriété par le fait que l'unique multiple de $0$ est, en fait, lui-même. La notion de divisibilité permet par ailleurs de poser les notions d'ensemble des multiples et d'ensemble des diviseurs d'un entier donné :
+
+\begin{definition}{Ensemble des multiples}{}
+    Soit $n \in \bdZ$. On appelle \bf{ensemble des multiples de $n$} l'ensemble de tous les multiples $m \in \bdZ$ de $n$, soit :
+    \[ \{kn \in \bdZ \mid k \in \bdZ\}\]
+\end{definition}
+
+
+
+\begin{definition}{Ensemble des diviseurs}{}
+    Soit $n \in \bdZ$. On appelle \bf{ensemble des diviseurs de $n$} l'ensemble de tous les diviseurs $d \in \bdZ$ de $n$, soit :
+    
+    \[ \{d \in \bdZ \mid \exists k \in \bdZ,\ n = kd\}\]
+\end{definition}
+
+
+Généralement, l'ensemble des multiples d'un entier $n$ sera noté $n\bdZ$, et l'ensemble de ses diviseurs sera noté $\bcD(n)$.
+
+\begin{example}{}{}
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \ithand $2\bdZ$ est l'ensemble des nombres pairs.
+            
+            \ithand $\bcD(0) = \bdZ$.
+            
+            \ithand $\bcD(1) = \{-1, 1\}$.
+            
+            \ithand $\bcD(12) = \{-12, -6, -3, -2, -1, 1, 2, 3, 6, 12\}$.
+        \end{enumerate}
+    \end{multicols}
+\end{example}
+
+\begin{property}{}{}
+    Soit $n \in \bdN$. On a :
+    
+    \[n\bdZ = (-n)\bdZ\qquad \et \qquad \bcD(n) = \bcD(-n)\]
+\end{property}
+
+\demo{
+    Soit $n \in \bdN$. 
+    
+    \begin{enumerate}
+        \ithand Soit $m \in \bdZ$ tel que $m \in n\bdZ$. On a donc $\exists k \in \bdZ$ tel que $m = kn$. Or $-k \in \bdZ$, donc $m = (-k)(-n) \in (-n)\bdZ$.
+        
+        Ainsi $n\bdZ \subset (-n)\bdZ$. Similairement, on montre que $(-n)\bdZ \subset n\bdZ$ donc on a bien $n\bdZ = (-n)\bdZ$.
+        
+        \ithand  Soit $d \in \bdZ$, tel que $d \in \bcD(n)$, donc $d \mid n$. Donc $\exists k \in \bdZ$ tel que $n = kd$. 
+        
+        Or $-k \in \bdZ$ et $-n = -kd$ donc $d \in \bcD(-n)$. Donc $\bcD(n) \subset \bcD(-n)$.
+        
+        Similairement, on montre $\bcD(-n) \subset \bcD(n)$ donc $\bcD(n) = \bcD(-n)$.
+    \end{enumerate}
+}
+
+Cette propriété permet donc de se restreindre aux naturels, en ne regardant $n\bdZ$ et $\bcD(n)$ que seulement pour $n \in \bdN$.
+
+\begin{property}{}{}
+    Soit $(a, b) \in \bdZ^2$. On a :
+    
+    \[ a \mid b \ \et \ b \mid a \implies a = \pm b\]
+\end{property}
+
+\demo{
+    Soit $(a, b) \in \bdZ^2$ tels que $a \mid b$ et $b \mid a$. $\exists (k, k') \in \bdZ^2$ tels que $a = kb$ et $b = k'a$.
+
+    Donc $b = kk'b$ d'où $b(1-kk') = 0$ donc $b = 0$ ou $kk' = 1$.
+
+    Si $b = 0$, alors $a = k\times 0 = 0$ donc $a = b = 0$.
+    Sinon, $kk' = 1$ donc $k = k' = \pm 1$, donc $a = \pm b$.
+}
+
+Cette propriété montre en fait que $\cdot \mid \cdot$ est antisymétrique dans $\bdN$ et ne l'est pas dans $\bdZ$, ce qui sera utilisé plus loin.
+
+\begin{property}{Encadrement de $\bcD(n)$}{}
+    Soit $n \in \bdZ^*$. On a :
+    
+    \[\bcD(n) \subset \llbracket -\mod{n}, \mod{n}\rrbracket\]
+\end{property}
+
+\demo{
+    Soit $n \in \bdZ^*$ et $d \in \bcD(n)$. Donc $\exists k \in \bdZ$ tel que $n = kd$. Puisque $a \neq 0$ on a  $k \neq 0$ et $d \neq 0$.
+    
+    Donc $\mod{k} \geq 1$, donc $\mod{k}\mod{d} \geq \mod{d}$, donc $\mod{n} \geq \mod{d}$, donc $-\mod{n} \leq d \leq \mod{n}$. Donc $\bcD(n) \subset \llbracket -\mod{n}, \mod{n}\rrbracket$.
+}
+
+On peut maintenant établir un lien entre ensemble des multiples, divisibilité, et ensemble des diviseurs.
+
+\begin{property}{Lien entre multiples, diviseurs et divisibilité}{}
+    Soit $(a, b) \in \bdZ^2$. On a équivalences entre les proprositions suivantes :
+    
+    \begin{enumerate}
+        \ithand $a\bdZ \subset b\bdZ$.
+        
+        \ithand $b \mid a$?
+        
+        \ithand $\bcD(b) \subset \bcD(a)$.
+    \end{enumerate}
+\end{property}
+
+\demo{
+    Soit $(a, b) \in \bdZ^2$.
+    \begin{enumerate}
+        \ithand On a $a \in a\bdZ$. Donc :
+        
+            \[a\bdZ \subset b\bdZ \implies a \in b\bdZ \implies \exists k \in \bdZ, \ a = bk \implies b \mid a\]
+            
+        \ithand Soit $d \in \bcD(b)$ donc $d \mid b$.
+        
+            \[ b \mid a \implies d \mid a \implies d \in \bcD(a) \qquad \text{donc} \qquad b \mid a \implies \bcD(b) \in \bcD(a)\]
+            
+        \ithand Soit $m \in a\bdZ$, donc $\exists k \in \bdZ$, $m = ak$. Or on a $b \in \bcD(b)$, donc :
+        \[ \bcD(b) \subset \bcD(a) \implies b \in \bcD(a) \implies \exists k' \in \bdZ,\quad a=k'b \implies \exists k' \in \bdZ ,\quad m = kk'b \implies m \in b\bdZ\]
+        Donc $\bcD(b) \subset \bcD(a) \implies a\bdZ \subset b\bdZ$.
+        
+    \end{enumerate}
+    
+    \[\text{Donc} \qquad\quad a\bdZ \subset b\bdZ \iff b \mid a \iff \bcD(b) \subset \bcD(a)\]
+}
+
+On peut aussi s'intéresser à la relation binaire $\cdot \mid \cdot$ en elle-même.
+
+\begin{property}{Relation binaire $\cdot \mid \cdot$}{}
+Soit $(a, b, c, d) \in \bdZ^4$.
+    \begin{enumerate}
+        \ithand $\cdot \mid \cdot$ est une relation d'ordre sur $\bdN$.
+        
+        \ithand $\cdot \mid \cdot$ est une relation binaire réflexive et transitive mais pas antisymétrique sur $\bdZ$.
+        
+        \ithand On a :
+        \begin{align*}
+            \text{\ding{73}} \ a \mid b && \et && c \mid d &&\implies&& ac \mid bd\\
+            \text{\ding{73}} \ a \mid b &&     &&         &&\implies&& \forall p \in \bdN, \quad a^p \mid b^p\\
+            \text{\ding{73}} \ d \mid a && \et && d \mid b &&\implies&& \forall (u, v) \in \bdZ^2, \quad d \mid au + bv &&\qquad\qquad\qquad\qquad\quad\qquad
+        \end{align*}
+    \end{enumerate}
+\end{property}
+
+\demo{
+    Soit $(a, b, c, d) \in \bdZ^4$.
+    \begin{enumerate}
+        \ithand On a $a = a\times 1$ donc $a \mid a$. donc $\cdot \mid \cdot$ est réflexive.
+        
+        \ithand Si $c \mid b$ et $b \mid a$, alors $\exists (k, k') \in \bdZ^2$ tel que $b = kc$ et $a = k'b$ donc $a = kk'c$ donc $c \mid a$ donc $\cdot \mid \cdot$ est transitive.
+        
+        \ithand Si $a \mid b$ et $b \mid a$, on a montré que $a = \pm b$, donc $\cdot \mid \cdot$ n'est pas antisymétrique dans $\bdZ$. Cependant elle l'est dans $\bdN$, et puisqu'elle y est aussi symétrique  et transitive, $\cdot \mid \cdot$ est une relation d'ordre dans $\bdN$.
+        
+        \ithand On a :\begin{enumerate}
+            \itstar Si $a \mid b$ et $c \mid d$, alors $\exists (k, k') \in \bdZ^2$ tels que $b = ka$ et $d = k'c$, donc $bd = kk'(ac)$ donc $ac \mid bd$.
+        
+            \itstar Si $a \mid b$, alors $\exists k \in \bdZ$, tel que $b = ka$, donc $\forall p \in \bdN$, $b^p = k^pa^p$ donc $a^p \mid b^p$.
+            
+            \itstar Si $d\mid a$ et $d \mid b$, alors $\exists (k, k') \in \bdZ^2$ tels que $a = kd$ et $b = k'd$. Donc :
+        
+            \[\forall (u, v) \in \bdZ^2,\quad au + bv = ukd + vk'd = (uk + vk')d \qquad\text{donc}\qquad d \mid au + bv\]
+        \end{enumerate}
+        
+        
+    \end{enumerate}
+
+}
+
+\subsection{Congruences}
+
+Si la notion de divisibilité exploite surtout le quotient de la division euclidienne, poser la notion de congruence va permettre de travailler beaucoup plus finement avec le reste de cette division.
+
+\begin{definition}{Congruence}{}
+    Soit $n \in \bdN^*$ et $(a, b) \in \bdZ^2$. On dit que \bf{$a$ est congru à $b$ modulo $n$} si et seulement si
+    
+    \[ \exists k \in \bdZ,\quad a = b + kn \iff n \mid (b-a)\]
+\end{definition}
+
+Lorsque $a$ est congru à $b$ modulo $n$, on notera généralement $a \equiv b \ [n]$.On remarquera d'ailleurs que $n \mid a$ si et seulement si $a \equiv 0 [n]$ et que $a = bq + r$ est la division euclidienne de $a$ par $b$ si et seulement si $a \equiv r \ [b]$.
+
+\begin{property}{}{}
+    Soit $(a, a', b, b') \in \bdZ^4$ et $(n, n') \in \bdN^2$.
+    \begin{enumerate}
+        \ithand $\cdot \equiv \cdot \ [n]$ est une relation d'équivalence sur $\bdZ$.
+        
+        \ithand $a \equiv b \ [n]$ et $a' \equiv b' \ [n] \implies a + a' \equiv b + b' \ [n]$.
+        
+        \ithand $a \equiv b \ [n] \iff \forall m \in \bdZ^*$, \quad $ma \equiv mb \ [ma]$.
+        
+        \ithand $a \equiv b \ [n]$ et $a' \equiv b' \ [n] \implies aa' \equiv bb' \ [n]$.
+        
+        \ithand $a \equiv b \ [n] \implies \forall k \in \bdN$, \quad $a^k \equiv b^k \ [n]$
+    \end{enumerate}
+\end{property}
+
+\demo{
+    Laissé en exercice au lecteur.
+}
+
+\section{Plus Grand Commun Diviseur et Plus Petit Commun Multiple}
+
+\subsection{Plus Grand Commun Diviseur de deux entiers}
+
+\qquad On cherche ici à étudier, dans un premier temps, la notion de plus grand commun diviseur de deux entier. On peut trouver une conception assez intuitive de cette notion directement d'après son nom : on peut en effet concevoir le plus grand commun diviseur de deux entier comme un troisième entier, qui soit un diviseur, et du premier entier, et du deuxième, et qui soit le plus grand possible. On aurait alors envie d'écrire 
+\[ \pgcd(a, b) = \max \left(\bcD(a) \cap \bcD(b) \cap \bdN\right)\]
+Pour faire cela, on peut d'abord montrer l'existence d'un tel maximum.
+\begin{property}{}{}
+    Soit $(a, b) \in \bdZ^2 \backslash \{(0, 0)\}$. L'ensemble $\bcD(a) \cap \bcD(b) \cap \bdN$ est non vide et majoré.
+\end{property}
+
+\demo{
+     Soit $(a, b) \in \bdZ^2 \backslash \{(0, 0)\}$. On a $1 \mid a$ et $1 \mid b$ et $1 \in \bdN$, donc $1 \in \bcD(a) \cap \bcD(b) \cap \bdN$.
+     
+     Si $a \neq 0$, on a $\bcD(a) \subset \llbracket-\mod{a}, \mod{a}\rrbracket$ donc $\mod{a}$ est est majorant de $ \bcD(a) \cap \bcD(b) \cap \bdN$. 
+     
+     Sinon, on a forcément $b \neq 0$ car $(a, b) \neq (0, 0)$. Alors $\bcD(b) \subset \llbracket-\mod{b}, \mod{b}\rrbracket$ donc $b$ est un  majorant de $\bcD(a) \cap \bcD(b) \cap \bdN$.
+     
+     Donc l'ensemble $\bcD(a) \cap \bcD(b) \cap \bdN$ est bien non vide et majoré.
+}
+
+Puisque l'ensemble $\bcD(a) \cap \bcD(b) \cap \bdN$ est une partie non vide et majoré de $\bdN$, elle admet donc toujours un élément maximum. On peut donc bien définir la notion de $\pgcd$ comme ce maximum, sans avoir de problèmes d'existence.
+
+\begin{definition}{$\pgcd$ de deux entiers}{}
+    Soit $(a, b) \in \bdZ^2 \backslash \{(0, 0)\}$ et $d \in \bdN$. On dit que $d$ est le \bf{plus grand commun diviseur de $a$ et $b$} si et seulement si
+    
+    \[ d = \max \left(\bcD(a) \cap \bcD(b) \cap \bdN\right)\]
+\end{definition}
+
+Le plus grand commun diviseur de deux entiers $a$ et $b$ est généralement noté $\pgcd(a, b)$ ou $a \wedge b$.
+
+\begin{center}
+    \begin{minipage}{0.8\linewidth}
+    
+        \begin{small}
+            \textit{Je fait personnellement le choix de rester avec la première notation plutôt que la deuxième, afin d'éviter la confusion avec le} ET \textit{logique (noté aussi $\land$), et plus loin celle entre le  $\ppcm$ avec le} OU \textit{logique (noté aussi $\lor$).}
+        \end{small}
+    
+    \end{minipage}
+    
+\end{center}
+
+On remarquera que le plus grand commun diviseur se calcule donc dans les \underline{entiers naturels}.
+
+\begin{example}{}{}
+    Déterminer $\pgcd(12, 18)$.
+    \tcblower
+    On a $\bcD(12) \cap \bcD(18) \cap \bdN = \{1, 2, 3, 6\}$ donc $\max{\bcD(12) \cap \bcD(18) \cap \bdN} = 6$. On a donc \bf{$\pgcd(12, 18) = 6$}.
+\end{example}
+
+On peut établir quelques propriétés de calcul sur le $\pgcd$ :
+
+\begin{property}{Propriétés de calcul}{}
+    Soit $(a, b) \in \bdZ^2 \backslash \{(0, 0)\}$. On a :
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \ithand $\pgcd(a, b) = \pgcd(b, a)$
+            \ithand $\pgcd(a, b) = \pgcd(\mod{a}, b) = \pgcd(\mod{a}, \mod{b})$
+            \ithand $\pgcd(a, 0) = \mod{a}$
+            \ithand $\pgcd(a, a) = \mod{a}$
+            \ithand $\pgcd(a, 1) = 1$
+        \end{enumerate}
+    \end{multicols}
+\end{property}
+
+\demo{
+    Soit $(a, b) \in \bdZ^2 \backslash \{(0, 0)\}$. 
+    \begin{enumerate}
+        \ithand Par commutativité de l'intersection $\cap$, on a :
+        \[\bcD(a) \cap \bcD(b) \cap \bdN = \bcD(b) \cap \bcD(a) \cap \bdN \quad \text{donc} \quad \max\left(\bcD(a) \cap \bcD(b) \cap \bdN\right) = \max\left(\bcD(b) \cap \bcD(a) \cap \bdN\right)\]
+    
+        Donc par définition $\pgcd(a, b) = \pgcd(b, a)$.
+    
+        \ithand On remarquera que pour tout entier $n$, on a $\bcD(n) = \bcD(\mod{a})$. Donc
+        \[ \max\left(\bcD(a) \cap \bcD(b) \cap \bdN\right) = \max\left(\bcD(\mod{a}) \cap \bcD(b) \cap \bdN\right) = \max\left(\bcD(\mod{a}) \cap \bcD(\mod{b}) \cap \bdN\right)\]
+        
+        Donc par définition $\pgcd(a, b) = \pgcd(\mod{a}, b) = \pgcd(\mod{a}, \mod{b})$.
+        
+        \ithand On a $\bcD(0) = \bdZ$, donc on a $\bcD(a) \cap \bcD(0) \cap \bdN = \left(\bcD(a) \cap \bdN\right)\subset \llbracket0, \mod{a}\rrbracket$. Or $\mod{a}$ divise $a$ et $\mod{a} \in \bdN$ donc 
+        \[\mod{a} = \max\left(\bcD(a) \cap \bcD(0) \cap \bdN\right)\]
+        
+        Donc par définition, $\pgcd(a, 0) = \mod{a}$.
+        
+        \ithand Similairement, on a $\bcD(a) \cap \bcD(a) \cap \bdN = \bcD(a) \cap \bdN$. On a donc de même $\pgcd(a, a) = \mod{a}$.
+        
+        \ithand On a $\bcD(1) = \{1; -1\}$, donc $\bcD(1) \cap \bdN = \{1\}$. De plus $1 \mid a$ donc $1 \in \bcD(a)$. Ainsi
+        
+        \[ 1 = \max\left(\bcD(a) \cap \bcD(1) \cap \bdN\right)\]
+        
+        Donc par définition, $\pgcd(a, 1) = 1$.
+    
+\end{enumerate}
+
+}
+
+\subsection{Algorithme d'Euclide}
+
+\begin{lemma}{}{}
+\[ \forall (a, b, k) \in \bdZ^3, \ \pgcd(a, b) = \pgcd(a + kb, b) \]
+\end{lemma}
+
+\demo{
+
+Réciproquement, si $d \in \bcD(a + kb) \cap \bcD(b)$, alors $d  \mid  (a+ kb)$ et $d  \mid  b$, alors $d  \mid  kb$ soit $ d  \mid  (a + kb -kb)$ soit $d  \mid  a$ soit $d \in \bcD(a)$.
+
+ON a donc montré par double inclusion que
+\[ \bcD(a) \cap \bcD(b) = \bcD(a + kb) \cap \bcD(b)\]
+}
+
+\begin{corollary}{Lemme d'Euclide}{}
+    Soit $a \in \bdZ$ et $b \in \bdN^*$. En notant $a = bq + r$ la division euclidienne de $a$ par $b$, on a $\pgcd(a, b) = \pgcd(b, r)$.
+\end{corollary}
+
+\demoth{Par le lemme précédent, $\pgcd(a, b) = \pgcd(a - bq, b)$. De plus $0 \leq r b$.
+
+Cela donne l'algorithme d'Euclide : en entrée, on a $(a, b) \in \left(\bdN^*\right)^2$. On construit la suite des restes $\left(\Gamma_k\right)$.
+En initialisant avec $\left\lbrace\begin{array}{ll}
+    \Gamma_0 &= a  \\
+    \Gamma_1 & b 
+\end{array}\right.$ et avec $a > b$
+ 
+TODO
+
+Si $r = 0$, on stoppe. Sinon, (si $r > 0)$, on pose $\Gamma_{k-1}=r$.
+
+On a construit une \underline{suite d'entiers naturels strictement décroissante} car $\Gamma_{k+1} < \Gamma_k$.
+
+TODO
+
+Ainsi la dernière étape (sortie de boucle) donne un \underline{reste nul}.
+
+On note $\Gamma_m$ le \underline{dernier reste non nul}. On a
+\[ \Gamma_0 > \Gamma_1> \dots > \Gamma_{m-1} > \Gamma_m > \underbrace{\Gamma_{m+1}}_{= 0}\]
+
+TODO. On a donc \[ \pgcd(a, b) = \pgcd(\Gamma_0, \Gamma_1) = \pgcd(\Gamma_1, \Gamma_2) = \dots \pgcd(\Gamma_{m-1}, \Gamma_m) = \pgcd(\Gamma_m, 0) = \Gamma_m\]
+
+Finalement, le dernier \underline{reste non nul} dans les divisions euclidiennes successives est égal au $\pgcd(a, b)$.
+
+}
+
+\begin{example}{}{}
+    Calculer $\pgcd(42, 25)$ avec l'algorithme d'Euclide.
+    \tcblower
+    \begin{enumerate}
+        \itb $42 = 25 \times 1 + 17$
+        \itb $25 = 17 \times 1 + 8$
+        \itb $17 = 8 \times 2 + 1$
+        \itb $8 = 1 \times 8 + 0$
+    \end{enumerate}
+    Donc $\pgcd(42, 25) = 1$.
+\end{example}
+
+On remarquera que l'on a par définition $\pgcd(a, b)  \mid  a$ et $\pgcd(a, b)  \mid  b$. L'algorithme d'Euclide permet alors d'obtenir le fait suivant :
+\[ \forall d \in \bdN, \ (d  \mid  a \land d  \mid  b) \implies d  \mid  \pgcd(a,b)\]
+En effet, si $d  \mid  \Gamma_0$ et $d  \mid  \Gamma_1$, alors $ d  \mid  \Gamma_2$. Or si $d  \mid  \Gamma_1$ et $d  \mid  \Gamma_2$, alors $d  \mid  \Gamma_3$. On itère cela avec les restes successifs $\left(\Gamma_n\right)$ de l'algorithme d'Euclide, jusqu'au dernier reste non nul. Puisque le dernier reste non nul est égal à $\pgcd(a, b)$, on a donc $d  \mid  \pgcd(a, b)$.
+
+\begin{theorem}{Caractérisation du $\pgcd$}{}
+    Soit $(a, b) \in \bdZ^2 \backslash \{ (0, 0) \}$.
+    
+    Le $\pgcd$ de $a$ et $b$ est l'unique entier naturel non nul vérifiant :
+    \[ \bcD(a) \cap \bcD(b) = \bcD(\pgcd(a, b))\]
+    Autrement dit,
+    \[\forall n \in \bdZ,\ (n \mid a \land n \mid b) \iff n \mid \pgcd(a,b)\]
+\end{theorem}
+
+\demoth{
+    On a $\pgcd(a, b) \mid b$ et $\pgcd(a, b) \mid b$ donc par transitivité :
+    \[n \mid \pgcd(a, b) \implies n \mid a \land n \mid b\]
+    
+    On a montré précédemment (via les restes successifs de l'algorithme d'Euclide) que :
+    \[n \mid a \land n \mid b \implies n \mid \pgcd(a, b)\]
+    
+    En ce qui concerne l'unicité : \[ \forall (d, d') \in \bdZ,\ \bcD(d) = \bcD(d') \implies d \mid d' \land d' \mid d \implies \mod{d} = \mod{d'}\]
+    Donc dans $\bdN$, $d = d'$. Puisque $\pgcd(a, b) \in \bdN$, on a montré l'unicité. 
+}
+
+\begin{property}{Divisibilité et $pgcd$}{}
+    \[\forall (a, b) \in \bdZ^2 \ \{(0,0)\},\ a | b \iff \pgcd(a, b) = \mod{a}\]
+\end{property}
+
+\demo{
+    Soit $(a, b) \in \bdZ^2 \ \{(0,0)\}$.
+    Puisque $a \mid a$, on a $a \mid b \implies a \mid \pgcd(a, b)$. Or $\pgcd(a, b) \mid a$ par définition. Ainsi, $a \mid b \implies \pgcd(a, b) = \mod{a}$. TODO.
+}
+
+\begin{property}{Autres propriétés du $\pgcd$}{}
+\begin{enumerate}
+    \itarr Associativité :
+    \[ \pgcd\left(\pgcd(a, b), c\right) = \pgcd\left(a, \pgcd(b, c)\right)\]
+    \itarr Factorisation :
+    \[ \forall k \in \bdN^*,\ \pgcd(ka, kb) = k\times\pgcd(a, b)\]
+\end{enumerate}
+\end{property}
+
+\demo{
+\begin{enumerate}
+
+    TODO
+    \itvararr Soit $d \mid k\times \pgcd(a, b)$, on a $d \in \bcD(k\times\pgcd(a, b))$.
+    
+    TODO
+\end{enumerate}
+}
+
+On remarquera, qu'en posant $d = \pgcd(a, b)$, alors $a = d \times a'$ et $b = d \times b'$. Ainsi, $d = \pgcd(a,b) = \pgcd(da', db') = d\pgcd(a',b')$.
+Avec $a \neq 0$, on a $d \neq 0$, donc $\pgcd(a', b') = 1$.
+
+\begin{exercise}{}{}
+    En exercice, factoriser $a$ et $b$ par leur $\pgcd d$ avec de raisonner avec $a' = \dfrac{a}{d}$ et $b' = \dfrac{b}{d}$, où $\pgcd(a', b') = 1$. (cf ?) 
+\end{exercise}
+
+\subsection{Relation de Bézout}
+
+\begin{theorem}{Théorème de Bézout}{}
+    Soit $(a, b) \in \bdZ^2$.
+    \[ \exists (u, v) \in \bdZ^2,\quad² au + bv = \pgcd(a, b)\]
+    
+    Tout couple $(u, v)$ est appelé \bf{coefficient de Bézout}.
+\end{theorem}
+
+\demoth{
+    Soit $(a, b) \in \bdZ^2$. Si $(a, b) = 0$, $\pgcd(0, 0) = 0$.
+
+    Sinon, considérons $a \neq 0$. On a alors $\mod{a} + \mod{b} \in \left(a\bdZ + b\bdZ\right) \cap \bdN^*$.
+
+    L'ensemble $\left(a\bdZ + b\bdZ\right) \cap \bdN^*$ est une partie non vide de $\bdN^*$ et possède donc un plus petit élément, qu'on note $d$.
+    
+    \[ d = \min{\left(a\bdZ + b\bdZ\right) \cap \bdN^*}\]
+
+    Ainsi, $\exists (u, v) \in \bdZ^2$, $d = au + bv$. Montrons que $d = \pgcd(a, b)$.
+
+    On a $\pgcd(a, b) \mid a$ et $\pgcd(a, b) \mid b$ donc $\pgcd(a, b) \mid (au + bv)$ soit $\pgcd(a, b) \mid d$.
+
+    Réciproquement, on veut montrer que $d \mid \pgcd(a, b)$. Pour cela, il suffit de montrer que $d \mid a $ et $d \mid b$.
+
+    Montrons que $d \mid a$. Posons alors la division euclidienne de $a$ par $d$ :
+    
+    \[ \exists ! (q, r) \in \bdZ\times\bdN,\qquad a = dq + r \quad \land \quad 0 \leq r < d\]
+    
+    Donc $r = a - dq = a - (au + bv)q = (1- uq)a - vqb \in a\bdZ + b\bdZ$. Or $r < d = \min{(a\bdZ + b\bdZ) \cap \bdN^*}$, donc $r = 0$, ainsi $d \mid a$.
+
+    TODO.
+}
+
+On remarquera qu'il n'y a généralement pas unicité des coefficients de Bézout, comme on le voit ci-dessous :
+\begin{example}{}{}
+    Avec $a = 4$, $b = 6$, on a $\pgcd(a, b) = 2$. On trouve alors que :
+    \[ 2 = \hg{1} \times 6 + \hg{(-1)} \times 4 = \pgcd(a, b) = \hg{1} \times b + \hg{(-1)} \times a \]
+    Le couple $(-1, 1)$ est donc un couple coefficient de Bézout. De même
+    \[ 2 = \hg{3} \times 6 + \hg{(-4)} \times 4 = \pgcd(a, b) = \hg{3} \times b + \hg{(-4)} \times a \]
+    Le couple $(-4, 3)$ est donc un autre coefficient de Bézout. On aurait de même le couple de Bézout $(-10, 7)$.
+\end{example}
+
+Une manière aussi de voir les coefficients de Bézout est sous le jour de l'algorithme d'Euclide. En effet, celui-ci, en plus de fournir une autre \guill{démonstration} du théorème de Bézout, permet d'obtenir directement un couple coefficient de Bézout.
+
+\begin{corollary}{}{}
+    \[ \forall (a, b) \in \bdZ^2 \ \{(0, 0)\},\qquad a\bdZ + b\bdZ = \pgcd(a, b)\bdZ\]
+\end{corollary}
+\demoth{
+}
+
+\subsection{Plus Grand Commun Diviseur d'une famille d'entiers}
+
+\begin{definition}{$\pgcd$ d'une famille d'entiers}{}
+    Soit $r \in \bdN^*$ et $(a_1, a_2, \dots, a_r) \in \bdZ^r$.
+    
+    Le \bf{$\pgcd$} de $(a_1, a_2, \dots, a_r)$ est noté $\pgcd(a_1, a_2, \dots, a_r)$, et est le plus grand élément de l'ensemble $\bcD(a_1) \cap \bcD(a_2) \cap \dots \cap \bcD(a_r)$, soit $\displaystyle \max\left(\bigcap_{i=1}^r \bcD(a_i)\right)$.
+\end{definition}
+
+On remarquera que 1 est un diviseur commun de tout les $\left(a_i\right)$ donc $\displaystyle \bigcap_{i=1}^r \bcD(a_i) \neq \emptyset$. De plus, $\displaystyle \bigcap_{i=1}^r \bcD(a_i)$ est majoré par $\min\limits_{1 \leq i \leq r}(\mod{a_i})$ car $\bcD(a_i) \subset \llbracket-\mod{a_i}, \mod{a_i}\rrbracket$. Ceci assure donc l'existence de $\displaystyle \max\left(\bigcap_{i=1}^r \bcD(a_i)\right)$. Par convention, on posera également $\pgcd(0, 0, \dots, 0) = 0$.
+
+\begin{example}{}{}
+    Déterminer $\pgcd(28, 42, 98)$. \tcblower
+    
+    Par associativité, on a $\pgcd(28, 42, 98) = \pgcd\left(\pgcd(28, 42), 98\right)$.
+    
+    On a $\bcD(28) \cap \bdN = \{1, 2? 4, 7, 14, 28\}$ et $\bcD(48) \cap \bdN = \{1, 2, 3, 6, 7, 14, 28, 21, 42\}$. On a donc $\pgcd(28, 42) = 14$. On remarque de plus que $14 \mid 98$, ainsi $\pgcd(14, 98) = 14$. Finalement, $\hgu{\pgcd(28, 42, 98) = 14}$.
+\end{example}
+
+\begin{theorem}{Généralisation des propriétés}
+    Soit $r \in \bdN^*$ et $(a_1, a_2, \dots, a_r) \in \bdZ^r$.
+    
+    \begin{enumerate}
+        \itarr Les diviseurs communs de $(a_1, a_2, \dots, a_r)$ sont les diviseurs de leur $\pgcd$ :
+        \[ \bigcap_{i=1}^r \bcD(a_i) = \bcD(\displaystyle \land_{i=1}^r a_i)\]
+        
+        \itarr \hg{(Relation de Bézout)} Il existe $(u1, \dots, u_r) \in \bdZ^r$ tels que
+        \[ \sum_{i=1}^r u_i a_i = \pgcd\left(\dots\left(\pgcd\left(\pgcd\left(a_1, a_2\right), a_3\right)\dots\right), a_r\right) = \pgcd(a_1, a_2, \dots, a_r)\]
+        \itarr \hg{(Factorisation)} Soit $k \in \bdN^*$, on a 
+        \[ \pgcd(ka_1, ka_2, \dots, ka_r) = k\times\pgcd(a_1, a_2, \dots, a_r)\]
+    \end{enumerate}
+\end{theorem}
+\demoth{TODO
+}
+
+\subsection{Plus Petit Commun Multiple}
+
+\begin{definition}{$\ppcm$ de deux entiers}{}
+    Soit $(a, b) \in \left(\bdZ^*\right)^2$. Le \bf{plus petit multiple commun} de $a$ et $b$ est noté $\ppcm(a, b)$ ou $a \lor b$ et est le plus petit élément de l'ensemble $\left(a\bdZ \cap b\bdZ\right) \cap \bdN^*$. On a bien :
+    \[\ppcm(a, b) = \min\left(a\bdZ \cap b\bdZ\right) \cap \bdN^*\]
+\end{definition}
+
+On remarquera que l'ensemble $\left(a\bdZ \cap b\bdZ\right) \cap \bdN^*$ est bien minoré et non vide car $\mod{a} \times \mod{b} \in \left(a\bdZ \cap b\bdZ\right) \cap \bdN^*$, qui est donc une partie non vide de $\bdN$ et admet ainsi un plus petit élément. On posera également par convention que $\forall a \in \bdZ, \ppcm(a, 0) = 0$.
+
+\begin{property}{Propriétés de $\ppcm$}{}
+    \begin{enumerate}
+        \itarr $\lor = \ppcm$ est commutative et associative.
+        \itarr $\forall (a, b) \in \bdZ^2$, $\ppcm(a, b) = \ppcm(b, a)$.
+        \itarr $\forall (a, b, c) \in \bdZ^3$, $\ppcm(\ppcm(a, b), c) = \ppcm(a, \ppcm(b, c))$
+        \itarr \forall $a \in \bdZ^*$, $\ppcm(a, a) = \ppcm(a, 1) = \mod{a}$
+        \itarr $\forall (a, b) \in \bdZ^2$, $a \mid b \iff \ppcm(a, b) = \mod{b}$.
+    \end{enumerate}
+\end{property}
+\demo{Soit $(a, b) \in \left(\bdZ^*\right)^2$.
+Si $\mod{b} = \ppcm(a, b)$, alors $b$ est un multiple de $a$ donc $a \mid b$.
+
+Si $a \mid b$, alors $b$ est un multiple de $a$. Or $b$ est un multiple de $b$. On a donc $\ppcm(a, b) = \min(b\bdZ \cap \bdN^*) = \mod{b}$.
+}
+
+\begin{theorem}{Caractérisation du $\ppcm$}{}
+    Soit $(a, b) \in \left(\bdZ^*\right)^2$.
+    
+    Le $\ppcm$ de $a$ et $b$ est le plus petit entier $m \in \bdN^*$ tel que $a\bdZ \cap b\bdZ = m\bdZ$, c'est-à-dire :
+    \[ \forall n \in \bdZ, (a\mid n \land b\mid n) \iff m \mid n\]
+    où $m = \ppcm(a, b)$.
+\end{theorem}
+
+\demoth{Soit $(a, b) \in \left(\bdZ^*\right)^2$. Montrons d'abord l'unicité. Supposons qu'il existe $(m, m') \in \left(\bdN^*\right)^2$ qui respectent l'équation ci-dessus. 
+
+Alors $m\bdZ = m'\bdZ$ ainsi $m \in m'\bdZ$ et $m' \in m\bdZ$ donc $m \mid m'$ et $m' \mid m$. Donc $m = m'$.
+
+Montrons maintenant l'égalité des ensembles. Soit $k \in m\bdZ$, avec $m = \ppcm(a, b)$.
+
+On a $m \in a\bdZ \cap b\bdZ$.
+
+TODO
+
+Dans l'autre sens, soit $k \in a\bdZ \cap b\bdZ$. Montrons que $m \mid k$. Posons pour cela la division euclidienne de $k$ par $m$ :
+\[ \exists (q, r) \in \bdZ^2,\qquad k=qm +r \land 0 \leq r < m\]
+Alors $r = k - qm$. Or $(m, k) \in \left(a\bdZ \cap b\bdZ\right)^2$ donc $r \in a\bdZ \cap b\bdZ \cap \bdN$.
+
+Par définition, $m = \min(a\bdZ \cap b\bdZ \cap \bdN^*)$, or $r < m$. Par minimalité de $m$, on a $r \not\in a\bdZ \cap b\bdZ \cap \bdN^*$ donc $r = 0$.
+
+En conclusion, $m \mid k$, donc $k \in m\bdZ$.
+
+TODO
+}
+
+En vérité, le $\ppcm$ est très peu utile, comme on peut le voir avec les propriétés ci-dessous :
+
+\begin{property}{}{}
+    Soit $(a, b) \in \left(\bdZ^*\right)^2$.
+    
+    \begin{enumerate}
+        \itarr \hg{(Factorisation)}. Soit $k \in \bdN^*$, on a
+        \[ \ppcm(ak, bk) = k\times\ppcm(a, b)\]
+        \itarr
+        \[ \pgcd(a, b) \times \ppcm(a, b) = \mod{a}\times\mod{b}\]
+    \end{enumerate}
+\end{property}
+\demo{}
+
+En pratique, le calcul du $\pgcd$ (via l'algorithme d'Euclide) donne donc aussi le $\ppcm$, puisque l'on a alors $\ppcm(a, b) = \dfrac{\mod{a}\times\mod{b}}{\pgcd(a, b)}$.
+
+On peut également se passer du $\ppcm$ pour la mise sous forme irréductible d'une fraction rationnelle, en utilisant uniquement le $\pgcd$.
+
+Si $r = \dfrac{a}{} \in \bdQ$ avec $a \in \bdZ$ et $b \in \bdN^*$. En posant $d = \pgcd(a, b)$, on a $a = d\times a'$ et $b = d\times b'$, où $\pgcd(a', b') = 1$.
+
+Ainsi, $r = \dfrac{a}{b}=\dfrac{a'd}{b'd}=\dfrac{a'}{b'}$. On a obtenu l'écrire de $r$ en fraction irréductible.
+
+Le $\ppcm$ sert tout de même dans le calcul de la somme de deux rationnels avec mise sous le même dénominateur. On a en effet, en posant $m = \ppcm(a, b)$ :
+\[ \exists k, k' \in \bdZ,\qquad m = ak = bk'\]
+Ainsi, on a 
+\[  \dfrac{1}{a} + \dfrac{1}{b} = \dfrac{k}{m} + \dfrac{k}{m'} = \dfrac{k+k'}{m}\]
+
+\section{Nombre premiers entre eux}
+
+\subsection{Définitions}
+
+\begin{definition}{Nombre premiers entre eux}{}
+    Soit $(a, b) \in \bdZ^2$. On dit que $a$ et $b$ sont \bf{premiers entre eux} si et seulement si leurs seuls diviseurs communs sont $1$ et $-1$, c'est-à-dire si et seulement si $\pgcd(a, b) = 1$.
+\end{definition}
+
+Souvent pour le montrer, on raisonne sur $d$ tel que $d \mid a$ et $d \mid b$ et on aboutit après déduction à $d = \pm 1$ (grâce à $d \mid 1$).
+
+\begin{example}{}{}
+    Déterminer si $42$ et $29$ sont premiers entre eux ou non.
+    \tcblower
+    On a $42 = 29 \times 1 + 13$, $29 = 13\times 2 + 3$, $13 = 3\times 4 + \boxedcol{1}$ donc $\pgcd(42, 29) = 1$.
+    
+    Ainsi, \hg{$42$ et $29$ sont premiers entre eux}.
+\end{example}
+
+On peut alors concevoir une notion de \guill{premiers entre eux dans leur ensemble} 
+
+\begin{definition}{Nombres premiers entre eux $2$ à $2$ / dans leur ensemble}{}
+    Soit $r \in $
+\end{definition}
+
+\subsection{Théorème de Bézout et lemme de Gauss}
+
+\begin{theorem}{Théorème de Bézout}{}
+    Soit $(a, b) \in \bdZ^2$. On a
+    \[ \pgcd(a, b) = 1 \iff \exists (u, v) \in \bdZ^2, au + bv = 1\]
+\end{theorem}
+
+\demoth{Soit $(a, b) \in \bdZ^2$.
+
+Montrons le sens $\boxed{\implies}$. L'application de l'algorithme d'Euclide étendu (remontées successives des égalités) donne l'existence d'une relation de Bézout :
+\[ \exists (u, v) \in \bdZ^2,\quad au + bv = \pgcd(a, b)\]
+
+Dans l'autre sens $\boxed{\impliedby}$. Raisonnons sur $d$ un diviseur commun quelconque à $a$ et $b$, soit $d \mid a$ et $d \mid b$. 
+
+Par combinaison linéaire, on a $d \mid (au + bv)$, donc $d \mid 1$, ainsi $\pgcd(a, b) = 1$.
+}
+
+\begin{lemma}{Lemme de Gauss}{}
+    Soit $(a, b, c) \in \bdZ^3$.
+    \[ a \mid bc \land \pgcd(a, b) = 1 \implies a \mid c\]
+\end{lemma}
+\demoth{Soit $(a, b, c) \in \bdZ^3$ tels que $a \mid bc$ et $\pgcd(a, b) = 1$.
+
+Puisque $\pgcd(a, b) = 1$, il existe une relation de Bézout, soit :
+\[ \exists (u, v) \in \bdZ^2, \quad au + bv = 1\]
+
+Donc avec $c \neq 0$, $(au + bv)c = 1\times c$ soit $auc + bvc = c$. Or $a \mid bc$ donc $a \mid bvc$. De plus, $a \mid auc$, donc finalement, $a \mid c$.
+}
+
+Le théorème de Bézout et le lemme de Gauss s'avère alors particulièrement utiles lors de la résolution d'équations diophantiennes :
+
+\begin{form}{Equation diophantienne}{}
+    Soit $(a, b) \in \bdZ^2$ fixés et premiers entre eux. On cherche à résoudre l'\bf{équation diophantienne} suivante
+    \[ ax + by = 1\]
+    d'inconnue le couple $(x, y) \in \bdZ^2$.
+\end{form}
+
+Résoudre une équation diophantienne pour $a$ et $b$ tels que $\pgcd(a, b) = 1$ revient donc à chercher tous les coefficients de Bézout de $a$ et $b$. Pour résoudre une telle équation, on raisonne par analyse-synthèse. 
+
+\begin{enumerate}
+    \ithand On trouve déjà un couple $(x_0, y_0)$ solution en utilisant l'algorithme d'Euclide étendu, donc
+\[ \exists (x_0, y_0) \in \bdZ^2,\quad ax_0 + by_0 = 1\]
+On peut alors chercher tous les couples solutions, c'est à dire les couples $(x, y) \in \bdZ^2$ tels que 
+\[ ax + by = 1 \quad \text{donc} \qquad ax + by = a_x0 + by_0\]
+Donc $ax - ax_0 = by - by_0$ donc $a(x - x_0) = b(y - y_0)$.
+
+On a alors $b \mid a(x - x_0)$. Or $\pgcd (a, b) = 1$ donc par lemme de Gauss, $b \mid x - x_0$, ainsi $\exists k \in \bdZ$, $x- x_0 = bk$.
+
+En réinjectant, $abk = b(y_0 - y)$ donc puisque $ b \neq 0$, $ak = y_0 - y$. Ainsi :
+\[ \exists k \in \bdZ, \left\lbrace\begin{array}{ll}
+    x &= x_0 + bk  \\
+    y &= y_0 - ak
+\end{array}\right.\]
+
+\ithand Pour la synthèse, on raisonne selon $k \in \bdZ$ quelconque et tel que $x = x_0 + bk$ et $y = y_0 - ak$. On a alors :
+\[ ax + by = a(x_0 + bk) + b(y_0 - ak) = ax_0 + by_0 + abk - bak = ax_0 + by_0 = 1\]
+\ithand En conclusion, $\left\lbrace\begin{array}{ll}
+    ax + by &= 1 \\
+    \pgcd(a,b) &= 1 
+\end{array}\right.$ a pour solution les couples $(x, y) \in \bdZ^2$ de l'ensemble $S$ décrit par :
+\[ S = \left\{(x_0 + bk, y_0 - ak) \in \bdZ^2 \mid k \in \bdZ\right\} = \left\{(x_0, y_0)+ k(b, -a) \in \bdZ^2 \mid k \in \bdZ\right\}\]
+\end{enumerate}
+
+
+\section{Nombre Premiers}
+
+\subsection{Définitions}
+\subsection{Décomposition en facteurs premiers et valuation $p$-adique.}
+\subsection{Petit théorème de Fermat}
+
+\end{document}

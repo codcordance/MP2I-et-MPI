@@ -1,0 +1,101 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Chapitre 22}{Dénombrement}
+
+Avant même l'arithmétique, la géométrie et ses autres branches, les mathématiques sont nées d'une volonté qui est celle du dénombrement : compter. Pour cela, la notion la plus utile est celle de la bijection. Sans qu'on s'en rende forcément compte, le fait de dén
+
+\initcours{}
+
+\section{Ensembles finis}
+
+\subsection{Notion de cardinal}
+
+\begin{definition}{Ensemble fini}{}
+    Soit $E$ un ensemble non vide. On dit que \hg{$E$ est fini} lorsqu'`\hg{il existe un entier $n \in \bdN^*$ et une bijection entre $E$ et $\left\llbracket 1, n\right\rrbracket$}.
+\end{definition}
+
+Cet entier $n$ prend alors le nom de \guill{cardinal} :
+
+\begin{definition}{Cardinal}{}
+    Soit $E$ un ensemble fini, et $n \in \bdN^*$ tel que $E$ est en bijection avec $\llbracket 1, n\rrbracket$. On dit que \hg{$n$ est le cardinal de $E$}.
+\end{definition}
+
+Lorsque $E$ est un ensemble fini, on note alors $\Card\left(E\right)$, $\mod{E}$ ou $\#E$ le cardinal de $E$. De plus, on pose par convention $\Card\left(\emptyset\right) = 0$.
+
+\begin{example}{}{}
+    Soient deux entier $\left(a, b\right) \in \left(\bdN^*\right)^2$ et un troisième non nul $n \in \bdN^*$. On a :
+    \begin{enumerate}
+        \itt $\hg{\Card\left(\left\llbracket 1, n\right\rrbracket\right) = n}$
+        \itt $\hg{\Card\left(\left\llbracket 0, n\right\rrbracket\right) = n+1}$
+        \itt $\hg{\Card\left(\left\llbracket a, b\right\rrbracket\right) = b - a + 1}$
+    \end{enumerate}
+\end{example}
+
+On peut alors présenter a propriété suivante, qui se trouve être également proche de la définition du cardinal selon Frege.
+
+\begin{property}{}{}
+    Soient $E$ et $F$ deux ensembles finis. On a :
+    %
+    \[ \Card\left(E\right) = \Card\left(F\right) \iff E \et F \ \text{sont en bijection}\]
+\end{property}
+
+\begin{nproof}
+    Soient $E$ et $F$ deux ensembles finis.
+    
+    \begin{enumerate}
+        \itt $\boxed{\implies}$ Supposons que $\Card\left(E\right) = \Card\left(F\right) = n$. Donc il existe $f \in \bcF\left(\left\llbracket 1, n\right\rrbracket, E\right)$ et $g \in \bcF\left(\left\llbracket 1, n\right\rrbracket, F\right)$ deux bijections, et ainsi $g \circ f^{-1} \in \bcF\left(E, F\right)$ est une bijection.
+        
+        \itt $\boxed{\impliedby}$ Supposons que $E$ et $F$ sont en bijection.
+    \end{enumerate}
+\end{nproof}
+%
+\begin{definition}{Cardinal selon Frege}{}
+    Soient deux ensembles $E$ et $F$. On dit que $E$ et $F$ ont le même cardinal lorsqu'il existe une bijection entre $E$ et $F$.
+\end{definition}
+
+\subsection{Applications entre deux ensembles finis}
+
+\begin{property}{}{}
+    Soient deux ensembles finis $E$ et $F$ et une application $f \in \bcF\left(E, F\right)$. On a :
+    \begin{enumerate}
+        \ithand \hg{$\Card{f\left(E\right)} \leq \Card{F}$} avec \hg{égalité ssi. $f$ est surjective}.
+        
+        \ithand \hg{$\Card{f\left(E\right)} \leq \Card{E}$} avec \hg{égalité ssi. $f$ est injective}.
+    \end{enumerate}
+\end{property}
+%
+\begin{nproof}
+    TODO.
+\end{nproof}
+
+On remarquera donc qu'avec $f : E \to F$, si $f$ est injective, alors $\Card{E} \leq \Card{F}$, et si $f$ est surjective, alors $\Card{E} \geq \Card{F}$. De plus, si $\Card{E} > \Card{F}$, alors il n'y a pas d'injection possible de $E$ dans $F$, puisqu'il y aura forcément deux éléments de $E$ envoyés sur le même élément de $F$. On obtient alors le théorème suivant :
+
+\begin{theorem}{}{}
+    Soient deux ensembles finis $E$ et $F$ tels que $\Card{E} = \Card{F}$ et une application $f \in \bcF\left(E, F\right)$. Les psse :
+    %
+    \begin{psse}
+        \item \hg{$f$ est injective} ;
+        \item \hg{$f$ est surjective} ;
+        \item \hg{$f$ est bijective}.
+    \end{psse}
+\end{theorem}
+
+\begin{nproof}
+    Soient deux ensembles finis $E$ et $F$ tels que $\Card{E} = \Card{F}$ et une application $f \in \bcF\left(E, F\right)$.
+    
+    \begin{enumerate}
+        \itt $\boxed{\pssenum{i} \iff \pssenum{ii}}$ $f$ est injective ssi. $\Card{f\left(E\right) = \Card{E}}$ ssi. $\Card{f\left(E\right)} = \Card{F}$ ssi. $f\left(E\right) = F$ ssi. $f$ est surjective.
+    \end{enumerate}
+\end{nproof}
+
+\section{Quelques principes de dénombrement}
+
+\subsection{Union ou principe additif}
+
+\begin{property}{Cardinal d'une union disjointe}{}
+    Soient deux ensembles finis. $E$ et $F$. Si $E$ et $F$ sont disjoints, \ie si $A \cap B = \emptyset$, alors \hg{$\Card{A \sqcup B} = \Card{A} + \Card{B}$}.
+\end{property}
+
+\end{document}

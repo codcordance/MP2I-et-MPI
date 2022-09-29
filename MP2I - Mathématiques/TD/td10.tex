@@ -1,0 +1,111 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylize{Mathématiques}{TD - Chapitre 10 : Analyse asymptotique}
+\inittd
+
+\section{Comparaison de suites}
+
+\subsection{Comparaison usuelles}
+
+
+
+\boxans{
+On obtient deux échelles de comparaisons, une entre $0$ et une en $+\infty$ :
+\begin{enumerate}
+    \itarr En $0$ :
+
+\[\boxsol{$\dfrac{1}{e^n} \lll \dfrac{1}{n^2\ln n} \lll \dfrac{1}{n^2} \lll \dfrac{\ln n}{n^2} \lll \dfrac{1}{n\ln n} \lll \dfrac{1}{n} \lll \dfrac{\ln n}{n}$} \]
+    \itarr en $+\infty$ :
+\[ \boxsol{$\sqrt{n} \lll \dfrac{n}{\ln n} \lll n \lll n\ln n \lll \dfrac{n^2}{\ln n} \lll n^2 \lll e^n$}\]
+\end{enumerate}
+}
+\subsection{Équivalents}
+
+\boxans{
+\begin{enumerate}
+    \item[a)] On a :
+    \[ \ln{n^2\times\left(1+\dfrac{1}{n^2}\right)} = 2\ln n + \ln{1+\dfrac{1}{n^2}} = 2\ln + \o{+\infty}{\ln n}\]
+    Donc $\ln{n^2+1} \asymp{n \to +\infty} 2\ln{n}$. Finalement, \boxsol{$\dfrac{\ln{n^2+1}}{n+1} \asymp{n \to +\infty} \dfrac{2\ln{n}}{n}$}.
+    
+    \item[e)] On a $\sqrt{n^2+1} \eq{+\infty} \o{}{n^3}$ donc $n^3-\sqrt{n^2+1} \asymp{+\infty} n^3$. De même, $\ln n \eq{+\infty} \o{}{n^2}$ donc $\ln n - 3n^2 \asymp{+\infty} -3n^2$.
+    
+    Donc $\dfrac{n^3-\sqrt{n^2+1}}{\ln n - 3n^2} \asymp{+\infty} \dfrac{n^3}{-3n^2}$ soit finalement \boxsol{$\dfrac{n^3-\sqrt{n^2+1}}{\ln n - 3n^2} \asymp{n \to +\infty} -\dfrac{n}{3}$}.
+    
+    \item[f)] On a $\dfrac{1}{n-1}-\dfrac{1}{n+1} = \dfrac{2}{n^2-1}$ donc \boxsol{$\dfrac{1}{n-1}-\dfrac{1}{n+1} \asymp{n \to +\infty} \dfrac{2}{n^2}$}.
+    
+    \item[g)] On a $\sqrt{n+1} - \sqrt{n-1} = \dfrac{(n+1)-(n-1)}{\sqrt{n+1}-\sqrt{n-1}} = \dfrac{2}{\sqrt{n+1}-\sqrt{n-1}}$.
+    
+    On a $\sqrt{n+1} \asymp{+\infty} \sqrt{n-1} \asymp{+\infty} \sqrt{n}$, donc $\sqrt{n+1} = \sqrt{n} + \o{+\infty}{\sqrt{n}}$ et $\sqrt{n-1} = \sqrt{n} + \o{+\infty}{\sqrt{n}}$.
+    
+    Ainsi, $\sqrt{n+1}+\sqrt{n-1}=2\sqrt{n}+\o{+\infty}{\sqrt{n}}$ donc $\sqrt{n+1}+\sqrt{n-1} \asymp{n \to +\infty} 2\sqrt{n}$.
+    
+    Finalement, \boxsol{$\sqrt{n+1} - \sqrt{n-1} \asymp{n \to +\infty} \dfrac{1}{\sqrt{n}}$}.
+    
+    \item[h)] $\sqrt{\ln{n+1}-\ln{n}} = \sqrt{\ln{1+\dfrac{1}{n}}}$ Or $\ln{1+\dfrac{1}{n}} \asymp{+\infty} \dfrac{1}{n}$ donc \boxsol{$\sqrt{\ln{n+1}-\ln{n}} \asymp{n \to +\infty} \dfrac{1}{\sqrt{n}}$}.
+    
+    \item[i)] On a $\dfrac{1}{\sqrt{n+1}} \asymp{n \to +\infty} 0$ donc directement \boxsol{$\sin{\dfrac{1}{\sqrt{n+1}}} \asymp{n \to +\infty} \dfrac{1}{\sqrt{n}}$}.
+    
+    \item[j)] On a $\sin{\dfrac{1}{n}} \asymp{+\infty} \frac{1}{n}$ donc $\sin{\dfrac{1}{n}} = \dfrac{1}{n} + \o{+\infty}{\dfrac{1}{n}}$. On a $\ln{\sin{\dfrac{1}{n}}} = \ln{\dfrac{1}{n} + \o{+\infty}{\dfrac{1}{n}}} = \ln{\dfrac{1}{n}\times\left(1+\o{+\infty}{1}\right)}=-\ln{n}+\o{+\infty}{1}$ donc finalement, \boxsol{$\ln{\sin{\dfrac{1}{n}}} \asymp{n \to +\infty} -\ln n$}.
+\end{enumerate}
+}
+
+\subsection{Limites}
+
+\boxans{
+\begin{enumerate}
+    \itarr On a $\dfrac{1}{n^2+1} \lima{+\infty} 0$ donc $\ln{1+\dfrac{1}{n^2+1}} \asymp{+\infty} \dfrac{1}{n^2+1} \asymp{+\infty} \frac{1}{n^2}$. Donc $\sqrt{\ln{1+\dfrac{1}{n^2+1}}} \asymp{+\infty} \dfrac{1}{n}$. 
+
+Ainsi $a_n \asymp{+\infty} n\times\dfrac{1}{n} \asymp{+\infty} 1$ donc finalement \boxsol{$\lim\limits_{n \to +\infty} a_n = 1$}.
+
+\itarr On a $b_n = \left(1+\sin{\dfrac{1}{n}}\right)^n=\exp{n\times\ln{1+\sin{\dfrac{1}{n}}}}$. 
+
+\itarr
+
+
+\itarr
+
+\setlength{\columnseprule}{1pt} \begin{multicols}{2}
+\begin{align*}
+    d_n &= n^2\left((n+1)^{\dfrac{1}{n}}-n^{\dfrac{1}{n}}\right)\\
+    &= n^2\left(\exp{\dfrac{1}{n}\ln{n+1}} - \exp{\dfrac{1}{n}\ln{n}}\right)\\
+    &= n^2\left(\exp{\dfrac{\ln n + \ln{1+\frac{1}{n}}}{n}}-\exp{\dfrac{\ln}{n}}\right)\\
+    &= n^2\times^{\dfrac{1}{n}}\left(\underbrace{\exp{\dfrac{\ln{1+\frac{1}{n}}}{n}}-1}_{U_n \lima 0}\right)
+\end{align*}
+Or $\left(e^{U_n}-1\right) \asymp{n \to +\infty} U_n$ donc : \[e^{\dfrac{\ln{1+\frac{1}{n}}}{n}}\asymp{+\infty} \dfrac{\frac{1}{n}}{n}\asymp{+\infty}\dfrac{1}{n^2}\]
+Donc $d_n \asymp{+\infty} n^{\dfrac{1}{n}} \asymp{+\infty} \exp{
+\dfrac{\ln n}{n}}$ donc finalement
+\boxsol{$d_n \asymp{+\infty} 1$}.
+\end{multicols} \setlength{\columnseprule}{0pt}
+
+\end{enumerate}
+}
+\subsection{}
+\subsection{Une somme d'équivalents justifiée !}
+\subsection{Équivalent d'une somme}
+\subsection{Équivalent d'une intégrale}
+
+\subsection*{Exercice spécial}
+
+\newpage
+\begin{exercise}{$\ln(n!) \asymp{n \to +\infty} \ln(n^n)$}{}
+    Montrer que $\ln(n!) \asymp{n \to +\infty} \ln(n^n)$.\tcblower
+    Soit $n \in \bdN^*$. On a $\ln(n!) = \displaystyle \ln{\prod_{k=1}^n k} = \sum_{k=1}^n \ln(k)$. Or la fonction $\ln$ est croissante sur $\bdRp$ donc
+    \[ \forall k \in \llbracket1, n\rrbracket, \quad \ln(k) \leq \int_k^{k+1} \ln(t)\dif t \leq \ln(k+1)\]
+    L'on peut alors sommer, $k$ entre $1$ et $n$, et l'on obtient :
+    \[ \sum_{k=1}^n \ln(k) \leq \sum_{k=1}^n \int_k^{k+1} \ln(t)\dif t \ \text{donc} \ \ln{\prod_{k=1}^n k} \leq \int_1^{n+1} \ln(t)\dif t \ \text{donc} \ \ln(n!) \leq \left[t\ln(t) - t\right]_1^{n+1}\]
+    Donc on a $\ln{n!} \leq (n+1)\ln{n+1}-n$. De même, en sommant pour $k$ entre $1$ et $n-1$
+    \[ \sum_{k=1}^{n-1} \int_k^{k+1} \ln(t)\dif t \leq \sum_{k=1}^{n-1} \ln{k+1} \ \text{donc} \ \int_1^n \ln{t}\dif t \leq \sum_{k=2}^n \ln{k}\ \text{donc} \left[t\ln(t)- t\right]_1^n \leq \ln(n!) - \ln(0)\]
+    Donc $n\ln(n) - n + 1 \leq \ln{n!}$. En combinant ces deux résultats et en divisant par $\ln{n^n} = n\ln(n)$ on a :
+    \[ \dfrac{n\ln(n)-n+1}{n\ln n} \leq \dfrac{\ln(n!)}{n\ln n} \leq \dfrac{(n+1)\ln(n+1)-n}{n\ln n}\]
+    En simplifiant les expressions, on obtient :
+    \[ 1 - \dfrac{1}{\ln n} + \dfrac{1}{n\ln n} \leq \dfrac{\ln(n!)}{n\ln n} \leq 1 + \dfrac{1}{n} + \dfrac{\ln{1+\sfrac{1}{n}}-1}{\ln n} + \dfrac{\ln{1+\sfrac{1}{n}}}{n\ln n}\]
+    On a $\lim\limits_{n \to +\infty} \dfrac{1}{\ln n} = 0$, $\lim\limits_{n \to +\infty} \dfrac{1}{n\ln n} = 0$, $\lim\limits_{n \to +\infty} \dfrac{1}{n} = 0$, $\lim\limits_{n \to +\infty} \ln{1+\sfrac{1}{n}} = 0$, $\dots$.
+    
+    Donc en faisant tendre $n$ vers $+\infty$, on obtient par théorème d'encadrement $\lim\limits_{n \to +\infty}\dfrac{\ln{n!}}{\ln{n^n}} = 1$ donc finalement :
+    \[ \boxedcol{\ln{n!} \asymp{n \to +\infty} \ln{n^n}}\]
+\end{exercise}
+
+
+\end{document}

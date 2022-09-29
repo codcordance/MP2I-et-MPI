@@ -1,0 +1,463 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\thesection.\arabic{enumi}.\arabic{enumii}.}
+    
+    \stylizeDocSpe{Physique}{Devoir maison n° 1}{}{Pour le lundi 12 septembre 2022}
+    
+    \section{Charge et décharge d'un condensateur dans une résistance}
+    
+    On considère le circuit ci-dessous comprenant une résistance de valeur $R$, un condensateur de capacité $C$ et une alimentation stabilisée de tension à vide $E$ :
+    
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0, 0) to[vsource, v=$E$] ++(0, 2.4) to[short, -o] ++(1, 0) node[label={[font=\footnotesize]above:(1)}] {};
+        
+            \draw(1.146, 2.046) to[short, -*] (1.5,2.4) node[label=$K$] {} --++(1,0)  to[R, l=$R$, v=$u_R\p{t}$] ++(1.5,0) --++(1,0)
+                to[C, v^=$u_C\p{t}$, l_=$C$] ++(0,-2.4)
+                to[short, i=$i\p{t}$] ++(-5,0);
+        
+           \draw(1.5, 0) to[short, -o] ++(0, 1.9) node[label={[font=\footnotesize]east:(2)}] {};
+        \end{circuitikz}
+    \end{center}
+    
+    \begin{enumerate}
+        \item À l'instant de date $t = 0$, on place l'interrupteur $K$ en position $(1)$, le condensateur étant déchargé.
+        
+        \begin{enumerate}
+            \item Exprimer la tension $u_C\p{t}$ aux bornes du condensateur en fonction de $E$, $R$, $C$ et $t$ ; on posera par la suite $\tau = RC$.
+            
+            \noafter
+            %
+            \boxans{
+                En appliquant la loi des mailles, on obtient $u_R\p{t} + u_C\p{t} = E$.
+                La loi d'\textsc{Ohm} livre $u_R\p{t} = Ri\p{t}$ d'où :
+                %
+                \[ Ri\p{t} + u_C\p{t} = E\]
+                %
+                La relation constitutive du condensateur livre également $i\p{t} = C\dfrac{\dif u_C}{\dif t}$, en vertu de quoi :
+                %
+                \[ RC\dfrac{\dif u_C}{\dif t} + u_C\p{t} = E \qquad\text{donc sous forme canonique}\qquad \dfrac{\dif u_C}{\dif t} + \dfrac{1}{\tau}u_C = \dfrac{1}{\tau}E \quad\text{où} \ \tau = RC \]
+                %
+                On a une équation différentielle linéaire d'ordre 1, à coefficients constants. La solution de l'équation homogène est alors :
+                %
+                \[ u_{C, h}\p{t} = Ae^{-\sfrac{t}{\tau}} \qquad\text{avec} \ A \ \text{une constante à déterminer} \]
+                %
+                On cherche la solution particulière sous la forme d'une constante, et on obtient $u_{C, p}\p{t} = E$. On a donc :
+                
+                \[ u_C\p{t} = u_{C, h}\p{t} + u_{C, p}\p{t} = Ae^{-\sfrac{t}{\tau}} + E\]
+                %
+                Or le condensateur est déchargé en $t = 0$, d'où $u_C\p{0} = 0$, donc $A = -E$. On a donc finalement :
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                \[ u_C\p{t} = E\p{1 - e^{-\frac{t}{\tau}}} = E\p{1 - e^{-\frac{t}{RC}}}\]
+            }
+            %
+            \yesbefore
+            
+            \item Donner l'allure de la courbe donnant $u_C\p{t}$ en fonction de $t$.
+            
+            \boxansconc{
+                \begin{center}
+                    \begin{tikzpicture}
+                    \begin{axis}[
+                        axis lines          =   center,
+                        domain              =   0:8,
+                        xlabel              =   $t$,
+                        ylabel              =   $u_C$,
+                        xmin                =   0,
+                        xmax                =   8,
+                        ymin                =   0,
+                        ymax                =   5,
+                        grid                = none,
+                        width               = 10cm,
+                        height              = 7cm,
+                        ytick               = {3},
+                        yticklabels         = {$E$},
+                        xtick               = {2},
+                        xticklabels         = {$\tau$},
+                        legend pos          = outer north east,
+                        legend style={row sep=0.1cm, font=\scriptsize}
+                        ]
+                            \addplot[color=main3,samples=51,smooth,thick]{3*(1-exp(-x/2))};
+                            \legend{$t \mapsto u_C\p{t}$}
+                            \addplot[densely dotted, color=main3] {3};
+                            \draw[densely dotted, color=main3] (2,0) --(2,3);
+                            \addplot[dashed, color=main3] {3/2*x};
+                        \end{axis}
+                    \end{tikzpicture}
+                \end{center}
+            }
+        \end{enumerate}
+        
+        \item Le condensateur est maintenant chargé : $u_C = E$. À $t = 0$, on place l'interrupteur sur la position $(2)$.
+        
+        \begin{enumerate}
+            \item Exprimer la tension $u_C\p{t}$ aux bornes du condensateur en fonction de $E$, $R$, $C$ et $t$. En déduire que la courbe représentant les variations de $\ln{\frac{E}{u_C}}$ en fonction du temps est une droite dont on exprimera le coefficient directeur en fonction de $R$ et $C$.
+            
+            \noafter
+            %
+            \boxans{
+                En raisonnant de manière similaire, on obtient que $u_C\p{t}$ suit l'équation différentielle
+                %
+                \[ \dfrac{\dif u_C}{\dif t} + \dfrac{1}{\tau}u_C = 0 \quad\text{où} \ \tau = RC\]
+                %
+                de solution $u_C\p{t} = Ae^{-\sfrac{t}{\tau}}$, avec $A$ une constante La condition initiale $u_C\p{t = 0} = E$ livre $A = E$, d'où :
+                %
+            }
+            %
+            \nobefore
+            %
+            \boxansconc{
+                \[ u_C\p{t} = Ee^{-\sfrac{t}{\tau}} = Ee^{-\frac{t}{RC}}\]
+            }
+            %
+            \boxans{
+                On a donc $\ln{\dfrac{E}{u_C\p{t}}} = \ln{\dfrac{E}{Ee^{-\sfrac{t}{\tau}}}} = \ln{\dfrac{1}{e^{-\sfrac{t}{\tau}}}} =\ln{e^{\sfrac{t}{\tau}}} = \dfrac{1}{\tau}t$.
+            }
+            %
+            \yesafter
+            %
+            \boxansconc{
+                La courbe représentant les variations de $\ln{\dfrac{E}{u_C}}$ en fonction du temps est une droite (passant par l'origine) de coefficient directeur $\dfrac{1}{\tau} = \dfrac{1}{RC}$.
+            }
+            %
+            \yesbefore
+            
+            \item \textit{\large\EBGaramond Données :} $R = \SI{10}{\mega\ohm}$, $C = \SI{10}{\micro\farad}$ et $E = \SI{10}{\volt}$. 
+            
+            On branche un voltmètre numérique (calibre $\SI{20}{\volt}$) aux bornes d'un condensateur et on étudie la décharge du condensateur à partir de l'instant de date $t = 0$ où l'on place l'interrupteur $K$ en position $(2)$. On relève les valeurs de $u_C\p{t}$ à différentes dates :
+            %
+            \begin{center}
+                \NiceMatrixOptions{cell-space-top-limit=3pt}
+                \begin{NiceTabular}{|c|cccccccccc|}[]
+                    \CodeBefore
+                        %\rowcolor{main3!10}{1}
+                        %\rectanglecolor{main20!15}{2-3}{5-4}
+                        \cellcolor{main3!15}{1-1,2-1}
+                        \cellcolor{main3!10}{1-3,2-3,1-5,2-5,1-7,2-7,1-9,2-9,1-11,2-11}
+                    \Body
+                        \toprule
+                        $t \ \text{(s)}$ & 5 & 10 & 15 & 20 & 30 & 45 & 60 & 90 & 120 & 150\\ \hline
+                        $u_c \ \text{(V)}$ & 9,05 & 8,19 & 7,41 & 6,70 & 5,49 & 4,07 & 3,01 & 1,65 & 0,91 & 0,50\\
+                    \bottomrule
+                \end{NiceTabular}
+            \end{center}
+            %
+            Tracer la courbe $\ln{\frac{E}{u_C\p{t}}} = f\p{t}$.
+            
+            Montrer que les résultats sont en accord avec la théorie à condition de considérer que le condensateur se décharge aussi dans le voltmètre modélisé par une résistance de valeur $R'$ que l'on calculera.
+            
+            \boxansconc{
+                \begin{center}
+                    \begin{tikzpicture}
+                    \begin{axis}[
+                        axis lines          =   center,
+                        domain              =   0:150,
+                        xlabel              =   $t$,
+                        ylabel              =   $\ln{\dfrac{E}{u_C}}$,
+                        xmin                =   0,
+                        xmax                =   150,
+                        ymin                =   0,
+                        ymax                =   4,
+                        grid                = none,
+                        width               = 10cm,
+                        height              = 6cm,
+                        legend pos          = outer north east,
+                        legend style={row sep=0.1cm, font=\scriptsize}
+                        ]
+                            \addplot[color=main3,mark=+, only marks, thick] coordinates {
+                                (5,0.0998)
+                                (10, 0.1997)
+                                (15, 0.2998)
+                                (20, 0.4005)
+                                (30, 0.5997)
+                                (45, 0.8989)
+                                (60, 1.2006)
+                                (90, 1.8018)
+                                (120, 2.3969)
+                                (150, 2.9957)
+                            };
+                            \addplot[color=main3, dashed, smooth, samples=51] {0.019983*x};
+                            \addplot[color=main5, smooth, samples=51] {0.01*x};
+                            \legend{$\p{t, \ln{\frac{E}{u_C\p{t}}}}$, régression linéaire, $t \mapsto \frac{1}{RC}t$}
+                        \end{axis}
+                    \end{tikzpicture}
+                \end{center}
+                
+                On remarque que la courbe de l'équation $t \mapsto \dfrac{1}{RC}$ ne correspond pas aux données, bien que celles-ci forment tout de même une droite. On comprend donc qu'il faut prendre en compte le voltmètre, en le modélisant par un voltmètre réel. Il faut donc considérer une résistance supplémentaire $R'$.
+            }
+        \end{enumerate}
+        
+        \item On considère le circuit du c avec le voltmètre placé aux bornes du condensateur ; le voltmètre est modélisé par une résistance $R'$ ; à l'instant de date $t = 0$, on place l'interrupteur $K$ en position $(1)$, le condensateur étant déchargé.
+        
+        \begin{center}
+            \begin{circuitikz}
+                \draw (0, 0) to[vsource, v=$E$] ++(0, 2.4) to[short, -o] ++(1, 0) node[label={[font=\footnotesize]above:(1)}] {};
+        
+                \draw(1.146, 2.046) to[short, -*] (1.5,2.4) node[label=$K$] {} --++(1,0)  to[R, l=$R$, v=$u_R\p{t}$] ++(1.5,0) --++(1,0)
+                to[C, v^=$u_{C'}\p{t}$, l_=$C$] ++(0,-2.4)
+                to[short, i=$i\p{t}$] ++(-5,0);
+        
+                \draw(1.5, 0) to[short, -o] ++(0, 1.9) node[label={[font=\footnotesize]east:(2)}] {};
+                
+                \draw(5,2.4) --++(2, 0) to[R, l=$R'$] ++(0, -2.4) --++(-2, 0);
+            \end{circuitikz}
+        \end{center}
+        
+        Montrer que l'expression de $u_{C'}\p{t}$ s'obtient très rapidement à partir de l'expression de $u_{C'}\p{t}$ du \textbf{\color{white5!60!black}\sffamily I.1.1.} ; on exprimera $u_{C'}\p{t}$ en fonction de $E$, $R$, $R'$, $C$ et $T$.
+        
+        \noafter
+        %
+        \boxans{
+            On peut représenter le circuit de la manière suivante :
+            %
+            \begin{center}
+                \begin{circuitikz}
+                    \draw (0, 0) to[C, v=$u_{C'}\p{t}$, l=$C$] ++(0, -4) to[short]++(3, 0) to[short, -*] ++(0, 0.5) node[label={[font=\footnotesize]north:B}] {} to[short, i_=$i_1\p{t}$] ++(1, 0) to[vsource, v_=$E$] ++(0, 1.5) to[R, l=$R$, v_=$u_R\p{t}$] ++(0, 1.5) to[short, -*] ++(-1, 0) node[label={[font=\footnotesize]south:A}] {} --++(0, 0.5) to[short, i=$i\p{t}$] ++(-3, 0);
+                
+                    \draw (3, -3.5) to[short, i=$i_2\p{t}$] ++(-1, 0) to[R, l=$R'$, v=$U_{BA}$] ++(0, 3) --++(1, 0);
+                \end{circuitikz}
+            \end{center}
+            %
+            Déterminons la caractéristique courant-tension du dipôle entre $A$ et $B$. Par loi d'\textsc{Ohm} et des noeuds on a :
+            %
+            \[ U_{BA} = R'i_2 = R'(i - i_1) = R'i - R'i_1 = R'i - \dfrac{R'}{R}u_R = R'i - \dfrac{R'}{R}\p{U_{BA} + E} = R'i - \dfrac{R'E}{R} - \dfrac{R'}{R}U_{AB}\]
+            %
+            Ainsi $U_{BA}\p{1 + \dfrac{R}{R'}} = R'i - \dfrac{R'E}{R}$ d'où : \qquad $U_{BA} = \underbrace{\dfrac{RR'}{R + R'}}_{\bcR} i - \underbrace{\dfrac{R'E}{R + R'}}_{\bcE}$.
+            
+            On reconnaît la caractéristique en convention récepteur d'un générateur réel de tension $\bcE = \dfrac{R'E}{R + R'}$ de résistance interne $\bcR = \dfrac{RR'}{R + R'}$. Le circuit est donc équivalent à :
+            %
+            \begin{center}
+            \begin{circuitikz}
+                \draw (0, 0) to[vsource, v=$\bcE$] ++(0, 2.4) to[short, -*] ++(1, 0) node[label={[font=\footnotesize]above:(1)}] {};
+        
+                \draw(1, 2.4) to[short, -*] (1.5,2.4) node[label=$K$] {} --++(1,0)  to[R, l=$\bcR$, v=$u_\bcR\p{t}$] ++(1.5,0) to[short, -*] ++(1,0) node[label={[font=\footnotesize]north:A}] {}
+                to[C, v^=$u_{C'}\p{t}$, l_=$C$, -*] ++(0,-2.4) node[label={[font=\footnotesize]south:B}] {}
+                to[short, i=$i\p{t}$] ++(-5,0);
+        
+                \draw(1.5, 0) to[short, -o] ++(0, 1.9) node[label={[font=\footnotesize]east:(2)}] {};
+            \end{circuitikz}
+            \end{center}
+            %
+            Il s'agit du même circuit qu'à la question \textbf{\color{white5!60!black}\sffamily I.1.1.}, on peut donc utiliser l'expression obtenue avec $\bcE$ et $\bcR$. En posant $\tau' = \bcR C = \dfrac{RR'C}{R + R'}$, on a :
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            \[ u_{C'}\p{t} = \bcE\p{1 - e^{-\frac{t}{\tau'}}} = \dfrac{R'E}{R + R'}\p{1 - e^{-t\frac{R + R'}{RR'C}}}\]
+        }
+        %
+        \yesbefore
+        
+        \item On souhaite visualiser sur un oscilloscope la courbe du \textbf{\color{white5!60!black}\sffamily I.1.} de $u_C$ en fonction de $t$ lors de la charge du condensateur ; on choisit comme valeur $R = \SI{10}{\kilo\ohm}$ et $C = \SI{10}{\nano\farad}$. L'alimentation stabilisée est remplacée par un générateur basse fréquence (G.B.F) ; l'oscilloscope est placé aux bornes du condensateur.
+        
+        \begin{enumerate}
+            \item Justifier brièvement pourquoi les valeurs précédentes de $R$ et de $C$ du \textbf{\color{white5!60!black}\sffamily I.2.2.} ($R = \SI{10}{\mega\ohm}$ et $C = \SI{10}{\micro\farad}$) ne sont pas satisfaisantes pour visualiser la charge du condensateur sur l'oscilloscope (pour visualiser la charge du condensateur, il faut choisir un signal dont la demi-période est égale à $5$ fois la constante de temps).
+            
+            \noafter
+            %
+            \boxans{
+                Pour visualiser la charge du condensateur, il faut choisir un signal dont la demi-période est égale à $5$ fois la constante de temps, c'est-à-dire dont la fréquence $f$ vérifie :
+                %
+                \[ \dfrac{T}{2} = \dfrac{1}{2f} = 5\tau \qquad\text{soit}\qquad f = \dfrac{1}{10\tau} = \dfrac{1}{10RC} \]
+                %
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                \begin{enumerate}
+                    \itt Avec $R = \SI{10}{\mega\ohm}$ et $C = \SI{10}{\micro\farad}$, on a $f = \SI{1.0e-3}{\hertz}$. Avec un tel signal, il faut donc attendre plus de 16 minutes avant de pouvoir observer la décharge, puis encore 16 minutes avant de pouvoir observer à nouveau la charge, puis encore 16 minutes pour la charge \dots  \textit{- et ainsi de suite -}, ce qui est beaucoup trop long, d'une part pour que l'expérience soit satisfaisante (on souhaiterai ne pas attendre autant), d'autre part parce que l'oscilloscope moyen ne peut pas gérer de telles durées.
+                    
+                    \itt Avec $R = \SI{10}{\kilo\ohm}$ et $C = \SI{10}{\nano\farad}$ cependant, on obtient $f = \SI{1.0e3}{\hertz}$. La charge et la décharge surviennent donc plusieurs fois par seconde. On peut alors \guill{zoomer} sur l'oscilloscope pour pouvoir observer la charge (et la décharge) du condensateur.
+                \end{enumerate}
+            }
+            %
+            \yesbefore
+            
+            \item La sortie du G.B.F. et l'entrée de l'oscilloscope sont modélisées ci-dessous.
+            
+            \begin{center}
+                \begin{minipage}{0.35\linewidth}
+                    \begin{center}
+                        {\bfseries G.B.F.\\[-8pt]\text{}}
+                        
+                        \begin{circuitikz}
+                            \draw (0.2,0.1) --++(-1.8, 0) to[vsource, v=$e\p{t}$] ++(0, 1.4) to[R, l=$R_g$] ++(0, 1.4) --++(1.8, 0);
+                            
+                            \draw (0, 0) --++(-3, 0) --++(0, 3) --++(3, 0) --++(0, -3); 
+                        \end{circuitikz}
+                        %
+                        \text{}\\[-20pt]
+                        \[ R_g = \SI{50}{\ohm}\]
+                    \end{center}
+                \end{minipage}
+                %
+                \begin{minipage}{0.1\linewidth}
+                    \hfill
+                \end{minipage}
+                %
+                \begin{minipage}{0.35\linewidth}
+                    \begin{center}
+                        {\bfseries Oscilloscope\\[-8pt]\text{}}
+                        
+                        \begin{circuitikz}
+                            \draw (-0.2,0.1) --++(2.8, 0) to[C, l_=$C_e$] ++(0, 2.8) --++(-2.8, 0);
+                            
+                            \draw (1.3, 0.1) to[R, l_=$R_e$] ++(0, 2.8);
+                            
+                            \draw (0, 0) --++(4, 0) --++(0, 3) --++(-4, 0) --++(0, -3); 
+                        \end{circuitikz}
+                        %
+                        \text{}\\[-20pt]
+                        \[ R_e = \SI{1}{\mega\ohm} \quad C_e = \SI{20}{\pico\farad}\]
+                    \end{center}
+                \end{minipage}
+            \end{center}
+            
+            Justifier brièvement, compte tenu des limitations d'utilisation des différents appareils utilisés, le choix des valeurs de $R$ et $C$.
+            
+            \boxansconc{
+                \begin{enumerate}
+                    \itt Le G.B.F. doit s'approcher d'un générateur de tension idéal, ainsi la résistance $R_g$ doit être la plus petite possible pour être assimilable à un fil. Similairement, la résistance $R_e$ de l'oscilloscope doit idéalement être assimilable à un interrupteur ouvert, donc doit être de grande valeur.
+                    
+                    \itt Puisqu'il faut éviter que l'oscilloscope perturbe le circuit sur lequel il est branché, la faible valeur $C_e$ signifiera que le condensateur sera rapidement \guill{complètement chargé}, et agira alors comme un interrupteur ouvert. L'oscilloscope n'aura donc plus aucun impact sur le circuit.
+                \end{enumerate}
+            }
+        \end{enumerate}
+        
+        \item Quel type de signal (sinusoïdal, triangulaire, carré, \dots) faut-il choisir à la sortie du G.B.F. pour observer la charge du condensateur dans les conditions du \textbf{\color{white5!60!black}\sffamily I.1.} ?
+        
+        \boxansconc{
+            Pour observer la même figure qu'au \textbf{\color{white5!60!black}\sffamily I.1.}, il faut que le signal en entrée soit constant pendant toute la durée de la charge (\ie $e\p{t} = E$). Selon le même principe, il doit être nul pendant toute la durée de la décharge (\ie $e\p{t} = 0$). On choisira donc un signal carré.
+        }
+        
+        \item Par un calcul rapide, donner un ordre de grandeur de la fréquence à utiliser pour observer pratiquement toute la charge du condensateur sur l'oscilloscope.
+        
+        \boxansconc{
+            $f = \SI{1e3}{\hertz}$ (\cf \textbf{\color{white5!60!black}\sffamily I.4.1}).
+        }
+    \end{enumerate}
+    
+    \section{Condensateur en régime sinusoïdal forcé}
+    
+    On étudie un circuit RLC série représenté sur la figure ci-dessous en régime sinusoïdal forcé. La tension $V_e$ a pour expression $V_e\p{t} = E\cos{\omega t}$.
+    
+    
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0, 0) to[vsourcesin, v=$V_e\p{t}$] ++(0, 2) to[R, l_=$R$] ++(2, 0) to[L, l_=$L$] ++(2, 0) to[C, l_=$C$, v^=$V_s\p{t}$] ++(0, -2) to[short, i_=$i\p{t}$] ++(-4, 0);
+        \end{circuitikz}
+    \end{center}
+    
+    On pose $Q$ et $\omega_0$ tels que $Q = \frac{L\omega_0}{R}$ et $LC\omega_0^2 = 1$ ; on prend le nombre complexe $\jj$ tel que $\jj^2 = 1$. On appelle $\underline V_e\p{t}$ et $\underline V_s\p{t}$ les tensions complexes correspondant aux tensions instantanées d'entrée $V_e\p{t}$ et de sortie $V_p\p{t}$.
+    
+    \begin{enumerate}
+        \item Sans effectuer de calculs, donner les valeurs de $V_s\p{t}$ en basse fréquence puis en haute fréquence. Préciser la nature du filtre.
+        
+        \noafter
+        %
+        \boxans{
+            \begin{minipage}{0.48\linewidth}
+                \begin{center}
+                    \textbf{circuit équivalent en basse fréquence\\[5pt]\text{}}
+                        \begin{circuitikz}
+                            \draw (0, 0) to[vsourcesin, v=$V_e\p{t}$] ++(0, 2) to[R, l_=$R$] ++(2, 0) to[short, l_=$L$] ++(2, 0) to[nos, l_=$C$, v^=$V_s\p{t}$] ++(0, -2) to[short, i_=$i\p{t}$] ++(-4, 0);
+                    \end{circuitikz}
+                \end{center}
+            \end{minipage}
+            %
+            \hfill
+            %
+            \begin{minipage}{0.48\linewidth}
+                \begin{center}
+                    \textbf{circuit équivalent en haute fréquence\\[5pt]\text{}}
+                        \begin{circuitikz}
+                            \draw (0, 0) to[vsourcesin, v=$V_e\p{t}$] ++(0, 2) to[R, l_=$R$] ++(2, 0) to[nos, l_=$L$] ++(2, 0) to[short, l_=$C$, v^=$V_s\p{t}$] ++(0, -2) to[short, i_=$i\p{t}$] ++(-4, 0);
+                    \end{circuitikz}
+                \end{center}
+            \end{minipage}
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            À basse fréquence, $V_s\p{t} = V_e\p{t}$ et à haute fréquence $V_s\p{t} = 0$. Il s'agit donc d'un filtre passe-bas.
+        }
+        %
+        \yesbefore
+        
+        \item Déterminer la fonction de transfert de ce circuit définie par $\underline H \p{\jj\omega} = \dfrac{\underline V_s\p{t}}{\underline V_e\p{t}}$ en fonction de $Q$ et de $x = \dfrac{\omega}{\omega_0}$.
+        
+        \noafter
+        %
+        \boxans{
+            On note $\underline Z_R = R$, $Z_L = \jj \omega L$ et $Z_C = \dfrac{1}{\jj \omega C}$ les impédances respectives du condensateur $C$, de la résistance $R$ et de la bobine $L$. Par pont diviseur, on a :
+            %
+            \[ \underline V_s = \dfrac{\underline Z_C}{\underline Z_R + \underline Z_L + \underline Z_C}\underline V_e = \dfrac{\dfrac{1}{\jj \omega C}}{R + \jj \omega L + \dfrac{1}{\jj \omega C}}\underline V_e = \dfrac{1}{\jj\omega RC - \omega^2LC + 1}\underline V_e = \dfrac{1}{1 - x^2 + \jj\frac{x}{Q}}\underline V_e\]
+            
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a donc $\underline H\p{\jj \omega} = \dfrac{1}{\p{1 - x^2} + \jj\frac{x}{Q}}$.
+        }
+        %
+        \yesbefore
+        
+        \item Déterminer l'expression du gain $G = \mod{\dfrac{\underline V_s\p{t}}{\underline V_e\p{t}}}$ en fonction de $x$ et $Q$ ; déterminer la valeur maximale du gain en fonction de $Q$ lorsqu'il y a résonance ($Q > \sfrac{1}{\sqrt{2}}$).
+        
+        \noafter
+        %
+        \boxans{
+            On a $G = \mod{\dfrac{\underline V_s\p{t}}{\underline V_e\p{t}}} = \mod{\underline H\p{\jj\omega}} = \mod{\dfrac{1}{\p{1 - x^2} + \jj\frac{x}{Q}}} = \dfrac{1}{\mod{\p{1 - x^2} + \jj\frac{x}{Q}}}$ donc :
+        }
+        %
+        \nobefore
+        %
+        \boxansconc{
+            \[ G\p{x, Q} = \dfrac{1}{\sqrt{\p{1 - x^2}^2 + \p{\frac{x}{Q}}^2}}\]
+        }
+        %
+        \boxans{
+            Maximiser $G$ revient à trouver $x$ tel que $\p{1 - x^2}^2 + \p{\frac{x}{Q}}^2$ est minimal :
+            %
+            \[ \p{1 - x^2}^2 + \p{\frac{x}{Q}}^2 = 1^2 - 2x^2 + x^4 + \dfrac{1}{Q^2}x^2 = x^4 + \p{\dfrac{1}{Q^2} - 2}x^2 + 1\]
+            %
+            En posant $X = x^2$, on obtient $\p{1 - x^2}^2 + \p{\frac{x}{Q}}^2 = X^2 + \p{\dfrac{1}{Q^2} - 2}X + 1$. Il s'agit d'un polynôme du second degré, de forme $aX^2 + bX + c$, donc d'extremum en $X = -\dfrac{b}{2a} = -\dfrac{1}{2}\p{\dfrac{1}{Q^2} - 2} = 1 - \dfrac{1}{2Q^2}$.
+            %
+            \[ \p{1 - x^2}^2 + \dfrac{x^2}{Q^2} = \p{1 - 1 + \dfrac{1}{2Q^2}}^2 + \dfrac{1 - \frac{1}{2Q^2}}{Q^2} = \dfrac{1}{4Q^4} + \dfrac{2Q^2 - 1}{2Q^4} = \dfrac{4Q^2 - 1}{4Q^4} \]
+            %
+            Ainsi $G_\text{max} = \dfrac{1}{\sqrt{\frac{4Q^2 - 1}{4Q^4}}} = \dfrac{2Q^2}{\sqrt{4Q^2 - 1}}$. Donc le gain maximal est $G_\text{max}$ tel que :
+        }
+        %
+        \yesafter
+        %
+        \boxansconc{
+            \[ G_\text{max} = \dfrac{Q^2}{\sqrt{Q^2 - \sfrac{1}{4}}} \]
+        }
+        %
+        \yesbefore
+        
+        
+    \end{enumerate}
+    
+    
+    
+\end{document}

@@ -1,0 +1,24 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+    
+\begin{document}
+\stylizeDoc{Physique}{Devoir Maison 5}{Diode à effet tunnel}
+
+\section{Équations impression}
+
+\subsection{Cas apériodique}
+\[ \resizebox{1\hsize}{!}{$
+                u_C(t) = \dfrac{\frac{E_0\frac{x}{Q}}{(1-x^2)^2 + (\frac{x}{Q})^2} + \omega_0^2\tau\left(E_0 + \frac{E_0(1-x^2)}{(1-x^2)^2 + (\frac{x}{Q})^2}\right)}{\frac{1}{\tau} - \omega_0^2\tau}e^{-\frac{t}{\tau}} - \left(\dfrac{\frac{E_0\frac{x}{Q}}{(1-x^2)^2 + (\frac{x}{Q})^2} + \omega_0^2\tau\left(E_0 + \frac{E_0(1-x^2)}{(1-x^2)^2 + (\frac{x}{Q})^2}\right)}{\frac{1}{\tau} - \omega_0^2\tau}+ E_0 + \dfrac{E_0(1-x^2)}{(1-x^2)^2 + (\frac{x}{Q})^2} \right)e^{-\omega_0^2\tau t} + \dfrac{E_0}{(1-x^2)^2 + (\frac{x}{Q})^2}\left((1-x^2)\cos{\omega t} + \dfrac{x}{Q}\sin{\omega t}\right) + E_0
+            $}\]
+
+\subsection{Cas critique}
+\[ \resizebox{\hsize}{!}{$
+                u_C(t) = \left(t\dfrac{\frac{E_0(1-x^2)}{(1-x^2)^2 + (\frac{x}{Q})^2} + \alpha \frac{E_0\frac{x}{Q}}{(1-x^2)^2 + (\frac{x}{Q})^2} + \alpha E_0}{\alpha -1}-\dfrac{E_0(1-x^2)}{(1-x^2)^2 + (\frac{x}{Q})^2} - E_0\right)e^{-\alpha t} + \dfrac{E_0}{(1-x^2)^2 + (\frac{x}{Q})^2}\left((1-x^2)\cos{\omega t} + \dfrac{x}{Q}\sin{\omega t}\right) + E_0
+            $}\]
+            
+\subsection{Cas pseudo-périodique}
+\[ \resizebox{\hsize}{!}{$u_C(t) = -\left(\dfrac{E_0(1-x^2)}{(1-x^2)^2 + (\frac{x}{Q})^2} + E_0\right)\cos(\omega t) -\dfrac{E_0\frac{x}{\omega Q}}{(1-x^2)^2 + (\frac{x}{Q})^2}\sin(\omega t)
+                + \dfrac{E_0}{(1-x^2)^2 + (\frac{x}{Q})^2}\left((1-x^2)\cos{\omega t} + \dfrac{x}{Q}\sin{\omega t}\right) + E_0
+            $} \]
+
+\end{document}

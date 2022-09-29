@@ -1,0 +1,366 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\renewcommand{\thesection}{Problème :}
+\renewcommand{\thesubsection}{Partie \Roman{subsection}.}
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Devoir Maison 12}{Dérivation dans un anneau}
+\\[-40pt]
+\section{Dérivation dans un anneau}
+
+Soit $(\bdA, +, \cdot)$ un anneau. On note $1$ l'élément neutre multiplicatif et $0$ l'élément neutre additif.
+
+On note $0_\bdA$ l'application nulle de $\bdA$, c'est-à-dire l'application constante qui à tout élément de $\bdA$ lui associe $0$.
+
+\begin{definition*}{Dérivation}{}
+    Une application $\delta : \bdA \to \bdA$ est appelée \bf{dérivation} si
+    
+    \[ \hg{\forall (a, b) \in \bdA^2,\qquad \delta(a+b) = \delta(a) + \delta(b) \quad\et\quad \delta(a\cdot b) = \delta(a)\cdot b + a \cdot \delta(b)}\]
+\end{definition*}
+
+\subsection{Propriétés générales}
+
+Soit $\delta$ une dérivation dans $\bdA$.
+
+\begin{enumerate}
+    \item Montrer que \quad $\delta(0) = \delta(1) = 0$.
+    
+    \boxans{
+        \begin{enumerate}
+            \itstar On a $\delta(0) = \delta(0 \cdot 0) = \delta(0) \cdot 0 + 0 \cdot \delta(0) = 0 + 0 = 0$, donc \boxsol{$\delta(0) = 0$}.
+            
+            \itstar Similairement, on a $\delta(1) = \delta(1 \cdot 1) = \delta(1)\cdot 1 + 1\cdot\delta(1)$ donc $\delta(1) + \delta(1)$. Puisque $(\bdA, +)$ est un groupe abélien, on a $-\delta(1) \in \bdA$ donc $\delta(1) - \delta(1) = \delta(1) + \delta(1) - \delta(1)$, d'où \boxsol{$\delta(1) = 0$}.
+        \end{enumerate}
+
+    }
+    
+    \item Montrer que pour tout $a \in \bdA$, \quad $\delta(-a) = -\delta(a)$.
+    
+    \boxans{
+        $0 = \delta(0) = \delta(a -a) = \delta(a) + \delta(-a)$. \hfill Or $-\delta(a) \in \bdA$ donc $0 - \delta(a) = \delta(-a)$ d'où \boxsol{$\delta(-a) = -\delta(a)$}.
+    }
+    
+    \item Montrer que :
+    
+    \[ \forall a \in \bdA,\ \forall n \in \bdN,\qquad \delta(na) = n\delta(a)\]
+    
+    \boxans{
+        On montre par récurrence que pour tout entier $n \in \bdN^*$ et toute séquence $(a_k)_{k \in \llbracket 1, n\rrbracket} \in \bdA^{n}$, on a $\displaystyle \delta\left(\sum_{k=1}^n a_k \right) = \sum_{k=1}^n \delta(a_k)$. \boxsol{L'application avec la séquence constante $(a)_k$ donne le résultat escompté.}
+    }
+    
+    \item Montrer que si $a \in \bdA^*$, alors \quad $\delta(a^{-1}) = - a^{-1} \cdot \delta(a) \cdot a^{-1}$.
+    
+    \boxans{
+        On a $0 = \delta(1) = \delta(a\cdot a^{-1}) = \delta(a)\cdot a^{-1} + a \delta(a^{-1})$, donc $a\delta(a^{-1}) = -\delta(a)a^{-1}$. En composant à gauche par $a^{-1}$, on obtient \boxsol{$\delta(a^{-1}) = - a^{-1} \cdot \delta(a) \cdot a^{-1}$}.
+    }
+    
+    \item Donner un exemple simple de dérivation.
+    
+    \boxans{
+        La dérivation des fonctions d'une variable réelle $' : \begin{array}[t]{ccc}
+            \bcD(\bdR, \bdR) &\to& \bcD(\bdR, \bdR)  \\
+            f &\mapsto& f' 
+        \end{array}$ est un exemple de dérivation.
+        
+        En effet, la différence de deux fonctions dérivables et le produit de deux fonctions dérivables sont des fonctions dérivables :
+        
+        \[\forall (f, g) \in \bcD(\bdR, \bdR),\qquad f-g \in \bcD(\bdR, \bdR) \quad\et\quad f \times g \in \bcD(\bdR, \bdR)\]
+        
+        De plus $\widetilde 1 : \begin{array}[t]{ccc}
+            \bdR &\to& \bdR  \\
+            x &\mapsto& 1
+        \end{array} \in \bcD(\bdR, \bdR)$. Donc par théorème de caractérisation des sous-anneaux, $(\bcD(\bdR, \bdR), +, \times)$ est un sous-anneau de $(\bcF(\bdR, \bdR), +, \times)$. Or on a bien :
+        
+        \[\forall (f, g) \in \bcD(\bdR, \bdR), \qquad (f+g)' = f' + g' \quad\et\quad (fg)' = f'g + fg'\]
+    
+        Donc \boxsol{$' : \begin{array}[t]{ccc}
+            \bcD(\bdR, \bdR) &\to& \bcD(\bdR, \bdR)  \\
+            f &\mapsto& f' 
+        \end{array}$ est bien un exemple simple de dérivation}.
+    }
+    
+    \item Posons $K_\delta = \{ a \in \bdA \mid \delta(a) = 0\}$
+    
+    \begin{enumerate}
+        \item Montrer que $K_\delta$ est un sous-anneau de $\bdA$.
+        
+        \boxans{
+            On a déjà $K_\delta \subset \bdA$. De plus $0 \in K_\delta$ et $1 \in K_\delta$. Soit $(a, b) \in {K_\delta}^2$. On a $\delta(a) = \delta(b) = 0$. Alors :
+            
+            \[ \delta(a-b) = \delta(a) + \delta(-b) = \delta(a) - \delta(b) = 0 - 0 = 0\]
+            
+            Donc $a-b \in K_\delta$. De plus :
+            
+            \[ \delta(ab) = \delta(a) \cdot b + a \cdot \delta(b) = 0 \cdot b + a \cdot 0 = 0 + 0 = 0\]
+            
+            Donc $a \cdot b \in K_\delta$. Par théorème de caractérisation, \boxsol{$K_\delta$ est un sous-anneau de $\bdA$}.
+        }
+        
+        \item Montrer que si $(\bdA, +, \cdot)$ est un corps, alors $K_\delta$ est un sous-corps de $(\bdA, +, \cdot)$.
+        
+        \boxans{
+            On a déjà montré que $K_\delta$ est un sous-anneau de $\bdA$. Soit $a \in K_\delta$, donc $\delta(a) = 0$. Si $a \neq 0$, on a :
+            
+            \[ \delta(a^{-1}) = a^{-1}\cdot \delta(a) \cdot a^{-1} = a^{-1} \cdot 0 \cdot a^{-1} = 0\]
+            
+            Donc $a \neq 0 \implies a^{-1} \in K_\delta$. Par définition, \boxsol{$K_\delta$ est un sous-corps de $(\bdA, +, \cdot)$.}.
+        }
+        
+    \end{enumerate}
+    
+    \item Soient $n \geq 2$, et $(a_1, \dots, a_n) \in \bdA^n$, une expression $\delta(a_1 \cdot \dots \cdot a_n)$ en fonction des $\delta(a_k)$ et des $a_k$ pour $k \in \llbracket 1, n \rrbracket$
+    
+    \boxans{
+        On a déjà $\delta(a_1 \cdot a_2) = \delta(a_1) \cdot a_2 + a_1 \cdot \delta (a_2)$. On a alors :
+        
+        \[\delta(a_1 \cdot a_2 \cdot c_3) = \delta(a_1 \cdot a_2) \cdot a_3 + a_1 \cdot a_2 \cdot \delta(a_3) = \left[\delta(a_1) \cdot a_2 + a_1 \cdot \delta (a_2)\right] \cdot a_3 + a_1 \cdot a_2 \cdot \delta(a_3)\]
+        
+        Donc $\delta(a_1 \cdot a_2 \cdot a_3) = \delta(a_1) \cdot a_2 \cdot a_3 + a_1 \cdot \delta(a_2) \cdot a_3 + a_1 \cdot a_2 \cdot \delta(a_3)$.  En notant les produits de gauche à droite dans le sens des indices ($\prod_{j=1}^n = a_1 \cdot a_2 \cdot \dots a_n$)
+        On conjecture alors :
+        
+        \[ H(n) : \qquad \delta\left(\prod_{k=1}^n a_k\right) = \sum_{k=1}^n \left[\left(\prod_{j=1}^{k-1} a_j\right) \cdot \delta(a_k) \cdot \left(\prod_{j=k+1}^n a_j\right)\right]\]
+        
+        On a déjà montré précédemment que $H(2)$ et $H(3)$ sont vrai. Montrons alors l'hérédité de la propriété $H$.\\
+        
+        Soient $n \in \bdN$, $n \geq 2$ tel que $H(n)$ est vrai. On a :
+        
+        \[\delta\left(\prod_{k=1}^{n+1} a_k\right) = \delta\left(\prod_{k=1}^{n} a_k \cdot a_{n+1}\right) = \delta\left(\prod_{k=1}^{n}\right)\cdot a_{n+1} + \prod_{k=1}^{n} a_k \cdot \delta(a_{n+1})\]
+        
+        Par hypothèse de récurrence, on obtient :
+        
+        \[\delta\left(\prod_{k=1}^{n}\right)\cdot a_{n+1} = \sum_{k=1}^n \left[\left(\prod_{j=1}^{k-1} a_j\right) \cdot \delta(a_k) \cdot \left(\prod_{j=k+1}^n a_j\right)\right]\cdot a_{n+1} = \sum_{k=1}^n \left[\left(\prod_{j=1}^{k-1} a_j\right) \cdot \delta(a_k) \cdot \left(\prod_{j=k+1}^{n+1} a_j\right)\right]\]
+        
+        Donc en réinjectant et en simplifiant on a alors :
+        
+        \[\delta\left(\prod_{k=1}^{n+1} a_k\right) = \sum_{k=1}^{n+1} \left[\left(\prod_{j=1}^{k-1} a_j\right) \cdot \delta(a_k) \cdot \left(\prod_{j=k+1}^{n+1} a_j\right)\right]\]
+        
+        Donc $H(n+1)$ est vrai. On a donc $H(n) \implies H(n+1)$.\\
+        
+        Puisque $H(2)$ est vrai et que $\forall n \in \bdN$, $n \geq 2$, $H(n) \implies H(n+1)$, on obtient par principe de récurrence que  $\forall n \in \bdN$, $n \geq 2$, $H(n)$ est vrai.
+        
+        Donc finalement :
+        
+        \[ \boxsol{$\displaystyle \forall n \in \bdN,\ n \geq 2,\qquad \delta\left(\prod_{k=1}^n a_k\right) = \sum_{k=1}^n \left[\left(\prod_{j=1}^{k-1} a_j\right) \cdot \delta(a_k) \cdot \left(\prod_{j=k+1}^n a_j\right)\right] $}\]
+        
+    }
+    
+    \item En déduire, pour $n \geq 2$ et $a \in \bdA$, une expression de $\delta(a^n)$ en fonction de $n$, $a$ et $\delta(a)$.
+    
+    Que devient cette formule si $\bdA$ est commutatif ?
+    
+    \boxans{
+        On applique la formule précédente, on obtient :
+    
+        \[ \delta(a^n) = \delta\left(\prod_{k=1}^n a\right) = \sum_{k=1}^n \left[\left(\prod_{j=1}^{k-1} a \right) \cdot \delta(a) \cdot \left(\prod_{j=k+1}^n a\right)\right] = \sum_{k=1}^n a^{k-1}\cdot\delta(a)\cdot a^{n-1-k}\]
+    
+        Donc \boxsol{$\delta(a^n) = \displaystyle \sum_{k=1}^n a^{k-1}\cdot\delta(a)\cdot a^{n-1-k}$}. De plus si, $\bdA$ est commutatif, on a :
+        
+        \[ \sum_{k=1}^n a^{k-1}\cdot\delta(a)\cdot a^{n-1-k} = \sum_{k=1}^n a^{k-1}\cdot a^{n-1-k}\cdot\delta(a) = \sum_{k=1}^n a^{n-1}\cdot\delta(a) = a^{n-1}\cdot\sum_{k=1}^{n}\delta(a) = na^{n-1}\cdot\delta(a)\]
+        
+        Donc \boxsol{Si $\bdA$ est commutatif, alors $\delta(a^n) = na^{n-1}\cdot\delta(a)$}
+    
+    }
+    
+    \item On pose $\delta^0 = \id_\bdA$, $\delta^1 = \delta$, et pour $n \in \bdN$, $n \geq 1$, \quad $\delta^n = \delta \circ \delta^{n-1}$. Montrer que :
+    
+    \[ \forall n \in \bdN,\ \forall (a, b) \in \bdA^2,\quad \delta^n(a \cdot b) = \sum_{k=0}^n \binom{n}{k} \delta^k(a) \cdot \delta^{n-k}(b)\]
+    
+    \boxans{
+        On procède par récurrence simple. Soit $(a, b) \in \bdA^2$, On pose la propriété :
+        
+        \[ H(n) : \qquad \delta^n(a \cdot b) = \sum_{k=0}^n \binom{n}{k} \delta^k(a) \cdot \delta^{n-k}(b)\]
+        
+        On a d'une part $\delta^0(a\cdot b) = \id_\bdA(a\cdot b) = a \cdot b$. D'autre part, $\dbinom{0}{0}\delta^0(a)\cdot\delta^0(b) = a \cdot b$, donc $H(0)$ est vrai.
+        
+        Montrons maintenant l'hérédité de $H$. Soit $n \in \bdN$ tel que $H(n)$ est vrai. On a alors :
+        \begin{align*}
+            \delta^{n+1}(a\cdot b) &= \delta(\delta^{n}(a \cdot b))\\
+            &= \delta\left(\sum_{k=0}^n \binom{n}{k} \delta^k(a) \cdot \delta^{n-k}(b)\right)\\
+            &= \sum_{k=0}^n \binom{n}{k} \delta\left[ \delta^k(a) \cdot \delta^{n-k}(b)\right]\\
+            &= \sum_{k=0}^n \binom{n}{k} \left[\delta(\delta^k(a))\cdot \delta^{n-k}(b) + \delta^k(a) \dot \delta(\delta^{n-k}(b))\right]\\
+            &= \sum_{k=0}^n \binom{n}{k}\delta^{k+1}(a)\cdot\delta^{n-k}(b) + \sum_{k=0}^n \binom{n}{k}\delta^{k}(a)\cdot\delta^{n+1-k}(b)\\
+            &= \sum_{k=1}^{n+1} \binom{n}{k-1}\delta^{k}(a)\cdot\delta^{n+1-k}(b) + \sum_{k=0}^n \binom{n}{k}\delta^{k}(a)\cdot\delta^{n+1-k}(b)\\
+            &= \binom{n}{0}\delta^0(a)\cdot\delta^{n+1}(b) + \binom{n}{n}\delta^{n+1}(a)\cdot\delta^{0}(b) + \sum_{k=1}^{n} \left[\binom{n}{k-1} + \binom{n}{k}\right]\delta^k(a)\cdot\delta^{n+1-k}(b)\\
+            &= \binom{n+1}{0}\delta^0(a)\cdot\delta^{n+1}(b) + \binom{n+1}{n+1}\delta^{n+1}(a)\cdot\delta^{0}(b) + \sum_{k=1}^{n} \binom{n+1}{k}\delta^k(a)\cdot\delta^{n+1-k}(b)\\
+            &= \sum_{k=0}^{n+1} \binom{n+1}{k}\delta^k(a)\cdot\delta^{n+1-k}(b)
+        \end{align*}
+        
+        Donc $H(n+1)$ est vrai. On a donc $H(n) \implies H(n+1)$. Par principe de récurrence, on a donc :
+        
+        \[ \boxsol{$\forall n \in \bdN,\ \forall (a, b) \in \bdA^2,\quad \delta^n(a \cdot b) = \sum_{k=0}^n \binom{n}{k} \delta^k(a) \cdot \delta^{n-k}(b)$}\]
+    }
+    
+\end{enumerate}
+
+\subsection{\text{}}
+
+Dans cette partie, $\delta_1$, $\delta_2$ et $\delta_3$ désignent des dérivations quelconques de $\bdA$.
+
+\begin{enumerate}
+    \item Les applications $\delta_1 + \delta_2$ et $\delta_1 \circ \delta_2$ sont-elles des dérivations de $\bdA$ ?
+    
+    \boxans{
+        On a bien $\delta_1 + \delta_2 : \bdA \to \bdA$ et $\delta_1 \circ \delta_2 : \bdA \to \bdA$, de plus pour tout $(a, b) \in \bdA^2$, on a :
+        
+        \[\begin{array}{ll}
+            \triangleright \ (\delta_1 + \delta_2)(a + b) &= \delta_1(a + b) + \delta_2(a + b) = \delta_1(a) + \delta_1(b) + \delta_2(a) + \delta_2(b) \\
+            &= \delta_1(a) + \delta_2(a) + \delta_1(b) + \delta_2(b) = (\delta_1 + \delta_2)(a) + (\delta_1 + \delta_2)(b)\\
+            \triangleright \ (\delta_1\circ\delta_2)(a + b) &= \delta_1(\delta_2(a + b)) = \delta_1(\delta_2(a) + \delta_2(b)) = \delta_1(\delta_2(a)) + \delta_1(\delta_2(b))\\
+            &= (\delta_1\circ\delta_2)(a) + (\delta_1\circ\delta_2)(b)
+        \end{array} \]
+        
+        De plus :
+        \[ \begin{array}{ll}
+             \triangleright \ (\delta_1 + \delta_2)(a \cdot b) &= \delta_1(a\cdot b) + \delta_2(a \cdot b) = \delta_1(a) \cdot b + a \cdot \delta_1(b) + \delta_2(a) \cdot b + a \cdot \delta_2(b)\\
+                &= (\delta_1(a) + \delta_2(a))\cdot b + a \cdot (\delta_1(b) + \delta_2(b)) = (\delta_1 + \delta_2)(a)\cdot b + a \cdot (\delta_1 + \delta_2)(b)\\
+             \triangleright \ (\delta_1 \circ \delta_2)(a \cdot b) &= \delta_1(\delta_2(a\cdot b)) = \delta_1(\delta_2(a) \cdot b + a \cdot \delta_2(b)) = \delta_1(\delta_2(a) \cdot b) + \delta_1(a \cdot \delta_2(b))\\
+             &= \delta_1(\delta_2(a)) \cdot b + \delta_2(a) \cdot \delta_1(b) + \delta_1(a) \cdot \delta_2(b) + a \cdot \delta_1(\delta_2(b))\\
+             &= (\delta_1 \circ \delta_2)(a)\cdot b + a \cdot (\delta_1 \circ \delta_2)(b)  \qquad {\color{main21} + \ \delta_2(a) \cdot \delta_1(b) + \delta_1(a) \cdot \delta_2(b)} 
+        \end{array}\]
+        
+        Donc \boxsol{$\delta_1 + \delta_2$ est une dérivation de $\bdA$ mais pas $\delta_1 \circ \delta_2$}.
+    }
+    
+    \item On note $[\delta_1, \delta_2] = \delta_1 \circ \delta_2 - \delta_2 \circ \delta_1$. Montrer que $[\delta_1, \delta_2]$ est une dérivation de $\bdA$.
+    
+    \boxans{
+        On emploie $\delta_0$ désigne une dérivation quelconque de $\bdA$.\\
+        
+        Dans la question précédente, la propriété d'addition $\delta_0(a + b) = \delta_0(a) + \delta_0(b)$ a déjà été vérifiée pour la composition $\delta_1 \circ \delta_2$ et l'addition $\delta_1 + \delta_2$ (donc la soustraction) ; de plus la propriété de multiplication $\delta_0(a \cdot b) = \delta(a) \cdot b + \delta(b) \cdot a$ a aussi été vérifiée pour l'addition $\delta_1 + \delta_2$ (donc la soustraction). Il suffit donc de la montrer pour $\delta_1 \circ \delta_2 - \delta_2 \circ \delta_1$.
+        
+        \begin{align*}
+             (\delta_1 \circ \delta_2 - \delta_2 \circ \delta_1)(a \cdot b) &= (\delta_1 \circ \delta_2) (a \cdot b ) - (\delta_2 \circ \delta_1) (a \cdot b )\\
+             &= (\delta_1 \circ \delta_2)(a)\cdot b + a \cdot (\delta_1 \circ \delta_2)(b) + \delta_2(a) \cdot \delta_1(b) + \delta_1(a) \cdot \delta_2(b)\\
+             &\quad\qquad - (\delta_2 \circ \delta_1)(a)\cdot b - a \cdot (\delta_2 \circ \delta_1)(b) -\delta_1(a) \cdot \delta_2(b) + \delta_2(a) \cdot \delta_1(b)\\
+             &= ((\delta_1 \circ \delta_2)(a) - (\delta_2 \circ \delta_1)(a))\cdot b + a \cdot ((\delta_1 \circ \delta_2)(b) - (\delta_2 \circ \delta_1)(b))\\
+             &= (\delta_1 \circ \delta_2 - \delta_2 \circ \delta_1)(a) \cdot b + a \cdot (\delta_1 \circ \delta_2 - \delta_2 \circ \delta_1)(b)
+        \end{align*}
+        
+        Donc \boxsol{$[\delta_1, \delta_2]$ est une dérivation de $\bdA$}.
+    }
+    
+    \item Montrer que :
+    
+    \[ [\delta_1, [\delta_2, \delta_3]] + [\delta_2, [\delta_3, \delta_1]] + [\delta_3, [\delta_1, \delta_2]] = 0_\bdA\]
+    
+    \boxans{
+        On a $[\delta_2, \delta_3] = \delta_2 \circ \delta_3 - \delta_3 \circ \delta_2$ et $\delta_1, [\delta_2, \delta_3]] = \delta_1 \circ [\delta_2, \delta_3] - [\delta_2, \delta_3] \circ \delta_1$, donc :
+        
+        \[ [\delta_1, [\delta_2, \delta_3]] = \delta_1 \circ (\delta_2 \circ \delta_3 - \delta_3 \circ \delta_2) - (\delta_2 \circ \delta_3 - \delta_3 \circ \delta_2) \circ \delta_1\]
+        
+        Or pour toute dérivation $\delta_0$, on a $\delta_0(a - b) = \delta_0(a) - \delta_0(b)$, donc :
+        
+        \[ [\delta_1, [\delta_2, \delta_3]] = \delta_1 \circ \delta_2 \circ \delta_3 - \delta_1 \circ \delta_3 \circ \delta_2 - \delta_2 \circ \delta_3 \circ \delta_1 + \delta_3 \circ \delta_2 \circ \delta_1\]
+        
+        Donc on obtient :
+        \begin{align*}
+            [\delta_1, [\delta_2, \delta_3]] + [\delta_2, [\delta_3, \delta_1]] + [\delta_3, [\delta_1, \delta_2]] &= \delta_1 \circ \delta_2 \circ \delta_3 - \delta_1 \circ \delta_3 \circ \delta_2 - \delta_2 \circ \delta_3 \circ \delta_1 + \delta_3 \circ \delta_2 \circ \delta_1\\
+            &+ \delta_2 \circ \delta_3 \circ \delta_1 - \delta_2 \circ \delta_1 \circ \delta_3 - \delta_3 \circ \delta_1 \circ \delta_2
+            + \delta_1 \circ \delta_3 \circ \delta_2\\
+            &+ \delta_3 \circ \delta_1 \circ \delta_2 - \delta_3 \circ \delta_2 \circ \delta_1 - \delta_1 \circ \delta_2 \circ \delta_3 + \delta_2 \circ \delta_1 \circ \delta_3 = 0_\bdA
+        \end{align*}
+        
+        On a bien finalement que \boxsol{$[\delta_1, [\delta_2, \delta_3]] + [\delta_2, [\delta_3, \delta_1]] + [\delta_3, [\delta_1, \delta_2]] = 0_\bdA$}.
+    }
+\end{enumerate}
+
+\subsection{\text{}}
+
+Pour tout $a \in \bdA$, on définit $d_a : \bdA \to \bdA$ par : \quad $\forall a \in \bdA$, $d_a(x) = a \cdot x - x \cdot a$.
+
+\begin{enumerate}
+    \item Montrer que $d_a$ est une dérivation de $\bdA$.
+    
+    \boxans{
+        On a déjà $d_a : \bdA \to \bdA$. De plus, pour tout $(x,y) \in \bdA^2$, on a :
+        \[d_a(x+y) = a\cdot(x+y)-(x+y)\cdot a = a\cdot x + a \cdot y - x\cdot a - y\cdot a = a \cdot x - x \cdot a + a \cdot y - y \cdot a = d_a(x) + d_a(y)\]
+        
+        De plus on a :
+        \[ d_a(x) \cdot y + x \cdot d_a(y) = (a \cdot x - x \cdot a) \cdot y + x \cdot (a \cdot y - y \cdot a) = a \cdot x \cdot y - x \cdot a \cdot y + x \cdot a \cdot y - x \cdot y \cdot a \]
+        
+        Donc $d_a(x) \cdot y + x \cdot d_a(y) = a \cdot x \cdot y - x \cdot y \cdot a = d_a(x \cdot y)$. Donc \boxsol{$d_a$ est une dérivation de $\bdA$}.
+        
+    }
+    
+    \item Montrer que :
+    
+    \[ \forall n \in \bdN,\ \forall (a, x) \in \bdA^2,\qquad d_a^n(x) = \sum_{k=0}^n (-1)^k \binom{n}{k} a^{n-k} \cdot x \cdot a^k\]
+    
+    \boxans{
+        On procède par récurrence simple. Soit $(a, x) \in \bdA^2$. On pose la propriété :
+        
+        \[ H(n) : \qquad d_a^n(x) = \sum_{k=0}^n (-1)^k \binom{n}{k} a^{n-k} \cdot x \cdot a^k\]
+        
+        On a d'une par $\delta_a^0(x) = \id_\bdA(x) ) x$. D'autre part, $(-1)^0\binom{
+        0}{0}a^{0-0}\cdot x \cdot a^0 = x$, donc $H(0)$ est vrai. 
+        
+        Montrons maintenant l'hérédité de $H$. Soit $n \in \bdN$ tel que $H(n)$ est vrai. On a alors :
+        \begin{align*}
+            \delta_a^{n+1}(x) &= \delta_a(\delta_a^n(x)) = a \cdot \delta_a^n(x) - \delta_a^n(x)\cdot a\\
+            &= a \cdot \sum_{k=0}^n (-1)^k \binom{n}{k} a^{n-k} \cdot x \cdot a^k - \sum_{k=0}^n (-1)^k \binom{n}{k} a^{n-k} \cdot x \cdot a^k \cdot a\\
+            &= \sum_{k=0}^n (-1)^k \binom{n}{k} a^{n+1-k} \cdot x \cdot a^k - \sum_{k=0}^n (-1)^k \binom{n}{k} a^{n-k} \cdot x \cdot a^{k+1}\\
+            &= \sum_{k=0}^{n} (-1)^k \binom{n}{k} a^{n+1-k} \cdot x \cdot a^k - \sum_{k=1}^{n+1} (-1)^{k-1} \binom{n}{k-1} a^{n+1-k} \cdot x \cdot a^{k}\\
+            &= (-1)^0\binom{0}{n}a^{n+1-0}\cdot x \cdot a^0  + \sum_{k=1}^{n} (-1)^k \binom{n}{k} a^{n+1-k} + \sum_{k=1}^{n} (-1)^{k} \binom{n}{k-1} a^{n+1-k} \cdot x \cdot a^{k}\\
+            &\qquad\qquad\qquad + (-1)^{n+1}\binom{n}{n}a^{n+1-(n+1)}\cdot x \cdot a^{n+1}\\
+            &= (-1)^0\binom{n+1}{0}a^{n+1}\cdot x \cdot a^0 + (-1)^{n+1}\binom{n+1}{n+1}a^{n+1-(n+1)}\cdot x \cdot a^{n+1}\\
+            &\qquad\qquad\qquad + \sum_{k=1}^n (-1)^{k} \left[\binom{n}{k}+\binom{n}{k-1}\right] a^{n+1-k} \cdot x \cdot a^{k}\\
+            &= (-1)^0\binom{n+1}{0}a^{n+1}\cdot x \cdot a^0 + (-1)^{n+1}\binom{n+1}{n+1}a^{n+1-(n+1)}\cdot x \cdot a^{n+1}\\
+            &\qquad\qquad\qquad\sum_{k=1}^n (-1)^{k} \binom{n+1}{k} a^{n+1-k} \cdot x \cdot a^{k}\\
+            &= \sum_{k=0}^{n+1} (-1)^{k} \binom{n+1}{k} a^{n+1-k} \cdot x \cdot a^{k}
+        \end{align*}
+        Donc $H(n+1)$ est vrai. On a donc $H(n) \implies H(n+1)$. Par principe de récurrence, on a donc :
+        
+        \[ \boxsol{$\displaystyle \forall n \in \bdN,\ \forall (a, x) \in \bdA^2,\qquad d_a^n(x) = \sum_{k=0}^n (-1)^k \binom{n}{k} a^{n-k} \cdot x \cdot a^k $}\]
+    }
+    
+    \item En déduire que si $a$ est nilpotent, alors il existe un entier $m$ tel que $d_a^m = 0_\bdA$.
+    
+    \boxans{
+        Si $a$ est nilpotent, alors il existe un entier $n$ tel que $a^n = 0$. On remarque alors que :
+        \[ \forall k \in \bdN,\qquad a^n\cdot a^k = 0 \cdot a^k \quad\text{donc}\quad a^{n+k} = 0\]
+        
+        On peut alors s'intéresser à $d_a^{2n}$. Soit $x \in \bdA$. On a :
+        \begin{align*}
+            d_a^{2n}(x) &= \sum_{k=0}^{2n} (-1)^k \binom{2n}{k} a^{2n-k} \cdot x \cdot a^k \\
+            &= \sum_{k=0}^{n} (-1)^k \binom{2n}{k} a^{2n-k} \cdot x \cdot a^k + \sum_{k=n+1}^{2n} (-1)^k \binom{2n}{k} a^{2n-k} \cdot x \cdot a^k\\
+            &= \sum_{k=0}^{n} (-1)^{n-k} \binom{2n}{n-k}\underbrace{a^{n+k}}_{= 0}\cdot x \cdot a^{n-k} + \sum_{k=1}^{n}(-1)^{n+k}\binom{2n}{n+k}a^{n-k}\cdot x \cdot \underbrace{a^{n+k}}_{= 0}\\
+            &= 0 + 0 = 0
+        \end{align*}
+        
+        Donc \boxsol{si $a$ est nilpotent, alors il existe un entier $m = 2n$ tel que $d_a^m = 0_\bdA$.}
+    }
+    
+    \item Montrer que, pour toute dérivation $\delta$ de $\bdA$,
+    
+    \[ [\delta, d_a] = d_{\delta(a)} \]
+    
+    \boxans{
+        Soit $x \in \bdA$. Par définition, $[\delta, d_a](x) = \delta \circ d_a(x) - d_a \circ \delta(x) = \delta(d_a(x)) - d_a(\delta(x))$. On a alors :
+        \begin{align*}
+            [\delta, d_a](x) &= \delta(a \cdot x - x \cdot a) - a \cdot \delta(x) + \delta(x) \cdot a = \delta(a \cdot x) - \delta(x \cdot a) - a \cdot \delta(x) + \delta(x) \cdot a\\
+            &= \delta(a) \cdot x + a \cdot \delta(x) - \delta(x) \cdot a - x \cdot \delta(a) - a \cdot \delta(x) + \delta(x) \cdot a\\
+            &= \delta(a) \cdot x - x \cdot \delta(a) = d_{\delta(a)}
+        \end{align*} 
+        
+        Donc \boxsol{pour toute dérivation $\delta$,\quad $[\delta, d_a] = d_{\delta(a)}$}.
+    }
+    
+    \item Soient $(a, b) \in \bdA^2$. On pose $[a, b] = a \cdot b - b\cdot a$. Montrer que :
+    
+    \[ [d_a, d_b] = d_{[a, b]}\]
+    
+    \boxans{
+        On remarque tout d'abord que $[a, b] = a \cdot b - b\cdot a = d_a(b)$ qui est une dérivation $\delta$. Or on a montré précédemment que pour une telle dérivation, on a $[\delta, d_b] = d_{\delta(b)}$. Donc :
+        
+        \[ [d_a, d_b] = d_{d_a(b)} = d_{[a, b]}\]
+        
+        Donc \boxsol{pour tout $(a, b) \in \bdA^2$, on a $[d_a, d_b] = d_{[a, b]}$}.
+        
+    }
+    
+\end{enumerate}
+
+
+
+\end{document}

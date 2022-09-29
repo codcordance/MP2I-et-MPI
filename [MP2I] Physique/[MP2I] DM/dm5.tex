@@ -1,0 +1,570 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\renewcommand{\thesection}{\Roman{section}} 
+\begin{document}
+\stylizeDoc{Physique}{Devoir Maison 5}{Diode à effet tunnel}
+
+\section{Préliminaires}\label{sec:1}
+
+\begin{minipage}{0.5\linewidth}
+    On considère un circuit RLC série branché à un GBF. Le GBF ne délivre aucune tension dans les temps négatifs. Pour les temps positifs, il délivre une tension sinusoïdale munie d'un \textit{offset} :
+    
+    \begin{equation}
+        u_G(t) = \left\lbrace\begin{array}{ll}
+            0 &\forall t < 0  \\
+            E_0[1+\cos{\omega t}] &\forall t \geq 0 
+        \end{array}\right.
+    \end{equation}
+\end{minipage}
+\begin{minipage}{0.5\linewidth}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0, 0) 
+                to[vsource, v=$u_G(t)$] ++(0, 2.4)
+                to[R, l_=$R$, v^=$u_R(t)$] ++(2.5,0)
+                to[L, l_=$L$, v^=$u_L(t)$] ++(2.5,0)
+                to[C, v^=$u_C(t)$, l_=$C$, i_=$i(t)$] ++(0,-2.4)
+            --(0,0);
+        \end{circuitikz}
+    \end{center}
+\end{minipage}
+
+\begin{enumerate}
+    \item Déterminer une équation différentielle en $u_C$ faisant intervenir $R$, $L$, $C$ et $u_G$.
+    
+    \boxans{
+        La loi des mailles livre  $u_G(t) = u_L(t) + u_R(t) + u_C(t)$. La loi d'Ohm livre de plus $u_R(t) = R\cdot i(t)$, et les relation constitutives livrent :
+        
+        \[ i(t) = C\dfrac{\dif u_C}{\dif t}(t) \qquad\et\qquad u_L(t) = L\dfrac{\dif i}{\dif t}(t)\]
+        
+        En vertu de ce qui précède, on a donc :
+        
+        \[ LC\dfrac{\dif^2 u_C}{\dif t^2} + RC\dfrac{\dif u_C}{\dif t} + u_C(t) = u_G(t)\]
+        
+        En divisant par $LC$, on obtient finalement :
+        
+        \[ \boxsol{$\dfrac{\dif^2 u_C}{\dif t^2}(t) + \dfrac{R}{L}\dfrac{\dif u_C}{\dif t}(t) + \dfrac{1}{LC}u_C(t) = \dfrac{1}{LC}u_G(t)$}\]
+    }
+    
+    \item Rappeler la forme canonique d’une équation différentielle linéaire de degré 2 sans second membre faisant intervenir une pulsation propre $\omega_0$ et un facteur de qualité $Q$. Identifier $\omega_0$ et $Q$ dans le RLC série.
+    
+    \boxans{
+        La forme canonique est $\ddot X + \dfrac{\omega_0}{Q} \dot X + \omega_0^2 X = 0$. On identifie alors $\omega_0^2 = \dfrac{1}{LC}$, d'où \boxsol{$\omega_0 = \dfrac{1}{\sqrt{LC}}$} ($\omega_0 \geq 0$). 
+        
+        De même, $\dfrac{\omega_0}{Q} = \dfrac{R}{L}$, donc $Q = \dfrac{\omega_0}{R}=\dfrac{L}{R}\times\dfrac{1}{\sqrt{LC}}$ donc \boxsol{$Q = \dfrac{1}{R}\sqrt{\dfrac{L}{C}} $}.
+    }
+    
+    \item\label{question:3} Rappeler les différentes formes de solution possibles pour l’équation sans second membre en prenant soin de distinguer les différents cas.
+    
+    \boxans{
+        On considère deux constantes d'intégration réelles $(A, B) \in \bdR^2$. On nomme de plus $r_\pm \in \bdC^2$ les solutions de l'équation caractéristique :
+    
+        \[ r^2 + \dfrac{\omega_0}{Q}r + \omega_0^2 = 0\]
+    
+    \begin{enumerate}
+        \ithand Dans le cas dégénéré (\guill{cas critique}) où $Q=\sfrac{1}{2}$, on a une unique racine $r_+ = r_- = r$. On a alors :
+        
+        \[ \boxsol{$u_C(t) = (A + tB)e^{rt}$}\]
+        
+        \ithand Si $Q < \sfrac{1}{2}$ (\guill{cas apériodique}), on a $(r_+, r-) \in \bdR^2$. On a alors :
+        
+        \[\boxsol{$u_C(t) = Ae^{r_+t} + Be^{r_-t}$}\]
+        
+        \ithand  Si $Q > \sfrac{1}{2}$ (\guill{cas pseudo-périodique}), on a $r_+, r_-$ conjugués : $r_\pm = \alpha \pm j\omega$, (où $j^2 = -1$). On a alors : 
+        
+        \[ \boxsol{$u_C(t) = e^{-\alpha t}\cdot\left[A\cos(\omega t) + B\sin(\omega t)\right]$}\]
+    \end{enumerate}
+    
+    }
+    
+    \item On pose $v(t) = u_C(t) - E_0$. Déterminer l’équation différentielle vérifiée par $v(t)$.
+
+    \boxans{
+        $v(t)$ est égale à $u_C(t)$ à une constante près, ainsi $\dot v(t) = \dot u_C(t)$ et $\ddot v(t) = \ddot u_C(t)$. On a donc pour tout $t \geq 0$ :
+        
+        \[ \dfrac{\dif^2 v}{\dif t^2}(t) + \dfrac{\omega_0}{Q}\dfrac{\dif v}{\dif t}(t) + \omega_0^2\left(v(t) + E_0\right) = \omega_0^2u_G(t) = E_0\omega_0^2\left(1 +\cos(\omega t)\right)\]
+        
+        Ainsi $v(t)$ vérifie l'équation différentielle :
+        
+        \[ \boxsol{$\dfrac{\dif^2 v}{\dif t^2}(t) + \dfrac{\omega_0}{Q}\dfrac{\dif v}{\dif t}(t) + \omega_0^2v(t) = E_0\omega_0^2\cos(\omega t)$}\]
+    }
+    
+    \item\label{question:5} En utilisant la notation complexe, déterminer une solution particulière de l’équation précédente.
+    
+    \boxans{
+        Les coefficients constants de l'équation en question permettent de chercher une solution particulière sous forme similaire, i.e. \quad $v(t) = V_m\cos(\omega t + \phi)$. \qquad\quad On passe donc en notation complexe :
+        
+        \[\underline{v}(t) = \underline{V}_me^{j\omega t} \qquad\text{où} \qquad \underline{V}_m = V_me^{j\phi}\]
+        
+        Le second membre donne par ailleurs $E_0\omega_0^2e^{j\omega t}$. L'équation différentielle se ramène alors à :
+        
+        \[ -\omega^2 \underline{v}(t) + \dfrac{j\omega \omega_0}{Q}\underline{v}(t) + \omega_0^2\underline{v}(t) = E_0\omega_0^2e^{j\omega t} \qquad\text{donc}\qquad \left(\omega_0^2 - \omega^2 + j\dfrac{\omega \omega_0}{Q} \right)\underline{V}_me^{j\omega t} = E_0\omega_0^2e^{j\omega t}\]
+        
+        On pose la pulsation réduire $x = \dfrac{\omega}{\omega_0}$. En isolant $\underline{V}_m$, on obtient alors :
+        
+        \[ \underline{V}_m = E_0\omega_0^2\cdot\dfrac{1}{\omega_0^2 - \omega^2 + j\frac{\omega \omega_0}{Q}} = \dfrac{E_0}{\frac{\omega_0^2}{\omega_0^2}-\frac{\omega^2}{\omega_0^2} + j\frac{\omega\omega_0}{Q\omega_0^2}} = \dfrac{E_0}{1-x^2+j\frac{x}{Q}}\]
+        
+        Dès lors on a la solution particulière $v_p$, qu'on peut développer grâce à la formule d'addition du cosinus :
+        
+        \[ v_p(t) = \mod{\underline{V}_m}\cos{\omega t + \arg{\underline{V}_m}} = \mod{\underline{V}_m}\left[\cos{\arg{\underline{V}_m}}\cos{\omega t} - \sin{\arg{\underline{V}_m}}\sin{\omega t} \right]\]
+        
+        En normalisant $\underline{V}_m$, on peut calculer $\arg{\underline{V}_m}$ avec $\arcsin$ et $\arccos$ :
+        
+        \[ \arg(\underline{V}_m) = \arccos{\Re{\dfrac{\underline{V}_m}{\mod{\underline{V}_m}}}} =  \arcsin{\Im{\dfrac{\underline{V}_m}{\mod{\underline{V}_m}}}}\]
+        
+         Or on a $\mod{\underline{V}_m} = \dfrac{E_0}{\mod{1-x^2 + j\frac{x}{Q}}}$, ainsi :
+         
+         \[ \dfrac{\underline{V}_m}{\mod{\underline{V}_m}} = \dfrac{E_0}{1-x^2 + j\frac{x}{Q}} \times \dfrac{\mod{1-x^2 + j\frac{x}{Q}}}{E_0} = \dfrac{1-x^2 + j\frac{x}{Q}}{\mod{1-x^2 + j\frac{x}{Q}}}\]
+         
+         Donc $\arg{\underline{V}_m} = \arccos{\dfrac{1-x^2}{\mod{1-x^2 + j\frac{x}{Q}}}} = \arcsin{\dfrac{\frac{x}{Q}}{\mod{1-x^2 + j\frac{x}{Q}}}}$. On a donc finalement :
+        
+        \[ \boxsol{$v_p(t) = \dfrac{E_0}{(1-x^2)^2 + (\frac{x}{Q})^2}\left((1-x^2)\cos{\omega t} + \frac{x}{Q}\sin{\omega t}\right)$}\]
+        
+        
+    }
+    
+    \item Quelles sont les grandeurs physiques qui sont continues à l’instant initial ? Traduire ces continuités en conditions initiales permettant la résolution de l’équation différentielle portant sur $u_C(t)$.
+    
+    \boxans{
+        Les relations constitutives de la bobine et du condensateur entraînent l'existence de $\frac{\dif u_C}{\dif t}(0)$ $\frac{\dif i}{\dif t}(0)$, ce qui entraîne donc la \boxsol{continuité de la tension du condensateur et de l'intensité du courant en $0$}.
+        
+        
+        Puisque pour tout $t < 0$, $u_G(t) = 0$, on peut considérer  $u_C(t) \lima{t \to 0^-} 0$ et $i(t) \lima{t \to 0^-} 0$. Par continuité on a \boxsol{$u_C(0) = 0$}, et $i(0) = 0$, donc on a  $C\dfrac{\dif u_C}{\dif t}(0) = 0$ donc \boxsol{$\dfrac{\dif u_C}{\dif t}(0) = 0$}.
+    }
+    
+    \item Déterminer enfin les expressions possibles pour $u_C(t > 0)$ en fonction des cas évoqués à la question \enumref{question:3}.
+    
+    \boxans{
+        On résout dans un premier temps l'équation différentielle vérifiée par $v(t)$. La solution particulière $v_p(t)$ a déjà été établie en question \enumref{question:5} et reste identique pour tout facteur de qualité $Q$. $v_p$ est évidemment dérivable, et puisque $\cos{\omega 0} = 1$ et $\sin{\omega 0} = 0$, on obtient :
+        
+        \[ v_p(0) = \dfrac{E_0(1-x^2)}{(1-x^2)^2 + (\frac{x}{Q})^2} \qquad\et\qquad \dot v_p(0) = \dfrac{E_0\frac{x}{Q}}{(1-x^2)^2 + (\frac{x}{Q})^2} \]
+         
+        On considère alors $v_h$ une solution de l'équation homogène. 
+        
+        \begin{enumerate}
+            \ithand Si $Q < \sfrac{1}{2}$ (cas apériodique), on a $v_H(t) = Ae^{r_+t} + Be^{r_-t}$. On pose le temps caractéristique $\tau = -\dfrac{1}{r_+}$. 
+            
+            Par identification dans le polynôme caractéristique, on a :
+            
+            \[ \omega_0^2 = r_+r_- = -\dfrac{-r_-}{\tau} \quad\text{donc}\quad r_- = -\omega_0^2\tau\]
+            
+            Ainsi, on a $v_H(t) = Ae^{-\sfrac{t}{\tau}} + Be^{-\omega_0^2\tau t}$, ainsi \boxsol{$u_C(t) = Ae^{-\sfrac{t}{\tau}} + Be^{-\omega_0^2\tau t} + v_p(t) + E_0$}. Or on a :
+            
+            \[ u_C(0) = 0 \quad\text{donc}\quad E_0 + v_p(0) + A + B = 0 \quad\text{donc}\quad \boxsol{$B = - (A + E_0 + v_p(0))$} \]
+            
+            On dérive $u_C$ par linéarité : $\dot u_C(t) = -\frac{A}{\tau}e^{-\sfrac{t}{\tau}} + \omega_0^2\tau(A + E_0 + v_p(0))e^{-\omega_0^2\tau t} + \dot v_p(t)$. On a :
+            
+            \[ \dot u_C(0) = 0 \quad\text{donc}\quad -\frac{A}{\tau} + \omega_0^2\tau(A + E_0 + v_p(0)) + \dot v_p(0) = 0 \quad\text{donc}\quad \boxsol{$A = \dfrac{\dot v_p(0) + \omega_0^2\tau(E_0 + v_p(0))}{\frac{1}{\tau} - \omega_0^2\tau}$}\]
+
+            \textcolor{main1!70!gray}{Si on développe totalement, on a en fait :}
+            \[\boxsol{\textcolor{main1!70!gray}{ \resizebox{0.9\hsize}{!}{$
+                u_C(t) = \dfrac{\frac{E_0\frac{x}{Q}}{(1-x^2)^2 + (\frac{x}{Q})^2} + \omega_0^2\tau\left(E_0 + \frac{E_0(1-x^2)}{(1-x^2)^2 + (\frac{x}{Q})^2}\right)}{\frac{1}{\tau} - \omega_0^2\tau}e^{-\sfrac{t}{\tau}} - \left(\dfrac{\frac{E_0\frac{x}{Q}}{(1-x^2)^2 + (\frac{x}{Q})^2} + \omega_0^2\tau\left(E_0 + \frac{E_0(1-x^2)}{(1-x^2)^2 + (\frac{x}{Q})^2}\right)}{\frac{1}{\tau} - \omega_0^2\tau}+ E_0 + \dfrac{E_0(1-x^2)}{(1-x^2)^2 + (\frac{x}{Q})^2} \right)e^{-\omega_0^2\tau t} + \dfrac{E_0}{(1-x^2)^2 + (\frac{x}{Q})^2}\left((1-x^2)\cos{\omega t} + \dfrac{x}{Q}\sin{\omega t}\right) + E_0
+            $}}}\]
+                
+            \ithand Si $Q = \sfrac{1}{2}$ (cas critique), on obtient \boxsol{$u_C(t) = (A + tB)e^{-\alpha t} + v_p(t) + E_0$}.
+            
+            \[ u_C(0) = 0 \quad\text{donc}\quad A + v_p(0) + E_0 = 0 \quad\text{donc}\quad \boxsol{$A = - v_p(0) - E_0$} \]
+            
+            Comme précédemment, on dérive pour obtenir $\dot u_C(t) = \left[B - \alpha(B - v_p(0) - E_0)\right]e^{-\alpha t} + \dot v_p(t)$.
+            
+            \[ \dot u_C(0) = 0 \quad\text{donc}\quad B - \alpha(B - v_p(0) - E_0) + \dot v_p(0) = 0 \quad\text{donc}\quad \boxsol{$B = \dfrac{v_p(0) + \alpha \dot v_p(0) + \alpha E_0}{\alpha -1}$}\]
+            
+            \[\boxsol{\textcolor{main1!70!gray}{ \resizebox{0.9\hsize}{!}{$
+                u_C(t) = \left(t\dfrac{\frac{E_0(1-x^2)}{(1-x^2)^2 + (\frac{x}{Q})^2} + \alpha \frac{E_0\frac{x}{Q}}{(1-x^2)^2 + (\frac{x}{Q})^2} + \alpha E_0}{\alpha -1}-\dfrac{E_0(1-x^2)}{(1-x^2)^2 + (\frac{x}{Q})^2} - E_0\right)e^{-\alpha t} + \dfrac{E_0}{(1-x^2)^2 + (\frac{x}{Q})^2}\left((1-x^2)\cos{\omega t} + \dfrac{x}{Q}\sin{\omega t}\right) + E_0
+            $}}}\]
+            
+            \ithand Si $Q > \sfrac{1}{2}$ (cas pseudo-périodique), on obtient \boxsol{$u_C(t) = A\cos(\omega t) + B\sin(\omega t) + v_p(t) + E_0$}.
+            
+            \[ u_C(0) = 0 \quad\text{donc}\quad A + v_p(0) + E_0 = 0 \quad\text{donc}\quad \boxsol{$A = - v_p(0) - E_0$} \]
+            
+            Comme précédemment, on dérive pour obtenir $\dot u_C(t) = \omega(v_p(0) + E_0)\sin{\omega t} + \omega B\cos(\omega t) + \dot v_p(t)$.
+            
+            \[ \dot u_C(0) = 0 \quad\text{donc}\quad \omega B + \dot v_p(0) = 0 \quad\text{donc}\quad \boxsol{$B = -\dfrac{\dot v_p(0)}{\omega}$} \]
+            
+            \[\boxsol{\textcolor{main1!70!gray}{ \resizebox{0.9\hsize}{!}{$u_C(t) = -\left(\dfrac{E_0(1-x^2)}{(1-x^2)^2 + (\frac{x}{Q})^2} + E_0\right)\cos(\omega t) -\dfrac{E_0\frac{x}{\omega Q}}{(1-x^2)^2 + (\frac{x}{Q})^2}\sin(\omega t)
+                + \dfrac{E_0}{(1-x^2)^2 + (\frac{x}{Q})^2}\left((1-x^2)\cos{\omega t} + \dfrac{x}{Q}\sin{\omega t}\right) + E_0
+            $}}}\]
+            
+        \end{enumerate}
+    }
+\end{enumerate}
+
+\newpage
+
+\section{Caractéristique d’une diode à effet tunnel}
+
+\begin{minipage}{0.7\linewidth}
+    Une diode à effet tunnel est un dipôle non linéaire fabriqué à l’aide de semi-conducteurs. Son symbole électrique est donné ci-contre, il s’agit d’une flèche pleine adossée à un crochet fermé. Sans expliquer les causes physiques du fonctionnement de la diode tunnel, le constructeur en fournit néanmoins la caractéristique intensité-tension représentée en annexe.
+\end{minipage}
+\begin{minipage}{0.3\linewidth}
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0, 0) 
+                to[full tunnel diode, v=$u_D(t)$, i=$i_D(t)$] ++(3, 0)
+            ;
+        \end{circuitikz}
+    \end{center}
+\end{minipage}
+
+\begin{enumerate}[resume]
+    \item Proposer un protocole expérimental permettant de confronter la caractéristique de la diode tunnel fournie par le constructeur à des valeurs mesurées expérimentalement.
+    
+    \boxans{
+        \begin{minipage}{0.6\linewidth}
+            On branche la diode en série avec un ampèremètre, qu'on assimile à un fil, et l'on connecte le tout à un générateur réel de tension $u_G(t)$ et de résistance interne $R$. La loi des mailles livre :
+            
+            \[ u_G(t) = u_R(t) + u_D(t)\]
+            
+            La loi d'Ohm livre $u_R(t) = Ri(t) = Ri_D(t)$, donc :
+            
+            \[ u_G(t) = Ri(t) + u_D(t)\]
+            
+            On peut donc isoler $u_D(t)$ en fonction de $i(t)$, $R$ et $u_G(t)$ :
+            \[ u_D(t) = u_G(t) - Ri(t)\]
+        \end{minipage}\quad
+        \begin{minipage}{0.3\linewidth}
+            \begin{center}
+                \begin{circuitikz}
+                    \draw (0, 0) 
+                        to[vsource, v_=$u_G(t)$] ++(0, 1.5)
+                        to[R, l=$R$, v=$u_R(t)$] ++(0, 1.5)
+                        to[short, i=$i(t) \eq i_D(t)$] ++(5, 0)
+                        to[full tunnel diode, v=$u_D(t)$] ++(0,-1.5)
+                        to[rmeter, t=A] ++(0, -1.5)
+                        
+                    --(0,0);
+                    %\draw (2.5, 0) to[open, v>=$u_D(t) \eq u_G(t)$] (2.5,3);
+                \end{circuitikz}
+            \end{center}
+        \end{minipage}
+        
+        On peut alors faire varier $u_G(t)$ et mesurer $i_D(t)$ à l'ampèremètre afin d'obtenir des couples $(u_D, i_D)$ et \boxsol{obtenir une caractéristique que l'on peut comparer à celle fournie par le constructeur}.
+    }
+    
+    \item On branche aux bornes de la diode tunnel un générateur de tension réel continu de tension à vide valant $E_0 = 306 \ mV$ et de résistance interne $R = 50 \ \Omega$. Déterminer graphiquement les coordonnées du point de fonctionnement $M$ du circuit en complétant la caractéristique en annexe (à rendre avec la copie).
+    
+    \boxans{
+        On cherche le couple $(u_D, i_D)$ tel que $u_D = E_0 - Ri$, soit $i = \frac{E_0 - u_D}{R}$. Il s'agit donc de trouver l'intersection de la caractéristique avec la droite représentant la fonction affine :
+        \[ i(u) = -\dfrac{1}{R}u + \dfrac{E_0}{R}\]
+        
+        On remarquera que $i(E_0) = 0 \ mA$. De plus, on a  $i(0,30) = \dfrac{0,306 - 0,30}{50} = 0,12 \ mA$.
+        
+        On trace donc la droite à l'aide de ces deux points. On obtient \boxsol{$M = (0,27 \ V; 0,65 \ mA)$}.
+    }
+    
+    \item Donner les coordonnées des points de fonctionnement du circuit $M_1$ lorsque la tension à vide du générateur vaut $E_1 = 256 \ mV$. De même pour $M_2$ lorsque la tension à vide du générateur vaut $E_2 = 356 \ mV$.
+    
+    \boxans{
+        On procède similairement, en exploitant le fait que les trois droites sont de même pente / coefficient directeur et sont donc parallèles.
+        
+        On obtient \boxsol{$M_1 = (0,22\ V; 0,83 \ mA)$} et \boxsol{$M_2 = (0,34 \ V; 0,43 \ mA)$}.
+    }
+    
+    \item\label{question:11} Justifier alors que si le point de fonctionnement de la diode tunnel se situe entre les points $M_1$ et $M_2$, celle-ci se comporte approximativement comme l’association d’un générateur de tension idéal de force électromotrice $E_D$ et d’une résistance \textbf{négative} de valeur $−r$, avec $r > 0$. Donner les valeurs de $-r$ et $E_D$.
+    
+    \boxans{
+        On remarque qu'entre $M_1$ et $M_2$, la caractéristique de la diode est approximativement une droite. Or la caractéristique d'un générateur de tension $E_D$ associée à une résistance de valeur $-r$ est $ i(u) = -\dfrac{1}{r}u + \dfrac{E_D}{r}$.
+        
+        En assimilant cette à droite à la droite $(M_1M_2)$, on identifie les coefficients directeurs :
+        
+        \[ -\dfrac{1}{r} = \dfrac{(0,43 - 0,83)\cdot 10^{-3}}{0,34 - 0,22} \quad\text{donc}\quad r = \dfrac{0,22 - 0,34}{0,43 - 0,83)\cdot 10^{-3}} \quad\text{donc}\quad \boxsol{$r = 0,30 \ k\Omega$}\]
+        
+        On remarque $i(E_D) = 0$ donc on obtient graphiquement \boxsol{$E_D = 0,46 \ V$}.
+        
+    }
+\end{enumerate}
+
+On considère à présent le cas où la tension à vide du générateur vaut $u_G(t) = E_0 + e(t)$ où $e(t)$ est une tension lentement
+variable et de moyenne nulle. On suppose de plus que pour tout temps, $|e(t)| < 50 \ mV$.
+
+\begin{enumerate}[resume]
+    \item Montrer que $i(t)$, l’intensité qui traverse la diode, peut se décomposer sous la forme $i(t)$ = $I_0 + i_{var}(t)$ où $I_0$ est une constante et $i_{var}(t)$ une intensité variable de moyenne nulle. Donner les expressions de $I_0$ et $i(t)$ en fonction de $E_0$, $E_D$, $R$, $r$ et $e(t)$.
+    
+    \boxans{
+        On remplace la diode dans le circuit par le dispositif étudié dans la question \enumref{question:11}. On a alors :
+        
+        \[ \raisebox{\baselineskip}{\begin{circuitikz}[baseline=(current bounding box.center)]
+                    \draw (0, -3) 
+                        to[vsource, v=$u_G(t)$] ++(0, 3)
+                        to[R, l=$R$] ++(2, 0)
+                        to[full tunnel diode, v^=$u_D(t)$, i_=$i(t)$] ++(0,-3)
+                    --(0,-3);
+                \end{circuitikz}} \iff \raisebox{0.2\baselineskip}{\begin{circuitikz}[baseline=(current bounding box.center)]
+                    \draw (0, -3) 
+                        to[vsource, v=$E_0+e(t)$] ++(0, 3)
+                        to[R, l=$R$] ++(2, 0)
+                        to[vsource, v<=$E_D$, i=$i(t)$] ++(0,-3)
+                        to[R, l=$-r$] (0,-3);
+                \end{circuitikz}} \iff \raisebox{0.7\baselineskip}{\begin{circuitikz}[baseline=(current bounding box.center)]
+                    \draw (0, -3) 
+                        --++(0, 3)
+                        to[vsource, v=$E_0 - E_D + e(t)$] ++(2, 0)
+                        to[short, i=$i(t)$] ++(0,-3)
+                        to[R, l=$R-r$](0,-3);
+                \end{circuitikz}}\]
+                
+        En vertu de la loi d'Ohm, on obtient directement 
+    
+        \[ E_0 - E_D + e(t) = (R-r)i(t) \qquad\text{donc}\qquad i(t) = \underbrace{\dfrac{E_0 - E_D}{R-r}}_{I_0} + \underbrace{\dfrac{e(t)}{R-r}}_{i_{var}(t)}\]
+    
+        On a \boxsol{$I_0 = \dfrac{E_0 - E_D}{R-r}$} et $e(t)$ de moyenne nulle donc \boxsol{$i_{var}(t) = \dfrac{e(t)}{R-r}$} est bien de moyenne nulle. 
+    }
+    
+    \item Justifier alors que le circuit étudié est équivalent à la somme des deux circuits suivants. Le premier détermine le point de fonctionnement, tandis que le second détermine la dynamique autour de ce point de fonctionnement.
+    
+    \[ \raisebox{\baselineskip}{\begin{circuitikz}[baseline=(current bounding box.center)]
+                    \draw (0, -3) 
+                        to[vsource, v=$u_G(t)$] ++(0, 3)
+                        to[R, l=$R$] ++(2, 0)
+                        to[full tunnel diode, v^=$u_D(t)$, i=$i$] ++(0,-3)
+                    --(0,-3);
+                \end{circuitikz}} \iff \raisebox{\baselineskip}{\begin{circuitikz}[baseline=(current bounding box.center)]
+                    \draw (0, -3) 
+                        to[vsource, v=$E_0 - E_D$] ++(0, 3)
+                        to[R, l=$R$] ++(2, 0)
+                        to[R, l=$-r$, i=$I_0$] ++(0,-3)
+                    --(0,-3);
+                \end{circuitikz}} \quad+\quad \raisebox{\baselineskip}{\begin{circuitikz}[baseline=(current bounding box.center)]
+                    \draw (0, -3) 
+                        to[vsource, v=$e(t)$] ++(0, 3)
+                        to[R, l=$R$] ++(2, 0)
+                        to[R, l=$-r$, i=$i_{var}(t)$] ++(0,-3)
+                    --(0,-3);
+                \end{circuitikz}}\]
+                
+    \boxans{
+        On remarquera que l'addition des deux résistances (identique dans chaque circuit sommé) donne bien une résistance équivalente de $R-r$, que la somme des intensités permet bien de retrouver $i(t)$ et que le générateur équivalent à l'addition des deux générateurs (dans chaque circuit sommé) revient bien à $u_G(t)$. 
+        
+        \boxsol{La somme des deux circuits ci-dessus est donc équivalente au circuit étudié}.
+    }
+    
+    \item Déterminer l’expression de la puissance moyenne fournie par le générateur $e(t)$ et commenter son signe.
+    
+    \boxans{
+        On a $\bcP(t) = e(t)i_{var}(t) = \dfrac{e(t)^2}{R-r}$. Soit $t_1$ et $t_2 > t_1$ les temps pendant lesquels on a mesuré $\big\langle e(t) \big\rangle = 0$.
+        
+        \[ \big\langle e(t) \big\rangle = \dfrac{1}{t_2 - t_1}\int_{t_1}^{t_2}e(t)\dif t = 0 \qquad\qquad \text{On a alors} \ \boxsol{$\big\langle P(t) \big\rangle = \dfrac{1}{(t_2 - t_1)(R-r)} \displaystyle \int_{t_1}^{t_2} e(t)^2\dif t$}\]
+        
+        On remarque que $\forall t$, $e(t)^2 > 0$, ainsi $\displaystyle \int_{t_1}^{t_2} e(t)^2\dif t > 0$. Donc \boxsol{$\big\langle P(t) \big\rangle$ est du signe de $R-r$}.
+    }
+\end{enumerate}
+
+\section{Étude dynamique}
+
+En réalité, le comportement dynamique de la diode tunnel autour de $M$ ne se limite pas à une simple résistance négative. En effet, autour du point de fonctionnement $M$, la diode tunnel présente des effets inductifs mais aussi capacitifs. Autour de ce point de fonctionnement particulier on peut faire l’analogie suivante :
+
+\[ \raisebox{-0.3\baselineskip}{\begin{circuitikz}[baseline=(current bounding box.center)]
+                    \draw (0, 0) 
+                to[full tunnel diode, v=$u_D(t)$, i=$i_D(t)$] ++(3, 0)
+            ;
+                \end{circuitikz}} \qquad\quad\iff \raisebox{-0.3\baselineskip}{\begin{circuitikz}[baseline=(current bounding box.center)]
+                    \draw (0.7, 0) 
+                    to[L, l=$L$] ++(2, 0)
+                    to[R, l=$-r$] ++(2, 0)
+                    to[short, i=$i_D(t)$] ++(0.7,0)
+                    ;
+                    \draw (-0.5, 1) to[open, v^=$u_D(t)$] (6.5, 1);
+                    \draw (2.7, 0) --++(0, -1)
+                    to[C, l_=$C$] ++(2, 0) --++(0, 1);
+                \end{circuitikz}} \]
+
+Il faut donc considérer le circuit suivant pour la partie dynamique où $R < r$ :
+
+\begin{center}
+    \begin{circuitikz}
+        \draw (0, 0)
+        to [vsource, v=$e(t)$] ++(0, 3)
+        to [L, l=$L$] ++(3, 0) coordinate (noder)
+        to [R, l_=$-r$] ++(3, 0)
+        --++(1,0)
+        to [R, l=$R$, v_=$u(t)$] ++(0, -3)
+        to [short, i=$i(t)$] (0, 0);
+        \draw (noder) --++(0, 1)
+        to[C, l=$C$] ++(3, 0)
+        --++(0, -1);
+    \end{circuitikz}
+\end{center}
+\begin{enumerate}[resume]
+    \item Justifier que cette modélisation est cohérente avec l’étude précédente, pour laquelle $e(t)$ variait lentement.
+    
+    \boxans{
+        Pour employer l'analogie ci-dessus de la diode à effet tunnel, on se place dans le cas où le générateur fournit une tension particulière de manière à ce que le comportement dynamique de la diode se situe autour du point $M$. Dès lors on a une tension à vide entre $256 \ mV$ et $356 \ mV$, donc $e(t)$ varie bien lentement. On retrouve bien de plus une résistance négative $-r$ que l'on avait dans la modélisation précédente.\\
+        
+        Par ailleurs, les composants restants utilisés dans l'analogie de la diode, à savoir une bobine et un condensateur, doivent donc correspondre au générateur de tension $E_D$, ce qui ne semble pas incohérent. On avait précédemment une tension $i_{var}(t)$ et donc $i(t)$ qui variait lentement. Ici le condensateur et la bobine, de par leurs relations constitutives, imposent une continuité de la tension et du courant.
+        
+        \boxsol{Ainsi cette modélisation semble-t-elle cohérente avec l'étude précédente}.
+    }
+    
+    \item On se place en \textit{RSF}. Donner l’impédance complexe équivalente $\underline{Z}_{eq}$ à la diode tunnel autour du point de fonctionnement $M$.
+    
+    \boxans{
+        On a $\underline{Z}_{eq} = j\omega L + \dfrac{\frac{-r}{j\omega C}}{-r + \frac{1}{j\omega C}} = j\omega L + \dfrac{-r}{-rj\omega C + 1}$. Donc \boxsol{$\underline{Z}_{eq} = j\omega L + \dfrac{r}{j\omega rC - 1}$}.
+    }
+    
+    \item Donner l’expression de la fonction :
+    
+    \begin{equation}
+        \underline{H} = \dfrac{\underline{u}}{\underline{e}}
+    \end{equation}
+    
+    d’abord en fonction $\underline{Z}_{eq}$ et $R$ puis en fonction de $r$, $R$, $L$ et $C$. On écrira le résultat comme une fraction de deux polynômes de la variable $j\omega$ où chaque polynôme est sans dimension.
+    
+    \boxans{
+        La loi des mailles donne en notation complexe : \[\underline{e}(t) = \underline{u_D}(t) + \underline{u}(t) = \underline{Z}_{eq}\underline i(t) + R\underline i(t) = \underline i(t) \left(\underline Z_{eq} + R\right) \]
+        
+        Donc $\underline H = \dfrac{R\underline i(t)}{\underline i(t) \left(\underline Z_{eq} + R\right)}$ d'où \boxsol{$\underline H = \dfrac{R}{\underline Z_{eq} + R}$}. On remplace $\underline Z_{eq}$ par son expression :
+        
+        \[ \underline H = \dfrac{R}{R+j\omega L + \frac{r}{j\omega r C - 1}} = \dfrac{j\omega rRC - R}{j\omega rRC + r + j\omega L(j\omega rRC -1)} = \dfrac{j\omega rRC - R}{j\omega rRC + r - j\omega L - \omega^2 rLC}\]
+        
+        On divise par $-R$ pour adimensionnaliser :
+        
+        \[ \underline H = \dfrac{1 - j\omega rC}{-j\omega rC - \frac{r}{R} + j\omega \frac{L}{R} + \omega^2\frac{r}{R}LC} \qquad\text{donc}\qquad \boxsol{$\underline H = \dfrac{1-j\omega rC}{\frac{r}{R}\left(\omega^2LC - 1 \right) + j\omega\left(\frac{L}{R} - rC\right)}$}\]
+    }
+    
+    \item En déduire que $u(t)$ vérifie l’équation différentielle suivante :
+    
+    \begin{equation}\label{eq:eq3}
+        \left(\dfrac{r-R}{R}\right)u + \left(rC-\dfrac{L}{R}\right)\dfrac{\dif u}{\dif t} + \dfrac{r}{R}LC\dfrac{\dif^2 u}{\dif t^2} = -e + rC\dfrac{\dif e}{\dif t}
+    \end{equation}
+    
+    On suppose par la suite que $e(t)$ est très faible et qu’on peut négliger le second membre de l’équation précédente.
+    
+    \boxans{
+        %On a $\underline H = \frac{\underline u}{\underline e}$ donc $\underline u = \underline H \times \underline e$. On a $\underline e = $
+        
+        On pose $\underline e = \underline E_m e^{j\omega t}$ et $u = \underline U_m e^{j\omega t}$. On a donc $\dfrac{\dif \underline e}{\dif t} = j\omega \underline e$, \quad $\dfrac{\dif \underline u}{\dif t} = j\omega \underline u$ \quad et \quad $\dfrac{\dif^2 \underline u}{\dif t^2} = -\omega^2 \underline u$.
+        
+        On substitue alors dans l'équation \eqref{eq:eq3}, en cherchant à retomber sur l'expression de $\underline H$ :
+        
+        \[ \left(\dfrac{r-R}{R}\right)\underline u + \left(rC-\dfrac{L}{R}\right)j\omega \underline u + \dfrac{r}{R}LC(-\omega^2)\underline u = -\underline e + rCj\omega \underline e\]
+        
+        En conservant l'équivalence (au sens mathématique) on factorise par $\underline u$ et $\underline e$ :
+        
+        \[ \underline u \left[\dfrac{r-R}{R} - \omega^2 \dfrac{r}{R}LC + j\omega\left(rC - \dfrac{L}{R}\right)\right] = \underline e \left[j\omega rC - 1\right]\]
+        
+        \[ \text{En conservant l'équivalence, on a :} \qquad\qquad \hfill \dfrac{\underline u}{\underline e} = \dfrac{1-j\omega RC}{\frac{r}{R}\left(\omega^2LC - 1\right)  \textcolor{main1!70!gray}{\underbrace{+ 1}_{?}} + j\omega \left(\frac{L}{R}-rC\right)} \qquad \]
+        
+        On retrouve bien l'expression de $\underline H = \dfrac{\underline u}{\underline e}$, donc par équivalence \boxsol{$u(t)$ vérifie l'équation différentielle \eqref{eq:eq3}}.
+    }
+    
+    \item À quel système d’équation correspond le cas particulier où $rC = \dfrac{L}{R}$ ?
+    
+    \boxans{
+        Lorsque $rC = \dfrac{L}{R}$, $rC - \dfrac{L}{R} = 0$ donc le terme en $\dfrac{\dif u}{\dif t}$ disparaît. On a donc \boxsol{un oscillateur mécanique}.
+    }
+    
+    \item Mettre l’expression de l’équation sans second membre sous forme canonique ; on donnera l’expression de la pulsation propre et du facteur de qualité.
+    
+    \boxans{
+        On divise par $\dfrac{rLC}{R}$ \quad $\left(\vphantom{\dfrac{1}{2}}\right.$donc on multiplie par $\dfrac{R}{rLC}$ $\left.\vphantom{\dfrac{1}{2}}\right)$. On obtient alors :
+        
+        \[ \dfrac{R}{rLC}\dfrac{rLC}{R}\dfrac{\dif^2 u}{\dif t^2} + \dfrac{R}{rLC}\left(rC - \dfrac{L}{R}\right)\dfrac{\dif u}{\dif t} + \dfrac{R}{rLC}\dfrac{r-R}{R}u = 0\]
+        
+        En simplifiant, on obtient alors :
+        
+        \[ \boxsol{$\dfrac{\dif^2 u}{\dif t^2} + \left(\dfrac{rRC-L}{rLC}\right)\dfrac{\dif u}{\dif t} + \dfrac{r-R}{rLC}u = 0$}\]
+        
+        En identifiant, on a alors $\omega_0^2 = \dfrac{r-R}{rLC}$, donc \boxsol{$\omega_0 = \sqrt{\dfrac{r-R}{rLC}}$}. De plus on a :
+        
+        \[ \dfrac{\omega_0}{Q} = \dfrac{rRC-L}{rLC} \quad\text{donc}\quad Q = \boxsol{$\dfrac{\sqrt{rLC(r-R)}}{rRC-L}$}\]
+    }
+    
+    \item En supposant toujours que $R < r$, donner une condition sur $R$, $r$, $L$ et $C$ pour que le facteur de qualité soit négatif.
+    
+    \boxans{
+        On considère déjà que $R$, $r$, $L$ et $C$ sont positifs. La racine au numérateur renvoie nécessairement une valeur positive, donc $Q$ ne peut être négatif que si son dénominateur l'est aussi. On veut donc :
+        
+        \[ rRC - L \leq 0 \qquad\text{donc}\qquad \boxsol{$rRC \leq L$}\]
+    }
+    
+    \item Dans le cas où $Q < 0$, montrer que les solutions de l’équation différentielle sont instables. Comment interpréter qualitativement la condition sur $R$, $r$, $L$ et $C$ ?
+    
+    \boxans{
+        On s'est précédemment placé en RSF, afin d'avoir un signal oscillant en sortie. Il faut donc que les deux racines $r_\pm$ du polynôme caractéristique $r^2 + \sfrac{\omega_0}{Q}r + \omega_0^2$ aient une partie imaginaire non nulle $(\Delta < 0)$.  La partie réelle de ces racines est alors le facteur d'amortissement $\alpha = \sfrac{\omega_0}{2Q}$, et l'enveloppe du signal de sortie est donnée par $t \to \exp(-\alpha t)$. Puisque $Q < 0$, on a $\alpha < 0$ donc l'enveloppe du signal est croissante et diverge vers $+\infty$.
+        
+        \text{}\newline 
+        On remarque en fait que même si $-\sfrac{1}{2} \leq Q < 0$, on peut généralement exprimer $r_\pm$ selon une telle enveloppe. En effet, on a $\Delta = \left(\dfrac{\omega_0}{Q}\right)^2 - 4\omega_0^2 = \omega_0^2\left(\dfrac{1}{Q^2}-4\right)$, d'où :
+        
+        \[ r_\pm = -\dfrac{\omega_0}{2Q} \pm \omega_0\sqrt{\dfrac{1}{4Q^2} - 1} \quad \text{si} \ Q \geq -\dfrac{1}{2} \qquad \text{et} \qquad r_\pm = -\dfrac{\omega_0}{2Q} \pm j\omega_0\sqrt{1 - \dfrac{1}{4Q^2}} \quad \text{sinon}\]
+        
+        Dans tous les cas, on peut donc exprimer $u(t) = e^{-\sfrac{\omega_0}{2Q}t}f(t)$ où $f(t)$ ne tends pas vers $0$ en $+\infty$ (cf. \textbf{\ref{sec:1}}).\\
+        
+        Donc \boxsol{dans le cas où $Q < 0$, les solutions de l’équation différentielle sont instables}.
+    }
+    
+    \item On donne $L = 0,1 \ \mu H$ et $C = 1 \ pF$. Représenter qualitativement l’évolution de la tension $u$ en fonction du temps sur un graphique.
+
+    \boxans{
+        On considère $r$ et $R$ de l'ordre de $10^2 \ \Omega$, donc $rRC$ est de l'ordre de de $10^{-8} \ U.S.I$. On a bien $rRC \ll L$, donc $Q$ est négatif. Selon la valeur de $Q$, $u$ ressemble alors à : \\
+        
+        \begin{minipage}{0.5\linewidth}
+            \begin{center}
+                \underline{$-\sfrac{1}{2} > Q < 0$}\newline\\
+                
+                \boxsol{
+                    \pgfplotsset{width=8cm}
+                    \begin{tikzpicture}
+                        \begin{axis}[
+                            axis lines = middle,
+                            xlabel=$t$,
+                            ylabel=$u(t)$,
+                            domain=0:6,
+                            xmin=0,
+                            xmax=6,
+                            ymin=0,
+                            ymax=12,
+                            xticklabels={,,},
+                            yticklabels={,,},
+                            font=\footnotesize,
+                            grid = both,
+                            grid style = {line width = .1pt, draw = gray!30},
+                            major grid style = {line width=.2pt,draw=gray!50},
+                           ]
+                        \addplot[color=main1, line width=0.6mm] {0.05*exp(2*x) - 0.05*exp(1.99*x)};
+                        \end{axis}
+                    \end{tikzpicture}
+                }
+            \end{center}
+        \end{minipage}
+        \begin{minipage}{0.5\linewidth}
+            \begin{center}
+                \underline{$Q < -\sfrac{1}{2}$}\newline\\
+                
+                \boxsol{
+                    \pgfplotsset{width=8cm}
+                    \begin{tikzpicture}
+                        \begin{axis}[
+                            axis lines = middle,
+                            xlabel=$t$,
+                            ylabel=$u(t)$,
+                            domain=0:6,
+                            xmin=0,
+                            xmax=6,
+                            ymin=-6,
+                            ymax=6,
+                            trig format plots=rad,
+                            xticklabels={,,},
+                            yticklabels={,,},
+                            font=\footnotesize,
+                            grid = both,
+                            grid style = {line width = .1pt, draw = gray!30},
+                            major grid style = {line width=.2pt,draw=gray!50},
+                           ]
+                        \addplot[samples=500,color=main1, line width=0.6mm] {0.03*exp(x)*cos(6*x)};
+                        \end{axis}
+                    \end{tikzpicture}
+                }
+            \end{center}
+        \end{minipage}
+    }
+    
+    \item  Justifier qualitativement que cette tension ne diverge pas en pratique.
+    
+    \boxans{
+        En pratique, si la tension devient trop importante le modèle dans lequel on s'est placé ne tient plus à partir d'un certain point, ce qui ne permet pas de le suivre dans la suite lorsqu'il affirme que $u$ croît jusqu'à l'infini.\\ 
+        
+        Plus précisément, on a assimilé la caractéristique courant-tension de la diode à une droite $(M_1M_2)$, et la tension $u_D$ de la diode évolue dans un sens opposé à $u$ (par loi des mailles). Le point de fonctionnement se décale donc vers la gauche sur la caractéristique, et l'on observe que l'on atteint un maximum local, ce qui montre bien qu'on ne peut pas continuer la modélisation en forme de droite.
+    }
+\end{enumerate}
+\end{document}

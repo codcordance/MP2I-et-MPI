@@ -1,0 +1,19 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylize{Mathématiques}{Devoir Maison 6 - Notes}
+
+\begin{align*}
+    \qquad \mod{v_n - \pi} &&=&& &\mod{4\left(4\times u_n\left(\dfrac{1}{5}\right)-\times u_n\left(\dfrac{1}{5}\right)\right) - 4\times\dfrac{\pi}{4}}\\
+    &&=&& 4&\mod{4\times u_n\left(\dfrac{1}{5}\right)-\times u_n\left(\dfrac{1}{5}\right) - 4\arctan{\dfrac{1}{5}}+\arctan{\dfrac{1}{239}}}\\
+    &&=&& 4&\mod{4\left(u_n\left(\dfrac{1}{5}-\arctan{\dfrac{1}{5}}\right)\right)-\left(u_n\left(\dfrac{1}{239}-\arctan{\dfrac{1}{239}}\right)\right)} &&\qquad\qquad\qquad \\
+    &&=&& 4&\mod{\left(-1\right)^n\left(4\int_0^{\frac{1}{5}}R_n(t)\text dt-\int_0^{\frac{1}{239}}R_n(t)\text dt\right)}\\
+    &&=&& 4&\mod{3\int_0^{\frac{1}{5}}R_n(t)\text dt+\int_{\frac{1}{239}}^{\frac{1}{1/5}}R_n(t)\text dt}\\
+    &&=&& 4&\left(3\int_0^{\frac{1}{5}}R_n(t)\text dt+\int_{\frac{1}{239}}^{\frac{1}{1/5}}R_n(t)\text dt\right)\\
+    &&\leq&&4&\left(3\int_0^{\frac{1}{5}}t^{2n+2}\text dt+\int_{\frac{1}{239}}^{\frac{1}{1/5}}t^{2n+2}\text dt\right)\\
+    &&\leq&&4&\left(3\dfrac{\left(\frac{1}{5}\right)^{2n+3}}{2n+3}-3\dfrac{0^{2n+3}}{2n+3}+\dfrac{\left(\frac{1}{5}\right)^{2n+3}}{2n+3}-\dfrac{\left(\frac{1}{239}\right)^{2n+3}}{2n+3}\right)\\
+    &&\leq&&4&\left(\dfrac{4\left(\frac{1}{5}\right)^{2n+3}-\left(\frac{1}{239}\right)^{2n+3}}{2n+3}\right)
+\end{align*}
+
+\end{document}

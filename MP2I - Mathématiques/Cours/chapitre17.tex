@@ -1,0 +1,734 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Chapitre 17}{Suites récurrentes du premier ordre non linéaires}
+
+Ce chapitre fait suite au chapitre au chapitre 9 sur les suites réelles et aux derniers chapitres d'analyse (continuité et dérivation). Il s'intéresse spécifiquement aux \textit{suites récurrentes du premier ordre non linéaires}, c'est-à-dire les suites définies par la récurrence $u_{n+1} = u_n$, où $f$ est une fonction de la variable réelle quelconque. Relativement court, il sera suivi d'un prochain chapitre sur les suites récurrentes du deuxième ordre linéaires homogènes, lesquelles ne sont pas présentées ici car le manque d'outils algébriques ne permet par l'étude de leur propriétés structurelles.
+
+\initcours{}
+
+\section{Étude}
+
+\begin{definition}{Suites récurrentes du premier ordre non linéaires}{}
+    Soit une suite $\suite{u_n} \in \bdR^\bdN$, une partie $X \subset \bdR$, ainsi qu'une fonction $f \in \bcF(X, \bdR)$ de la variable réelle définie sur cette partie. On dit que $\suite{u_n}$ est une \hg{suite récurrente du premier ordre non linéaire} lorsque :
+    %
+    \[ u_0 \in X \qquad\et\qquad \forall n \in \bdN,\qquad u_{n+1} = f\left(u_n\right)\]
+\end{definition}
+
+On parle plus généralement de \textit{\guill{système dynamique à temps discret}} pour les suites de récurrences non linéaires d'ordre $p \geq 1$ :
+%
+\[\forall n \in \bdN,\qquad u_{n+p} = f\left(u_n, u_{n+1}, \dots, u_{n+p-1}\right)\]
+
+L'idée générale de \guill{système dynamique} permet d'ailleurs de regrouper les équations différentielles (\guill{systèmes dynamiques différentiels}) et les suites définies par récurrence (\guill{systèmes dynamiques discrets}). De manière générale, on se donnera dans la suite une partie $X \subset \bdR$, une fonction $f \in \bcF(X, \bdR)$ et la suite $\suite{u_n}$ définie par $u_0 \in X$, et pour tout rang $n \in \bdN$, $u_{n+1} = f(u_n)$.
+%
+
+\subsection{Problèmes de définition}
+
+On a ici supposé qu'ont pouvait définir une telle suite, à savoir prendre un \(u_0 \in I\) et pour tout entier \(n \in \bdN\), construire \(u_{n+1} = f(u_n)\), et donc itérer ce processus une infinité de fois. En vérité, rien ne garantit \textit{à priori} qu'on puisse bien définir une telle suite. C'est même parfois impossible, comme le montre l'exemple ci-dessous :
+
+\begin{example}{}{}
+    On considère la fonction \(f : x \mapsto \sqrt{x - 1}\), ainsi que la suite \(\suite{u_n}\) définie par :
+    %
+    \[ u_0 = 5 \qquad\et\qquad \forall n \in \bdN,\qquad u_{n+1} = f\left(u_n\right) = \sqrt{u_n - 1}\]
+    
+    \tcblower
+    
+    \begin{enumerate}
+        \ithand On calcule \(u_1 = \sqrt{5 - 1} = 2\), \( u_2 = \sqrt{2 - 1} = 1\), \( u_3 = \sqrt{1 - 1} = 0 < 1\). On ne peut donc définir $u_4$.
+    \end{enumerate}
+\end{example}
+
+On se rend ici compte qu'il faut que pour tout \(u_n\), \(u_{n+1} = f(u_n)\) soit dans le domaine de définition de \(f\). On cherche donc un intervalle \(I\), tel que \(u_n \in I\) et que pour tout \(x \in I\), on a \( f(x) \in I\), qu'on dit \guill{stable} :
+
+\begin{definition}{Intervalle stable par une fonction}{}
+    Soit une partie \(E \subset \bdR\) et une fonction \(f \in \bcF(E, \bdR)\). On dit qu'\hg{un intervalle \(I \subset E\) est stable par \(f\)} lorsque :
+    %
+    \[ \hg{f(I) \subset I}\]
+\end{definition}
+
+Cette définition se réécrit de manière équivalente par :
+%
+\[ \forall x \in I,\qquad f(x) \in I \qquad\text{ou}\qquad \forall x \in f(I),\qquad x \in I\]
+%
+La stabilité de \(I\) par \(f\) est alors une condition suffisante pour la suite \(\suite{u_n}\) soit bien définie :
+
+\begin{property}{Condition suffisante de définition}{}
+    Soit une partie \(X \subset \bdR\), une fonction \(f \in \bcF(X, \bdR)\) et une suite \(\suite{u_n}\) telle que :
+    %
+    \[ u_0 \in X \qquad\et\qquad \forall n \in \bdN,\qquad u_{n+1} = f\left(u_n\right) \ \textit{sous réserve d'existence}\]
+    %
+    \hg{S'il existe un intervalle \(I \subset X\) stable par \(f\) tel que \(u_0 \in I\), alors \(\suite{u_n}\) est bien définie et à valeur dans \(I\)}.
+\end{property}
+
+\begin{nproof}
+    Soit une partie $X \subset \bdR$, une fonction $f \in \bcF(X, \bdR)$ et une suite $\suite{u_n}$ telle que $u_0 \in X$ et pour tout entier $n \in \bdN$, on a sous réserve d'existence $u_{n+1} = f\left(u_n\right)$. On a par hypothèse un intervalle $I \subset X$ stable par $f$ et tel que $u_0 \in I$. On procède alors par récurrence simple sur $\bdN$, en posant le prédicat :
+    %
+    \[ \forall n \in \bdN,\qquad H(n) : u_n \ \text{est défini et tel que} \ u_n \in I\]
+    
+    \begin{enumerate}
+        \itt L'initialisation est immédiate.
+        
+        \itt Soit $n \in \bdN$ tel que $H(n)$ est vrai, donc $u_n$ est défini et $u_n \in I$. On peut donc bien poser $u_{n+1} = f\left(u_n\right)$. Par stabilité de $I$ par $f$, on a bien $u_{n+1} \in I$, donc $H(n+1)$ est vrai.
+        
+        \itt Par principe de récurrence, la suite $\suite{u_n}$ est bien définie et à valeur dans $I$.
+    \end{enumerate}
+\end{nproof}
+
+Ce résultat se généralise en fait en considérant non pas directement $u_0 \in I$, mais un certain rang $n_0 \in \bdN$, tel que $u_{n_0}$ est bien défini et dans un intervalle $I$ stable par $f$. La suite $\suite{u_n}$ est alors bien définie et à valeur dans $I$ à partir d'un certain rang. On remarquera de plus qu'on peut écrire :
+%
+\[ \forall n \in \bdN,\qquad u_n = \underbrace{f \circ f \circ \dots \circ f}_{n \ \text{fois}}(u_0) = f^n(u_0)\]
+
+\begin{form}{Méthode}{}
+    Lorsque $f : \bdR \to \bdR$, on obtient directement que $\bdR$ est stable par $f$. Cependant ce résultat n'est pas particulièrement pertinent, et il est souvent utile de chercher un intervalle stable sous une des formes suivantes :
+    
+    \begin{enumerate}
+        \begin{minipage}{0.5\linewidth}
+            \ithand \hg{un intervalle minoré $[M, +\infty[$} ;
+        \end{minipage}
+        \begin{minipage}{0.5\linewidth}
+            \ithand \hg{un intervalle majoré $]-\infty, m]$} ;
+        \end{minipage}
+        
+        \ithand \hg{un segment $[a, b]$}. Notons que dans ce dernier cas, on obtient que \hg{$\suite{u_n}$ est bornée}.
+    \end{enumerate}
+\end{form}
+
+\subsection{Représentation géométrique}
+
+Pouvoir tracer la suite $\suite{u_n}$ peut avoir son utilité, comme on le verra dans les sections suivantes.
+
+\begin{minipage}{0.6\linewidth}
+    \pgfplotsset{width=\linewidth}
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = left,
+            xlabel=$x$,
+            ylabel=$y$,
+            xmin=0,
+            xmax=7.7,
+            ymin=0,
+            ymax=7,
+            xtick = {1, 4.9, 2.60, 4.32, 3.13, 4.02},
+            ytick = {1, 4.9, 2.60, 4.32, 3.13, 4.02},
+            xticklabels={$\color{main1} u_0$, $\color{main1} u_1$, $\color{main1} u_2$, $\color{main1} u_3$, $\color{main1} u_4$, $\color{main1} u_5$},
+            yticklabels={$\color{main1} u_0$, $\color{main1} u_1$, $\color{main1} u_2$, $\color{main1} u_3$, $\color{main1} u_4$, $\color{main1} u_5$},
+            x tick label style={/pgf/number format/1000 sep=\,},
+            font=\footnotesize,
+            grid = none,
+        ]
+            \addplot[color=main1comp, line width=0.3mm, domain=0:7.7,samples=500]{-0.1*x^2+5};
+            \addlegendentry{$\bsC_f : y = f(x)$};
+            
+            \addplot[color=main1comp2, line width=0.2mm, domain=0:7,samples=50]{x};
+            \addlegendentry{$\bsC_{\id} : y= x$}
+            
+            \addplot[mark=*, main3, line width=0.3mm, only marks] coordinates {(1, 1) (4.9, 4.9) (2.60, 2.60) (4.32, 4.32) (3.13, 3.13) (4.02, 4.02)};
+            \addlegendentry{$\suite{u_n}$}
+            
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 1) (1, 1) (1, 0)};
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 4.9) (4.9, 4.9) (4.9, 0)};
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 2.60) (2.60, 2.60) (2.60, 0)};
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 4.32) (4.32, 4.32) (4.32, 0)};
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 3.13) (3.13, 3.13) (3.13, 0)};
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 4.02) (4.02, 4.02) (4.02, 0)};
+            
+            \addplot[mark=+, main2, line width=0.2mm, -Latex] coordinates {(1, 1) (1, 4.9) (4.9, 4.9) (4.9, 2.60) (2.60, 2.60) (2.60, 4.32) (4.32, 4.32) (4.32, 3.13) (3.13, 3.13) (3.13, 4.02) (4.02, 4.02) (4.02, 3.38)};
+        \end{axis}
+    \end{tikzpicture}
+\end{minipage}
+%
+\hfill
+%
+\begin{minipage}{0.35\linewidth}
+        \boxans{
+            L'exemple ci-contre montre le tracé des 6 premiers termes de la suite $\suite{u_n}$ telle que $u_0 = 1$ et
+            %
+            \[ \forall n \in \bdN,\qquad u_{n+1} = f\left(u_n\right)\]
+            %
+            où \(f: x \mapsto \dfrac{1}{10}x^2 + 5\)
+    }
+\end{minipage}
+
+Heureusement, les suites définies d'une telle manière peuvent se tracer d'une manière assez pratique :
+
+\begin{form}{Méthode}{}
+        \begin{enumerate}
+            \ithand On se place dans un repère cartésien, d'axe $x$ des abscisses et $y$ des ordonnées.
+        
+            \ithand On la courbe $\bsC_f$ de la fonction $f$, d'équation $y = x$. On trace également la courbe $\bsC_{\id}$ de l'identité, d'équation $y = x$.
+            
+            \ithand On peut alors placer les points de la suite $\suite{u_n}$ sur cette droite. On commence par placer le point représentant $u_0$, donc de coordonnées $(u_0, u_0)$. Puisque $u_1 = f(u_n)$, l'ordonnée du point représentant $u_1$ sera celle de la courbe $\bsC_f$ en $x = u_0$. A partir du point $u_0$, on peut donc se déplacer verticalement jusqu'à rencontrer $\bsC_f$, puis horizontalement jusqu'à rencontrer $\bsC_{\id}$, où l'on place le point représentant $u_1$.
+            
+            \ithand On réitère le procédé afin de tracer les points pour autant de rangs $u_n$ que l'on souhaite.
+        \end{enumerate}
+\end{form}
+
+\subsection{Points fixes}
+
+Comme on l'a vu avec la représentation graphique dans la première sous-section, les éventuelles limites d'une suite définie par $u_{n+1} = u_n$ semblent être les points d'intersection de la courbe $y = f(x)$ et de la droite $y = x$, autrement dit les points fixe $\ell$ de la fonction $f$, tels que $f(\ell) = \ell$. Plus rigoureusement, on a :
+
+\begin{property}{Convergence vers un point fixe}{}
+    Soit une partie $X \subset \bdR$, une fonction $f \in \bcF(X, \bdR)$, un intervalle $I \subset X$ stable par $f$ et $\suite{u_n}$ telle que :
+    %
+    \[ u_0 \in I \qquad\et\qquad \forall n \in \bdN,\qquad u_{n+1} = f\left(u_n\right) \in I\]
+    %
+    \hg{Si $\suite{u_n}$ converge vers $\ell$ et que $f$ continue en $\ell$, alors $\ell$ est un point fixe de $f$}.
+\end{property}
+
+\begin{nproof}
+    Soit une partie $X \subset \bdR$, une fonction $f \in \bcF(X, \bdR)$, un intervalle $I$ stable par $f$ et $\suite{u_n}$ telle que :
+    %
+    \[ u_0 \in I \qquad\et\qquad \forall n \in \bdN,\qquad u_{n+1} = f\left(u_n\right) \in I \qquad\et\qquad \exists \ell \in \bdR,\qquad \lim\limits_{n \to +\infty} u_n = \ell,\ f \ \text{continue en} \ \ell\]
+    
+    Donc $\lim\limits_{n \to +\infty} u_{n+1} = \ell$. Or pour tout entier $n \in \bdN$, on a $u_{n+1} = f\left(u_n\right)$, donc $\lim\limits_{n \to +\infty} f\left(u_n\right) = \ell$, et donc $f(\ell) = \ell$. Par continuité de $f$, on obtient finalement $f(\ell) = \ell$.
+\end{nproof}
+
+Ainsi pour chercher à déterminer les potentielles limites de la suite $\suite{u_n}$, faut-il étudier les points fixes de la fonction $f$.
+
+\begin{example}{}{}
+    On considère la suite $\suite{u_n}$ telle que $u_0 \in \bdR$, et pour tout entier $n \in \bdN$, $u_{n+1} = \sqrt{{u_n}^2 + 1}$.
+    
+    \tcblower
+    
+     
+    
+    \begin{enumerate}
+        \ithand On a donc la fonction $f : \begin{array}[t]{rcl}
+            \bdR &\to& \bdR  \\
+            x &\mapsto& \sqrt{x^2 + 1} 
+        \end{array}$, dont on étudie dans un premier temps les points fixes :
+        %
+        \[ \sqrt{x^2 + 1} = x \iff x^2 + 1 = x^2 \iff 1 = 0 \iff \bot\]
+        %
+        $f$ n'a pas de point fixes, donc \hg{$\suite{u_n}$ diverge} forcément.
+        
+        \ithand On peut alors chercher à étudier la monotonie de $\suite{u_n}$. Pour cela, il s'agit d'étudier le signe de $u_{n+1} - u_n$, donc de $f\left(u_n\right) - u_n$, et donc de la fonction $g : x \mapsto f(x) - x$. Ici :
+        %
+        \[ \forall x \in \bdR,\qquad g(x) = f(x) - x = \sqrt{x^2 + 1} - x \geq \sqrt{x^2} - x \geq \mod{x} - x \geq 0\]
+        %
+        Donc pour tout entier $n \in \bdN$, on a $u_{n+1} \geq u_n$. On en déduit donc que \hg{la $\suite{u_n}$ est croissante}.
+        
+        \ithand On peut alors conclure : si la suite était majorée, alors par \textsc{Théorème de la limite monotone}, on aurait $\suite{u_n}$ convergente, ce qui est faux. Donc par l'absurde, $\suite{u_n}$ n'est pas majorée.
+        
+        Par le même théorème, on déduit finalement que \hg{$\lim\limits_{n \to +\infty} u_n = +\infty$}.
+    \end{enumerate}
+\end{example}
+
+\subsection{Monotonie}
+
+\begin{minipage}{0.4\linewidth}
+    \pgfplotsset{width=\textwidth}
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = left,
+            xmin=0,
+            xmax=7.7,
+            ymin=0,
+            ymax=7,
+            xtick = {0, 2.45, 2.98, 3.38, 3.86, 4.76},
+            ytick = {0, 2.45, 2.98, 3.38, 3.86, 4.76},
+            xticklabels={$\color{main1} u_0$, $\color{main1} u_1$, $\color{main1} u_2$, $\color{main1} u_3$, $\color{main1} u_4$, $\color{main1} u_5$},
+            yticklabels={$\color{main1} u_0$, $\color{main1} u_1$, $\color{main1} u_2$, $\color{main1} u_3$, $\color{main1} u_4$, $\color{main1} u_5$},
+            x tick label style={/pgf/number format/1000 sep=\,},
+            font=\footnotesize,
+            grid = none,
+        ]
+            \addplot[color=main1comp, line width=0.3mm, domain=0:4.526,samples=500]{exp(x-3)+2.4} node[left,pos=0.97] {$y= f(x)$};
+            
+            \addplot[color=main1comp2, line width=0.2mm, domain=0:7,samples=50]{x}  node[anchor=north,pos=0.97,yshift=-4mm] {$y = x$};
+            
+            \addplot[color=gray, line width=0.2mm, dashed, domain=0:6,samples=50]{exp(x-3) + 2.4 - x} node[anchor=west,pos=0.4] {$f(x) - x \geq 0$};
+            
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 2.45) (2.45, 2.45) (2.45, 0)};
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 2.98) (2.98, 2.98) (2.98, 0)};
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 3.38) (3.38, 3.38) (3.38, 0)};
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 3.86) (3.86, 3.86) (3.86, 0)};
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 4.76) (4.76, 4.76) (4.76, 0)};
+            
+            \addplot[mark=+, main2, line width=0.2mm, -Latex] coordinates {(0,0) (0, 2.45) (2.45, 2.45) (2.45, 2.98) (2.98, 2.98) (2.98, 3.38) (3.38, 3.38) (3.38, 3.86) (3.86, 3.86) (3.86, 4.76) (4.76, 4.76) (4.76, 7.1)};
+            
+        \end{axis}
+    \end{tikzpicture}
+\end{minipage}
+%
+\begin{minipage}{0.6\linewidth}
+    %
+    L'exemple précédent montre que l'étude de la monotonie de $\suite{u_n}$ peut s'avérer très instructive, notamment pour trouver sa limite. Cette étude revient généralement à évaluer le signe de la différence entre deux termes successifs, soit pour $n \in \bdN$ étudier le signe de :
+    %
+    \[ u_{n+1} - u_n = (u_n) - u_n \]
+    %
+    Plus généralement, on peut étudier le signe de $f - \id$. Lorsque celui-ci est constant, on peut alors déduire que la suite $\suite{u_n}$ est monotone. Cette situation est facilement discernable sur un graphique : la courbe $y = f(x)$ est alors au-dessus de la droite $y = x$.
+    %
+\end{minipage}
+
+\begin{property}{Condition suffisante de monotonie}{}
+    Soit $X \subset \bdR$, $f \in \bcF(X, \bdR)$, un intervalle $I \subset x$ stable par $f$ et $\suite{u_n} : \left\lbrace\begin{array}{l}
+        u_0 \in I  \\
+        \forall n \in \bdN,\qquad u_{n+1} = f\left(u_n\right) 
+    \end{array}\right.$.
+    %
+    \[ \hg{\forall x \in I,\qquad \left\lbrace\begin{array}{rcl}
+        f(x) - x \geq 0 &\implies &\suite{u_n} \ \text{est croissante}  \\
+        f(x) - x \leq 0 &\implies &\suite{u_n} \ \text{est décroissante}
+    \end{array}\right.}\]
+\end{property}
+
+\begin{nproof}
+    Soit $X \subset \bdR$, $f \in \bcF(X, \bdR)$, un intervalle $I \subset x$ stable par $f$ et $\suite{u_n} : \left\lbrace\begin{array}{l}
+        u_0 \in I  \\
+        \forall n \in \bdN,\qquad u_{n+1} = f\left(u_n\right) 
+    \end{array}\right.$.
+    
+    On suppose par hypothèse que pour tout $x \in I$, on a $f(x) - x \geq 0$. Or :
+    %
+    \[ \forall n \in \bdN, u_n \in I \qquad\text{donc}\qquad f(u_n) - u_n \geq 0 \qquad\text{donc}\qquad f(u_n) - u_n \geq 0 \qquad\text{donc}\qquad u_{n+1} \geq u_n\]
+    %
+    Donc $\suite{u_n}$ est bien croissante. Le même argument s'applique pour $f - \id \leq 0$.
+\end{nproof}
+
+On remarquera que l'on peut remplacer les inégalités strictes par des inégalités larges et les monotonies par des strictes monotonies dans la propriété ci-dessus, en gardant le même argument dans la démonstration. Un autre cas où l'on peut facilement obtenir de l'information sur la monotonie de la suite est lorsque la fonction $f$ est elle même monotone. Par exemple, si $f$ est croissante, on a :
+%
+\[ u_0 \leq u_1 \implies f\left(u_0\right) \leq f\left(u_1\right) \implies u_1 \leq u_2 \implies f\left(u_1\right) \leq f\left(u_2\right) \implies u_2 \leq u_3 \implies \dots\]
+%
+On obtient alors $u_0 \leq u_1 \leq u_2 \leq u_3 \leq \dots$, soit $\suite{u_n}$ croissante. Plus précisément, on obtient la propriété :
+
+\begin{property}{Condition suffisante de monotonie}{mon2}
+    Soit $X \subset \bdR$, $f \in \bcF(X, \bdR)$, un intervalle $I \subset x$ stable par $f$ et $\suite{u_n} : \left\lbrace\begin{array}{l}
+        u_0 \in I  \\
+        \forall n \in \bdN,\qquad u_{n+1} = f\left(u_n\right) 
+    \end{array}\right.$.
+    %
+    \[ \hg{f \ \text{croissante sur} \ I \et \left\lbrace\begin{array}{rcl}
+        u_0 \leq u_1 &\implies &\suite{u_n} \ \text{est croissante}  \\
+        u_0 \geq u_1 &\implies &\suite{u_n} \ \text{est décroissante}
+    \end{array}\right.}\]
+\end{property}
+
+\begin{nproof}
+    Soit $X \subset \bdR$, $f \in \bcF(X, \bdR)$, un intervalle $I \subset x$ stable par $f$ et $\suite{u_n} : \left\lbrace\begin{array}{l}
+        u_0 \in I  \\
+        \forall n \in \bdN,\qquad u_{n+1} = f\left(u_n\right) 
+    \end{array}\right.$.
+    
+    On suppose par hypothèse que $f$ est croissante sur $I$ et que $u_0 \leq u_1$. On procède par récurrence simple sur $\bdN$ selon le prédicat:
+    %
+    \[ \forall n \in \bdN,\qquad H(n): \qquad u_n \leq u_{n+1} \]
+    %
+    \begin{enumerate}
+        \itt L'initialisation est immédiate.
+        
+        \itt Soit $n \in \bdN$ tel que $H(n)$ est vrai, donc $u_n \leq u_{n+1}$. Or $u_n \in I$ et $u_{n+1} \in I$ et $f$ croissante sur $I$, donc $f\left(u_n\right) \leq f\left(u_{n+1}\right)$ soit $u_{n+1} \leq u_{n+2}$. On a bien montré $H(n+1)$.
+        
+        \itt Par principe de récurrence, on obtient que la suite $\suite{u_n}$ est croissante.
+    \end{enumerate}
+    %
+    Lorsque $u_0 \geq u_1$, on appliquera un argument similaire.
+\end{nproof}
+%
+Comme avant, lorsque $f$ est strictement croissante et que $u_0 - u_1 \neq 0$ (donc $u_0 < u_1$ ou $u_0 > u_1$), on remarquera qu'on peut obtenir une stricte monotonie. On donne ci-dessous un exemple où la propriété ci-dessous s'avère utile.
+
+\begin{example}{}{}
+    On considère la suite $\suite{u_n}$ telle que $u_0 \in \bdR$ et pour tout entier $n \in \bdN$, on a $u_{n+1} = 2u_n - u_n^2$.
+    
+    \tcblower
+    
+    \begin{enumerate}
+        \ithand On a donc la fonction $f : \begin{array}[t]{rcl}
+            \bdR & \to &\bdR  \\
+            x & \mapsto & 2x - x^2
+        \end{array}$. Par opérations $f \in \bcD$ et $\forall x \in \bdR$, $f'(x) = 2 - 2x = 2(1-x)$.
+        
+        \begin{center}
+            \begin{tikzpicture}
+                \tkzTabInit[nocadre, lgt=3, deltacl=1, espcl=4, color, colorV = main1comp2!20, colorL = main1comp2!10, colorC = main1comp2!10]{$x$ / 1 , $\text{signe de} \ f'(x)$ / 1, $\text{variation de } \ f$ / 1.5}{$-\infty$, $1$, $+\infty$}
+                \tkzTabLine{, +, z, -, }
+                \tkzTabVar{-/ $-\infty$, +/ 1, -/ $-\infty$}
+                \tkzTabVal{1}{2}{0.7}{$\color{main20} 0$}{$\color{main20} 0$}
+                \tkzTabVal{2}{3}{0.3}{$\color{main20} 2$}{$\color{main20} 0$} 
+            \end{tikzpicture}
+        \end{center}
+        
+        On observe que $\left]-\infty, 0\right]$ est stable par $f$ : $f\left(\left]-\infty, 0\right]\right) = \left]-\infty, 0\right]$. Il en va de même pour $\left[0, 1\right]$.
+        
+        \ithand On étudie alors les points fixes de $f$ :
+        %
+        \[ f(x) = x \iff 2x - x^2 = x \iff x - x^2 = 0 \iff x(1-x) = 0 \iff x = 0 \ \text{ou} x = 1\]
+        %
+        On a ici deux points fixes différents $0$ et $1$. On considère donc la valeur de $u_0$.
+        
+        \begin{minipage}{0.35\linewidth}
+            \pgfplotsset{width=\textwidth}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xmin=-1,
+                    xmax=3,
+                    ymin=-1,
+                    ymax=2,
+                    x tick label style={/pgf/number format/1000 sep=\,},
+                    font=\footnotesize,
+                    grid = none,
+               ]
+                    \addplot[color=main1comp, line width=0.3mm, domain=-1:3,samples=500]{2*x-x^2} node[right,pos=0.6] {$y= f(x)$};
+            
+                    \addplot[color=main1comp2, line width=0.2mm, domain=-1:3,samples=50]{x}  node[anchor=north,pos=0.8,yshift=-4mm] {$y = x$};
+            
+                    \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 1) (1, 1)};
+                    \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(1, 1) (1, 0)};
+            
+                    \addplot[mark=none, main2, line width=0.2mm, Latex-Latex] coordinates {(0.5, 1) (1.5, 1)};
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+%
+        \begin{minipage}{0.65\linewidth}
+    %
+    \begin{enumerate}
+        \itstar Si $u_0 \in \left]0, 1\right[$, alors par stabilité $\forall n \in \bdN$, $u_n \in \left]0, 1\right[$.
+        
+        Par croissance de $f$ sur $]0, 1[$, $\suite{u_n}$ est monotone, donc par \textsc{Théorème de la limite monotone}, $\suite{u_n}$ converge vers $0$ ou $1$.
+        
+        On remarque que pour $x \in ]0, 1[$ on a $f(x) \geq x$, et donc $f\left(u_0\right) \geq u_0$ soit $u_1 \geq u_0$. Donc $\suite{u_n}$ croissante, et donc $\suite{u_n}$ converge vers $1$ : \hg{$\lim\limits_{n \to +\infty} u_n = 1$}.
+        
+        \itstar Si $u_0 \in \left]1, 2\right[$, alors $u_1 \in \left]0, 1\right[$ donc \hg{$\lim\limits_{n \to +\infty} u_n = 1$}.
+    \end{enumerate}
+    %
+    \end{minipage}
+    
+        \begin{enumerate}
+            \itstar Si $u_0 \in \left]-\infty, 0\right[$, alors par stabilité de l'intervalle de par $f$, pour tout entier $n \in \bdN$, on a $u_n \in \left]-\infty, 0\right[$. On remarque que pour tout $x$ négatif, $f(x) \leq x$, donc $f\left(u_0\right) \leq u_0$ soit $u_1 \leq u_0$. Par croissance de $f$, on a $\suite{u_n}$ décroissante.
+            
+            Si $\suite{u_n}$ était minorée, alors par \textsc{Théorème de la limite monotone} $\suite{u_n}$ convergerait. Or $\suite{u_n}$ ne peut converger que vers le point fixe $0$, ce qui contredit sa décroissance. Par l'absurde, $u_n$ n'est pas minorée, et donc par le même théorème \hg{$\lim\limits_{n \to +\infty} u_n = -\infty$}.
+            
+            \itstar Si $u_0 \in \left]2, +\infty\right[$, alors $u_1 \in \left]-\infty, 0\right[$ donc \hg{$\lim\limits_{n \to +\infty} u_n = -\infty$}.
+            
+            \itstar Si $u_0 = 1$,  alors \hg{$\lim\limits_{n \to +\infty} u_n = 1$} (point fixe). De même si $u_0 = 0$, alors \hg{$\lim\limits_{n \to +\infty} u_n = 0$}. Enfin si $u_0 = 2$, alors $u_1 = 0$ donc \hg{$\lim\limits_{n \to +\infty} u_n = 0$}.
+        \end{enumerate}
+        
+        
+    \end{enumerate}
+\end{example}
+
+Le cas où la fonction $f$ est croissante permet donc de facilement obtenir  de l'information sur la suite $\suite{u_n}$. Cependant le cas où la fonction $f$ est décroissante n'est pas aussi pratique.\\
+
+\begin{minipage}{0.55\linewidth}
+    
+    En effet, on comprend vite compte que la suite $\suite{u_n}$ est n'est pas monotone. Cependant lorsque qu'on compare non pas deux rangs successifs $n$ et $n+1$, mais plutôt deux rangs pairs ou impairs successifs $n$ et $n+2$, on obtient :
+    %
+    \[ \begin{array}{c}
+         u_n \leq u_{n+2} \implies f\left(u_n\right) \geq f\left(u_{n+2}\right) \implies u_{n+1} \geq u_{n+3} \\
+         u_{n+1} \geq u_{n+3} \implies f\left(u_{n1+}\right) \leq f\left(u_{n+3}\right) \implies u_{n+2} \geq u_{n+4}
+    \end{array}\]
+    %
+    On obtient donc $u_n \leq u_{n+2} \leq u_{n+4}$. Plus généralement on obtient la croissance de la suite $\suite{u_{2n}}$ et la décroissance de la suite $\suite{u_{2n+1}}$. Ceci s'explique par le fait que si $f$ est décroissance, alors $f \circ f$ est bien croissante.
+\end{minipage}
+%
+\hfill
+%
+\begin{minipage}{0.4\linewidth}
+    \pgfplotsset{width=\textwidth}
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = left,
+            xmin=0,
+            xmax=7.7,
+            ymin=0,
+            ymax=7,
+            xtick = {1, 4.9, 2.60, 4.32, 3.13, 4.02},
+            ytick = {1, 4.9, 2.60, 4.32, 3.13, 4.02},
+            xticklabels={$\color{main1} u_0$, $\color{main1} u_1$, $\color{main1} u_2$, $\color{main1} u_3$, $\color{main1} u_4$, $\color{main1} u_5$},
+            yticklabels={$\color{main1} u_0$, $\color{main1} u_1$, $\color{main1} u_2$, $\color{main1} u_3$, $\color{main1} u_4$, $\color{main1} u_5$},
+            x tick label style={/pgf/number format/1000 sep=\,},
+            font=\footnotesize,
+            grid = none,
+        ]
+            \addplot[color=main1comp, line width=0.3mm, domain=0:7.7,samples=500]{-0.1*x^2+5} node[anchor=south,pos=0.17,yshift=1mm] {$y= f(x)$};
+            
+            \addplot[color=main1comp2, line width=0.2mm, domain=0:7,samples=50]{x}  node[anchor=north,pos=0.97,yshift=-4mm] {$y = x$};
+            
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 1) (1, 1) (1, 0)};
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 4.9) (4.9, 4.9) (4.9, 0)};
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 2.60) (2.60, 2.60) (2.60, 0)};
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 4.32) (4.32, 4.32) (4.32, 0)};
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 3.13) (3.13, 3.13) (3.13, 0)};
+            \addplot[mark=none, main1, line width=0.1mm, dashed] coordinates {(0, 4.02) (4.02, 4.02) (4.02, 0)};
+            
+            \addplot[mark=+, main2, line width=0.2mm, -Latex] coordinates {(1, 1) (1, 4.9) (4.9, 4.9) (4.9, 2.60) (2.60, 2.60) (2.60, 4.32) (4.32, 4.32) (4.32, 3.13) (3.13, 3.13) (3.13, 4.02) (4.02, 4.02) (4.02, 3.38)};
+        \end{axis}
+    \end{tikzpicture}
+\end{minipage}
+
+\begin{property}{Condition suffisante de monotonie des sous-suites}{}
+    Soit $X \subset \bdR$, $f \in \bcF(X, \bdR)$, un intervalle $I \subset x$ stable par $f$ et $\suite{u_n} : \left\lbrace\begin{array}{l}
+        u_0 \in I  \\
+        \forall n \in \bdN,\qquad u_{n+1} = f\left(u_n\right) 
+    \end{array}\right.$.
+    %
+    \[ \hg{f \ \text{décroissante sur} \ I \et \left\lbrace\begin{array}{rcll}
+        u_0 \leq u_2 &\implies &\suite{u_{2n}} \ \text{est croissante} &\et \suite{u_{2n+1}} \ \text{est décroissante}  \\
+        u_0 \geq u_2 &\implies &\suite{u_{2n}} \ \text{est décroissante} &\et \suite{u_{2n+1}} \ \text{est croissante}
+    \end{array}\right.}\]
+\end{property}
+
+\begin{nproof}
+    Soit $X \subset \bdR$, $f \in \bcF(X, \bdR)$, un intervalle $I \subset x$ stable par $f$ et $\suite{u_n} : \left\lbrace\begin{array}{l}
+        u_0 \in I  \\
+        \forall n \in \bdN,\qquad u_{n+1} = f\left(u_n\right) 
+    \end{array}\right.$.
+    
+    Par hypothèse $f$ est croissante sur $I$ et $u_0 \leq u_2$. On pose la suite $\suite{v_n} = \suite{u_{2n}}$,Donc $v_0 \leq v_{1}$. Or :
+    %
+    \[ \forall n \in \bdN,\qquad v_{n+1} = u_{2(n+1)} = u_{2n+2} = f\left(u_{2n+1}\right) = f\left(f\left(u_{2n}\right)\right) = f\left(f\left(v_n\right)\right) \]
+    %
+    $f$ est décroissante, donc $f \circ f$ est croissante. En appliquant la propriété \ref{prop:mon2} avec $\suite{v_n}$, on obtient que $\suite{u_{2n}}$ est croissante. On pose également $\suite{w_n} = \suite{u_{2n+1}}$. On a $u_0 \leq u_2$ donc par décroissance de $f$, on a $f\left(u_0\right) \geq f\left(u_2\right)$, soit $u_1 \geq u_3$, donc $v_0 \leq v_1$. Avec le même argument, on obtient la décroissance de la suite $\suite{u_{2n+1}}$. Un même argument s'applique lorsque $u_0 \geq u_2$.
+\end{nproof}
+
+\begin{form}{Méthode}{}
+    Lorsque $f$ est décroissante sur $I$ stable par $f$, avec $u_0 \in I$, on procédera donc ainsi :
+    \begin{enumerate}
+        \ithand On étudiera d'abord \hg{les sous-suites $\suite{u_{2n}}$ et $\suite{u_{2n+1}}$}, lesquelles sont forcément monotones et de monotonies opposées.
+        
+        \ithand On étudiera ensuite \hg{les limites $\ell$ et $\ell'$} (dans $\overline\bdR$) de ces deux-sous suites.
+        
+        \ithand Si \hg{$\ell = \ell'$}, alors \hg{$\suite{u_n}$ converge vers $\ell \in \overline\bdR$}. Si de plus \hg{$\ell \in \bdR$ est fini}, alors $\suite{u_n}$ converge vers $\ell \in \bdR$.
+    \end{enumerate}
+\end{form}
+
+\subsection{Fonction contractante}
+
+Une autre méthode d'étude, la dernière exposée ici, est celle des fonctions contractantes.
+
+\begin{definition}{Fonction contractante}{}
+    Soit une fonction $f$ et $k \in \bdR$ telle que $f$ est $k$-lipschitzienne. On dit que \hg{$f$ est contractante} lorsque \hg{$k < 1$}.
+\end{definition}
+
+Pour rappel, une telle propriété sur $f$ peut se montrer en étudiant le $\sup$ de $\mod{f'}$ sur $I$. En effet, l'\textsc{Inégalité des accroissements finis} livre :
+%
+\[ \forall (x, y) \in I^2, \qquad \mod{f(y) - f(x)} \leq \sup\limits_{I}\mod{f'}\mod{y-x} \qquad\text{soit}\qquad f \ \text{est} \ \sup\limits_{I}\mod{f'}\text{-lipschitzienne sur} \ I\]
+%
+En effet, dans la mesure où $f$ est contractante, donc de facteur de Lipschitz $k < 1$, et qu'elle admet un point fixe $\ell$, il suffit d'appliquer la définition d'une fonction lipschitzienne avec $u_0$ et $\ell$ :
+%
+\[ \mod{f\left(u_0\right) - f(\ell)} \leq k \mod{u_n - \ell} \qquad\text{soit}\qquad \mod{u_1 - \ell} \leq k \mod{u_0 - \ell}\]
+%
+On peut ensuite itérer pour obtenir $\mod{u_2 - \ell} \leq k^2\mod{u_0 - \ell}$, puis $\mod{u_3 - \ell} \leq k^3\mod{u_0 - \ell}$. Vient alors la propriété :
+
+\begin{property}{Condition suffisante de convergence}{}
+    Soit $X \subset \bdR$, $f \in \bcF(X, \bdR)$, un intervalle $I \subset x$ stable par $f$ et $\suite{u_n} : \left\lbrace\begin{array}{l}
+        u_0 \in I  \\
+        \forall n \in \bdN,\qquad u_{n+1} = f\left(u_n\right) 
+    \end{array}\right.$.
+    
+    \[ \hg{f \ \text{est contractante et admet un point fixe} \ \ell \ {sur} \ I \implies \lim\limits_{n \to +\infty} u_n = \ell}\]
+\end{property}
+
+\begin{nproof}
+    Soit $X \subset \bdR$, $f \in \bcF(X, \bdR)$, un intervalle $I \subset x$ stable par $f$ et $\suite{u_n} : \left\lbrace\begin{array}{l}
+        u_0 \in I  \\
+        \forall n \in \bdN,\qquad u_{n+1} = f\left(u_n\right) 
+    \end{array}\right.$. On suppose par hypothèse que $f$ est contractante, donc de facteur de Lipschitz $k < 1$, et qu'elle admet un point fixe $\ell$ sur $I$. On procède alors par récurrence simple sur $\bdN$ selon le prédicat :
+    %
+    \[ \forall n \in \bdN,\qquad H(n):\qquad \mod{u_n - \ell} \leq k^n\mod{u_0 - \ell}\]
+    %
+    \begin{enumerate}
+        \itt On a $\mod{u_0 - \ell} \leq 1 \times \mod{u_0 - \ell}$, soit $\mod{u_0 - \ell} \leq k^0\mod{u_0 - \ell}$, don $H(0)$ est vrai. L'initialisation est ainsi montrée.
+        
+        \itt Soit $n \in \bdN$, tel que $H(n)$ est vrai. On a donc $\mod{u_n - \ell} \leq k^n\mod{u_0 - \ell}$. Or $f$ est $k$-lipschitzienne, donc par définition :
+        %
+        \[ \mod{u_{n+1} - \ell} = \mod{f\left(u_n\right) - f(\ell)} \leq k\mod{u_n - \ell}\]
+        %
+        Donc par hypothèse de récurrence :
+        %
+        \[ \mod{u_{n+1} - \ell} \leq k\times k^n\mod{u_0 - \ell} = k^{n+1}\mod{u_0 - \ell}\]
+        %
+        On a bien déduit que $H(n+1)$ est vrai.
+        
+        \itt On a $H(0)$, et pour tout rang $n \in \bdN$, l'hérédité $H(n) \implies H(n+1)$. Donc par principe de récurrence, $H(n)$ est vrai à tout rang $n \in \bdN$, soit :
+        %
+        \[ \forall n \in \bdN, \qquad \mod{u_n - \ell} \leq k^n\mod{u_0 - \ell}\]
+        %
+    \end{enumerate}
+    
+    On passe alors à la limite. Puisque $k < 1$, on a $k^n \lima{n \to +\infty} 0$. Alors par \textsc{Théorème d'encadrement}, on a $\mod{u_n - \ell} \lima{n \to +\infty} 0$, soit $u_n - \ell \lima{n \to +\infty} 0$. On a donc bien démontré que $\lim\limits_{n \to +\infty} u_n = +\infty$.
+\end{nproof}
+
+Le fait que $f$ soit contractante assure en fait l'existence et l'unicité de son point fixe. Ce résultat, facile à démontrer, repose sur le fait que $g(x) - x$ réalise une bijection de $\bdR$ dans $\bdR$. Ce dernier point  implique que si $f$ est contractante et qu'un segment (intervalle fini) est stable sur $f$, alors si $u_0$ est dans ce segment, la suite $\suite{u_n}$ convergera forcément (vers l'unique point fixe de $f$).
+
+\section{Bilan}
+
+En résumé, on pourra étudier la suite $\suite{u_n}$ selon une méthode relativement générale : 
+
+\begin{form}{Méthode}{}
+    On cherche principalement les phénomènes limites de la suite $\suite{u_n}$. Pour cela, \hg{on étudie directement la fonction $f$ en elle-même}.
+    
+    \begin{enumerate}
+        \ithand La recherche d'\hg{intervalles stables} renseigne sur la \hg{bonne définition de la suite}.
+        
+        \ithand L'étude de la fonction $f - \id$ renseigne par ses \hg{points d'annulations} sur les \hg{points fixes de $f$, potentielles limites de $\suite{u_n}$}. Si de \hg{signe constant}, elle livre la \hg{monotonie de la suite}.
+        
+        \ithand La \hg{monotonie de $f$} renseigne sur la \hg{monotonie de la suite ou des sous-suites de rangs pairs et impairs}.
+        
+        \ithand L'étude du \hg{facteur de Lipschitz de $f$}, si \hg{strictement inférieur à 1}, renseigne sur \hg{la convergence de la suite}.
+    \end{enumerate}
+\end{form}
+
+On donne ci-dessous un dernier exemple.
+
+\begin{example}{}{}
+    On considère la suite $\suite{u_n}$ telle que $u_0 \in \bdR$ et pour tout entier $n \in \bdN$, on a $u_{n+1} = \cos{u_n}$.
+    
+    \tcblower
+    
+    \begin{enumerate}
+        \ithand On a $u_0 \in \bdR$ donc $u_1 = \cos{u_0} \in \left[-1; 1\right] \subset \left]-\dfrac{\pi}{2}, \dfrac{\pi}{2}\right[$. Or $\cos{\left]-\dfrac{\pi}{2}, \dfrac{\pi}{2}\right[} = \left]0, 1\right]$, d'où $u_2 \in  \left]0, 1\right]$.
+        
+        \ithand $\left]0, 1\right]$ est stable par $f = \cos$, donc pour tout rang supérieur à 2, $n \in \bdN \backslash \{ 0, 1\}$, on a $u_n \in \left]0, 1\right]$, donc $\suite{u_n}$ est bornée.
+        
+        \begin{minipage}{0.45\linewidth}
+            \pgfplotsset{width=\textwidth}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines = center,
+                    xmin=-0.5,
+                    xmax=2,
+                    ymin=-0.4,
+                    ymax=1.6,
+                    x tick label style={/pgf/number format/1000 sep=\,},
+                    font=\footnotesize,
+                    grid = none,
+                    trig format plots=rad,
+               ]
+                    \addplot[color=main1comp, line width=0.3mm, domain=-0.5:2,samples=500]{cos(x)} node[right,pos=0.17,yshift=2mm] {$y= \cos(x)$};
+            
+                    \addplot[color=main1comp2, line width=0.2mm, domain=-0.5:2,samples=50]{x}  node[anchor=north,pos=0.8,yshift=-4mm] {$y = x$};
+                    
+                    \addplot[mark=+, main2, line width=0.2mm, -Latex] coordinates {(-0.25, -0.25) (-0.25, 0.97) (0.97, 0.97) (0.97, 0.57) (0.57, 0.57) (0.57, 0.84) (0.84, 0.84) (0.84, 0.66) (0.66, 0.66) (0.66, 0.79) (0.79, 0.79) (0.79, 0.71)};
+                \end{axis}
+            \end{tikzpicture}
+        \end{minipage}
+        %
+        \begin{minipage}{0.5\linewidth}
+                \ithand On a $\cos$ décroissante sur $\left]0, 1\right]$ donc $\suite{u_n}$ n'est pas monotone. On montre facilement que $\cos$ admet un unique point fixe sur $\left]0, 1\right]$, qu'on note $\ell$.
+                
+                \ithand On a $f' = \cos' = -\sin$, donc par croissance de $\sin$ :
+                %
+                \[ \forall x \in \left]0, 1\right[,\qquad \mod{f'(x)} = \mod{-\sin x} = \sin x \leq \sin{1}\]
+                %
+                Par \textsc{Inégalité des accroissements finis}, $f$ est $\sin{1}$-lipschitzienne. Or $k = \sin{1} < 1$, donc $f$ est contractante. Par récurrence on déduit :
+                %
+                \[ \forall n \in \bdN \backslash \{0, 1\},\qquad \mod{u_{n+1} - \ell} \leq k^{n-2}\mod{u_0 - \ell}\]
+    \end{minipage}
+    %
+    Puisque $\mod{k} \leq 1$, on a $k^n \lima{n \to +\infty} 0$, donc finalement \hg{$\lim\limits_{n \to +\infty} u_n = \ell$}.
+    \end{enumerate}
+\end{example}
+
+\section{À propos des vitesses de convergence (HP)}
+
+Pour citer le programme de \textsf{MP2I} :
+
+\boxans{
+    \textit{\guill{L'étude des suites récurrentes $u_{n+1} = f\left(u_n\right)$ est l'occasion d'introduire la notion de vitesse de convergence. Sur des exemples, on met en évidence divers comportements (convergence lente, géométrique, quadratique) en explicitant le nombre d'itérations nécessaires pour obtenir une précision donnée. On pourra en particulier présenter la \textrm{méthode de Newton}.}}
+}
+
+Ces différentes notions, en particulier la méthode de Newton, sont traitées dans TD associé à ce chapitre. Ignorant cependant s'il sera abordé plus en détail dans un prochain chapitre, j'ai choisi de présenter ci-dessous quelques définitions et propriétés, pour la plupart hors programme, liées à ce concept de \guill{vitesse de convergence}.
+
+On se donne alors une suite $\suite{u_n}$ convergente vers un réel $\ell$, et telle que $u_n$ est toujours différent de $\ell$, qu'importe le rang $n \in \bdN$, et ce afin de pouvoir diviser par l'erreur $\epsilon_n = \mod{u_n - \ell}$. En effet, on s'intéresse au quotient $\frac{\epsilon_{n+1}}{{\epsilon_n}^\alpha}$, soit le quotient $\frac{\mod{u_{n+1} - \ell}}{\mod{u_n - \ell}^\alpha}$, où $\alpha$ est un réel positif, et désigne \guill{l'ordre de convergence} :
+
+\begin{definition}{Q-ordre de convergence}{}
+    Soit une suite $\suite{u_n}$ de limite $\ell$. On dit que le \hg{q-ordre de convergence de $\suite{u_n}$ est $\alpha \in \bdR$} lorsque :
+    %
+    \[ \hg{\exists \tau \in \bdR,\qquad \dfrac{\mod{u_{n+1} - \ell}}{\mod{u_n - \ell}^\alpha} \leq \tau}\]
+\end{definition}
+
+On parle souvent simplement \textit{d'ordre de convergence}, le \guill{q} (pour quotient) étant souvent omis. En passant ce quotient à la limite, on définit :
+%
+\begin{definition}{Vitesse de convergence}{}
+    Soit une suite $\suite{u_n}$ de limite $\ell$ et de q-ordre de convergence $\alpha \in \bdR$. On dit que la \hg{vitesse de convergence de $\suite{u_n}$ est $\mu \in \bdR$} lorsque :
+    %
+    \[ \hg{\lim\limits_{n \to+\infty} \dfrac{\mod{u_{n+1} - \ell}}{\mod{u_n - \ell}^\alpha} = \mu}\]
+\end{definition}
+
+On parle aussi pour $\mu$ de \textit{constante d'erreur asymptotique}. 
+
+\begin{warning}{Terminologie}{}
+    Il n'y a en fait \bf{pas de conventions précises de terminologie pour ces différentes notions}, certain auteurs échangeant vitesse et ordre par exemple, rajoutant ou enlevant le préfixe q-, \dots.
+\end{warning}
+
+On définit alors différentes vitesses de convergence :
+
+\begin{definition}{Convergence q-linéaire}{}
+    Soit une suite $\suite{u_n}$ de limite $\ell$ et d'ordre de convergence $\alpha \in \bdR$. On dit que \hg{$u_n$ convergence linéairement vers $\ell$} lorsque \hg{$\alpha = 1$}, i.e. :
+    %
+    \[ \hg{\exists \tau \in \bdR,\forall n \in \bdN,\qquad \qquad \mod{u_{n+1} - \ell} \leq \tau\mod{u_n - \ell}}\]
+    %
+    On parle aussi de \hg{convergence géométrique}, puisque $\epsilon_n = \O{+\infty}{\tau^n}$, où $\suite{\tau^n}$ est une suite géométrique.
+\end{definition}
+
+On distingue deux sous-cas selon la vitesse de convergence $\mu$ :
+
+\begin{definition}{Convergence q-superlinéaire / convergence rapide}{}
+    Soit une suite $\suite{u_n}$ linéairement convergente vers $\ell$, et de vitesse de convergence $\mu \in \bdR$. On dit que \hg{$u_n$ convergence superlinéairement vers $\ell$} lorsque \hg{$\mu = 0$}, i.e. :
+    %
+    \[ \hg{\lim\limits_{n \to+\infty} \dfrac{\mod{u_{n+1} - \ell}}{\mod{u_n - \ell}} = 0}\]
+    %
+    On parle aussi de \hg{convergence rapide}.
+\end{definition}
+
+\begin{definition}{Convergence q-souslinéaire / convergence lente}{}
+    Soit une suite $\suite{u_n}$ linéairement convergente vers $\ell$, et de vitesse de convergence $\mu \in \bdR$. On dit que \hg{$u_n$ convergence souslinéairement vers $\ell$} lorsque \hg{$\mu = 1$}, i.e. :
+    %
+    \[ \hg{\lim\limits_{n \to+\infty} \dfrac{\mod{u_{n+1} - \ell}}{\mod{u_n - \ell}} = 1}\]
+    %
+    On parle aussi de \hg{convergence lente}.
+\end{definition}
+
+On peut aussi définir la convergence quadratique :
+
+\begin{definition}{Convergence q-quadratique}{}
+    Soit une suite $\suite{u_n}$ de limite $\ell$ et d'ordre de convergence $\alpha \in \bdR$. On dit que \hg{$u_n$ convergence quadratiquement vers $\ell$} lorsque \hg{$\alpha = 2$}, i.e. :
+    %
+    \[ \hg{\exists \tau \in \bdR,\qquad \forall n \in \bdN,\qquad \qquad \mod{u_{n+1} - \ell} \leq \tau\mod{u_n - \ell}^2}\]
+\end{definition}
+
+Enfin, on peut faire un lien avec le nombre de chiffres significatifs correct :
+%
+\begin{definition}{Nombre de chiffres significatifs corrects}{}
+    Soit une suite $\suite{u_n}$ de limite $\ell$ et $n \in \bdN$, On appelle \hg{nombre de chiffre significatifs corrects au rang $n$} le nombre de chiffres successifs en commun entre $u_n$ et $\ell$, en partant de la gauche dans leur écriture en base 10.
+\end{definition}
+
+Le nombre de chiffres significatifs corrects au rang $n$ est noté $\sigma_n$. On a alors :
+
+\begin{property}{Nombre de chiffres significatifs corrects}{}
+    Soit une suite $\suite{u_n}$ de limite $\ell \neq 0$. On a :
+    %
+    \[ \hg{\forall n \in \bdN,\qquad \sigma_n = \round{-\log_{10} \dfrac{u_k - \ell}{\ell}}}\]
+    %
+    où $\round x$ donne l'entier le plus proche de $x$.
+\end{property}
+
+On peut alors donner des caractérisations des vitesses de convergence :
+
+\begin{property}{Caractérisation de la convergence q-linéaire}{}
+    Soit une suite $\suite{u_n}$ de limite $\ell \neq 0$. \hg{$\suite{u_n}$ converge linéairement} ssi :
+    %
+    \[ \hg{\exists C \in \bdR,\qquad \forall n \in \bdN,\qquad \sigma_{n+1} \geq \sigma_n + C}\]
+\end{property}
+
+\begin{property}{Caractérisation de la convergence q-superlinéaire}{}
+    Soit une suite $\suite{u_n}$ de limite $\ell \neq 0$. \hg{$\suite{u_n}$ converge rapidement} ssi :
+    %
+    \[ \hg{\lim\limits_{n \to +\infty} \mod{\sigma_{n+1} - \sigma_n} = +\infty}\]
+\end{property}
+
+\begin{property}{Caractérisation de la convergence q-quadratique}{}
+    Soit une suite $\suite{u_n}$ de limite $\ell \neq 0$. \hg{$\suite{u_n}$ converge quadrtiquement} ssi :
+    %
+    \[ \hg{\exists C \in \bdR,\qquad \forall n \in \bdN,\qquad \sigma{n+1} \geq 2\sigma_n + C}\]
+\end{property}
+
+
+
+\end{document}

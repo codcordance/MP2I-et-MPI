@@ -1,0 +1,333 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\lstset{language=Caml,keywordstyle={\color{main1}}}
+
+\renewcommand{\thesection}{Exercice \Roman{section}} 
+\begin{document}
+\stylizeDoc{Informatique}{Devoir Maison 2}{Tri rapide et méthode des médianes}
+
+\hfill\\[-35pt]
+\begin{center}
+    \begin{minipage}{0.8\linewidth}
+        \begin{tcolorbox}[
+            breakable,
+            enhanced,
+            interior style      = {left color=main4!15,right color=main2!12},
+            borderline north    = {.5pt}{0pt}{main2!10},
+            borderline south    = {.5pt}{0pt}{main2!10},
+            borderline west     = {.5pt}{0pt}{main2!10},
+            borderline east     = {.5pt}{0pt}{main2!10},
+            sharp corners       = downhill,
+            arc                 = 0 cm,
+            boxrule             = 0.5pt,
+            drop fuzzy shadow   = black!40!white,
+            nobeforeafter,
+        ]
+        \centering  Les codes écrits ci-dessous sont accessible à l'adresse \texttt{\href{https://gitlab.com/-/snippets/2253622}{gitlab.com/-/snippets/2253622}}
+    \end{tcolorbox}
+\end{minipage}
+\end{center}
+
+Nous avons vu en cours que l’algorithme du tri rapide à une complexité en $\Theta(n^2)$ dans le pire des cas. On peut montrer que sa complexité en moyenne est en $\Theta(n \log n)$.\\[-20pt]
+
+\section{Le tri rapide}%\label{sec:1}
+
+On rappelle le principe du tri rapide sur les tableaux. Soit $t$ un tableau, et $g < d$ des indices de ce tableau, on note $t[g :d]$ la portion de $t$ comprise entre les indices $g$ inclus et $d$ exclus. Par exemple, si $t$ est de taille $n$, la portion totale de $t$ est $t[0 : n]$.\\[-10pt]
+
+Pour cet algorithme de tri, on va commencer par \textbf{partitionner} une portion $t[g : d]$ de notre tableau selon un \textbf{pivot} (qui est une valeur $p$ comparable aux éléments de notre tableau). À la fin de cette partition, on a échangé des cases du tableau pour qu’il existe deux indices $i_s$ et $i_e$ tels que :
+\[\text{\ding{73}}\quad \forall i \in \llbracket g , i_s\llbracket, \ t.(i) < p \qquad\qquad\qquad\text{\ding{73}}\quad \forall i \in \llbracket i_s, i_e\llbracket, \ t.(i) = p \qquad\qquad\qquad\text{\ding{73}}\quad \forall i \in \llbracket i_e, d \llbracket, \ t.(i) > p\]
+
+%\begin{enumerate}
+%    \ithand $\forall i \in \llbracket g , i_s\llbracket$, $t.(i) < p$
+%    \ithand $\forall i \in \llbracket i_s, i_e\llbracket$, $t.(i) = p$
+%    \ithand $\forall i \in \llbracket i_e, d \llbracket$, $t.(i) > p$
+%\end{enumerate}
+\textbf{Remarque} : contrairement à la version vue en cours, on partitionne ici en 3 morceau.
+
+\begin{enumerate}
+    \item Écrire une fonction \camlline{echange} de type \camlline{'a array -> int -> int -> int -> unit} qui prend en entrée un tableau $t$ et deux entiers $i$ et $j$ et qui échange par effets de bords les valeurs de $t.(i)$ et $t.(j)$.
+
+    \begin{ocaml}
+let echange (t : 'a array) (i : int) (j : int) : unit =
+    if t.(i) <> t.(j) then let temp = t.(i) in
+    let _ = t.(i) <- t.(j) in t.(j) <- temp;
+;;
+    \end{ocaml}
+    
+    \item Écrire une fonction \camlline{partition_en_3} de type \camlline{'a array -> 'a -> int -> int -> int * int} qui prend en entrée un tableau $t$, un pivot $p$, et deux indices $g$ et $d$, et qui effectue la partition décrite ci-dessus (en modifiant le tableau $t$ par effets de bords) et renvoie les valeurs des indices $(i_s, i_e)$. Votre algorithme devra avoir une complexité \textbf{linéaire}.
+    
+    \begin{ocaml}
+let partition_en_3 (t : 'a array) (p : 'a) (g : int) (d : int) : (int * int) =
+    let ip = ref g and np = ref 0 in for i = g to d - 1 do
+        if i < d - !np then begin
+            while t.(i) = p && !np < d - g do
+                echange t i (d - 1 - !np);
+                incr np;
+            done;
+            if t.(i) < p then begin
+                echange t i !ip;
+                incr ip;
+            end;
+        end;
+        if i >= d - !np && !np < d - g then echange t i (!ip + i - d + !np);
+    done;
+    !ip, let ij = !ip + !np in if ij <= d then ij else d
+;;
+    \end{ocaml}
+    
+    \item \begin{enumerate}
+        \item Écrire une fonction \camlline{tri_rapide1} de type \camlline{'a array -> unit} qui trie par effets de bords un tableau pris en entrée. L'algorithme devra reposer sur le tri rapide et choisir l’élément le plus à gauche de la portion à trier comme pivot.
+        
+        \begin{ocaml}
+let tri_rapide1 (t: 'a array) : unit =
+    let rec tri_rapide1_AUX (i : int) (j : int) = match j - i with
+        | x when x <= 1 -> ();
+        | _ -> let is, ie = partition_en_3 t t.(i) i j in
+            let _ = tri_rapide1_AUX i is in tri_rapide1_AUX ie j;
+    in tri_rapide1_AUX 0 (Array.length t)
+;;
+        \end{ocaml}
+        
+        \item\label{question1:3b} Quelle est la complexité de votre algorithme dans le pire des cas ?
+        
+        \boxans{
+            Pour un tableau $t[g : d]$, \camlline{tri_rapide1_AUX} appelle \camlline{partition_en_3} avec $t$ et comme pivot l'élément $t[g]$. Celle-ci renvoie, avec une complexité temporelle en $\Theta(d - g)$,  un partitionnement de $t$ selon deux indices $i_s$, et $i_e$. Le pire des cas est alors celui où ce partitionnement est inutile, \textit{i.e.} celui où le segment $t[g, i_s] = \emptyset \iff i_s = g$. On peut, dans la mesure où il n'y pas trop d'éléments égaux au pivot, considérer : 
+            
+            \[d - i_e \approx d - (i_s + 1) \approx d - g - 1\]
+            
+            Ainsi \camlline{tri_rapide1_AUX} va-t-elle s'appeler récursivement sur $t[g + 1:d]$. En notant $C(n)$ sa complexité :
+            
+            \[C(n) = C(n-1) + \Theta(n) \overset{\textit{(reccurence)}}{=} \sum_{k=0}^n \Theta(k) = \Theta\left(\sum_{k=0}^n k\right) = \Theta\left(\dfrac{n(n+1)}{2}\right) = \Theta(n^2)\]
+            
+            Dans le pire des cas un coût temporel quadratique.
+        }
+    \end{enumerate}
+
+\end{enumerate}
+
+\section{Calcul de la médiane d’un tableau}\label{sec:2}
+
+On cherche à améliorer la complexité du tri rapide dans le pire des cas. Pour cela, on va essayer de choisir un pivot garantissant de partitionner notre tableau en deux morceaux de même taille (à un élément près). Pour cela, on pourrait chercher la médiane du tableau, c’est à dire le $k$-ième plus petit élément du tableau, où $k$ est la moitié de la taille du tableau.
+
+\begin{enumerate}
+    \item Dans cette question, on suppose l’existence d’une fonction \camlline{mediane} de type \camlline{'a array -> int -> 'a} telle que \camlline{mediane t k} renvoie la valeur du $k$-ième plus petit élément de $t$ avec une complexité $f(n)$, où $n$ est la taille de $t$. On s’intéresse ici à la complexité d’une version du tri rapide qui utiliserait la fonction \camlline{mediane} pour choisir le pivot.
+    
+    \begin{enumerate}
+        \item  Quelle serait la complexité de cet algorithme de tri rapide si $f(n) = \Theta(n)$ ?
+        
+        \boxans{
+            On reprend l'approximation précédente, où il n'y a pas beaucoup d'éléments égaux au pivot, cette fois-ci en considérant donc qu'on a découpé le tableau en deux parties égales. On a alors :
+            
+            \[ C(n) = 2C(\sfrac{n}{2}) + f(n) = 2C(\sfrac{n}{2}) + \Theta(n)\]
+            
+            En vertu du théorème maître, on obtient $C(n) = \Theta(n \log n)$.
+        }
+        
+        \item\label{question2:1b} Quelle serait la complexité de cet algorithme de tri rapide si $f(n) = \Theta(n^2)$ ?
+        
+        \boxans{
+            On a cette fois-ci $C(n) = 2C(\sfrac{n}{2}) + f(n) = 2C(\sfrac{n}{2}) + \Theta(n^2)$. Le théorème maître livre $C(n) = \Theta(n^2)$.
+        }
+    \end{enumerate}
+\end{enumerate}
+
+Pour implémenter la fonction \camlline{mediane}, on utilise une approche qui s’inspire du tri rapide (mais qui n’effectue qu’un seul appel récursif au lieu de deux) :
+
+\begin{enumerate}
+    \ithand On fait une copie $t'$ de $t$ avec l’instruction \camlline{let t' = Array.copy t in} \dots .
+    
+    \ithand On partitionne $t'$ à l’aide de la fonction \camlline{partition_en_3} .
+    
+    \ithand Après cette partition :
+    \begin{enumerate}
+        \itstar si $i_s = k$ ou $i_s < k < i_e$, alors $t'.(k)$ est l’élément qu’on cherche ;
+        
+        \itstar sinon, si $k < i_s$, alors l’élément qu’on recherche est dans la partie strictement à gauche de $i_s$ ;
+        
+        \itstar sinon, l’élément qu’on cherche est dans la partie à droite de $i_e$.
+    \end{enumerate}
+    
+    Dans ces deux derniers cas, on ne fait qu’un seul appel récursif (dans le morceau de $t'$ qui nous intéresse).
+\end{enumerate}
+
+\begin{enumerate}\setcounter{enumi}{1} 
+    \item \begin{enumerate}
+        \item Implémenter une fonction \camlline{mediane} utilisant le principe précédent.
+        
+        \begin{ocaml}
+let mediane (t: 'a array) (k : int) : 'a =
+    let t' = Array.copy t in let rec mediane_AUX (g : int) (d : int) =
+        match partition_en_3 t' t'.(k) g d with
+        | is, ie when is = k || (is < k && k < ie) -> t'.(k);
+        | is, _ when k < is -> mediane_AUX g is;
+        | _, ie -> mediane_AUX ie d;
+    in mediane_AUX 0 (Array.length t);
+;;
+        \end{ocaml}
+        
+        \newpage
+        
+        \item\label{question2:2b} Quelle est la complexité de votre programme dans le pire des cas ?
+        
+        \boxans{
+            Le pire des cas est analogue à celui de la question \enumref{question1:3b}, car l'on y utilise aussi \camlline{partition_en_3}. La complexité de \camlline{mediane} est donc quadratique, et entraîne en cela d'après la question \enumref{question2:1b} un coût temporel en $\Theta(n^2)$ de l'algorithme de tri rapide.
+        }
+    \end{enumerate}
+\end{enumerate}
+
+\section{L’algorithme de la médiane des médianes}
+
+On pourrait montrer que l’algorithme précédent a une complexité linéaire en moyenne, mais on va maintenant s’intéresser à une méthode fournissant une complexité linéaire dans le pire des cas. Pour cela, on va également optimiser le choix du pivot lors du calcul de la médiane. Le principe est le suivant (pour un tableau $t$ de taille $n$) : 
+
+\begin{enumerate}
+    \ithand On regroupe les éléments de $t$ en $\sfrac{n}{5}$ groupes de 5 éléments.
+    
+    \ithand On calcule (en temps constant) la médiane de chacun de ces groupes de 5 : $m_1$, $m_2$, $\dots$, $m_{\sfrac{n}{5}}$.
+    
+    \ithand On calcule récursivement la médiane de ces médianes.
+    
+    \ithand On utilise cette valeur comme pivot pour partitionner $t$.
+\end{enumerate}
+
+\begin{enumerate}
+    \item Avant d’implémenter l’algorithme, voyons pourquoi ce choix de pivot va améliorer la complexité du calcul de la médiane dans le pire cas.
+    
+    \begin{enumerate}
+        \item Soit $p$ le pivot obtenu (la médiane des médianes). Montrer qu’au moins 30\% des éléments de $t$ sont inférieurs à $p$, et qu’au moins 30\% des éléments de $t$ sont supérieurs à $p$.
+        
+        \boxans{
+            On a disjoint les $n$ éléments de $t$ en $\sfrac{n}{5}$ groupes $m_i$ de 5, puis calculé leur médiane respective $p_i$. Pour un même groupe, la médiane est donc le troisième plus petit élément, ainsi a-t-on au moins trois éléments du groupe qui lui sont inférieurs ou égaux.\\[-10pt]
+            
+            De ces $\sfrac{n}{5}$ médianes $p_i$, on en retient la médiane des médianes $p$ : au moins la moitié des $p_i$ sont donc inférieurs ou égaux à $p$, ainsi $\sfrac{n}{10}$ groupes $m_i$ sont de médiane $p_i$ inférieure ou égale à $p$.\\[-10pt]
+            
+            Chacun de ces groupes incluant 3 éléments inférieurs ou égaux à $p_i$, c'est au total $\sfrac{3n}{10}$ éléments de $t$ qui sont donc inférieurs ou égaux à $p$, soit 30\%. Un argument symétrique donne 30\% d'éléments de $t$ supérieurs ou égaux à $p$.
+        }
+        
+        \item Dans le pire des cas, quelle sera alors la taille de la portion de $t$ où s’effectuera l’appel récursif ?
+        
+        \boxans{
+            Dans le pire des cas, la médiane est située le plus loin possible du milieu du tableau, et donc le plus proche possible du minimum (donc à 30\%) ou du maximum (donc à 70\%) partitionnant ainsi le tableau en deux parties de 30\% et 70\%. L'appel récursif se fait donc principalement sur une portion de 70\%.
+        }
+        
+        \item Notons $C(n)$ la complexité de l’algorithme \camlline{mediane} sur un tableau de taille $n$. Justifier que :
+        
+        \[ C(n) \leq C\left(\sfrac{1}{5}\cdot n\right) + C\left(\sfrac{7}{10}\cdot n\right) + \alpha\cdot n\]
+        
+        Avec $\alpha$ une constante qu’on n’essaiera pas d’exprimer. 
+        
+        \boxans{
+            L’algorithme \camlline{mediane} va regrouper les éléments de $t$ en groupes de $5$ éléments, et va calculer la médiane de chacun d'eux en pour chacun d'eux en un temps constant, d'où le $\alpha \cdot n$. On a montré précédemment que l'appel récursif se faisait dans le pire des cas sur une portion de 70\% de $t$, soit sur $\sfrac{7}{10} \cdot n$, d'où le $C\left(\sfrac{7}{10}\cdot n\right)$. Enfin, on va calculer récursivement la médiane des médianes des $\sfrac{1}{5}\cdot n$ groupes, d'où le $C\left(\sfrac{1}{5}\cdot n\right)$. Puisqu'il s'agit du pire des cas, on obtient bien généralement :
+            
+            \[ C(n) \leq C\left(\sfrac{1}{5}\cdot n\right) + C\left(\sfrac{7}{10}\cdot n\right) + \alpha\cdot n\]
+        }
+        
+        \item\label{question3:1d} Montrer que $\forall n \in \bdN, \qquad C(n) \leq 10\cdot \alpha\cdot n$.
+        
+        \boxans{
+            On pose $P(n) :\qquad C(n) \leq 10 \cdot \alpha \cdot n$. Le cas terminal $C(n = 1) = \alpha \leq 10 \cdot \alpha$ est évident, donc $P(1)$.
+            
+            Soit $n \in \bdN$ tel que $\forall k \in \llbracket 0, n \rrbracket$, $P(n)$ est vrai. On a $C(n) \leq C\left(\sfrac{1}{5}\cdot n\right) + C\left(\sfrac{7}{10}\cdot n\right) + \alpha\cdot n$, or :
+            
+            \[\left(\sfrac{1}{5}\cdot n\right) + C\left(\sfrac{7}{10}\cdot n\right) + \alpha\cdot n = 10\cdot\alpha\cdot\sfrac{1}{5}\cdot n + 10\cdot\alpha\cdot\sfrac{7}{10}\cdot n + \alpha\cdot n = \left(2 + 7 + 1\right)\cdot \alpha\cdot n = 10 \cdot \alpha \cdot n\]
+            
+            D'où $P(n) \implies P(n+1)$ est vrai. Par principe de récurrence, on a : $\forall n \in \bdN, \qquad C(n) \leq 10\cdot \alpha\cdot n$.
+        }
+    \end{enumerate}
+    
+    \item Écrire une fonction \camlline{partition5} de type \camlline{'a array -> int -> int -> int} qui cherche la médiane des éléments $t.(g)$, $t.(g+1)$, \dots, $t.(d)$, et renvoie l’indice où il se trouve (on aura le droit de modifier cette portion du tableau $t$ par effets de bords).\\[-10pt]
+    
+    \textbf{Indication :} en pratique, on n’utilisera cette fonction que si $0 \leq d - g \leq 5$, on ne se préoccupera donc pas de sa complexité asymptotique. On pourra par exemple trier la portion du tableau avec un algorithme de tri naïf (tri par sélection ou par insertion), et renvoyer l’indice du milieu de la portion.
+    
+    \begin{ocaml}
+let partition5 (t: 'a array) (g : int) (d : int) : int =
+    for i = g to d - 1 do
+        let x = t.(i) and j = ref i in while !j > 0 && t.(!j - 1) > x do
+            echange t (!j-1) !j;
+            decr j;
+        done;
+    done;
+    (g + d)/2;
+;;
+    \end{ocaml}
+    
+    \item On fournit le code des deux fonctions mutuellement récursives suivantes :
+    
+    \begin{ocaml}
+let rec pivot t g d = match d-g < 5 with
+    | true -> partition5 t g d
+    | false ->
+        let i = ref g in
+        while !i <= d do
+            let sd = min (!i+4) d in
+            let median5 = partition5 t !i sd in
+            let mi = g + (!i-g)/5 in
+            echange t median5 mi ;
+            i := !i + 5
+        done ;
+        let mid = g + (d-g)/10 + 1 in
+        let d' = g + (d-g)/5 in
+        select t g d' mid
+and select t g d k = match g = d with
+    | true -> g
+    | false ->
+        let ip = pivot t g d in
+        let p = t.(ip) in
+        let i_s, i_e = partition_en_3 t p g d in
+        match i_s = k || (i_s < k && k < i_e) with
+        | true -> k
+        | false when k < i_s -> select t g (i_s-1) k
+        | _ -> select t i_e d k
+;;
+    \end{ocaml}
+    
+    \begin{enumerate}
+        \item Quel est le type des fonctions \camlline{pivot} et \camlline{select} ?
+        
+        \boxans{
+        Respectivement, \camlline{int array -> int -> int -> int} et \camlline{int array -> int -> int -> int -> int}.
+        }
+        
+        \item Expliquer le rôle de chacune de ces fonctions vis-à-vis de l’algorithme de la médiane des médianes (sans prouver formellement leur correction).
+        
+        \boxans{
+            La fonction \camlline{pivot} segmente $t[g : d]$\footnote{$d$ semble ici être inclus, comme on le voit avec le \camlline{d - g < 5} ligne 1 et \camlline{!i - g} ligne 8. J'ai personellement travaillé avec $d$ exclu.} en $\sfrac{g-d}{5}$ groupes de 5 dont elle calcule la médiane individuelle avec la fonction \camlline{partition5}, tout en placant les médianes à la suite. Elle appelle ensuite \camlline{select} pour déterminer la médiane de cette séquence de médiane.
+            
+            La fonction \camlline{select} calcule justement la médiane d'une séquence $t[g : d]$ partitionnée selon la disjonction présentée à l'\ref{sec:2} et en se basant récursivement sur \camlline{pivot}.
+        }
+        
+        \item Quelle est la complexité de la fonction \camlline{select} dans le pire des cas ?
+        
+        \boxans{
+            La fonction \camlline{select} effectue exactement l'algorithme de la médiane des médiane décrit en introduction de l'exercice. En vertu du résultat de la question \enumref{question3:1d}, on a donc une complexité linéaire.
+        }
+    \end{enumerate}
+    
+    \item Écrire une fonction \camlline{selection_rapide} de type \camlline{'a array -> int -> 'a} qui prend en entrée un tableau $t$ et en entier $k$, et qui renvoie le $k$-ième plus petit élément du tableau $t$.
+    
+    \textbf{Attention :} on prendra garde à ne pas modifier $t$ par effets de bords.
+    
+    \begin{ocaml}
+let selection_rapide (t: 'a array) (k : int) : int =
+    let t' = Array.copy t in select t' 0 (Array.length t) k;
+;;
+    \end{ocaml}
+    
+    \item Écrire une fonction \camlline{tri_rapide2} de type \camlline{'a array -> unit} qui trie par effets de bords un tableau pris en entrée et ne renvoie rien. Votre algorithme devra reposer sur le tri rapide et choisir la médiane de la portion à trier comme pivot. Votre algorithme devra avoir une complexité en $\Theta(n \log n)$ dans le pire des cas.
+    
+    \begin{ocaml}
+let tri_rapide2 (t: 'a array) : unit =
+    let rec tri_rapide2_AUX (i : int) (j : int) = match j - i with
+        | x when x <= 1 -> ();
+        | _ -> let p = t.(selection_rapide t ((i+j)/2)) in
+            let is, ie = partition_en_3 t p i j in
+            tri_rapide2_AUX i is;
+            tri_rapide2_AUX ie j;
+    in tri_rapide2_AUX 0 (Array.length t);
+;;
+    \end{ocaml}
+
+\end{enumerate}
+
+
+\end{document}

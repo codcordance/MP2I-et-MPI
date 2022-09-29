@@ -1,0 +1,130 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+
+\begin{document}
+\stylizeDoc{Mathématiques}{Chapitre 22}{Séries numériques}
+
+\initcours{}
+
+On se donnera dans ce chapitre une suite $\suite{u_n} \in \bdK^\bdN$, où $\bdK$ est un corps tel $\bdR$ ou $\bdC$. L'objectif est alors de comprendre $\displaystyle\sum_{n \in \bdN} u_n$.
+
+\section{Notions autour des séries}
+
+\subsection{Séries}
+
+On commence tout d'abord par introduire la notion de somme partielle :
+
+\begin{definition}{Somme partielle}{}
+    Soit une suite $\suite{u_n} \in \bdK^\bdN$ et $n \in \bdN$. On appelle \hg{somme partielle de $\suite{u_n}$ d'ordre $n$} la \hg{somme des $n$ premiers termes de $\suite{u_n}$}, soit $\hg{\displaystyle \sum_{k=0}^n u_k}$.
+\end{definition}
+
+Pour une suite $\suite{u_n} \in \bdK^\bdN$, on remarque qu'on peut associer à chaque entier $n \in \bdN$ la somme partielle de $\suite{u_n}$ d'ordre $n$. On peut donc définir une suite des sommes partielles - qui est généralement notée $\suite{S_n} \in \bdK^\bdN$ - de telle sorte que :
+%
+\[ \forall n \in \bdN,\qquad S_n = \sum_{k=0}^n u_k\]
+%
+La somme partielle de $\suite{u_n}$ d'ordre $n$ est donc $S_n$. On définit alors la notion de série :
+
+\begin{definition}{Série}{}
+    Soit une suite $\suite{u_n} \in \bdK^\bdN$. On appelle \hg{série de terme général $\suite{u_n}$} la \hg{suite $\suite{S_n}$ des sommes partielles de $\suite{u_n}$}.
+\end{definition}
+
+La série de terme général $\suite{u_n} \in \bdK^\bdN$ est généralement notée $\serie u_n$ ou $\textstyle{\sum\limits_{n \geq 0} u_n}$, ou plus simplement $\textstyle{\sum u_n}$.
+
+\begin{definition}{Convergence et divergence d'une série}
+    Soit une suite $\suite{u_n} \in \bdK^\bdN$. La
+\end{definition}
+
+\begin{definition}{Somme d'une série}{}
+    Soit une suite $\suite{u_n} \in \bdK^\bdN$. Si la série $\serie u_n$ de terme général $\suite{u_n}$ est convergente, on appelle \hg{somme de la série $\serie u_n$ la limite de cette série} lorsque $n$ tends vers $+\infty$.
+\end{definition}
+
+Dans ce cas de convergence, 
+
+\begin{theorem}{Convergence des séries géométriques}{}
+    La série géométrique $\serie q^n$ est convergente si et seulement si $\mod{q} < 1$. Dans ce cas, la somme vaut $\displaystyle\sum_{k=0}^{+\infty} q^k = \dfrac{1}{1-q}$.
+\end{theorem}
+
+\subsection{Reste d'une série convergente}
+
+\begin{property}{Convergence d'une série de premier terme non nul}{}
+    Soit une suite $\suite{u_n} \in \bdK^\bdN$. Si la série $\serie u_n$ est convergente, alors pour tout entier $n_0 \in \bdN$ la série $\textstyle{\sum\limits_{n \geq n_0}} u_n$ convergence aussi.
+\end{property}
+
+\begin{nproof}
+    Soit une suite $\suite{u_n} \in \bdK^\bdN$, telle que la série $\serie u_n$ est convergente. La somme de cette série existe donc et vaut $S = \displaystyle\sum_{k=0}^{+\infty} u_k$. Soit $n_0 \in \bdN$ fixé, on retire les $n_0$ premiers termes de la somme, on a donc la quantité $S - \displaystyle\sum_{k=0}^{n_0 - 1} u_k$, qui est forcément finie. Or $S - \displaystyle\sum_{k=0}^{n_0 - 1} u_k = \displaystyle\sum_{k=n_0}^{+\infty} u_k$ donc la série $\textstyle{\sum\limits_{n \geq n_0}} u_n$ converge bien.
+\end{nproof}
+
+\subsection{Condition nécessaire de convergence}
+
+Une propriété qui vaut la peine d'être présentée mais qui peut entraîner certaines confusions est la condition \textbf{\color{main21} nécessaire} de convergence suivante. Il faut bien noter le caractère nécessaire et pas suffisant de la propriété : face à une première question telle que \textit{montrer que la série $\serie \dots$ est convergente}, elle est totalement inutile.
+
+\begin{property}{Condition nécessaire de convergence}{}
+    
+\end{property}
+
+\subsection{Série harmonique}
+
+On sait que la série harmonique $H_n = \sum\limits_{n \geq 1} \dfrac{1}{n}$ est divergente, et que $H_n \asymp{n \to +\infty} \ln n$.
+
+On étudie alors $u_n = H_n - \ln n$ pour obtenir une meilleure approximation.
+
+\section{Série absolument convergentes}
+
+\begin{definition}{Convergence absolue}
+    Soit une suite $u \in \bdK^\bdN$. On dit que $\serie u_n$ est \hg{absolument convergence} lorsque \hg{$\serie \mod{u_n}$ est convergente}.
+\end{definition}
+
+On remarquera que si $\suite{u_n} \in \left(\bdR_+\right)^\bdN$ (à termes tous positifs), alors convergence et convergence absolue sont identique. De plus si $\suite{u_n}$ est à terme tous négatifs, il suffit de considérer $\suite{-u_n}$ pour obtenir le cas symétrique. On peut alors se questionner sur le lien entre convergence absolue et convergence \guill{classique}. Par inégalité triangulaire, on obtiendra par exemple que :
+%
+\[ \mod{\sum_{n=0}^{+\infty} u_n} \leq \sum_{n=0}^{+\infty} \mod{u_n}\]
+%
+Mais ceci n'aide pas vraiment. Il se trouve en fait que la convergence absolue est \guill{plus forte} que la convergence, et l'entraîne donc, dans le théorème suivant :
+%
+\begin{theorem}{Convergence absolue implique convergence}{}
+    Soit une suite $\suite{u_n} \in \bdK^\bdN$. \hg{Si la série $\serie u_n$ est absolue convergente, alors elle est convergente}.
+\end{theorem}
+%
+\begin{nproof}
+    Soit une suite $\suite{u_n} \in \bdK^\bdN$. On traite séparement le cas réel puis complexe.
+    
+    \begin{enumerate}
+        \itt Dans le cas réel, \ie\ lorsque $\suite{u_n} \in \bdR^\bdN$. Si $\suite{u_n} \in \left(\bdR_+\right)^\bdN$, donc si tous les termes de $\suite{u_n}$ sont positifs, alors convergence absolue et convergence sont équivalentes. Sinon, il existe au moins un terme négatif. On pose alors les suites $\suite{{u_n}^+}$ et $\suite{{u_n}^-}$ telles que :
+        %
+        \[ \forall n \in \bdN,\qquad {u_n}^+ = \max{0, u_n} \quad\et\quad {u_n}^- = \max{0, -u_n}\]
+        %
+        On a alors pour tout entier $n \in \bdN$ que $u_n = {u_n}^+ - {u_n}^-$ et que $\left(\suite{{u_n}^+}, \suite{{u_n}^-}\right) \in \left(\bdR_+\right)^\bdN$. Or :
+        %
+        \[ \forall n \in \bdN,\qquad 0 \leq {u_n}^+ \leq \mod{u_n} \quad\et\quad 0 \leq {u_n}^- \leq \mod{u_n}\]
+        %
+        Or par hypothèse, la série $\serie \mod{u_n}$ converge. Par critères de comparaisons, les séries $\serie {u_n}^+$ et $\serie {u_n}^-$ convergent. Or par linéaire, $\serie u_n = \serie \left({u_n}^+ - {u_n}^-\right) = \serie {u_n}^+ - \serie {u_n}^-$ donc $\serie u_n$ converge.
+        
+        \itt Dans le cas complexe, \ie\ lorsque $\suite{u_n} \in \bdC^\bdN$, on considère les suites $\suite{\Re\left(u_n\right)}$ et $\suite{\Im\left(u_n\right)}$. Or pour tout entier naturel $n \in \bdN$, on a $u_n = \Re\left(u_n\right) + i\Im\left(u_n\right)$, ainsi que $0 \leq \mod{\Re\left(u_n\right)} \leq \mod{u_n}$ et $0 \leq \mod{\Im\left(u_n\right)} \leq \mod{u_n}$ donc par comparaison, les séries $\serie \mod{\Re\left(u_n\right)}$ et $\serie \mod{\Im\left(u_n\right)}$ convergent. 
+        
+        Par le point précédent, les séries $\serie \Re\left(u_n\right)$ et $\serie \Im\left(u_n\right)$ convergent, donc par linéarité, $\serie u_n$ convergence.
+    \end{enumerate}
+\end{nproof}
+%
+\begin{warning}{}{}
+    On fera attention au fait que le théorème ci-dessus n'est pas une équivalence, et la réciproque n'est pas vraie :
+    %
+    \[ \text{\bf{Même si la série $\serie u_n$ converge, on ne peut rien dire sur la nature de $\serie \mod{u_n}$ !}} \]
+    %
+    On donne ci-dessous un contre exemple d'une série convergente mais pas absolument convergente.
+    %
+    \tcblower
+    %
+    La série $\sum\limits_{n \geq 1} \dfrac{\left(-1\right)^n}{n}$ ne converge pas absolument (en valeur absolue elle vaut la série harmonique). On peut cependant montrer qu'elle converge. On étudie pour cela la suite des sommes partielles : Soit $n \in \bdN^*$, on a $S_n = \displaystyle\sum_{k=1}^n \dfrac{\left(-1\right)^k}{k}$. Une idée est d'utiliser $\dfrac{1}{k} = \displaystyle\int_0^1 x^{k-1}\; \dif x$. Ainsi $\displaystyle S_n = \sum_{k=1}^n \left(\left(-1\right)^k\times\int_0^1 x^{k-1}\; \dif x\right)$, soit
+    %
+    \begin{align*}
+        S_n &= \sum_{k=1}^n \left(\left(-1\right)^k\times\int_0^1 x^{k-1}\; \dif x\right) = \int_0^1 \left(\sum_{k=1}^n - \left(-x\right)^{k-1}\right)\dif x = \int_0^1 \left(- \dfrac{1-\left(-x\right)^n}{1-\left(-x\right)}\right)\dif x\\
+        &= \int_0^1 \dfrac{\left(-x\right)^n}{1+x}\dif x - \int_0^1 \dfrac{\dif x}{1 + x} = \left(-1\right)^n \underbrace{\int_0^1 \dfrac{x^n}{1+x}\dif x}_{I_n} - \left[\ln{1+x}\right]^1 = \left(-1\right)^nI_n - \ln{2}
+    \end{align*}
+    %
+    On peut calculer la limite de $I_n$ : Pour tout $x \in \left[0, 1\right]$, on a $0 \leq \dfrac{1}{1+x} \leq 1$ donc $0 \leq \dfrac{x^n}{1+x}$, donc par préservation de l'ordre par l'intégrale, $\displaystyle 0 \leq I_n \leq \int_0^1 x^n\; \dif x = \dfrac{1}{n+1}$. Par théorème d'encadrement, $I_n$ convergence vers $0$, et ainsi $S_n$ converge vers $-\ln 2$.
+    
+    On obtient donc bien la convergence de la série $\sum\limits_{n \geq 1} \dfrac{\left(-1\right)^n}{n}$, avec $\displaystyle\sum_{n=1}^{+\infty} \dfrac{\left(-1\right)^n}{n} = -\ln 2$.
+\end{warning}
+%
+
+
+\end{document}

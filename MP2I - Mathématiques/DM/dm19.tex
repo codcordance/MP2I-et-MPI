@@ -1,0 +1,541 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{booktabs}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans{}
+
+\renewcommand{\thesection}{Exercice \arabic{section}}
+\renewcommand{\thesubsection}{\Roman{subsection}}
+
+\begin{document}
+
+    \stylizeDoc{Mathématiques}{Devoir Maison 19}{Déterminant}
+
+    \section{Échauffement}
+    
+    Calculer les déterminants des matrices suivantes :
+    %
+    \[  A = \begin{pNiceMatrix}
+                1   &   2   &   3   \\
+                4   &   5   &   6   \\
+                7   &   8   &   9
+            \end{pNiceMatrix}
+        %
+        \qquad
+        %
+        B = \begin{pNiceMatrix}
+                1   &   4   &   \sfrac{-1}{3}       \\
+                2   &   5   &   \sfrac{1}{3}        \\
+                3   &   6   &   1
+            \end{pNiceMatrix}
+        %
+        \qquad
+        %
+        C = \begin{pNiceMatrix}
+                1   &   1   &   1   &   1   \\
+                1   &   -1  &   1   &   1   \\
+                1   &   1   &   -1  &   1   \\
+                1   &   1   &   1   &   -1
+            \end{pNiceMatrix}
+        %
+        \qquad
+        %
+        D = \begin{pNiceMatrix}
+                -1  &   2   &   1   &   3   \\
+                1   &   4   &   -1  &   5   \\
+                1   &   6   &   1   &   7   \\
+                1   &   8   &   -1  &   9
+            \end{pNiceMatrix}
+    \]
+    %
+    \indication{Pour les matrices $B$ et $C$ il est plus simple de ne pas développer le
+    déterminant, mais plutôt de travailler avec les colonnes.}
+    
+    \boxans{
+        \begin{enumerate}
+            \itt La colonne du milieu est la moyenne des deux autres donc $\det{A} = 0$.
+            
+            \itt On a $\det{B} = \dfrac{1}{3}\begin{vNiceMatrix}
+                1   &   4   &   -1       \\
+                2   &   5   &   1        \\
+                3   &   6   &   3
+            \end{vNiceMatrix} \eq{C_2 \leftarrow C_2 - 3C_1 + C_3}
+            \dfrac{1}{3}\begin{vNiceMatrix}
+                1   &   0   &   -1       \\
+                2   &   0   &   1        \\
+                3   &   0   &   3
+            \end{vNiceMatrix} = 0$.
+            
+            \itt $\det{C} \eq{\left\lbrace\substack{L_1 \leftarrow L_1 + L_4\\
+            L_2 \leftarrow L2 + L_4\\
+            L_3 \leftarrow L_3 + L_4}\right.} \begin{vNiceMatrix}
+                2   &   2   &   2   &   0       \\
+                2   &   0   &   2   &   0       \\
+                2   &   2   &   0   &   0       \\
+                1   &   1   &   1   &   -1
+            \end{vNiceMatrix} =
+            -\begin{vNiceMatrix}
+                2   &   2   &   2\\
+                2   &   0   &   2\\
+                2   &   2   &   0
+            \end{vNiceMatrix} =
+            -0\begin{vNiceMatrix}
+                2   &   2\\
+                2   &   0
+            \end{vNiceMatrix} +2\begin{vNiceMatrix}
+                2   &   2\\
+                2   &   2
+            \end{vNiceMatrix} -2\begin{vNiceMatrix}
+                2   &   2\\
+                0   &   2
+            \end{vNiceMatrix} = -8$.
+            
+            \itt $\det{D} \eq{C_4 \leftarrow C_4 - C_1 - C_4} \begin{vNiceMatrix}
+                -1  &   2   &   1   &   2   \\
+                1   &   4   &   -1  &   0   \\
+                1   &   6   &   1   &   0   \\
+                1   &   8   &   -1  &   0
+            \end{vNiceMatrix} \eq{\p{L_4 L_3 L_1}} \begin{vNiceMatrix}
+                1   &   6   &   1   &   0   \\
+                1   &   4   &   -1  &   0   \\
+                1   &   8   &   -1  &   0   \\
+                -1  &   2   &   1   &   2
+            \end{vNiceMatrix} \eq{C_1 \leftarrow C_1 + C_3} 2\begin{vNiceMatrix}
+                2   &   6   &   1   \\
+                0   &   4   &   -1  \\
+                0   &   8   &   -1  \\
+            \end{vNiceMatrix} = 16$.
+        \end{enumerate}
+    }
+    
+    \section{Diagonalisation d'une matrice}\label{sec:2}
+    
+    On considère la matrice suivante : \qquad $A =    \begin{pNiceMatrix}
+                                                        0   &   2   &   -1  \\
+                                                        3   &   -2  &   0   \\
+                                                        -2  &   2   &   1
+                                                    \end{pNiceMatrix}$
+    
+    \begin{enumerate}
+        \item On note $\chi_A$ le polynôme d'indéterminée $X$ suivant : \qquad $\chi_A = 
+        \det{XI_3 - A}$.
+        
+        Il est appelé \indef{polynôme caractéristique de la matrice $A$}.
+        Justifier qu'il s'agit d'un polynôme.
+        
+        \boxans{
+            On développe $\det{XI_3 - A} = \begin{vNiceMatrix}
+                X   &   -2   &   1  \\
+                -3   &   X+2  &   0   \\
+                2  &   -2   &   X-1
+            \end{vNiceMatrix}$ selon la première ligne :
+            %
+            \[\resizebox{\textwidth}{!}{$\chi_A = \det{XI_3 - A} = X\begin{vNiceMatrix}
+                X+2 &   0\\
+                -2   &   X-1\\
+            \end{vNiceMatrix} + 2\begin{vNiceMatrix}
+                -3 &   0\\
+                2   &   X-1\\
+            \end{vNiceMatrix} + 1\begin{vNiceMatrix}
+                -3 &   X+2\\
+                2   &   -2\\
+            \end{vNiceMatrix} = X\p{X+2}\p{X-1} -6\p{X-1} + 6 - 2\p{X+2}$} \]
+            %
+            En développant, on a $\chi_A = X^3 + X^2 - 10X + 8$, donc on a bien $\chi_A \in
+            \bdR\left[X\right]$ un polynôme.
+        }
+        
+        \item Calculer $\chi_A$ et donner ses racines $\lambda_1$, $\lambda_2$ et $\lambda_3$.
+        Ces racines sont les \indef{valeurs propres de la matrice $A$}.
+        
+        \boxans{
+            \begin{align*}
+                \chi_A &= X\p{X+2}\p{X-1} -6\p{X-1} + 6 - 2\p{X+2} = X\p{X+2}\p{X-1} -6\p{X-1} - 2\p{X-1}\\
+                &= \p{X-1}\p{X\p{X+2} - 8} =
+                \p{X-1}\p{X^2 + 2X - 8} = \p{X-1}\p{X-2}\p{X+4}
+            \end{align*}
+            %
+            Donc $\chi_A$ a pour racines $\lambda_1 = 1$, $\lambda_2 = 2$ et $\lambda_3 = -4$.
+        }
+        
+        \item\label{question:2.3} Montrer que $\lambda$ est racine de $\chi_A$ si et seulement si l'ensemble 
+        $\ens{Y \in \bcM_{3,1}\p{\bdR} \; \middle\vert \; AY = \lambda Y}$ n'est pas réduit au vecteur nul.
+        
+        \boxans{
+            \begin{enumerate}
+                \itt $\boxed{\implies}$ Supposons que $\ens{Y \in \bcM_{3,1}\p{\bdR} \; \middle\vert \; AY = \lambda Y} = \Ker\p{\lambda I_3 - A}$ est réduit au vecteur nul.
+                
+                Le noyau de l'endomorphisme canoniquement associé à la matrice $\lambda I_3 - A$ est donc de noyau réduit à l'élément neutre, en vertu de quoi ce morphisme est injectif, et donc bijectif (dimension finie). Par suite, la matrice $\lambda I_3 - A$ est inversible. On a ainsi $\chi_A\p{\lambda} = \det{\lambda I_3 - A} \neq 0$, donc $\lambda$ n'est pas racine de $\chi_A$.
+                
+                \itt $\boxed{\impliedby}$ Supposons que $\ens{Y \in \bcM_{3,1}\p{\bdR} \; \middle\vert \; AY = \lambda Y}$ n'est pas réduit au vecteur nul. Ceci livre l'existence d'un vecteur colonne $Y \in \bcM_{3,1}\p{\bdR}$, non nul ($Y \neq 0$) et tel que $AY = \lambda Y$, donc tel que $\p{\lambda I_3 - A}Y = 0$.
+                
+                La matrice ${\lambda I_3 - A}$ n'est pas inversible - fut-ce le cas, on obtiendrait $Y = 0$ en multipliant à gauche par son inverse dans $\p{\lambda I_3 - A}Y = 0$. Dès lors, $\chi_A\p{\lambda} = \det{{\lambda I_3 - A}} = 0$, donc $\lambda$ est racine de $\chi_A$.
+            \end{enumerate}
+        }
+        
+        \item Pour chaque $\lambda_i$ avec $i \in \iint{1, 3}$, donner un vecteur
+        $u_i$ non nul tel que $Au_i = \lambda_i u_i$.
+        $u_i$ est un \indef{vecteur propre associé à la valeur propre $\lambda_i$}. 
+        
+        \boxans{
+            On remarque que $\begin{pNiceMatrix}
+                0   &   2   &   -1  \\
+                3   &   -2  &   0   \\
+                -2  &   2   &   1
+            \end{pNiceMatrix}\begin{pNiceMatrix}
+                1 \\
+                1 \\
+                1
+            \end{pNiceMatrix} = \begin{pNiceMatrix}
+                1 \\
+                1 \\
+                1
+            \end{pNiceMatrix}$, on pose donc $u_1 = \begin{pNiceMatrix}
+                1 \\
+                1 \\
+                1
+            \end{pNiceMatrix}$. Soient $\p{x, y, z} \in \bdR^3$, on a :
+            %
+            \[\begin{pNiceMatrix}
+                0   &   2   &   -1  \\
+                3   &   -2  &   0   \\
+                -2  &   2   &   1
+            \end{pNiceMatrix}\begin{pNiceMatrix}
+                x \\
+                y \\
+                z
+            \end{pNiceMatrix} = \begin{pNiceMatrix}
+                2x \\
+                2y \\
+                2z
+            \end{pNiceMatrix} \iff \left\lbrace\begin{array}{rl}
+                2y - z &= 2x  \\
+                3x - 2y &= 2y \\
+                -2x + 2y + z &= 2z
+            \end{array}\right. \iff \exists k \in \bdR^*,\qquad \left\lbrace\begin{array}{rl}
+                x &= 4k  \\
+                y &= 3k \\
+                z &= -2k
+            \end{array}\right.\]
+            %
+            On pose donc $u_2 = \begin{pNiceMatrix}
+                4 \\
+                3 \\
+                2
+            \end{pNiceMatrix}$. Considérons de nouveau $\p{x, y, z} \in \bdR^3$, on a :
+            %
+            \[\begin{pNiceMatrix}
+                0   &   2   &   -1  \\
+                3   &   -2  &   0   \\
+                -2  &   2   &   1
+            \end{pNiceMatrix}\begin{pNiceMatrix}
+                x \\
+                y \\
+                z
+            \end{pNiceMatrix} = \begin{pNiceMatrix}
+                -4x \\
+                -4y \\
+                -4z
+            \end{pNiceMatrix} \iff \left\lbrace\begin{array}{rl}
+                2y - z &= -4x  \\
+                3x - 2y &= -4y \\
+                -2x + 2y + z &= -4z
+            \end{array}\right. \iff \exists k \in \bdR^*,\qquad \left\lbrace\begin{array}{rl}
+                x &= 2k  \\
+                y &= -3k \\
+                z &= 2k
+            \end{array}\right.\]
+            %
+            On pose donc $u_3 = \begin{pNiceMatrix}
+                2 \\
+                -3 \\
+                2
+            \end{pNiceMatrix}$. On a bien $Au_1 = \lambda_1u_1$, $Au_2 = \lambda_2u_2$ et $Au_3 = \lambda_3u_3$.
+        }
+        
+        \item On pose $P =  \begin{pNiceArray}{c|c|c}
+                                    &       &       \\
+                                u_1 &   u_2 &   u_3 \\
+                                    &       &       
+                            \end{pNiceArray}$.
+        %
+        Vérifier que $P$ est inversible puis, sans calcul, donner 
+        $P\diag{\lambda_1, \lambda_2, \lambda_3}P^{-1}$.
+        
+        \boxans{
+            Pour les valeurs choisies, on a $P = \begin{pNiceMatrix}
+                1   &   4   &   2   \\
+                5   &   3   &   -3  \\
+                -2  &   2   &   1   \\
+            \end{pNiceMatrix}$. Par pivot de \textsc{Gauss}, on obtient l'inversibilité de $P$ avec
+            $P^{-1} = \dfrac{1}{10}\begin{pNiceMatrix}
+                -12   &   4   &   18   \\
+                5   &   0   &   -5  \\
+                1  &   -2   &   1   \\
+            \end{pNiceMatrix}$.  Par ailleurs, $Au_i = \lambda_1u_1$, $Au_2 = \lambda_2u_2$ et $Au_3 = \lambda_3u_3$ donc :
+            %
+            \[ AP = A \begin{pNiceArray}{c|c|c}
+                                    &       &       \\
+                                u_1 &   u_2 &   u_3 \\
+                                    &       &       
+                            \end{pNiceArray} =  \begin{pNiceArray}{c|c|c}
+                                    &       &       \\
+                                \lambda_1 u_1 & \lambda_2 u_2 & \lambda_3 u_3 \\
+                                    &       &       
+                            \end{pNiceArray}
+            = P\diag{\lambda_1, \lambda_2, \lambda_3} \qquad\text{d'où}\qquad A =
+            P\diag{\lambda_1, \lambda_2, \lambda_3}P^{-1}\]
+        }
+        
+    \end{enumerate}
+    
+    \addcontentsline{toc}{section}{Problème}
+    \section*{Problème}
+    
+    \subsection{Introduction}
+    
+    On considère dans cet exercice une matrice $M \in \GL_n\left(\bdR\right)$, inversible,
+    réelle et de dimension $n \in \bdN^*$.
+    
+    On note $\p{m_{i, j}}_{\p{i, j} \in \iint{1, n}^2}$ ses coefficients.
+    
+    \begin{enumerate}
+        \item\label{question:p.1.1} Soit $B = \mtrans{M}M$. Justifier que les coefficients diagonaux $b_{i, i}$
+        de $B$ sont strictement positifs.
+        
+        \boxans{
+            Soit $i \in \iint{1, n}$. On a :
+            %
+            \[b_{i, i} = \intc{B}_{i, i} = \intc{\mtrans{M}M}_{i, i} = \sum_{j=1}^n \intc{\mtrans{M}}_{i, j}\intc{M}_{j, i} =
+            \sum_{j=1}^n \intc{M}_{j, i}\intc{M}_{j, i} = \sum_{j=1}^n \intc{M}_{j, i}^2\]
+            %
+            Donc chaque coefficient diagonal de $B$ vaut la somme des carrés des coefficients de sa colonne, soit une somme
+            de termes positifs ou nuls, donc le coefficient diagonal en question est positif.
+            \medskip
+            %
+            Par ailleurs la matrice est inversible, ainsi une colonne ne peut pas être entièrement constituée de coefficients
+            tous nuls. Ainsi, les coefficients de la matrice B sont strictement positifs.
+        }
+    \end{enumerate}
+    
+    Pour des réels $\p{x_i}_{i \in \iint{1, n}} \in \p{\bdR^*}^n$ donnés tous non nuls,
+    on considère la matrice diagonale $U$ dont les coefficients diagonaux sont les
+    $\p{x_i}_{i \in \iint{1, n}}$ :
+    %
+    \[ U = \diag{\p{x_i}_{i \in \iint{1, n}}} = \diag{x_1, \dots, x_n} = 
+        \begin{pNiceMatrix}
+            x_1     &   0       &   \Cdots  &   0       \\
+            0       &   \Ddots  &   \Ddots  &   \Vdots  \\
+            \Vdots  &           &   \Ddots  &   0       \\
+            0       &   \Cdots  &   0       & x_n
+            \CodeAfter \line{2-1}{4-3}
+        \end{pNiceMatrix}
+    \]
+    %
+    On notera de plus $C = UBU$.
+    
+    \begin{enumerate}[resume]
+        \item Montrer que $\det{C} > 0$.
+        
+        \boxans{
+            On a $\det{C} = \det{UBU} = \det{U}\det{\mtrans{M}M}\det{U} = \det{U}^2\det{\mtrans{M}}\det{M} =
+            \det{U}^2\det{M}^2 \geq 0$.
+            
+            Or $M$ est inversible donc $\det{M} \neq 0$. De plus $U$ est diagonale et de coefficients diagonaux non nuls,
+            donc est elle aussi inversible, d'où $\det{U} \neq 0$. On a donc bien $\det{C} > 0$.
+        }
+        
+        \item Calculez $\Tr{C}$ en fonction des $\p{x_i}_{i \in \iint{1, n}}$ et des
+        $\p{b_{i, i}}_{i \in \iint{1, n}}$.
+        
+        \boxans{
+            On a $\Tr{C} = \Tr{UBU} = \Tr{U^2 B}$. Or $U^2 = 
+        \begin{pNiceMatrix}
+            {x_1}^2     &   0       &   \Cdots  &   0       \\
+            0       &   \Ddots  &   \Ddots  &   \Vdots  \\
+            \Vdots  &           &   \Ddots  &   0       \\
+            0       &   \Cdots  &   0       & {x_n}^2
+            \CodeAfter \line{2-1}{4-3}
+        \end{pNiceMatrix}$, donc :
+        %
+        \[ \Tr{C} = \sum_{i=1}^n \intc{U^2B}_{i, i} = \sum_{i=1}^n \sum_{j=1}^n \intc{C^2}_{i, j}\intc{B}_{j_i} =
+        \sum_{i=1}^n \sum_{j=1}^n \delta_{i, j}x_{i}^2\intc{B}_{j, i} = \sum_{i=1}^n x_i^2 b_{i, i}\]
+        }
+        
+        \item En déduire que, si pour $i \in
+        \iint{1, n}$ on pose $x_i = \dfrac{1}{\sqrt{b_{i, i}}}$, alors $\Tr{C} = n$.
+        
+        \boxans{
+        Si $x_i = \dfrac{1}{\sqrt{b_{i, i}}}$, alors $\Tr{C} = \displaystyle \sum_{i=1}^n \p{\dfrac{1}{\sqrt{b_{i, i}}}}^2 b_{i, i} = \sum_{i=1}^n \dfrac{b_{i, i}}{b_{i, i}} \sum_{i=1}^n 1 = n$.
+        }
+    \end{enumerate}
+    
+    Pour la suite on pose donc $U = \diag{\p{\dfrac{1}{\sqrt{b_{i, i}}}}_{i \in \iint{1, n}}}$
+    et $C = U\mtrans{M}MU$.
+    
+    \subsection{Polynôme caractéristique}
+    
+    On rappelle la définition du polynôme caractéristique d’une matrice $A$ : \qquad $\chi_A = 
+    \det{XI_n - A}$.
+    
+    Le but de cette partie est d'étudier les liens entres les racines de ce polynôme, ses coefficients et la matrice $A$.
+        
+    On notera $\chi_C = X^n + c_{n-1}X^{n-1} + \dots + c_0$ le polynôme caractéristique de la matrice $C$ précédente.
+    
+    \begin{enumerate}
+        \item Montrer que $\Tr{C} = -c_{n-1}$.
+        
+        \boxans{
+            On a $\chi_C = \displaystyle \det{XI_n - C} = \sum_{\sigma \in \bfS_n} \epsilon\p{\sigma} \prod_{i = 1}^n \intc{XI_n - C}_{\sigma\p{i}, i} = \sum_{\sigma \in \bfS_n} \epsilon\p{\sigma} \prod_{i = 1}^n \p{X\delta_{\sigma\p{i}, i} - \intc{C}_{\sigma\p{i}, i}}$. Le degré du polynôme $\displaystyle \prod_{i = 1}^n \p{X\delta_{\sigma\p{i}, i} - \intc{C}_{\sigma\p{i}, i}}$ est déterminé par le nombre de fois où $X$ apparaît, soit le nombre de fois où $\delta_{\sigma\p{i}, i} = 1$, soit le nombre de point fixes de $\sigma$. À l'exception de $\Id$, qui n'en a $n$, toute permutation au plus $n-2$ points fixes. La composante en $X^{n-1}$ de $\chi_C$ est donc déterminée par $\Id$ :
+            %
+            \[ \chi_C = \epsilon\p{\Id}\prod_{i=1}^n \p{X\delta_{\Id\p{i}, i} - \intc{C}_{\Id\p{i}, i}} + \underbrace{\sum_{\sigma \in \bfS_n\backslash \ens{\Id}} \epsilon\p{\sigma}\dots}_{\in \bdR_{n-2}\intc{X}} = \prod_{i=1}^n \p{X - \intc{C}_{i, i}} + \dots = X^n - \p{\sum_{i=1}^n \intc{C}_{i, i}}X^{n-1} + \dots\]
+            %
+            On obtient bien $c_{n-1} = - \displaystyle \sum_{i=1}^n = \intc{C}_{i, i} = -\Tr{C}$.
+        }
+        
+        \item Montrer que $\det{C} = \p{-1}^n c_0$.
+        
+        \boxans{
+            On a $\chi_C\p{0} = 0^n + c_{n-1}0^{n-1} + \dots + c_0 = c_0$. Or $\chi_C\p{0} = \det{0I_n - C} = \det{- C} = \p{-1}^n\det{C}$.
+            
+            On obtient bien $\det{C} = \p{-1}^n c_0$.
+        }
+    \end{enumerate}
+    
+    Un polynôme étant toujours scindé sur $\bdC$, on peut considérer les racines complexes $\p{\lambda_i}_{i \in \iint{1, n}}$ de $\chi_C$.
+    
+    \begin{enumerate}[resume]
+        \item Exprimer $\Tr{C}$ en fonction des $\p{\lambda_i}_{i \in \iint{1, n}}$.
+        
+        \boxans{
+            Par les relations coefficients-racines, le coefficient $c_{n-1} = -\displaystyle \sum_{i=1}^n \lambda_i$. On a donc $\Tr{C} = \displaystyle \sum_{i=1}^n \lambda_i$.
+        }
+        
+        \item Exprimer $\det{C}$ en fonction des $\p{\lambda_i}_{i \in \iint{1, n}}$ et de $n$.
+        
+        \boxans{
+            Par les relations coefficients-racines, le coefficient $c_0 = \p{-1}^n\displaystyle \prod_{i=1}^n \lambda_i$. On a donc $\det{C} = \displaystyle  \prod_{i=1}^n \lambda_i$.
+        }
+        
+        \item On considère maintenant une racine $\lambda$ de $\chi_C$. Justifier l'existence d'un vecteur $Y$ non nul de $\bdC^n$ tel que $CY = \lambda Y$.
+        
+        \boxans{
+            D'après l'argument de la \enumref{question:2.3} question de l'\textbf{\sffamily \ref{sec:2}}, puisque $\lambda$ est racine de $\chi_C$ l'ensemble $\ens{Y \in \bcM_{n, 1}\p{\bdC} \simeq \bdC^n \; \middle\vert \; CY = \lambda Y}$ n'est pas vide, donc il existe bien un vecteur $Y  \in \bdC^n$ tel que $CY = \lambda Y$.
+        }
+        
+        \item On note $\norm{Y} = \sqrt{\mtrans{\; \overline Y}Y}$. On admettra qu'il s'agit d'une norme. Montrer que $\norm{MUY}^2 = \lambda \norm{Y}^2$.
+        
+        \boxans{
+            $U$ est diagonale et de coefficients réels donc $\mtrans{\; \overline{U}} = U$. $M$ est de coefficients réels donc $\overline{M} = M$. On a donc :
+            %
+            \[ \norm{MUY}^2 = \mtrans{\overline{MUY}}MUY = \mtrans{\; \overline{Y}}\mtrans{\; \overline{U}}\mtrans{\; \overline{M}}MUY = \mtrans{\; \overline{Y}}U\mtrans{M}MUY = \mtrans{\; \overline{Y}}CY = \mtrans{\; \overline{Y}}\lambda Y =  \lambda \norm{Y}^2\]
+        }
+        
+        \item En déduire que les racines de $\chi_C$ sont réelles et même strictement positives.
+        %
+        \boxans{
+            Par produit de matrices non nulles, $MUY$ est non nul. On a donc $\norm{MUY}^2 \in \bdRp$ et $\norm{Y} \in \bdRp$. Donc $\lambda \in \bdRp$. Les racines de $\chi_C$ sont donc réelles et strictement positives.
+        }
+    \end{enumerate}
+    
+    \subsection{Majoration du déterminant}
+    
+    On rappelle que la matrice $M$ est inversible réelle. On pose $c$ un réel tel que pour tout $\p{i, j} \in \iint{1, n}^2$, $\mod{m_{i, j}} < c$.
+    
+    Le but va être de majorer le déterminant de $C = U\mtrans{M}MU$.
+    
+    \begin{enumerate}
+        \item Justifier l'inégalité $\displaystyle \ln{\sum_{i=1}^n \dfrac{\lambda_i}{n}} \geq \sum_{i=1}^n \dfrac{1}{n}\ln{\lambda_i}$ où les $\p{\lambda_i}_{i \in \iint{1, n}}$ sont les racines de $\chi_C$ (donc strictement positives).
+        
+        \boxans{
+            Par concavité de $\ln$ sur $\bdRp$, et en vertu de l'inégalité de \textsc{Jensen}, on obtient directement le résultat escompté.
+        }
+        
+        \item En déduire que $\det{C} \leq 1$.
+        
+        \boxans{
+            On a $\det{C} = \displaystyle \prod_{i=1}^n \lambda_i$ donc $\ln{\det C} = \displaystyle\ln{\prod_{i=1}^n \lambda_i} = \sum_{i=1}^n \ln{\lambda_i} \leq n\ln{\sum_{i=1}^n \dfrac{\lambda_i}{n}}= \ln{\p{\dfrac{1}{n}\sum_{i=1}^n \lambda_i}^n}$.
+            
+            On a donc $\det{C} \leq \p{\dfrac{\Tr{C}}{n}}^n = 1^n = 1$ donc $\det{C} \leq 1$.
+        }
+        
+        \item Démontrer la majoration suivante : \qquad $\mod{\det{M}} \leq n^{\sfrac{n}{2}}c^n$.
+        %
+        \boxans{
+            On a $\det{C} = \det{U\mtrans{M}MU} = \det{U}^2\det{M}^2$ donc $\det{M^2} = \dfrac{\det{C}}{\det{U}^2}$. D'après le résultat précédent, on a donc $\det{M}^2 \leq \dfrac{1}{\det{U}^2}$ donc $\mod{\det{M}} \leq \dfrac{1}{\mod{\det{U}}}$. Or $U$ est diagonale donc :
+            %
+            \[ \det{U} = \prod_{i=1}^n \intc{U}_{i, i} = \prod_{i=1}^n x_i = \prod_{i=1}^n \dfrac{1}{\sqrt{b_{i, i}}} \qquad\text{donc}\qquad \mod{\det{M}} \leq \prod_{i=1}^n \sqrt{b_{i, i}}\]
+            %
+            Or à la question \enumref{question:p.1.1} on a montré que pour tout $i \in \iint{1, n}$, on avait $b_{i, i} = \displaystyle \sum_{j=1}^n \intc{M}^2_{j, i}$ donc $b_{i, i} \leq nc^{2}$.
+            %
+            On a donc finalement $\displaystyle \mod{\det{M}} \leq \prod_{i=1}^n \sqrt{nc^{2}} = \sqrt{n^n}c^n = n^{\sfrac{n}{2}}c^n$.
+        }
+        
+        \item Qu'en est-il lorsque $M$ est non inversible ?
+        
+        \boxans{
+            lorsque $M$ est non inversible, on a $\det{M} = 0$ et donc $\det{C} = 0$.
+        }
+
+    \end{enumerate}
+    
+    \section{Diagonalisation d'une matrice $\mathsf{2n \times 2n}$ [Facultatif]}
+    
+    Soit $\p{a, b} \in \bdR^2$ tels que $\mod{a} \neq \mod{b}$. On considère la matrice carré de taille $2n$ suivante :\qquad $A = \begin{pNiceMatrix}
+                a   &   b   &   a   &   b   &   \Cdots   \\
+                b   &   a   &   b   &   a   &   \Cdots   \\
+                a   &   b   &   a   &   b   &   \Cdots  \\
+                b   &   a   &   b   &   a   &   \Cdots  \\
+                \Vdots  &   \Vdots  &   \Vdots  &   \Vdots  &   \ddots
+            \end{pNiceMatrix}_{\intc{2n}}$
+            
+    \begin{enumerate}
+        \item Calculer le rang de $A$. En déduire la dimension de l’espace solution de $AX = 0$ pour $n > 1$.
+        
+        On appelle cet espace le \indef{sous-espace propre associé à la valeur propre $0$}.
+        
+        \boxans{
+            Par égalité des colonnes, on se ramène à à $\rg{A} = \rg \begin{pNiceMatrix}
+                a   &   b \\
+                b   &   a  \\
+                a   &   b \\
+                b   &   a \\
+                \Vdots  &   \Vdots
+            \end{pNiceMatrix} = 2$. Donc par \textit{théorème du rang}, on obtient $2n = 2 + \dim\p{\Ker A}$. On a donc $\dim{\ens{X \in \bcM_{2n, 1}\p{\bdR} \; \middle\vert \; AX + 0}} = 2n - 2 = 2\p{n-1}$.
+        }
+        
+        \item Déterminer deux vecteurs $u$ et $v$ tels qu'il existe deux réels $\lambda_u$ et $\lambda_v$ non nuls et distincts tels que $u$ (resp. $v$) est un \indef{vecteur propre} associé à la \indef{valeur propre} $\lambda_u$ (resp. $\lambda_v$).
+        
+        \indication{Utiliser la structure de la matrice. Par exemple, les sommes des coefficients sur chaque ligne sont égales\dots}
+        
+        \boxans{
+            On pose $U = \begin{pNiceMatrix}
+                1   \\
+                1   \\
+                1   \\
+                1\\
+                \Vdots  \\
+                1
+            \end{pNiceMatrix} \in \bcM_{2n, 1}\p{\bdR}$ et $V = \begin{pNiceMatrix}
+                1   \\
+                -1   \\
+                1   \\
+                -1 \\
+                \Vdots  \\
+                -1
+            \end{pNiceMatrix} \in \bcM_{2n, 1}\p{\bdR}$. On obtient alors $\left\lbrace\begin{array}{ccc}AU &=& n\p{a+b}U\\
+            AV &=& n\p{a-b}V\end{array}\right.$, donc $U$ est un vecteur propre associé à la valeur propre $\lambda_U = n\p{a+b}U$ et $V$ est un vecteur propre associé à la valeur propre $\lambda_V = n\p{a-b}$.
+        }
+        
+        \item Sachant que les \indef{sous-espaces propres} sont en somme directe, quelle est la dimension de l'espace engendré par l'ensemble des \indef{vecteurs propres} ? 
+        
+        \boxans{
+            On a deux vecteurs propres distincts, donc la dimension de l'espace engendré par l'ensemble des vectreurs propres est égale à $2$.
+        }
+    \end{enumerate}
+    
+    On conclut que $A$ est alors \indef{diagonalisable}, c’est-à-dire que $A$ est semblable à la matrice diagonale $\diag{\lambda_u, \lambda_v, 0, \dots, 0}$. Ce résultat sur la dimension des \indef{sous-espaces propres} est une condition nécessaire et suffisante à la diagonalisabilité d’une matrice.
+    
+\end{document}

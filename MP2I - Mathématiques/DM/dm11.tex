@@ -1,0 +1,218 @@
+\documentclass[a4paper,french,bookmarks]{article}
+\usepackage{./Structure/4PE18TEXTB}
+        
+\begin{document}
+\stylizeDoc{Mathématiques}{Devoir Maison 11}{Théorème de Lamé}
+
+\section*{Problème: Théorème de Lamé}
+Le problème est consacré au nombre d’itérations de l’algorithme d’Euclide. 
+
+On se fixe deux entiers non nuls $(a, b) \in \left(\bdN^*\right)^2$ tels que $a > b$ et on note $\bsN(a, b)$ le nombre de divisions euclidiennes nécessaires pour calculer $\pgcd(a,b)$ par l'algorithme d'Euclide, en considérant que celui-ci s'arrête lorsqu'il apparaît un reste nul. L’objectif est de prouver le résultat suivant, dû à Lamé. 
+
+\begin{theorem*}{(Lamé)}{}
+Soit $(a, b) \in \left(\bdN^*\right)^2$ tels que $a > b$.
+\begin{enumerate}
+    \ithand $\bsN(a, b)$ est inférieur ou égal à $5$ fois le nombre de chiffres servant à écrire $b$.
+    \ithand Précisément, en notant $\varphi = \frac{1+\sqrt{5}}{2}$ le nombre d'or, on a $\bsN(a, b) \leq 1+\left\lfloor \dfrac{\ln b}{\ln \varphi}\right\rfloor$.
+    \ithand Enfin, si $a$ et $b$ sont deux entiers consécutifs de la suite de Fibonacci, alors il y a égalité dans l’inégalité précédente.
+\end{enumerate}
+\end{theorem*}
+
+\subsection*{Partie I. Exemples}
+\begin{enumerate}
+    \item Calculer $\bsN(29, 8)$, $\bsN(55, 34)$ et $\bsN(157, 97)$.
+    \boxans{
+    \begin{multicols}{3}
+    On a $a = 29$ et $b = 8$.
+    \begin{align*}
+        29 &= 8\times3 + 5\\
+        8 &= 5\times1 + 3\\
+        5 &= 3\times1 + 2\\
+        3 &= 2\times1 + 1\\
+        2 &= 1\times2 +\boxed{0}
+    \end{align*}
+    Donc \boxsol{$\bsN(29, 8) = 5$.}
+    
+    On a $a = 55$ et $b = 34$.
+    \begin{align*}
+        55 &= 34\times1 + 21\\
+        34 &= 21\times1 + 13\\
+        21 &= 13\times1 + 8\\
+        13 &= 8\times1 + 5\\
+        8 &= 5\times1 + 3\\
+        5 &= 3\times1 + 2\\
+        3 &= 2\times1 + 1\\
+        2 &= 1\times2 +\boxed{0}
+    \end{align*}
+    Donc \boxsol{$\bsN(55, 34) = 8$.}
+    
+    On a $a = 157$ et $b = 97$.
+    \begin{align*}
+        157 &= 97\times1 + 60\\
+        97 &= 60\times1 + 37\\
+        60 &= 37\times1 + 23\\
+        37 &= 23\times1 + 14\\
+        23 &= 14\times1 + 9\\
+        14 &= 9\times1 + 5\\
+        9 &= 5\times1 + 4\\
+        5 &= 4\times1 + 1\\
+        4 &= 1\times4 + \boxed{0}
+    \end{align*}
+    Donc \boxsol{$\bsN(157, 97) = 9$.}
+    \end{multicols}
+    }
+    
+    \item Vérifier la première inégalité de Lamé sur les exemples précédents.
+    
+    \boxans{
+        \begin{multicols}{2}
+        \begin{enumerate}
+            \itarr $1 + \left\lfloor \dfrac{\ln 8}{\ln \varphi}\right\rfloor = 5$ et $\bsN(29, 8) = 5 \leq 5$.
+            \itarr $1 + \left\lfloor \dfrac{\ln 34}{\ln \varphi}\right\rfloor = 8$ et $\bsN(55, 34) = 8 \leq 8$.
+            \itarr $1 + \left\lfloor \dfrac{\ln 97}{\ln \varphi}\right\rfloor = 10$ et $\bsN(157, 97) = 9 \leq 10$.
+        \end{enumerate}
+        
+        \underline{La première inégalité de Lamé est donc vérifiée sur les } \underline{exemples précédents}.
+        \end{multicols}
+    }
+\end{enumerate}
+
+\subsection*{Partie II. Suite de Fibonacci} 
+La suite $\suite{f_n}$ de Fibonacci est définie par $f_0 = f_1 = 1$ et pour tout $n \in \bdN$, $f_{n+2} = f_{n+1} + f_n$.
+\begin{enumerate}[resume]
+    \item Montrer que pour tout entier $n \in \bdN$, $f_n$ est strictement positif.
+    \boxans{
+    Le résultat s'obtient directement avec une récurrence d'ordre 2. En supposant deux rangs successifs strictement positifs, on obtient que le suivant l'est aussi par stabilité de $\bdN^*$ sous l'addition.
+    }
+    
+    \item Montrer que pour tout entier $n \in \bdN^*$, $f_{n+1} > f_n$.
+    
+    \boxans{
+    \[ \forall n \in \bdN^*,\ f_{n+1} - f_n = f_{n-1} > 0 \qquad \text{donc} \qquad \boxsol{$\forall n \in \bdN^*$, $f_{n+1} > f_n$}\]
+    }
+    
+    \item Montrer que pour tout entier $n \in \bdN^*$, $f_n$ est le reste de la division euclidienne de $f_{n+2}$ par $f_{n+1}$.
+    
+    \boxans{
+    Soit $n \in \bdN^*$, on a $f_{n+2} = f_{n+1}\times1 + f_n$ et $0 \leq f_n < f_{n+1}$. Le résultat vient par définition.
+    }
+    
+    \item Pour tout $n \in \bdN^*$, donner la valeur de $\pgcd(f_{n+1}, f_n)$, puis celle de $\bsN(f_{n+1}, f_n)$.
+    
+    \boxans{
+    Soit $n \in \bdN^*$. On a montré que la division euclidienne de $f_{n+1}$ est $f_{n+1} = f_{n}\times1 + f_{n-1}$.
+    
+    Le lemme d'Euclide livre alors $\pgcd(f_{n+1}, f_n) = \pgcd(f_n, f_{n-1})$. Par récurrence simple, on montre donc que $\pgcd(f_{n+1}, f_n) = \pgcd(f_1, f_0) = \pgcd(1, 1)$ donc \boxsol{$\forall n \in \bdN^*$, $\pgcd(f_{n+1}, f_n) = 1$.}\newline
+    
+    Chaque rang rajoute par ailleurs une division euclidienne et donc une itération, où $\pgcd(f_1, f_0)$ est le cas terminal de l'algorithme ($f_1 = f_0\times1 + \boxed{0}$). On a donc \boxsol{$\forall n \in \bdN^*$, $\bsN(f_{n+1}, f_n) = n$.}
+    }
+    
+    \item Montrer que $\varphi^2 = 1 + \varphi$, puis montrer que pour tout $n \geq 2$, \quad $\varphi^n > f_n > \varphi^{n-1}$.
+    
+    \boxans{
+    On a \boxsoll{$\varphi^2$} $ = \left(\dfrac{1+\sqrt{5}}{2}\right)^2 = \dfrac{1}{4}\left(1+2\sqrt{5}+5\right)=\dfrac{3}{2}+\dfrac{\sqrt{5}}{2} = 1 + \dfrac{1+\sqrt{5}}{2}$ \boxsolr{$= 1 + \varphi$}.
+    
+    Pour $n \in \bdN$, $n \geq 2$, on pose $P(n): \ \varphi^n > f_n > \varphi^{n-1}$.\qquad\qquad\quad  On a $f_2 = 2$, donc on a bien $\varphi^2 > f_2 > \varphi$. On a également $f_3 = 3$ donc $\varphi^3 = > f_3 > \varphi^2$. Donc $P(2)$ et $P(3)$ sont vrai.
+    
+    Soit $n \in \bdN$, $n \geq 2$ tel que $P(n)$ et $P(n+1)$ sont vrai. 
+    Alors $\varphi^n > f_n > \varphi^{n-1}$ et $\varphi^{n+1} > f_{n+1} > \varphi^{n}$.
+    \[\varphi^{n}\left(1+\varphi\right) > f_{n+1} + f_n > \varphi^{n-1}\left(1+\varphi\right) \qquad \text{donc} \qquad \varphi^{n+2} > f_{n+2} > \varphi^{n-1}\]
+    Donc $P(n+2)$ est vrai. Ainsi, $P(2)$ et $P(3)$ sont vrai et [$P(n)$ et $P(n+1)$] $\implies P(n+2)$ donc par principe de récurrence,
+    \boxsol{$\forall n \in \bdN$, $n \geq 2$, $\qquad \varphi^n > f_n > \varphi^{n-1}$}.
+    }
+    
+    \item Montrer que si $a$ et $b$ sont deux termes consécutifs de la suite de Fibonacci, alors il y a égalité dans la seconde inégalité de Lamé.
+    
+    \boxans{
+    On a $f_1 = 1$ donc $\ln(f_1) = 0$ donc $1 + \left\lfloor \dfrac{\ln f_1}{\ln 1}\right\rfloor = 1$. De plus $\bsN(f_2, f_1) = 1$ donc on a égalité pour le cas $n = 1$. Le cas $n = 0$ n'est lui pas à considérer puisque $a = b$. Soit $n \in \bdN$, $n \geq 2$ tel que $a = f_{n+1}$ et $b = f_n$. On a montré que $\bsN(a, b) = \bsN(f_{n+1}, f_n) = n$. De plus 
+    
+    \[\varphi^{n-1} < f_n < \varphi^n \ \text{donc} \ \ln{\varphi^{n-1}} < \ln{f_n} < \ln{\varphi^n} \ \text{donc} \ (n-1)\dfrac{\ln{\varphi}}{\ln{\varphi}} < \dfrac{\ln{b}}{\ln{\varphi}} < n\dfrac{\ln{\varphi}}{\ln{\varphi}}\]
+    Donc $n-1 < \dfrac{\ln b}{\ln \varphi} < n$. Par définition de la partie entière, on a $\left\lfloor \dfrac{\ln b}{\ln \varphi}\right\rfloor = n - 1$. Donc on a bien $1 + \left\lfloor \dfrac{\ln b}{\ln \varphi}\right\rfloor = n$.
+    Donc \boxsol{on a bien égalité dans la seconde inégalité de Lamé}. Soit encore :
+    \[\boxsol{$\forall (a,b) \in (\bdN^*)^2,\ a > b,\quad \exists n \in \bdN,\quad a = f_{n+1} \ \text{et} \ b = f_n \implies \bsN(a, b) = 1 + \left\lfloor \dfrac{\ln b}{\ln 1}\right\rfloor$}\]
+    }
+
+    \item  S’il y a égalité dans la seconde inégalité de Lamé, peut-on dire que $a$ et $b$ sont deux termes consécutifs de la suite de Fibonacci ?
+
+    \boxans{
+    Soit $n \in \bdN$, $n \geq 2$. On a $\pgcd(n, 1) = 1$ en une étape de l'algorithme d'Euclide car $n = 1\times n + \boxed{0}$ donc $\bsN(n, 1) = 1$. De plus $\ln(1) = 1$ donc $1 + \left\lfloor \dfrac{\ln 1}{\ln 1}\right\rfloor = 1 = \bsN(n, 1)$ donc on a bien égalité. Pour autant, $1$ et $n$ ne sont généralement pas deux termes consécutifs de la suite de Fibonacci donc 
+    \[\boxsol{$\forall (a,b) \in (\bdN^*)^2,\ a > b,\quad \bsN(a, b) = 1 + \left\lfloor \dfrac{\ln b}{\ln 1}\right\rfloor \centernot\implies \exists n \in \bdN,\quad a = f_{n+1} \ \text{et} \ b = f_n$}\]
+    }
+\end{enumerate}
+
+\subsection*{Partie III. Les inégalités du théorème}
+
+On suppose que l’algorithme d’Euclide pour déterminer le $\pgcd$ de $a$ et $b$ comporte exactement $n$ étapes, avec $n \geq 2$.
+On pose $a = r_0$ et $b = r_1$, puis on déroule l'algorithme d'Euclide :
+\begin{align*}
+    \qquad\qquad\qquad\qquad&& r_0 &= r_1q_1 + r_2 &&\qquad&\text{avec} && 0 < r_2 &< r_1 &&\qquad\qquad\qquad\qquad\\
+    && r_1 &= r_2q_2 + r_3&& &\text{avec} &&  0 < r_3 &< r_2&&\\
+    &&  &\vdots &&  &&   &\vdots&&\\
+    &&r_{n-2} &= r_{n-1}q_{n-1} + r_n && &\text{avec} && 0 < r_n &< r_{n-1}\\
+    &&r_{n-1} &= r_nq_n + \boxed{0}
+\end{align*}
+
+\begin{enumerate}
+    \item  Montrer que tous les quotients $q_k$ sont strictement positifs et que $q_n \geq 2$.
+    
+    \boxans{
+    On a $0 < r_n < r_{n-1}$ donc $r_n \neq r_{n-1}$. Donc $q_n \neq 0$ et $q_n \neq 1$ (sinon on aurait $r_n = r_{n-1}$). Donc \boxsol{$q_n \geq 2$.}
+    
+    On a $r_{k-1}$, $r_k$ et $r_{k+1}$ strictement positifs donc puisque $r_{k-1} = r_kq_k + r_{k+1}$ on a \boxsol{$q_k$ strictement positif.}
+    }
+    
+    \item Montrer que $r_n \geq f_1$ et $r_{n-1} \geq f_2$, puis montrer que pour $k \in \llbracket 0, n\rrbracket$, $r_{n-k} \geq f_{k+1}$.
+    
+    \boxans{
+        On a $f_1 = 1$. Or $0 < r_n$ donc $1 \leq r_n$, donc \boxsol{$r_n \geq f_1$}. 
+        
+        De plus $f_2 = 2$, or $r_{n-1} > r_n$ donc $r_{n-1} > 1$ donc $r_{n-1} \geq 2$ donc \boxsol{$r_{n-1} \geq f_2$}.
+        
+        Pour $k \in \llbracket 0, n\rrbracket$, on pose $P(k): \ r_{n-k} \geq f_{k+1}$. On a montré ci-dessus $P(0)$ et $P(1)$.
+        
+        Soit $k \in \llbracket0, n-1\rrbracket$ tel que $P(k)$ et $P(k+1)$ sont vrai. Alors $r_{n-k} > f_{k+1}$ et $r_{n-k-1} > f_{k+2}$.
+        
+        De plus, $r_{n-k-2} = r_{n-k-1}q_{n-k-1} + r_{n-k}$ avec $q_{n-k-1} \geq 1$ donc $r_{n-k-2} \geq f_{k+1} + f_{k} = f_{k+2}$ donc $P(k+2)$ est vrai.
+        Par principe de récurrence, \boxsol{$\forall k \in \llbracket 0, n\rrbracket$, $r_{n-k} \geq f_{k+1}$.}
+        
+    }
+    
+    \item En déduire que $b > \varphi^{n-1}$.
+    
+    \boxans{
+    On a $b = r_1 = r_{n-(n-1)} \geq f_{n-1+1} = f_n$. Or $f_n > \varphi^{n-1}$ donc \boxsol{$r_1 > \varphi^{n-1}$}.
+    }
+    
+    \item En déduire la seconde inégalité du théorème de Lamé.
+    
+    \boxans{
+    On a $b > \varphi^{n-1}$ donc $\dfrac{\ln b}{\ln \varphi} > (n-1)\dfrac{\ln \varphi}{\ln \varphi} = n-1$ donc $1 + \left\lfloor \dfrac{\ln b}{\ln \varphi}\right\rfloor \geq 1 + (n-1) = n = \bsN(a,b)$. 
+    
+    Donc \boxsol{on a bien la seconde inégalité du théorème de Lamé}.
+    }
+    
+    \item Vérifier que $\ln \varphi > \dfrac{1}{5}\ln{10}$.
+    
+    \boxans{
+    On a $\varphi^5 = \dfrac{1}{2}(11+5\sqrt{5})$. Or $\sqrt{5} > 2$ donc $11 + 5\sqrt{5} > 21$ donc $\varphi^5 > 10$.
+    Donc \boxsol{$\ln\varphi > \dfrac{1}{5}\ln{10}$}.
+    }
+    
+    \item Montrer que si $b$ s’écrit avec $k$ chiffres, alors $b < 10^k$.
+    
+    \boxans{
+    Soit $b \in \bdN$ s'écrivant avec $k \in \bdN^*$ chiffres en base décimale, donc pour $i \in \llbracket0; k-1\rrbracket$ on a $\lambda_i \in \llbracket0; 9\rrbracket$ tel que 
+    \[ \exists (\lambda_i)_{i \in \llbracket0; k-1\rrbracket} \in \llbracket0; 9\rrbracket^k,\ b = \sum_{i=0}^{k-1} \lambda_i\times10^i \qquad\qquad \text{donc} \ b \leq \sum_{i=0}^{k-1} 9\times10^i \overset{\text{géom.}}{=} 9\times\dfrac{10^k-1}{10-1} = 10^k - 1 \]
+    Donc $b \leq 10^k-1$ d'où \boxsol{$b < 10^k$}.
+    }
+    
+    \item En déduire la première inégalité du théorème de Lamé.
+    
+    \boxans{
+    On reprend les $b \in \bdN$ et $k \in \bdN^*$ précédents. On a $\bsN(a, b) \leq 1 + \left\lfloor\dfrac{\ln b}{\ln \varphi}\right\rfloor \leq 1 + \left\lfloor\dfrac{\ln{10^k}}{\frac{1}{5}\ln{10}}\right\rfloor$.
+    
+    Donc $\bsN(a, b) \leq 1 + \left\lfloor5k\right\rfloor$ soit \boxsol{$\bsN(a, b) \eq 5k$}.
+    }
+\end{enumerate}
+
+\end{document}
