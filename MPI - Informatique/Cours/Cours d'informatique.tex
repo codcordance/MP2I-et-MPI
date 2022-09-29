@@ -71,7 +71,7 @@
     %==============================
     
     \title{Cours d'Informatique de MPI/MPI* (2022-2023)}
-    \author{SIAHAAN--GENSOLLEN Rémy}
+    \author{SIAHAAN--GENSOLLEN Rémy, Rayan Drissi}
     \date{\today}
     \hypersetup{
         pdftitle={Cours d'Informatique de MPI/MPI* (2022-2023)},
@@ -155,25 +155,38 @@
     % PREMIERE DE COUVERTURE
     %==============================
 
-    %\includepdf[pages={1},scale=1.15,offset=0mm -18mm]{CICover.pdf}
+    \includepdf[pages={1},scale=1.15,offset=0mm -18mm]{CICover.pdf}
     
     %==============================
     % PAGE VIDE
     %==============================
     
-    %\pagestyle{empty}
+    \pagestyle{empty}
     
     %==============================
     % PAGE DE COUVERTURE INTERNE
     %==============================
     
-
+    \begin{titlepage}
+	    \begin{center}
+	        {\scshape SIAHAAN--GENSOLLEN Rémy \newline avec l'aide de Rayan Drissi \par}
+	        \vspace{2cm}
+	        {\huge\sffamily Cours d'\par}
+	        \vspace{0.5cm}
+	        {\Huge\bfseries\sffamily INFORMATIQUE\par}
+	        \vspace{1cm}
+	        {\Large\textit{donné pendant mon année de \textsf{MPI/MPI*} à
+	        Janson-de-Sailly}\\[5pt]\texttt{(2022-2023)}\par}
+	        \vfill
+	        {\large\EBGaramond Dernière compilation le \today\par}
+        \end{center}
+    \end{titlepage}
     
     %==============================
     % PAGE VIDE
     %==============================
     
-    %\pagestyle{empty}\text{}\newpage
+    \pagestyle{empty}\text{}\newpage
     
     %==============================
     % STYLE DES EN-TÊTES ET PIEDS DE PAGES
@@ -354,29 +367,176 @@
             \item Si \(v \in \left(\bcL_1\cap\bcL_1\right)\backslash\ens{\varepsilon}\) alors \(v = a_i \hdots a_n\) avec \(a_1 \in Fi_1 \cap Fi_2\) et \(a_n \in \bcL a_1 \cap \bcL a_2\) et \(\forall i, a_i a_{i+1} \in Fa_1 \cap Fa_2\)
 
             Et réciproquement, tout mot vérifiant ces trois propriétés est dans les langages car ils sont locaux. donc en posant \(Fi = Fi_1 \cap Fi_2\), \(La = La_1 \cap La_2\) et ainsi de suite on a go 
-            \[ \left(\bcL_1\cap \bcL_2 \right) \backslash \ens{\varepsilon} = \left(Fi\Simgma^{\alpha} \cap \Sigma^{\alpha} \bcL a\right) \backslash \Sigma^{\alpha} NFa \Sigma^*\]
+            \[ \left(\bcL_1\cap \bcL_2 \right) \backslash \ens{\varepsilon} = \left(Fi\Sigma^{\alpha} \cap \Sigma^{\alpha} \bcL a\right) \backslash \Sigma^{\alpha} NFa \Sigma^*\]
 
             On vérifie facilement que les nouveaux ensembles sont les caractéristiques de \(\bcL=\bcl_1\cup\bcL_2\)
             
             Donc $L \backslash \ens{\varepsilon} \subseteq \quad (F_i \Sigma^* \cap \Sigma^* $
 
-            \item Réciproquement  si \(v\in \bcL\backslash\ens{\varepsilon}\), alors
-            % je peux pas lire le bout du tableau là deso
-
+            \item Réciproquement  si \(v\in \bcL\backslash\ens{\varepsilon}\), alors :
+            %
+            $v = a_1\dots a_n$ et si $a_1 \in F_{i_1}$, donc $a_1 \in \Sigma_1$.
             
-        %c'est quoi psse ???????????????
-        % c'était au dessus donc moi je copie, j'y peux rien 
-        %si tes commandes on pas de sens
-        % 
+            Donc $a_1a_2 \in F_{a_1}$ (car $\Sigma_1 \cap \Sigma_2 \neq \emptyset$).
+            
+            Donc $a_2 \in \Sigma_1$, \dots
+            
+            On montre de proche en proche (car $\Sigma_1 \cap \Sigma_2 \neq \emptyset$) que $v \in \Sigma_1^\star$ et que pour tout $i \in \iint{1, n-1}$, $a_ia_{i+1} \in F_{a_1}$. De plus, $a_1 \in \bcL_\epsilon  = \bcL_{a_1} \cup \bcL_{a_2}$.
+            
+            Or $a_n \in \Sigma_1$ donc $a_n \in \bcL_{a_1}$. Donc $v \in \bcL_1$ (car $\bcL_1$ est local) d'où $v \in \bcL$.
+            
+            Si $a_1 \in F_{i_2}$, on montre de manière similaire que $v \in \bcL_2$, donc que $v \in \bcL$. Au final, $\bcL' \backslash \ens{\epsilon} \subseteq \bcL \backslash \ens{\epsilon}$, et donc $\bcL$ est un langage local.
+            
+            \item Notons $\bcL = \bcL_1 \cdot \bcL_2$. Les ensembles caractéristiques de $\bcL$ sont $\bcF_i = \left\lbrace \begin{array}{ll}
+                \bcF_{i_1} &\text{si} \ \epsilon \not\in \bcL_1  \\
+                \bcF_{i_1} \cup \bcF_{i_2} &\text{sinon} 
+            \end{array}\right.$ et $\bcL_a = \left\lbrace \begin{array}{ll}
+                \bcL_{a_2} &\text{si} \ \epsilon \not\in \bcL_2  \\
+                \bcL_{a_1} \cup F_{a_2} &\text{sinon} 
+            \end{array}\right.$.
+            
+            On a $\bcF_a = \bcF_{a_1} \cup \bcF_{a_2} \cup \p{\bcL_{a_1} \cdot \bcF_{i_2}}$ donc on a bien $\bcL \backslash \ens{\epsilon} \subseteq \underbrace{\p{\bcF_i \Sigma^\star \cap \Sigma^\star L_a} \backslash \Sigma^\star NF_\alpha \Sigma^\star}_{\bcL'}$.
+            
+            Soit $v \in \bcL' \backslash \ens{\epsilon}$. On a $v = a_1 \dots a_n$, et :
+            %
+            Si $a_1 \in \bcF_{i_2}$, alors $\epsilon \in \bcL_1$. Comme $\Sigma_1 \cap \Sigma_2 \neq \emptyset$, on montre, comme dans le cas précédent de proche en proche, que $v \in \Sigma_2^\star$ et que pour tout $i \in \iint{1, n-1}$ on a $a_ia_{i+1} \in \bcF_{a_2}$ et $a_n \in \bcL_{a_2}$. Ainsi, $v \in \bcL_2$ car le langage est local.
+            
+            Or $\epsilon \in \bcL_1$ donc $v \in \bcL = \bcL_1 \cdot \bcL_2$.
+            
+            Si $a_1 \in F_{i_1}$, soit $a_1 \dots a_p$ le plus long préfixe de $v$ dans $\Sigma_1^\star$. On a:
+            \begin{enumerate}
+                \itt $a_1$ \in $\bcF_{i_1}$ ;
+                
+                \itt $\forall i \ in [|1, p-1|] a_i a_{i+1} \in F_{a1} $%va y 
+                
+                \itt montrons que $a_p \in \bcL_{a_1}$ : si $p = n$, on a $a_p \in \bcL_a \cap \Sigma_1 = \bcL_{a_1}$ et forcément $\epsilon \in $ ....
+
+                Donc $v= \underbrace{a_1 \dots a_p}_{\in \bcL_1} \underbrace{a_{a+1} \dots a_n}_{\in \bcL_2} \in L_1 \cdot L_2$, d'où $L_1\cdot L_2$ est local.
+                
+            \end{enumerate}     
+            
+            \item Notons $\bcL = \bcL_1^\star$. On a $\bcF_i = \bcF_{i_1}$, $\bcL_a = \bcL_{a_1}$ et $\bcF_a = \bcF_{a_1} \cup \p{\bcL_{a_1} \cdot \bcF_{i_1}}$.
+                
+            On a bien $\bcL \backslash \ens{\epsilon} \subseteq L'$.
+                
+                Soit $v \in L' \backslash \ens{epsilon} $
+                %il effacer le tableau
+
         \end{psse}
     \end{nproof}
     
     
     \begin{property}{}{}
-        Soient \hg{$\Sigma$} un \hg{alphabet} et $r$ une expression régulière sur $\Sigma$.
+        Soient \hg{$\Sigma$} un \hg{alphabet} et \hg{$r$} une \hg{expression régulière} sur $\Sigma$.
         %
         \[ \hg{\text{Si} \ r \ \text{est linéaire, alors} \ \bcL\p{r} \ \text{est local.}} \]
     \end{property}
     
+    \begin{nproof}
+        Soient $\Sigma$ un alphabet et $r$ une expression régulière sur $\Sigma$.
+        %
+        \begin{enumerate}
+            \itt Si \(r = \emptyset : \bcL(r) = \emptyset\) est bien local
+            \itt Si \(r= \epsilon : \bcL(\epsilon) = \ens{\epsilon}\) est bien local
+            \itt Si \(r=a, \bcL(a) = \ens{a}\) est bien local
+
+            \itt Si \(r = r_1 \mid r_2\) avec par hypothèse d'induction \(r_1\) et \(r_2\) locaux, comme \(r\) est linéaire on a que \(r_1\) et \(r_2\) sont distincts donc par lemme(2) \(\bcL(r) = \bcL(r_1)\cup\bcL(r_2)\)
+
+            \itt Si \(r = r_1 \cdot r_2\) par hypothèse d'induction \(\bcL(r_1)\) et \(\bcL(r_2)\) sont locaux et par linéarité de \(r\) les deux alphabets sont distincts donc \(\bcl(r_1\cdot r_2) = \bcL(r_1) \cdot \bcL(r_2)\) par lemme (3) donc le langage est local.
+
+            \itt Si \(r = r_1^*\) par hypothèse d'induction \(\bcL(r_1)\) est local et par lemme (4) \(\bcL(r_1^*) = \bcL(r_1)^*\) est local.
+        \end{enumerate}
+    \end{nproof}
     
+    \begin{definition}{Linéarisation}
+        Si r est une expression régulière sur $\Sigma$ on peut le transformer en une 
+        expression régulière linéaire linéaire sur $\Sigma'$ avec le processus suivant
+        \begin{enumerate}
+            \itast On initialise \(\Sigma' = \emptyset\)
+            \itast On lit \(r\) de gauche à droite 
+            \itast Si \(a\in\Sigma\) est la \(i\)-ème lettre de \(r\) on la remplace par une lettre notée \(a_i\) qui ajoute \(a\) dans \(\Sigma'\)
+        \end{enumerate}
+    \end{definition}
+    
+    \begin{example}{}{}
+        Considérons l'expression régulière \hg{$r$} sur l'alphabet $\hg{\Sigma = \ens{a, b}}$ suivante :
+        %
+        \[ \hg{r = a\p{ab}^\star \vert b^\star a}\]
+        %
+        On \hg{linéarise $r$ en l'expression $r'$} sur $\hg{\Sigma' = \ens{a_1a_2b_3b_4a_5}}$ :
+        %
+        \[ \hg{r' = a_1\p{a_2b_3}^\star \vert b^4a_5 } \]
+    \end{example}
+    
+    \begin{form}{Algorithme de Berry-Sethi}{}
+        Soient \hg{$\Sigma$} un \hg{alphabet} et $r$ une \hg{expression régulière} sur $\Sigma$. L'\hg{algorithme de \textsc{Berry-Sethi}} consiste à :
+        
+        \begin{psse}
+            \item \hg{linéariser $r$} en \hg{$r'$} ;
+            
+            \item \hg{calculer $\First{\bcL\p{r'}}$}, \hg{$\Last{\bcL\p{r'}}$} et \hg{$\Fact{\bcL\p{r'}}$} ;
+            
+            \item \hg{construire $\bcA = \Loc{\bcL\p{r'}}$} ;
+            
+            \item \hg{effacer} les \hg{indices des symboles} dans les \hg{transitions de $\bcA$}.
+        \end{psse}
+    \end{form}
+    
+    \begin{notation}
+        Si \hg{$\bcA = \left( Q,\Sigma',q_0,F,\delta'\right)$} on obtient d'après l'étape \pssenum{iv} : 
+        %
+        \[ \hg{f\p{\bcA} = \p{Q,\Sigma,q_0,F,\delta}} \qquad\text{où}\qquad \forall \p{q, a_i} \in \mathrm{dom}{\delta'},\qquad \delta\p{q,f(a_i)} = \delta'\p{q,a_i}\]
+    \end{notation}
+    
+    \begin{theorem}{}{}
+        Soit $r$ une expression régulière sur $\Sigma$. A la fin de l'algorithme de \textsc{Berry-Sethi}, on obtient un automate $f\p{\bcA}$ tel que $\bcL\p{r} = \bcL\p{f\p{\bcA}}$.
+    \end{theorem}
+    
+    \begin{nproof}
+        D'après les résultats précédents, $r'$ est linéaire, donc $\bcL\p{r'}$ est local, doc $\bcA = \Loc\p{\bcL\p{r'}}$ vérifie $\bcL\p{\bcA} = \bcL\p{r'}$, avec $f\p{r'} = r$. Montrons que $\bcL\p{f\p{A}} = \bcL\p{r}$ par double inclusion.
+
+        \begin{enumerate}
+            \itt $\boxed{\supseteq}$ Soit $u \in \bcL\p{r}$. Si $u \in \bcL\p{r'}$, alors $\epsilon \in \bcL\p{r'}$, donc $\epsilon \in \bcL\p{\bcA}$. Dès lors, $q_0 \in \bcF$, d'où $\epsilon \in \bcL\p{\bcF\p{A}}$.
+            
+            Sinon, on a $u = u_1\dots u_n$, et donc il existe $u' \in \bcL\p{r'}$ tel que $u = f\p{u'}$. Ici $u' \in \bcL\p{\bcA}$, donc il existe un chemin dans $\bcA$ : \qquad $q_0 \xrightarrow{u_1'} q_1 \xrightarrow{u_2'} q_2 \dots \xrightarrow{u_n'} q_n \in F$. Ainsi 
+            %
+            \[ q_0 \xrightarrow{f\p{u_1'}} q_1 \xrightarrow{f\p{u_2'}} q_2 \dots \xrightarrow{f\p{u_n'}} q_n \in F \qquad \text{est un chemin dans} \ f\p{A}\]
+            %
+            Donc le chemin : \qquad $q_0 \xrightarrow{f\p{u_1}} q_1 \xrightarrow{f\p{u_2}} \dots \xrightarrow{f\p{u_n}} q_n$ est un chemin acceptant $u$ dans $f\p{\bcA}$, donc $u \in \bcL\p{f\p{\bcA}}$.
+            
+            \itt $\boxed{\subseteq}$ Soit $u \in \bcL\p{f\p{\bcA}}$, si $u = \epsilon$, alors $\epsilon \in \bcL\p{f\p{\bcA}}$, donc $q_0 \in \bcF$, donc $\epsilon \in \bcL\p{\bcA} = \bcL\p{r'}$ d'où $\epsilon \in \bcL\p{r}$.
+            
+            Sinon, $u = u_1 \dots u_n$, ainsi il existe un chemin dans $f\p{\bcA}$ :
+            %
+            \[ q_0 \xrightarrow{f\p{u_1}} q_1 \dots \xrightarrow{f\p{u_2}} q_2 \dots \xrightarrow{f\p{u_n}} u_n \in F\]
+            %
+            Pour $i \in \iint{1, n}$, la transition $q_{i-1} \xrightarrow{f\p{u_i}} q_i$ de $f\p{\bcA}$ correspond à une transition $q_{i-1} \xrightarrow{u_i} q_i$ de $\bcA$ avec $f\p{u_i'} = u_i$, donc :
+            %
+            \[ q_0 \xrightarrow{f\p{u_1'}} q_1 \xrightarrow{f\p{u_2'}} q_2 \dots \xrightarrow{f\p{u_n'}} q_n \in F\]
+            %
+            est un chemin acceptant $u' = u_1'\dots u_n'$ dans $\bcA$, donc $u' \in \bcL\p{\bcA} = \bcL\p{r'}$, et ainsi $u = f\p{u'} = \bcL\p{f\p{r'}} = \bcL\p{r}$.
+        \end{enumerate}
+    \end{nproof}
+    
+    \begin{example}{}{}
+        Reprenons l'expression régulière $r$ sur l'alphabet $\hg{\Sigma = \ens{a, b}}$ précédente ($\hg{r = a\p{ab}^\star \vert b^\star a}$), qu'on avait linéarisée sur $\hg{\Sigma' = \ens{a_1a_2b_3b_4a_5}}$ en :
+        %
+        \[ \hg{r' = a_1\p{a_2b_3}^\star \vert b^4a_5 } \]
+        %
+        On obtient alors :
+        %
+        \begin{enumerate}
+            \itt $\hg{\First{\bcL\p{r'}} = \ens{a_1, b_4, a_5}}$ ;
+            
+            \itt $\hg{\Last{\bcL\p{r'}} = \ens{a_1, b_3, a_5}}$ ;
+            
+            \itt $\hg{\Fact{\bcL\p{r'}} = \ens{a_1a_2, a_2b_3, b_3a_2, b_4a_5, b_4b_4}}$ ;
+        \end{enumerate}
+        %
+        Ceci permet d'obtenir l'automate de $r$ :
+        %
+        \begin{center}
+            DESSIN
+        \end{center}
+    \end{example}
 \end{document}

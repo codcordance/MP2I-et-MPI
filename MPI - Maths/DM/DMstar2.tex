@@ -385,13 +385,17 @@
         \noafter
         %
         \boxans{
-            On a $R_f\p{a_1, a_2} = Q_f\p{a_1, a_2} = \dfrac{f\p{a_1} - f\p{a_2}}{a_1 - a_2}$. Pour que la fonction soit définie sur $\bdR^2$, il faut donc que si $a_1 = a_2$ on ait $f\p{a_1} = f\p{a_2}$.
+            Supposons $f$ de classe $\bcC^{k+1}$. On a $R_f\p{x, y} = Q_f\p{x, y} = \dfrac{f\p{x} - f\p{y}}{x - y}$. Sans perte d'information, c'est équivalent à $R_f\p{x+h, x} = \dfrac{f\p{x+h} - f\p{x}}{h}$. Il est évident que $R_f$ est continue sur son intervalle de définition, reste donc le cas où $h$ tends vers $0$ (\ie $x = y$). Par définition, on prolonge alors en $R_f\p{x, x} = f'\p{x}$. Par ailleurs
+            %
+            \[ \dfrac{\partial}{\partial x}R_f\p{x, y} = \dfrac{f'\p{x}}{x-y} - \dfrac{f\p{x} - f\p{y}}{\p{x - y}^2} \qquad\text{donc on prolonge}\qquad \dfrac{\partial}{\partial x}R_f\p{x, x} = \lim\limits_{h \to 0} \dfrac{f'(x) - f'\p{x+h}}{h} = f''\p{x}\]
+            %
+            Par récurrence, on montre de même que les seuls problème de définitions pour les $k$ premières dérivées par rapport à $x$ de $R_f$ surviennent lorsque $x = y$, et qu'on prolonge $R_f^{\p{i}}\p{x, x} = f^{\p{i+1}}\p{x}$ pour $i \in \iint{i, k}$. Par symétrie entre $x$ et $y$ (on montre que $R_f\p{x, y} = R_f\p{y, x}$), il en va de même pour les dérivées par rapport à $y$.
         }
         %
         \nobefore\yesafter
         %
         \boxansconc{
-        
+            $f$ de classe $\bcC^{k+1}$ est une condition suffisante pour que $\bcR_f$ se prolonge en une fonction de classe $\bcC^k$ sur $\bdR^2$.
         }
         %
     \end{enumerate}
@@ -403,6 +407,9 @@
     \[ r = \p{\sum_{i=1}^n \p{r_i + 1}} - 1\]
     %
     On note $G$ l'espace vectoriel des fonctions polynômes à une variable, à coefficients réels, de degré au plus $r$.
+    
+    \newpage
+    {\color{main3}\textbf{\sffamily N.B. :} \textit{Du à un manque de temps, ne figurent aux questions ci-dessous que des ébauches de réponse.}}
     
     \begin{enumerate}[resume]
         \item On se propose d'étudier les familles de polynômes $P_{i, j}$ avec $i \in \iint{1, n}$ et $j \in \iint{0, r_i}$ vérifiant :
@@ -432,15 +439,111 @@
             
             \item Montrer qu'une telle famille $\p{P_{i, j}}$, si elle existe, est une base de $G$.
             
-            \boxans{
-            
+            \boxansconc{
+                Par rigidité, tout polynôme $P$ de $G$ est déterminé par la donnée des $\p{P^{\p{k}}\p{a_\ell}}_{\ell \times k \in \iint{1, n}\times \iint{0, r_\ell}}$. Or chaque $P_{i, j}$ vaut $1$ pour exactement une de ces valeurs, d'où le caractère générateur des $\p{P_{i, j}}$. Or $\dim G = r$, et $\p{P_{i, j}}$ contient exactement $r$ vecteurs, d'où $\p{P_{i, j}}$ est une base.
             }
             
             \item Démontrer l'existence d'une telle famille $\p{P_{i, j}}$.
             
-            
+            \boxansconc{
+                \itshape \underline{Algorithme} (\cf application dans la question suivante) : on construit le polynôme $P_{i, k-1}$ à sa dérivée $k$-ième auquel le coefficient $a_i$ est non nul, selon sa factorisation (racines de multiplicité adaptée). On intègre/dérive et on calcule les termes constants pour convenir à la définition. 
+            }
             
             \item Déterminer explicitement la famille $\p{P_{i, j}}$ dans le cas où $n = 2$ et $r_1 = r_2 = 1$.
+            
+            \noafter
+            %
+            \boxans{
+                On a $P_{1, 0}$, $P_{2, 0}$, $P_{1, 1}$ et $P_{2, 1}$ de degré $3$ tels que :
+                %
+                \begin{enumerate}
+                    \begin{minipage}{0.2\linewidth}
+                        \itt $P_{1, 0}\p{a_1} = 1$
+                        
+                        \itt $P_{1, 0}\p{a_2} = 0$
+                        
+                        \itt $P_{1, 0}'\p{a_1} = 0$
+                        
+                        \itt $P_{1, 0}'\p{a_2} = 0$
+                    \end{minipage}
+                    %
+                    \hfill
+                    %
+                    \begin{minipage}{0.2\linewidth}
+                        \itt $P_{2, 0}\p{a_1} = 0$
+                        
+                        \itt $P_{2, 0}\p{a_2} = 1$
+                        
+                        \itt $P_{2, 0}'\p{a_1} = 0$
+                        
+                        \itt $P_{2, 0}'\p{a_2} = 0$
+                    \end{minipage}
+                    %
+                    \hfill
+                    %
+                    \begin{minipage}{0.2\linewidth}
+                        \itt $P_{1, 1}\p{a_1} = 0$
+                        
+                        \itt $P_{1, 1}\p{a_2} = 0$
+                        
+                        \itt $P_{1, 1}'\p{a_1} = 1$
+                        
+                        \itt $P_{1, 1}'\p{a_2} = 0$
+                    \end{minipage}
+                    %
+                    \hfill
+                    %
+                    \begin{minipage}{0.2\linewidth}
+                        \itt $P_{2, 1}\p{a_1} = 0$
+                        
+                        \itt $P_{2, 1}\p{a_2} = 0$
+                        
+                        \itt $P_{2, 1}'\p{a_1} = 0$
+                        
+                        \itt $P_{2, 1}'\p{a_2} = 1$
+                    \end{minipage}
+                \end{enumerate}
+                %
+                Déterminons $P_{1, 0}$. On a d'abord $P_{1, 0}'\p{x} = \lambda_1\p{x-a_1}\p{x-a_2}$ puisque de degré $2$, soit $P_{1, 0}'\p{x} = \lambda_1\p{x^2 -\p{a_1 + a_2}x + a_1a_2}$. Il en va de même pour $P_{2, 0}$, ainsi :
+                %
+                \[ P_{1, 0}\p{x} = \lambda_1\p{\dfrac{1}{3}x^3 - \dfrac{a_1 + a_2}{2}x^2 + a_1a_2x + c_1} \qquad\et\qquad P_{2, 0}\p{x} = \lambda_2\p{\dfrac{1}{3}x^3 - \dfrac{a_1 + a_2}{2}x^2 + a_1a_2x + c_2}\]
+                %
+                Or $P_{1, 0}\p{a_2} = 0$ d'où $c_1 = -\dfrac{1}{3}{a_2}^3 + \dfrac{a_1 + a_2}{2}{a_2}^2 - a_1{a_2}^2$, et $P_{1, 0}\p{a_1} = 1$ ainsi :
+                %
+            }
+            %
+            \nobefore
+            %
+            \boxansconc{
+                \[ P_{1, 0}\p{x} = \dfrac{\frac{1}{3}\p{x^3 - {a_2}^3} + \frac{a_1 + a_2}{2}\p{{a_2}^2 - x^2} + a_1a_2\p{x - a_2}}{\frac{1}{3}\p{{a_1}^3 - {a_2}^3} + \frac{a_1 + a_2}{2}\p{{a_2}^2 - {a_1}^2} + a_1a_2\p{a_1 - a_2}}\]
+            }
+            %
+            \boxans{
+                De même :
+            }
+            %
+            \boxansconc{
+                \[ P_{2, 0}\p{x} = \dfrac{\frac{1}{3}\p{x^3 - {a_1}^3} + \frac{a_1 + a_2}{2}\p{{a_1}^2 - x^2} + a_1a_2\p{x - a_1}}{\frac{1}{3}\p{{a_2}^3 - {a_1}^3} + \frac{a_1 + a_2}{2}\p{{a_1}^2 - {a_2}^2} + a_1a_2\p{a_2 - a_1}}\]
+            }
+            %
+            \boxans{
+                Pour $P_{1,1}$ et $P_{2, 1}$, on a :
+                %
+                \[ P_{1, 1}\p{x} = \lambda_3\p{x - a_1}\p{x - a_2}^2\qquad\et\qquad P_{2, 1}\p{x} = \lambda_4\p{x - a_1}^2\p{x - a_2} \]
+                %
+                En dérivant :
+                %
+                \[ P_{1, 1}'\p{x} = \lambda_3\p{x - a_2}\p{-2a_1 - a_2 + 3x} \qquad\et\qquad P_{2, 1}'\p{x} = \lambda_4\p{x - a_1}\p{-2a_2 - a_1 + 3x}\]
+                %
+                Avec $P_{1, 1}'\p{a_1} = 1$ et $P_{2, 1}'\p{a_1} = 1$ on obtient $\lambda_3 = \dfrac{1}{\p{a_1 - a_2}^2}$ et $\lambda_4 = \dfrac{1}{\p{a_2 - a_1}^2} = \lambda_3$ d'où finalement :
+                %
+            }
+            %
+            \yesafter
+            %
+            \boxansconc{
+                \[ P_{1, 1}'\p{x} = \dfrac{\p{x - a_2}\p{-2a_1 - a_2 + 3x}}{\p{a_1 - a_2}^2} \qquad\et\qquad P_{2, 1}'\p{x} = \dfrac{\p{x - a_1}\p{-2a_2 - a_1 + 3x}}{\p{a_2 - a_1}^2}\]
+            }
         \end{enumerate}
         
         \item On suppose maintenant $n = 2$ et $r_1 = r_2 = 1$. Pour tout entier $p \geq 0$ et tout réel $x$ on pose $\phi_p\p{x} = x^p$. Pour tout $f \in E_1$ et tous réels $x_1, x_2$ on pose :
