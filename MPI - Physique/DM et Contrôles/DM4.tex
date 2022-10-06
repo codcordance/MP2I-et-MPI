@@ -1,0 +1,115 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}} 
+    \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\thesection.\arabic{enumi}.\arabic{enumii}.}
+    \renewcommand*{\labelenumiii}{\alph{enumiii}.}
+    
+    \stylizeDocSpe{Physique}{Devoir maison n° 4}{}{Pour le lundi 10 octobre 2022}
+    
+    \section{Tir d'un obus vers le zénith}
+    
+    \emph{Au \textsc{XVII}\ieme~siècle, le Père \textsc{Mersenne}, ami et
+    correspondant de \textsc{Descartes}, se livra à un tir d'obus, le canon
+    étant pointé vers le zénith. Le résultat ne fut pas du tout celui escompté.
+    On se propose d'étudier l'influence de différents facteurs physiques sur
+    la trajectoire de l'obus.}\medskip
+        
+    En un lieu $A$ de latitude $\lambda = \qty{48}{\degree N}$, un canon
+    tire un obus à la vitesse $v_0 = \qty{100}{\metre\per\second}$ suivant la
+    verticale ascendante $\left\vert A z\right)$. On désigne par $\p{A, x, y,
+    z}$ un repère orthonormé lié à la Terre, $\left\vert A x \right)$ étant
+    dirigé vers le sud. On assimile la Terre à une sphère homogène, tournant
+    autour de l'axe des pôles à la vitesse angulaire $\omega_0 =
+    \qty{7.5e-5}{\radian\per\second}$. On note $\vec{g_0}$ le champ de
+    pesanteur terrestre, de module $g_0$ supposé constant égal à
+    $\qty{10}{\metre\per\second\squared}$.
+
+    \begin{enumerate}
+        \item On considère le référentiel lié à la Terre.
+        
+        \begin{enumerate}
+            \item On néglige la résistance de l'air.
+
+            \begin{enumerate}
+                \item\label{qu:I.1.1.a} Donner l'expression de la vitesse
+                $\vec v$ de l'obus à un instant quelconque.
+                
+                \item Exprimer l'énergie mécanique de l'obus. Varie-t-elle au
+                cours du temps ? Calculer l'altitude maximale de atteinte par
+                l'obus.
+                
+                \item En quel point et au bout de combien de temps l'obus retombe-t-il ?
+            \end{enumerate}
+
+            \item La résistance de l'air sur l'obus, de forme sphérique de
+            rayon $r_0 = \qty{5}{\centi\metre}$ et animé d'une vitesse $v$, se
+            traduit par une force de module $k\pi {r_0}^2 v^2$. Au voisinage
+            des conditions normales, $k = \qty{0.25}{USI}$. L'obus est en plomb
+            de masse volumique $\rho = \qty{11.3}{\g\per\centi\metre\cubed}$.
+
+            \begin{enumerate}
+                \item Préciser l'unité de $k$.
+                
+                \item Comparer la force de frottement au poids. Que penser ?
+                
+                \item On prend en compte cette force de frottement fluide. On
+                pose $u=v^2$. Montrer que, dans la phase ascendante, $u$
+                vérifie l'équation :
+                %
+                \[
+                    \dfrac{\dif u}{\dif t} = -2g_0 -2\dfrac{k\pi}{m}{r_0}^2u
+                \]
+                %
+                Expliciter la fonction $z\p{u}$. En déduire l'altitude
+                maximale atteinte par l'obus. On posera $d = \dfrac{m}{2k\pi
+                r_0^2}$.
+            \end{enumerate}
+        \end{enumerate}
+    \end{enumerate}
+    %
+    Dans la suite du problème, on ne prend pas en compte les frottements de l'air sur l'obus.
+    %
+    \begin{enumerate}[resume]
+        \item On considère que le référentiel lié à la Terre $\p{A, x, y
+        , z}$ est non galiléen.
+
+        \begin{enumerate}
+            \item Écrire l'équation du mouvement de l'obus. Pourquoi la force
+            d'inertie d'entraînement n'intervient-elle pas explicitement dans
+            l'équation du mouvement ?
+            
+            \item On évalue la force d'inertie de \textsc{Coriolis} en utilisant la loi de vitesse obtenue à la question \quref{I.1.1.a}.
+            Justifier cette méthode de calcul.
+
+            Soit \(\left(\vec i, \vec j, \vec k\right)\)la base orthonormée associée au repère \(\left(A,x,y,z\right)\). \(\bcM\) repérant la position de l'obus, on pose \(\vec{A\bcM}=x\vec i + y\vec j + z\vec k\). Montrer que \(\dot{\dot{y}} \approx -2\omega_0\left(v_0 - g-0t\right)\cos(\lambda)\)
+
+            En déduire une expression approchée de l'ordonnée $y$ de l'obus. Évaluer y au moment où l'obus tombe sur le sol. La déviation se fait-elle vers l'Ouest ou vers l'Est ? Le résultat dépend-il de l'hémisphère dans lequel on effectue le tir ?
+
+            \item L'expression de la force de \textsc{Coriolis} utilisée ne permet pas de mettre en évidence une déviation dans l'axe Nord-Sud. Or cette déviation existe. Expliquer cette apparente contradiction. Que penser de cette déviation comparée à celle calculée à la question précédente ?
+            
+        \end{enumerate}
+
+        \item Analyse du mouvement de l'obus dans le référentiel géocentrique
+
+        \begin{enumerate}
+            \item 
+            \begin{enumerate}
+                \item Rappeler la définition du référentiel géocentrique. Pourquoi peut-il être supposé galiléen pour ce type d'expérience ? 
+
+                \item Déterminer la vitesse initiale de l'obus dans ce référentiel.
+            \end{enumerate}
+            \item Si on considère le champ de gravitation uniforme sur la trajectoire de l'obus, montrer alors que celui-ci retombe en $A$. Comment 'observateur géocentrique peut-il justifier la déviation évaluée au I-2-2
+        \end{enumerate}
+    \end{enumerate}
+    
+\end{document}

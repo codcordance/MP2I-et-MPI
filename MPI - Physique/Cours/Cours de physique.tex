@@ -1023,21 +1023,36 @@
     
     \chapter{Changements de référentiel et dynamique non galiléenne}
     
-    Dans les cours de mécanique première année, on s'est toujours placé dans le cadre d'un repère galiléen (sauf en DS). Cependant, les repères auxquels l'on est confronté dans la majorité des situations plus concrètes ne présentent pas cette caractéristique. Plutôt, on peut généralement dire qu'ils sont en mouvement par rapport à autre référentiel galiléen. Dans les cas simples, ce mouvement est rectiligne uniforme ; mais on cherchera dans ce chapitre à se confronter à un mouvement quelconque.
+    Dans les cours de mécanique de première année, on s'est toujours placé dans le cadre d'un repère galiléen (sauf peut-être en devoir sur table). Cependant, les repères auxquels l'on est confronté dans la majorité des situations plus concrètes ne présentent pas cette caractéristique, ce qui rend l'étude mécanique d'un corps y évoluant bien plus compliquée. Pour palier cette difficulté, une solution consiste à considérer le mouvement de ces référentiels par rapport à un autre référentiel, lui galiléen. Par exemple, on sait déjà qu'un référentiel en translation uniforme par rapport à un référentiel galiléen est galiléen. Il s'agira donc dans ce chapitre d'étudier les mouvements des référentiels entre eux, et d'ainsi généraliser les lois de la mécanique étudiée en première année dans le cas non-galiléen.
     
     \chaptertoc
     
     \section{Référentiels}
     
+    \subsection{Quelques considérations sur la mécanique (HP)}
+    
+    
+    \emph{Ce paragraphe est inspiré de \emph{Notes pour l'étude du cours de Mécanique}, par \textsc{C. Marie} en \emph{1978-1979}.}\medskip
+    
+    Globalement, la mécanique est une science qui donne une schématisation mathématiques des corps dans l'espace au cours du temps. Elle est constitué de deux parties principales : la cinématique, qui permet de décrire rigoureusement et mathématiquement les objets étudiés, et la dynamique, qui offre une explication de ces mouvements en explicitant leur causes. Plusieurs fois dans l'histoire, les lois de la mécanique ont été changées, revues, voire totalement remplacées, pour rendre compte de la réalité avec divers degré de précisions et divers contextes.
+    
+    Aujourd'hui, on distingue notamment la mécanique classique (ou Newtonienne) qui étudie les objets macroscopiques de vitesse faible devant celle de la lumière, la mécanique relativiste (depuis \textsc{Einstein}) qui traite des cas plus généraux (notamment compatible avec la relativité restreinte et général, d'où le nom), et la mécanique quantique qui étudie les systèmes à l'échelle atomique et subatomique. Dans ce chapitre, on se placera toujours dans le cadre mécanique classique.\medskip
+    
+    Empiriquement, on constate que les phénomènes mécaniques ont lieu dans \guill{l'espace physique} et au cours du \guill{temps}. Le premier est intuitivement percu comme un continuum tridimensionnel et le second comme un continuum unidimensionnel et unidirectionnel (on a une \guill{flèche de temps} dirigée du passé vers l'avenir). Il n'y a \texit{a priori} aucune raison de supposer le temps comme cyclique, ni comme limité dans le passé ou dans le futur. De plus, l'existence de phénomènes physiques périodiques (par exemple la transition hyperfine de l'état fondamental de l'atome de césium 133 non perturbé, qui permet de définir la seconde) permet de graduer ce temps. Ainsi :
+    %
+    \begin{definition}{Temps}{}
+        On appelle \hg{temps} le \hg{$\bdR$-espace affine} de \hg{dimension $1$}, 
+    \end{definition}
+    
     \subsection{Référentiels et repères}
     
-    On commence par rappeler quelques définitions, 
+    On commence par rappeler quelques définitions, notamment la notion de référentiel et de repère. Dans tout ce chapitre (et même généralement en physique), on considérera que l'espace de dimension $3$ est euclidien (en tout cas sur de courtes distances).
     
     \begin{definition}{Référentiel}{}
         Un \hg{référentiel} est le donnée d'un \hg{solide $\Sigma$} et d'une \hg{horloge}.
     \end{definition}
     
-    Il ne faut pas confondre référentiel et repère. Un repère n'a pas de sens physique, et il ne s'agit que d'un outil mathématiques.
+    Il ne faut pas confondre référentiel et repère. Un repère n'a pas de sens physique, et il ne s'agit que d'un outil mathématique.
     
     \begin{definition}{Repère}{}
         On appelle \hg{repère} la donnée d'\hg{un point}, appelé \hg{origine du repère}, et de \hg{trois vecteurs} linéairement indépendants.
@@ -1474,8 +1489,171 @@
         \itt Effet de la force de Coriolis sur un repère local lié au référentiel terrestre
         % je laisse remy faire le  joli dessin
     \end{enumerate}
+
+    \chapter{Le frottement solide}
+    
+    Ce chapitre étudie les frottements entre deux solides.
+    
+    \chaptertoc
+    
+    \section{Contact entre deux solides}
+    
+    Dans cette partie, on cherchera à étudier le contact entre deux solides
+    $\Sigma_1$ et $\Sigma_2$. On traitera d'abord le cas où l'on peut
+    modéliser la \guill{zone} de contact entre $\Sigma_1$ et $\Sigma_2$ par
+    un point.
+    
+    \subsection{Contact ponctuel}
+    
+    \begin{minipage}{0.48\linewidth}
+        DESSIN
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}{0.48\linewidth}
+        On considère donc deux solides $\Sigma_1 \subset \bdR^3$ et $\Sigma_2 \subset \bdR^3$ dans l'espace. 
+        %         
+        \begin{enumerate}
+            \itt $I$ est le point géométrique de contact entre $\ell_1$ et $\ell_2$. 
+            
+            \itt $I_1 \in \varphi_1$ confondu avec $I$
+            
+            \itt $I_2 \in \varphi_2$ confondu avec $I$
+        \end{enumerate}
+    \end{minipage}
+    
+    On définit trois référentiels : $\bcR$ le référentiel d'étude, $\bcR_1$ le référentiel lié à $\varphi_1$ et $\bcR_2$ le référentiel lié à $\varphi_2$. De plus, $\pi$ désigne le plan tangent aux $2$ solides en $I$.
+    
+    \begin{warning}{}{}
+        On a les vitesses \hg{$\vec{v_1}\p{I_1} = \vec 0$} et \hg{$\vec{v_2}\p{I_2} = \vec 0$}. Cependant on peut aussi avoir :
+        %
+        \[ \hg{\vec v\p{I} \neq \vec v\p{I_1} \neq \vec v\p{I_2}}\]
+    \end{warning}
+    %
+    Un exemple de ce principe est donné ci-dessous l'exemple d'une roue qui glisse vers l'avant :
+    %
+    \begin{example}{}{}
+        \begin{minipage}{0.48\linewidth}
+            \centering
+            \begin{tikzpicture}
+                \draw (0, 0) -- (3, 0);
+                
+                \node (G) at (1, 0.5) {G};
+                \draw[-Latex, main3] (G) -- (2.5, 0.5) node[midway,label={[font=\footnotesize]$v_G$}] {};
+                
+                \node[draw,circle,minimum size=1cm] at (1,0.5) {};
+            \end{tikzpicture}
+        \end{minipage}
+        %
+        \begin{minipage}{0.48\linewidth}
+            On a \hg{$\vec v\p{I \in \text{Sol}} = \vec 0$}, alors que \hg{$\vec v\p{I} = \vec v\p{G}$}.
+        \end{minipage}
+    \end{example}
+    
+    \subsubsection{Liaison plan-plan}
+    
+    Si la surface de contact entre deux solides est de dimension faible devant la longueur caractéristique du problème :
+    %
+    \[ \sqrt{s} \ll L_\text c \qquad\text{on supposera que le contact est ponctuel}\]
+    %
+    Dans les cas où le contact ne peut pas être assimilé à un contact ponctuel, on admet que tout se passe comme s'il était ponctuel en un point d'application $I$ :
+    %
+    \begin{center}
+        \begin{tikzpicture}
+            \draw (0, 0) -- (5, 0) -- (5, 2) -- (0, 2) -- (0, 0);
+            \draw (2.5, 2) -- (4.5, 2) -- (4.5, 4) -- (2.5, 4) -- (2.5, 2);
+            
+            \node () at (7.5, 2) {$\iff$};
+            
+            \draw (10, 0) -- (15, 0) -- (15, 2) -- (10, 2) -- (10, 0);
+            \draw (12.5, 2) -- (14.5, 2) -- (14.5, 4) -- (12.5, 4) -- (12.5, 2);
+        \end{tikzpicture}
+    \end{center}
+    %
+    Dans ce cas, la position de $I$ n'est pas forcément évidente, et il faut la déterminer. Pour cela :
+    %
+    \begin{enumerate}
+        \itt On peut déterminer $I$ tel que $\vec{\bcM_\text{réel}}\p{I} = \vec 0$.
+        
+        \itt On peut aussi définir la position de $I$ pour qu'il n'y ait pas de rotation.
+    \end{enumerate}
+    
+    \subsection{Glissement au contact entre deux solides}
+    
+    Soient deux solides $\varphi_1$ et $\varphi_2$, en contact ponctuel en $I$.
+    %
+    \begin{definition}{Vitesse de glissement}
+        On appelle \hg{vitesse de glissement} la vitesse \hg{$\vec{v_g\p{\sfrac{\varphi_2}{\varphi_1}}} = \vec{g\sfrac{2}{1}}$}.
+    \end{definition}
     
 
+    \subsubsection{liaison parfaite}
     
+        \begin{definition}{Liaison parfaite}{}
+            Une liaison est dite parfaite si quel que soit le mouvement permis par la liaison, la puissance des actions de contact est nulle
+        \end{definition}
+    
+        \begin{enumerate}
+            \itt Liaison plan-plan parfaite : on a \( P_{c_{tot}} = P_{c_{12}} = \vec T_{1\to 2} \cdot \vec V_{g,2/1}\) or la liaison est parfait donc \(P_{c_{tot}} = 0\) donc même si \(\vec V_{g,2/1} \neq \vec 0\) on a \(\vec T_{1\to 2} = \vec 0\). Donc si la liaison plan-plan est parfaite il n'y a pas de frottements
+    
+            \itt Liaison pivot (nécessaire pour la rotation autour d'un axe fixe) %je te laisse faire les schémas, en gros c'est une truc qui tourne autour d'un axe (huile c pour qu'il y a pas de frottement)
+            Par symétrie on a \(\vec T_{huile \to\Delta} = \vec 0\) et \[\vec \bcM_{\vec T}(O) = \int_0^{2\pi} \vec{OM} \wedge \dif \vec f = -\bbC \vec{u_{\Delta}} = - \alpha \Omega\vec u_{\delta}\] pour des frottements visqueux. Le moment est non nul à priori. \\ Si la liaison pivot est parfaite alors les actions de contacts ne travaillent pas, or pour une liaison pivot \(P_{c} = \vec \bbC\cdot \Omega\) où \(\bbC\) est le moment du couple, ainsi \(\vec \bbC = \vec 0 \Rightarrow\) pas de frottements.
+        \end{enumerate}
 
+    \section{Lois phénoménologiques}
+
+    On s'interesse aux lois sur le frottement de glissement %aucune idée de ce que c'est mais wola c'est écrit au tableau 
+    et donc aux Lois de \textsc{Coulomb} %xD il a découvert l'amerique xD xD xD
+
+    \subsection{Expérience préliminaire}
+        On suppose une caisse en liaison plan-plan avec le sol % je laisse faire le schéma
+    
+        \begin{center} %je te laisse faire le reste, tu comprends l'idée
+            \begin{tikzpicture}
+                \draw (0, 2) -- (5, 2);
+                \draw (1.5, 2) -- (3.5, 2) -- (3.5, 4) -- (1.5, 4) -- (1.5, 2);
+            \end{tikzpicture}
+        \end{center}
+
+    \subsection{Lois de Coulomb}
+
+        \begin{enumerate}
+            \itt S'il n'y a pas de glissements : \(\vec V_{g,2/1} = \vec 0\) alors \( || \vec T_{1\to 2} || \leq \mu_s || \vec N_{1\to 2} ||\)
+
+            \itt s'il y a glissements : \(\vec V_{g,2/1} \neq \vec 0\) alors \( || \vec T_{1\to 2} || \leq \mu_d || \vec N_{1\to 2} ||\)
+            
+        \end{enumerate}
+
+    \subsection{Propriétés des coefficients de frottements}
+
+        \subsubsection{Ordre de grandeur (\(\mu_s \equiv \mu_d\))}
+
+            \begin{enumerate}
+                \itt métal-métal : \(0.1 \equiv 0.2\)
+                \itt bois-bois : \(0;3 \equiv 0.4\)
+                \itt papier-papier : \(0.5\)
+                \itt pneu-bitume : \(0.5 \equiv 0.6\)
+            \end{enumerate}
+
+        \subsubsection{\(\mu\) est a priori une constante}
+            On estime qu'elle ne dépend que du matériau de contact même si en réalité il y a une dépendance sur la vitesse.
+
+        \subsubsection{\(\mu_d \equiv \mu_s\)}
+            Sauf indication contraire on supposera toujours ces deux valeurs égales. Cependant l'écart entre les deux explique certains phénomènes tels que la craie qui crisse, le gond qui grince, ce sont des phénomènes dits de "collé-glissé"
+
+        \subsection{Mesure de \(\mu\)}
+            On considère un objet \(m\) sur un plan incliné d'angle \(\alpha\), \(\mu_s\) est la tangente de l'angle minimal tel que l'objet se met en mouvement.
+
+    \section{Application}
+
+        On considère l'exemple de la roue motrice %je te laisse faire le schéma
+        \subsection{Hypothèse 1 : sans glissement}
+
+            \[\vec V_{g,roue/sol} = \vec 0 = \vec V(I \in roue) = - \vec V\left( I \in sol\right)\]
+            On a alors \(\vec V\left(I \in roue\right) = \vec 0\). Soir \(\bcR\) le référentiel du sol et \(\bcR_G\) le référentiel de la roue, on a alors \(\bcR_G\) est en translation par rapport à \(\bcR\) centrée en \(\bcG\). On a donc trivialement \(\vec V_R(I \in roue) = -R \omega \vec e_x + \dot{x} \vec e_x = (\dot{x} - R\omega)\vec e_x\) et on est sans glissement \(\dot x = R\omega\).
+
+            Donc en appliquant le TMC en \(G\) dans \(\bcR_G\) en projection :
+            \[ \dfrac{\dif \vec\sigma(G)}{\dif t} = \vec \bcM_T(G) + \vec \bcM_N(G) + \vec \bbC + \vec \bcM_{Fic}(G) + \vec \bcM_{Fie}(G) + \vec \bcM_{liaison}(G)\] donc on a trois équations après avoir projeté: \(J_{\Delta} \dot\omega = -RT+C \quad m\dot\dot x = T\quad \dot x = R\omega\)
+        
 \end{document}

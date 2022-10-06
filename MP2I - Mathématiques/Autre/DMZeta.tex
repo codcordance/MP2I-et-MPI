@@ -1,0 +1,77 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\arabic{enumi}.}
+    
+    \stylizeDocSpe{Maths}{Une série de Riemann}{Un calcul de $\zeta\p{2}$}{en utilisant complexes, polynômes et trigonométrie}
+    
+    \underline{Rappel :} on appelle \emph{cotangente} la fonction notée $\cotan$ et définie sur $\bdR \backslash \ens{k\pi,\ k \in \bdZ}$ par $\cotan x= \dfrac{\cos x}{\sin x}$.
+    
+    Dans ce problème, pour tout entier $n \in \bdN^\star$, on considère le polynôme $P_n\p{X} = \dfrac{1}{2\ii}\p{\p{X + \ii}^{2n+1} - \p{X -i}^{2n+1}}$.
+    
+    \begin{enumerate}
+        \item Montrer que $P_n$ est un polynôme à \emph{coefficients réels} et qu'il existe $Q_n$ un polynôme à coefficients réels, tel que :
+        %
+        \[ P_n\p{X} = Q_n\p{X^2}\]
+        %
+        \indication{On pourra utiliser la formule du binôme de \textsc{Newton}.}
+        
+        \item Expliciter $Q_n$ sous la forme $Q_n\p{X} = \displaystyle\sum_{p=0}^n a_pX^p$, en vérifiant que les coefficients sont $a_p = \dbinom{2n+1}{2p}\p{-1}^{n-p}$.
+        
+        Expliciter $a_n$, $a_{n-1}$ et $a_0$.
+        
+        \item Résoudre dans $\bdC$ l'équation $\p{z + \ii}^{2n+1} - \p{z -i}^{2n+1} = 0$. En déduire les racines de $P_n$.
+        
+        Combien de racines distinctes $P_n$ possède-t-il ?
+        
+        \item Exprimer $\cotan\p{\pi - \theta}$ en fonction de $\cotan\p{\theta}$.
+        
+        \item En déduire que $Q_n$ possède $n$ racines réelles disctinctes : \quad les $\cotan^2\p{\dfrac{k\pi}{2n + 1}}$ pour $k \in \iint{1, n}$.
+    \end{enumerate}
+    %
+    On admet maintenant la propriété suivante :
+    %
+    \boxansconc{
+        Si $P\p{X} = a_nX^n + a_{n-1}X^{n-1} + \dots + a_1X + a_0$ avec $a_n \neq 0$ admet $z_1, z_2, \dots, z_n$ comme racines, alors
+        %
+        \[ \sum_{k=1}^n z_k = z_1 + z_2 + \dots + z_n = -\dfrac{a_{n-1}}{a_n} \qquad\et\qquad \prod_{k=1}^n z_k = z_1 \times z_2 \times \dots \times z_n = \p{-1}^n \dfrac{a_0}{a_n} \]
+    }
+    
+    \begin{enumerate}[resume]
+        \item Calculer la somme $S_n = \displaystyle \sum_{k=1}^n \cotan^2\p{\dfrac{k\pi}{2n+1}}$ et le produit $A_n = \displaystyle \sum_{k=1}^n \cotan^2\p{\dfrac{k\pi}{2n+1}}$.
+        
+        \item En déduire $\displaystyle\prod_{k=1}^n \cotan{\dfrac{k\pi}{2n+1}} = \dfrac{1}{\sqrt{2n+1}}$.
+        
+        \item\label{qu:qu8} Montrer que pour tout $x \in \left]0, \sfrac{\pi}{2}\right[$, on a $1 + \cotan^2 x = \dfrac{1}{\sin^2 x}$.
+        
+        \item En déduire la valeur de $T_n = \displaystyle \sum_{k=1}^n \dfrac{1}{\sin^2\p{\dfrac{k\pi}{2n+1}}}$.
+        
+        \item Montrer également que pour tout $x \in \left]0, \sfrac{\pi}{2}\right[$, on a $\cotan^2 x \leq \dfrac{1}{x^2} \leq \dfrac{1}{\sin^2 x}$.
+    \end{enumerate}
+    %
+    Pour $z \in \bdC$ et \textbf{sous réserve de définition}, on note $\zeta\p{z}$ la somme de la série de terme général $\dfrac{1}{n^z}$, la fonction $\zeta$ étant appellée \emph{fonction zêta de \textsc{Riemann}}. On cherche désormais à démontrer que $\zeta\p{2}$ existe et à calculer sa valeur.
+    %
+    \begin{enumerate}[resume]
+        \item Pour $n \geq 1$, on pose $u_n = \displaystyle\sum_{k=1}^n \dfrac{1}{k^2}$. Démontrer l'encadrement :
+        %
+        \[ \forall n \in \bdN^\star,\qquad \dfrac{n^2}{\p{2n+1}^2}\dfrac{n\p{2n-1}}{3} \leq u_n \leq \dfrac{n^2}{(2n+1)^2}\dfrac{2n\p{n+1}}{3} \]
+        %
+        \indication{On utilisera la question \quref{qu:qu8} avec $x = \dfrac{k\pi}{2n+1}$}
+        
+        \item Montrer que la suite $\p{u_n}_{n \in \bdN^\star}$ converge et calculer sa limite.
+    \end{enumerate}
+    
+    \begin{form}{Conclusion}{}
+        \centering\hg{On a montré que $\zeta\p{2} = \displaystyle\sum_{k=1}^{+\infty} \dfrac{1}{k^2} = 1 + \dfrac{1}{4} + \dfrac{1}{9} + \dfrac{1}{16} + \dfrac{1}{25} + \dfrac{1}{36} + \dots = \dfrac{\pi^2}{6}$.}
+    \end{form}
+    
+    
+\end{document}

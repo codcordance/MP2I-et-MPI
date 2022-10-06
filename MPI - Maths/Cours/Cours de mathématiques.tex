@@ -837,10 +837,24 @@
             
             \itt $\boxed{\impliedby}$ Supposons que $\overline{a}$ est inversible d'inverse $\overline{u}$. Même raisonnement dans le sens inverse.
         \end{enumerate}
-        
-        On pose $\psi = \displaystyle\prod_{d \mid n} \phi_d$. Soit $d \mid n$, il existe $m \in \iint{1, n}$ minimal tel que $n = md$. On a :
         %
-        \[ \zeta_k^d = e^{2\ii\frac{k\pi}{d}} = e^{2\ii\frac{km\pi}{n}} = \zeta_{km}^n \]
+        On pose $\psi = X^n - 1$ et $\zeta = \zeta_1^n$. Les racines de $\psi$ sont exactement les racines $n$-ièmes de l'unité (les éléments de $\bdU_n$), \ie les $\p{\zeta_k^n = \zeta^k}_{k \in \iint{0, n-1}}$. Ainsi, $\psi = X^n - 1 = \displaystyle\prod_{k=0}^{n-1} \p{X - \zeta^k} = \prod_{k=0}^n \p{X - \zeta^k}$.
+        
+        Les $\p{\zeta^k}_{k \in \iint{0, n}}$ sont des éléments du groupe multiplicatif $\p{\bdU_n, \times}$, donc on peut les trier selon leur ordre.
+        
+        Soit $d \mid n$, il existe $m \in \iint{1, n}$ minimal tel que $n = md$. Soit $k \in \iint{0, n-1}$ tel que $\mod{\langle \zeta_k\rangle} = d$.
+        
+        Par \textit{théorème de Lagrange}, on a $d \mid n$, dès lors :
+        %
+        \[ X^n - 1 = \prod_{d \mid n} \prod_{\substack{k = 0\\ \mod{\langle\zeta^k\rangle} = d}}^d\p{X - \zeta^k} \qquad\text{donc montrons que}\qquad \prod_{\substack{k = 0\\ \mod{\langle\zeta^k\rangle} = d}}^d\p{X - \zeta^k} = \phi_d = \prod_{\ell \in \p{\sfrac{\bdZ}{d\bdZ}}^\star} \p{Z - \zeta_\ell^d}\]
+        %
+         L'ordre de $\zeta^k$ étant le plus petit entier $d \in \bdN^*$ tel que ${\zeta^k}^d = 1$ on a $\zeta^k \in \bdU_d$. Ainsi il existe $\ell \in \iint{0, d-1}$ tel que $\zeta^k = \zeta_\ell^d$.
+        %
+        \[ \zeta_\ell^d = \zeta_k^n \qquad\text{d'où}\qquad \dfrac{\ell}{d} = \dfrac{k}{n} \qquad\text{donc}\qquad \dfrac{\ell m}{n} = \dfrac{k}{n} \qquad\text{donc}\qquad \dfrac{\ell m}{k} = 1\]
+        %
+        Or $kd = pn$ donc $\dfrac{1}{k} = \dfrac{d}{pn} = \dfrac{1}{pm}$ 
+        %
+        
         %
         Ainsi toute racine de $\phi_d$ est dans $\bdU_n$, \ie toute racine de $\phi_d$ est racine de $X^n -1$. Ainsi $\psi \mid X^n - 1$. Or :
         %
@@ -1009,4 +1023,40 @@
         
         
     \end{enumerate}
+    
+    On prend $M = \begin{pNiceMatrix}
+        A & A\\
+        0 & A
+    \end{pNiceMatrix}$. CNS de diag.
+    
+    Calculons $M^k$. On a $M^2 = \begin{pNiceMatrix}
+        A^2 & 2A^2\\
+        0 & A^2
+    \end{pNiceMatrix}$, $M^3 = \begin{pNiceMatrix}
+        A^3 & 3A^3\\
+        0 & A^3
+    \end{pNiceMatrix}$ et généralement $M^k = \begin{pNiceMatrix}
+        A^k & kA^k\\
+        0 & A^k
+    \end{pNiceMatrix}$. On a donc globalement $P\p{M} = \begin{pNiceMatrix}
+        P\p{A} & AP'\p{A}\\
+        0 & P\p{A}
+    \end{pNiceMatrix}$.
+    
+    
+    
+    
+    \newpage
+    
+    \begin{exercise}{462 - TD $\star$}{}
+        Soit $A \in \bcM_n\p{\bdK}$. Montrer l'équivalence entre $A^2 = 0$ et
+        $A$ est semblable à $\begin{pNiceMatrix}
+            0 & I_r\\
+            0 & 0\\
+        \end{pNiceMatrix}$ avec $2r \leq n$.
+        %
+        \tcbline
+        
+        Si $A$ est semblabl
+    \end{exercise}
 \end{document}

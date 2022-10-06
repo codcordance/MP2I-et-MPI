@@ -31,21 +31,28 @@
 \usepackage{siunitx}
 
 \sisetup{
-    detect-all,
-    output-decimal-marker={,},
-    group-minimum-digits = 3,
-    group-separator={~},
-    number-unit-separator={~},
-    inter-unit-product={~},
-    output-complex-root = \jj,
+    inter-unit-product=\cdot
+%    detect-all,
+%    output-decimal-marker={,},
+%    group-minimum-digits = 3,
+    %group-separator={~},
+%    number-unit-separator={~},
+%    inter-unit-product={~},
+%    output-complex-root = \jj,
 }
 
 
 \usepackage{caption}
-\DeclareCaptionFont{GillSansMTMedium}{\GillSansMTMedium}
-\DeclareCaptionLabelSeparator{arrow}{\ \lozenge \ }
+%\DeclareCaptionFont{GillSansMTMedium}{\GillSansMTMedium}
+\DeclareCaptionLabelSeparator{figuresep}{}
+
+\DeclareCaptionLabelFormat{figureformat}{%
+    \colorbox{main3!85!gray!20}{\textnormal{\color{main3}\sffamily\bfseries \,#1 #2\,}}
+}
 %\captionsetup[figure]{font=figurefont}
-\captionsetup[figure]{labelfont=sc, labelsep=arrow}
+%\captionsetup[figure]{labelfont={bf},labelformat={default}}
+\DeclareCaptionFont{figuretext}{\itshape}
+\captionsetup[figure]{labelformat=figureformat,font=figuretext,labelsep=figuresep}
 %\renewcommand{\figurename}{{\GillSansMTMedium\bf Figure}
 \usepackage[autolanguage]{numprint}
 \usepackage[
@@ -194,9 +201,11 @@
 %===============================
 
 \frenchspacing
+\normalem
 
 \setlist[enumerate]{font=\color{white5!60!black}\sffamily}
 \newcommand{\enumref}[1]{{\color{white5!60!black}\sffamily{\ref{#1}}}}
+\newcommand{\quref}[1]{{\color{white5!60!black}\bfseries\sffamily{\hyperref[qu:#1]{#1}}}}
 
 \setlength{\parindent}{0mm}
 \pgfplotsset{compat=1.17}
@@ -1464,7 +1473,7 @@
 \DeclareDocumentCommand{\mod}{m}{\left|#1\right|}
 \DeclareDocumentCommand{\norm}{m}{\left\Vert#1\right\Vert}
 
-\DeclareDocumentCommand{\indication}{m}{{\EBGaramond Indication :} \ {\footnotesize\itshape #1}}
+\DeclareDocumentCommand{\indication}{m}{{\large\EBGaramond Indication :} \ {\footnotesize\itshape #1}}
 \DeclareDocumentCommand{\indef}{m}{\textit{\color{main1}#1}}
 \DeclareDocumentCommand{\ens}{m}{\left\{#1\right\}}
 
@@ -1709,8 +1718,9 @@
 
 \newcommand{\et}{\ \text{et} \ }
 \newcommand{\ou}{\ \text{ou} \ }
-\newcommand{\ie}{\textit{\EBGaramond i.e.} \ }
-\newcommand{\cf}{\textit{\EBGaramond c.f.} \ }
+\newcommand{\ie}{\textit{\large\EBGaramond i.e.} \ }
+\newcommand{\etc}{\textit{\large\EBGaramond etc} \ }
+\newcommand{\cf}{\textit{\large\EBGaramond c.f.} \ }
 
 
 \newcommand{\savoirfaire}{\section*{\centering\EBGaramond\Large Savoir-faire}}
@@ -1728,6 +1738,7 @@
 \funlvi{sin}
 %\DeclareDocumentCommand\sin{g}{\funlv{sin}{#1}}
 
+\DeclareDocumentCommand\cotan{g}{\funlv{cotan}{#1}}
 \DeclareDocumentCommand\tan{g}{\funlv{tan}{#1}}
 \DeclareDocumentCommand\cot{g}{\funlv{cot}{#1}}
 \DeclareDocumentCommand\Card{g}{\funlv{Card}{#1}}
