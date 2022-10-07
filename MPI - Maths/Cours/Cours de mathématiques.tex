@@ -838,7 +838,7 @@
             \itt $\boxed{\impliedby}$ Supposons que $\overline{a}$ est inversible d'inverse $\overline{u}$. Même raisonnement dans le sens inverse.
         \end{enumerate}
         %
-        On pose $\psi = X^n - 1$ et $\zeta = \zeta_1^n$. Les racines de $\psi$ sont exactement les racines $n$-ièmes de l'unité (les éléments de $\bdU_n$), \ie les $\p{\zeta_k^n = \zeta^k}_{k \in \iint{0, n-1}}$. Ainsi, $\psi = X^n - 1 = \displaystyle\prod_{k=0}^{n-1} \p{X - \zeta^k} = \prod_{k=0}^n \p{X - \zeta^k}$.
+        On pose $\psi = X^n - 1$ et $\zeta = \zeta_1^n$. Les racines de $\psi$ sont exactement les racines $n$-ièmes de l'unité (les éléments de $\bdU_n$), \ie les $\p{\zeta_k^n = \zeta^k}_{k \in \iint{0, n-1}}$. Ainsi, $\psi = X^n - 1 = \displaystyle\prod_{k=0}^{n-1} \p{X - \zeta^k}$.
         
         Les $\p{\zeta^k}_{k \in \iint{0, n}}$ sont des éléments du groupe multiplicatif $\p{\bdU_n, \times}$, donc on peut les trier selon leur ordre.
         
@@ -846,13 +846,13 @@
         
         Par \textit{théorème de Lagrange}, on a $d \mid n$, dès lors :
         %
-        \[ X^n - 1 = \prod_{d \mid n} \prod_{\substack{k = 0\\ \mod{\langle\zeta^k\rangle} = d}}^d\p{X - \zeta^k} \qquad\text{donc montrons que}\qquad \prod_{\substack{k = 0\\ \mod{\langle\zeta^k\rangle} = d}}^d\p{X - \zeta^k} = \phi_d = \prod_{\ell \in \p{\sfrac{\bdZ}{d\bdZ}}^\star} \p{Z - \zeta_\ell^d}\]
+        \[ X^n - 1 = \prod_{d \mid n} \prod_{\substack{k = 0\\ \mod{\langle\zeta^k\rangle} = n}}^d\p{X - \zeta^k} \qquad\text{donc montrons que}\qquad \prod_{\substack{k = 0\\ \mod{\langle\zeta^k\rangle} = n}}^d\p{X - \zeta^k} = \phi_d = \prod_{\ell \in \p{\sfrac{\bdZ}{d\bdZ}}^\star} \p{Z - \zeta_\ell^d}\]
         %
-         L'ordre de $\zeta^k$ étant le plus petit entier $d \in \bdN^*$ tel que ${\zeta^k}^d = 1$ on a $\zeta^k \in \bdU_d$. Ainsi il existe $\ell \in \iint{0, d-1}$ tel que $\zeta^k = \zeta_\ell^d$.
+         L'ordre de $\zeta^k$ étant le plus petit entier $d \in \bdN^*$ tel que ${\zeta^k}^d = 1$, d'où $\zeta^k \in \bdU_d$. Ainsi il existe $\ell \in \iint{0, d-1}$ tel que $\zeta^k = \zeta_\ell^d$. Donc $\p{\zeta_\ell^d}^{d} = 1$ d'où $\p{\zeta_\ell^d}\p{\zeta_\ell^d}^{d-1} = 1$
         %
-        \[ \zeta_\ell^d = \zeta_k^n \qquad\text{d'où}\qquad \dfrac{\ell}{d} = \dfrac{k}{n} \qquad\text{donc}\qquad \dfrac{\ell m}{n} = \dfrac{k}{n} \qquad\text{donc}\qquad \dfrac{\ell m}{k} = 1\]
+        \[ \zeta_\ell^d = \zeta_k^n \qquad\text{d'où}\qquad \dfrac{\ell}{d} = \dfrac{k}{n} \qquad\text{donc}\qquad \dfrac{\ell m}{n} = \dfrac{k}{n} \qquad\text{donc}\qquad \ell m = k\]
         %
-        Or $kd = pn$ donc $\dfrac{1}{k} = \dfrac{d}{pn} = \dfrac{1}{pm}$ 
+        Or $k $
         %
         
         %
@@ -1057,6 +1057,8 @@
         %
         \tcbline
         
-        Si $A$ est semblabl
+        Si $A$ est semblable à une telle matrice, on vérifie facilement que $A^2 = 0$. 
+        
+        Dans le cas réciproque, soit $A$ tel que $A^2 = 0$. Donc $\Im A \subset \Ker A$, d'où par théorème du rang, en posant $r = \rg A$ on a $2r \leq n$. On considère une base $\p{e_1, e_2, \dots, e_r}$ de l'image, que l'on complète en une base $\p{e_1, e_2, \dots, e_{n-r}}$ du noyau. On considère un antécédent $u_1$ de $e_1$. $u_1$ n'est pas dans le noyau car $e_1$ n'est pas nul, donc il est linéairement indépendant des $e_1, \dots, e_{n-r}$. On réitère le procédé, et on génère $u_1, u_r$ vecteurs. La famille $\bcB = \p{e_1, \dots, e_{n-r}, u_1, e_r}$ est libre et par dimension, elle est une base de $E$. Or $\Mat_\bcB A = U$.
     \end{exercise}
 \end{document}

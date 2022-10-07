@@ -16,7 +16,11 @@
 \newboxans
 \renewcommand{\thechapter}{\Roman{chapter}}
 \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\alph{subsubsection}}
 \mtcsettitle{minitoc}{}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{3}
+\setcounter{minitocdepth}{3}
 
 \newcommand{\Atom}{\mathop{\bcA_\text{tom}}\nolimits}
 \DeclareMathOperator{\Reg}{Reg}
@@ -32,7 +36,6 @@
 \DeclareDocumentCommand\Loc{g}{\funlv{Loc}{#1}}
 
 \newcommand{\chaptertoc}[0]{
-    \setcounter{tocdepth}{2}
     \begin{tcolorbox}[
         enhanced,
         frame hidden,
@@ -70,15 +73,15 @@
     % METADONNEES
     %==============================
     
-    \title{Cours d'Informatique de MPI/MPI* (2022-2023)}
-    \author{SIAHAAN--GENSOLLEN Rémy, Rayan Drissi}
+    \title{Cours d'Informatique de MPI* (2022-2023)}
+    \author{SIAHAAN--GENSOLLEN Rémy}
     \date{\today}
     \hypersetup{
-        pdftitle={Cours d'Informatique de MPI/MPI* (2022-2023)},
+        pdftitle={Cours d'Informatique de MPI* (2022-2023)},
         pdfauthor={SIAHAAN--GENSOLLEN Rémy},
         pdflang={fr-FR},
-        pdfsubject={MPI/MPI*, Cours d'Informatique},
-        pdfkeywords={MPI/MPI*, Cours d'Informatique, 2022-2023}
+        pdfsubject={MPI*, Cours d'Informatique},
+        pdfkeywords={MPI*, Cours d'Informatique, 2022-2023}
         pdfstartview=
     }
     
@@ -169,16 +172,17 @@
     
     \begin{titlepage}
 	    \begin{center}
-	        {\scshape SIAHAAN--GENSOLLEN Rémy \newline avec l'aide de Rayan Drissi \par}
-	        \vspace{2cm}
+	        {\scshape SIAHAAN-{}-GENSOLLEN Rémy\par}
+	        {\footnotesize avec l'aide de \textsc{DRISSI Rayan} et \textsc{SALOUM Gwendal}\par}
+	        \vspace{2.5cm}
 	        {\huge\sffamily Cours d'\par}
-	        \vspace{0.5cm}
+	        \vspace{0.1cm}
 	        {\Huge\bfseries\sffamily INFORMATIQUE\par}
 	        \vspace{1cm}
-	        {\Large\textit{donné pendant mon année de \textsf{MPI/MPI*} à
-	        Janson-de-Sailly}\\[5pt]\texttt{(2022-2023)}\par}
+	        {\Large\emph{donné pendant mon année de \guill{spé'} en \emph{$\textsf{MPI}^\star$} à
+	        Janson-de-Sailly}\\[2pt]\texttt{2022-2023}\par}
 	        \vfill
-	        {\large\EBGaramond Dernière compilation le \today\par}
+	        {\large\EBGaramond Compilé le \today\par}
         \end{center}
     \end{titlepage}
     
@@ -201,7 +205,7 @@
         \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries COURS D'INFORMATIQUE}
         \fancyhead[RE]{\GillSansMTMedium\color{white5}Avant-propos}
         \fancyhead[LO]{\GillSansMTMedium\color{white5}\rightmark}
-        \fancyhead[RO]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} 2022-2023 \quad Janson-de-Sailly}
+        \fancyhead[RO]{\GillSansMTMedium\color{white5}$\textbf{MPI}^\star$ 2022-2023 \quad Janson-de-Sailly}
     }
     
     \fancypagestyle{toc}{
@@ -211,7 +215,7 @@
         \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries COURS D'INFORMATIQUE}
         \fancyhead[RE]{\GillSansMTMedium\color{white5}Table des matières}
         \fancyhead[LO]{\GillSansMTMedium\color{white5}\rightmark}
-        \fancyhead[RO]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} 2022-2023 \quad Janson-de-Sailly}
+        \fancyhead[RO]{\GillSansMTMedium\color{white5}$\textbf{MPI}^\star$ 2022-2023 \quad Janson-de-Sailly}
     }
     
     \fancypagestyle{plain}{
@@ -221,7 +225,7 @@
         \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries COURS D'INFORMATIQUE}
         \fancyhead[RE]{\GillSansMTMedium\color{white5}Chapitre \thechapter : \nouppercase{\leftmark}}
         \fancyhead[LO]{\GillSansMTMedium\color{white5}\nouppercase{\rightmark}}
-        \fancyhead[RO]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} 2022-2023 \quad Janson-de-Sailly}
+        \fancyhead[RO]{\GillSansMTMedium\color{white5}$\textbf{MPI}^\star$ 2022-2023 \quad Janson-de-Sailly}
     }
     
     %==============================
@@ -232,17 +236,23 @@
     \thispagestyle{intro}
     \addcontentsline{toc}{chapter}{Avant-propos}
     
+    \text{\Large\EBGaramond\itshape À tout lecteur potentiel, quelques mots...}\newline\newline\newline
+    
     \begin{center}
         \begin{minipage}{0.85\linewidth}
-            \large \qquad Comme son nom l'indique, l'objectif de cet ouvrage est de fournir un cours d'informatique en accord avec le programme des classes préparatoires \textsf{MPI/MPI*}. Il contiendra principalement des notes de cours, dont je serai dispensé mon année de \guill{spé'} (année 2022/2023) à \textit{Janson-de-Sailly}, par M. Antony \textsc{Lick}. J'essaierai par ailleurs de détailler et d'enrichir le plus possible son contenu au fil de l'année, à l'aide de mes cours de première année, d'autres ouvrages et de recherches en général. La rédaction de ce cours constitue un important projet, d'autant plus que j'en mène un similaire pour les enseignements de mathématiques et de physique cette année. C'est un travail qui peut s'avérer extrêmement chronophage, aussi risque-t-il d'être rarement mené jusqu'au bout.\newline
+            \large \qquad Comme son nom peut l'indiquer, cet ouvrage est la compilation de notes de cours d'informatique dispensés par M. Antony \textsc{Lick} durant mon année de \guill{spé'} en \textsf{MPI*} à \textit{Janson-de-Sailly} (année académique 2022-2023). De ce fait, certaines parties risquent d'être elliptiques, lacunaires, voire inexistantes, alors qu'elles seraient vitale à la compréhension du cours. Elles pourraient de plus être erronées, ou rédigées maladroitement, et induire en erreur.  Ainsi, j'aviserai tout lecteur potentiel à faire preuve de prudence lors du parcours de ce texte, et à ne pas hésiter à en vérifier le contenu par lui-même au moindre doute.\newline
+            
+            J'essaierai le plus possible de détailler et d'enrichir le contenu de ce livre au cours de l'année, que ce soit à l'aide de mes cours de première année, d'autres ouvrages, ou de recherches en général.
+            
+            %J'essaierai par ailleurs de détailler et d'enrichir le plus possible son contenu au fil de l'année, à l'aide de mes cours de première année, d'autres ouvrages et de recherches en général. La rédaction de ce cours constitue un important projet, d'autant plus que j'en mène un similaire pour les enseignements de mathématiques et de physique cette année. C'est un travail qui peut s'avérer extrêmement chronophage, aussi risque-t-il d'être rarement mené jusqu'au bout.\newline
     
-            \qquad Je ne prétends à aucun moment être enseignant, et ce livre reste avant tout destiné à mon usage personnel, aussi j'aviserai tout lecteur potentiel à faire preuve de prudence lors du parcours de ce texte, à ne pas hésiter à en vérifier le contenu par lui même. Il est très probable que de multiples erreurs (en tout genre) se soient glissés durant la rédaction, que je n'aurait su repérer, ou que le manque de temps empêche la correction. N'hésitez d'ailleurs pas à me le signaler, ou à me faire part de vos remarques en général.\newline
+            %\qquad Je ne prétends à aucun moment être enseignant, et ce livre reste avant tout destiné à mon usage personnel, aussi j'aviserai tout lecteur potentiel à faire preuve de prudence lors du parcours de ce texte, à ne pas hésiter à en vérifier le contenu par lui même. Il est très probable que de multiples erreurs (en tout genre) se soient glissés durant la rédaction, que je n'aurait su repérer, ou que le manque de temps empêche la correction. N'hésitez d'ailleurs pas à me le signaler, ou à me faire part de vos remarques en général.\newline
     
-            \qquad J'espère enfin, et malgré les points exprimés précédemment, que ce cours pourra avoir une quelconque utilité à ceux qui s'y aventureraient, que sa lecture et son style en seront agréable (la mise en page et la composition graphique en général sont de ma conception personnelle, enrichie par les retours de mes camarades, et le fruit de plusieurs mois d'apprentissage de \LaTeX) et enrichissante.\newline\newline\newline\text{}
+            %\qquad J'espère enfin, et malgré les points exprimés précédemment, que ce cours pourra avoir une quelconque utilité à ceux qui s'y aventureraient, que sa lecture et son style en seront agréable (la mise en page et la composition graphique en général sont de ma conception personnelle, enrichie par les retours de mes camarades, et le fruit de plusieurs mois d'apprentissage de \LaTeX) et enrichissante.\newline\newline\newline\text{}
         \end{minipage}
     \end{center}
     
-    \hfill{\large\textsc{Siahaan--Gensollen Rémy}}
+    \hfill{\large\textsc{SIAHAAN-{}-GENSOLLEN Rémy}}
     
     \pagestyle{intro}
     
@@ -323,13 +333,13 @@
         Soit \hg{$\bcV$ un ensemble fini ou dénombrable de variables propositionnelles}, \hg{$\Gamma$ un ensemble de formules propositionnelles} à variables dans $\bcV$ et \hg{$\varphi \in \Gamma$ une formule} logique de $\Gamma$. On appelle \hg{forme normale disjonctive canonique de $\varphi$} l'\hg{unique disjonction de min-termes différents logiquement équivalente à $\varphi$}.
     \end{definition}
     
-    \chapter{Langages formels}
+    \chapter{Langages formels et théorie des automates}
     
     Généralement, la résolution d'un problème passe par la compréhension de celui-ci, puis par différentes méthodes mathématiques, ce que l'on pourrait généralement appeler \textit{calcul} (que ce soit du calcul avec des nombres, avec des lettres, ou des objets plus abstraits). Savoir si un tel calcul peut être fait et dans quelles conditions ouvre d'ailleurs la question de la \textit{calculabilité}. La branche de l'informatique théorique qui étudie cette formalisation des mécanismes mathématiques s'appelle la \textit{théorie des automates}. Assez récente, elle n'émerge comme une discipline indépendante que dans la deuxième moitié du \textsc{XX}\ieme~siècle, sous l'impulsion des travaux de scientifiques comme Claude \textsc{Shannon}, John \textsc{von Neumann}, Edward \textsc{Moore}, Stephen \textsc{Kleene}, \dots 
     
     Le principe de la théorie des automates est de convertir un \guill{problème} en un langage formel, dans lequel l'analyse de certains éléments peut conduire à la résolution de ce problème. Ses applications sont nombreuses, que ce soit en intelligence artificielle, pour le traitement de texte, en biologie, ou toujours en informatique (les automates sont à la base de la théorie de la complexité). Un \textit{automate} 
     
-    
+    Dans ce chapitre, on s'intéressera aux langages formels 
 
     Le but de ce chapitre est d'étudier formellement divers ensembles de
     chaînes de caractères, ayant des propriétés intéressantes du point de vue informatique.
@@ -1162,7 +1172,7 @@
     
     %manque 1 definition, 1 notation, 1 theoreme, 1 corrolaire, 1 definition 
     
-    \section{Theoreme de Kleeme}
+    \subsection{Theoreme de Kleeme}
     
     \begin{theorem}{de Kleeme}{}
     Soit $\Sigma$ un alphabet 
@@ -1301,7 +1311,7 @@
     
     On remarquera par ailleurs que 'l'on vient de montrer que $\mathrm{Reg}_\Sigma \subset \mathrm{Rec}_\Sigma$. La section suivante propose une autre démonstration (elle aussi constructive) de cette inclusion.
     
-    \subsection{Algorithme de Berry-Sethi, automate de Glushkov}
+    \subsubsection{Algorithme de Berry-Sethi, automate de Glushkov}
         
     \begin{definition}{Langage local}{}
         Soit $\Sigma$ un alphabet, et $L \subset \Sigma^\star$ un langage. On note :
@@ -1590,7 +1600,7 @@
         Admise.
     \end{nproof}
     
-    \subsection{Algorithme d'élimination des états}
+    \subsubsection{Algorithme d'élimination des états}
     
     On montre maintenant que $Rec_\Sigma \subseteq Reg_\Sigma$, en présentant l'algorithme de Brzozowski et McCuskey. Cet algorithme repose sur une nouvelle définition d'automate.
     
@@ -1726,7 +1736,7 @@
         \itt L'expression obtenue peut être de taille exponentielle en le nombre d'états de $\bcA$.
     \end{enumerate}
     
-    \section{Propriétés des langages reguliers}
+    \subsection{Propriétés des langages reguliers}
         Une fois le lien etabli entre les language regulier et automates on peut montrer facilement certiane propriete des language regulier 
         
     \begin{theorem}{Stabilité par complémentaire}{}
@@ -1785,7 +1795,7 @@
         \end{enumerate}
     \end{nproof}
     
-    \subsection{Lemme de l'étoile}
+    \subsubsection{Lemme de l'étoile}
     
     Nous allons maintenant nous intéresser à la question suivante :
     Soit $\Sigma$ un alphabet, soit $L \subseteq \Sigma^\star$. $L$ est-il régulier ?
