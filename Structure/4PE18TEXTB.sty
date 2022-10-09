@@ -22,8 +22,10 @@
 %\usepackage{roboto}
 %\usepackage{calligra}
 %\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
-\usepackage{lmodern}
-\usepackage[T1]{fontenc}
+%\usepackage{lmodern}
+%\usepackage{slantsc}
+%\usepackage[T1]{fontenc}
+\usepackage{fontenc}
 \usepackage{babel}
 \usepackage{lastpage}
 \usepackage[usenames, dvipsnames]{color}
@@ -420,17 +422,30 @@
 %    %SlantedFont={* Slant}
 %]{Latin Modern Roman}
 
-\setmainfont[
-    Scale=1,
-    %Ligatures=Rare,
+%\setmainfont[
+%    Scale=1,
+%    %Ligatures=Rare,
 %    Ligatures={Required,%
 %Common,Contextual,Rare,Historic,TeX,Discretionary},
 %    %Ligatures = ,   % ou RawFeature = +dlig, (ct, st)
 %    Style = Swash,
-    SmallCapsFont={* Caps},
+%    SmallCapsFont={* Caps},
     %SlantedFont={* Slant}
-]{Latin Modern Roman}
+%]{Latin Modern Roman}
 %\setmainfont{EBGaramond}
+
+\setmainfont[
+    Ligatures=TeX,
+    Scale=1,
+    SmallCapsFont={Latin Modern Roman Caps},
+    SlantedFont={* Slanted},
+    ItalicFeatures  = {
+        SmallCapsFont = {LMRomanCaps10-Oblique}
+    },
+    ]{Latin Modern Roman}
+
+\newfontface\unshape[]{Latin Modern Roman Unslanted} 
+\newcommand\textun[1]{{\unshape #1}}
 
 
 % Version longue à cause du paramètre "explicit" de titlesec.
@@ -1386,7 +1401,14 @@
 
 \DeclareDocumentCommand\guill{m}{\og #1\fg{}}
 
-
+\makeatletter
+\newcommand{\kmath}[1][0.65]{%
+  \mathpalette\@kmath{#1}%
+}
+\newcommand*{\@kmath}[2]{%
+  \scalebox{#2}[#2]{$#1\mathbf{\itshape k}\m@th$}%
+}
+\makeatother
 
 
 \ExplSyntaxOn

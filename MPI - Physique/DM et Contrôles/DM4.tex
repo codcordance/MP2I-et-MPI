@@ -18,16 +18,16 @@
     
     \section{Tir d'un obus vers le zénith}
     
-    \emph{Au \textsc{XVII}\ieme~siècle, le Père \textsc{Mersenne}, ami et
-    correspondant de \textsc{Descartes}, se livra à un tir d'obus, le canon
+    \emph{Au \textsc{XVII}\ieme~siècle, le Père {\scshape Mersenne}, ami et
+    correspondant de {\scshape Descartes}, se livra à un tir d'obus, le canon
     étant pointé vers le zénith. Le résultat ne fut pas du tout celui escompté.
     On se propose d'étudier l'influence de différents facteurs physiques sur
     la trajectoire de l'obus.}\medskip
         
     En un lieu $A$ de latitude $\lambda = \qty{48}{\degree N}$, un canon
     tire un obus à la vitesse $v_0 = \qty{100}{\metre\per\second}$ suivant la
-    verticale ascendante $\left\vert A z\right)$. On désigne par $\p{A, x, y,
-    z}$ un repère orthonormé lié à la Terre, $\left\vert A x \right)$ étant
+    verticale ascendante $\vec{A_z}$. On désigne par $\p{A, x, y,
+    z}$ un repère orthonormé lié à la Terre, $\vec{A_x}$ étant
     dirigé vers le sud. On assimile la Terre à une sphère homogène, tournant
     autour de l'axe des pôles à la vitesse angulaire $\omega_0 =
     \qty{7.5e-5}{\radian\per\second}$. On note $\vec{g_0}$ le champ de
@@ -44,11 +44,76 @@
                 \item\label{qu:I.1.1.a} Donner l'expression de la vitesse
                 $\vec v$ de l'obus à un instant quelconque.
                 
+                \noafter
+                %
+                \boxans{
+                    Soit $m$ la masse de l'obus.Puisque l'on néglige la résistance de l'air, la seule force
+                    qui s'applique sur l'obus est son poids $\vec P = m\vec{g_0} = -mg_0\vec{A_z}$. En vertu du 
+                    \textit{principe fondamental de la dynamique}, on a donc :
+                    %
+                    \[ m\dfrac{\dif \vec v}{\dif t} = -mg_0\vec{A_z} \qquad\text{d'où}\qquad \dfrac{\dif \vec v}{\dif t} = -g_0\vec{A_z}\]
+                    %
+                    On intègre entre $0$ et $t$, ainsi $\vec v\p{t} = \vec v\p{0} - g_0t\vec{A_z}$.
+                }
+                %
+                \nobefore\yesafter
+                %
+                \boxansconc{
+                    Puisque $\vec v\p{0} = v_0\vec{A_z}$, on a finalement $\vec v\p{t} = \p{v_0 - g_0t}\vec{A_z} = v_z\p{t}\vec{A_z}$.
+                }
+                %
+                \yesbefore
+                
                 \item Exprimer l'énergie mécanique de l'obus. Varie-t-elle au
                 cours du temps ? Calculer l'altitude maximale de atteinte par
                 l'obus.
                 
+                \noafter
+                %
+                \boxans{
+                    Soit $E_\text m$ l'énergie mécanique de l'obus et $E_\text c$ son énergie cinétique. On note $z\p{t}$ la position de l'obus sur l'axe orienté porté par $\vec{A_z}$ au temps $t$. On note alors $E_\text{pp}$ son énergie potentielle de pesanteur, nulle au niveau du sol ($z\p{t} = 0$), ainsi $E_\text pp{t} = mgz\p{t}$. 
+                    %
+                    %On a $\dfrac{\dif z}{\dif t} = v_z$ d'où $z\p{t} = v_0t - \dfrac{g_0t^2}{2} + z\p{0}$. On considère que l'obus est au sol à l'instant $t = 0$, d'où $z\p{0} = 0$.
+                    %
+                     On a :
+                    %
+                    \[ E_\text m\p{t} = E_\text c\p{t} + E_\text{pp}\p{t} = \dfrac{1}{2}m\vec{v}\p{t}^2 + mgz\p{t} = m\p{\dfrac{1}{2}v_z\p{t}^2 + gz\p{t}} \]
+                    %
+                    Puisque la seule force s'exerçant sur le système est conservative (ici le poids), le système est conservatif d'où $E_\text m$ est constant. Dès lors, $E_\text m\p{t} = E_\text m\p{0} = m\p{\dfrac{1}{2}{v_0}^2 + g_0z\p{0}}$.
+                }
+                %
+                \nobefore
+                %
+                \boxansconc{
+                    On considère que l'obus est au sol à l'instant $t = 0$ ($z\p{0} = 0$), donc $E_m\p{t} = \dfrac{1}{2}m{v_0}^2$.
+                }
+                %
+                \boxans{
+                    L'altitude maximale de l'obus, atteinte à l'instant $t_\text{max}$, est donnée par $z\p{t_\text{max}} = z_\text{max}$, et se caractérise par un changement de signe de $\dfrac{\dif z}{\dif t}$, \ie $v_z\p{t_\text{max}} = 0$. A cet instant, l'énergie mécanique est donc $E_\text m\p{t} = mg_0z\p{t_\text{max}} = mgz_\text{max}$.
+                }
+                %
+                \yesafter
+                %
+                \boxansconc{
+                    On a donc $z_\text{max} = \dfrac{E_\text m}{mg_0} = \dfrac{{v_0}^2}{2g_0}$. L'application numérique livre $z_\text{max} = \qty{0.50}{\kilo\metre}$.
+                }
+                \yesbefore
+                
                 \item En quel point et au bout de combien de temps l'obus retombe-t-il ?
+                
+                \noafter
+                %
+                \boxans{
+                    Le mouvement se faisant uniquement sur l'axe porté par $A_\text z$, les coordonées $x$ et $y$ de l'obus sont constantes au cours du mouvement. L'obus retombe donc exactement au point d'où il a été tiré (\ie sur le canon). D'ailleurs, prendre en compte la résistance de l'air, qui s'oppose au mouvement, ne changerait pas ce résultat. On a $\dfrac{\dif z}{\dif t} = v_z$ donc en intégrant entre $0$ et $t$, on obtient $z\p{t} = v_0t - \dfrac{g_0t^2}{2} + z\p{0} =  v_0t - \dfrac{g_0t^2}{2}$. L'obus retombe à l'instant $t_1 > 0$ tel que $z\p{t_1} = 0$, d'où $v_0 - \dfrac{g_0t_1}{2} = 0$,
+                }
+                %
+                \nobefore\yesafter
+                %
+                \boxansconc{
+                ce qui donne $t_1 = 2\dfrac{v_0}{g_0}$. L'application numérique livre $t_1 = \qty{20}{\second}$.
+                }
+                %
+                \yesbefore
             \end{enumerate}
 
             \item La résistance de l'air sur l'obus, de forme sphérique de
@@ -60,19 +125,79 @@
             \begin{enumerate}
                 \item Préciser l'unité de $k$.
                 
+                \noafter
+                %
+                \boxans{
+                    La dimension d'une force est celle d'une masse multiplié par une accélération d'où :
+                    %
+                    \[ \intc{k\pi{r_0}^2v^2} \equiv \mathsf{M} \cdot \mathsf{L} \cdot \mathsf{T}^{-2} \qquad \text{donc}\qquad \intc{k} \cdot \mathsf{L}^2 \cdot \p{\mathsf{L} \cdot \mathsf{T}^{-1}}^2 \equiv \mathsf{M} \cdot \mathsf{L} \cdot \mathsf{T}^{-2} \qquad\text{donc}\qquad \intc{k} \equiv \mathsf{M} \cdot \mathsf{L}^{-3}\]
+                    %
+                    
+                }
+                %
+                \nobefore\yesafter
+                %
+                \boxansconc{
+                    Donc $k$ s'exprime dans le système international en $\unit{\kg\per\metre\cubed}$.
+                }
+                %
+                \yesbefore
+                
                 \item Comparer la force de frottement au poids. Que penser ?
+                
+                \boxansconc{
+                    Le module de la force de frottement est maximal quand la vitesse est maximale, soit avec $v_0$, et l'application numérique livre $\approx \qty{20}{\newton}$. On considère $m \approx \qty{20}{\kg}$, le module du poids est donc $\qty{200}{\newton}$. Lorsque la vitesse est maximale, la force de frottement vaut un dixième du poids, ce qui n'est pas tout à fait négligeable. On devrait donc la prendre en compte.
+                }
                 
                 \item On prend en compte cette force de frottement fluide. On
                 pose $u=v^2$. Montrer que, dans la phase ascendante, $u$
                 vérifie l'équation :
                 %
                 \[
-                    \dfrac{\dif u}{\dif t} = -2g_0 -2\dfrac{k\pi}{m}{r_0}^2u
+                    \dfrac{\dif u}{\dif z} = -2g_0 -2\dfrac{k\pi}{m}{r_0}^2u
                 \]
                 %
                 Expliciter la fonction $z\p{u}$. En déduire l'altitude
-                maximale atteinte par l'obus. On posera $d = \dfrac{m}{2k\pi
-                r_0^2}$.
+                maximale atteinte par l'obus.
+                
+                On posera $d = \dfrac{m}{2k\pi{r_0}^2}$.
+                
+                %
+                \noafter
+                %
+                \boxans{
+                    On a $u = v^2 = \vec{v}^2 = {v_Z}^2$. Or :
+                    %
+                    \[ \dfrac{\dif u}{\dif z} = \dfrac{\dif u}{\dif v_z}\dfrac{\dif v_z}{\dif z} = 2v_z\dfrac{\dif v_z}{\dif t}\dfrac{\dif t}{\dif z} = 2v_z\dfrac{\dif v_z}{\dif t}\dfrac{1}{v_z} = 2\dfrac{\dif v_z}{\dif t} \]
+                    %
+                    Le \textit{principe fondamental} amène $m\dfrac{\dif v_z}{\dif t} = -mg_0 - k\pi{r_0}^2 {v_z}^2$, donc $\dfrac{\dif v_z}{\dif t} = -g_0 - \dfrac{k\pi}{m}{r_0}^2u$.
+                }
+                %
+                \nobefore
+                %
+                \boxansconc{
+                    On obtient bien $\dfrac{\dif u}{\dif z} = -2g_0 -2\dfrac{k\pi}{m}{r_0}^2u$.
+                }
+                %
+                \boxans{
+                    On sépare alors les variables : \qquad $\dif z = -\dfrac{m}{2}\dfrac{\dif u}{mg_0 + k\pi {r_0}^2 u}$, puis on intègre suivant $u$ :
+                    %
+                    \[ z\p{u} = -\dfrac{m}{2k\pi{r_0}^2}\ln{mg_0 + k\pi{r_0}^2 u} + \mu = -d\ln{mg_0 + k\pi{r_0}^2u} + \mu \]
+                    %
+                    Or $z\p{{v_0}^2} = 0 = -d\ln{mg_0 + k\pi{r_0}^2 {v_0}^2} + \mu$, d'où $\mu = d\ln{mg_0 + k\pi{r_0}^2 {v_0}^2}$.
+                }
+                %
+                \yesafter
+                %
+                \boxansconc{
+                    Finalement, $z\p{u} = d\ln{\dfrac{mg_0 + k\pi{r_0}^2 {v_0}^2}{mg_0 + k\pi {r_0}^2 u}}$. On a $z_\text{max} = z\p{0} = d\ln{1 + \dfrac{{v_0}^2}{2dg_0}}$. Pour $d$ grand :
+                    %
+                    \[ z_\text{max} \approx d\p{\dfrac{{v_0}^2}{2dg_0} - \dfrac{{v_0}^4}{8d^2{g_0}^2}} = \dfrac{{v_0}^2}{2g_0}\p{1 - \dfrac{k\pi{r_0}^2{v_0}^2}{2mg_0}}\]
+                    %
+                    Lorsque $m$ est très grand, on retrouve $z_\text{max} = \dfrac{{v_0}^2}{2g_0} = \qty{0,50}{\kilo\metre}$. Pour $m \approx \qty{20}{\kg}$, $z_\text{max} = \qty{0,48}{\kilo\metre}$.
+                }
+                %
+                \yesbefore
             \end{enumerate}
         \end{enumerate}
     \end{enumerate}
@@ -88,10 +213,54 @@
             d'inertie d'entraînement n'intervient-elle pas explicitement dans
             l'équation du mouvement ?
             
+            \noafter
+            %
+            \boxans{
+                \begin{minipage}{0.5\linewidth}
+                    \centering
+                    \begin{tikzpicture}
+                        
+                    \end{tikzpicture}
+                \end{minipage}
+                %
+                \begin{minipage}{0.5\linewidth}
+                    On note $\bcR_2 = \p{A, x, y, z}$ le référentiel lié à la Terre, et $\bcR_1$ le référentiel géocentrique, supposé galiléen. $\bcR_2$ est en rotation uniforme autour de $\bcR_1$ à la vitesse angulaire $\omega_0$. On note $\vec u$ le vecteur unitaire portant l'axe orienté du pôle sud au pôle nord de la terre, ainsi :
+                    %
+                    \[ \vec u =  \sin{\lambda} \vec{A_z} - \cos{\lambda} A_x\]
+                \end{minipage}
+                
+                On a $\vec{\Omega}_{\bcR_2/\bcR_1} = \omega_0 \vec{u}$. On note  $\vec{a_\text c}$ et $\vec{a_\text e}$ les accélérations de \textsc{Coriolis} et d'entraînement de l'obus pour $\bcR_2$ par rapport à $\bcR_1$. On a :
+                %
+                \[ \vec{a_\text c} = 2\vec{\Omega}_{\bcR_2/\bcR_1} \wedge \vec v \qquad \vec{a_\text e} =  \vec{\Omega}_{\bcR_2/\bcR_1} \wedge \p{\vec{\Omega}_{\bcR_2/\bcR_1} \wedge \vec{AM}} \]
+                %
+            }
+            %
+            \nobefore
+            %
+            \boxansconc{
+                Puisque $\vec{\Omega}_{\bcR_2/\bcR_1}$ est constant, $\vec{a_\text e}$ est nulle donc la force d'inertie d'entraînement n'intervient pas.
+            }
+            %
+            \boxans{
+                On pose $\vec{F_\text{iC}} = -m\vec{a_\text c}$ la force de \textsc{Coriolis}, ainsi le \textit{principe fondamental de la dynamique} en référentiel non galiléen livre :
+                %
+                \[ m\dfrac{\dif \vec v}{\dif t} = \vec{P} + \vec{F_\text{iC}} = -mg_0\vec{A_z} - m\vec{a_\text c} \qquad\text{donc}\qquad   \dfrac{\dif \vec v}{\dif t} = g_0\vec{A_z} - 2\vec{\Omega}_{\bcR_2/\bcR_1} \wedge \vec v \]
+                %
+                Avec $\vec v = \begin{pNiceMatrix}v_x \\ v_y \\ v_z\end{pNiceMatrix}$, on a $\vec{\Omega}_{\bcR_2/\bcR_1} \wedge \vec v = \begin{pNiceMatrix}-\omega_0\cos \lambda\\0\\ \omega_0\sin \lambda\end{pNiceMatrix} \wedge \begin{pNiceMatrix}v_x \\ v_y \\ v_z\end{pNiceMatrix} = \begin{pNiceMatrix}-\omega_0v_y\sin \lambda\\ \omega_0\p{v_x\sin \lambda  + v_z\cos \lambda} \\ -\omega_0 v_y\cos \lambda \end{pNiceMatrix}$. Finalement :
+            }
+            %
+            \yesafter
+            %
+            \boxansconc{
+                \[ \dfrac{\dif}{\dif t}\begin{pNiceMatrix}v_x \\ v_y \\ v_z\end{pNiceMatrix} = \begin{pNiceMatrix}-2\omega_0v_y\sin \lambda\\ 2\omega_0\p{v_x\sin \lambda  + v_z\cos \lambda} \\ g_0 - 2\omega_0 v_y\cos \lambda \end{pNiceMatrix} \]
+            }
+            %
+            \yesbefore
+            
             \item On évalue la force d'inertie de \textsc{Coriolis} en utilisant la loi de vitesse obtenue à la question \quref{I.1.1.a}.
             Justifier cette méthode de calcul.
 
-            Soit \(\left(\vec i, \vec j, \vec k\right)\)la base orthonormée associée au repère \(\left(A,x,y,z\right)\). \(\bcM\) repérant la position de l'obus, on pose \(\vec{A\bcM}=x\vec i + y\vec j + z\vec k\). Montrer que \(\dot{\dot{y}} \approx -2\omega_0\left(v_0 - g-0t\right)\cos(\lambda)\)
+            \item Soit $\p{\vec i, \vec j, \vec k}$ la base orthonormée associée au repère $p\p{A, x, y, z}$. $M$ repérant la position de l'obus, on pose $\vec{AM} = x\vec i + y\vec j + z\vec k$. Montrer que $\ddot y \approx -2\omega_0\p{v_0 - g_0t}\cos \lambda $.
 
             En déduire une expression approchée de l'ordonnée $y$ de l'obus. Évaluer y au moment où l'obus tombe sur le sol. La déviation se fait-elle vers l'Ouest ou vers l'Est ? Le résultat dépend-il de l'hémisphère dans lequel on effectue le tir ?
 
