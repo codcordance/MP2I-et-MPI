@@ -1061,4 +1061,334 @@
         
         Dans le cas réciproque, soit $A$ tel que $A^2 = 0$. Donc $\Im A \subset \Ker A$, d'où par théorème du rang, en posant $r = \rg A$ on a $2r \leq n$. On considère une base $\p{e_1, e_2, \dots, e_r}$ de l'image, que l'on complète en une base $\p{e_1, e_2, \dots, e_{n-r}}$ du noyau. On considère un antécédent $u_1$ de $e_1$. $u_1$ n'est pas dans le noyau car $e_1$ n'est pas nul, donc il est linéairement indépendant des $e_1, \dots, e_{n-r}$. On réitère le procédé, et on génère $u_1, u_r$ vecteurs. La famille $\bcB = \p{e_1, \dots, e_{n-r}, u_1, e_r}$ est libre et par dimension, elle est une base de $E$. Or $\Mat_\bcB A = U$.
     \end{exercise}
+
+    \chapter{Topologie}
+    
+    Le but de la topologie est d'étudier les \emph{proximités}. Ce chapitre a plusieurs objectifs :
+    %
+    \begin{enumerate}
+        \itt Premier objectif : comprendre continuité, la convergence en dimension finie
+        
+        \itt Deuxième objectif : assimiler les notions nouvelles d'ouverts, de fermés, de compact, de valeur d'adhérence, etc
+        
+        \itt Troisième objectif : comprendre la topologie au service des mathématiques.
+    \end{enumerate}
+    
+    \chaptertoc
+    
+    \section{Normes}
+    
+    Dans toute la suite de ce corps, on considérera un corps $\bdK$ tel que $\bdK = \bdR$ ou $\bdK = \bdC$, et $E$ un $\bdK$-espace vectoriel.
+    
+    \subsection{Définition}
+    
+    \begin{definition}{Norme}{}
+        On appelle \hg{norme} un application $N : E \to \bdR_+$ telle que pour tout $x \in E$, on a 
+        \begin{enumerate}
+            \itast $N\p{x} \geq 0$ (positivté)
+            \itast $N\p{x} = 0 \implies x = 0$ (séparation)
+            \itast Pour tout scalaire $\lambda \in \bdK$, $N\p{\lambda x} = \mod{\lambda} N\p{x}$ (homogénéité).
+            \itast Pour tout vecteur $y \in E$, $N\p{x + y} \leq N\p{x} + N\p{y}$ (inégalité triangulaire).
+        \end{enumerate}
+    \end{definition}
+    
+    \begin{property}{Inégalité triangulaire}{}
+        \[ \hg{\mod{N\p{x} - N\p{y}} \leq N\p{x - y}} \]
+    \end{property}
+    %
+    \begin{nproof}
+        $N\p{x} = N\p{x - y + y} \leq N\p{x - y} + N\p{y}$. De même $N\p{y} \leq N\p{x - y} + N\p{x}$. On conclut.
+    \end{nproof}
+    
+    \subsection{Exemples classiques}
+    
+    \begin{example}{Norme sur $\bdR^n$}{}
+        \begin{enumerate}
+            \itt $\displaystyle N_1\p{X} = \sum \mod{x_i}$
+            
+            \itt $\displaystyle N_2\p{X} = \sqrt{\sum {x_i}^2}$
+            
+            \itt $\forall p \geq 1$, $\displaystyle N_p\p{X} = \p{\sum {x_i}^p}^{\sfrac{1}{p}}$
+            
+            \itt $\displaystyle N_\infty\p{X} = \sup\limits_i\ens{\mod{x_i}}$
+        \end{enumerate}
+    \end{example}
+    
+    \begin{example}{Norme sur $\bdC^n$}{}
+        \begin{enumerate}
+            \itt $\displaystyle \norm{X}_1 = \sum \mod{x_i}$
+            
+            \itt $\displaystyle \norm{X}_2 = \sqrt{\sum \mod{x_i}^2}$
+            
+            \itt $\displaystyle \norm{X}_\infty = \sup\limits_i\ens{\mod{x_i}}$
+        \end{enumerate}
+    \end{example}
+    
+    \begin{example}{Norme sur $E$ de dimension finie}{}
+        Soit $\bcB = \p{e_i}_i$ une base tel que $x = \displaystyle\sum x_ie_i$.
+        %
+        \begin{enumerate}
+            \itt $\displaystyle N_1\p{X} = \sum \mod{x_i}$
+            
+            \itt $\displaystyle N_2\p{X} = \sqrt{\sum \mod{x_i}^2}$
+            
+            \itt $\displaystyle N_\infty\p{X} = \sup\limits_i\ens{\mod{x_i}}$
+        \end{enumerate}
+    \end{example}
+    
+    \begin{example}{Sur $\bcC\p{\intc{0, 1}, \cdot}$}{}
+        Sur $\bcM_{n, m}\p{\bdK}$ il y a d'autres normes. Sur $\bcC^\infty \p{\intc{0, 1}, \bdR}$, on a :
+        \begin{enumerate}
+            \itt $N_1\p{f} = \displaystyle\int_0^1 \mod{f\p{t}} \dif t$
+            
+            \itt $N_2\p{f} = \sqrt{\displaystyle\int_0^1 \mod{f\p{t}}^2\dif t}$
+            
+            \itt $N_\infty\p{f} = \sup\limits_{x \in \intc{0, 1}} \mod{f\p{x}} = \sup\limits_{\intc{0, 1}} \mod{f}$
+        \end{enumerate}
+        %
+        Pour $E$ de dimension finie et $\norm{\cdot}$ une norme sur $E$, sur $\bcC^\infty \p{\intc{0, 1}, E}$ on a :
+        %
+        \begin{enumerate}
+            \itt $N_1\p{f} = \displaystyle\int_0^1 \norm{f\p{t}}\dif t$
+            
+            \itt $N_2\p{f} = \sqrt{\displaystyle\int_0^1 \norm{f\p{t}}^2\dif t}$
+            
+            \itt $N_\infty\p{f} = \sup\limits_{x \in \intc{0, 1}} \norm{f\p{x}}$
+        \end{enumerate}
+    \end{example}
+    
+    \begin{example}{Des normes moins usuelles}{}
+        %
+        On peut donner des normes moins usuelles, par exemple sur $\bdK\intc{X}$ :
+        %
+        \begin{enumerate}
+            \itt $\norm{P}_\infty = \sup\limits_{x \in \intc{0, 1}} \mod{P\p{x}}$
+            
+            \itt $\norm{P}_1 = \displaystyle\int_2^3 \mod{P\p{t}}\dif t$
+            
+            \itt $\norm{P} = \displaystyle\sum_i i! a_i$
+        \end{enumerate}
+    \end{example}
+    %
+    On commence à voir qu'il existe une grande quantité de normes. On peut se rendre compte qu'on peut en fabriquer d'avantage, une fois qu'on en a déjà : sur $\bcC^1\p{\intc{0, 1}, \bdK}$, on considère une norme $N_\infty$ et $N_1$. On remarque par exemple que l'on peut fabriquer les normes suivantes :
+    %
+    \begin{enumerate}
+        \itt $N_1\p{f'} + N_\infty\p{f}$
+        \itt $\mod{f\p{0}} + N_\infty\p{f'}$
+        \itt $N_\infty\p{f} + N_\infty\p{f'}$
+    \end{enumerate}
+    
+    \subsection{Normes équivalentes}
+    
+    \begin{definition}{Normes équivlentes}
+        Sur $E$, deux normes $N$ et $\norm{\cdot}$ sont dites équivalentes s'il existe $a > 0$ et $A < +\infty$ tel que pour tout $x \in E$ :
+        %
+        \[ a \norm{x} \leq N\p{x} \leq A\norm{x} \]
+        %
+    \end{definition}
+    %
+    Deux normes équivalentes définissent les mêmes notions de proximité.
+    %
+    \begin{exercise}{}{}
+        Comparer les normes précédentes.
+    \end{exercise}
+    
+    On traite le cas dans $\bdR^n$ : $N_1$, $N_2$, $N_\infty$. 
+    %
+    \begin{enumerate}
+        \itt $\displaystyle N_1\p{X} = \sum \mod{x_i}$
+            
+        \itt $\displaystyle N_2\p{X} = \sqrt{\sum {x_i}^2}$
+            
+        \itt $\displaystyle N_\infty\p{X} = \sup\limits_i\ens{\mod{x_i}}$
+    \end{enumerate}
+    %
+    Montrons que $N_1$ est une norme :
+    %
+    \begin{enumerate}
+        \itast On a une somme de termes positifs donc positive, d'où la positivité
+        
+        \itast Si $N_1\p{X} = 0$, alors $\sum \mod{x_i} = 0$ d'où chaque $\mod{x_i} = 0$ d'où $X = 0$
+        
+        \itast $N_1\p{\lambda X} = \sum \mod{\lambda x_i} = \mod{\lambda} \sum \mod{x_i} = \mod{\lambda} N_1\p{x}$
+        
+        \itast $N_1\p{X + Y} = \sum \mod{x_i + y_i} \leq \sum \mod{x_i} + \sum \mod{y_i} = N_1\p{X} + N_1\p{Y}$
+    \end{enumerate}
+    %
+    Montrons que $N_\infty$ est une norme :
+    %
+    \begin{enumerate}
+        \itast On a un ensemble de termes positifs donc le sup est positif, d'où la positivité
+        
+        \itast Si $N_\infty\p{X} = 0$, alors $\sup \ens{x_i} = 0$, or $0 \leq x_i \leq \sup \ens{x_i} = 0$ d'où chaque $\mod{x_i} = 0$ d'où $X = 0$.
+        
+        \itast $N_\infty\p{\lambda X} = \sup \ens{ \mod{\lambda x_i}} = \mod{\lambda} \sup \ens{\mod{x_i}} = \mod{\lambda} N_\infty\p{x}$
+        
+        \itast $N_\infty\p{X + Y} = \sup \ens{\mod{x_i + y_i}} \leq \sup \ens{\mod{x_i}} + \sup \ens{\mod{y_i}} = N_\infty\p{X} + N_\infty\p{Y}$
+    \end{enumerate}
+    
+    \section{Topologie}
+    
+    \subsection{Notion de boule}
+    %
+    On considère $E$ un $\bdK$-espace vectoriel de norme $\norm{\cdot}$.
+    
+    \begin{definition}{Boule et sphère}{}
+        Soit $a \in E$ et $r \in \bdRp$. On a :
+        %
+        \begin{enumerate}
+            \itt On appelle boule ouverte de centre $a$ et de rayon $r$ l'ensemble $\bcB\p{a, r} = \ens{x, \mod{x - a} < r}$
+            
+            \itt On appelle boule fermée de centre $a$ et de rayon $r$ l'ensemble $\overline\bcB\p{a, r} = \ens{x, \mod{x - a} \leq r}$
+            
+            \itt On appelle sphère de centre $a$ et de rayon $r$ l'ensemble $\bcS\p{a, r} = \ens{x, \mod{x - a } < r} = \overline\bcB\p{a, r} \backslash \bcB\p{a, r}$
+        \end{enumerate}
+    \end{definition}
+    %
+    \begin{definition}{Voisinage}{}
+        $A \subset E$ est un voisinage de $x \in A$ s'il existe $r > 0$ tel que $\bcB\p{x, r} \subset A$
+    \end{definition}
+    %
+    \begin{definition}{Ouvert, fermé}{}
+        $O \subset E$ est un ouvert si $O$ est un voisinage de chacun de ses points, \ie
+        %
+        \begin{enumerate}
+            \itast si $\forall a \in O$, $\exists r_a > 0$, $\bcB\p{a, r_a} \subset O$
+            
+            \itast si $\forall a \in O$, $\exists r_a > 0$, $\norm{x - a} \leq r_a \implies x \in O$.
+        \end{enumerate}
+        %
+        $F \subset E$ est un fermé si $E \backslash A$ est un ouvert.
+    \end{definition}
+    
+    \subsection{TODO}
+    
+    \subsection{TODO}
+    
+    \subsection{Caractérisation des fermés}
+    
+    Prop : $A \subset E$ fermé ssi $A$ stable par passage à la limite, \ie $a_n \in A$ et $a_n \lima a \implies a \in A$ (on ne prétend pas montrer que toute suite converge, on suppose simplement que $a_n$ est convergente).
+    
+    C'est une caractérisation pratique :
+    %
+    Si $\complement A$ est ouvert, $a_n \in A$ avec $a_n \lima a$ si $a \not\in A$. On a $a \in \complement A$, donc on a une boule $\bcB\p{a, r} \subset \complement A$. Dès lors $a_n \lima{a}$ : $\norm{a_n - a} < r$ si $n \geq n_0$, donc $a_n \in \bcB\p{a, r} \not\subset A$.
+    
+    Réciproquement, si $\complement A$ non ouvert, il existe $a \in \complement A$ tq. pour tout $r$, $\bcB\p{a, r} \not\subset A$.
+    
+    \subsection{Adhérence, intérieur}
+
+    \begin{definition}{Intérieur}{}
+        Soit $A$ une partie fixée. On appelle intérieur de $A$ l'ouvert dans lequel tout ouvert de $A$ est inclus :
+        %
+        \[ \mathring{A} = \mathrm{int}\p{A} = \bigcup_{X \ \text{ouvert} \ \subset A} X\]
+        %
+        Une deuxième vision consiste à dire qu'un point $a \in A$ est intérieur à $A$ s'il existe $\bcB\p{a, r} \subset A$, \ie si $A$ est voisinage de $A$, ou encore s'il existe une suite telle que $a_n \to a$.
+    \end{definition}
+
+    \begin{definition}{Adhérence}{}
+        Soit $A$ une partie fixée. On appelle adhérence de $A$ l'intersection des fermés de $A$ : 
+        %
+        \[ \bar{A} = \mathrm{adh}\p{A} = \bigcap_{F\ \text{fermé}\ \subset A} F \]
+        %
+        Une deuxième vision consiste à dire qu'un point $a \in A$ est adhérent à $A$ s'il existe une suite $\p{a_n}$ telle que $\p{a_n} \to a$
+    \end{definition}
+    Pour montrer que $A$ est ouvert, on prend $a \in A$ et on cherche $r$ tel que $\bcB\p{a, r} \subset A$.
+    
+    Pour montrer que $a$ est intérieur à $A$, on fait de même.
+    
+    Pour montrer qu'il est non intérieur, on prend une suite de $a_n \not \in A$ telle que $a_n \lima{n \to +\infty} a$.
+    
+    Pour montrer que $A$ est fermé, on montre la stabilité par passage à la limite :
+    %
+    \[ a \not\in \overline{A} \qquad \bcB\p{a, r} \subset A = \emptyset\]
+    %
+    \begin{definition}{Frontière}{}
+        \[ \mathrm{Fr}\p{A} = \overline{A} \backslash \mathring{A} = \mathrm{adh}\p{A} \cap \mathrm{adh}\p{E \backslash A}\]
+    \end{definition}
+    %
+    On a bien $a \in \mathrm{Fr}\p{A}$ s'il existe $a_n \in A$ tq $a_n \lima{} a$, s'il existe $b_n \not\in A$ tel que $b_n \lima a$. 
+    
+    CNS : $\bcB\p{a, r} \cap A \neq\emptyset$ et $\bcB\p{a, r} \cap \complement A \neq \emptyset$.
+
+    \subsection{Topologie relative}
+    
+    Soit $X$ une partie d'un ouvert.
+    
+    \begin{definition}{Boule ouverte/fermée relative}{}
+        La boule ouverte, respectivement fermée, relativement à  $X$ est 
+        \[ \bcB_X\p{a,r} = \ens{x\in X \mid \norm{x-a} < r} \qquad\text{respectivement}\qquad
+         \bcB_X\p{a,r} = \ens{x\in X \mid \norm{x-a} \leq r}\]
+    \end{definition}
+    
+    \begin{definition}{Voisinage relatif}{}
+        Soit $a \in X$, si $V \supset \bcB_X\p{a, r}$ pour un $r > 0$.
+    \end{definition}
+
+    \(A \subset X\) est un ouvert relativement à $X$ lors $A$ est voisinage relatif de chacun de ses points. 
+    \[ \forall a \in A, \exists r_n > 0 \mid \norm{x-a} < r_n \land x \in X \Rightarrow x \in A\]
+    
+    %
+    $A$ est un fermé relativement à $X$ si son complémentaire dans $X$ est ouvert relativement à $X$.
+    
+    Caractérisation des fermé relatifs : $A \subset X$ fermé relativement à $X$ si $a_n \in A$ et $a_n \lima a \in X$, $\implies a \in A$.
+    
+    Caractérisation des ouverts relatifs : $A \subset X$ ouvert relativement si $A = U \cap X $ avec $U$ ouvert ; pour les fermés; $A = F \cap X$ avec $F$ fermé.
+    
+    \begin{proof}
+        \begin{enumerate}
+            \item \(U \cap X = A\), $U$ ouvert, soit \(a\in A, a \in U, \bcB\p{a,r} \subset U\) alors \[\bcB_X\p{a,r} = \bcB(a,r) \cap X \subset A\]
+            \item Si $A$ est un ouvert relatif, soit $a\in A, \bcB_X\p{a,r} = \bcB(a,r) \cap X \subset A$ on pose alors $U = \bigcup_{a\in A} \bcB\p{a,r}$ ouvert vérifie bien \(U\cap X= A\)
+        \end{enumerate}
+        
+    \end{proof}
+    
+    \section{Continuité}
+    
+    \subsection{Limite}
+    
+    $f : A \subset E \to F$, $a \in \overline{A}$. On dit que $\lim\limits_{\substack{x \to a\\ x \in A}} f\p{x} = \lim\limits_a f = \ell$ si :
+    %
+    \[ \forall \epsilon > 0,\qquad \exists \alpha > 0,\qquad \forall x \in A,\qquad \norm{x - a} \leq \alpha \implies \norm{f\p{x} - \ell} \leq \epsilon\]
+    %
+    Autrement dit, pour tout voisinage $V$ de $\ell$ et tout voisinage $U$ de $a$, $f\p{U \cap A} \subset V$.
+    %
+    Cette définition autorise $f \lima{0} \infty$, $f \lima{+\infty} \infty$, \dots (pour peut qu'on définisse la notion de voisinage de l'infini)
+    %
+    
+    % sens direct
+    \[\forall \epsilon > 0, \exists \alpha > 0, \norm{x-a} \leq \alpha \land x \in A \Rightarrow \norm{x-l} \leq \epsilon\]
+    \(\bcV\) est un voisinage de $l$ on cherche $U$, \(\bcV \subset \bar{\bcB}(l,\epsilon)\) on sait que \(f\p{\bar{\bcB}(l,\epsilon)\cap A)} \subset \bar{\bcB}(l,\epsilon) \subset \bcV\) donc \(U = \bar{\bcB}(a,\alpha)\) convient.
+    % reciproque 
+    Soit $V= \bcB(l,\epsilon), \exists U \mid f(U \cap A \subset V, U \subset \bcB(a,\alpha)$ donc $\forall x \in A , \norm{x-a} \leq \alpha\implies  \norm{f(x) -l} < \epsilon$
+
+    Caractérisation de \(\lim_a\forall (an) \to a \in A \Leftrightarrow f(an) \to l\)
+
+    \begin{enumerate}
+        \item[\(\Leftarrow\)] Par définition de la limite on a bien \( \norm{a_n-a} \leq \alpha\) à partir d'un certain rang, donc \(\norm{f(a_n) -l} \leq \epsilon\)
+        \item[\(\Rightarrow\)] On suppose que \(f(a_n)\) ne converge pas, alors en faisant décroître \(\alpha\) et on a bien que \((a_n)\) ne converge pas vers \(a\)
+    \end{enumerate}
+
+    \begin{example}{}{}
+        Soit $f:A\to B$ et $g : B \to C$ tel que $\lim_a f = b$ et $\lim_b g= l$ on a alors \(a\in\bar{A}\) donc \(f(a_n) \to b\) donc $b\in B$ et ainsi $\lim_a g \circ f = l$
+        
+    \end{example}
+    
+    \subsection{Cas où $F = \bdR^n$ (ev de dim finie}
+    %
+    Soit $f : A \subset E \to F$. Prop (admise) : toutes les normes sont équivalentes en dimension finie.
+    
+    \subsection{Continuité}
+    %%alors on a pas de faute
+    \subsection{Opérations}
+    %t'ecrit bcp 
+     
+    \subsection{Caractérisation globale de la continuité}
+     
+    $f : E \to F$ $\bcC^0$ ssi pour tout $U$ ouvert de $F$, $f^{-1}\p{U}$ ouvert de $E$, ssi pour tout $F$ fermé $f^{-1}\p{F}$ fermé de $E$.
+    
+    
+    
+    
+    
+    
 \end{document}

@@ -99,18 +99,18 @@
                 }
                 \yesbefore
                 
-                \item En quel point et au bout de combien de temps l'obus retombe-t-il ?
+                \item\label{qu:I.1.1.c} En quel point et au bout de combien de temps l'obus retombe-t-il ?
                 
                 \noafter
                 %
                 \boxans{
-                    Le mouvement se faisant uniquement sur l'axe porté par $A_\text z$, les coordonées $x$ et $y$ de l'obus sont constantes au cours du mouvement. L'obus retombe donc exactement au point d'où il a été tiré (\ie sur le canon). D'ailleurs, prendre en compte la résistance de l'air, qui s'oppose au mouvement, ne changerait pas ce résultat. On a $\dfrac{\dif z}{\dif t} = v_z$ donc en intégrant entre $0$ et $t$, on obtient $z\p{t} = v_0t - \dfrac{g_0t^2}{2} + z\p{0} =  v_0t - \dfrac{g_0t^2}{2}$. L'obus retombe à l'instant $t_1 > 0$ tel que $z\p{t_1} = 0$, d'où $v_0 - \dfrac{g_0t_1}{2} = 0$,
+                    Le mouvement se faisant uniquement sur l'axe porté par $A_\text z$, les coordonées $x$ et $y$ de l'obus sont constantes au cours du mouvement. L'obus retombe donc exactement au point d'où il a été tiré (\ie sur le canon). D'ailleurs, prendre en compte la résistance de l'air, qui s'oppose au mouvement, ne changerait pas ce résultat. On a $\dfrac{\dif z}{\dif t} = v_z$ donc en intégrant entre $t'= 0$ et $t' = t$ selon $t'$, on obtient $z\p{t} = v_0t - \dfrac{g_0t^2}{2} + z\p{0} =  v_0t - \dfrac{g_0t^2}{2}$. L'obus retombe à l'instant $t_1 > 0$ tel que $z\p{t_1} = 0$, d'où l'on a 
                 }
                 %
                 \nobefore\yesafter
                 %
                 \boxansconc{
-                ce qui donne $t_1 = 2\dfrac{v_0}{g_0}$. L'application numérique livre $t_1 = \qty{20}{\second}$.
+                 $v_0 - \dfrac{g_0t_1}{2} = 0$, ce qui donne $t_1 = 2\dfrac{v_0}{g_0}$. L'application numérique livre $t_1 = \qty{20}{\second}$.
                 }
                 %
                 \yesbefore
@@ -166,7 +166,7 @@
                 \noafter
                 %
                 \boxans{
-                    On a $u = v^2 = \vec{v}^2 = {v_Z}^2$. Or :
+                    On a $u = v^2 = \vec{v}^2 = {v_z}^2$. Or :
                     %
                     \[ \dfrac{\dif u}{\dif z} = \dfrac{\dif u}{\dif v_z}\dfrac{\dif v_z}{\dif z} = 2v_z\dfrac{\dif v_z}{\dif t}\dfrac{\dif t}{\dif z} = 2v_z\dfrac{\dif v_z}{\dif t}\dfrac{1}{v_z} = 2\dfrac{\dif v_z}{\dif t} \]
                     %
@@ -226,10 +226,10 @@
                 \begin{minipage}{0.5\linewidth}
                     On note $\bcR_2 = \p{A, x, y, z}$ le référentiel lié à la Terre, et $\bcR_1$ le référentiel géocentrique, supposé galiléen. $\bcR_2$ est en rotation uniforme autour de $\bcR_1$ à la vitesse angulaire $\omega_0$. On note $\vec u$ le vecteur unitaire portant l'axe orienté du pôle sud au pôle nord de la terre, ainsi :
                     %
-                    \[ \vec u =  \sin{\lambda} \vec{A_z} - \cos{\lambda} A_x\]
+                    \[ \vec u =  \sin{\lambda} \vec{A_z} - \cos{\lambda} \vec{A_x}\]
                 \end{minipage}
                 
-                On a $\vec{\Omega}_{\bcR_2/\bcR_1} = \omega_0 \vec{u}$. On note  $\vec{a_\text c}$ et $\vec{a_\text e}$ les accélérations de \textsc{Coriolis} et d'entraînement de l'obus pour $\bcR_2$ par rapport à $\bcR_1$. On a :
+                On a $\vec{\Omega}_{\bcR_2/\bcR_1} = \omega_0 \vec{u}$. On note $\vec v$ la vitesse dans le référentiel $\bcR_2$, $\vec{a_\text c}$ et $\vec{a_\text e}$ les accélérations de \textsc{Coriolis} et d'entraînement de l'obus pour $\bcR_2$ par rapport à $\bcR_1$. On a :
                 %
                 \[ \vec{a_\text c} = 2\vec{\Omega}_{\bcR_2/\bcR_1} \wedge \vec v \qquad \vec{a_\text e} =  \vec{\Omega}_{\bcR_2/\bcR_1} \wedge \p{\vec{\Omega}_{\bcR_2/\bcR_1} \wedge \vec{AM}} \]
                 %
@@ -244,7 +244,7 @@
             \boxans{
                 On pose $\vec{F_\text{iC}} = -m\vec{a_\text c}$ la force de \textsc{Coriolis}, ainsi le \textit{principe fondamental de la dynamique} en référentiel non galiléen livre :
                 %
-                \[ m\dfrac{\dif \vec v}{\dif t} = \vec{P} + \vec{F_\text{iC}} = -mg_0\vec{A_z} - m\vec{a_\text c} \qquad\text{donc}\qquad   \dfrac{\dif \vec v}{\dif t} = g_0\vec{A_z} - 2\vec{\Omega}_{\bcR_2/\bcR_1} \wedge \vec v \]
+                \[ m\dfrac{\dif \vec v}{\dif t} = \vec{P} + \vec{F_\text{iC}} = -mg_0\vec{A_z} - m\vec{a_\text c} \qquad\text{donc}\qquad   \dfrac{\dif \vec v}{\dif t} = - g_0\vec{A_z} - 2\vec{\Omega}_{\bcR_2/\bcR_1} \wedge \vec v \]
                 %
                 Avec $\vec v = \begin{pNiceMatrix}v_x \\ v_y \\ v_z\end{pNiceMatrix}$, on a $\vec{\Omega}_{\bcR_2/\bcR_1} \wedge \vec v = \begin{pNiceMatrix}-\omega_0\cos \lambda\\0\\ \omega_0\sin \lambda\end{pNiceMatrix} \wedge \begin{pNiceMatrix}v_x \\ v_y \\ v_z\end{pNiceMatrix} = \begin{pNiceMatrix}-\omega_0v_y\sin \lambda\\ \omega_0\p{v_x\sin \lambda  + v_z\cos \lambda} \\ -\omega_0 v_y\cos \lambda \end{pNiceMatrix}$. Finalement :
             }
@@ -252,32 +252,105 @@
             \yesafter
             %
             \boxansconc{
-                \[ \dfrac{\dif}{\dif t}\begin{pNiceMatrix}v_x \\ v_y \\ v_z\end{pNiceMatrix} = \begin{pNiceMatrix}-2\omega_0v_y\sin \lambda\\ 2\omega_0\p{v_x\sin \lambda  + v_z\cos \lambda} \\ g_0 - 2\omega_0 v_y\cos \lambda \end{pNiceMatrix} \]
+                \[ \dfrac{\dif}{\dif t}\begin{pNiceMatrix}v_x \\ v_y \\ v_z\end{pNiceMatrix} = \begin{pNiceMatrix}-2\omega_0v_y\sin \lambda\\ 2\omega_0\p{v_x\sin \lambda  + v_z\cos \lambda} \\ - g_0 - 2\omega_0 v_y\cos \lambda \end{pNiceMatrix} \]
             }
             %
             \yesbefore
             
             \item On évalue la force d'inertie de \textsc{Coriolis} en utilisant la loi de vitesse obtenue à la question \quref{I.1.1.a}.
             Justifier cette méthode de calcul.
+            
+            \noafter
+            %
+            \boxans{
+                %Le référentiel $\bcR_2$ correspond au référentiel $\p{A, x, y, z}$ utilisé à la question \quref{I.1.1.a}, à ceci près qu'on le considère comme non galiléen
+                %
+                On note $\vec{v_\text g}$ la vitesse déterminée à la question \quref{I.1.1.a}, on a $\dfrac{\dif \vec{v_\text g}}{\dif t} = -g_0\vec{A_z}$. Ainsi $\dfrac{\dif \vec{v}}{\dif t} = \dfrac{\dif \vec{v_\text g}}{\dif t} -2\vec\Omega_{\bcR_2 / \bcR_1} \wedge \vec v$. En intégrant, on obtient \emph{à une constante près} $\vec v = \vec{v_\text g} + \displaystyle\int \Omega_{\bcR_2 / \bcR_1} \wedge \vec v \dif t$. Pour calculer la force d'inertie de \textsc{Coriolis}, on a donc :
+                %
+                \begin{align*}
+                    \vec\Omega_{\bcR_2 / \bcR_1} \wedge \vec v &= \vec\Omega_{\bcR_2 / \bcR_1} \wedge \p{\vec{v_\text g} - \int \vec\Omega_{\bcR_2 / \bcR_1} \wedge \vec v \dif t} + \vec{cte}\\
+                    &= \vec\Omega_{\bcR_2 / \bcR_1} \wedge \vec{v_\text g} - \vec\Omega_{\bcR_2 / \bcR_1} \wedge \p{\vec\Omega_{\bcR_2 / \bcR_1} \wedge \int \vec v \dif t}+ \vec{cte}\\
+                    &= \vec\Omega_{\bcR_2 / \bcR_1} \wedge \vec{v_\text g} - \underbrace{\vec\Omega_{\bcR_2 / \bcR_1} \wedge \p{\vec\Omega_{\bcR_2 / \bcR_1} \wedge \int \vec{AM}}}_{\vec{a_\text e} = 0}+ \vec{cte}
+                \end{align*}
+                %
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                On peut donc calculer la force de \textsc{Coriolis} \emph{à une constante près} (ici prise nulle) en utilisant la vitesse $\vec{v_\text g}$.
+            }
+            %
+            \yesbefore
+            
 
-            \item Soit $\p{\vec i, \vec j, \vec k}$ la base orthonormée associée au repère $p\p{A, x, y, z}$. $M$ repérant la position de l'obus, on pose $\vec{AM} = x\vec i + y\vec j + z\vec k$. Montrer que $\ddot y \approx -2\omega_0\p{v_0 - g_0t}\cos \lambda $.
+            \item\label{qu:I.2.3} Soit $\p{\vec i, \vec j, \vec k}$ la base orthonormée associée au repère $\p{A, x, y, z}$. Le point $M$ repérant la position de l'obus, on pose $\vec{AM} = x\vec i + y\vec j + z\vec k$. Montrer que $\ddot y \approx -2\omega_0\p{v_0 - g_0t}\cos \lambda$.
 
-            En déduire une expression approchée de l'ordonnée $y$ de l'obus. Évaluer y au moment où l'obus tombe sur le sol. La déviation se fait-elle vers l'Ouest ou vers l'Est ? Le résultat dépend-il de l'hémisphère dans lequel on effectue le tir ?
+            En déduire une expression approchée de l'ordonnée $y$ de l'obus. Évaluer $y$ au moment où l'obus tombe sur le sol. La déviation se fait-elle vers l'ouest ou vers l'est ? Le résultat dépend-il de l'hémisphère dans lequel on effectue le tir ?
+            
+            \noafter
+            %
+            \boxans{
+                Avec l'expression précédente, le calcul de $\vec{v}$ se fait plus facilement :
+                %
+                \[ \dfrac{\dif}{\dif t} \begin{pNiceMatrix}
+                    v_x\\
+                    v_y\\
+                    v_z
+                \end{pNiceMatrix} \approx -g_0\vec{A_z} - 2\vec{\Omega}_{\bcR_2 / \bcR_1} \wedge \vec{v_\text g} = \begin{pNiceMatrix}0\\0\\-g_0\end{pNiceMatrix} - 2\begin{pNiceMatrix}-\omega_0\cos \lambda\\0\\\omega_0\sin \lambda\end{pNiceMatrix} \wedge \begin{pNiceMatrix}0\\0\\v_0 - g_0 t\end{pNiceMatrix} = \begin{pNiceMatrix}0\\-2\omega_0\p{v_0 - g_0t}\cos \lambda\\-g_0\end{pNiceMatrix}\]
+                %
+            }
+            %
+            \nobefore
+            %
+            \boxansconc{
+                Puisque $\dot y = v_y$, on a bien $\ddot y = \dfrac{\dif v_y}{\dif t} \approx -2\omega_0\p{v_0 - g_0t}\cos \lambda$.
+            }
+            %
+            \boxans{
+                En intégrant deux fois selon $t$, et avec les conditions initiales $v_y\p{0} = 0$ et $y\p{0} = 0$, on obtient que $y\p{t} \approx -\omega_0\p{v_0 - \dfrac{g_0t}{3}}t^2\cos \lambda$. L'expression de $z$ n'est pas changé par rapport à la question \quref{I.1.1.c} donc $z\p{t_1} = 0$ avec $t_1 = \dfrac{2v_0}{g_0}$. Soit $\Delta_y$ la déviation que l'on cherche à calculer, orientée dans le sens de $\vec{A_y} = \vec{j}$, \ie vers l'est (puisque $\vec{A_x}$ est vers le sud et $\vec{A_z}$ vers le \guill{haut}). On a $\Delta_y = y\p{t_1} = -\omega_0v_0\p{1 - \dfrac{2}{3}}\p{\dfrac{2v_0}{g_0}}^2\cos \lambda$.
+            }
+            %
+            \yesafter
+            %
+            \boxansconc{
+                On a donc une déviation $\Delta_y = - \dfrac{4\omega_0{v_0}^3}{3{g_0}^2}\cos \lambda$. Puisque $\lambda > 0$, on a $\cos \lambda > 0$ donc $\Delta_y < 0$, ainsi on a une déviation vers l'ouest. Dans l'hémisphère sud, on aurait $\lambda < 0$ donc $\cos \lambda < 0$, ainsi la déviation serait dans l'autre sens (vers l'est).
+            }
+            %
+            \yesbefore
 
-            \item L'expression de la force de \textsc{Coriolis} utilisée ne permet pas de mettre en évidence une déviation dans l'axe Nord-Sud. Or cette déviation existe. Expliquer cette apparente contradiction. Que penser de cette déviation comparée à celle calculée à la question précédente ?
+            \item L'expression de la force de \textsc{Coriolis} utilisée ne permet pas de mettre en évidence une déviation dans l'axe nord-sud, or cette déviation existe. Expliquer cette apparente contradiction. Que penser de cette déviation comparée à celle calculée à la question précédente ?
+            
+            \boxansconc{
+                On a fait l'approximation que la force d'inertie de \textsc{Coriolis} était calculable uniquement à partir de $\vec{v_g}$, \ie que la constante était nulle, ce qui n'est pas forcément le cas. Cette déviation cependant est bien plus faible que celle calculée à la question précédente.
+            }
             
         \end{enumerate}
 
-        \item Analyse du mouvement de l'obus dans le référentiel géocentrique
+        \item Analyse du mouvement de l'obus dans le référentiel géocentrique.
 
         \begin{enumerate}
             \item 
             \begin{enumerate}
                 \item Rappeler la définition du référentiel géocentrique. Pourquoi peut-il être supposé galiléen pour ce type d'expérience ? 
+                
+                \boxansconc{
+                    Le référentiel géocentrique est le référentiel d'origine le centre de la terre et dont les axes pointent vers 3 étoiles lointaines, (les mêmes que dans le référentiel héliocentrique). Sur le temps et la distance caractéristique de l'expérience (quelques secondes, quelques kilomètres), le mouvement de la terre autour du soleil peut être assimilé à un mouvement rectiligne uniforme. Le référentiel héliocentrique étant supposé galiléen, le référentiel géocentrique l'est également ici. 
+                }
 
                 \item Déterminer la vitesse initiale de l'obus dans ce référentiel.
+                
+                \boxansconc{
+                    La vitesse initiale $v_\text{géo}$ de l'obus dans sa référentiel est sa vitesse initiale $v_0$ sur l'axe porté par $\vec{A_z}$, additionné à sa vitesse donnée par la rotation de la terre, soit $\omega_0 r_\text t$, où $r_\text t$ est la rotation de la terre, suivant $\vec{A_y}$. Ainsi $v_\text{géo} = v_0\vec{A_z} + \omega_0 r_\text t\vec{A_y}$.
+                }
             \end{enumerate}
-            \item Si on considère le champ de gravitation uniforme sur la trajectoire de l'obus, montrer alors que celui-ci retombe en $A$. Comment 'observateur géocentrique peut-il justifier la déviation évaluée au I-2-2
+            
+            \item Si on considère le champ de gravitation uniforme sur la trajectoire de l'obus, montrer alors que celui-ci retombe en $A$. Comment l'observateur géocentrique peut-il justifier la déviation évaluée au \quref{I.2.3} ?
+            
+            
+            \boxans{
+                ?
+            }
         \end{enumerate}
     \end{enumerate}
     

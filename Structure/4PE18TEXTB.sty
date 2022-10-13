@@ -22,7 +22,7 @@
 %\usepackage{roboto}
 %\usepackage{calligra}
 %\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
-%\usepackage{lmodern}
+\usepackage{lmodern}
 %\usepackage{slantsc}
 %\usepackage[T1]{fontenc}
 \usepackage{fontenc}
@@ -264,13 +264,14 @@
     \text{}\\ \\
 }
 
+\def\authorvar{SIAHAAN--GENSOLLEN Rémy}
 \newcommand{\stylizeDocSpe}[4]{
     \title{MPI - \MakeUppercase{#1} - #2 (#3)}
-    \author{SIAHAAN--GENSOLLEN Rémy}
+    \author{\authorvar}
     \date{\today}
     \hypersetup{%
         pdftitle={#2 : #3},
-        pdfauthor={SIAHAAN--GENSOLLEN Rémy},
+        pdfauthor={\authorvar},
         pdflang={fr-FR},
         pdfsubject={MPI/MPI* - #1 - #2: #3},
         pdfkeywords={MPI/MPI*, #1, 2021-2022, #2, #3}
@@ -281,7 +282,7 @@
     \fancyhead[RE]{\GillSansMTMedium\textbf{\color{white5}\MakeUppercase{#1}}}
     \fancyhead[LO]{\GillSansMTMedium\color{white5}#2 \ #3}
     \fancyfoot[RE]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} \ 2022 - 2023}
-    \fancyfoot[LO]{\GillSansMTMedium\color{white5}SIAHAAN--GENSOLLEN Rémy}
+    \fancyfoot[LO]{\GillSansMTMedium\color{white5}\authorvar}
     \fancyfoot[RO,LE]{\GillSansMTMedium\color{white5}\thepage\;/\;\pageref{LastPage}}
     \fancypagestyle{noheader}{\fancyhead{}}
     \thispagestyle{noheader}
@@ -1495,7 +1496,7 @@
 \DeclareDocumentCommand{\mod}{m}{\left|#1\right|}
 \DeclareDocumentCommand{\norm}{m}{\left\Vert#1\right\Vert}
 
-\DeclareDocumentCommand{\indication}{m}{{\large\EBGaramond Indication :} \ {\footnotesize\itshape #1}}
+\DeclareDocumentCommand{\indication}{m}{{\EBGaramond Indication :} \ {\footnotesize\itshape #1}}
 \DeclareDocumentCommand{\indef}{m}{\textit{\color{main1}#1}}
 \DeclareDocumentCommand{\ens}{m}{\left\{#1\right\}}
 

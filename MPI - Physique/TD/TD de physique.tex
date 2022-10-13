@@ -631,5 +631,56 @@
         Si $\dfrac{G}{R\omega^2} < 1$, alors les positions d'équilibre sont $\pm \arccos{}$
     }
     
+    \chapter{Frottement solide}
+    
+    \subsection{}
+    
+    Une caisse cubique est posée sur un sol incliné d'un angle $\alpha$ par rapport à l'horizontale. On appelle $f = \tan \varphi$ le coefficient de frottement caisse-sol. On augmente progressivement $\alpha$, à quelles conditions l'équilibre est-il rompu ? La caisse glisse-t-elle ou bascule-t-elle ?
+    
+    
+    
+    \subsection{}
+    
+    \begin{minipage}{0.48\linewidth}
+        Soit le système mécanique ci-contre.\newline
+        
+        Le fil et la poulie sont de masses négligeables. La masse $M$ glisse sur le plan horizontal avec un coefficient de frottement $f$.\medskip
+        
+        On lâche le système sans vitesse initiale alors que la masse $m$ est à une altitude $h$ du plan inférieur.  
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}{0.5\linewidth}
+        \centering
+        \begin{tikzpicture}
+            \draw[very thick] (0.5, 0) --++(4, 0) --++(0, -4) --++(3, 0); %sol
+            
+            \draw (1, 0) -- (1, 1) -- (2.5, 1) -- (2.5, 0); %boite M
+            \node at (1.75, 1.25) {$M$}; %label M
+            
+            \draw[very thick] (4.5, 0) --++(0.2, 0.2); % Petit truc avant la poulie
+            
+            \draw (2.5, 0.47) -- (4.8, 0.47); %Fil M -> Poulie
+            \draw (4.97, 0.3) --++(0, -1.3); %Fil Poulie -> m
+            
+            \node[circle,draw,minimum size=0.3,very thick] at (4.8,0.3){}; %Poulie
+            
+            \draw (4.7, -1) --++(0.6, 0) --++(0, -0.6) --++(-0.6, 0) --++(0, 0.6);
+            
+            \node at (5.6, -1.3) {$m$};
+        \end{tikzpicture}
+    \end{minipage}
+    
+    \begin{enumerate}
+        \item Montrer que le mouvement de $M$ peut être décomposé en deux phases. Déterminer l'évolution de sa vitesse et établir l'expression de $v_\text{max}$ en fonction des paramètres du problème.
+        
+        \item Déterminer le coefficient de frottement $f$ en fonction de la distance $\ell$ parcourue par $M$.
+        
+        \item Reprendre l'étude en supposant que la poulie possède un rayon $r$ et un moment d'inertie $J$ non négligeables.
+        
+        \item On néglige $J$ et $r$. On recommence l'expérience en plaçant sous la masse $m$ un ressort de raideur $k$ et de longueur à vide $\ell_0$. Il est placé verticalement avec l'une de ses extrémités fixées sur le plan inférieur. Étudier les différentes phases du mouvement.
+    \end{enumerate}
+    
     
 \end{document}

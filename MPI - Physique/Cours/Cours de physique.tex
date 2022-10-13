@@ -5,6 +5,7 @@
 \usepackage{./Structure/4PE18TEXTB}
 \usepackage{proof}
 \usepackage{pdfpages}
+\usepackage[version=4]{mhchem}
 
 \makeatletter
 \renewcommand*\l@section{\@dottedtocline{1}{1.8em}{3.5em}}
@@ -1038,7 +1039,7 @@
     
     Aujourd'hui, on distingue notamment la mécanique classique (ou Newtonienne) qui étudie les objets macroscopiques de vitesse faible devant celle de la lumière, la mécanique relativiste (depuis \textsc{Einstein}) qui traite des cas plus généraux (notamment compatible avec la relativité restreinte et général, d'où le nom), et la mécanique quantique qui étudie les systèmes à l'échelle atomique et subatomique. Dans ce chapitre, on se placera toujours dans le cadre mécanique classique.\medskip
     
-    Empiriquement, on constate que les phénomènes mécaniques ont lieu dans \guill{l'espace physique} et au cours du \guill{temps}. Le premier est intuitivement percu comme un continuum tridimensionnel et le second comme un continuum unidimensionnel et unidirectionnel (on a une \guill{flèche de temps} dirigée du passé vers l'avenir). Il n'y a \texit{a priori} aucune raison de supposer le temps comme cyclique, ni comme limité dans le passé ou dans le futur. De plus, l'existence de phénomènes physiques périodiques (par exemple la transition hyperfine de l'état fondamental de l'atome de césium 133 non perturbé, qui permet de définir la seconde) permet de graduer ce temps. Ainsi :
+    Empiriquement, on constate que les phénomènes mécaniques ont lieu dans \guill{l'espace physique} et au cours du \guill{temps}. Le premier est intuitivement percu comme un continuum tridimensionnel et le second comme un continuum unidimensionnel et unidirectionnel (on a une \guill{flèche de temps} dirigée du passé vers l'avenir). Il n'y a \textit{a priori} aucune raison de supposer le temps comme cyclique, ni comme limité dans le passé ou dans le futur. De plus, l'existence de phénomènes physiques périodiques (par exemple la transition hyperfine de l'état fondamental de l'atome de césium 133 non perturbé, qui permet de définir la seconde) permet de graduer ce temps. Ainsi :
     %
     \begin{definition}{Temps}{}
         On appelle \hg{temps} le \hg{$\bdR$-espace affine} de \hg{dimension $1$}, 
@@ -1655,5 +1656,226 @@
 
             Donc en appliquant le TMC en \(G\) dans \(\bcR_G\) en projection :
             \[ \dfrac{\dif \vec\sigma(G)}{\dif t} = \vec \bcM_T(G) + \vec \bcM_N(G) + \vec \bbC + \vec \bcM_{Fic}(G) + \vec \bcM_{Fie}(G) + \vec \bcM_{liaison}(G)\] donc on a trois équations après avoir projeté: \(J_{\Delta} \dot\omega = -RT+C \quad m\dot\dot x = T\quad \dot x = R\omega\)
+            
+    \chapter{Chimie en solution organique}
+    
+    Dans ce premier chapitre de physique, on étudiera surtout des solutés en solution aqueuse. On notera que de l'huile par exemple, n'est pas un soluté dans l'eau (on a deux phases distinctes). Par soluté, on entendra plutôt des entités comme des ions \emph{- le sel par exemple est $\p{Na^+, Cl^-}$ -}.
+    
+    \chaptertoc
+    
+    \section{La réaction chimique}
+    
+    \subsection{Introduction}
+    
+    \subsubsection{Notion de transformation}
+    
+    \begin{example}{Changement d'état du corps pur}{}
+        \begin{center}
+            \begin{tikzpicture}
+                \node[rectangle,inner sep=7pt] (G) at (0, 3) {\phantom{\large Vapeur / Gaz}};
+                \node[rectangle,inner sep=7pt] (S) at (-2.9, -1.5) {\phantom{\large Solide}};
+                \node[rectangle,inner sep=7pt] (L) at (2.9, -1.5) {\phantom{\large Liquide}};
         
+                \node[rectangle,fill=main4!50,opacity=0.5] at (0, 3) {\phantom{\large Vapeur / Gaz}};
+                \node[rectangle,fill=main7!50,opacity=0.5] at (-2.9, -1.5) {\phantom{\large  Solide}};
+                \node[rectangle,fill=main1!50,opacity=0.5] at (2.9, -1.5) {\phantom{\large Liquide}};
+        
+                \node[rectangle] at (0, 3) {\large\color{main4} Vapeur / Gaz};
+                \node[rectangle] at (-2.9, -1.5) {\large\color{main7} Solide};
+                \node[rectangle] at (2.9, -1.5) {\large\color{main1} Liquide};
+        
+                \draw[gradientdraw={0.3pt}{main4}{main7}, ->, main7] ([yshift=-4pt]G.west) to [bend left=20] node [sloped, anchor=center, below] {Condensation} (S.north);
+        
+                \draw[gradientdraw={0.3pt}{main7}{main4}, ->, main4] ([xshift=-4pt]S.north) to [bend left=20] node [sloped, anchor=center, above] {Sublimation} (G.west);
+        
+                \draw[gradientdraw={0.3pt}{main7}{main1}, ->, main1] ([yshift=-4pt]S.east) to [bend right=20] node [sloped, anchor=center, below] {Fusion} (L.west);
+        
+                \draw[gradientdraw={0.3pt}{main1}{main7}, ->, main7] ([yshift=4pt]L.west) to [bend right=20] node [sloped, anchor=center, above] {Solidification} (S.east);
+        
+                \draw[gradientdraw={0.3pt}{main1}{main4}, ->, main4] ([xshift=4pt]L.north) to [bend right=20] node [sloped, anchor=center, above] {Vaporisation} (G.east);
+        
+                \draw[gradientdraw={0.3pt}{main4}{main1}, ->, main1] ([yshift=-4pt]G.east) to [bend right=20] node [sloped, anchor=center, below] {Liquéfaction} (L.north);
+            \end{tikzpicture}
+        \end{center}
+    \end{example}
+    
+    \begin{example}{Autres exemples}{}
+        \begin{enumerate}
+            \itt La distillation (mélange de deux liquides miscibles)
+            
+            \itt Changement de phase en crystallographie, par exemple :
+            %
+            \[ \mathrm{Fe}_\alpha \rightleftharpoons \mathrm{Fe}_\gamma \qquad\qquad\qquad C_\text{graphite} \rightleftharpoons C_\text{diamant} \]
+            
+            \itt transformations nucléaires  : réaction a l'intérieur des atomes qui ne restent pas identiques à eux mêmes, par exemple avec la radioactivité $\alpha$ : \quad on note $X_Z^A$ avec $Z$ le numéro atomique = nombre de protons et $A$ le nombre de masse = nombre de nucléons (protons et neutrons). :
+            %
+            \[ \mathrm X_Z^A \longrightarrow \mathrm Y_{Z-2}^{A-4} + \mathrm{Fe}_2^4 + \dots\]
+            %
+        \end{enumerate}
+    \end{example}
+    
+    Les transformations chimique correspondent à un ré-arrangement des atomes entre eux par destruction de liaisons et constitution de nouvelles liaisons Il y a les mêmes atomes initialement et à la fin mais constituant des molécules différentes.
+
+    \begin{example}{Réaction chimique}{}
+        %
+        \[ \ce{CH4_{(g)} + 2O2_{(g)} -> CO2_{(g)} + 2H2O_{(g)}} \]
+        %
+        On a à gauche $1$ atome de $C$, $4$ atomes de $H$ et $4$ atomes de $O$, et de même à droite.
+    \end{example}
+    
+    \subsubsection{Grandeurs intensives de la composition d'une phase}
+    
+    On décrit quantitativement la composition d'un système chimique à l'aide de quantité de matière de chaque constituant.
+    %
+    \[ n_i = \text{nombre de mole du constituant} \]
+    %
+    On rappelle que :
+    %
+    \begin{enumerate}
+        \itt $1$ mole correspond à $\bcN_A = \qty{6.02e23}{}$ entité identique.
+        
+        \itt $n_i = \dfrac{m_i}{M_i}$
+    \end{enumerate}
+    %
+    On définit des variables intensives suivantes :
+    \begin{enumerate}
+        \itt En solution aqueuse pour un corps $A_i$ on définit sa concentration molaire :
+        %
+        \[ C_i = [A_i] = \frac{n_i}{V_i}\]
+        %
+        $V$ étant le volume du système étudié. $C_i$ s'exprime usuellement en \unit{\mol\per\litre}
+        
+        \itt On définit la fonction molaire de l'espèce $A_i$ dans un système par :
+        %
+        \[ x_i = \frac{n_i}{n_T} \]
+        %
+        avec $n_i = n\p{A_i}$ le nombre de mole de $A_i$ et $n_T = \displaystyle\sum_i n_i$ le nombre de mole total pensant dans le système.
+    \end{enumerate}
+
+    \begin{definition}{Pression partielle}{}
+        On considère un gaz parfait $i$ occupant un volume $V$ à une température $T$, avec une quantité de matière $n_i$. On appelle \hg{pression partielle} la pression $P_i$ qu'aurait le gaz s'il était seul dans le même volume à la même température :
+        %
+        \[ \hg{P_i = \dfrac{n_iRT}{V}}\]
+    \end{definition}
+    %
+    \begin{property}{Loi de Dalton}{}
+        On a :
+        %
+        \[ \hg{\sum P_i = \dfrac{\p{\sum n_i}RT}{V} = \dfrac{n_\text tRT}{V} = P_\text t} \qquad\text{donc}\qquad \hg{P_\text t = \sum P_i}\]
+        %
+        \[ \hg{\dfrac{P_i}{P_\text t} = \dfrac{\frac{n_iRT}{V}}{\frac{n_\text t RT}{V}} = \dfrac{n_i}{n_\text T} = x_i} \qquad\text{donc}\qquad \hg{P_i = x_iP_\text t}\]
+    \end{property}
+    
+    \subsection{La réaction chimique}
+    \subsubsection{Description de la réaction chimique}
+    
+    \begin{center}
+        \emph{Vocabulaire et notation}
+    \end{center}
+    %
+    La transformation chimique de $A$ et $B$ donnant $C$ et $D$ est représenté par une écriture formelle de la réaction chimique qui tient compte des \emph{proportions} qui réagissent.
+    %
+    \[ \alpha A + \beta B \rightleftharpoons \gamma C + \delta D \]
+    %
+    \begin{enumerate}
+        \itt $A$ et $B$ sont les \emph{réactifs}
+        \itt $C$ et $D$ sont les \emph{produits}
+        \itt $\rightharpoonup$ est le sens direct
+        \itt $\leftharpoondown$ est le sens inverse
+        \itt $\alpha$, $\beta$, $\gamma$ et $\delta$ sont les \emph{coefficients st\oe{}chiométriques} de $A$, $B$, $C$ et $D$ respectivement).
+    \end{enumerate}
+    
+    
+    \begin{property}{}{}
+        \begin{enumerate}
+            \itt conservation de la matières : les atomes présents dans les réactifs se retrouvent dans les produits.
+            \itt conservation de la charge : le nombre total de charges des réactifs est égale à celui des produits
+        \end{enumerate}
+    \end{property}
+    
+    Ces 2 propriétés servent à écrire à écrire les réactions chimiques. Quand on connaît les espèces réactifs et produits.
+    
+    \begin{center}
+        \emph{Coefficients stoechiométriques algébriques}
+    \end{center}
+    
+    $\nu_i$ est le coefficient st\oe{}chiométrique algébrique associé à l'espèce $A_i$ tel que :
+    %
+    \begin{enumerate}
+        \itt $\nu_i = $ coefficient st\oe{}chiométrique si $i \in $ produit
+        \itt $\nu_i = -$ coefficient st\oe{}chiométrique si $i \in$ réactif
+    \end{enumerate}
+    %
+    Ainsi $\nu_{i,\text{réactif}} < 0$ et $\nu_{i,\text{produit}} > 0$. On peut donc écrire la réaction chimique de manière formelle :
+    %
+    \[ \sum_i \nu_iA_i = 0\]
+    
+    
+    \begin{center}
+        \emph{Avancement de la réaction}
+    \end{center}
+    Si $\alpha A + \beta B = \gamma C + \delta D$, on a $\alpha$ molécules de $A$ qui réagissent sur $\beta$ molécules de $B$ pour donner $\gamma$ et $\delta$ molécules de $C$ et $D$.
+    
+    Il faut retenir que \emph{Les constituants d'une réaction chimique réagissent dans les proportions st\oe{}chiométriques}
+    
+    Cela implique que pour tout $i$ :
+    %
+    \begin{enumerate}
+        \itt $n_i\p{t + \dif t} = n_i\p{t} + \dif n_{i, t \to t + \dif t}\p{t}$
+        %
+        \itt Si $i \in $ réactif : $\dif n_i < 0$
+        \itt Si $i \in$ produit : $\dif n_i > 0$
+    \end{enumerate}
+    %
+    On a donc :
+    %
+    \[ \dfrac{\dif n_{i, t \to t + \dif t}\p{t}}{\nu_i} = cte\p{t} \qquad\forall i\]
+    %
+    C'est-à-dire :
+    %
+    \[ \dfrac{\dif n_1}{\nu_1} = \dfrac{\dif n_2}{\nu_2} = \dfrac{\dif n_3}{\nu_3} = \dots = \dfrac{\dif n_N}{\nu_N} = cte\p{t}\]
+    %
+    Si $i \in$ réactif on a $\dif n_i < 0$ et $\nu_i < 0$, et $i \in $ produit $\dif n_i > 0$ et $\nu_i > 0$ donc dans les deuc cas $ce\p{t} > 0$.
+
+    \begin{definition}{avancement élémentaire}{}
+        On appelle avancement élémentaire evt : $\dif\xi\p{t}$ la grandeur tel que :
+        %
+        \[ \dif \xi\p{t} = \dfrac{\dif n_{i, t \to t + \dif t}\p{t}}{\nu_i}\]
+        %
+        
+    \end{definition}
+    \begin{enumerate}
+        \itt Les $n_i$ ne sont pas des variables indépendantes, leurs variations sont toutes proportionnelles à la variation de $\xi\p{t}$. L'avancement de la réaction: $d\xi\p{t} = \frac{\dif n_{i_{t \to t + \dif t}}}{N_i}$
+        $\Delta n_i = n_i\p{t} - n_i\p{t = 0}$
+        \itt $\xi$ s'exprime en mole : $n_i\p{t} = n_{i_0} + V_i\xi\p{y}$
+        \itt $\xi > 0 \implies$ sens direct
+        \itt $\xi < 0 \implies$ sens inverse
+    \end{enumerate}
+    %
+    \subsubsection{Tableau d'avancement de la réaction} 
+    
+    \begin{example}{}{}
+        $\alpha A + \beta B = \gamma C + \delta D$
+        %
+        \[ \begin{pNiceArray}{|c|cccc|}
+            \hline $t = 0$ & $n_{a, 0}$ & $n_{b, 0}$ & $n_{c, 0}$ & $n_{d, 0}$\\
+            \hline $t$ & $n_{a, 0} - \alpha\xi$ & $n_{b, 0} - \beta\xi$ & $n_{c, 0} + \gamma\xi$ & $n_{d, 0} + \delta\xi$
+            
+        \end{pNiceArray} \]
+    \end{example}
+    \subsubsection{Quotient de la réaction et constant d'équilibre}
+    
+    \begin{definition}{Activité d'une espèce chimique}{}
+        L'activité d'une espèce chimique $A_i$ dans un système physico-chimique caractérise l'écart entre l'espèce $A_i$ dans le système et l'espèce $A_i$ dans un état de référence.
+        \begin{enumerate}
+            \itt Pour un soluté en solution aqueuse $a_i = \frac{c_i}{c^0}$ avec $C^0 = \qty{1}{\mol\per\litre}$
+            \itt Pour un solvant $a_{\text{solvant}} = 1$
+            \itt Pour une PCII pure : $a_{\text{PCII pure}}$
+            \itt Pour un GP : $a_{GP} = \frac{P}{P^0}$ avec $P^0 = \qty{1}{\bar}$
+            \itt Pour un GP dans un mélange de GP : $a_{GP_i} = \frac{P_i}{p^0}$
+            $P_i = x_i P_T \implies a_{GP_i} = x_i\frac{P_T}{P^0}$
+        \end{enumerate}
+        
+    \end{definition}
+
 \end{document}

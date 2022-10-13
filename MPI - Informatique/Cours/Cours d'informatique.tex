@@ -34,6 +34,7 @@
 \DeclareDocumentCommand\Fact{g}{\funlv{Fact}{#1}}
 \DeclareDocumentCommand\NFact{g}{\funlv{NFact}{#1}}
 \DeclareDocumentCommand\Loc{g}{\funlv{Loc}{#1}}
+\DeclareDocumentCommand\CFL{g}{\funlv{CFL}{#1}}
 
 \newcommand{\chaptertoc}[0]{
     \begin{tcolorbox}[
@@ -158,7 +159,7 @@
     % PREMIERE DE COUVERTURE
     %==============================
 
-    \includepdf[pages={1},scale=1.15,offset=0mm -18mm]{CICover.pdf}
+    %\includepdf[pages={1},scale=1.15,offset=0mm -18mm]{CICover.pdf}
     
     %==============================
     % PAGE VIDE
@@ -337,12 +338,12 @@
     
     Généralement, la résolution d'un problème passe par la compréhension de celui-ci, puis par différentes méthodes mathématiques, ce que l'on pourrait généralement appeler \textit{calcul} (que ce soit du calcul avec des nombres, avec des lettres, ou des objets plus abstraits). Savoir si un tel calcul peut être fait et dans quelles conditions ouvre d'ailleurs la question de la \textit{calculabilité}. La branche de l'informatique théorique qui étudie cette formalisation des mécanismes mathématiques s'appelle la \textit{théorie des automates}. Assez récente, elle n'émerge comme une discipline indépendante que dans la deuxième moitié du \textsc{XX}\ieme~siècle, sous l'impulsion des travaux de scientifiques comme Claude \textsc{Shannon}, John \textsc{von Neumann}, Edward \textsc{Moore}, Stephen \textsc{Kleene}, \dots 
     
-    Le principe de la théorie des automates est de convertir un \guill{problème} en un langage formel, dans lequel l'analyse de certains éléments peut conduire à la résolution de ce problème. Ses applications sont nombreuses, que ce soit en intelligence artificielle, pour le traitement de texte, en biologie, ou toujours en informatique (les automates sont à la base de la théorie de la complexité). Un \textit{automate} 
+    Le principe de la théorie des automates est de convertir un \guill{problème} en un langage formel, dans lequel l'analyse de certains éléments peut conduire à la résolution de ce problème. Ses applications sont nombreuses, que ce soit en intelligence artificielle, pour le traitement de texte, en biologie, ou toujours en informatique (les automates sont à la base de la théorie de la complexité). Un \textit{automate} .... TODO
     
-    Dans ce chapitre, on s'intéressera aux langages formels 
+    Dans ce chapitre, on s'intéressera aux langages formels TODO
 
     Le but de ce chapitre est d'étudier formellement divers ensembles de
-    chaînes de caractères, ayant des propriétés intéressantes du point de vue informatique.
+    chaînes de caractères, ayant des propriétés intéressantes du point de vue informatique. TODO
     
     \chaptertoc
     
@@ -486,9 +487,9 @@
             
             \itt \hg{$vu^2 = v \cdot u^2 = v \cdot u \cdot u = cababab \in \Sigma^\star$} (concaténation de $v$ et de la puissance carré de $u$).
             
-            \itt \hg{$c\p{ab}^3 = c \cdot \p{ab}^3 = cababab \in \Sigma^\star$} (concaténation du mot-lettre $c$ et de la puissance cubique du mot $ab$).
+            \itt \hg{$c\p{ab}^3 = c \cdot \p{ab}^3 = cababab \in \Sigma^\star$} (concaténation du mot/lettre $c$ et de la puissance cubique du mot $ab$).
             
-            \itt \hg{$a^4b^2c^2 = aaaaabbcc \in \Sigma^\star$} (concaténation de puissances des mot-lettre $a$, $b$ et $c$).
+            \itt \hg{$a^4b^2c^2 = aaaaabbcc \in \Sigma^\star$} (concaténation de puissances des mot/lettre $a$, $b$ et $c$).
         \end{enumerate}
     \end{example}
     
@@ -1123,7 +1124,7 @@
             
             $v = ua$ avec $\mod{u} = n$ et $a \in \Sigma$.
             
-            Soit $R_0 \lima{u} {}^\star R_n \lima{a}{} R_n+1$ dans $ \det{\bsA_n}$.
+            Soit $R_0 \lima{u}^\star R_n \lima{a} R_{n+1}$ dans $ \det{\bsA_n}$.
             
             Par hypothèse de récurrence, $R_n = \ens{q \in Q_n \enstq \exists q_0 \lima{u}{\bsA_n^\star} q}$
             
@@ -1451,7 +1452,7 @@
                 
             On a bien $\bcL \backslash \ens{\epsilon} \subseteq L'$.
                 
-                Soit $v \in L' \backslash \ens{epsilon} $
+                Soit $v \in L' \backslash \ens{\epsilon} $
                 %il effacer le tableau
 
         \end{psse}
@@ -1782,7 +1783,7 @@
         \begin{enumerate}
             \itt $I' = F$
             \itt $F' = I$
-            \itt $q_1 \lima{a}{}_\bcA q_2 \in \delta \iff q_2 \lima{a}{}_{\bcA'} q_1 \in \delta'$
+            \itt $q_1 \lima{a}_\bcA q_2 \in \delta \iff q_2 \lima{a}_{\bcA'} q_1 \in \delta'$
         \end{enumerate}
         %
         Montrons que $\bcL\p{\bcA'} = L^R$. Soit $v \in \Sigma^\star$, on a :
@@ -1825,7 +1826,7 @@
     \begin{theorem}{Lemme de l'étoile}{}
         Soit $\Sigma$ un alphabet. Soit $L \in Reg_\Sigma$
         Alors : $\exists n \in \bcN^\star$ tel que
-        $\forall u \in L$ tel que $\mod{u} \geq n$,
+      $\forall u \in L$ tel que $\mod{u} \geq n$,
         $\exists \p{x, y, z} \in \p{\Sigma^\star}^3$ tels que :
         \begin{enumerate}
             \itt $u = x y z$
@@ -1874,7 +1875,7 @@
     \end{enumerate}
     
     \begin{theorem}{}{}
-        Le langage $L = \ens{a^n b^n \enstq n \in \bcN}$ n'est pas régulier.
+        Le langage $L = \ens{a^n b^n \enstq n \in \bdN}$ n'est pas régulier.
     \end{theorem}
     
     \begin{nproof}
@@ -1941,5 +1942,414 @@
         $\Sigma = \ens{(, ), [, ], \{, \}, <, >}$
         %
         $L = \ens{u \in \Sigma^\star \enstq u \ \text{est bien parenthésé}}$ est-il régulier ?
+        %
+        \tcblower
+        %
+        Par l'absurde, supposons que $L$ est  régulier. D'après le lemme de l'étoile, on a :
+        %
+        \[\exists n \geq 0, \forall u \in \Sigma^\star, \mod{u} \geq n \implies \exists x, y, z \in \Sigma^\star \ \text{tel que} \ \left\lbrace\begin{array}{l}
+            xyz = u\\
+            y \neq \epsilon\\
+            y^\star \in L\\
+            \mod{xy} \leq n\\
+        \end{array}\right.\]
+        Soit $n \geq 0$, soit $u = (^n )^n$,
+        %
+        Alors on a $u \in L$ ainsi que $\mod{u} \geq n$
+        Mais soient $x, y, z \in \Sigma^\star$ tel que
+        $\left\lbrace\begin{array}{l}
+            xyz = u\\
+            y \neq \epsilon\\
+            xy^\star z \in L\\
+            \mod{xy} \leq n\\
+        \end{array}\right.$
+        Alors $\mod{xy} \leq n \implies xy = (^{\mod{xy}} \implies y = (^{\mod{y}}$
+        $xyz \in L \implies xy(^{\mod{y}}z \not\in L \implies xy^2z \notin L$ : Absurde !
+        
     \end{exercise}
+    
+    La classe des langages réguliers est donc trop restreinte
+    
+    on va maintenant en étudier une autre.
+    
+    \section{Grammaires non contextuelles}
+        
+    \subsection{Grammaires et langages non contextuels}
+    
+    \begin{definition}{Grammaire non contextuelle}{}
+        On appelle \hg{grammaire non contextuel} (\hg{context-free grammar} en anglais) la donnée d'un \hg{quadruplet $\bcG = \p{\bcV, \Sigma, \bcR, S}$} où :
+        %
+        \begin{enumerate}
+            \itast \hg{$\bcV$} est un \hg{alphabet} de \hg{symboles} appelés \hg{non terminaux} (on parle aussi de \hg{variables}).
+        
+            \itast \hg{$\Sigma$} est un \hg{alphabet} de \hg{symboles} appelés \hg{terminaux}, et est tel que \hg{$\Sigma \cap \bcV = \emptyset$}.
+            
+            \itast \hg{$\bcR \subset \bcV \times \p{\Sigma \sqcup \bcV}^\star$} est un \hg{ensemble fini} de \hg{règles de production}.
+            
+            \itast \hg{$S \in \bcV$} est un \hg{symbole non terminal} appelé \hg{symbole initial} (ou \hg{axiome}) \hg{de la grammaire}.
+        \end{enumerate}
+    \end{definition}
+    
+    \begin{notation}
+        \begin{enumerate}
+            \itt On désigne généralement un \hg{symbole non terminal} de \hg{$\bcV$} par une \hg{lettre majuscule} comme \hg{$S$}, \hg{$T$}, \hg{$U$}, \hg{$\dots$}.
+            
+            \itt On désigne généralement un \hg{symbole terminal} de \hg{$\Sigma$} par une \hg{lettre minuscule} comme \hg{$a$}, \hg{$b$}, \hg{$c$}, \hg{$\dots$}.
+            
+            \itt On désigne généralement une \hg{règle de production} de la forme \hg{$\p{T, \bcu} \in \bcR$} par la notation \hg{$T \rightarrow \bcu \in \bcR$}.
+            
+            \itt Si \hg{$n \in \bdN$ règles} ont le \hg{même symbole} à gauche, donc de forme \hg{$T \rightarrow u_1 \in \bcR$}, \hg{$T \rightarrow u_2$}, \hg{\dots}, $\hg{T \rightarrow u_n}$, on désignera cet \hg{ensemble de règle} par \hg{$T \rightarrow v_1 \vert v_2 \vert \dots \vert v_n$}.
+        \end{enumerate}
+    \end{notation}
+    
+    On fera les remarques suivantes :
+    %
+    \begin{enumerate}
+        \itt Une règle peut parfaitement être vide à droite : $T \to \epsilon$.
+        
+        \itt Le terme de \emph{grammaires non contextuelles} vient du fait qu'on n'a pas de règle de la forme $aTb \to v$. Si on autorise ce genre de règles, on parle d'ailleurs de \emph{grammaires contextuelles}, mais ce type de grammaire n'est pas au programme de la \textsf{MPI}.
+        
+        \itt Les \emph{grammaires non contextuelles} sont aussi appelées \emph{grammaires hors contexte} ou \emph{grammaire algébriques}.
+    \end{enumerate} 
+    
+    Puisque les \emph{grammaires non contextuelles} sont le seul type de grammaire au programme, on les appellera simplement \emph{grammaires}.
+    
+    \begin{definition}{Dérivation immédiate}{}
+        Soient \hg{$\bcG = \p{\bcV, \Sigma, \bcR, S}$} une \hg{grammaire}, \hg{$u = u_1Xu_2 \in \p{\Sigma \cup \bcV}^\star \bcV \p{\Sigma \cup \bcV}^\star$} et \hg{$v \in \p{\Sigma \cup \bcV}^\star$}. On dit que \hg{$u$ se dérive immédiatement en $v$}, et on note \hg{$u \Rightarrow v$}, s'il existe \hg{$r \in \p{\Sigma \cup \bcV}^\star$} tel que :
+        %
+        %
+        \[ \hg{X \rightarrow r \in R} \qquad\qquad\et\qquad\qquad \hg{v = u_1 r u_2}\]
+        %
+        De plus, on dit que c'est une \hg{dérivation immédiate à gauche} \emph{(resp. \hg{à droite})} si \hg{$u_1 \in \Sigma^\star$} \emph{(resp. si \hg{$u_2 \in \Sigma^\star$})}.
+    \end{definition}
+    
+    \begin{definition}{Dérivation}{}
+        On note $\Rightarrow^\star$ la clôture réflexive et transitive de $\Rightarrow$. Si $u \Rightarrow^\star v$, on dit que \hg{$u$ se dérive en $v$}.
+        
+        Une suite de dérivations immédiates $u_1 \Rightarrow \dots \Rightarrow u_n$ est appelé une \hg{dérivation}.
+        Une dérivation est \hg{à gauche} \emph{(resp. \hg{à droite})} lorsque \hg{toutes les dérivations qui la composent sont à gauche} \hg{(resp. \hg{à droite})}.
+    \end{definition}
+    
+    \begin{definition}{Langage engendré par une grammaire}{}
+        Soit \hg{$\bcG = \p{\bcV, \Sigma, \bcR, S}$} une \hg{grammaire}. On appelle \hg{langage engendré par $\bcG$} le langage 
+        %
+        \[ \hg{\bcL\p{\bcG} = \ens{v \in \Sigma^\star \enstq S \Rightarrow^\star v }}\]
+        Un langage engendré par une grammaire non contextuelle est appelé \hg{langage non contextuel}.
+    \end{definition}
+    %
+    \begin{notation}
+        On note \hg{$\CFL_\Sigma$} (context free language) l'\hg{ensemble des langages non contextuels sur $\Sigma$}.  
+    \end{notation}
+    
+    \begin{example}{Langages de Dyck}{}
+        On prend \hg{$\Sigma = \ens{(,) ,\{,\} ,[,] ,<,>}$} et le \hg{langage de \textsc{Dyck} $\bsL = \ens{v \in \Sigma^\star \enstq v \ \text{est bien parenthésé}}$}.\medskip
+        
+        On considère \hg{$\bcG = \p{\bcV, \Sigma, \bcR, S}$} avec \hg{$\bcV = \ens{S}$} et les règles \hg{$\hg{S \to \p{S}S \mid \epsilon \mid \intc{S} S \mid \ens{S} S \mid <S> S}$}.
+        
+        On a par exemple :
+        %
+        \[ \hg{S \Rightarrow \p{S} S \Rightarrow \p{\p{S} S} S \Rightarrow \p{\p{\p{S} S} S} S \Rightarrow \p{\p{\p{S} S} S} \p{S} S \Rightarrow \p{\p{\p{S} S} S} \p{\p{S} S} S \Rightarrow^\star \p{\p{\p{}}} \p{\p{}}}\]
+        %
+        Généralement, on retrouve \hg{$\bsL = \bcL\p{G}$}.
+    \end{example}
+    
+    \begin{example}{Formules propositionelles}{}
+        On a $\bcG_\text{prop} : \Sigma = \ens{a, b, c} \cup \ens{\neg, \lor, \land \rightarrow, (, )}$, $\bcV = \ens{S}$, et 
+        %
+        \[ \bcR = S \rightarrow a \mid b \mid c \mid \dots \mid \p{S} \mid \neg S \mid \neg S \lor S \mid S \land S \mid S \rightarrow S\]
+        %
+        $\bcL\p{\bcG_\text{prop}} = \ens{\text{formules propositionelles syntaxiquement correctes dont les variables sont} \ a, b, c, \dots}$.\medskip
+        
+        Par exemple, pour générer $S \Rightarrow^\star \p{a \lor \neg \p{b \land c}} \rightarrow a$, on a :
+        %
+        \begin{align*}
+            S &\Rightarrow S \rightarrow \hg S\\
+            &\Rightarrow \hg S \rightarrow a\\
+            &\Rightarrow \p{\hg S} \rightarrow a\\
+            &\Rightarrow \p{S \lor \hg S} \rightarrow a\\
+            &\Rightarrow \p{S \lor \neg \hg S} \rightarrow a\\
+            &\Rightarrow \p{S \lor \neg \p{\hg S}} \rightarrow a\\
+            &\Rightarrow \p{S \lor \neg \p{S \land \hg S}} \rightarrow a\\
+            &\Rightarrow \p{S \lor \neg \p{\hg S \land c}} \rightarrow a\\
+            &\Rightarrow \p{\hg S \lor \neg \p{b \land c}} \rightarrow a\\
+            &\Rightarrow \p{a \lor \neg \p{b \land c}} \rightarrow a
+        \end{align*}
+    \end{example}
+    
+    
+    \begin{example}{Formules du premier ordre}{}
+        $\bcG_\text{FO} : \Sigma = \Sigma_\bcV \cup \Sigma_\bcF \cup \Sigma_\bcR \cup \Sigma_\bcC \cup \ens{\neg, \lor, \land, \rightarrow, \exists, \forall, (, )} \cup \ens{,}$ où :
+        %
+        \begin{enumerate}
+            \itt $\Sigma_\bcV = \ens{x, y, z, \dots}$ (variables du premier ordre) ;
+            \itt $\Sigma_\bcF = \ens{f \p{1}, g\p{2}, h\p{3}, \dots}$ (symboles de fonctions) ;
+            \itt $\Sigma_\bcR = \ens{= \p{2}, \leq \p{2}, \asymp \p{2}, \equiv \p{2}, \dots}$ (symboles de relations) ;
+            \itt $\Sigma_\bcC = \ens{a, b, c, \dots}$ (symboles de constantes).
+        \end{enumerate}
+        %
+        On a également $\bcV = \ens{S, T, A, V, F}$ de sorte qu'on ait les règles de production suivantes :
+        %
+        \begin{enumerate}
+            \itt $S \rightarrow F$ ;
+            
+            \itt $F \rightarrow A \mid \neg F \mid F \land F \mid F \rightarrow F \mid \p{F} \mid \exists V, F \mid \forall V, F$ ;
+            
+            \itt $V \rightarrow x \mid y \mid z \mid \dots$ (avec $\Sigma_\bcV$) ;
+            
+            \itt $A \rightarrow T = T \mid T \leq T \mid T \asymp T \mid T \equiv T \mid \dots$ (avec $\Sigma_\bcR$) ;
+            
+            \itt $T \rightarrow a \mid \b \mid c \mid \dots$ (avec $\Sigma\bcC$)
+            
+            \itt $T \rightarrow f\p{T} \mid g\p{T, T} \mid k\p{T, T, T} \mid \dots$ (avec $\Sigma_\bcF$)
+        \end{enumerate}
+        %
+        Dès lors, $\bcL\p{\bcG_\text{FO}} = \ens{\text{formules du premier ordre syntaxiquement correctes}}$.
+    \end{example}
+
+    \begin{example}{Mini-langage}{}
+        Soit \hg{$\bcG = \p{\bcV, \Sigma, \bcR, S}$} la \hg{grammaire non contextuelle} telle que :
+        %
+        \begin{enumerate}
+            \itt L'alphabet des symboles non terminaux est \hg{$\bcV = \ens{S, I, E, V, N, C}$}.
+            
+            \itt L'alphabet des symboles terminaux est \hg{$\Sigma = \ens{\texttt{x}, \texttt{y}, \texttt{print}, \texttt 0, \texttt 1, \texttt 2, \dots, \texttt 9, \texttt =, \texttt +, \texttt ; , \texttt (, \texttt ), \epsilon}$}.
+            
+            \itt Les règles de production sont \hg{$\bcR = \begin{array}[t]{rcl}
+                S &\rightarrow & I\texttt{;}S \mid \epsilon  \\
+                I &\rightarrow & V\texttt{ = }E \mid \texttt{print(E)} \\
+                E &\rightarrow& E + E \mid N \mid V\\
+                V &\rightarrow& x \mid y\\
+                N &\rightarrow& CN \mid C\\
+                C &\rightarrow & \texttt 0 \mid \texttt 1 \mid \texttt 2 \mid \dots \mid \texttt 9
+            \end{array}$}
+        \end{enumerate}
+        %
+        Le langage \hg{$\bcL\p{\bcG}$} engendré par une telle grammaire est appelé \hg{mini-langage}. On y obtient par exemple l'expression \hg{$\texttt{x = 42;} \in \bcL\p{\bcG}$} avec la dérivation suivante :
+        %
+        \begin{align*}
+            S &\Rightarrow \hg I\texttt{;}S\\
+            &\Rightarrow \hg V\texttt{ = }E\texttt{;}S\\
+            &\Rightarrow \texttt{x = }\hg E\texttt{;}S\\
+            &\Rightarrow \texttt{x = }\hg N\texttt{;}S\\
+            &\Rightarrow \texttt{x = }\hg CN\texttt{;}S\\
+            &\Rightarrow \texttt{x = 4}\hg N\texttt{;}S\\
+            &\Rightarrow \texttt{x = 4}\hg C\texttt{;}S\\
+            &\Rightarrow \texttt{x = 42;}\hg S\\
+            &\Rightarrow \texttt{x = 42;}
+        \end{align*}
+    \end{example}
+    
+    
+    
+    \begin{theorem}{Non contextualité des langages réguliers}{}
+        Soit $\Sigma$ un alphabet.
+        $\Reg_\Sigma \subseteq \CFL_\Sigma$.
+        De plus, si $\mod{\Sigma} \geq 2$, l'inclusion est stricte. %la preuve svp
+    \end{theorem}
+    \begin{nproof}
+        On montre d'abords l'inclusion
+        Soit $L \subseteq Reg_\Sigma$
+        Il existe un automates $\bcA = (Q,\Sigma, q_0, F, \sigma)$ tel que $L= \bsL(A)$
+        on choisit $\bcA$ un CDFA.
+        
+        On construit $\bcG_\bcA = \p{\mu, \Sigma, \bcR, X_{q_0}}$
+        Avec $\mu = \ens{X_q \enstq q \in Q}$
+        et 
+        \begin{enumerate}
+            \itt $\bcR X_q \to q X_q$ pour tout $\p{q, a, q'}$ tel que $\lima{a}{}_\bcA q'$
+            \itt $X_q \to \epsilon$ pour tout $q \in F$
+        \end{enumerate}
+        Montrons que $X_q \Rightarrow^\star vX_{q'}$ ssi $q \lima{v}{}_\bcA^\star q'$
+        Par récurrence sur $\mod{v}$ :
+        \begin{enumerate}
+            \itt $\mod{v} = 0 v = \epsilon$ on a bien $X_q \Rightarrow^\star X_q$ et $q \lima{\epsilon}{}_\bcA^\star q$ quelque soit les grammaires et les automates considérés.
+            De plus, comme $\bcA$ n'a pas d'$\epsilon$-transition, il n'y a pas d'autre chemin possible pour lire $\epsilon$ (i.e. $q \lima{\epsilon}{}\bcA^\star q' avec q \neq q'$)
+            Et par construction de $\bcG_\bcA$, il n'y a pas d'autres dérivation possible $X_q \Rightarrow^\star X_{q'} avec q \neq q'$
+            \itt $\mod{v} > 0$ : Supposons la propriété vraie pour les mots de taille $n$. Montrons qu'elle est vraie pour les mots $v$ de taille $n + 1$.
+            On pose $v = ua$ avec $\mod{u} = n$.
+            Par (HR) $X_q \Rightarrow^\star u X_{q'}$ ssi $q \lima{u}{}_\bcA^\star q'$
+            L'automate $\bcA$ étant complet et déterministe : $\exists q^n \in Q$ tel que $q' \lima q''$
+            Par construction de $\bcG_\bcA$, on a : $X_{q'} \to aX_{q''}$
+            Ainsi : $X_q \Rightarrow^\star u X_{q'} \Rightarrow uaX_{q''}$
+            Réciproquement, si $X_q \Rightarrow^\star uaX_{q''}$ alors, forcément, la dernière étape est de la forme : $X_q \Rightarrow^\star uX_{q'} \Rightarrow uaX_{q''}$
+            En effet, pour cette grammaire $\bcG_\bcA$, on peutfacilement montrer que si un mot est dérivable dans $\bcG_\bcA$ depuis une variable $X_q$, alors
+            \begin{enumerate}
+                \itt soit ce mot ne contient pas de variable
+                \itt soit il possède une unique variable à la fin.
+            \end{enumerate}
+            Donc, la dernière règle utilisée est de la forme $X_{q'} \to aX_{q''}$ donc $q' \lima{q}{}_\bcA q'' $
+            De plus, par (HR) $q \lima{u}{}_\bcA^\star q'$ Ainsi : $q \lima{v}{}\bcA^\star q''$
+        \end{enumerate}
+        Finalement :
+        $v \in L$
+        \begin{align*}
+            v \in L &\iff q_0 \lima{v}^\star q \in F\\
+            &\iff X_{q_0} \Rightarrow^\star v X_q \text{avec} q \in F\\
+            &\iff X_{q_0} \Rightarrow^\star v \ \text{car le seul moyen de faire disparaître} \ X_q \ \text{est d'utiliser} \ X_q \to \epsilon \ \text{quand} \ q \in F\\
+            &\iff v \in \bcL\p{\bcG_\bcA}
+        \end{align*}
+        
+        Si $\mod{\Sigma} \geq 2$, montrons que l'inclusion est stricte. Soient $\p{a, b} \in \Sigma^2$ tels que $a \neq b$. On a montré, l'aide du \emph{lemme de l'étoile}, que $\ens{a^nb^n,\ n \in \bdN} \not\in \Reg_\Sigma$. Montrons que $\ens{a^nb^n,\ n \in \bdN} \in \CFL_\Sigma$. Soit $\bcG$ la grammaire telle que :
+        %
+        \begin{enumerate}
+            \itt $\bcV = \ens{S}$
+            \itt $\bcR = S \rightarrow aSb \mid \epsilon$
+        \end{enumerate}
+        %
+        Montrons par récurrence sur $n \in \bdN$ que $a^nb^n \in \bcL\p{\bcG}$ :
+        %
+        \begin{enumerate}
+            \itt Pour $n = 0$, $S \Rightarrow \epsilon$, et $\epsilon = a^0b^0 \in \bcL\p{\bcG}$.
+            
+            \itt Supposons que $S \rightarrow^\star a^nb^n$. On a $S \Rightarrow aSb \Rightarrow aa^nb^nb \Rightarrow a^{n+1}b^{n+1}$, d'où $a^{n+1}b^{n+1} \in \bcL\p{\bcG}$.
+        \end{enumerate}
+        %
+        De plus, il est facile de remarquer que ce sont les seuls mots qu'il est possible de générer avec cette grammaire. En effet, tout mot généré depuis $S$ contient le même nombre de $a$ et de $b$, et n'a d'abord que des $a$, puis que des $b$. Ainsi $\ens{a^nb^n,\ n \in \bdN} = \bcL\p{\bcG} \in \CFL_\Sigma$.
+    \end{nproof}
+    
+    \subsection{Ambiguïté d'une grammaire}
+    
+    Les dérivations telles que nous les avons définies, ne font pas apparaître clairement ce qu'il se passe lorsqu'on engendre un mot à l'aide d'une grammaire, \ie le processus par lequel le mot est obtenu.
+    Pour obtenir cette information, il nous faut avoir recours à une structure plus complexe. On remarque déjà que le processus par lequel on obtenait un mot à l'aide de dérivation successives, opère en modifiant progressivement une expression. Il serait donc utile d'utiliser une structure arborescente pour représenter les dérivations :
+    
+    \begin{definition}{Arbre de dérivation}{}
+        Soit \hg{$\bcG = \ens{\bcV, \Sigma, \bcR, S}$} une \hg{grammaire non contextuelle}. On appelle \hg{arbre de dérivation} un \hg{arbre} étiqueté tel que :
+        %
+        \begin{enumerate}
+            \itast la \hg{racine} est étiquetée par \hg{$S$} ;
+            
+            \itast tout \hg{n\oe{}ud interne} est étiqueté par un \hg{symbole de $\bcV$} ;
+            
+            \itast Toute \hg{feuille} est étiquetée par un \hg{symbole de $\Sigma \cup \ens{\epsilon}$} ;
+            
+            \itast Si \hg{$u_1, \dots u_n$} sont les \hg{fils d'un n\oe{}ud} étiqueté \hg{$X$}, alors il existe une \hg{règle $X \rightarrow u_1 \dots u_n \in \bcR$}.
+        \end{enumerate}
+        %
+        Un \hg{arbre de dérivation} dont \hg{les feuilles concaténées de gauche à droite forment un mot $u$} est appelé \hg{arbre de dérivation de $u$}, \hg{arbre syntaxique de $u$} ou encore \hg{arbre de dérivation syntaxique de $u$}.
+    \end{definition}
+    %
+    Pour un mot donné, il n'y a pas unicité (pas plus que pour les dérivations) de l'arbre de dérivation de ce mot. syntaxe On illustre ces notions ci-dessous :
+    %
+    \begin{example}{Arbre de dérivation syntaxique}{}
+        On considère \hg{$\bcG_\text{arithm} = \p{\bcV, \Sigma, \bcR, S}$} la \hg{grammaire non contextuelle} telle que :
+        %
+        \begin{enumerate}
+            \itt L'alphabet des symboles non terminaux est \hg{$\bcV = \ens{S, E}$}
+            
+            \itt L'alphabet des symboles terminaux est \hg{$\Sigma = \ens{0, 1, 2,\dots, 9, +, -, \times, (, )}$}
+            %
+            \itt Les règles de productions sont $\hg{\bcR = \begin{array}[t]{rcl}
+                E &\rightarrow& E  \\
+                E &\rightarrow& E + E \mid E - E \mid E \times E \mid \p{E}\\
+                E &\rightarrow& 0 \mid 1 \mid 2 \mid \dots \mid 9
+            \end{array}}$
+        \end{enumerate}
+        %
+        On donne ci-dessous deux arbres de dérivation de  \hg{$2+4\times 3 - 7 \in \bcL\p{\bcG_\text{arithm}}$} :\newline
+        
+        \begin{minipage}{0.5\linewidth}
+        \begin{center}
+            \begin{tikzpicture}[nodes={}, ->,
+                level 2/.style = {sibling distance = 2.5cm},
+                level 3/.style = {sibling distance = 1.75cm},
+                level 4/.style = {sibling distance = 0.75cm}
+            ]
+                \node[circle, fill=main2,draw=white,text=white]{$S$}
+                child {
+                    node[circle, fill=main2,draw=white,text=white]{$E$}
+                    child {
+                        node[circle, fill=main2,draw=white,text=white]{$E$}
+                        child { node {$2$} }
+                    }
+                    child {node {$+$}}
+                    child {
+                        node[circle, fill=main2,draw=white,text=white]{$E$}
+                        child {
+                            node[circle, fill=main2,draw=white,text=white]{$E$}
+                            child { node {$4$} }
+                        }
+                        child {node {$\times$}}
+                        child {
+                            node[circle, fill=main2,draw=white,text=white]{$E$}
+                            child {
+                                node[circle, fill=main2,draw=white,text=white]{$E$}
+                                child { node {$3$} }
+                            }
+                            child {node {$-$} }
+                            child {
+                                node[circle, fill=main2,draw=white,text=white]{$E$}
+                                child { node {$7$} }
+                            }
+                        }
+                    }
+                };
+            \end{tikzpicture}
+        \end{center}
+        \end{minipage}
+        \begin{minipage}{0.5\linewidth}
+        \begin{center}
+            \begin{tikzpicture}[nodes={}, ->,
+                level 2/.style = {sibling distance = 2cm},
+                level 3/.style = {sibling distance = 1cm}
+                ]
+                
+                \node[circle, fill=main2,draw=white,text=white]{$S$}
+                child {
+                    node[circle, fill=main2,draw=white,text=white]{$E$}
+                    child {
+                        node[circle, fill=main2,draw=white,text=white]{$E$}
+                        child {
+                            node[circle, fill=main2,draw=white,text=white]{$E$}
+                            child {node {$2$}}
+                        }
+                        child {node {$+$}}
+                        child {
+                            node[circle, fill=main2,draw=white,text=white]{$E$}
+                            child {node {$4$}}
+                        }
+                    }
+                    child {node {$\times$}}
+                    child {
+                        node[circle, fill=main2,draw=white,text=white]{$E$}
+                        child {
+                            node[circle, fill=main2,draw=white,text=white]{$E$}
+                            child {node {$3$}}
+                        }
+                        child {node {$-$}}
+                        child {
+                            node[circle, fill=main2,draw=white,text=white]{$E$}
+                            child {node {$7$}}
+                        }
+                    }
+                };
+            \end{tikzpicture}
+        \end{center}
+        \end{minipage}
+    \end{example}
+    
+    Les arbres de dérivation sont des objets importants, car ils nous permettent de nous débarrasser d'une première source de non déterminisme : quel choix de symbole non terminal 
+    
+    \begin{property}{Indépendance des arbres de dérivation de la stratégie}{}
+        Soit $\bcG = \p{\bcV, \Sigma, \bcR, S}$ une grammaire, et $u \in \Sigma^\star$ tel que $S \Rightarrow^\star u$. Soit $t$ un arbre de dérivation de $u$. Il n'y a  qu'une seule dérivation gauche $S \Rightarrow^\star_g u$ et qu'une seule dérivation droite $S \Rightarrow^\star_d u$ pour $t$.
+    \end{property}
+    
+    \begin{nproof}
+    
+    la seule derivartion gauche (resp droite) possible correspond a appliquer les regles telles que l'on remaque en effectuant un parcours en profondeurs det, en traitant les fils d'un noeud de gauche a droite 
+    
+    
+    \end{nproof}
+    on remaque que en plus de l'unicite de cette proprieter prouve qu'il existe toujurs une relatiion gauche 
+    
+    \qquad    - un arbre de deriavation de permet donc de representer plusieurs derivation du meme mot (il y a sans doute plusieurs arbre possibles pour appliquer les regles de derivation)
+    
+    mais cela ne resout pastout.
+    
+    \begin{definition}{Grammaire analogique}{}
+        Une grammaire $G$ est dit analogique s'il existe un mot $v \bcL\p{\bcG}$ tel que $v$ possède $2$ arbres de dérivations distincts.
+    \end{definition}
+
+    On remarque que quand cela se produit, c'est qu'un symbole $T$ possède toujours plusieurs règles $T \to u_1 \mid u_2 \mid \dots \mid u_n$ et que le choix de quelle règle appliquer en premier va mener à des arbres de dérivations différents pour le même mot.
+
+
 \end{document}

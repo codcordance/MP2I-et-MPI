@@ -1,0 +1,197 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\thesection.\arabic{enumi}.\arabic{enumii}.}
+    
+    \stylizeDocSpe{Physique}{Travaux pratiques n° 3}{Étude d'un filtre passif}{Le mercredi 12 octobre 2022}
+    
+    On utiliser un oscilloscope pour visualiser $v_\text e\p{t}$ et $v_\text s\p{t}$. Le but du TP est de :
+    %
+    \begin{enumerate}
+        \itt Tracer le diagramme de \textsc{Bode} du filtre proposé (Avec $G_\text{dB}$ et $\varphi$) et de le confronter aux courbes théoriques.
+        
+        \itt Étudier la réponse indicielle du filtre.
+        
+        \itt Interpréter l'effet du filtre sur un signal périodique (créneau, centré ou non sur zéro).
+    \end{enumerate}
+    %
+    On considère le filtre passif suivant, pour lequel $R = \qty{1}{\kilo\ohm}$, $C = \qty{10}{\nano\farad}$ et $\omega_0 = \dfrac{1}{RC}$ :
+    %
+    \begin{center}
+        \begin{circuitikz}
+            \draw (0, 0) node[eground] {} to[open, v>=$v_\text e\p{t}$] ++(0, 3)
+            to[R, l=$R$, *-] ++(2, 0) to[C, l=$C$] ++(2, 0) --++(0.75,0) --++(0, -1) --++(-0.75, 0) to[R, l=$R$] ++(0, -2) node[eground] {};
+            \draw (4.75, 2) --++(0.75, 0) to[C, l=$C$] ++(0, -2) node[eground] {};
+            \draw (4.75, 3) to[short, -*] ++(3.25, 0) to[open, v=$v_\text s\p{t}$] ++(0, -3) node[eground] {};
+        \end{circuitikz}
+    \end{center}
+    
+    \section{Étude du régime permanent (forcé) et diagramme de Bode}
+    
+    \subsection{Étude théorique}
+    
+    \begin{enumerate}
+        \item Calculer la fonction de transfert $H\p{\jj \omega} = \dfrac{v_\text s}{v_\text e}$, le gain $G\p{\omega} = \mod{H\p{\jj \omega}}$ et le déphasage $\varphi\p{\omega} = \arg\p{H\p{\jj \omega}}$.
+        
+        \noafter
+        %
+        \boxans{
+            On note $Z_i$ l'impédance complexe du dipôle $i$ et $Z_\text{eq}$ l'impédance équivalente de $R \parallel C$. On a $Z_C = \dfrac{1}{\jj \omega C}$ et $Z_R = R$, donc $Z_\text{eq} = \dfrac{1}{j\omega C + \dfrac{1}{R}} = \dfrac{R}{1 + \jj\omega RC}$. Or $v_\text s$ est la tension au niveau du dipôle équivalent donc par pont diviseur de tension :
+            %
+            \[ \dfrac{v_\text s}{v_\text e} = \dfrac{Z_\text{eq}}{Z_\text{eq} + Z_C + Z_R} = \dfrac{R}{\p{1 + \jj\omega RC}\p{\dfrac{R}{1 + \jj\omega RC} + \dfrac{1}{\jj \omega C} + R}} = \dfrac{R}{3R + \dfrac{1}{\jj \omega C} + \jj\omega R^2C} = \dfrac{\sfrac{1}{3}}{1 + \sfrac{\jj}{3}\p{\omega RC - \dfrac{1}{\omega RC}}}\]
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Donc la fonction de transfert est $H\p{\jj\omega} = \dfrac{G_0}{1 + \jj Q\p{\frac{\omega}{\omega_0} - \frac{\omega_0}{\omega}}}$ avec $Q = G_0 = \sfrac{1}{3}$. On obtient donc :
+            %
+            \[ G\p{\omega} = \mod{H\p{\jj\omega}} = \dfrac{G_0}{\sqrt{1 + Q^2\p{\frac{\omega}{\omega_0} - \frac{\omega_0}{\omega}}^2}} \qquad\et\qquad \varphi\p{\omega} = \arg{H\p{\jj\omega}} = -\arctan{Q\p{\frac{\omega}{\omega_0} - \frac{\omega_0}{\omega}}} \]
+            %
+            \[ G_\text{dB}\p{x} = 20\log{G\p{\omega}} = 20\log{\dfrac{1}{3}} - 10\log{1+\dfrac{1}{9}\p{x - \dfrac{1}{x}}^2} \qquad\text{avec} \ x = \dfrac{\omega}{\omega_0}\]
+            \begin{minipage}{0.50\linewidth}
+                \begin{center}
+                    \underline{Diagramme en gain :}\newline\text{}
+                    
+                    \begin{tikzpicture}
+                    \begin{axis}[
+                        xmode               =   log,
+                        axis lines          =   left,
+                        domain              =   0.001:1000,
+                        xmin                =   0.001,
+                        xmax                =   1000,
+                        ymin                =   -60,
+                        ymax                =   20,
+                        grid                =   both,
+                        width               =   8cm,
+                        height              =   5.5cm,
+                        legend pos          = north east,
+                        legend style={row sep=0.1cm, font=\scriptsize}
+                        ]               
+                            \addplot[color=main3,samples=500,smooth,thick]{9.542-10*ln(1+1/9*(x-1/x)^2)/ln(10)};
+                            \legend{$x \mapsto G_\text{dB}\p{x}$}
+                        \end{axis}
+                    \end{tikzpicture}
+                \end{center}
+            \end{minipage}
+            %
+            \begin{minipage}{0.50\linewidth}
+                \begin{center}
+                    \underline{Diagramme en phase :}\newline\text{}
+                    
+                    \begin{tikzpicture}
+                    \begin{axis}[
+                        xmode               =   log,
+                        axis lines          =   left,
+                        domain              =   0.001:1000,
+                        xmin                =   0.001,
+                        xmax                =   1000,
+                        ymin                =   -pi,
+                        ymax                =   pi,
+                        grid                =   both,
+                        width               =   8cm,
+                        height              =   5.5cm,
+                        ytick               = {-pi/2, 0, pi/2, pi},
+                        yticklabels         = {$-\sfrac{\pi}{2}$, $0$, $\sfrac{\pi}{2}$, $\pi$},
+                        legend pos          = north east,
+                        legend style={row sep=0.1cm, font=\scriptsize}
+                        ]               
+                            \addplot[color=main3,samples=3000,smooth,thick]{rad(-atan(1/3*(x-1/x)))};
+                            \legend{$x \mapsto \varphi\p{x}$}
+                        \end{axis}
+                    \end{tikzpicture}
+                \end{center}
+            \end{minipage}
+        }
+        %
+        \yesbefore
+        
+        \item Calculer et placer sur la courbe les points correspondants aux fréquences de coupure à $\qty{-3}{dB}$. De quel type de circuit s'agit-il ?
+        
+        \boxans{
+            Les fréquences de coupures $f_\text c$ à $\qty{-3}{dB}$ sont telles que $G\p{f_C} = \dfrac{G_\text{max}}{\sqrt{2}}$. Il s'agit d'un circuit passe-bande.
+        }
+    \end{enumerate}
+    
+    \subsection{Étude expérimentale}
+    
+    \begin{enumerate}
+        \setcounter{enumi}{2}
+        \item Utiliser l'oscilloscope bicourbe pour mesurer le gain et le déphasage. Mesurer la fréquence de coupure à $\qty{-3}{dB}$.
+        
+        \item Tracer les courbes expérimentales $G_\text{dB, exp}$ et $\varphi_\text{exp}$ en fonction de $x = \dfrac{\omega}{\omega_0}$, et les comparer avec les courbes théoriques.
+        
+        \boxansconc{
+            \begin{minipage}{0.50\linewidth}
+                \begin{center}
+                    \underline{Diagramme en gain :}\newline\text{}
+                    
+                    \begin{tikzpicture}
+                    \begin{axis}[
+                        xmode               =   log,
+                        axis lines          =   left,
+                        domain              =   0.001:1000,
+                        xmin                =   0.001,
+                        xmax                =   1000,
+                        ymin                =   -60,
+                        ymax                =   20,
+                        grid                =   both,
+                        width               =   8cm,
+                        height              =   5.5cm,
+                        legend pos          = north east,
+                        legend style={row sep=0.1cm, font=\scriptsize}
+                        ]               
+                            \addplot[color=main3,samples=500,smooth,thick] coordinates {
+                                (0.001,-25.93)
+                                (0.01, -19.91)
+                                (0.1, -10.57)
+                                (1, -15.94)
+                                (10, -28.58)
+                                (100, -6.11)
+                            };
+                            \legend{$x \mapsto G_\text{dB, exp}\p{x}$}
+                        \end{axis}
+                    \end{tikzpicture}
+                \end{center}
+            \end{minipage}
+            %
+            \begin{minipage}{0.50\linewidth}
+                \begin{center}
+                    \underline{Diagramme en phase :}\newline\text{}
+                    
+                    \begin{tikzpicture}
+                    \begin{axis}[
+                        xmode               =   log,
+                        axis lines          =   left,
+                        domain              =   0.001:1000,
+                        xmin                =   0.001,
+                        xmax                =   1000,
+                        ymin                =   -pi,
+                        ymax                =   pi,
+                        grid                =   both,
+                        width               =   8cm,
+                        height              =   5.5cm,
+                        ytick               = {-pi/2, 0, pi/2, pi},
+                        yticklabels         = {$-\sfrac{\pi}{2}$, $0$, $\sfrac{\pi}{2}$, $\pi$},
+                        legend pos          = north east,
+                        legend style={row sep=0.1cm, font=\scriptsize}
+                        ]               
+                            \addplot[color=main3,samples=3000,smooth,thick]{rad(-atan(1/3*(x-1/x)))};
+                            \legend{$x \mapsto \varphi\p{x}$}
+                        \end{axis}
+                    \end{tikzpicture}
+                \end{center}
+            \end{minipage}
+        }
+    \end{enumerate}
+    
+\end{document}

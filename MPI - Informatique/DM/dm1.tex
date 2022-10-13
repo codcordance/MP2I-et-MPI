@@ -1,0 +1,491 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+\def\authorvar{SIAHAAN--GENSOLLEN Rémy, DRISSI Rayan}
+
+\usepackage{proof}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}} 
+    \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii}.}
+    
+    \stylizeDocSpe{INFO}{Devoir maison n° 1}{}{Pour le mardi 11 octobre 2022}
+    
+    \emph{Dans tout le sujet, on se donne $\bcV$ un ensemble infini dénombrable de variables.}\bigskip
+    
+    On a vu en cours un exemple de système de preuve correct et complet pour la logique propositionnelle : la \emph{déduction naturelle}. Le défaut de ce système de preuve est qu'il n'est pas très pratique à utiliser en pratique, et qu'il n'existe pas de stratégie de preuve simple pour chercher un arbre de preuve. Le but de ce devoir est d'étudier un autre système de preuve correct et complet, mais possédant une stratégie de recherche de preuve simple : le \emph{calcul des séquents}.\medskip
+    
+    Dans la déduction naturelle, un séquent est de la forme $\Gamma \vdash \varphi$ : on ne peut avoir qu'une seule formule dans la partie droite du séquent. Dans le cadre du calcul des séquents, on se donne une définition plus large de séquent : dans ce devoir, un séquent est un un couple de deux ensembles finis $\Gamma$ et $\Delta$ de formules, noté $\Gamma \vdash \Delta$. Un tel séquent est dit valide (noté $\Gamma \vDash \Delta$) si pour toute valuation $\nu$ de sur $\bcV$, si $\nu$ satisfait toutes les formules de $\Gamma$, alors il existe une formule de $\Delta$ qui est satisfaite par $\nu$.\bigskip
+    
+    \textbf{\sffamily Remarque :} si $\Delta$ ne contient qu'une seule formule, cette définition de séquent valide coïncide avec celle du cours. L'intérêt d'autoriser plusieurs formules dans la partie droite du séquent est d'obtenir des règles d'inférences plus \guill{symétriques}. Dans la déduction naturelle, il y a deux types de règles : 
+    %
+    \begin{enumerate}
+        \itt les règles d'introduction qui permettent de traiter directement la formule à droite du séquent;
+        
+        \itt les règles d'élimination qui permettent en fait de gérer indirectement une formule du contexte $\Gamma$.
+    \end{enumerate}
+    %
+    Le défaut des règles d'élimination (pour pouvoir automatiser la recherche de preuve) est qu'il faut deviner quelle nouvelle formule faire apparaître dans les prémisses. Plus généralement, il faut deviner à quel moment utiliser quelle règle, car appliquer une règle au \guill{mauvais} moment risque de faire apparaître une prémisse non prouvable, alors que le séquent initial était prouvable.\medskip
+    
+    Dans le calcul des séquents, les règles (présentées ci-dessous) sont plus simples, et ces deux problèmes n'existent pas. Il n'y a que des règles d'introduction : celles permettant de gérer une formule de $\Delta$, et celles permettant de traiter une formule de $\Gamma$.\bigskip
+    %
+    \[ \infer[(Ax)]{\Gamma, \varphi \vdash \varphi, \Delta}{} \]
+    %
+    \begin{minipage}{0.5\linewidth}
+        \begin{gather*}
+            \infer[(\bot)]{\Gamma, \bot \vdash \Delta}{}\\[9pt]
+            \infer[(\land \vdash)]{\Gamma, \varphi \land \psi \vdash \Delta}{\Gamma, \varphi, \psi \vdash \Delta}\\[9pt]
+            \infer[(\lor \vdash)]{\Gamma, \varphi \lor \psi \vdash \Delta}{\Gamma, \varphi \vdash \Delta & \Gamma, \psi \vdash \Delta}\\[9pt]
+            \infer[(\rightarrow\;\vdash)]{\Gamma, \varphi \rightarrow \psi \vdash \Delta}{\Gamma \vdash \varphi, \Delta & \Gamma, \varphi \vdash \Delta}\\[9pt]
+            \infer[(\neg \vdash)]{\Gamma, \neg \varphi \vdash \Delta}{\Gamma \vdash \varphi, \Delta}
+        \end{gather*}
+    \end{minipage}
+    \begin{minipage}{0.5\linewidth}
+        \begin{gather*}
+            \infer[(\top)]{\Gamma \vdash \top, \Delta}{}\\[9pt]
+            \infer[(\vdash \land)]{\Gamma \vdash \varphi \land \psi, \Delta}{\Gamma \vdash \varphi, \Delta & \Gamma \vdash \psi, \Delta}\\[9pt]
+            \infer[(\vdash \lor)]{\Gamma \vdash \varphi \lor \psi, \Delta}{\Gamma \vdash \varphi, \psi, \Delta}\\[9pt]
+            \infer[(\vdash\; \rightarrow)]{\Gamma \vdash \varphi \rightarrow \psi, \Delta}{\Gamma, \varphi \vdash \psi, \Delta}\\[9pt]
+            \infer[(\vdash \neg)]{\Gamma \vdash \neg \varphi, \Delta}{\Gamma, \varphi \vdash \Delta}
+        \end{gather*}
+    \end{minipage}
+    
+    \section{Quelques exemples}
+    
+    On commence par prouver quelques formules à l'aide de ce nouveau système de preuve. Ce sont des formules qu'on a rencontré en TD avec la déduction naturelle, et qui n'étaient pas toujours faciles à prouver.
+    
+    \begin{enumerate}
+        \item Prouver $\vdash p \lor \neg p$ avec le calcul des séquents.
+        
+        \boxansconc{
+            \[ \infer[(\vdash \lor)]{\vdash p \lor \neg p}{\infer[(\vdash \neg)]{\vdash \varphi, \neg \varphi}{\infer[(Ax)]{\varphi \vdash \varphi}{}}}\]
+        }
+        
+        \item Prouver $\vdash \p{\p{p \rightarrow q} \rightarrow p} \rightarrow p$ avec le calcul des séquents.
+        
+        \boxansconc{
+            \[ \infer[(\vdash\;\rightarrow)]{\vdash \p{\p{p \rightarrow q} \rightarrow p} \rightarrow p}{\infer[(\rightarrow\;\vdash)]{\p{p \rightarrow q} \rightarrow p \vdash p}{\infer[(\vdash\;\rightarrow)]{\vdash p \rightarrow q, p}{\infer[(Ax)]{p \vdash q, p}{}} & \infer[(Ax)]{p \vdash p}{}}}\]
+        }
+        
+        \item Prouver $\neg\p{p \lor q} \vdash \neg p \land \neg q$ avec le calcul des séquents.
+        
+        \boxansconc{
+            \[ \infer[(\vdash \land)]{\neg\p{p \lor q} \vdash \neg p \land \neg q}{
+                \infer[]{\neg \p{p \lor q} \vdash \neg p}{
+                    \infer[(\neg \vdash)]{\neg \p{p \lor q}, p \vdash}{
+                        \infer[(\vdash \lor)]{p \vdash p \lor q}{\infer[(Ax)]{p \vdash p, q}{}}
+                    }
+                } &
+                \infer[(\vdash \neg)]{\neg \p{p \lor q} \vdash \neg q}{
+                    \infer[(\neg \vdash)]{\neg \p{p \lor q}, q \vdash}{
+                        \infer[(\vdash \lor)]{q \vdash p \lor q}{\infer[(Ax)]{q \vdash p, q}{}}
+                    }
+                }
+            }\]
+        }
+        
+        \item Prouver $\neg p \land \neg q \vdash \neg\p{p \lor q}$ avec le calcul des séquents.
+        
+        \boxansconc{
+            \[ \infer[(\land \vdash)]{\neg p \land \neg q \vdash \neg \p{p \lor q}}{
+                \infer[(\vdash \neg)]{\neg p, \neg q \vdash \neg \p{p \lor q}}{
+                    \infer[(\neg \vdash)]{\neg p, \neg q, p \lor q \vdash}{
+                        \infer[(\lor \vdash)]{p \lor q \vdash p, q}{
+                            \infer[(Ax)]{p \vdash p, q}{} &
+                            \infer[(Ax)]{q \vdash p, q}{}
+                        }
+                    }
+                }
+            }\]
+        }
+    \end{enumerate}
+    
+    
+    \section{Correction}
+    
+    Le but de cette section est de montrer que le calcul des séquents est un système de preuve correct : si $\Gamma \vdash \Delta$ est prouvable, alors $\Gamma \vDash \Delta$. On rappelle qu'on dit qu'une règle est \emph{correcte} lorsque : si toutes les prémisses de la règle sont des séquents valides, alors le séquent conclusion de la règle est correcte.
+    
+    \begin{enumerate}
+        \setcounter{enumi}{4}
+        %
+        \item Pour chaque règle du calcul des séquents, montrer qu'elle est correcte.
+        
+        \noafter
+        %
+        \boxans{
+            \begin{enumerate}
+                \itt Montrons la correction de la règle $\infer[(Ax)]{\Gamma, \varphi \vdash \varphi, \Delta}{}$ :
+                
+                Soit $\nu$ une valuation sur $\bcV$ telle que $\nu \vDash \Gamma, \varphi$. On a donc $\nu \vDash \varphi$ donc il existe une formule $\psi = \varphi$ dans $\ens{\varphi} \cup \Delta$ telle que $\nu \vDash \psi$, donc la règle est correcte.\medskip
+                
+                \itt Montrons la correction de la règle $\infer[(\bot)]{\Gamma, \bot \vdash \Delta}{}$ :
+                
+                Il n'existe pas de valuation $\nu$ sur $\bcV$ telle que $\nu \vDash \bot$ (par définition $\nu\p{\bot} = 0$), ainsi par quantification sur l'ensemble vide, toute valuation satisfaisant $\Gamma, \bot$ satisfait $\Delta$), donc la règle est correcte.\medskip
+                
+                \itt Montrons la correction de la règle $\infer[(\top)]{\Gamma \vdash \top, \Delta}{}$ :
+                
+                Soit $\nu$ une valuation sur $\bcV$ telle que $\nu \vDash \Gamma$. On a $\nu \vDash \top$ (par définition) donc il existe une formule $\psi = \top$ de $\ens{\top} \cup \Delta$ telle que $\nu \vDash \psi$, donc la règle est correcte.\medskip
+                
+                \itt Montrons la correction de la règle $\infer[(\land \vdash)]{\Gamma, \varphi \land \psi \vdash \Delta}{\Gamma, \varphi, \psi \vdash \Delta}$ :
+                
+                Supposons que $\Gamma, \varphi, \psi \vDash \Delta$. Soit $\nu$ une valuation sur $\bcV$ tel que $\nu \vDash \Gamma, \varphi \land \psi$. Donc $\nu \vDash \Gamma$ et $\nu \vDash \varphi \land \psi$, d'où par définition $\nu \vDash \varphi$ et $\nu \vDash \psi$. Dès lors $\nu \vDash \Gamma, \varphi, \psi$ donc il existe par hypothèse une formule $\theta \in \Delta$ telle que $\nu \vDash \theta$, donc la règle est correcte.\medskip
+                
+                \itt Montrons la correction de la règle $\infer[(\vdash \land)]{\Gamma \vdash \varphi \land \psi, \Delta}{\Gamma \vdash \varphi, \Delta & \Gamma \vdash \psi, \Delta}$ :
+                
+                Supposons que $\Gamma \vDash \varphi, \Delta$ et que $\Gamma \vDash \psi, \Delta$. Soit $\nu$ une valuation sur $\bcV$ telle que $\nu \vDash \Gamma$. Dès lors, il existe par hypothèse une formule $\theta \in \ens{\varphi} \cup \Delta$ telle que $\nu \vDash \theta$. On a :
+                %
+                \begin{enumerate}
+                    \ithand Si $\theta \in \Delta$, alors $\nu$ satisfait une formule dans $\ens{\varphi \land \psi} \cup \Delta$ donc la règle est correcte.
+                    
+                    \ithand Sinon $\theta = \varphi$. Il existe par hypothèse une règle $\rho \in \ens{\psi} \cup \Delta$ telle que $\nu \vDash \rho$.
+                    
+                    \ithand Si $\rho \in \Delta$, de même que précédemment, la règle est correcte. Sinon, $\rho = \psi$ donc $\nu \vDash \varphi \land \psi$ et donc de même, la règle est correcte.
+                \end{enumerate}
+                \medskip
+            
+                \itt Montrons la correction de la règle $\infer[(\lor \vdash)]{\Gamma, \varphi \lor \psi \vdash \Delta}{\Gamma, \varphi \vdash \Delta & \Gamma, \psi \vdash \Delta}$ :
+                
+                Supposons que $\Gamma, \varphi \vDash \Delta$ et que $ \Gamma, \psi \vDash \Delta$. Soit $\nu$ une valuation sur $\bcV$ telle que $\nu \vDash \Gamma, \varphi \lor \psi$, donc $\nu \vDash \Gamma$ et $\nu \vDash \varphi \lor \psi$, d'où :
+                %
+                \begin{enumerate}
+                    \ithand Si $\nu \vDash \varphi$, alors $\nu \vDash \Gamma, \varphi$ donc par hypothèse il existe une formule $\theta \in \Gamma$ telle que $\nu \vDash \theta$, donc la règle est correcte.
+                    
+                    \ithand Si $\nu \vDash \psi$, alors $\nu \vDash \Gamma, \psi$ donc de même avec l'autre prémisse.
+                \end{enumerate}
+                \medskip
+                
+                \itt Montrons la correction de la règle $\infer[(\vdash \lor)]{\Gamma \vdash \varphi \lor \psi, \Delta}{\Gamma \vdash \varphi, \psi, \Delta}$ :
+                
+                Supposons que $\Gamma \vdash \varphi, \psi, \Delta$. Soit $\nu$ une valuation sur $\bcV$ tel que $\nu \vDash \Gamma$, donc par hypothèse il existe $\theta \in \ens{\varphi, \psi} \cup \Delta$ telle que $\nu \vDash \theta$, d'où :
+                %
+                \begin{enumerate}
+                    \ithand Si $\theta \in \Delta$, alors la règle est correcte.
+                    
+                    \ithand Sinon, $\theta \in \ens{\varphi, \psi}$ donc $\nu \vDash \varphi \lor \psi$ par définition, donc la règle est correcte.
+                \end{enumerate}
+                \medskip
+                
+                \itt Montrons la correction de la règle $\infer[(\rightarrow\;\vdash)]{\Gamma, \varphi \rightarrow \psi \vdash \Delta}{\Gamma \vdash \varphi, \Delta & \Gamma, \varphi \vdash \Delta}$ :
+            
+                Supposons que $\Gamma \vDash \varphi, \Delta$ et que $\Gamma, \varphi \vDash \Delta$. Soit $\nu$ une valuation sur $\bcV$ telle que $\nu \vDash \Gamma, \varphi \rightarrow \psi$, donc $\nu \vDash \Gamma$ Par hypothèse, il existe $\theta \in \ens{\varphi} \cup \Delta$ telle que $\nu \vdash \theta$, d'où :
+                %
+                \begin{enumerate}
+                    \ithand Si $\theta \in \Delta$, alors la règle est correcte.
+                    
+                    \ithand Sinon, on a $\theta = \varphi$, donc puisque $\nu \vDash \varphi \rightarrow \psi$ par définition $\nu \vDash \psi$, d'où $\nu \vDash \Gamma, \psi$ et donc par hypothèse, il existe $\rho \in \Delta$ telle que $\nu \vDash \rho$. Donc la règle est correcte.
+                \end{enumerate}
+                \medskip
+                
+                \itt Montrons la correction de la règle $\infer[(\vdash\; \rightarrow)]{\Gamma \vdash \varphi \rightarrow \psi, \Delta}{\Gamma, \varphi \vdash \psi, \Delta}$ :
+                
+                Supposons que $\Gamma, \varphi \vDash \psi, \Delta$. Soit $\nu$ une valuation sur $\bcV$ telle que $\nu \Vdash \Delta$. 
+                %
+                \begin{enumerate}
+                    \ithand Si $\nu \vDash \varphi$, alors par hypothèse il existe $\theta \in \ens{\psi} \cup \Delta$ telle que $\theta \vDash \theta$. Si $\theta \in \Delta$, alors la règle est correcte. Sinon, $\theta = \psi$, donc $\nu \vDash \varphi \rightarrow \psi$, donc la règle est correcte.
+                    
+                    \ithand Sinon, $\nu \nvDash \varphi$, donc $\nu \vDash \varphi \rightarrow \psi$ par définition, donc la règle est correcte.
+                \end{enumerate}
+                \medskip
+                
+                \itt Montrons la correction de la règle $\infer[(\neg \vdash)]{\Gamma, \neg \varphi \vdash \Delta}{\Gamma \vdash \varphi, \Delta}$ :
+                
+                Supposons que $\Gamma \vDash \varphi, \Delta$. Soit $\nu$ une valuation sur $\bcV$ telle que $\nu \vDash \Gamma, \varphi$. Donc $\nu \vDash \Gamma$ donc par hypothèse, il existe $\theta \in \ens{\varphi} \cup \Delta$ telle que $\nu \vDash \theta$. Or $\nu \nvDash \varphi$ par définition (puisque $\nu \vDash \neg \varphi$), donc $\theta \neg \varphi$. Ainsi $\theta \in \Delta$, donc la règle est correcte.\medskip
+                
+                \itt Montrons la correction de la règle $\infer[(\vdash \neg)]{\Gamma \vdash \neg \varphi, \Delta}{\Gamma, \varphi \vdash \Delta}$ :
+                
+                Supposons que $\Gamma, \varphi \vDash \Delta$. Soit $\nu$ une valuation sur $\bcV$ telle que $\nu \vDash \Gamma$.
+                %
+                \begin{enumerate}
+                    \ithand Si $\nu \vDash \varphi$, alors par hypothèse il existe $\theta \in \Delta$ telle que $\nu \vDash \theta$, donc la règle est correcte.
+                    
+                    \ithand Sinon, $\nu \nvDash \varphi$ donc par définition $\nu \vdash \neg \varphi$, donc la règle est correcte.
+                \end{enumerate}
+            \end{enumerate}
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a bien montré la correction de chaque règle du calcul des séquents.
+        }
+        %
+        \yesbefore
+        
+        \item En déduire que le calcul des séquents est un système de preuve correct.
+        
+        \boxansconc{
+            On procède par induction structurelle sur les arbres de preuves. Les règles de bases $(Ax)$, $(\bot)$ et $(\top)$ n'ont pas de prémisses, donc les séquents conclusions sont valides. En supposant le séquent conclusion d'un arbre valide, former tout nouvel arbre avec un des règles donne un arbre dont le dernier séquent est valide, en vertu de la correction démontrée à la question précédente.
+        }
+    \end{enumerate}
+    
+    \section{Complétude}
+    
+    Le but de cette partie est de montrer que le calcul des séquents est un système de preuve complet (c'est à dire qu'on a la réciproque du résultat précédent) : si $\Gamma \vDash \Delta$, alors $\Gamma \vdash \Delta$ est prouvable. Pour cela, on va montrer que toutes les règles du calcul des séquents ont une propriété remarquable (que n'ont pas toutes les règles de la déduction naturelle).
+    
+    \begin{definition*}{Règle inversible}{}
+        Une règle d'inférence est dite \hg{inversible} lorsque : si le séquent conclusion de la règle est valide, alors toutes les prémisses de la règle sont des séquents valides.
+    \end{definition*}
+    
+    Cette notion correspond en fait à la réciproque de la définition de la correction d'une règle.
+    
+    \begin{enumerate}
+        \setcounter{enumi}{6}
+        \item Illustrer avec un exemple que les règles $(\lor_i^g)$ et $(\lor_i^d)$ de la déduction naturelle ne sont pas inversibles.
+        
+        \boxansconc{
+            Le séquent $\vdash p \lor \neg p$ est toujours valide, pour avec la règle $(\lor_i^g)$ on aurait $\infer[(\lor_i^g)]{\vdash p \lor \neg p}{\vdash p}$, et le séquent $\vdash p$ n'est pas forcément valide, en particulier pour une valuation ne satisfaisant par $p$ (satisfaisant $\neg p$). Ce même exemple est valide avec la règle $(\lor_i^d)$.
+        }
+        
+        \item Expliquer pourquoi toutes les règles d'élimination de la déduction naturelle (sauf $(\neg_e)$) ne sont pas inversibles.
+        
+        \boxansconc{
+            Dans les règles d'éliminations de la déduction naturelle, l'ensemble de l'information caractérisé par les prémisses fait intervenir plus d'information que la conclusion : le nombre de formules utilisé dans les prémisses est strictement plus grand que dans la conclusion. Il ne peut donc y avoir réversibilité, sauf dans le cas de la règle $(\neg_e)$ dont le séquent conclusion est toujours invalide (donc la règle est par définition inversible, mais ce n'est pas très pertinent).
+        }
+        
+        \item Montrer que toutes les règles du calcul des séquents sont inversibles.
+        
+        \noafter
+        %
+        \boxans{
+            Les règles $(Ax)$, $(\bot)$ et $(\top)$ sans prémisses sont évidemment inversibles. Montrons l'inversibilité pour quelques règles (des raisonnements similaires s'appliquent pour les autres).
+            %
+            \begin{enumerate}
+                \itt Montrons l'inversibilité de la règle $\infer[(\lor \vdash)]{\Gamma, \varphi \lor \psi \vdash \Delta}{\Gamma, \varphi \vdash \Delta & \Gamma, \psi \vdash \Delta}$ :
+                
+                Supposons que $\Gamma, \varphi \lor \psi \vDash \Delta$. Soit $\nu$ une valuation sur $\bcV$ telle que $\nu \vDash \Gamma, \varphi$. Donc $\nu \vDash \varphi$, d'où $\nu \vDash \varphi \lor \psi$ donc par hypothèse il existe $\theta \in \Delta$ tel que $\nu \vDash \theta$, donc $\Gamma, \varphi \vDash \Delta$. On montre de même que le séquent de l'autre prémisse est valide.\medskip
+                
+                \itt Montrons l'inversibilité de $\infer[(\vdash\; \rightarrow)]{\Gamma \vdash \varphi \rightarrow \psi, \Delta}{\Gamma, \varphi \vdash \psi, \Delta}$ :
+                
+                Supposons que $\Gamma \vDash \varphi \rightarrow \psi, \Delta$. Soit $\nu$ une valuation sur $\bcV$ telle que $\nu \vDash \Gamma, \varphi$, donc $\nu \vDash \Gamma$, donc il existe $\theta \in \ens{\varphi \rightarrow \psi} \cup \Delta$ telle que $\nu \vDash \theta$ d'où :
+                %
+                \begin{enumerate}
+                    \ithand Si $\theta \in \Delta$, alors $\nu \vDash \Delta$ donc $\Gamma, \varphi \vDash \varphi, \Delta$.
+                    
+                    \ithand Sinon, $\theta = \varphi \rightarrow \psi$ donc par définition, $\nu \vDash \psi$, donc $\Gamma, \varphi \vDash \varphi, \Delta$.
+                \end{enumerate}
+                
+                \itt \dots
+            \end{enumerate}
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a montré que \emph{toutes} les règles du calcul des séquents sont inversibles.
+        }
+        %
+        \yesbefore
+    \end{enumerate}
+        
+        
+        
+    La conséquence de ce résultat est que si un séquent est prouvable, et que plusieurs règles peuvent être appliquées à ce séquent : on peut choisir n'importe quelle règle à appliquer en premier, et les prémisses seront toujours prouvables!
+    
+    \begin{enumerate}
+        \setcounter{enumi}{9}
+            
+        \item Soit $\Gamma \vdash \Delta$ un séquent tel qu'aucune règle du calcul des séquents ne peut être appliquée.
+        
+        \begin{enumerate}
+            \item Montrer que :
+            %
+            \begin{enumerate}
+                \itast $\Gamma$ ne contient que des variables, et éventuellement $\top$;
+                
+                \itast $\Delta$ ne contient que des variables, et éventuellement $\bot$;
+                
+                \itast $\Gamma \cap \Delta = \emptyset$.
+            \end{enumerate}
+            
+            \boxansconc{
+                Si $\Gamma$ contient un opérateur logique $\bco$, on peut forcément appliquer la règle $(\vdash \bco)$. De même, si $\Delta$ contient un opérateur \emph{binaire} logique, on peut appliquer $(\bco \vdash)$. Enfin, s'il existe $\varphi \in \Gamma \cap \Delta$ on peut appliquer $(Ax)$ donc $\Gamma \cap \Delta = \emptyset$. De même $\Gamma$ ne peut pas contenir $\bot$ car sinon on peut appliquer $(\bot)$, et $\Delta$ ne peut pas contenir $\top$, car sinon on peut appliquer $(\top)$. On en déduit le résultat escompté.
+            }
+            
+            \item En déduire que $\Gamma \vdash \Delta$ n'est pas valide.
+            
+            \boxansconc{
+                On peut fabriquer une valuation $\nu$ sur $\bcV$ telle que $\nu \vDash \Gamma$ ($\forall x \in \Gamma$, $\nu\p{x} = 1$) et telle que $\nu \nvDash \Delta$ ($\forall x \in \Delta$, $\nu\p{x} = 0$). 
+            }
+        \end{enumerate}
+        
+        \item Soit $\Gamma \vdash \Delta$ un séquent. Soit $\bcA$ un arbre de preuve (pas forcément terminé) dont $\Gamma \vdash \Delta$ est le séquent à la racine.
+        
+        \begin{enumerate}
+            \item Justifier que la hauteur de $\bcA$ est bornée par une valeur dépendant de $\Gamma$ et $\Delta$ que l'on explicitera.
+            
+            \boxansconc{
+                On remarque que chaque règle logique fait diminuer le nombre d'opérateurs binaires logiques présent dans $\Gamma$ et $\Delta$. On note $n$ le nombre d'opérateurs logiques présents dans $\Gamma$ et $\Delta$ réunis, donc après l'application d'une règle, on a $n-1$ opérateurs. Par induction, on obtient que la hauteur est majorée par $n$, où l'on peut soit appliquer $(Ax)$, soit le séquent est invalide en vertu des questions précédentes.
+            }
+            
+            \item En déduire que le calcul des séquents est un système de preuve valide.
+            
+            \boxansconc{
+                En vertu des questions précédentes, on peut en identifiant un opérateur binaire logique dans un séquent $\Gamma \vdash \Delta$ appliquer la règle pour \emph{éliminer} celui-ci, et ré-itérer le procédé. On obtient donc soit un arbre de preuve valide (une des règles sans prémisse en \emph{haut} de l'arbre), soit on ne peut pas appliquer de règle est le séquent est invalide. Le système de preuve est donc invalide.
+            }
+        \end{enumerate}
+        
+        \item Chercher une preuve de $\vdash p \lor p$ en calcul des séquents. En déduire que ce séquent n'est pas valide.
+        
+        \boxansconc{
+            \[ \infer[(\vdash \lor)]{\vdash p \lor p}{{\color{main21} \vdash p, p}}\]
+            %
+            Le séquent $\color{main21}\vdash p, p$ est invalide (avec une valuation $\nu$ sur $\bcV$ telle que $\nu \nvDash p$), donc $\vdash p \lor p$ est invalide.
+        }
+        
+        \item Montrer à l'aide du calcul des séquents que $\vdash \p{\p{p \rightarrow q} \rightarrow p} \rightarrow q$ n'est pas valide. En déduire une valuation ne satisfaisant pas la formule $\p{\p{p \rightarrow q} \rightarrow p} \rightarrow q$.
+        
+        \boxansconc{
+            \[ \infer[(\vdash\;\rightarrow)]{\vdash \p{\p{p \rightarrow q} \rightarrow p} \rightarrow q}{
+                \infer[(\rightarrow\;\vdash)]{\p{p \rightarrow q} \rightarrow p \vdash q}{\infer[(\vdash\;\rightarrow)]{\vdash p\rightarrow q, p}{\infer[(Ax)]{p \vdash q, p}{}} & {\color{main21} p \vdash q}}
+            }\]
+            %
+            Le séquent $\color{main21}p \vdash q$ est invalide (avec une valuation $\nu$ sur $\bcV$ telle que $\nu \vDash p$ et $\nu \nvDash q$) donc $\vdash \p{\p{p \rightarrow q} \rightarrow p} \rightarrow q$ est invalide. La valuation $\nu$ donnée précédemment ne satisfait pas la formule $\p{\p{p \rightarrow q} \rightarrow p} \rightarrow q$.
+        }
+        
+        
+    \end{enumerate}
+    
+    \section{Implémentation et algorithme de recherche de preuve}
+    
+    La preuve de complétude de la partie précédente est constructive : elle nous permet d'en déduire un algorithme décidant si un séquent est valide ou non. On se propose ici de l'implémenter en \texttt{OCaml}.
+    
+    On se donne le type \camlline{'a prop} suivant :
+    
+    \begin{ocaml}
+type 'a prop =
+    | Top
+    | Bot
+    | V of 'a
+    | Not of 'a prop
+    | And of 'a prop * 'a prop
+    | Or of 'a prop * 'a prop
+    | Impl of 'a prop * 'a prop
+;;
+    \end{ocaml}
+    
+    Dans la suite, il sera plus pratique de séparer $\Gamma$ \emph{(resp. $\Delta$)} en deux parties : celle ne contenant que des variables, $\top$ ou $\bot$ ; et celle contenant les autres formules de $\Gamma$ \emph{(resp. $\Delta$)}. On se donne donc le type \camlline{'a sequent} suivant :
+    
+    \begin{ocaml}
+type 'a sequent = {
+    gamma : 'a prop list ;
+    delta : 'a prop list ;
+    gamma_var : 'a prop list ;
+    delta_var : 'a prop list
+}
+;;
+    \end{ocaml}
+    
+    \begin{enumerate}
+        \setcounter{enumi}{13}
+        \item  Écrire une fonction \camlline{create_sequent : 'a prop list -> 'a prop list -> 'a sequent} telle que \camlline{create_sequent l_gamma l_delta} renvoie un \camlline{'a sequent} dont les champs \camlline{gamma_var} et \camlline{delta_var} sont des listes vides, et les champs \camlline{gamma} et \camlline{delta} contiennent les listes passées en arguments.
+        
+        \begin{ocaml}
+let create_sequent l_gamma l_delta = { 
+	gamma = l_gamma;
+	delta = l_delta;
+	gamma_var = [];
+	delta_var = [];
+}
+;;
+        \end{ocaml}
+        
+        \item Écrire une fonction \camlline{member : 'a -> 'a list -> bool} qui teste si un élément est dans une liste.
+        
+        \begin{ocaml}
+let rec member x list = match list with 
+	| [] -> false
+	| t::q -> t=x || member x q 
+;;
+        \end{ocaml}
+        
+        \item Écrire une fonction \camlline{bot : 'a sequent -> bool} qui teste si la règle $(\bot)$ peut être appliquée au séquent pris en argument. \textbf{\sffamily Attention :} il faut chercher dans \camlline{gamma} et dans \camlline{gamma_var}.
+        
+        \begin{ocaml}
+let rec bot sequent =
+    member Bot sequent.gamma || member Bot sequent.gamma_var
+;;
+        \end{ocaml}
+        
+        \item Écrire une fonction \camlline{top : 'a sequent -> bool} qui teste si la règle $(\top)$ peut être appliquée au séquent pris en argument. \textbf{\sffamily Attention :} il faut chercher dans \camlline{gamma} et dans \camlline{gamma_var}.
+
+        \begin{ocaml}
+let rec top sequent =
+    member Top sequent.delta || member Top sequent.delta_var
+;; 
+        \end{ocaml}
+        
+        \item Écrire un fonction \camlline{axiom : 'a sequent -> bool} qui teste si la règle $(Ax)$ est applicable au séquent pris en argument.
+        \textbf{\sffamily Attention :} la formule à trouver peut être dans \camlline{gamma} ou \camlline{gamma_var}, et dans \camlline{delta} ou \camlline{delta_var}.
+        
+        \begin{ocaml}
+let rec axiom sequent = 
+	let rec aux gamma delta = match gamma with 
+		| [] -> false 
+		| t::gamma2 -> member t delta 
+		|| aux gamma2 delta 
+	in aux sequent.gamma sequent.delta 
+	|| aux sequent.gamma_var sequent.delta
+	|| aux squent.gamma_var sequent.delta_var
+	|| aux sequent.gamma sequent.delta_Var
+;;
+        \end{ocaml}
+    \end{enumerate}
+    
+    La stratégie de preuve proposée ici est très simple :
+    %
+    \begin{enumerate}
+        \itt Si on peut appliquer $(Ax)$ ou $(\bot)$ ou $(\top)$, on l'applique et on a prouvé le séquent.
+        
+        \itt Sinon :
+        %
+        \begin{enumerate}
+            \itast si \camlline{gamma} n'est pas vide, on regarde la première formule de la liste :
+            %
+            \begin{enumerate}
+                \ithand si c'est une variable, $\bot$ ou $\top$, on l'enlève de \camlline{gamma} et on le rajoute dans \camlline{gamma_var} ;
+                
+                \ithand sinon, c'est une formule ayant un connecteur logique : on applique la règle correspondante, et on continue la recherche de preuve sur la ou les prémisses ;
+            \end{enumerate}
+            
+            \itast sinon (\camlline{gamma} est vide), on procède de manière similaire avec \camlline{delta}.
+        \end{enumerate}
+        
+        \itt Si \camlline{gamma} et \camlline{delta} sont vides, et que les règles $(Ax)$, $(\bot)$ et $(\top)$ ne s'appliquent pas, alors aucune règle ne s'applique, et le séquent n'est pas valide.
+    \end{enumerate}
+    
+    On commence par implémenter chacune des règles par une fonction \texttt{OCaml}. En accord avec la stratégie présentée ci-dessus, si la première formule de \camlline{gamma} \emph{(resp. \camlline{delta})} n'est pas celle sur laquelle on peut appliquée la règle considérée, on lèvera l'exception suivante :
+    
+    \begin{ocaml}
+exception Wrong_rule of string;;
+    \end{ocaml}
+    
+    \begin{enumerate}
+        \setcounter{enumi}{18}
+        
+        \item Écrire une fonction \camlline{and_gamma : 'a sequent -> 'a sequent} qui renvoie la prémisse de la règle $(\land \vdash)$ appliquée à la première formule du champ \camlline{gamma} du séquent pris en argument. On lèvera l'exception \camlline{Wrong_rule "And Gamma"} si cette formule n'est pas une conjonction.
+        
+        \begin{ocaml}
+let and_gamma seqent = match seqent.gamma with
+    | And(f1,f2)::q -> {
+        gamma = f1::f2::q;
+        delta = seqent.delta;
+        gamma_var = seqent.gamma_var;
+        delta_var = seqent.delta_var;
+    }
+    | _ -> raise (Wrong_rule "And Gamma")
+;;
+        \end{ocaml}
+        
+        \item \dots
+    \end{enumerate}
+
+
+    
+\end{document}
