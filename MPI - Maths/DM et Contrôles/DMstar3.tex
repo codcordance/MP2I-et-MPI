@@ -14,7 +14,7 @@
     \renewcommand*{\labelenumii}{\alph{enumii}.}
 
     \stylizeDocSpe{Maths}{Devoir maison $\star$ n° 3}
-    {CMP MP MATH 2 1997}{Pour le vendredi 14 octobre 2022}
+    {CMP MP MATH 2 2007}{Pour le vendredi 14 octobre 2022}
     
     \begin{enumerate}
         \itt Dans tout ce problème, $n$ est un entier au moins égal à $1$. On note $\bcM_{n, p}\p{\bdC}$ l'espace vectoriel des matrices à $n$ lignes et $p$ colonnes, à coefficients complexes.
@@ -24,6 +24,7 @@
         \itt Pour une matrice $M \in \bcM_{n, n}\p{\bdC}$ de coefficients $\p{m_{i, j}}_{i, j \in \iint{1, n}^2}$ et pour $k \in \iint{0, n-1}$, on appelle $k$-ième diagonale supérieure de $M$, notée $D_k\p{M}$, l'ensemble des coefficients $\p{m_{i, i+k}}_{i \in \iint{1, n-k}}$. Une diagonale supérieure $D_k\p{M}$ est dite nulle lorsque tous ses éléments sont nuls.
     
         \itt Si $V$ et $W$ sont deux espaces supplémentaires de $\bdC^n$, on note $p_V$ la projection sur $V$ parallèlement à $W$ : pour $x = x_V +x_W$ avec $x_V \in V$ et $x_W \in W$, on a $p_V\p{x} = x_V$. Pour un endomorphisme $u$ de $\bdC^n$, on note $u_V$ sa restriction à $V$, de sorte que si $i_V$ représente l'injection de $V$ dans $\bdC^n$, $u_V\p{y} = u\p{i_V\p{y}}$.
+
     \end{enumerate}
     
     \section{Algèbres de Lie}
@@ -179,7 +180,7 @@
         \item Quelle est la matrice de $\overline{\intc{M, A}}_G$ dans la base $\p{X_0, X_1, X_2, \dots, X_q}$ ?
         
         \boxansconc{
-            On pose $\lambda_k = \title{0}$ pour $k \in \bdZ_-$. On a $\Mat_\bcB \overline{\intc{M, A}}_G = \p{X_i^\star\p{\vphantom{\dfrac{-}{-}}\overline{\intc{M, A}}_G\p{X_j}}}_{\p{i, j} \in \iint{0, q}^2} = \p{\binom{j}{i}\lambda_{j-i+1}\p{M}}_{\p{i, j} \in \iint{0, q}^2}$ d'où :
+            On a $\Mat_\bcB \overline{\intc{M, A}}_G = \p{X_i^\star\p{\vphantom{\dfrac{-}{-}}\overline{\intc{M, A}}_G\p{X_j}}}_{\p{i, j} \in \iint{0, q}^2} = \p{\binom{j}{i}\lambda_{j-i+1}\p{M}}_{\p{i, j} \in \iint{0, q}^2}$ d'où :
             %
             \[ \Mat_\bcB \overline{\intc{M, A}}_G = \begin{pNiceMatrix}
                 \lambda_1\p{M} & \lambda_2\p{M} & \Cdots & \lambda_{q+1}\p{M}\\
@@ -211,10 +212,10 @@
     \begin{definition}{}{}
         Soit \hg{$\bcU$} une \hg{algèbre de \textsc{Lie}} et \hg{$p$} un \hg{entier naturel non nul}. On dit que \hg{$\bcU$ est une algèbre de \textsc{Lie} résoluble de longueur $p$} lorsqu'\hg{il existe des algèbres de \textsc{Lie} $\bcU_0, \bcU_1, \dots, \bcU_p$} telles que :
         %
-        \begin{align}
+        \begin{align*}
             \hg{\ens{0} = \bcU_p \subset \bcU_{p-1} \subset \dots \subset \bcU_1 \subset \bcU_0 = \bcU}\\
             \hg{\forall i \in \iint{1, p-1},\qquad \intc{\bcU_i} \subset \bcU_{i+1}}
-        \end{align}
+        \end{align*}
     \end{definition}
     %
     On se propose de montrer le théorème suivant.
@@ -227,13 +228,13 @@
     
     \begin{enumerate}
         \setcounter{enumi}{9}
-        \item Traduire la propriété \guill{il existe une matrice $P$ inversible telle que pour tout $M \in \bcU$, $P^{-1}MP$ est triangulaire supérieure} en une propriété sur les endomorphismes canoniquement associés aux éléments de $\bcU$.
+        \item\label{qu:10} Traduire la propriété \guill{il existe une matrice $P$ inversible telle que pour tout $M \in \bcU$, $P^{-1}MP$ est triangulaire supérieure} en une propriété sur les endomorphismes canoniquement associés aux éléments de $\bcU$.
         
         \boxansconc{
             S'il existe une matrice $P$ inversible telle que pour tout $M \in \bcU$, on ait $P^{-1}MP$ triangulaire supérieure, alors pour tout $M \in \bcU$ il existe une matrice $T_M$ triangulaire supérieure telle que $M = P^{-1}T_MP$, autrement dit \emph{les endomorphismes de $\bcU$ sont trigonalisables dans une même base}.
         }
         
-        \item Montrer que $\bcT_P$ est une algèbre de \textsc{Lie} résoluble de longueur $n$.
+        \item\label{qu:11} Montrer que $\bcT_P$ est une algèbre de \textsc{Lie} résoluble de longueur $p$.
         
         \indication{On pourra considérer les sous-espaces $\p{\bcN_k}_{k \in \iint{0, n}}$ tels que $\bcN_0 = \bcT_P$ et pour tout entier $k \in \iint{1, n}$, $\bcN_k$ est l'ensemble des matrices $M \in \bcT_P$ telles que les $k$ diagonales supérieures $D_0\p{P^{-1}MP}, D_1\p{P^{-1}MP}, \dots, D_{k-1}\p{P^{-1}MP}$ sont nulles.}
         
@@ -266,11 +267,25 @@
         
         \item Soit $r$ un entier non nul et une famille $\p{M_1, M_2, \dots, M_r}$ d'éléments de $\bcU$. Montrer qu'il existe un vecteur propre commun aux endomorphismes $\overline{M_1}, \overline{M_2}, \dots, \overline{M_r}$.
         
+        \noafter
+        %
         \boxans{
-            Procédons par récurrence sur $r \in \bdN^\star$. Pour une famille $\p{M_1}$ avec un unique vecteur, la propriété est évidente. Soit maintenant $r \in \bdN^\star$ telle que la propriété est vraie au rang $r$. Considérons une famille $\p{M_1, M_2, \dots, M_r, M_{r+1}} \in \bcU^{r+1}$. Puisque $\overline{M_{r+1}}$ est un endomorphisme de $\bdC^n$, son 
+            Procédons par récurrence sur $r \in \bdN^\star$. Pour une famille $\p{M_1}$ avec un unique vecteur, la propriété est évidente. Soit maintenant $r \in \bdN^\star$ telle que la propriété est vraie au rang $r$.\medskip
+            
+            Considérons une famille $\p{M_1, M_2, \dots, M_r, M_{r+1}} \in \bcU^{r+1}$. Puisque $\overline{M_{r+1}}$ est un endomorphisme de $\bdC^n$, son polynôme caractéristique est scindé (clôture algébrique de $\bdC$) donc $\overline{M_{r+1}}$ admet une valeur propre $\lambda$, d'espace propre associé $E_\lambda \neq \ens{0}$.
+            
+            Puisque les endomorphismes de $\bcU$ commutent (question précédente), $E_\lambda$ est stable par les $r$ premier endomorphismes $\p{\overline{M_i}}_{i \in \iint{1, r}}$. Leurs restrictions $\p{\overline{M_i}_{E_\lambda}}_{i \in \iint{1, r}}$ à $E_\lambda$ sont donc des endomorphismes de $E_\lambda$. Par hypothèse de récurrence, il existe $X \in E_\lambda$ vecteur propre commun à ses restrictions, donc vecteur propre commun aux endomorphismes $\p{\overline{M_i}}_{i \in \iint{1, r}}$. Puisque $X \in E_\lambda$, c'est aussi un vecteur propre de $\overline{M_{r+1}}$, on a donc bien l'hérédité. 
         }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Par \emph{principe de récurrence}, on obtient le résultat escompté.
+        }
+        %
+        \yesbefore
         
-        \item Montrer qu'il existe au moins un vecteur propre commun à tous les endomorphismes $\ens{\overline M,\ M \in \bcU}$.
+        \item\label{qu:14} Montrer qu'il existe au moins un vecteur propre commun à tous les endomorphismes $\ens{\overline M,\ M \in \bcU}$.
         
         \boxansconc{
             On applique la question précédente à une base de $\bcU$ (qui est de dimension finie puisque sous-espace vectoriel de $\bcM_{n, n}\p{\bdC}$).
@@ -287,8 +302,115 @@
         %
         \[ p_H u = p_H u p_H \qquad\et\qquad p_H v = p_H v p_H\]
         
-        \item Montrer que $p_H u p_H$ et $p_H v p_H$ commutent puis que $p_H u_H$ et $p_H v_H$ commutent.
+        \noafter
+        %
+        \boxans{
+            Spot $x \in \bdC^n$, on note $x = x_F + x_H$ avec $x_F \in F$ et $x_H \in H$ son unique décomposition selon $F$ et $H$. On a :
+            %
+            \[ \p{p_H u}\p{x} = p_H\p{u\p{x_F + x_H}} = p_H\p{u\p{x_F} + \p{x_H}} = p_H\p{u\p{x_F}} + p_H\p{u\p{x_H}} \]
+            %
+            Or $V$ est stable par $u$ et $x_F \in F$ donc $u\p{x_F} \in F$ d'où $p_H\p{u\p{x_F}} = 0$, ainsi $\p{p_H u}\p{x} = p_H\p{u\p{x_H}}$. Or :
+            %
+            \[ \p{p_H u p_H}\p{x} = p_H\p{u\p{p_H\p{x_F + x_H}}} = p_H\p{u\p{x_H}} = \p{p_H u}\p{x}  \]
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Donc $p_H u = p_H u p_H$. Le même argument s'applique sur $v$ pour obtenir $p_H v = p_H v p_H$.
+        }
+        %
+        \yesbefore
+        
+        \item\label{qu:16} Montrer que $p_H u p_H$ et $p_H v p_H$ commutent puis que $p_H u_H$ et $p_H v_H$ commutent.
+        
+        \noafter
+        %
+        \boxans{
+            On a :
+            %
+            \begin{align*}
+                \p{p_H u p_H} \cdot \p{p_H v p_H} &= p_H u \p{p_H \cdot p_H} v p_H\\
+                &= p_H u \p{p_H} v p_H = \p{p_H u p_H} v p_H\\
+                &= \p{p_H u} v p_H = p_H \p{u v} p_H\\
+                &= p_H \p{v u} p_H = \p{p_H v} u p_H\\
+                &= \p{p_H v p_H} u p_H = p_H v \p{p_H} u p_H\\
+                &= p_H v \p{p_H \cdot p_H} u \p{p_H = p_H v p_H} \cdot \p{p_H u p_H}
+            \end{align*}
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Ainsi $p_H u p_H$ et $p_H v p_H$ commutent. On remarque de plus que $\p{u p_H}\p{x} = u_H\p{x}$ pour $x \in H$ (de même pour $v$), donc $p_H u_H$ et $p_H v_H$ commutent.
+        }
+        %
+        \yesbefore
         
         \item\label{qu:17} En procédant par récurrence sur $n$, établir le théorème {\sffamily\ref{th:th2}} dans le cas $p=1$.
+        
+        \begin{nproof}
+            On a montré à la question \quref{10} que le théorème était équivalent à \emph{$\bcU$ est résoluble si et seulement les matrices de $\bcU$ sont trigonalisables dans une même base}. Montrons d'abord le sens réciproque.\medskip
+            
+            Soit $n \in \bdN^\star$ et $\bcU$ une algèbre de \textsc{Lie} telle que les matrices de $\bcU$ sont toutes trigonalisables dans une même base $\bcB$. Ainsi, il existe un élément $P \in \bcM_{n, n}\p{\bdC}$ tel que pour toute matrice $M \in \bcU$ il existe une matrice $T_M$ triangulaire supérieure telle que $M = PTP^{-1}$, d'où $P^{-1}MP$ est triangulaire supérieure, et donc $\bcU \subset \bcT_P$. En vertu du résultat de la question \quref{11}, $\bcT$ est une algèbre de \textsc{Lie} résoluble de longueur $n$.
+            
+            On pose $\bcU_1 = \ens{0}$ et $\bcU_0 = \bcU$. On a évidemment $\bcU_1 \subset \bcU_0$. De plus $\bcU \subset \bcT$ donc $\intc{\bcU_0} = \intc{\bcU} \subset \intc{\bcT}$ et puisque $\bcT$ est une algèbre de \textsc{Lie} résoluble de longueur $n$, par définition $\intc{\bcT} \subset \ens{0} = \bcU_1$. Donc par définition, $\bcU$ est une algèbre de \textsc{Lie} résoluble de longueur $1$. Montrons maintenant le sens direct.\medskip
+            
+            {\color{main21}\textbf{\sffamily N.B.} Par l'utilisation de restrictions, les questions précédentes nous invitent à travailler sur des endomorphismes et non sur des matrices. Pour une algèbre de \textsc{Lie} $\bcU$, on définira donc par des notions similaires un sous-espace vectoriel $\overline{\bcU} = \ens{\overline \bcM \enstq M \in \bcU}$ de $\bcL\p{\bdC^n}$, qu'on appellera également \emph{algèbre de \textsc{Lie}}, et on identifiera $\overline\bcU$ et $\bcU$.}\medskip
+            
+            Montrons par récurrence sur $n \in \bdN^\star$, que les élément d'une algèbre de \textsc{Lie} résoluble de longueur $p = 1$ sont trigonalisables dans une même base. Ce résultat est évidemment vrai pour $n = 1$ avec la base canonique. Supposons donc qu'il est vrai au rang $n-1 \in \bdN^\star$, et montrons qu'il est vrai au rang $n$.
+            
+            Considérons une algèbre de \textsc{Lie} $\bcU \subset \bcM_{n, n}\p{\bdC}$ résoluble de longueur $p = 1$. D'après la question \quref{14}, il existe un vecteur propre $u_1$ de $\bdC^n$, commun à tous les endomorphismes de $\overline \bcU$. On complète ce vecteur en une base $\bcB = \p{u_1, u_2, \dots, u_n}$ de $\bdC^n$. On pose la droite $F = \Vect{u_1}$ et l'hyperplan supplémentaire $H = \Vect{u_2, \dots, u_n}$ et d'où $\bdC^n = F \oplus H$. On note $p_H$ la projection sur $H$ parallèlement à $F$, et on pose $\overline{\bcU}_H = \ens{p_H u_H \enstq u \in \overline \bcU}$.
+            
+            D'après la question \quref{12}, les éléments de $\bcU$ (donc $\overline{\bcU}$) commutent, et de plus $u_1$ étant vecteur propre de tout élément de $\overline \bcU$, $\Vect{u_1} = F$ est stable par tout élément de $\overline \bcU$. En vertu du résultat de la question \quref{16}, les vecteurs de $\overline \bcU_H$ commutent. Dès lors $\intc{\overline \bcU_H} = \ens{0}$, donc $\overline \bcU$ est une algèbre de \textsc{Lie} résoluble de longueur $1$.
+            
+            Par hypothèse de récurrence, il existe une base $\p{e_2, \dots, e_n}$ de $H$ trigonalisant les vecteurs de $\overline \bcU_H$. Ainsi, $\bfB = \p{u_1, e_2, \dots, e_n}$ est une base trigonalisant $\overline \bcU \cong \bcU$. On conclut par \emph{principe de récurrence}.
+        \end{nproof}
+        
     \end{enumerate}
+    
+    Soit, maintenant, $\bcU$ une algèbre de \textsc{Lie} résoluble de longueur $p > 1$.
+    
+    On suppose établi que pour toute algèbre de \textsc{Lie} résoluble de longueur inférieure strictement à $p$, il existe un élément $P \in \bcM_{n, n}\p{\bdC}$ inversible, tel que pour toute matrice $M$ dans cette algèbre, $P^{-1}MP$ soit triangulaire supérieure.
+    
+    \begin{enumerate}
+        \setcounter{enumi}{17}
+        \item Montrer qu'il existe au moins un vecteur propre commun à tous les endomorphismes $\overline{M}$ pour $M \in \bcU_1$.
+        
+        \boxansconc{
+            On vérifie facilement avec la définition que $\bcU_1$ est une algèbre de \textsc{Lie} résoluble de longueur $p-1$, donc il existe une base commune qui trigonalise chacun des éléments de $\bcU_1$., et donc un vecteur propre commun.
+        }
+    \end{enumerate}
+    
+    Soit $X$ l'un de ces vecteurs propres. On note $E$ l'espace vectoriel engendré par $X$ et les éléments de la forme 
+    %
+    \[ \overline{A_1}\dots\overline{A_k}X \]
+    %
+    où $k \in \bdN^\star$ est un entier non nul et $A_j \in \bcU$ pour tout $j$.
+    
+    \begin{enumerate}
+        \setcounter{enumi}{18}
+        \item Montrer que $E$ est un espace vectoriel stable par tous les éléments de $\overline{U}$ et que tous les éléments de $E$ sont des vecteurs propres communs à tous les endomorphismes de $\overline{U_1}$.
+        
+        \boxansconc{
+            Soit $\bsG$ la famille générant $E$ telle que donnée ci-dessus par l'énoncé. Par définition, $\bsG$ est stable par tout élément $A \in \bcU$ donc $E$ l'est également. D'après le théorème {\sffamily\ref{th:th1}}, puisque $X$ est un vecteur propre commun à tout élément de $\bcU_1$ :
+            %
+            \[ \forall M \in \bcU_1,\forall A \in \bcU,\qquad \qquad MAX = \lambda\p{M}AX\]
+            %
+            Donc par récurrence sur $k \in \bdN^\star$ et par linéarité, les éléments de $\bsG$ sont des vecteurs propres des éléments de $\overline{\bcU_1}$.
+        }
+    \end{enumerate}
+    %
+    Soit $\p{M, M'} \in \bcU$.
+    
+    \begin{enumerate}
+        \setcounter{enumi}{19}
+        
+        \item Montrer que $\overline{\intc{M, M'}}_E$ est une homothétie de trace nulle.
+        
+        \item Que peut-on en déduire ?
+    \end{enumerate}
+    
+    Le théorème {\sffamily\ref{th:th2}}, dans le cas général, se prouve alors par les mêmes raisonnements qu'aux questions \quref{14} et \quref{17}.
 \end{document}

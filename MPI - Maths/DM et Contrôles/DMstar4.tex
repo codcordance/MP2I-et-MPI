@@ -1,0 +1,293 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{../../Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\thesection}{\Roman{section}}
+    \renewcommand{\labelenumi}{\Roman{section}.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii}.}
+
+    \stylizeDocSpe{Maths}{Devoir maison $\star$ n° 4}{CCP MP MATH 2 2001}{Pour le mercredi 15 novembre 2022}
+    
+    \subsubsection*{Notations et définitions}
+    
+    \begin{enumerate}
+        \itt Dans tout le problème, $\bdK$ désigne $\bdR$ ou $\bdC$ et $n$ est un entier naturel.
+        
+        \itt Si $u$ est un endomorphisme d'un $\bdK$-espace vectoriel $E$, on note $u^0 = \Id_E$ et $\forall n \in \bdN$, $u^{n+1} = u^n \cdot u$.
+        
+        \itt On note $\bdK_n\intc{X}$ la $\bdK$-algèbre des polynômes de degré inférieur ou égal à $n$, $\bcM_n\p{\bdK}$ la $\bdK$-algèbre des des matrices carrées de taille $n$ à coefficients dans $\bdK$ de matrice unité $I_n$ et $\GL_n\p{\bdK}$ le groupe des matrices inversibles de $\bcM_n\p{\bdK}$ ; les éléments de $\bcM_n\p{\bdK}$ sont notés $M = \p{m_{i, j}}$.
+        
+        \itt Pour une matrice $A$ de $\bcM_n\p{\bdK}$, on note $\mtrans{A}$ la transposée de la matrice $A$, $\rg\p{A}$ son rang $\chi_A = \det{A - XI_n}$ son polynôme caractéristique et $\Sp{A}$ l'ensemble de ses valeurs propres.
+        
+        \itt Si $P = X^n + a_{n-1}X^{n-1} + \dots + a_0$ est un polynôme unitaire de $\bdK_n\intc{X}$, on lui associe 
+        %
+        \[ \text{la \textbf{matrice compagnon}} \ C_P = \begin{pNiceMatrix}
+            0      & \Cdots &        &   & 0 & -a_0\\
+            1      &    0   & \Cdots &   & 0 & -a_1\\
+            0      & \Ddots & \Ddots &   & \Vdots & -a_2\\
+            \Vdots & \Ddots &        &   & & \Vdots\\
+                   &        &        &   & 0 & -a_{n-2}\\
+            0      & \Cdots &        & 0 & 1 & -a_{n-1}
+        \end{pNiceMatrix}\]
+        %
+        c'est-à-dire la matrice $C_P = \p{c_{i, j}}$ avec $c_{i, j} = 1$ pour $i - j = 1$, $c_{i, n} = -a_i$ et $c_{i, j} = 0$ dans les autres cas.
+    \end{enumerate}
+    
+    Les parties \textbf{\sffamily \ref{sec:sec2}}, \textbf{\sffamily \ref{sec:sec3}} et \textbf{\sffamily \ref{sec:sec4}} utilisent les résultats de la partie \textbf{\sffamily \ref{sec:sec1}} et sont indépendantes entre elles.
+    
+    \section{Propriétés générales}\label{sec:sec1}
+    
+    Dans cette partie on considère le polynôme $P = X^n + a_{n-1}X^{n-1} + \dots + a_0$ de $\bdK_n\intc{X}$ et $C_P$ sa matrice compagnon associée.
+    
+    \begin{enumerate}
+        \item Montrer que $C_P$ est inversible si et seulement si $P\p{0} \neq 0$.
+        
+        \noafter
+        %
+        \boxans{
+            On sait que $C_P$ est inversible si et seulement si $\det\p{C_P} = \det\p{C_P - 0I_n}\neq 0$, c'est-à-dire si et seulement si $\chi_{C_P}\p{0} \neq 0$. Calculons $\chi_{C_P} = C_P$ :
+            %
+            \begin{align*}
+                \chi_{C_P}\p{X} &= \begin{vNiceMatrix}
+            -X      & \Cdots &        &   & 0 & -a_0\\
+            1      &    -X   & \Cdots &   & 0 & -a_1\\
+            0      & \Ddots & \Ddots &   & \Vdots & -a_2\\
+            \Vdots & \Ddots &        &   & & \Vdots\\
+                   &        &        &   & -X & -a_{n-2}\\
+            0      & \Cdots &        & 0 & 1 & -X-a_{n-1}
+        \end{vNiceMatrix}\\
+        &= \begin{vNiceMatrix}
+            0      & \Cdots &        &   & 0 & -P\p{X}\\
+            1      &    -X   & \Cdots &   & 0 & -a_1\\
+            0      & \Ddots & \Ddots &   & \Vdots & -a_2\\
+            \Vdots & \Ddots &        &   & & \Vdots\\
+                   &        &        &   & -X & -a_{n-2}\\
+            0      & \Cdots &        & 0 & 1 & -X-a_{n-1}
+        \end{vNiceMatrix} &&\qquad\qquad\p{L_1 \leftarrow L_1 + XL_2 + \dots + X^{n-1}L_n}\\
+        &= \p{-1}^{n+2}\begin{vNiceMatrix}
+            1      &    -X   & \Cdots &   & 0\\
+            0      & \Ddots & \Ddots &   & \Vdots\\
+            \Vdots & \Ddots &        &   & \\
+                   &        &        &   & -X\\
+            0      & \Cdots &        & 0 & 1
+        \end{vNiceMatrix} &&\qquad\qquad\p{\text{développement par rapport à } L_1}\\
+        &= \p{-1}^nP\p{X}
+            \end{align*}
+        %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a bien montré que $C_P$ est inversible si et seulement si $P\p{0} \neq 0$.
+        }
+        %
+        \yesbefore
+        
+        \item Calculer le polynôme caractéristique de la matrice $C_P$ et déterminer une constante $k$ telle que $\chi_{C_P} = kP$.
+        
+        \boxansconc{
+            On a démontré à la question précédente précédente que $\chi_{C_P} = \p{-1}^nP$.
+        }
+        
+        \item Soit $Q$ un polynôme de $\bdK_n\intc{X}$, déterminer une condition nécessaire et suffisante pour qu'il existe une matrice $A$ de $\bcM_n\p{\bdK}$ telle que $\chi_A = Q$.
+        
+        \boxansconc{
+            On utilise simplement la question précédente. Il est nécessaire et suffisant que $Q = \p{-1}^nP$ avec $P \in \bdK_n\intc{X}$ \textbf{unitaire}. La matrice $A$ est alors $C_P$.
+        }
+        
+        \item On note $\mtrans{C_P}$ la transposée de la matrice $C_P$.
+        
+        \begin{enumerate}
+            \item Justifier la proposition : $\Sp\p{C_P} = \Sp\p{\mtrans{C_P}}$.
+            
+            \boxansconc{
+                On a $\chi_{\mtrans{C_P}} = \det{\mtrans{C_P} - XI_n} = \det{\mtrans{C_P - XI_n}} = \det{C_P - XI_n} = \chi_{C_P}$.
+                
+                Il en résulte directement $\Sp\p{C_P} = \Sp\p{\mtrans{C_P}}$.
+            }
+            
+            \item Soit $\lambda$ un élément de $\Sp{\mtrans{C_P}}$, déterminer le sous-espace propre de $\mtrans{C_P}$ associé à $\lambda$.
+            
+            \noafter
+            %
+            \boxans{
+                Soit $X \in E_\lambda\p{\mtrans{C_P}}$, on a $\mtrans{C_P}X = \lambda X$. On pose $X = \mtrans{\begin{pNiceMatrix}x_1 & x_2 & \Cdots & x_n\end{pNiceMatrix}}$. On a :
+                %
+                \[ \forall i \in \iint{1, n-1},\qquad x_{i+1} = \lambda x_i \qquad\et\qquad \lambda x_n + \sum_{i=0}^n a_ix_{k+1} = 0\]
+                %
+                Par récurrence on montre que pour tout $i \in \iint{2, n}$, on a $x_i = \lambda^{i-1}x_1$. La deuxième équation donne donc $P\p{\lambda}x_1 = 0$ ce qui est toujours vérifié (puisque $P\p{\lambda} = 0$). On a donc $X = \mtrans{\begin{pNiceMatrix}x_1 & \lambda x_1 & \Cdots & \lambda^{n-1}x_1 \end{pNiceMatrix}}$. Réciproquement, on montre que tout vecteur de cette forme est dans $E_\lambda\p{\mtrans{C_P}}$.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                On a donc montré que $E_\lambda\p{\mtrans{C_P}} = \Vect\p{1, \lambda, \dots, \lambda^{n-1}}$.
+            }
+            %
+            
+            \item Montrer que $\mtrans{C_P}$ est diagonalisable si et seulement si $P$ est scindé sur $\bdK$ et a toutes ses racines simples.
+            
+            \boxansconc{
+                La réciproque est évidente. Pour le sens direct, on remarque avec la question précédente que tout sous-espace propre de $\mtrans{C_P}$ est de dimension $1$, donc $\chi_{C_P} = \p{-1}^nP$ est scindé à racines simples sur $\bdK$. Ainsi $\mtrans{C_P}$ est diagonalisable si et seulement si $P$ est scindé sur $\bdK$ et a toutes ses racines simples.
+            }
+            
+            \item On suppose que $P$ admet $n$ racines $\lambda_1, \lambda_2, \dots, \lambda_n$ deux à deux distinctes, montrer que $\mtrans{C_P}$ est diagonalisable et en déduire que le déterminant de \textsc{Vandermonde} $\begin{vNiceMatrix}1 & 1 & \Cdots & 1\\ \lambda_1 & \lambda_2 & \dots & \lambda_n\\ {\lambda_1}^2 & {\lambda_2}^2 & \Cdots & {\lambda_n}^2\\ \Vdots & \Vdots & \Ddots & \Vdots\\ {\lambda_1}^{n-1} & {\lambda_2}^{n-1} & \Cdots & {\lambda_n}^{n-1}\end{vNiceMatrix} \neq 0$.
+            
+            \noafter
+            %
+            \boxans{
+                Les $n$ racines de $P$ sont donc les valeurs propres de $C_P$. On a montré que le sous-espace propre associé à $\lambda_i$ était généré par le vecteur $X_i = \mtrans{\begin{pNiceMatrix}1 & \lambda & \Cdots & \lambda^{n-1}\end{pNiceMatrix}}$ correspondant à la $i$-ième colonne du déterminant ci-dessus.\medskip
+                
+                Les sous-espaces propres étant en somme directe donnant $E$, $\bcB = \p{X_1, \dots X_n}$ est une base de $E$. La matrice de \textsc{Vandermonde} ci-dessous correspond donc à la matrice de changement de base entre\linebreak\text{}\\[-20pt]
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                $\bcB$ et la base canonique, donc inversible. Le déterminant de \textsc{Vandermonde} ci-dessous est donc non nul.
+            }
+            %
+            \yesbefore
+        \end{enumerate}
+        
+        \item \emph{Exemples}
+        
+        \begin{enumerate}
+            \item Déterminer une matrice $A$ (dont on précisera la taille $n$) vérifiant :
+            %
+            \[ A^{2002} = A^{2001} + A^{2000} + 1999I_n\]
+            
+            \boxansconc{
+                Soit $A$ la matrice compagnon du polynôme $P = X^{2002} - X^{2001} - X^{2000} - 1999$. On a $\chi_A = \p{-1}^{2002} P = P$.
+                
+                Par théorème de \textsc{Cayley}-\textsc{Hamilton}, $\chi_A\p{A} = 0$, donc $P\p{A} = 0$, d'où l'on trouve bien
+                %
+                \[ A^{2002} = A^{2001} + A^{2000} + 1999I_n\]
+            }
+            
+            \item Soit $E$ un $\bdK$-espace vectoriel de dimension $n$ et $f$ un endomorphisme de $E$ vérifiant $f^{n-1} \neq 0$ et $f^n = 0$ ; montrer que l'on peut trouver une base de $E$ dans laquelle la matrice de $f$ est une matrice compagnon que l'on déterminera.
+            
+            \noafter
+            %
+            \boxans{
+                Puisque $f^{n-1}\p{x_0} \neq 0$, il existe $x_0 \in E$ tel que $f^{n-1}\p{x_0} \neq 0$. Montrons que $\bcB = \p{x_0, f\p{x_0}, \dots, f^{n-1}\p{x_0}}$ est une base de $E$.
+                %
+                Soit des scalaires $\p{\lambda_1, \dots, \lambda_n} \neq \p{0, \dots, 0}$  tels que $\displaystyle \sum_{i=1}^n \lambda_if^{i-1}\p{x} = 0$. En composant par $f$, on obtient $\lambda_n = 0$. Par récurrence, on obtient par le même procédé que les $\p{\lambda_1, \dots, \lambda_n}$ sont tous non nuls. On a donc une famille libre de $n$ vecteurs, donc une base. On remarque alors que la matrice
+            }
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                $C_P = \Mat_\bcB f$ est la matrice compagnon du polynôme $P = X^n = \p{-1}^n \chi_f$.
+            }
+            %
+            \yesbefore
+        \end{enumerate}
+        
+        
+    \end{enumerate}
+    
+    \section{Localisation des racines d'un polynôme}\label{sec:sec2}
+    
+    \section{Suites récurrentes linéaires}\label{sec:sec3}
+    
+    \section{Matrices vérifiant $\rg\p{U - V} = 1$}\label{sec:sec4}
+
+    Dans cette partie, pour une matrice $A$, on notera $C_A$ la matrice compagnon du polynôme $\p{-1}^n\chi_A$.
+    
+    \begin{enumerate}
+        \setcounter{enumi}{16}
+        
+        \item Une matrice $A$ est-elle nécessairement semblable à la matrice compagnon $C_A$ ?
+        
+        \boxansconc{
+            On a $\chi_{0_{\bcM_n\p{\bdK}}} = \det{XI_n} = X^n$, pourtant la matrice compagnon $C_{0_{\bcM_n\p{\bdK}}}$ n'est pas semblable à ${O_{\bcM_n\p{\bdK}}}$. Une matrice $A$ n'est donc pas nécessairement semblable à la matrice compagnon $C_A$.
+        }
+    \end{enumerate}
+    
+    Pour tout couple $\p{U, V}$ de matrices distinctes de $\GL_n\p{\bdK}$,on considère les deux propositions suivantes, que l'on identifie chacune par un symbole :
+        %
+        \begin{enumerate}
+            \item[(*)] $\rg\p{U - V} = 1$
+            
+            \item[(**)] Il existe une matrice inversible $P$ telle que $U = P^{-1}C_UP$ et $V = P^{-1}C_VP$.
+        \end{enumerate}
+        
+    \begin{enumerate}
+        \setcounter{enumi}{17}
+        
+        \item Montrer qu'un couple $\p{U, V}$ de matrices distinctes de $\GL_n\p{\bdK}$ vérifiant \enumrefraw{(**)} vérifie \enumrefraw{(*)}.
+
+        \boxansconc{
+            On a $U - V = P^{-1}\p{C_U - C_V}P = P^{-1}\begin{pNiceMatrix}0 & \Cdots & 0 & \ast\\ \Vdots & \Ddots & \Vdots & \Vdots\\0 & \Cdots & 0 & \ast\end{pNiceMatrix}P$.
+            
+            Puisque $P$ est inversible, on obtient directement $\rg\p{U - V} = 1$. 
+        }
+        
+        \item Déterminer un couple $\p{U, V}$ de matrices de $\GL_2\p{\bdK}$ vérifiant \enumrefraw{(*)} mais ne vérifiant pas \enumrefraw{(**)}, et déterminer le plus grand commun diviseur des polynômes $\chi_U$ et $\chi_V$.
+    
+        \noafter
+        %
+        \boxans{
+            Considérons $U = \begin{pNiceMatrix} 1 & 1 \\ 0 & 1 \end{pNiceMatrix}$ et $V = I_2 = \begin{pNiceMatrix} 1 & 0 \\ 0 & 1 \end{pNiceMatrix}$, de sorte que $\rg\p{U-V} = \rg\begin{pNiceMatrix} 0 & 1 \\ 0 & 0 \end{pNiceMatrix} = 1$ et que les deux matrices ait le même polynôme caractéristique : $\chi_U = \chi_V = \p{X-1}^2 = X^2 -2X + 1$. Ainsi :
+            %
+            \[ C_U = C_V = \begin{pNiceMatrix} 0 & -1 \\ 1 & 2\end{pNiceMatrix}\]
+            %
+            De manière évidente, $V = I_2$ n'est pas semblable à $C_V \neq I_2$, donc $P$ ne peut pas exister.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Le couple $\p{U, V}$ vérifie \enumrefraw{(*)} mais ne vérifie pas \enumrefraw{(**)}.
+            
+            Puisque $\chi_U = \chi_V$, on obtient également $\pgcd\p{\chi_U, \chi_V} = \chi_U = \chi_V = \p{X-1}^2$. 
+        }
+    \end{enumerate}
+    
+    Dans la suite de cette partie, $\p{U, V}$ est un couple de matrices de $\GL_n\p{\bdK}$ vérifiant \enumrefraw{(*)} tel que $\chi_U$ et $\chi_V$ sont deux polynômes premiers entre eux. Soit $E$ un $\bdK$-espace vectoriel de dimension $n$ et de base $\bcB$, on désigne par $u$ et $v$ les automorphismes de $E$ tels que $U$ \emph{(respectivement $V$)} soit la matrice de $u$ \emph{(respectivement $v$)} dans la base $\bcB$. Enfin, on pose $H = \Ker\p{u-v}$.
+        
+    \begin{enumerate}
+        \setcounter{enumi}{19}
+        \item Montrer que $H$ est un hyperplan vectoriel de $E$.
+
+        \boxansconc{
+            On a $\dim\Imm\p{u-v} = \rg{U-V} = 1$ donc d'après le \emph{théorème du rang} on a  $\dim \Ker\p{u-v} = n-1$ donc $H$ est de dimension $n-1$. Par définition, c'est donc un hyperplan.
+        }
+        
+        \item Soit $F \neq \ens{0}$ un sous-espace vectoriel de $E$ stable par $u$ et $v$, c'est-à-dire :
+        %
+        \[ u\p{F} \subset F \qquad\et\qquad v\p{F} \subset F\]
+        %
+        On notera $u_F$ \emph{(respectivement $v_F$)} l'endomorphisme induit par $u$ \emph{(respectivement $v$)} sur $F$.
+        
+        On rappelle que $\chi_{u_F}$ divise $u$.
+        
+        \begin{enumerate}
+            \item Montrer que $F$ n'est pas inclus dans $H$.
+            
+            \boxansconc{
+                Si $F \subset H = \Ker\p{u-v}$, alors $u_F - v_F = 0$ d'où $u_F = v_F$, ainsi $\chi_{u_F} = \chi_{v_F} = \chi_F$. Or $\chi_{u_F} \mid \chi_U$ et $\chi_{v_F} \mid \chi_V$, donc $\chi_F \mid \pgcd\p{\chi_U, \chi_V} \mid 1$ donc $\chi_F = 1$, ce qui est absurde. Donc $F$ n'est pas inclus dans $H$.
+            }
+            
+            \item On suppose que $F \neq E$, montrer que $F + H = E$ puis que l'on peut compléter une base $\bcB_F$ de $F$ par des vecteurs de $H$ pour obtenir une base $\bcB'$ de $E$. En utilisant les matrices de $u$ et $v$ dans la base $\bcB'$ montrer que l'on aboutit à une contradiction.
+            
+            \boxansconc{
+                Soit $x \in F \backslash H$. On a donc $x \not\in H$, donc $\Vect\p{x} \oplus H = E$. Or a donc $F + H = E$.
+                
+                Soit $\bcB_F$ une base de $F$. On considère les vecteurs de $\bcB_F$ appartenant à $F \cap H$, formant donc une base de $F \cap H$. On complète en une base de $H$ en ajoutant une famille de vecteur $\bsB$. Ainsi les vecteurs de $\bsB$ ne sont pas dans $F$, et vérifient que $\bcB' = \bcB_F \cup \bsB$ est une base de $E$.
+                
+                On ordonne $\bcB'$ de manière à a ce que les $n-1$ derniers vecteurs forment une base de $H$. Puisque $u_{\vert H} = v_{\vert H}$, on a $\Mat_{\bcB'} u = \begin{pNiceMatrix}\ast & \ast\\ 0 & C\end{pNiceMatrix}$ et $v = \begin{pNiceMatrix}\ast & \ast\\ 0 & C\end{pNiceMatrix}$, avec une matrice $C$ commune. On a alors $\chi_C \mid \chi_U$ et $\chi_C \mid \chi_V$, ce qui contredit l'hypothèse $\pgcd{\chi_U, \chi_V} = 1$.
+            }
+            
+            \item Quels sont les seuls sous-espaces stables à la fois par $u$ et par $v$ ?
+        \end{enumerate}
+    \end{enumerate}
+\end{document}

@@ -17,6 +17,8 @@
 \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
 \mtcsettitle{minitoc}{}
 
+\DeclareDocumentCommand\NO{g}{\funlv{N.O.}{#1}}
+
 
 \newcommand{\chaptertoc}[0]{
     \setcounter{tocdepth}{2}
@@ -223,7 +225,7 @@
     
     \begin{center}
         \begin{minipage}{0.85\linewidth}
-            \large \qquad Comme son nom l'indique, l'objectif de cet ouvrage est de fournir un cours de physiue en accord avec le programme des classes préparatoires \textsf{MPI/MPI*}. Il contiendra principalement des notes de cours, dont je serai dispensé mon année de \guill{spé'} (année 2022/2023) à \textit{Janson-de-Sailly}, par M. \textsc{Marc Antoine Blain}. J'essaierai par ailleurs de détailler et d'enrichir le plus possible son contenu au fil de l'année, à l'aide de mes cours de première année, d'autres ouvrages et de recherches en général. La rédaction de ce cours constitue un important projet, d'autant plus que j'en mène un similaire pour les enseignements de mathématiques et de physique cette année. C'est un travail qui peut s'avérer extrêmement chronophage, aussi risque-t-il d'être rarement mené jusqu'au bout.\newline
+            \large \qquad Comme son nom l'indique, l'objectif de cet ouvrage est de fournir un cours de physique ~NEGRE~ en accord avec le programme des classes préparatoires \textsf{MPI/MPI*}. Il contiendra principalement des notes de cours, dont je serai dispensé mon année de \guill{spé'} (année 2022/2023) à \textit{Janson-de-Sailly}, par M. \textsc{Marc Antoine Blain}. J'essaierai par ailleurs de détailler et d'enrichir le plus possible son contenu au fil de l'année, à l'aide de mes cours de première année, d'autres ouvrages et de recherches en général. La rédaction de ce cours constitue un important projet, d'autant plus que j'en mène un similaire pour les enseignements de mathématiques et de physique cette année. C'est un travail qui peut s'avérer extrêmement chronophage, aussi risque-t-il d'être rarement mené jusqu'au bout.\newline
     
             \qquad Je ne prétends à aucun moment être enseignant, et ce livre reste avant tout destiné à mon usage personnel, aussi j'aviserai tout lecteur potentiel à faire preuve de prudence lors du parcours de ce texte, à ne pas hésiter à en vérifier le contenu par lui même. Il est très probable que de multiples erreurs (en tout genre) se soient glissés durant la rédaction, que je n'aurait su repérer, ou que le manque de temps empêche la correction. N'hésitez d'ailleurs pas à me le signaler, ou à me faire part de vos remarques en général.\newline
     
@@ -621,12 +623,6 @@
         
         \item Dans le repère sphérique : $\dif S = \dif r r \dif \theta$
     \end{enumerate}
-
-    \begin{tikzpicture}
-            \draw [fill=red] (0, 0) -- (0, 4) arc[start angle=180, end angle=0, x radius = 1.5, y radius = 1] -- (3, 0) arc[start angle = 0, end angle = -180, x radius = 0.6, y radius = 0.25] -- (1.8, 0.8) -- (1.2, 0.8) -- (1.2, 0) arc[start angle = 0, end angle = -180, x radius = 0.6, y radius = 0.25];
-            \draw [fill=white] (2.2,3.2) circle [x radius = 1.2, y radius = 0.6];
-            \draw [fill=red] (0, 3.7) arc[start angle = 90, end angle = 270, y radius = 1.2, x radius = 0.6];
-        \end{tikzpicture}
     
     \section{Opérateurs sur les champs}
     
@@ -836,12 +832,6 @@
     On supposera que les filtres étudiés sont linéaires, c'est-à-dire que $e\p{t}$ et $s\p{t}$ sont liés par une équation différentielle linéaire :
     %
     \[ \forall \lambda,\qquad \forall e_1, e_2 \ \text{ tels que } \ e_1 \rightarrow s_1 \et e_2 \rightarrow s_2,\qquad \lambda e_1 + e_2 \rightarrow \lambda s_1 + s_2\]
-
-    \begin{tikzpicture}
-            \draw [fill=red] (0, 0) -- (0, 4) arc[start angle=180, end angle=0, x radius = 1.5, y radius = 1] -- (3, 0) arc[start angle = 0, end angle = -180, x radius = 0.6, y radius = 0.25] -- (1.8, 0.8) -- (1.2, 0.8) -- (1.2, 0) arc[start angle = 0, end angle = -180, x radius = 0.6, y radius = 0.25];
-            \draw [fill=white] (2.2,3.2) circle [x radius = 1.2, y radius = 0.6];
-            \draw [fill=red] (0, 3.7) arc[start angle = 90, end angle = 270, y radius = 1.2, x radius = 0.6];
-        \end{tikzpicture}
     
     \begin{example}{}{}
         Un même circuit électrique peut donner lieu plusieurs filtres :
@@ -1857,11 +1847,10 @@
     \begin{example}{}{}
         $\alpha A + \beta B = \gamma C + \delta D$
         %
-        \[ \begin{pNiceArray}{|c|cccc|}
-            \hline $t = 0$ & $n_{a, 0}$ & $n_{b, 0}$ & $n_{c, 0}$ & $n_{d, 0}$\\
-            \hline $t$ & $n_{a, 0} - \alpha\xi$ & $n_{b, 0} - \beta\xi$ & $n_{c, 0} + \gamma\xi$ & $n_{d, 0} + \delta\xi$
-            
-        \end{pNiceArray} \]
+        %\[ \begin{NiceArray}{|c|cccc|}
+        %    \hline $t = 0$ & $n_{a, 0}$ & $n_{b, 0}$ & $n_{c, 0}$ & $n_{d, 0}$\\
+        %    \hline $t$ & $n_{a, 0} - \alpha\xi$ & $n_{b, 0} - \beta\xi$ & $n_{c, 0} + %\gamma\xi$ & $n_{d, 0} + \delta\xi$\\\hline
+        %\end{NiceArray} \]
     \end{example}
     \subsubsection{Quotient de la réaction et constant d'équilibre}
     
@@ -1877,5 +1866,135 @@
         \end{enumerate}
         
     \end{definition}
+    
+    II/ Quotient réactionnnel d'une réaction chiimique R
+    
+    Soit la réaction chimique R : $\sum_i v_iA_i = 0$.
+    Pour un système méchaniue contenant les $A_i$ on définit le quotient réactionnel du système à l'instant t par :
+    $Q_r\p{t} = \prod_i a_i^{v_i}$
+    On peut aussi écrire :
+    $Q_R = \frac{\prod_{i \in produit}}{}$*
+    Qualitativement :
+    Plus il y a de produits par rapport aux réactifs, plus $Q_R$ et grand. Inversement
+    
+    \section{TODO}
+    
+    \newpage
+    
+    \section{Réaction d'oxydo-réduction}
+    
+    \subsection{Couple oxydo-réducteur et réaction}
+    
+    \begin{definition}{Couple rédox}{}
+        \begin{enumerate}
+            \itast On appelle \hg{couple rédox} ou couple \hg{oxydo-réducteur} le couple formé par \hg{deux molécules $\text{Red}$} et \hg{$\text{Ox}$} contenant un \hg{même élément chimique} et dont on \hg{passe de l'une à autre} par un \hg{échange d'électron(s)} selon :
+            %
+            \[ \hg{a\text{Red} \xrightleftharpoons{\hspace{0.4cm}} b\text{Ox} + ne^-}\]
+        
+        
+            \itt \hg{$\text{Red}$} est appelé \hg{réducteur}, on dit qu'il s'\hg{oxyde} pour donner l'\hg{oxydant} et qu'il \hg{cède des électrons}.
+            
+            \itt \hg{$\text{Ox}$} est appelé \hg{oxydant}, on dit qu'il se \hg{réduit} pour donner le \hg{réducteur} et qu'il \hg{capte des électrons}.
+        \end{enumerate}
+    \end{definition}
+    %
+    \begin{notation}
+        Ce couple est noté \hg{$\text{Ox}/\text{Red}$}.
+    \end{notation}
+    
+    \begin{enumerate}
+        \itt Cas des métaux : on a le couple $\text{M}^{n+}/\text M$ avec la réaction
+        %
+        \[ \text{M} \xrightleftharpoons{\hspace{0.4cm}} \text{M}^{n+} + ne^-\]
+        
+        \itt Dans certains couples l'oxydant ou le réducteur contiennent des atomes d'oxygène ou d'hydrogène qui participent à la réaction. On équilibre la demi-réaction avec ${\text H_3\text O}^+$ et $\text H_2\text O$ :
+        %
+        \[ a\text{Red} +\alpha \text H_2\text O\xrightleftharpoons{\hspace{0.4cm}} b\text{Ox} + \beta {\text H_3\text O}^+ + ne^- \]
+        %
+        On notera que $n$ peut tout à fait être différent de $\beta$, puisque $\text{Red}$ et $\text{Ox}$ peuvent être des ions.
+    \end{enumerate}
+    
+    \begin{definition}{Nombre d'oxydation}{}
+        On appelle \hg{nombre d'oxydation} d'un élément chimique d'un couple rédox une quantité caractérisant sa capacité d'oxydation. Plus le nombre d'oxydation est grand, plus la molécule est oxydante.
+    \end{definition}
+    %
+    \begin{notation}
+        Le nombre d'oxydation d'une espèce $\text{A}$ est noté $\NO{\text{A}}$. Sa valeur s'écrit généralement en chiffres romains.
+    \end{notation}
+    %
+    \begin{property}{Propriétés constitutives du nombre d'oxydation}{}
+        \begin{enumerate}
+            \itast Dans un couple rédox \hg{$\text{Ox}/\text{Red}$}, on a :
+            %
+            \[ \hg{\NO{\text{Ox}} \geq \NO{\text{Red}}} \qquad\et\qquad \hg{\NO{\text{Ox}} - \NO{\text{Red}} = n} \]
+            %
+            La variation du nombre d'oxydation entre l'oxydant et le réducteur correspond au nombre d'électrons échangés $n$.
+            
+            \itast Sauf cas particulier, \hg{$\NO\p{\text{O}} = -\textsc{II}$}, \hg{$\NO\p{\text{H}} = +\textsc{I}$}
+            
+            \itast Dans une molécule ou un ion contenant un atome $\text{X}$ et et des atomes $\text{H}$ et $\text{O}$ la somme des nombre d'oxydations est égale à la charge totale de l'élément : si la molécule est ${\text X_p\text O_q \text H_m}^{k+}$, on a 
+            %
+            \[ p\NO{\text X} -q\textsc{II} + n\textsc{I} = +k\textsc{I} \qquad\text{donc}\qquad \hg{\NO{\text X} = \dfrac{k - n + \textsc{II}q}{p}}\]
+        \end{enumerate}
+    \end{property}
+    
+    On remarquera que le nombre d'oxydation est généralement un entier, mais dans le cas où $p > 1$, il peut en être autrement : $\NO{\text X}$ apparaît d'ailleurs comme une sorte de \guill{moyenne}, et peut donc ne pas être entier.
+    
+    \begin{example}{Nombre d'oxydation du fer}{}
+        Les 
+        \begin{enumerate}
+            \itt \hg{$\NO{\text{Fe}} = 0$}
+            \itt \hg{$\NO{\text{Fe}^{2+}} = +\textsc{II}$}
+            \itt \hg{$\NO{\text{Fe}^{3+}} = +\textsc{III}$}
+            \itt \hg{$\NO{\text{Fe}\text O} = +\textsc{II}$}
+            \itt \hg{$\NO{\text{Fe}_2\text O} = +\textsc{III}$}
+            \itt \hg{$\NO{\text{Fe}_3\text O_4} = +\dfrac{\textsc{VIII}}{3}$}
+        \end{enumerate}
+    \end{example}
+    
+    \begin{example}{Autres exemples}{}
+        \begin{enumerate}
+            \itt On a $\NO{{\text{Mn}\text O_4}^-} = -\textsc{I}$ donc $\NO{\text{Mn}} -4\textsc{II} = -\textsc{I}$ d'où $\NO{\text{Mn}} = +\textsc{VII}$.
+        \end{enumerate}
+    \end{example}
 
-\end{document}
+    Les $e^-$ n'existent pas libres en solution aqueuse.
+    Donc $a Red = b ox + re^-$ ne correspond pas a une réaction chimique. Elle ne peut pas avoir lieu seule. Quand un $Red_1$ s'oxide pour donner $Oc_1$ en cédant des $e^-$, ceux-ci doivent être capter par un $Ox_2$ qui va se réduire en $Red_2$. La réaction d'oxydoréduction est une réaction entre 2 couples red/ox.
+
+    \begin{form}{Méthode}{}
+        Pour écrire la réaction d'oxydoréduction entre deux couples rédox \hg{$\text{Ox}_1/\text{Red}_1$} et \hg{$\text{Ox}_2/\text{Red}_2$}, on commence par écrire les deux demi-réactions :
+        %
+        \begin{align}
+            \label{eq:methredox1}\hg{a_1\text{Red}_1} &\hg{\xrightleftharpoons{\hspace{0.4cm}} b_1\text{Ox}_1 + n_1e^-}\\
+            \label{eq:methredox2}\hg{a_2\text{Red}_2} &\hg{\xrightleftharpoons{\hspace{0.4cm}} b_2\text{Ox}_1 + n_2e^-}
+        \end{align}
+        %
+        On combine ces deux demi-réactions pour faire disparaître les $e^-$. Pour cela, avec $p = \ppcm\p{n_1, n_2}$ on considère la relation $\dfrac{p}{n_1}\times\p{\ref{eq:methredox1}} - \dfrac{p}{n_2}\p{\ref{eq:methredox2}}$ :
+        %
+        \[ \hg{\dfrac{p}{n_1}a_1\text{Red}_1 + \dfrac{p}{n_2}b_2\text{Ox}_2 \xrightleftharpoons{\hspace{0.4cm}} \dfrac{p}{n_2}a_2\text{Red}_2 + \dfrac{p}{n_1}b_1\text{Ox}_1} \]
+    \end{form}
+    %
+    \begin{example}{}{}
+        On considère les couples rédox \hg{${\text{Cr}_2\text O_7}^{2-}/\text{Cr}^{3+}$} et \hg{${\text{Fe}_3\text O_4}/\text{FeO}$}
+        %
+        Le premier couple a pour demi-réaction :
+        %
+        \begin{equation}
+            \label{eq:exredox1}\hg{2\text{Cr}^{3+} + 7\text H_2\text O \xrightleftharpoons{\hspace{0.4cm}} {\text{Cr}_2\text O_7}^{2-} + 14\text H^+ + 6e^-}
+        \end{equation}
+        %
+        Le deuxième couple a pour demi-réaction :
+        %
+        \begin{equation}
+            \label{eq:exredox2}\hg{3\text{FeO} + \text H_2\text O \xrightleftharpoons{\hspace{0.4cm}} \text{Fe}_3\text O_4 + 2\text H^+ + 2e^-}
+        \end{equation}
+        %
+        On a $\ppcm{6, 2} = 6$ donc on regarde la réaction $3\times\p{\ref{eq:exredox2}} - \p{\ref{eq:exredox1}}$ :
+        %
+        \[ \hg{9\text{Fe9} + {\text{Cr}_2\text O_7}^{2-} + 8\text H^+ \xrightleftharpoons{\hspace{0.4cm}} 3\text{Fe}_3\text O_4 + 2\text{Cr}^{3+} + 4\text H_2\text O}\]
+    \end{example}
+    
+    \subsection{Potentiel d'un couple rédox et pile}
+    
+    
+\end{document}                         

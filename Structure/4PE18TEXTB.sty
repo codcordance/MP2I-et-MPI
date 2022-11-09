@@ -33,7 +33,8 @@
 \usepackage{siunitx}
 
 \sisetup{
-    inter-unit-product=\cdot
+    inter-unit-product=\cdot,
+    output-decimal-marker = {,}
 %    detect-all,
 %    output-decimal-marker={,},
 %    group-minimum-digits = 3,
@@ -97,7 +98,7 @@
 \usepackage{fancybox}
 \usepackage{fontawesome}
 \usepackage{tikz}
-\usetikzlibrary{angles, quotes, graphdrawing.trees, tikzmark, decorations.markings, positioning, 3d, shapes.misc, shapes.geometric}
+\usetikzlibrary{angles, quotes, graphdrawing.trees, tikzmark, decorations.markings, positioning, 3d, shapes.misc, shapes.geometric, automata, arrows,calc,positioning}
 \usepackage[european, straightvoltages, RPvoltages, american inductors]{circuitikz}
 \tikzset{cross/.style={cross out, draw=black, fill=none, minimum size=2*(#1-\pgflinewidth), inner sep=0pt, outer sep=0pt}, cross/.default={2pt}}
 
@@ -208,6 +209,7 @@
 \setlist[enumerate]{font=\color{white5!60!black}\sffamily}
 \newcommand{\enumref}[1]{{\color{white5!60!black}\sffamily{\ref{#1}}}}
 \newcommand{\quref}[1]{{\color{white5!60!black}\bfseries\sffamily{\hyperref[qu:#1]{#1}}}}
+\newcommand{\enumrefraw}[1]{{\color{white5!60!black}\bfseries\sffamily{#1}}}
 
 \setlength{\parindent}{0mm}
 \pgfplotsset{compat=1.17}
@@ -776,13 +778,87 @@
 
 \newcommand\codecom{\color{main20!20!gray}}
 
+\lstdefinelanguage{Python}{
+    morekeywords=[1]{
+        import, as, from, def, return
+    },
+    morekeywords=[2]{true,false},
+    morekeywords=[3]{if,else},
+    morekeywords=[4]{scipy,numpy,mathplotlib},
+    %morecomment=[l]{#},
+    keepspaces=true,
+    showstringspaces=false,
+    morestring=[b]",
+    %comment=[s]{(*)}{*)},
+    comment=[l]{\#},
+    tabsize=3,
+    extendedchars=true,
+    sensitive=true,
+    breaklines=true,
+    basicstyle=\ttfamily,
+    columns=[l]fullflexible,
+    %numbers=left,
+    numbersep=3pt,
+    keywordstyle=[1]{\ttfamily\color{main4}},
+    keywordstyle=[2]{\ttfamily\color{main20}},
+    keywordstyle=[3]{\ttfamily\color{main21}},
+    keywordstyle=[4]{\ttfamily\color{main10}},
+    stringstyle=\ttfamily\itshape\color{main20},
+    commentstyle=\ttfamily\itshape\color{ocamlColor},
+    moredelim={**[is][\color{main1!50!ocamlColor}]{@}{@}},
+    escapechar=?,
+    literate=*
+        %{0}{{\color{main1}{0}}}1
+        %{1}{{\color{main1}{1}}}1
+        %{2}{{\color{main1}{2}}}1
+        %{3}{{\color{main1}{3}}}1
+        %{4}{{\color{main1}{4}}}1
+        %{5}{{\color{main1}{5}}}1
+        %{6}{{\color{main1}{6}}}1
+        %{7}{{\color{main1}{7}}}1
+        %{8}{{\color{main1}{8}}}1
+        %{9}{{\color{main1}{9}}}1
+        %{)}{{\color{main1}{(}}}1
+        {|}{{\color{main1} |}}{1}
+        {.}{{\color{main1} .}}{1}
+        {,}{{\color{main1} ,}}{1}
+        {;}{{\color{main1}{;}}}1
+        {:}{{\color{main1}{:}}}1
+        {=}{{\color{main1}{=}}}1
+        {<}{{\color{main1}{<}}}1
+        {>}{{\color{main1}{>}}}1
+        {+}{{\color{main1}{+}}}1
+        {-}{{\color{main1}{-}}}1
+        {/}{{\color{main1}{/}}}1
+        {*}{{\color{main1}{*}}}1
+        {!}{{\color{main1}{!}}}1
+        {?}{{\color{main1}{?}}}1
+        %{[blank]}{{\mbox{~}}}1
+        {'a}{{$\alpha$}}1 
+        {'b}{{$\beta$}}1 
+        {'c}{{$\gamma$}}1 
+        %{'s}{{$s$}}1 
+        %{<>}{{$\neq$}}1 
+        %{**}{{$\times$}}1 
+        %{\\prog}{{$\prog$}}1
+        %{\\cup}{{$\cup$}}1
+        %{\\tab}{{$\qquad$}}1
+        %{[blank]}{{\ }}1
+        {&&}{{\color{main20}{\texttt{\&\&}}}}1
+        {||}{{\color{main20}{\texttt{||}}}}1
+        {->}{{$\color{main1}{\rightarrow}$}}1
+        {<-}{{$\color{main1}{\leftarrow}$}}1
+        %{(@}{(*}}1
+        %{ \) }{{\color{main1}{-}}}1,
+}
+
 \lstdefinelanguage{OCaml}{
     morekeywords=[1]{
-        and, as, assert, begin, class, constraint, do, done, downto, else, end, exception, external, for, fun, function, functor, if, in, include, inherit, initializer, lazy, let, match, method, module, mutable, new, object, of, open, or, private, rec, sig, struct, then, to, try, type, val, virtual, when, while, with, return, continue, ref
+        and, as, assert, begin, class, constraint, do, done, downto, else, end, exception, external, for, fun, function, functor, if, in, include, inherit, initializer, lazy, let, match, method, module, mutable, new, object, of, open, or, private, rec, sig, struct, then, to, try, type, val, virtual, when, while, with, return, continue, ref, Marshal
     },
     morekeywords=[2]{true,false},
     morekeywords=[3]{Relation,Queue,Set,failwith},
-    morekeywords=[4]{int,array,unit,bool},
+    morekeywords=[4]{int,array,unit,bool,extern_flags},
     %morecomment=[l]{#},
     keepspaces=true,
     showstringspaces=false,
@@ -891,6 +967,89 @@
         belowskip=\smallskipamount,
     }
 }
+
+\newtcblisting{python}{
+    enhanced, breakable,
+    attach boxed title to top right={yshift=-\tcboxedtitleheight},
+    interior style = {
+        left color = main1!12,
+        right color = main1!5
+    },
+    boxed title style = {
+        frame code = {
+            \path[left color=ocamlColor, right color=ocamlColor!80] 
+                (frame.north west)++(-5pt,0) -- 
+                (frame.north east) -- 
+                (frame.south east) -- 
+                (frame.south west) -- 
+                cycle;
+        },
+        interior engine=empty,
+    },
+    sharp corners = downhill,
+    arc = 0 cm,
+    title = {\sffamily Python},
+    boxrule = 0 pt,
+    listing only,
+    %nobeforeafter,
+    %after=\par\nointerlineskip,
+    overlay = {
+        \begin{tcbclipinterior}
+            \fill[main1!30] (frame.south west) rectangle ([xshift=6mm]frame.north west);
+        \end{tcbclipinterior}
+    },
+    listing options = {
+        language = Python,
+        numbers=left,
+        numbersep=3.3mm,
+        xleftmargin=3mm,
+        numberstyle={\small\sffamily\color{main1!50!black}},
+        aboveskip=\smallskipamount, 
+        belowskip=\smallskipamount,
+    }
+}
+
+\newtcblisting{C}{
+    enhanced, breakable,
+    attach boxed title to top right={yshift=-\tcboxedtitleheight},
+    interior style = {
+        left color = main1!12,
+        right color = main1!5
+    },
+    boxed title style = {
+        frame code = {
+            \path[left color=ocamlColor, right color=ocamlColor!80] 
+                (frame.north west)++(-5pt,0) -- 
+                (frame.north east) -- 
+                (frame.south east) -- 
+                (frame.south west) -- 
+                cycle;
+        },
+        interior engine=empty,
+    },
+    sharp corners = downhill,
+    arc = 0 cm,
+    title = {\sffamily C},
+    boxrule = 0 pt,
+    listing only,
+    %nobeforeafter,
+    %after=\par\nointerlineskip,
+    overlay = {
+        \begin{tcbclipinterior}
+            \fill[main1!30] (frame.south west) rectangle ([xshift=6mm]frame.north west);
+        \end{tcbclipinterior}
+    },
+    listing options = {
+        language = C,
+        numbers=left,
+        numbersep=3.3mm,
+        xleftmargin=3mm,
+        numberstyle={\small\sffamily\color{main1!50!black}},
+        aboveskip=\smallskipamount, 
+        belowskip=\smallskipamount,
+    }
+}
+
 
 \def\camlline{\lstinline[language=OCaml]}
 
@@ -1416,7 +1575,7 @@
 
 \DeclareDocumentCommand\funlv{mg}{
   \qopname\relax o{#1}
-  \IfNoValueTF{#2}{}{\left(#2\right)}
+  \IfNoValueTF{#2}{}{\p{#2}}
 }
 
 \DeclareDocumentCommand\floor{m}{\left\lfloor#1\right\rfloor}
@@ -1445,12 +1604,12 @@
 %TODO: OPTIMISER EN CAS DUN SEUL ARG
 \DeclareDocumentCommand\o{gg}{
     \IfNoValueTF{#1}{\bco}{\underset{#1}{\bco}}
-    \IfNoValueTF{#2}{}{\left(#2\right)}
+    \IfNoValueTF{#2}{}{\p{#2}}
 }
 
 \DeclareDocumentCommand\O{gg}{
     \IfNoValueTF{#1}{\bcO}{\underset{#1}{\bcO}}
-    \IfNoValueTF{#2}{}{\left(#2\right)}
+    \IfNoValueTF{#2}{}{\p{#2}}
 }
 
 \DeclareDocumentCommand\lima{g}{
@@ -1493,8 +1652,11 @@
 
 \DeclareDocumentCommand\Re{g}{\funlfv{Re}{#1}}
 \DeclareDocumentCommand\Im{g}{\funlfv{Im}{#1}}
-\DeclareDocumentCommand{\mod}{m}{\left|#1\right|}
-\DeclareDocumentCommand{\norm}{m}{\left\Vert#1\right\Vert}
+\DeclareDocumentCommand{\mod}{m}{\lvert#1\rvert}
+\DeclareDocumentCommand{\norm}{m}{\lVert#1\rVert}
+    
+\DeclareDocumentCommand{\tnorm}{m}{{\left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 
+    \right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert}}
 
 \DeclareDocumentCommand{\indication}{m}{{\EBGaramond Indication :} \ {\footnotesize\itshape #1}}
 \DeclareDocumentCommand{\indef}{m}{\textit{\color{main1}#1}}
@@ -1759,6 +1921,7 @@
 %\DeclareDocumentCommand\cos{g}{\funlv{cos}{#1}}
 \funlvi{cos}
 \funlvi{sin}
+\funlvi{Sp}
 %\DeclareDocumentCommand\sin{g}{\funlv{sin}{#1}}
 
 \DeclareDocumentCommand\cotan{g}{\funlv{cotan}{#1}}
@@ -1819,4 +1982,3 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\cfoot{\thepage}

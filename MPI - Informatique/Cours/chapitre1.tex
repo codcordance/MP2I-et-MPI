@@ -1048,3 +1048,65 @@
         \end{enumerate}
         
     \end{example}
+    
+    
+    
+    
+    
+    
+    \begin{definition}{Min-terme}{}
+        Soient \hg{$I$ un ensemble fini ou dénombrable d'indices} et \hg{$\bcV = \ens{v_i}_{i \in I}$ un ensemble de variables propositionnelles}. On appelle \hg{min-terme sur $\bcV$} la \hg{conjonction $\displaystyle\bigwedge_{i \in I} a_i$ des littéraux de $\ens{a_i \enstq a_i \in \ens{v_i, \neg v_i}}_{i \in I}$}.
+    \end{definition}
+    %
+    On donne ci-dessous quelques exemples de mini-termes.
+    %
+    \begin{example}{}{}
+        On considère $I = \iint{1, 3}$ et $\bcV = \ens{v_1, v_2, v_3}$ :
+        \begin{enumerate}
+            \itt $\hg{\neg v_1 \land v_2 \land \neg v_3}$ est un min-terme.
+            
+            \itt $\hg{v_1 \land \neg v_2}$ et $\hg{\neg v_1 \land v_2 \land v_1}$ ne sont \bf{pas} des min-termes.
+        \end{enumerate}
+    \end{example}
+    %
+    L'utilité des min-termes réside dans la propriété suivante :
+    %
+    \begin{property}{Table de vérité d'un min-terme}{}
+        Soit \hg{$\bcV$ un ensemble fini ou dénombrable de variables propositionnelles}. \hg{A chaque min-terme $m$} sur $\bcV$ \hg{correspond une unique valuation $\bcv_m$} sur $\bcV$ telle que \hg{$\bcv_m \vDash m$}, et \hg{réciproquement}.
+    \end{property}
+    %
+    \begin{nproof}
+        Soient $I$ un ensemble fini ou dénombrable d'indices, $\bcV = \ens{v_i}_{i \in I}$ un ensemble de variables propositionnelles et $m$ un min-terme sur $\bcV$. Soient $\bcv$ une valuation sur $\bcV$ telle que $v\p{m} = 1$ et $\ens{a_i \enstq a_i \in \ens{v_i, \neg v_i}}_{i \in I}$ tels que $m = \displaystyle\bigwedge_{i=1}^n a_i$.
+        %
+        \[ 1 = \bcv\p{m} = v\p{\bigwedge_{i \in I} a_i} = \prod_{i \in I} \bcv\p{a_i} = \prod_{\substack{i \in I\\a_i = v_i}} v\p{v_i} \prod_{\substack{i \in I\\a_i = \neg v_i}} \p{1 - \bcv\p{v_i}} \qquad\text{donc}\quad \forall i \in I\quad \bcv\p{a_i} = \left\lbrace\begin{array}{ll}
+            1 &\text{si} \ a_i = v_i  \\
+            0 &\text{si} \ a_i = \neg v_i 
+        \end{array}\right.\]
+        %
+        Ainsi $\bcv$ est entièrement déterminée, d'où l'unicité. Pour l'existence, $\bcv$ ainsi décrit convient. Il n'existe donc qu'une unique valuation satisfaisant $m$. Réciproquement, on pose $\ens{a_i \enstq \begin{array}{ll}
+            a_i = v_i &\text{si} \ \bcv\p{a_i} = 1  \\
+            a_i = \neg v_i &\text{si} \ \bcv\p{a_i} = 0 
+        \end{array}}_{i \in I}$. On a facilement que le min-terme $m_\bcv = \displaystyle\bigwedge_{i \in I} a_i$ est alors le seul satisfait par $\bcv$. 
+    \end{nproof}
+    %
+    Les min-termes permettent d'obtenir une forme normale disjonctive \guill{canonique}, au sens de l'unicité :
+    %
+    \begin{corollary}{Existence et unicité de la FNDC}{}
+        Soit \hg{$\bcV$ un ensemble fini ou dénombrable de variables propositionnelles}, \hg{$\Gamma$ un ensemble de formules propositionnelles} à variables dans $\bcV$ et \hg{$\varphi \in \Gamma$ une formule} logique de $\Gamma$.
+        %
+        \[ \text{\hg{Il existe une unique disjonction de min-termes différents logiquement équivalente à $\varphi$}.} \]
+    \end{corollary}
+    %
+    \begin{nproof}
+        Soit $\bcV$ un ensemble fini de variables propositionnelles, $\Gamma$ un ensemble de formules propositionnelles à variables dans $\bcV$ et $\varphi \in \Gamma$ une formule logique de $\Gamma$. Pour toute valuation $\bcv$ sur $\bcV$, on note $m_\bcv$ l'unique min-terme sur $\bcV$ satisfait par $\bcv$. On pose alors $\psi = \displaystyle\bigvee_{\bcv \in \ens{\bcv \enstq \bcv \vDash \phi}} m_\bcv$. Par définition de l'équivalence logique, on a directement $\varphi \equiv \psi$.\medskip
+        
+        Pour l'unicité, supposons $\psi'$ une disjonction de min-termes équivalente logiquement à $\varphi$. Soit $m$ un min-terme sur $\bcV$ et soit $\bcv$ l'unique valuation sur $\bcV$ satisfaisant $m$, d'où $m = m\bcV$. 
+        
+        Si $\bcv \vDash \varphi$, alors $m = m_\bcv$ est dans $\psi$. Si $\bcv \not\vDash \varphi$, alors $m = m_\bcv$ n'est pas dans $\psi$. Par contraposée, $m$ est dans $\psi$ si et seulement s'il est dans $\psi'$. On a bien unicité.
+    \end{nproof}
+    
+    On remarque alors que cette disjonction de min-termes est une forme normale disjonctive, d'où :
+    %
+    \begin{definition}{Forme normale disjonctive canonique}{}
+        Soit \hg{$\bcV$ un ensemble fini ou dénombrable de variables propositionnelles}, \hg{$\Gamma$ un ensemble de formules propositionnelles} à variables dans $\bcV$ et \hg{$\varphi \in \Gamma$ une formule} logique de $\Gamma$. On appelle \hg{forme normale disjonctive canonique de $\varphi$} l'\hg{unique disjonction de min-termes différents logiquement équivalente à $\varphi$}.
+    \end{definition}

@@ -1,0 +1,77 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{../../Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+    \renewcommand{\labelenumi}{\Roman{section}.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii}.}
+
+    \stylizeDocSpe{Maths}{Devoir surveillé $\star$ n° 2}
+    {CCS MP MATH 1 2019}{Le vendredi 21 octobre 2022}
+    
+    \subsubsection*{Notations et définitions}
+    
+    \begin{enumerate}
+        \itt Dans tout le problème, $\bdK$ désigne $\bdR$ ou $\bdC$, $\bdN$ l'ensemble des entiers naturels et $n$ est un entier naturel.
+        
+        \itt On note $\bdK_n\intc{X}$ le sous-espace vectoriel de $\bdK\intc{X}$ des polynômes de degré inférieur ou égal à $n$ à coefficients dans $\bdK$ et, pour $n \geq 1$, $\bcM_n\p{\bdK}$ la $\bdK$-algèbre des matrices carrées de taille $n$ à coefficients dans $\bdK$. La matrice unité notée $I_n$ et on désigne par $\GL_n\p{\bdK}$ le groupe des matrices inversibles de $\bcM_n\p{\bdK}$.
+        
+        \itt Pour toute matrice $A$ de $\bcM_n\p{\bdK}$, on note $\transp$ la transposée de la matrice $A$, $\rg\p{A}$ son rang, $\Tr\p{A}$ sa trace, $\chi_A = \det\p{XI_n - A}$ son polynôme caractéristique, $\pi_A$ son polynôme minimal et $\sp{A}$ l'ensemble de ses valeurs propres dans $\bdK$. 
+        
+        \itt Dans tout le problème, $E$ désigne un espace vectoriel sur le corps $\bdK$ de dimension finie $n$ supérieure ou égale à $2$, et $\bcL\p{E}$ est l'algèbre des endomorphismes de $E$. On note $f$ un endomorphisme de $E$. On note $f^0 = \Id_E$ et $\forall k \in \bdN$, $f^{k+1} = f^k \circ f$.
+        
+        \itt Si $Q \in \bdK\intc{X}$ avec $Q\p{X} = a_0 + a_1X + \dots + a_mX^m$, $Q\p{f}$ désigne l'endomorphisme $a_0\Id_E + a_1f + \dots + a_mf^m$. On note $\bdK\intc{f}$ la sous-algèbre commutative de $\bcL\p{E}$ constituée des endomorphismes $Q\p{f}$ quand $Q$ décrit $\bdK\intc{X}$.
+        
+        \itt De même, on utilise les notations suivantes, similaires à celles des matrices, pour un endomorphisme $f$ de $E$ : $\rg\p{f}$, $\Tr\p{f}$, $\chi_f$, $\pi_f$ et $\sp{f}$. Enfin, on dit que $f$ est \emph{cyclique} si et seulement s'il existe un vecteur $x_0$ dans $E$ tel que $\p{x_0, f\p{x_0}, \dots, f^{n-1}\p{x_0}}$ soit une base de $E$.
+    \end{enumerate}
+    
+    \section{Matrices compagnons et endomorphismes cycliques}
+    
+    \subsection{Préliminaires}
+    
+    Soit $M \in \bcM_n\p{\bdK}$.
+    
+    \begin{enumerate}
+        \item Montrer que $M$ et $M\transp$ ont même spectre.
+        
+        \item Montrer que $M\transp$ est diagonalisable si et seulement si $M$ est diagonalisable.
+    \end{enumerate}
+        
+    \subsection{Matrices compagnons}
+        
+    \begin{enumerate}[resume]
+        \item Soit $\p{a_0, a_1, \dots, a_{n-1}} \in \bdK^n$ et $Q\p{X} = X^n + a_{n-1}X^{n-1} + \dots + a_0$. On considère la matrice
+        %
+        \[ C_Q = \begin{pNiceMatrix}
+            0      & \Cdots &        &   & 0 & -a_0\\
+            1      &    0   & \Cdots &   & 0 & -a_1\\
+            0      & \Ddots & \Ddots &   & \Vdots & -a_2\\
+            \Vdots & \Ddots &        &   & & \Vdots\\
+                   &        &        &   & 0 & -a_{n-2}\\
+            0      & \Cdots &        & 0 & 1 & -a_{n-1}
+        \end{pNiceMatrix}\]
+        %
+        Déterminer en fonction de $Q$ le polynôme caractéristique de $C_Q$.
+        
+        \item Soit $\lambda$ une valeur propre de $C_Q\transp$. Déterminer la dimension et une base du sous-espace propre associé.
+    \end{enumerate}
+    
+    \subsection{Endomorphismes cycliques}
+    
+    \begin{enumerate}[resume]
+        \item Montrer que $f$ est cyclique si et seulement s'il existe une base $\bcB$ de $E$ dans laquelle la matrice de $f$ est de la forme $C_Q$, où $Q$ est un polynôme unitaire de degré $n$.
+        
+        \item Soit $f$ un endomorphisme cyclique. Montrer que $f$ est diagonalisable si et seulement si $\chi_f$ est scindé sur $\bdK$ et a toutes ses racines simples.
+        
+        \item Montrer que si $f$ est cyclique, alors $\p{\Id, f, f^2, \dots, f^{n-1}}$ est libre dans $\bcl\p{E}$
+    \end{enumerate}
+    
+    
+\end{document}

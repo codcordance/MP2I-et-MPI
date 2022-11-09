@@ -1387,8 +1387,138 @@
     $f : E \to F$ $\bcC^0$ ssi pour tout $U$ ouvert de $F$, $f^{-1}\p{U}$ ouvert de $E$, ssi pour tout $F$ fermé $f^{-1}\p{F}$ fermé de $E$.
     
     
+    \section{Continuité sur les EV}
+    
+    \subsection{présentation}
+    
+    \subsection{Norme sur l'espace des applications linéaires continues}
+    
+    On se place dans $\bcL_\bcC\p{E, V} = \Vect\p{\ens{u \in \bcL\p{E, V} \enstq u \in \bcC^0\p{E, F}}}$, l'espace vectoriel des applications linéaires continues. Pour $u \in \bcL_\bcC$, on pose :
+    %
+    \[ \tnorm{u} = \sup\limits_{\substack{x \in E\\ x \neq 0}} \dfrac{\norm{u\p{x}}}{\norm x} = \sup\limits_{\norm{x} = 1} \norm{u\p{x}}\]
+
+    \section{Complétude*}
+    
+    \subsection{Présentation}
+
+    \begin{definition}{Suite de Cauchy}{}
+        \[ \forall \epsilon > 0,\qquad \exists n_0,\qquad p, q \geq n_0 \implies \norm{u_p - u_q} \leq \epsilon \]
+        %
+        $E$ est dit complet si toute suite de \textsc{Cauchy} converge, et $A \subset E$ est dit complète si toute suite de \textsc{Cauchy} d'éléments de $A$ converge dans $A$.
+    \end{definition}
+    
+    \begin{property}{}{}
+        $A \subset E$ complète ssi. $A$ fermé.
+    \end{property}
     
     
+    SI $E$ complet : CVA $\implies$ CV.
+    
+    \subsection{}
+    
+    COmment montrer que $E$ complet : on prend $x_n \in E$ de \textsc{Cauchy}.
+    
+    \begin{enumerate}
+        \item On donne un sens à $x$ qui sera limite de $x_n$ ;
+        \item  $x \in E$ ;
+        \item $x_n \lima x$.
+    \end{enumerate}
+        
+        $\bcL_\bcC\p{E, F}$ complet pour $\norm{u} = \sup\limits_{x \neq 0} \dfrac{\norm{u\p{x}}}{\norm{x}}$. Avec $u_n$ de \textsc{Cauchy}, $\norm{u_n -u_m} \leq \epsilon$ si $n, m \geq n_0$.
+        %
+        \[ \forall x \in E,\qquad \norm{u_n\p{x} - u_m\p{x}} \leq \epsilon\norm{x} \qquad\text{si}\qquad n, m \geq n_0\]
+    
+    \begin{enumerate}
+        \item $x \in E$, mq $u_n\p{x} \in F$ complet converge vers $u\p{x}$
+    \end{enumerate}
+    
+    $\bcC^0$ fermé dans $\bcB$ : plus tard.
+    
+    \begin{example}{}{}
+        $E = \bcC^1\p{\intc{0, 1}, R}$ complet pour $N\p{f} = N_\infty\p{f} + N_\infty{f'}$. Soit $\p{f_n}_n$ de \textsc{Cauchy}, on a :
+        
+        
+        On a $N\p{f_n - f_m} \leq \epsilon$, donc $N_\infty\p{f_n - f_m} \epsilon$ et $N_\infty\p{f_n' - f_m'} \leq \epsilon$.
+        %
+        \begin{enumerate}
+            \itt $f_n \in \bcC^0$ complet pour $N_\infty$ : $f_n \lima f \in \bcC^0$
+            
+            \itt $f'_n \in \bcC^0$ complet pour $N_\infty$ : $f'_n \lima g \in \bcC^0$
+        \end{enumerate}
+        %
+        IL manque donc que $f \in \bcC^1$, avec $f' = g$, puis $N\p{f - f_n} = N_\infty\p{f - f_n} + N_\infty\p{f' - f_n'} \lima{n \to +\infty} 0$.
+        
+        On a $f_n\p{x} = f_n\p{0} + \displaystyle\int_0^x f_n'$ d'où :
+        %
+        \[ \norm{\int_0^x f_n' - \int_0^n g} \leq \]
+    \end{example}
+    
+    \chapter{Séries numériques}
+    
+    \chaptertoc
+    
+    \section{Généralités}
+    
+    \begin{definition}{Somme directe}{}{}
+        Soit une suite $\p{u_n}_{n \in \bdN} \in E^\bdN$. On appelle somme partie de rang $n$ la somme $S_n\p{u} = \displaystyle\sum_{i=0}^n u_i$.
+        
+        On dit que $\displaystyle\sum_{i=0}^\infty u_i$ converge si $S_n\p{u} \lima{n \to +\infty} \ell$, avec $\displaystyle\sum_{i=0}^\infty = \ell$.
+    \end{definition}
     
     
+    \newpage
+    
+    $\ell^1\p{\bdR} = \ens{\suite{u_n} \enstq \displaystyle\sum u_n \ \text{ACV}}$. $\bcN_1\p{u} = \sum\limits_{n \geq 0} \mod{u_n}$.
+    
+    Montrer que $\ell^1$ avec la norme $\bcN_1$ est complet.
+    
+    $u^p \in \ell^1$, $u^p = \p{u_n^p}_n$ de \textsc{Cauchy} :
+    %
+    \[ \forall \epsilon > 0,\qquad \exists n_0,\qquad p, q \geq n_0 \implies \sum_{n \geq 0} \mod{u_n^p - u_n^q} \leq \epsilon\]
+    
+    \begin{enumerate}
+        \item Donner un sens à $u_n = \lim\limits_p u_n^p$ :
+        %
+        \[ \mod{u_n^p - u_n^q} \leq \bcN_1\p{u^p - u^q} \leq \epsilon \qquad\text{si} \ p, q \geq n_0\]
+        %
+        \ie $\p{u_n^p}_p$ de \textsc{Cauchy} dans $\bdR$ complet, admet une lim $u_n$.
+        
+        \item $\p{u_n} = u \in \bcl^1$.
+        %
+        \[ \mod{\bcN_1\p{u^p} - \bcN_1\p{u^q}} \leq \bcN_1\p{u^p - u^q} \qquad\text{donc}\qquad \p{\bcN_1\p{u^p}}_p \ \text{de \textsc{Cauchy} et bornée}\]
+        %
+        $\bcN_1\p{u^p} \leq M$ pour tout $p$, donc $\sum_{n \geq 0} \mod{u_n^p} \leq M$ pour tout $p$.
+        
+        Dans le cas fini, $\sum\limits_{n = 0}^N \mod{u_n^p} \leq M$ d'où pour $p \lima +\infty$, $\sum_{n=0}^N \mod{u_n} \leq M$, ce pour tout $N$ donc $\p{u_n}_n \in \ell^1$.
+        
+        \item $u^p \lima{\bcN_1} u$
+        
+        On a $\sum\limits_{n \geq 0} \mod{u_n^p - u_n^q} \leq \epsilon$ si $p, q \geq n_0$.
+        
+        Dans le cas fini, On a $\sum\limits_{n = 0}^N \mod{u_n^p - u_n^q} \leq \epsilon$ si $p, q \geq n_0$.
+        
+        Donc pour $q \lima +\infty$, on a $\sum\limits_{n = 0}^N \mod{u_n^p - u_n} \leq \epsilon$ si $p \geq n_0$.
+        
+        Pour tout $N$ donc $\sum\limits_{n \geq 0} \mod{u_n^p - u_n} \leq \epsilon$ si $p \geq n_0$, \ie $\bcN_1\p{u^p - u} \leq \epsilon$ si $p \geq n_0$.
+    \end{enumerate}
+    
+    \begin{exercise}{}{}
+        \[ \hg{\sum_{n \geq 2} \dfrac{\p{-1}^n}{n^\alpha + \p{-1}^nn^\beta}} = \sum_{n \geq 2} u_n \qquad\text{avec}\qquad \hg{\alpha \neq \beta}\]
+        %
+        \begin{enumerate}
+            \itt Si $\beta > \alpha$, $u_n \asymp \dfrac{1}{n^\beta}$.
+            
+            \itt Si $\alpha > \beta$, $u_n \asymp \dfrac{\p{-1}^n}{n^\alpha}$.
+            
+            Si $\alpha > 1$ CVA, si $\alpha \leq 1$ non CVA, et si $\alpha \leq 0$ DV grossière.
+            
+            Pour $0 < \alpha \leq 1$ :
+            %
+            \[ \dfrac{1}{n^\alpha} \dfrac{\p{-1}^n}{1 + \p{-1}^nn^{\beta - \alpha}} = \dfrac{\p{-1}^n}{n^\alpha}\p{1 - \p{-1}^nn^{\beta- \alpha} + \bcO\p{n^{2\p{\beta- \alpha}}}} = \dfrac{\p{-1}^n}{n^\alpha} - \underbrace{\dfrac{1}{n^{2\p{\alpha - \beta}}} + \O{}{\dfrac{1}{n^{3\alpha - 2\beta}}}}_{v_n \asymp \dfrac{1}{n^{2\alpha - \beta}}}\]
+            %
+            Donc positivité, d'où CV si $2\alpha - \beta > 1$ et DV sinon.
+        \end{enumerate}
+    \end{exercise}
+    
+    Transformation d'Abel (TA) = ipp. $\sum_{n=p}^q a_nb_n$
 \end{document}

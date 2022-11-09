@@ -1,0 +1,730 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}} 
+    \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii}.}
+    \renewcommand*{\labelenumiii}{\alph{enumiii}.}
+    
+    \stylizeDocSpe{Physique}{Devoir maison n° 5}{}{Pour le lundi 07 novembre 2022}
+    
+    \section{Premier problème : chute d'une tartine beurrée}
+    
+    \begin{minipage}{0.5\linewidth}
+        \begin{center}
+            \begin{tikzpicture}
+                \fill[fill=main3!30, draw] (0, 0) --++(5, 0) --++(0, -0.5) --++(-0.75, 0) --++(0, -2.25) --++(-0.25, 0) --++(0, 2.25) --++(-3, 0) --++(0, -2.25) --++(-0.25, 0) --++(0, 2.25) --++(-0.75, 0) --++(0, 0.5);
+                
+                \fill[fill=main3!50!gray, draw=main3!30] (0, 0) --++(5, 0) --++(0, -0.1) --++(-5, 0) --++(0, 0.1);
+                
+                \fill[fill=main1!10, draw=main3!30!black] (4.5, 0) --++(3.5, 0) --++(0, 0.2) --++(-3.5, 0) --++(0, -0.2);
+                
+                \draw[main3, very thick, ->] (5, 0) --++(2, 0) node[label={[font=\footnotesize]below:$\vec{u_x}$}] {};
+                \draw[main3, very thick, ->] (5, 0) --++(0, -2) node[label={[font=\footnotesize]left:$\vec{u_z}$}] {};
+                \fill (5, 0) circle[radius=1.25pt];
+                
+                \draw[densely dotted] (6.25, 0.1) --(6.25, -0.5);
+                
+                \draw[densely dotted] (4.25, -2.75) --(7.5, -2.75);
+                
+                \node[label={[font=\footnotesize]south east:$O$}] at (4.9, 0.1) {};
+                
+                \fill (6.25, 0.1) circle[radius=1.25pt];
+                
+                \node[label={[font=\footnotesize]north:$G$}] at (6.25, 0.05) {};
+                
+                \draw[<->, thick] (4.5, 1) --node [align=center,midway,fill=white] {$2a$} ++(3.5, 0);
+                \draw[densely dotted] (4.5, 0.2) --(4.5, 1);
+                
+                \draw[densely dotted] (8, 0.2) --(8, 1);
+                
+                \draw[<->, thick] (5, -0.5) --node [align=center,midway,fill=white] {$\delta$} (6.25, -0.5);
+                \draw[<->, thick] (7.5, 0) --node [align=center,midway,fill=white] {$h$} (7.5, -2.75);
+            \end{tikzpicture}
+        \end{center}
+
+        \captionof{figure}{Tartine (de grande taille !) sur une table}
+	    \label{fig:fig1}
+    \end{minipage}
+    %
+    \begin{minipage}{0.5\linewidth}
+        Préoccupé dès le petit-déjeuner par un problème résistant à sa sagacité, un physicien pose distraitement sa tartine beurrée en déséquilibre au bord de la table, côté beurré vers le haut (figure \ref{fig:fig1}). La tartine tombe et atterrit sur le côté beurré, ce qui ne manque pas d'attirer l'attention du physicien. Répétant l'expérience avec méthode et circonspection, notre héros observe la répétitivité du phénomène et le modélise. Nous allons lui emboîter le pas.
+    \end{minipage}
+
+    \subsection{Pivotement de la tartine}
+
+    Une tartine rectangulaire de longueur $2a$, de largeur $b$ et d'épaisseur $e$, de masse $m$ uniformément répartie, est placée au bord d'une table de hauteur $h$. Le mouvement est décrit dans le repère $R\p{O, \vec{u_x}, \vec{u_y}, \vec{u_z}}$, direct et supposé galiléen : $O$ est sur le bord de la table, l'axe $\p{Ox}$ est horizontal dirigé vers l'extérieur de la table ; l'axe $\p{Oy}$ est porté par le rebord de la table et l'axe $\p{Oz}$, vertical, est dirigé vers le bas ; les petits côtés de la tartine sont parallèles à $\p{Oy}$.
+
+    \begin{minipage}{0.5\linewidth}
+        \begin{center}
+            \begin{tikzpicture}
+                \fill[fill=main3!30, draw] (0, 0) --++(5, 0) --++(0, -0.5) --++(-0.75, 0) --++(0, -2.25) --++(-0.25, 0) --++(0, 2.25) --++(-3, 0) --++(0, -2.25) --++(-0.25, 0) --++(0, 2.25) --++(-0.75, 0) --++(0, 0.5);
+                
+                \fill[fill=main3!50!gray, draw=main3!30] (0, 0) --++(5, 0) --++(0, -0.1) --++(-5, 0) --++(0, 0.1);
+                
+                \fill[fill=main1!10, draw=main3!30!black] (5-0.35, 0.35) --++(2.47, -2.47) --++(0.14, 0.14) --++(-2.47, 2.47) --++(-0.14, -0.14);
+                
+                \draw[main3, very thick, ->] (5, 0) --++(2, 0) node[label={[font=\footnotesize]below:$\vec{u_x}$}] {};
+                \draw[main3, very thick, ->] (5, 0) --++(0, -2) node[label={[font=\footnotesize]left:$\vec{u_z}$}] {};
+                \fill (5, 0) circle[radius=1.25pt];
+                
+                \node[label={[font=\footnotesize]north west:$O$}] at (5, -0.2) {};
+                
+                \draw[main1, thick, ->] (5.88+0.07, -0.88+0.07) --++(0, -0.75) node[label={[font=\footnotesize]left:$m\!\vec{g}$}] {};
+                
+                \fill (5.88+0.07, -0.88+0.07) circle[radius=1.25pt];
+                
+                \node[label={[font=\footnotesize]north east:$G$}] at (5.85, -0.95) {};
+                
+                \draw [->] (6, 0) arc(0:-45:0.7cm) node[midway,right] {$\theta$};
+                
+                \draw[main3, very thick, ->] (5-0.35+2.47, 0.35-2.47) --++(0.7, -0.7) node[label={[font=\footnotesize]above:$\vec{u_r}$}] {};
+                \draw[main3, very thick, ->] (5-0.35+2.47, 0.35-2.47) --++(-0.7, -0.7) node[label={[font=\footnotesize]above:$\vec{u_\theta}$}] {};
+            \end{tikzpicture}
+        \end{center}
+
+        \captionof{figure}{Chute d'une tartine}
+	    \label{fig:fig2}
+        \end{minipage}
+    %
+    \begin{minipage}{0.5\linewidth}
+        À l'instant initial, la tartine, supposée d'épaisseur nulle, est horizontale, sa vitesse est nulle. Les coordonnées de son centre de masse $G$ sont $\p{\delta, 0, 0}$. La tartine amorce une rotation \emph{sans glissement} autour de l'arête du bord de table portant $\p{Oy}$. À l'instant $t$, la tartine est repérée par l'angle $\theta$ de la figure \ref{fig:fig2}. La vitesse angulaire est notée
+        %
+        \[ \omega = \dfrac{\dif\theta}{\dif t} \]
+        %
+    \end{minipage}
+    
+    Le moment d'inertie de la tartine par rapport à l'axe $\p{Gy}$, parallèle à $\p{Oy}$ et passant par $G$, est $J_{Gy} = \dfrac{1}{3}ma^2$. Celui par rapport à l'axe $\p{Oy}$ est 
+    %
+    \[ J_{Oy} = J_{Gy} + m\delta^2 = \p{\dfrac{1}{3}a^2 + \delta^2}m\]
+    
+    \begin{enumerate}
+        \item En introduisant les réactions tangentielle et normale de la table en $O$, notées respectivement $T$ et $N$ dans la base $\p{O, \vec{u_r}, \vec{u_\theta}}$ représentée sur la figure \ref{fig:fig2}, exprimer le théorème du mouvement du centre de masse, dans le repère galiléen $R\p{O, \vec{u_x}, \vec{u_y}, \vec{u_z}}$ en projection sur la base mobile $\p{O, \vec{u_r}, \vec{u_\theta}}$  ; on notera $g$ l'intensité de l'accélération de la pesanteur.
+        
+        \noafter
+        %
+        \boxans{
+            On néglige les frottements de l'air. Les forces extérieures s'appliquant sur le système $\ens{\text{tartine}}$ sont
+            %
+            \[ \vec{P} = m\vec{g} = mg \vec{u_z} \qquad \vec{N} = -N\vec{u_z}\qquad \vec{T} = -T\vec{u_x}\]
+            %
+            Or $\vec{u_x} = -\sin{\theta}\vec{u_\theta} + \cos{\theta}\vec{u_r}$ et $\vec{u_z} = \sin{\theta}\vec{u_r} + \cos{\theta}\vec{u_\theta}$ d'où
+            %
+            \[ \vec{P} = mg\p{\sin{\theta}\vec{u_r} + \cos{\theta}\vec{u_\theta}} \qquad \vec{N} = -N\p{\sin{\theta}\vec{u_r} + \cos{\theta}\vec{u_\theta}} \qquad \vec{T} = T\p{\sin{\theta}\vec{u_\theta} - \cos{\theta}\vec{u_r}}\]
+            %
+            On note $\vec{v_g}$ la vitesse du point $G$ dans le repère galiléen $R\p{O, x, y, z}$. Par \emph{théorème de la résultante dynamique}
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            \[ \dfrac{\dif \vec{v_g}}{\dif t} = \p{\p{g - \dfrac{N}{m}}\sin{\theta} -\dfrac{T}{m}\cos{\theta}}\vec{u_r} + \p{\p{g - \dfrac{N}{m}}\cos{\theta} +\dfrac{T}{m}\sin{\theta}}\vec{u_\theta}\]
+        }
+        %
+        \yesbefore
+        
+        \item Exprimer le théorème du moment cinétique pour la tartine, en projection sur l'axe $\p{Oy}$. Le \emph{coefficient de surplomb} étant défini par $\eta = \dfrac{\delta}{a}$ (la distance $\delta$ est appelée \emph{distance de surplomb}), en déduire la relation (qui définit, au passage, la vitesse angulaire $\omega_0$) :
+        %
+        \begin{equation}
+            \label{eq:eq1}
+            \omega^2 = \dfrac{6\eta g}{a\p{1+3\eta^2}}\sin \theta = {\omega_0}^2 \sin \theta
+        \end{equation}
+        
+        \noafter
+        %
+        \boxans{
+            On applique \emph{le théorème du moment cinétique} pour le solide $\ens{\text{tartine}}$ en rotation autour de l'axe $\p{Oy}$. Les droites d'action des forces $\vec{N}$ et $\vec{T}$ intersectent la droite $\p{Oy}$ donc le moment de ces forces est nul, d'où
+            %
+            \[ J_{Oy}\ddot \theta = \bcM_{Oy}\p{\vec{P}} \eq{\text{(bras de levier)}} -mg\delta \cos{\theta} \qquad\text{donc en multipliant par $\dot \theta$ :}\qquad J_{Oy}\ddot \theta \dot \theta = -mg\delta \cos{\theta}\dot \theta\]
+            %
+            Ce qui revient à $J_{Oy} \dfrac{\dif}{\dif t}\p{\dfrac{1}{2}\omega^2} = mg\delta \dfrac{\dif}{\dif t}\p{\vphantom{\dfrac{1}{2}}\sin{\theta}}$, donc en intégrant :\qquad  $\dfrac{J_{Oy}}{2}\omega^2 = mg\delta \sin{\theta} + C$. 
+            
+            À l'instant initial, $t = 0$, on a $\theta = 0$ et $\omega = 0$ d'où $C = 0$. On obtient donc
+            %
+            \[ \p{a^2 + 3\delta^2}\omega^2 = 6g\delta \sin \theta \qquad\text{donc}\qquad \p{1 + 3\eta^2}\omega^2 = \dfrac{6\eta g}{a}\sin \theta\]
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On obtient bien la relation (\ref{eq:eq1}).
+        }
+        %
+        \yesbefore
+        
+        \item Retrouver la relation (\ref{eq:eq1}) par des considérations énergétiques.
+        
+        \noafter
+        %
+        \boxans{
+            Le \emph{théorème de la puissance cinétique} pour le solide $\ens{\text{tartine}}$ en rotation autour de l'axe $\p{Oy}$ livre
+            %
+            \[ \dfrac{\dif E_\text c}{\dif t} = \sum_i \bcP\p{\vec F_{ext \to i}} = \sum_i \bcM_{Oy}\p{\vec F_{ext \to i}} \dot \theta = \p{\bcM_{Oy}\p{\vec N} + \bcM_{Oy}\p{\vec T} + \bcM_{Oy}\p{\vec P}}\dot \theta\]
+            %
+            Pour les mêmes raisons qu'à la question précédente, on obtient $\dfrac{\dif E_\text c}{\dif t} = -mg\delta\cos{\theta}\dot \theta$. Or $E_\text c = \dfrac{1}{2}J_{Oy}\dot \theta^2$ donc
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            on se ramène à la question précédente.
+        }
+        %
+        \yesbefore
+    \end{enumerate}
+    
+    \subsection{Chute de la tartine}
+    
+    La tartine quitte la table à un instant pris comme origine des temps, l'angle $\theta$ vaut alors $\dfrac{\pi}{2}$. La vitesse angulaire initiale est ainsi $\omega_0$.
+    
+    \begin{enumerate}[resume]
+        \item Quelle est la loi d'évolution ultérieure de l'angle $\theta$ (on suppose, bien entendu, que le mouvement reste plan et qu'il n'y a pas de contact ultérieur avec la table) ? On suposera que l'on peut appliquer le théorème du moment cinétique en $G$ comme si $G$ était fixe.
+        
+        \noafter
+        %
+        \boxans{
+            On néglige les frottements de l'air. La seule force s'exerçant désormais sur le système est le poids $\vec{P}$, qui n'a pas changé d'expression. On applique de même le \emph{théorème du moment cinétique} sur le solide en rotation, cette fois-ci autour de l'axe $\p{Gy}$ : en effet, la masse du solide étant répartie de manière homogène, le centre de gravité est situé au milieu. On peut donc s'en servir pour étudier la rotation (\ie l'angle $\theta$). Puisque la droite d'action de $\vec{P}$ passe par $G$, son moment est nul, on a donc :
+            %
+            \[ J_{Gy}\ddot \theta = 0 \qquad\text{donc}\qquad \ddot \theta = 0\qquad\text{donc}\qquad \dot \theta = \omega = C\]
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Ainsi la vitesse angulaire est constante et égale à $C = \omega = \omega_0$. En intégrant, $\theta = \omega_0t + D$. La condition initiale à l'instant initial livre $\theta = \omega_0t + \dfrac{\pi}{2}$.
+        }
+        %
+        \yesbefore
+        
+        \item On considère que, lorsque la tartine atteint le sol, à l'instant $\tau$, elle ne subit pas de rebond et que toute son énergie cinétique devient négligeable. Quel est l'angle limite $\theta_1$ tel que la tartine atterrisse côté pain, en admettant qu'elle fasse moins d'un tour avant de toucher le sol ?
+        
+        \boxansconc{
+            Le cas limite est $\theta_1 = \dfrac{\pi}{2}$ (la tartine atterrit sur l'arrête mesurant son épaisseur).
+        }
+        
+        \item On suppose $\eta \ll 1$. Montrer qu'un ordre de grandeur de $\tau$ peut s'écrire $\tau \geq \tau_\text{min} = \sqrt{\dfrac{2\p{h-a}}{g}}$.
+        
+        Calculer $\tau_\text{min}$ pour $2a = \qty{10}{\cm}$, $h = \qty{75}{\cm}$ et $g = \qty{9,8}{\m \per \second \squared}$. Quelle est la chance de rattraper la tartine avant qu'elle n'atteigne le sol ?
+
+        
+        \noafter
+        %
+        \boxans{
+            Si $\eta \ll 1$, on a $\omega = \omega_0 \ll 1$ donc la tartine ne tourne presque pas. On peut donc l'assimiler au un point matériel $G$ de masse $m$, à ceci près qu'il atteint le sol non pas en $z = h$ mais $z = h - a$. Celui-ci est soumis au poids $\vec P = mg\vec{u_z}$. On néglige les frottements de l'air. Le \emph{principe fondamental de la dynamique} selon $\p{Oz}$ livre $m\ddot z = mg$, soit $\ddot z = g$. donc en intégrant deux fois $z\p{t} = \dfrac{1}{2}gt^2 + At + B$. Les conditions initiales $z\p{0} = 0$ et $\dot z\p{0} = 0$ livrent $A = B = 0$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+             On a donc $z\p{\tau_\text{min}} =\dfrac{1}{2}g{\tau_\text{min}}^2 = h - a$. On obtient bien $\tau_\text{min} = \sqrt{\dfrac{2\p{h-a}}{g}}$. L'application numérique livre $\tau_\text{min} = \qty{0.38}{\second}$, ce qui laisse très peu de chance de rattraper la tartine.
+        }
+        %
+        \yesbefore
+        
+        \item Quelle est le valeur minimale $\eta_\text{min}$ de $\eta$ permettant à la tartine d'atterrir côté pain ?
+        
+        On pourra poser $\alpha = \dfrac{\pi^2}{12\p{\frac{h}{a} - 2}}$. Dans les circonstances courantes, le coefficient de surplomb $\eta$ ne dépasse guère $0,02$. Qu'en déduit-on sur la chute de la tartine ?
+        
+        \noafter
+        %
+        \boxans{
+            À première approximation, on prendra $\tau = \tau_\text{min}$. On veut $\theta\p{\tau_\text{min}} \geq \dfrac{\pi}{3}$, donc avec $\eta_\text{min}$, on veut $\omega\tau_\text{min} = \pi$.
+            %
+            \[ \sqrt{\dfrac{2\p{h-a}g\times 6\eta_\text{min}}{ga\p{1 + 3\eta_\text{min}^2}}} = \pi \qquad\text{donc}\qquad \dfrac{12\p{h-a}}{a}\dfrac{\eta_\text{min}}{1+3\eta_\text{min}^2} = \pi^2 \qquad\text{donc}\qquad \dfrac{\eta_\text{min}}{1+3\eta_\text{min}^2} = \alpha\]
+            %
+            On cherche $\eta_\text{min}$ petit, et pour $x$ petit on a $\dfrac{x}{1+3x^2} \approx x$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a donc $\eta_\text{min} \approx \alpha$. L'application numérique donne $\eta_\text{min} \approx 0,063$. On en déduit que la tartine tombe presque toujours du côté tartiné.
+        }
+        %
+        \yesbefore
+        
+        \item Comment les considérations précédentes seraient-elles modifiées sur la planète Mars, où le champ de pesanteur vaut $g_\text{Mars} = \qty{3,7}{\m \per \second \squared}$ ?
+        
+        \boxansconc{
+            L'expression de $\eta_\text{min} \approx \alpha$ ne dépend pas de $g$. Pour le même dispositif (même table, même hauteur, même tartine, \dots), les considérations précédentes ne sont pas modifiées sur Mars.
+        }
+        
+        \item Il est raisonnable de penser que la hauteur d'un éventuel organisme humanoïde marchant sur deux jambes est conditionnée par la valeur du champ de pesanteur de la planète où il vit (par exemple, la hauteur maximale serait celle au-delà de laquelle une chute sur la tête serait certainement mortelle). Sous l'hypothèse que cet humanoïde aurait la même constitution que les Terriens (même résistance de la boîte crânienne, par exemple), quel serait l'ordre de grandeur de sa taille ? Un martien vérifierait-il lui aussi, sous les mêmes hypothèses, que sa tartine beurrée tombe presque toujours sur le côté tartiné ?
+        
+        \boxansconc{
+            On peut supposer que les \guill{hauteurs} sur une planète où règne un champ de pesanteur $g_\text{planète}$ sont multiples de celles sur Terre par un coefficient de proportionnalité $\dfrac{g}{g_\text{planète}}$. Puisque la taille caractéristique d'un humain sur Terre est de $\qty{1,8}{\m}$, celle d'un martien serait donc $\qty{4,8}{\m}$. Dans la situation étudiée, la table serait de hauteur $h = \qty{2,0}{\m}$. L'application numérique livre alors $\alpha \approx 0,022$. Il semble donc que la tartine du martien tombe majoritairement sur le côté beurré, mais que le cas où elle tombe du \guill{bon} côté soit bien plus probable que sur Terre.
+        }
+        
+        \item L'hypothèse de rotation complète sans glissement jusqu'à $\theta = \dfrac{\pi}{2}$ peut certainement être mise en question. Comment le glissement affecte-t-il le temps de chute ? La possibilité de voir atterrir la tartine du bon côté (c'est-à-dire, conventionnellement, le côté non beurré) s'en trouve-t-elle augmentée ou diminuée ?
+        
+        \boxansconc{
+            Puisque la tartine glisse en diagonale (\cf figure \ref{fig:fig2}), elle se rapproche du sol, ce qui réduit son temps de chute. De plus, plus $\theta$ est faible lorsque le contact cesse, plus $\omega$ lors de la chute sera faible (par croissance de $\sin \theta$). La tartine chute donc pendant moins longtemps en tournant plus lentement, donc $\theta$ a  plus de chance d'être dans l'intervalle $\intor{0, \dfrac{\pi}{2}}$, \ie il y a plus de chance de tomber du \guill{bon} côté.
+        }
+    \end{enumerate}
+    
+    \newpage
+    
+    \section{Deuxième problème}
+    
+    \begin{minipage}{0.6\linewidth}
+        On considère un tapis roulant entraîné à la vitesse constante horizontale $V = \qty{0,5}{\meter\per\second}$. Une masse $M = \qty{1}{\kg}$ est posée sur le tapis ; cette masse est reliée par un ressort de raideur $k = \qty{10}{\newton \per \meter}$ à un support fixe dans le référentiel d'étude, supposé galiléen (\cf figure \ref{fig:fig3}). Le coefficient de frottement statique de la masse sur le tapis est $f = 0,3$. Le coefficient de frottement dynamique est supposé nul, c'est-à-dire que lorsque la masse glisse sur le tapis, elle le fait sans frottement. l'accélération de la pesanteur est notée $g = \qty{10}{\meter \per \second \squared}$.
+    \end{minipage}
+    %
+    \begin{minipage}{0.4\linewidth}
+        \begin{center}
+            \begin{tikzpicture}
+                \draw[smooth,decorate,decoration={coil,aspect=0.6,segment length=1.7mm,amplitude=1mm}] (-0.5,0.55)--(0.9,0.55);
+                
+                \draw[black,fill=main3!20] (0, 0) circle[radius=0.2];
+                \draw[black,fill=main3!20]  (0.5, 0) circle[radius=0.2];
+                \draw[black,fill=main3!20]  (1, 0) circle[radius=0.2];
+                \draw[black,fill=main3!20]  (1.5, 0) circle[radius=0.2];
+                \draw[black,fill=main3!20]  (2, 0) circle[radius=0.2];
+                \draw[black,fill=main3!20]  (2.5, 0) circle[radius=0.2];
+                \draw[black,fill=main3!20]  (3, 0) circle[radius=0.2];
+                \draw[black,fill=main3!20] (3.5, 0) circle[radius=0.2];
+                \draw[black,fill=main3!20] (4, 0) circle[radius=0.2];
+                
+                \fill [pattern=north east lines] (-1,-0.2) rectangle (-0.5,1.8);
+                
+                \draw (-0.5, -0.2) --++(0, 2);
+                
+                \draw[black,fill=main1!10] (0.9, 0.2) rectangle (1.6, 0.9) node[pos=.5] {$m$};
+                
+                \draw (0, 0.2) -- (4, 0.2);
+                \draw[densely dotted] (0, -0.2) -- (4, -0.2);
+                
+                \draw[main3, very thick, ->] (2.4, 0.2) --++(0.975, 0) node[label={[font=\footnotesize]north:$\vec{V}$}] {};
+            \end{tikzpicture}
+        \end{center}
+        
+        \captionof{figure}{Dispositif}
+	    \label{fig:fig3}
+    \end{minipage}
+    
+     À l'instant initial, la masse est immobile par rapport au tapis, et le ressort a une tension nulle. On repère la position de la masse par le paramètre $x$. La position initiale est prise comme origine.
+    
+    \begin{enumerate}
+        \item Étudier le mouvement de $M$ en distinguant des phases de glissement et de non glissement. On étudiera la phase transitoire entre $t = 0$ et $t_1$ après avoir justifié que $M$ ne glisse pas, puis la phase $1$ entre $t_1$ et $t_2$ où la masse $M$ glisse, et enfin la phase $2$ entre $t_2$ et $t_1 + \tau$.
+        
+        \noafter
+        %
+        \boxans{
+            On considère le repère direct et supposé galiléen $R\p{O, \vec{u_x}, \vec{u_y}, \vec{u_z}}$ où $O$ est la position initiale de la masse, l'axe $\p{Ox}$ est dirigé dans le sens d'entraînement du tapis et l'axe $\p{Oz}$ est dirigé dans le sens du champ de pesanteur $\vec{g}$. Le système $\ens{M}$ est soumis :
+            %
+            \begin{enumerate}
+                \itt au poids $\vec{P} = M\vec{g} =  Mg\vec{u_z}$ ;
+                
+                \itt à la tension du ressort $\vec{R} = -kx\vec{u_x}$ (loi de \textsc{Hooke}) ;
+                
+                \itt à la réaction du tapis roulant, de composante normale $\vec{N} = -N\vec{u_z}$ et tangentielle $\vec{T} = -T\vec{u_x}$.
+            \end{enumerate}
+            %
+            Puisque le mouvement se fait uniquement selon l'axe $\p{Ox}$, on en déduit que les forces selon l'axe $\p{Oz}$ se compensent, et donc que $\vec{P} + \vec{N} = \vec{0}$, ce qui revient à $N = Mg$. Sur l'axe $\vec{Ox}$, le \emph{principe fondamental} livre :
+            %
+            \[ M\ddot x = -T - kx\]
+            %
+            Supposons qu'il y a non-glissement, la vitesse de glissement $v_g = V - \dot x$ est donc nulle, et donc $\dot x = V$. On en déduit que $\ddot x = 0$, donc $T = -kx$. L'hypothèse de non glissement est donc vérifiée à l'instant initial $t = 0$, puisque $T = 0$ donc $\norm{\vec{T}} = k\mod{x} = 0$, donc $\norm{\vec T} \leq f\norm{\vec N}$. Soit $t_1$ l'instant limite vérifiant l'hypothèse \ie
+            %
+            \[ \forall t \in \intc{0, t_1},\qquad \norm{\vec T} \leq f\norm{\vec N} \et \dot x\p{t} = V \qquad\qquad\text{avec}\qquad \norm{\vec{T}\p{t_1}} = f\norm{\vec N} = fN\]
+            %
+            Pour $t \in \intc{0, t_1}$, la vitesse est constante égale à $\dot x = V$, et avec la condition initiale $x\p{0} = 0$, on a $x\p{t} = Vt$.
+            %
+            Donc $\norm{\vec{T}\p{t_1}} = k\mod{x\p{t_1}} = kVt_1$. On a donc $kVt_1 = Mfg$, d'où $t_1 = \dfrac{Mfg}{Vk}$.
+        }
+        %
+        \nobefore
+        %
+        \boxansconc{
+             Application numérique : la masse $M$ avance donc sans glissement, à vitesse constante $V$, pendant la phase transitoire $t \in \intc{0, t_1}$ de durée $t_1 = \qty{0,60}{\second}$ jusqu'à la position $x\p{t_1} = \qty{30}{\cm}$.
+        }
+        %
+        \boxans{
+            En $t_1$, on a $T = \norm{\vec T} = f\norm{\vec N} = fMg$, on est donc en situation de glissement. On suppose cette hypothèse vérifiée jusqu'à un instant $t_2 > t_1$. Le \emph{principe fondamental de la dynamique} livre
+            %
+            \[ M\ddot x = - T - k x \qquad\text{donc}\qquad \ddot x + \dfrac{k}{M}x = -fg \qquad \ddot x + {\omega_0}^2 x =  {\omega_0}^2x_\text{eq}\]
+            %
+            où $\omega_0 = \sqrt{\dfrac{k}{M}}$ et $x_\text{eq} = -\dfrac{Mfg}{k} = -x\p{t_1}$. On résout en $x\p{t} = A\cos{\omega_0\p{t - t_1}} + B\sin{\omega_0 \p{t - t_1}} + x_\text{eq}$.
+            
+            Pour $t = t_1$, $x\p{t_1} = A + x_\text{eq} = A - x\p{t_1}$ d'où $A = 2x_\text{eq}$. On dérive
+            %
+            \[ \dot x\p{t} = B\omega_0\cos{\omega_0\p{t - t_1}} - 2x_\text{eq}\omega_0\sin{\omega_0\p{t - t_1}} \]
+            %
+            En $t = t_1$, on a toujours $\dot x = V$ donc $B\omega_0 = V$ d'où $B = \dfrac{V}{\omega_0} = V\sqrt{\dfrac{M}{k}}$. La vitesse de glissement est donc
+            %
+            \[ v_g\p{t} = V\p{1 - \cos{\omega_0\p{t-t_1}}} - 2x_\text{eq}w_0\sin{w_0\p{t - t_1}}\]
+            %
+            le cas limite est atteint pour $t_2 > t_1$ minimal tel que $v_g\p{t_2} = 0$, soit 
+            %
+            \[ \dfrac{1 - \cos{\omega_0\p{t_2-t_1}}}{\sin{w_0\p{t_2 - t_1}}} = \dfrac{2x_\text{eq}w_0}{V} \qquad\text{donc}\qquad \tan{\dfrac{\omega_0}{2}\p{t_2 - t_1}} = \dfrac{2x_\text{eq}w_0}{V}\]
+            %
+            On a donc $\dfrac{\omega_0}{2}\p{t_2 - t_1} = \arctan{\dfrac{2x_\text{eq}w_0}{V}} + \pi$ donc finalement $t_2 = t_1 + \dfrac{2}{\omega_0}\p{\arctan{\dfrac{2x_\text{eq}w_0}{V}} + \pi}$. De plus :
+            %
+            \[ x\p{t_2} = x_\text{eq}\p{1 - 2\cos{2\arctan{\dfrac{2x_\text{eq}\omega_0}{V}}}} + \dfrac{V}{\omega_0}\sin{2\arctan{\dfrac{2x_\text{eq}\omega_0}{V}}} \eq{\text{après simplification}} 3x_\text{eq}\]
+        }
+        %
+        \boxansconc{
+             Application numérique : la masse $M$ avance avec glissement pendant la première phase $t \in \intc{t_1, t_2}$ avec $t_2 = \qty{1,76}{\second}$ jusqu'à la position $x\p{t_2} = \qty{-90}{\cm}$.
+        }
+        %
+        \boxans{
+            À partir de $t_2$, on revient à l'hypothèse de non-glissement (on a bien $v_g\p{t_2} = 0$). Similairement, soit $t_3$ telle que l'hypothèse de non-glissement est vérifiée pour $t \in \intc{t_2, t_3}$. Comme pour la phase transitoire, on obtient $\dot x = V$, donc $x\p{t} = V\p{t - t_2} + 3x_\text{eq}$. On exprime de même $t_3$ : on a 
+            %
+            \[ \norm{\vec{T}\p{t_3}} = Mfg = k\mod{x\p{t_3}} = k\p{V\p{t_3 - t_2} + 3x_\text{eq}} \qquad\text{donc}\qquad t_3 = \dfrac{1}{V}\p{\dfrac{Mfg}{k} - 3x_\text{eq}} + t_2 = \dfrac{4Mfg}{Vk} + t_2\]
+            %
+            On obtient également que :
+            %
+            \[ x\p{t_3} = 4\dfrac{Mfg}{k} + 3x_\text{eq} = -4x_\text{eq} + 3x_\text{eq} = -x_\text{eq} = x\p{t_1}\]
+        }
+        %
+        \yesafter
+        %
+        \boxansconc{
+             Application numérique : la masse $M$ avance sans glissement pendant la deuxième phase $t \in \intc{t_é, t_3}$ avec $t_3 = \qty{4,2}{\second}$ jusqu'à la position $x\p{t_3} = x\p{t_1} = \qty{30}{\cm}$.
+        }
+        %
+        \yesbefore
+        
+        \item Justifier que le mouvement est ensuite périodique de période $\tau$. Donner l'expression de $\tau$ en fonction des paramètres du problème puis donner sa valeur numérique.
+        
+        \noafter
+        %
+        \boxans{
+            On remarque que la situation en $t_1$ est exactement égale à celle en $t_3$ : $x\p{t_1} = x\p{t_3}$, $\dot x\p{t_1} = \dot x\p{t_3}$, limite de la situation de de glissement avec $\norm{\vec{T}\p{t_1}} = \norm{\vec{T}\p{t_3}} = f\norm{\vec{N}}$, \dots. Il est donc évident que la première phase $t \in \intc{t_1, t_2}$ va se répéter pour $t \in \intc{t_3, t_3 + t_2 - t_1}$ et de même pour la deuxième phase pour $t \in \intc{t_3 + t_2 - t_1, 2t_3 - t_1}$, et ainsi de suite. On a donc un mouvement périodique de période
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            \[ \tau = t_3 - t_1 = 2\sqrt{\dfrac{M}{k}}\p{\dfrac{2fg}{V}\sqrt{\dfrac{M}{k}} - \arctan{\dfrac{2fg}{V}\sqrt{\dfrac{M}{k}}} + \pi}\]
+            %
+            L'application numérique livre $\tau = \qty{3.6}{\second}$.
+            %
+            \begin{center}
+                \begin{tikzpicture}
+                    \begin{axis}[
+                        clip                =   false,
+                        axis lines          =   middle,
+                        minor tick num      =   4,
+                        domain              =   0:53,
+                        %xtick distance      =   1,
+                        %ytick distance      =   1,
+                        trig format plots   =   rad,
+                        trig format         =   rad,
+                        xlabel              =   {$t$},
+                        ylabel              =   {$x$},
+                        xmin                =   0,
+                        xmax                =   10,
+                        ymin                =   -1,
+                        ymax                =   0.5,
+                        width               =   15cm,
+                        height              =   8cm,
+                        grid                =   none,
+                        xtick               =   {0.6, 1.76, 4.16, 7.71},
+                        ytick               =   {},
+                        xticklabels         =   {$t_1$, $t_2$, $t_1 + \tau$, $t_1 + 2\tau$},
+                        yticklabels         =   {}
+                    ]
+                        
+                        \addplot[color=main3,samples=500,smooth,domain=0.6:1.76] {0.6*cos(3.16*(\x-0.6))+0.16*sin(3.16*(\x-0.6))-0.3};
+                        
+                        \addplot[densely dotted,color=main3,samples=500,smooth,domain=0:0.6] {0.5*\x};
+                        
+                        \addplot[color=main3,samples=500,smooth,domain=1.76:4.16] {0.5*\x-1.78};
+                        
+                        %Deux
+                        
+                        \addplot[color=main3,samples=500,smooth,domain=4.16:5.31] {0.6*cos(3.16*(\x-4.16))+0.16*sin(3.16*(\x-4.16))-0.3};
+                        
+                        \addplot[color=main3,samples=500,smooth,domain=5.31:7.71] {0.5*(\x-3.56)-1.78};
+                        
+                        %Deux
+                        
+                        \addplot[color=main3,samples=500,smooth,domain=7.71:8.87] {0.6*cos(3.16*(\x-7.71))+0.16*sin(3.16*(\x-7.71))-0.3};
+                        
+                        \addplot[color=main3,samples=500,smooth,samples=500,smooth,domain=8.87:10] {0.5*(\x-7.12)-1.78};
+                        \legend{$x\p{t}$}
+                    \end{axis}
+                \end{tikzpicture}
+            \end{center}
+        }
+        %
+        \nobefore
+        
+        \item Faire une simulation \texttt{python} pour tracer $x\p{t}$ pour $t$ compris entre $0$ et $2\tau + t_1$.
+        
+        \begin{python}
+import scipy.integrate as sp
+import numpy as np
+from matplotlib import pyplot as plt
+
+V, M, k, f, g, Olim = 0.5, 1, 10, 0.3, 10, 1e-5
+
+
+def @x_fun@(x, t):
+    return x[1], 0 if k * x[0] - f * M * g < Olim < x[1] - V@@\ @@
+        else -k / M * x[0] - f * g
+
+
+t = np.linspace(0, 7.71, 1000)  # 7.71 = 2tau + t_1
+plt.plot(t, sp.odeint(x_fun, (0, V + 2 * Olim), t)[:, 0])
+plt.legend(["Simulation de x"], loc='upper right')
+        \end{python}
+    \end{enumerate}
+    
+    \newpage
+    
+    \section{Troisième problème}
+    
+    \begin{enumerate}
+        \item Au cours d'une réaction chimique complète, la masse des produits formés est-elle supérieure, égale ou inférieure à la masse des réactifs ?
+        
+        \boxansconc{
+            Dans le cas où les réactifs sont présents en proportions st\oe{}chiométriques, ils sont entièrement consommés puisque la réaction est complète ; la masse des produits est donc exactement égale à la masse des réactifs. Dans le cas opposé, il y a disparition d'un réactif (réaction complète), mais pas de tous, ainsi la masse des produits est inférieure à celle des réactifs.
+        }
+        
+        \item Combien de molesd'eau sont contenues dans un litre d'eau ?
+        
+        \noafter
+        %
+        \boxans{
+            Soit $n$ la quantité recherchée. On a $\bbM\p{\text H_2\text O} = \qty{18}{\g \per \mol}$ la masse molaire de l'eau, avec $\bbM\p{\text H_2\text O} = \dfrac{m}{n}$ avec $m$ la masse du litre d'eau, donc $n = \dfrac{m}{\bbM\p{\text H_2\text O}}$. De plus, la masse volumique de l'eau est $\rho = \qty{1,0}{\kg \per \l}$ avec $\rho = \dfrac{m}{V}$ avec $V = \qty{1,0}{L}$ le volume du litre d'eau, soit $m = \rho V$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a donc $n = \dfrac{\rho V}{\bbM\p{\text H_2\text O}}$. L'application numérique livre $n = \qty{56}{\mol}$.
+        }
+        %
+        \yesbefore
+        
+        \item Quel volume de dioxygène et de dihydrogène gazeux récupère-t-on lors de la décomposition d'une mole d'eau dans les conditions normales de température et de pression ?
+        
+        \noafter
+        %
+        \boxans{
+            On a la transformation $2{\text H_2\text O}_\text{(aq)} \xrightarrow{\hspace{0.4cm}} 2{\text H_2}_\text{(g)} + {\text O_2}_\text{(g)}$. Pour $n_{\text H_2\text O} = \qty{1}{\mol}$ d'eau, on obtient donc $n_{\text H_2} = \qty{1}{\mol}$ de dihydrogène et $n_{\text O_2} = \qty{0,5}{\mol}$ de dioxygène. La \emph{loi des gaz parfaits} livre $V_i = n_i \dfrac{RT_0}{P_\text{atm}}$ avec la pression atmosphérique $P_\text{atm} = \qty{1,0e5}{\Pa}$ et la température ambiante $T_0 = \qty{273,15}{\K}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            L'application numérique livre $V_{\text H_2} = \qty{23}{\L}$ et $V_{\text O_2} = \qty{11}{\L}$.
+        }
+        %
+        \yesbefore
+        
+        \item Calculer le nombre de molesde dihydroxyde de calcium $\text{Ca}\p{\text O \text H}_2$ dans $\qty{10}{\g}$.
+        
+        \noafter
+        %
+        \boxans{
+            La masse molaire du dihydroxyde de calcium est :
+            %
+            \[ \bbM\p{\text{Ca}\p{\text O \text H}_2} = \bbM\p{\text{Ca}} + 2\times \bbM\p{\text{OH}} = \bbM\p{\text{Ca}} + 2\p{\bbM\p{\text O} + \bbM\p{\text H}} = 40 + 2\p{16 + 1} = \qty{74}{\g \per \mol}\]
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a $n = \dfrac{m}{\bbM\p{\text{Ca}\p{\text O \text H}_2}}$. L'application numérique livre $n = \qty{0,14}{\mol}$.
+        }
+        %
+        \yesbefore
+        
+        \item Des sciures de bois constituées de carbone s'enflamment à l'air libre pour donner du dioxyde de carbone. Écrire l'équation de la réaction que l'on suppose totale. Quelle masse d'oxygène faut-il pour la combustion de $\qty{24}{\g}$ de carbone ?
+        
+        \noafter
+        %
+        \boxans{
+            On a la réaction $\text C_\text{(s)} + {\text O_2}_\text{(g)} \xrightarrow{\hspace{0.4cm}} {\text C\text O_2}_\text{(g)}$. Soit $m_{\text O_2}$ la masse recherchée. On a $m_{\text O_2} = \bbM\p{\text O_2}n_{\text O_2}$. Or d'après les coefficients st\oe{}chiométriques de l'équation de réaction, $n_{\text O_2} = n_{\text C}$, où $n_{\text C} = \dfrac{m_\text C}{\bbM\p{\text C}}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a donc $m_{\text O_2} = m_\text C \dfrac{\bbM\p{\text O_2}}{\bbM\p{\text C}}$. L'application numérique livre $m_{\text O_2} = \qty{64}{\g}$.
+        }
+        %
+        \yesbefore
+        
+        \item L'électrolyse du chlorure de sodium fondu $\text{NaCl}$ donne du dichlore gazeux $\text{Cl}_2$ et du sodium $\text{Na}$. Écrire et équilibrer l'équation bilan de la réaction que l'on suppose totale. On a obtenu $V_{\text{Cl}_2} = \qty{56}{\L}$ de dichlore à l'anode, volume mesuré dans les conditions normales de température et de pression. Calculer le nombre de moles de dichlore obtenu, la masse du dichlore obtenu, et la masse de chlorure de sodium utilisé.
+        
+        \noafter
+        %
+        \boxans{
+            On a la réaction $2\text{NaCl}_\text{(aq)} \xrightarrow{\hspace{0.4cm}} 2\text{Na}_\text{(s)} + {\text{Cl}_2}_\text{(g)}$. La \emph{loi des gaz parfaits} livre $n_{\text{Cl}_2} = V_{\text{Cl}_2}\dfrac{P_\text{atm}}{RT_0}$. On obtient alors la masse $m_{\text{Cl}_2}$ de dichlore, avec $m_{\text{Cl}_2} = n_{\text{Cl}_2}\bbM\p{\text{Cl}_2} = 2n_{\text{Cl}_2}\bbM\p{\text{Cl}}$.
+            
+            Les coefficients st\oe{}chiométriques de l'équation de réaction livrent $n_{\text{NaCl}} = 2n_{\text{Cl}_2}$, donc
+            %
+            \[ m_{\text{NaCl}} = 2n_{\text{Cl}_2}\bbM\p{\text{NaCl}} = n_{\text{NaCl}}\p{\bbM\p{\text{Cl}} + \bbM\p{\text{Cl}}} \]
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Les applications numériques livrent $n_{\text{Cl}_2} = \qty{2,47}{\mol}$, $m_{\text{Cl}_2} = \qty{175}{\g}$ et $m_{\text{NaCl}} = \qty{289}{\g}$.
+        }
+        %
+        \yesbefore
+        
+        \item L'action de l'acide chlorhydrique sur le fer donne la réaction suivante :
+        %
+        \[ \phantom{2}\text{HCl} + \phantom{1}\text{Fe} \xrightarrow{\hspace{0.4cm}} \phantom{1}\text{FeCl}_2 + \phantom{1}\text H_2\]
+        %
+        Équilibrer l'équation bilan. Quelle masse de fer faut-il pour obtenir un dégagement de $V_{\text H_2} = \qty{15}{\L}$ de dihydrogène dans les conditions normales de température et de pression ? Quelle masse de fer entre en réaction avec $m_\text{HCl} = \qty{1,46}{\kg}$ d'acide chlorhydrique ?
+        
+        \noafter
+        %
+        \boxans{
+            On a l'équation bilan $2\text{HCl} + \text{Fe} \xrightarrow{\hspace{0.4cm}} \text{FeCl}_2 + \text H_2$. Soit $m_\text{Fe}$ la masse de fer recherchée. On a $m_\text{Fe} = n_\text{Fe}\bbM\p{\text{Fe}}$, et d'après l'équation $n_\text{Fe} = n_{\text H_2}$. La \emph{loi des gaz parfaits} livre $n_{\text H_2} = V_{\text H_2}\dfrac{P_\text{atm}}{RT_0}$. On a donc $m_\text{Fe} = \bbM\p{\text{Fe}}V_{\text H_2}\dfrac{P_\text{atm}}{RT_0}$.
+            
+            Pour la deuxième situation, on a $n_\text{HCl} = 2n_\text{Fe}$, et $n_\text{HCl} = \dfrac{m_\text{HCl}}{\bbM\p{\text{HCl}}}$ d'où 
+            %
+            \[ m_\text{Fe}' = m_\text{HCl}\dfrac{\bbM\p{\text{Fe}}}{2\bbM\p{\text{HCl}}} = m_\text{HCl}\dfrac{\bbM\p{\text{Fe}}}{2\p{\bbM\p{\text H} + \bbM\p{\text{Cl}}}}\]
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            L'application numérique livre $m_\text{Fe} = \qty{37}{\g}$ et $m_\text{Fe}' = \qty{1,12}{\kg}$.
+        }
+        %
+        \yesbefore
+        
+        \item Équilibrer les réactions suivantes :
+        %
+        \begin{enumerate}
+            \item $\phantom{2}\text H_2\text O \xrightarrow{\hspace{0.4cm}} \phantom{2}\text H_2 + \phantom{1}\text O_2$
+            
+            \boxansconc{
+                \[ 2\text H_2\text O \xrightarrow{\hspace{0.4cm}} 2\text H_2 + \text O_2\]
+            }
+            
+            \item $\phantom{2}\text{HCl} + \phantom{1}\text{CaCO}_3 \xrightarrow{\hspace{0.4cm}} \phantom{1}\text{CaCl}_2 + \phantom{1}\text H_2 \text O + \phantom{1}\text{CO}_2$
+            
+            \boxansconc{
+                \[ 2\text{HCl} + \text{CaCO}_3 \xrightarrow{\hspace{0.4cm}} \text{CaCl}_2 + \text H_2 \text O + \text{CO}_2\]
+            }
+            
+            \item $\phantom{2}\text{CuO} + \phantom{1}\text C \xrightarrow{\hspace{0.4cm}} \phantom{2}\text{Cu} + \phantom{1}\text{CO}_2$
+            
+            \boxansconc{
+                \[ 2\text{CuO} + \text C \xrightarrow{\hspace{0.4cm}} 2\text{Cu} + \text{CO}_2\]
+            }
+            
+            \item $\phantom{1}\text{NaCl} + \phantom{1}\text H_2\text{SO}_4 \xrightarrow{\hspace{0.4cm}} \phantom{1}\text{NaHSO}_4 + \phantom{1}\text{HCl}$
+            
+            \boxansconc{
+                \[ \text{NaCl} + \text H_2\text{SO}_4 \xrightarrow{\hspace{0.4cm}} \text{NaHSO}_4 + \text{HCl}\]
+            }
+            
+            \item $\phantom{2}\text C_2 \text H_2 + \phantom{5}\text O_2 \xrightarrow{\hspace{0.4cm}} \phantom{4}\text{CO}_2 + \phantom{2}\text H_2 \text O$
+            
+            \boxansconc{
+                \[ 2\text C_2 \text H_2 + 5\text O_2 \xrightarrow{\hspace{0.4cm}} 4\text{CO}_2 + 2\text H_2 \text O\]
+            }
+        \end{enumerate}
+        
+        \item L'atome de fer est symbolisé par $\text{Fe}^{56}_{26}$. Indiquer le nombre de protons, le nombre de neutrons et le nombre d'électrons d'un atome de fer. Pour former l'ion $\text{Fe}^{2+}$, l'atome de fer a-t-il perdu ou gagner des électrons ? On plonge $m_\text{Hcl} = \qty{32}{\g}$ de paille de fer dans l'acide chlorhydrique. Équilibrer l'équation bilan de la réaction :
+        %
+        \[ \phantom{1}\text{Fe} + \phantom{2}\text{HCl} \xrightarrow{\hspace{0.4cm}} \phantom{1}\text{FeCl}_2 + \phantom{1}\text H_2\]
+        %
+        Calculer la masse molaire de $\text{FeCl}_2$ et, en supposant la réaction totale, en déduire le nombre de moles de fer que l'on fait réagir et le nombre de moles de $H_\text 2$ que l'on va obtenir.
+        
+        \noafter
+        %
+        \boxansconc{
+            L'atome de fer contient $56$ nucléons, dont $26$ protons et $56 - 26 = 30$ protons. Puisque électriquement neutre, il contient $26$ électrons. L'ion ferreux $\text{Fe}^{2+}$ a une charge positive de $2e$, il a donc perdu deux électrons.
+            
+            La réaction donne :
+            %
+            \[ \text{Fe} + 2\text{HCl} \xrightarrow{\hspace{0.4cm}} \text{FeCl}_2 + 2\text H_2 \]
+            %
+            On a $\bbM\p{\text{FeCl}_2} = \bbM\p{\text{Fe}} + 2\bbM\p{Cl} = \qty{127}{\g \per \mol}$.
+        }
+        %
+        \nobefore
+        %
+        \boxans{
+            On a $n_\text{HCl} = 2n_{\text{Fe}}$ avec $n_\text{HCl} = \dfrac{m_\text{HCl}}{\bbM\p{\text{FeCl}_2}}$ donc $n_\text{Fe} = \dfrac{m_\text{HCl}}{2\bbM\p{\text{FeCl}_2}}$. Par st\oe{}chiométrie on a 
+            %
+            \[ n_{\text H_2} = 2n_\text{HCl} = n_\text{HCl} = \dfrac{m_\text{HCl}}{\bbM\p{\text{FeCl}_2}} \]
+        }
+        %
+        \yesafter
+        %
+        \boxansconc{
+            L'application numérique livre $n_\text{Fe} = \qty{0,13}{\mol}$ et $n_{\text H_2} = \qty{0,25}{\mol}$.
+        }
+    \end{enumerate}
+    
+    \newpage
+    
+    \section{Quatrième problème}
+    
+    On considère la réaction d'oxydation du cuivre métallique par une solution d'acide nitrique. Sa constante d'équilibre, notée $K$, vaut, à $\qty{25}{\celsius}$, $K = \qty{1e63}{}$. L'équation de la réaction est :
+    %
+    \[ 3{\text{Cu}}_\text{(s)} + 8{\text H_3\text O}^+ + 2{\text N\text O_3}^- \xrightleftharpoons{\hspace{0.4cm}} 3{\text{Cu}}^{2+} + 2{\text{NO}}_\text{(g)} + 12{\text H_2 \text O}_\text{($\ell$)}\]
+        
+    À l'instant initial, la solution de volume $V = \qty{500}{\mL}$ contient $n_{\text{Cu}^{2+}}\p{0} = \qty{1.8e-2}{\mol}$ d'ions $\text{Cu}^{2+}$ dissous, une concentration en ions nitrate $\intc{{\text{NO}_3}^-} = \qty{6.0e-2}{\mol \per \L}$ et son pH est de $\qty{2,0}{}$. Un morceau de cuivre de masse $m_\text{Cu} = \qty{12}{\g}$ est plongé dans la solution qui est en contact avec une atmosphère où la pression partielle en monoxyde d'azote est $\qty{12}{kPa}$.
+        
+    \begin{enumerate}
+        \item À quelle condition pourra-t-on considérer que la pression partielle en $\text{NO}$ est constante ?
+            
+        \boxansconc{
+            Si $\text{NO}$ est présent en très grande quantité devant les quantités caractéristiques de la solution, on peut négliger la variation des grandeurs liées à cette espèce durant la transformation. Sous cette hypothèse, la pression partielle en $\text{NO}$ est constante.
+        }
+            
+        \item On considère cette hypothèse réalisée. Déterminer l'état final du système.
+            
+        \noafter
+        %
+        \boxans{
+            À l'état final $t_f$,  $Q\p{t_f} = K \gg 1$, donc la réaction sera considérée comme totale. Déterminons le réactif limitant. Initialement : 
+            %
+            \begin{enumerate}
+                \itt La quantité de matière de cuivre solide est $n_\text{Cu}\p{0} = \dfrac{m_\text{Cu}}{\bbM\p{\text{Cu}}} = \dfrac{12}{63,5} = \qty{0.19}{\mol}$.
+                    
+                \itt La quantité de matière d'ions ${\text H_3 \text O}^+$ est donnée par le pH, puisque :
+                %
+                \[ n_{{\text H_3 \text O}^+}\p{0} = V\intc{{\text H_3 \text O}^+} = VC^\circ10^{-\text{pH}} = \qty{5.0e-3}{\mol}\]
+                    
+                \itt La quantité de matière d'ions nitrate est $n_{{\text{NO}_3}^-}\p{0} = V\intc{{\text{NO}_3}^-} = \qty{3.0e-2}{\mol}$.
+            \end{enumerate}
+            %
+            Avec $\xi_f$ l'avancement final, on obtient que $n_{{\text H_3 \text O}^+}\p{0} - 8\xi_f$ s'annule en premier, donc les ions ${\text H_3 \text O}^+$ sont le réactif limitant. On a $\xi_f = \dfrac{n_{{\text H_3 \text O}^+}\p{0}}{8} = \qty{6.3e-4}{\mol}$ donc :
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            \begin{enumerate}
+                \itt Il reste $n_\text{Cu}\p{t_f} = n_\text{Cu}\p{0} - 3\xi_f = \qty{0.19}{\mol}$ de cuivre solide, et précisément $\qty{11.8095}{\g}$.
+                    
+                \itt Les ions ${\text H_3 \text O}^+$ ont été entièrement consommés.
+                
+                \itt Il reste $n_{{\text{NO}_3}^-}\p{t_f} = n_{{\text{NO}_3}^-}\p{0} - 2\xi_f = \qty{2.9}{\mol}$ d'ions nitrates, soit une concentration de $\qty{5.8}{\mol \per \L}$.
+                
+                \itt Pour les ions $\text{Cu}^{2+}$, on en a finalement $n_{\text{Cu}^{2+}}\p{t_f} = n_{\text{Cu}^{2+}}\p{0} + 3\xi_f = \qty{2,0e-2}{\mol}$.
+            \end{enumerate}
+        }
+        %
+        \yesbefore
+    \end{enumerate}
+    
+    
+\end{document}

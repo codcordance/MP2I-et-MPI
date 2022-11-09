@@ -1,0 +1,61 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{../../Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\thesection}{\Roman{section}}
+    \renewcommand{\labelenumi}{\Roman{section}.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii}.}
+
+    \stylizeDocSpe{Maths}{Brouillon}
+    {Notes variées}{En cours de maths et ailleurs}
+    
+    \begin{definition}{Module de continuité}{}
+        On appelle \hg{module de continuité} la quantité \hg{$\omega\p{\delta} = \sup\limits_{\norm{x - y} \leq \delta} \norm{f\p{x} - f\p{y}}$}.
+    \end{definition}
+    %
+    On notera que $\omega$ est bien défini si $f$ est borné, que $\omega$ est croissante, et qu'on peut donc obtenir :
+    %
+    \[ \norm{f\p{x} - f\p{y}} \leq \omega \p{\norm{x - y}}\]
+    %
+    Enfin, $f$ est uniformément continue si $\omega \lima{\delta \to 0} 0$. Montrons ce dernier point :
+    %
+    \boxansconc{
+        Montrons que $f$ est uniformément continue. Soit $\epsilon > 0$, on peut trouver $\delta$ tel que $\omega\p{\delta} \leq \epsilon$ (puisque $\omega\p{\delta} \lima{\delta \to 0} 0$).
+        
+        Dès lors :
+        %
+        \[ \forall \epsilon \in \bdRp,\qquad \exists \delta \in \bdRp,\qquad \norm{x - y}\leq \delta \implies \norm{f\p{x} - f\p{y}} \leq \omega\p{\norm{x - y}} \leq \epsilon\]
+    }
+    
+    Sommes de \textsc{Riemann}
+    
+    \newpage
+    
+    \section{Homéomorphisme et difféomorphisme}
+    
+    \begin{definition}{Homéomorphisme}{}
+        $f : A \subset E \rightarrow B \subset F$ est un homéomorphisme lorsque :
+        %
+        \[ f \in \bcC^0\p{A, B} \qquad f \ \text{bijective} \qquad f^{-1} \in \bcC^0{B, A}\]
+    \end{definition}
+    
+    \begin{definition}{Difféomorphisme}
+        $f : A \subset E \rightarrow B \subset F$ est un $\bcC^k$-difféomorphisme lorsque :
+        %
+        \[ f \in \bcC^k\p{A, B} \qquad f \ \text{bijective} \qquad f^{-1} \in \bcC^k{B, A}\]
+    \end{definition}
+    
+    \begin{property}{CNS de difféomorphisme}{}
+        $f$ définit un $\bcC^k$-difféomorphisme de $I \rightarrow f\p{I}$ ssi $f \in \bcC^k$ et $f'$ ne s'annule pas
+    \end{property}
+    
+    
+
+\end{document}

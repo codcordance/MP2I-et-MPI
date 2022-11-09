@@ -9,10 +9,12 @@
 \newboxans
 \renewcommand{\questionsdecours}{\section*{\centering\EBGaramond\Large Questions~ de~ cours}}
 \renewcommand{\thechapter}{\Roman{chapter}}
-\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{Exercice \arabic{subsection}}
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{0}
 \mtcsettitle{minitoc}{}
+\setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
 \usepackage{lscape}
 %\renewcommand{\thesection}{\hspace{-11pt}}
 %\renewcommand{\thesubsection}{}
@@ -58,7 +60,7 @@
     \author{SIAHAAN--GENSOLLEN Rémy}
     \date{\today}
     \hypersetup{
-        pdftitle={TD de Physique de MPI/MPI* (2022-2023)},
+        pdftitle={TD d'Informatique de MPI/MPI* (2022-2023)},
         pdfauthor={SIAHAAN--GENSOLLEN Rémy},
         pdflang={fr-FR},
         pdfsubject={MPI/MPI*, TD d'Informatique},
@@ -78,7 +80,7 @@
             spread sidewards    = 5pt,
             halign              = center,
             valign              = center,
-            interior style      = {color=main10!20},
+            interior style      = {color=main3!20},
             arc                 = 0 cm,
             fontupper           = \color{black}\sffamily\bfseries\huge,
             fonttitle           = \normalfont\color{white}\sffamily\small,
@@ -90,7 +92,7 @@
             },
             boxed title style = {
                 frame code={
-                \path[left color=main21!95!gray!90,right color=main21!95!gray!90] 
+                \path[left color=main3!95!gray!90,right color=main3!95!gray!90] 
                     ([xshift=-10mm]frame.north west) -- 
                     ([xshift=10mm]frame.north east) -- 
                     ([xshift=10mm]frame.south east) -- 
@@ -112,7 +114,7 @@
             spread sidewards    = 5pt,
             halign              = center,
             valign              = center,
-            interior style      = {color=main10!20},
+            interior style      = {color=main3!20},
             arc                 = 0 cm,
             outer arc           = 0pt,
             leftrule            = 0pt,
@@ -178,7 +180,7 @@
         \fancyhf{}
         \renewcommand{\headrulewidth}{0pt}
         \renewcommand{\footrulewidth}{0pt}\fancyfoot[RO,LE]{\GillSansMTMedium\color{white5}\thepage\;/\;\pageref{LastPage}}
-        \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries TD DE PHYSIQUE}
+        \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries TD D'INFORMATIQUE}
         \fancyhead[RE]{\GillSansMTMedium\color{white5}Avant-propos}
         \fancyhead[LO]{\GillSansMTMedium\color{white5}\rightmark}
         \fancyhead[RO]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} 2022-2023 \quad Janson-de-Sailly}
@@ -188,7 +190,7 @@
         \fancyhf{}
         \renewcommand{\headrulewidth}{0pt}
         \renewcommand{\footrulewidth}{0pt}\fancyfoot[RO,LE]{\GillSansMTMedium\color{white5}\thepage\;/\;\pageref{LastPage}}
-        \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries TD DE PHYSIQUE}
+        \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries TD D'INFORMATIQUE}
         \fancyhead[RE]{\GillSansMTMedium\color{white5}Table des matières}
         \fancyhead[LO]{\GillSansMTMedium\color{white5}\rightmark}
         \fancyhead[RO]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} 2022-2023 \quad Janson-de-Sailly}
@@ -198,7 +200,7 @@
         \fancyhf{}
         \renewcommand{\headrulewidth}{0pt}
         \renewcommand{\footrulewidth}{0pt}\fancyfoot[RO,LE]{\GillSansMTMedium\color{white5}\thepage\;/\;\pageref{LastPage}}
-        \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries TD DE PHYSIQUE}
+        \fancyhead[LE]{\GillSansMTMedium\color{white5}\bfseries TD D'INFORMATIQUE}
         \fancyhead[RE]{\GillSansMTMedium\color{white5}Chapitre \thechapter : \nouppercase{\leftmark}}
         \fancyhead[LO]{\GillSansMTMedium\color{white5}\nouppercase{\rightmark}}
         \fancyhead[RO]{\GillSansMTMedium\color{white5}\textbf{MPI/MPI*} 2022-2023 \quad Janson-de-Sailly}
@@ -259,19 +261,19 @@
                     level 3/.style = {sibling distance = 2cm},
                 ]
             
-            \node[circle, fill=main21,draw=white,text=white]{$\land$}
+            \node[circle, fill=main3,draw=white,text=white]{$\land$}
                 child {
-                    node[circle, fill=main21,draw=white,text=white]{$\rightarrow$}
+                    node[circle, fill=main3,draw=white,text=white]{$\rightarrow$}
                     child {
-                        node[circle, fill=main21,draw=white,text=white]{$\rightarrow$}
+                        node[circle, fill=main3,draw=white,text=white]{$\rightarrow$}
                         child { node {$x_1$} }
                         child {
-                            node[circle, fill=main21,draw=white,text=white]{$\neg$}
+                            node[circle, fill=main3,draw=white,text=white]{$\neg$}
                             child { node {$x_2$} }
                         }
                     }
                     child {
-                        node[circle, fill=main21,draw=white,text=white]{$\neg$}
+                        node[circle, fill=main3,draw=white,text=white]{$\neg$}
                         child { node {$x_1$} }
                     }
                 }
@@ -293,7 +295,7 @@
                 \CodeBefore
                     \rowcolor{main3!10}{1}
                     \rectanglecolor{main20!15}{2-4}{9-6}
-                    \cellcolor{main21!15}{4-4, 5-4, 2-5, 3-5, 2-6, 3-6, 5-6, 7-6, 9-6}
+                    \cellcolor{main3!15}{4-4, 5-4, 2-5, 3-5, 2-6, 3-6, 5-6, 7-6, 9-6}
                 \Body
                     \toprule
                     $x_1$ & $x_2$ & $x_3$ & $x_1 \rightarrow \neg x_2$ & $\p{x_1 \rightarrow \neg x_2} \rightarrow \neg x_1$ & $\p{\p{x_1 \rightarrow \neg x_2} \rightarrow \neg x_1} \land x_3$ \\ \midrule
@@ -470,7 +472,7 @@
                 \CodeBefore
                     \rowcolor{main3!10}{1}
                     \rectanglecolor{main20!15}{2-3}{5-3}
-                    \cellcolor{main21!15}{3-3}
+                    \cellcolor{main3!15}{3-3}
                 \Body
                     \toprule
                     $x_1$ & $x_2$ & $\neg x_1 \lor \neg x_2$ \\ \midrule
@@ -903,4 +905,733 @@
                 }
         }\]
     \end{landscape}
+
+    \chapter{Langages formels et théorie des automates}
+    
+    \section{Langages réguliers}
+
+    \subsection{Expressions régulières}
+    
+    Soit l'alphabet $\Sigma = \ens{a, b}$. Pour chacune des expressions régulières suivantes, donner deux mots qui sont reconnus par l'expression, et deux mots qui ne sont pas reconnus.
+    
+    \begin{enumerate}
+        \begin{minipage}{0.45\linewidth}
+            \item $a^\star b^\star$
+            
+            \boxansconc{
+                Les mots $aabb$ et $ab$ sont reconnus, les mots $aba$ et $ba$ ne le sont pas.
+            }
+            
+            \item $a\p{ba}^\star b$
+            
+            \boxansconc{
+                Les mots $abab$ et $ab$ sont reconnus, les mots $b$ et $aba$ ne le sont pas.
+            }
+            
+            \item $a^\star \vert b^\star$ 
+            
+            \boxansconc{
+                Les mots $a$ et $b$ sont reconnus, les mots $ab$ et $ba$ ne le sont pas.
+            }
+            
+            \item $\p{aaa}^\star$
+            
+            \boxansconc{
+                les mots $aaa$ et $aaaaaa$ sont reconnus, les mots $a$ et $aa$ ne le sont pas.
+            }
+        \end{minipage}
+        %
+        \hfill
+        %
+        \begin{minipage}{0.45\linewidth}
+            \item $\Sigma^\star a \Sigma^\star b \Sigma^\star a \Sigma^\star$
+            
+            \boxansconc{
+                Les mots $aaabaaa$ et $aba$ sont reconnus, les mots $a$ et $b$ ne le sont pas.
+            }
+            
+            \item $aba \vert bab$
+            
+            \boxansconc{
+                Les mots $aba$ et $bab$ sont reconnus, les mots $a$ et $b$ ne le sont pas.
+            }
+            
+            \item $\p{\epsilon \vert a}b$
+            
+            \boxansconc{
+                Les mots $ab$ et $b$ sont reconnus, les mots $aab$ et $abb$ ne le sont pas.
+            }
+            
+            \item $\p{a \vert ba \vert bb}\Sigma^\star$
+            
+            \boxansconc{
+                Les mots $ab$ et $babb$ sont reconnus, les mots $b$ et $\epsilon$ ne le sont pas.
+            }
+        \end{minipage}
+    \end{enumerate}
+    
+    \subsection{Opérateurs réguliers}
+    
+    Soient $L_1$, $L_2$ et $L_3$ des langages sur un alphabet $\Sigma$. Dire si les égalités suivantes sont vraies ou fausses :
+    
+    \begin{enumerate}
+        \begin{minipage}{0.45\linewidth}
+            \item $\bigcup\limits_{i \in \bdN} L_1^i = L_1^\star$
+            
+            \boxansconc{
+                Vrai si et seulement si $\epsilon \in L_1$.
+            }
+            
+            \item $L_1L_1^\star = L_1^\star \backslash \ens{\epsilon}$
+            
+            \boxansconc{
+                Vrai si et seulement si $\epsilon \in L_1$.
+            }
+            
+            \item $L_1^\star = \ens{\epsilon} L_1L_1^\star$
+            
+            \boxansconc{
+                Vrai.
+            }
+        \end{minipage}
+        %
+        \hfill
+        %
+        \begin{minipage}{0.45\linewidth}
+            \item $\p{L_2L_1}^\star L_2 = L_2\p{L_1L_2}^\star$
+            
+            \boxansconc{
+                Vrai (par récurrence sur $n \in \bdN$)
+            }
+            
+            \item $\p{L_1 \mid L_2}L_3 = \p{L_1L_3} \mid \p{L_2L_3}$
+            
+            \boxansconc{
+                Vrai. \textbf{\sffamily N.B. :} On peut donc distribuer $\cdot$ sur $\vert$.
+            }
+            
+            \item Si $L_1$ et $L_2$ sont finis : $\mod{L_1L_2} = \mod{L_1}\times\mod{L_2}$
+            
+            \boxansconc{
+                Si on prend $L_1 = \ens{ba, baa}$ et $L_2 = \ens{ab, aab}$, on a $L_1L_2 = \ens{baab, baaab, baaaab}$, donc on a un contre-exemple, d'où la formule est fausse.
+            }
+        \end{minipage}
+    \end{enumerate}
+    
+    \subsection{Expressions régulières}
+    
+    Soit l'alphabet $\Sigma = \ens{a, b, c, d}$. Donner une expression régulière décrivant :
+    
+    \begin{enumerate}
+        \item L'ensemble des mots sur l'alphabet $\Sigma$.
+        
+        \boxansconc{
+            Une telle expression serait $\Sigma^\star$ ou encore $\p{a \vert b \vert c \vert d}^\star$.
+        }
+        
+        \item L'ensemble des mots non vides sur l'alphabet $\Sigma$.
+        
+        \boxansconc{
+            Une telle expression serait $\p{a \vert b \vert c \vert d}\cdot\p{a \vert b \vert c \vert d}^\star$.
+        }
+        
+        \item L'ensemble des mots sur $\Sigma$ contenant exactement un $a$ ;
+        
+        \boxansconc{
+            Une telle expression serait $\p{b \vert c \vert d}^\star\cdot a \cdot\p{b \vert c \vert d}^\star$.
+        }
+        
+        \item L'ensemble des mots sur $\ens{a, b}$ contenant toujours un $b$ directement après un $a$.
+        
+        \boxansconc{
+            Une telle expression serait $\p{b^\star\p{ab}^\star}^\star$ ou encore $\p{b \mid ab}^\star$.
+        }
+        
+        \item L'ensemble des mots ne contenant pas de $a$ après le premier $b$.
+        
+        \boxansconc{
+            Une telle expression serait $\p{a \vert c \vert d}^\star \p{b \vert c \vert d}^\star$.
+        }
+        
+        \item L'ensemble des mots non vides commençant par $b$ et terminant par $d$.
+        
+        \boxansconc{
+            Une telle expression serait $b\p{a \vert b \vert c \vert d}^\star d$.
+        }
+        
+        \item L'ensemble des mots sur $\ens{a, b, c}$ où chaque paire de $a$ est séparée par exactement 3 lettres ;
+        
+        \boxansconc{
+            Une telle expression serait $\p{b \vert c}^\star \p{a \p{b \vert c}^3 a}^\star \p{b \vert c}^\star$.
+        }
+        
+        \item L'ensemble des mots sur $\ens{a, b, c}$ comportant exactement deux $b$, où tout $a$ est suivi d'au moins deux $c$, et qui se terminent par $b$.
+        
+        \boxansconc{
+            Une telle expression serait $\p{\p{ac^2 \mid c}^\star b}^2$.
+        }
+    \end{enumerate}
+    
+    \subsection{Langages réguliers}
+    
+    Montrer que tout langage fini est régulier.
+    
+    \boxansconc{
+        Soit $L$ un langage fini. On considère sans perte d'information $n \in \bdN$ et $L = \ens{u_1, u_2, \dots, u_n}$. Dès lors, $L = u_1 \vert u_2 \vert \dots \vert u_n$ donc $L$ est régulier.
+    }
+    
+    \subsection{Langages réguliers}
+    
+    Soit $\Sigma$ un alphabet, et $u \neq \epsilon$ un mot sur $\Sigma$. Montrer que les langages suivants sont réguliers :
+    
+    \begin{enumerate}
+        \item $L_1$ le langage des mots qui contiennent au moins une fois une occurrence du facteur $u$.
+        
+        \boxansconc{
+            On a $L_1 = \Sigma^\star u \Sigma^\star$, donc $L_1$ est régulier.
+        }
+        
+        \item $L_2$ le langage des mots qui contiennent au moins deux occurrences disjointes du facteur $u$.
+        
+        \boxansconc{
+            On a $L_2 = \Sigma^\star u \Sigma^\star u \Sigma^\star$, donc $L_2$ est régulier.
+        }
+        
+        \item $L_3$ le langage des mots qui contiennent au moins deux occurrences non disjointes du facteur $u$.
+        
+        \boxansconc{
+            Considérons un automate d'état initial $q_0$ et final $q_3$. Pour tout $\p{u_1, u_2, u_3} \in \p{\Sigma^\star}^3$ tels que $u = u_1u_2$ et $u = u_2u_3$, on construit le chemin suivant dans l'automate :
+            
+            \begin{center}
+                \begin{tikzpicture}[>=Latex,auto,node distance=3 cm]
+                    \node[initial,state,initial text={}] (Q0) {$q_0$};
+                    \node[state] (Q1) [right of=Q0] {$q_1$};
+                    \node[state] (Q2) [right of=Q1] {$q_2$};
+                    \node[state,accepting] (Q3) [right of=Q2] {$q_3$};
+
+                    \path[->]   (Q0) edge [above] node [align=center]  {$u_1$} (Q1)
+                                (Q1) edge [above] node [align=center]  {$u_2$} (Q2)
+                                (Q2) edge [above] node [align=center]  {$u_3$} (Q3)
+                                (Q0) edge [loop above] node [align=center]  {$\Sigma$} (Q0)
+                                (Q3) edge [loop above] node [align=center]  {$\Sigma$} (Q3);
+                    \end{tikzpicture}
+            \end{center}
+            
+            Cet automate reconnaît $L_3$, d'où $L_3$ est régulier.
+        }
+        
+        \item $L_4$ le langage des mots qui contiennent exactement une occurrence du facteur $u$
+        
+        \boxansconc{
+            On a $L_4 = L_1 \backslash \p{L_2 \cup L_3}$ donc $L_4$ est régulier.
+        }
+        
+        \item $L_5$ le langage des mots $w \in \Sigma^\star$ tels que $u$ est un sous-mot de $w$.
+        
+        \boxansconc{
+            On pose $u = a_1a_2\dots a_n$. On a alors $L_5 = \Sigma^\star a_1 \Sigma^\star a_2 \Sigma^\star \dots \Sigma^\star a_n \Sigma^\star$ donc $L_5$ est régulier.
+        }
+        
+        \item $L_6$ Le langage des mots $w \in \Sigma^\star$ tels que $w$ est un sous-mot de $u$.
+    \end{enumerate}
+    
+    \subsection{Mots binaires}
+    
+    Soit l'alphabet $\Sigma = \ens{0, 1}$. On appelle \emph{mot binaire} tout mot de $\Sigma^\star$, \emph{mot binaire normalisé} tout mot binaire qui commence par $1$ ou qui est exactement $0$, et \emph{valeur} d'un mot binaire $u = u_{n-1}\dots u_n$ l'entier $V\p{u} = \sum\limits_{i=0}^{n-1} 2^iu_i$.
+    
+    \subsection{Lemme de l'étoile}
+    
+    Soit l'alphabet $\Sigma = \ens{a, b, c}$. Les langages suivants sont-ils réguliers ?
+    
+    \begin{enumerate}
+        \item $L_1 = \ens{a^n \enstq n \equiv 2 \quad \textrm{mod} \ 3}$
+        
+        \item $L_2 = \ens{a^n \enstq n \in \bdP}$
+        
+        \item $L_3 = \ens{a^nb^n \enstq n \equiv m \quad \textrm{mod} \ 3}$
+        
+        \boxansconc{
+            On a $L_3 = \p{aaa}^\star\p{ab \vert aabb \vert \epsilon}\p{bbb}^\star$ donc $L_3$ est régulier.
+        }
+        
+        \item $L_4 = $
+        
+        \item $L_5 = $
+        
+        \item $L_6 = \ens{u \in \Sigma^\star \enstq u^R = u}$ (ensemble des palindromes).
+        
+        \boxansconc{
+            Soient $n \in \bdN^\star$ et trois lettres $\p{a, b, c} \in \Sigma^3$.
+            
+            
+            \textbf{Bonus :} Ce langage est néanmoins reconnu par une grammaire (non contextuelle) ! En effet, soit $\bcG_\text{pal} = \p{\bcV, \Sigma, \bcR, S}$ la grammaire telle que :
+            %
+            \begin{enumerate}
+                \itt L'alphabet des symboles non terminaux est $\bcV = \ens{S}$
+                
+                \itt l'alphabet des symboles terminaux est $\Sigma = \ens{a, b, c, \dots}$
+                
+                \itt Les règles de productions sont $\bcR = \begin{array}[t]{rcl}
+                    S &\rightarrow& \epsilon \mid a \mid b \mid c \mid \dots  \\
+                    S &\rightarrow& aSa \mid bSb \mid cSc \mid \dots 
+                \end{array}$
+            \end{enumerate}
+            %
+            On a bien $L_6 = \bcL\p{\bcG_\text{pal}}$
+        }
+    \end{enumerate}
+
+    \newpage
+    
+    \section{Automates}
+    
+    \subsection{Langages et automates}
+    
+    On considère les automates suivants :
+    
+    \begin{center}
+        \begin{minipage}{0.48\linewidth}
+            \begin{center}
+                \begin{tikzpicture}[>=Latex,auto,node distance=3 cm]
+                    \node[initial,state,initial text={}] (Q1) {$q_1$};
+                    \node[state] (Q3) [below right of=Q1] {$q_3$};
+                    \node[state, accepting] (Q2) [above right of=Q3] {$q_2$};
+
+                    \path[->]   (Q1) edge [above] node [align=center]  {$a$} (Q2)
+                                (Q3) edge [above, bend left] node [align=center]  {$a$} (Q2)
+                                (Q2) edge [below,bend left] node [align=center]  {$a, b$} (Q3)
+                                (Q3) edge [below] node [align=center]  {$b$} (Q1)
+                                (Q1) edge [loop above] node [align=center]  {$b$} (Q1);
+                \end{tikzpicture}
+            \end{center}
+        \end{minipage}
+        %
+        \hfill
+        %
+        \begin{minipage}{0.48\linewidth}
+            \begin{center}
+                \begin{tikzpicture}[>=Latex,auto,node distance=3 cm]
+                    \node[initial,state,accepting,initial text={}] (Q1) {$q_1$};
+                    \node[state] (Q2) [right of=Q1] {$q_2$};
+                    \node[state, accepting] (Q4) [below of=Q2] {$q_4$};
+                    \node[state] (Q3) [left of=Q4] {$q_3$};
+
+                    \path[->]   (Q1) edge [above] node [align=center]  {$b$} (Q2)
+                                (Q2) edge [above, bend right] node [align=center]  {$a$} (Q3)
+                                (Q3) edge [below,bend right] node [align=center]  {$a$} (Q2)
+                                (Q2) edge [right] node [align=center]  {$b$} (Q4)
+                                (Q4) edge [below] node [align=center]  {$a$} (Q3)
+                                (Q3) edge [left] node [align=center]  {$b$} (Q1)
+                                (Q1) edge [loop above] node [align=center]  {$a$} (Q1)
+                                (Q4) edge [loop below] node [align=center]  {$b$} (Q4)
+                                ;
+                \end{tikzpicture}
+            \end{center}
+        \end{minipage}
+        
+        \begin{minipage}{0.48\linewidth}
+            \begin{center}
+                $\bcA_1$
+            \end{center}
+        \end{minipage}
+        %
+        \hfill
+        %
+        \begin{minipage}{0.48\linewidth}
+            \begin{center}
+                $\bcA_2$
+            \end{center}
+        \end{minipage}
+    \end{center}
+    
+    Pour $\bcA_1$ et $\bcA_2$, répondre aux questions suivantes :
+    %
+    \begin{enumerate}
+        \item L'automate est-il déterministe ?
+
+        \boxansconc{
+            Pour les automates $\bcA_1$ et $\bcA_2$, à chaque état correspond un unique chemin par lettre. Les automates sont donc déterministes.
+        }
+        
+        \item Donner un chemin partant de l'état initial pour le mot $aabb$.
+        
+        \boxansconc{
+            Pour $\bcA_1$, on a :
+            %
+            \[ q_1 \xrightarrow[]{}\]
+        }
+        
+        \item Le mot $aabb$ est-il accepté par l'automate ?
+        
+        \item Le mot vide $\epsilon$ est-il accepté par l'automate ?
+        
+        \item Quel est le langage reconnu par l'automate ?
+    \end{enumerate}
+    
+    \subsection{Déterminisation d'automate}
+    
+    Déterminiser les automates suivants :
+    %
+    \begin{center}
+        \begin{minipage}{0.48\linewidth}
+            \begin{center}
+                \begin{tikzpicture}[>=Latex,auto,node distance=3 cm]
+                    \node[initial,state,accepting,initial text={}] (Q1) {$1$};
+                    \node[state] (Q2) [below of=Q1] {$2$};
+
+                    \path[->]   (Q1) edge [loop right] node [align=center]  {$a$} (Q1)
+                                (Q1) edge [right, bend left] node [align=center]  {$a,b$} (Q2)
+                                (Q2) edge [left, bend left] node [align=center]  {$b$} (Q1);
+                \end{tikzpicture}
+            \end{center}
+        \end{minipage}
+        %
+        \hfill
+        %
+        \begin{minipage}{0.48\linewidth}
+            \begin{center}
+                \begin{tikzpicture}[>=Latex,auto,node distance=3 cm]
+                    \node[initial,state,initial text={}] (Q1) {$1$};
+                    \node[state] (Q3) [below right of=Q1] {$3$};
+                    \node[state, accepting] (Q2) [above right of=Q3] {$2$};
+
+                    \path[->]   (Q1) edge [below] node [align=center]  {$a$} (Q3)
+                                (Q1) edge [above, bend left] node [align=center]  {$\epsilon$} (Q2)
+                                (Q2) edge [below,bend left] node [align=center]  {$a$} (Q1)
+                                (Q3) edge [below] node [align=center]  {$a,b$} (Q2)
+                                (Q3) edge [loop right] node [align=center]  {$b$} (Q3);
+                \end{tikzpicture}
+            \end{center}
+        \end{minipage}
+        
+        \begin{minipage}{0.48\linewidth}
+            \begin{center}
+                $\bcA_1$
+            \end{center}
+        \end{minipage}
+        %
+        \hfill
+        %
+        \begin{minipage}{0.48\linewidth}
+            \begin{center}
+                $\bcA_2$
+            \end{center}
+        \end{minipage}
+    \end{center}
+    
+    \boxansconc{
+        \begin{center}
+            \begin{minipage}{0.48\linewidth}
+                \begin{center}
+                    \begin{tikzpicture}[>=Latex,auto,node distance=3 cm]
+                        \node[initial,state,accepting,initial text={}] (Q1) {$\ens{1}$};
+                        \node[state] (Q2) [right of=Q1] {$\ens{2}$};
+                        \node[state] (Q3) [below of=Q2] {$\emptyset$};
+                        \node[state,accepting] (Q4) [below of=Q1] {$\ens{1, 2}$};
+    
+                        \path[->]   (Q1) edge [left] node [align=center]  {$a$} (Q4)
+                                    (Q1) edge [above, bend left] node [align=center]  {$b$} (Q2)
+                                    (Q2) edge [below, bend left] node [align=center]  {$b$} (Q1)
+                                    (Q2) edge [right] node [align=center]  {$a$} (Q3)
+                                    (Q3) edge [loop below] node [align=center]  {$a,b$} (Q3)
+                                    (Q4) edge [loop below] node [align=center]  {$a,b$} (Q4);
+                    \end{tikzpicture}
+                \end{center}
+            \end{minipage}
+            %
+            \hfill
+            %
+            \begin{minipage}{0.48\linewidth}
+                \begin{center}
+                    \begin{tikzpicture}[>=Latex,auto,node distance=3 cm]
+                        \node[state,accepting,initial,initial text={}] (Q4) {$\ens{1,2}$};
+                        \node[state,accepting] (Q3) [above of=Q4] {$\ens{2,3}$};
+                        \node[state,accepting] (Q2) [above right of=Q3] {$\ens{1,3}$};
+                        \node[state] (Q1) [below right of=Q2] {$\ens{1}$};
+                        \node[state,accepting] (Q5) [below of=Q2] {$\ens{1,2,3}$};
+                        \node[state] (Q6) [below of=Q1] {$\emptyset$};
+                        
+                        \path[->]   (Q3) edge [left] node [align=center]  {$a$} (Q4)
+                                    (Q2) edge [above] node [align=center]  {$b$} (Q3)
+                                    (Q1) edge [above] node [align=center]  {$a$} (Q2)
+                                    (Q2) edge [left] node [align=center]  {$a$} (Q5)
+                                    (Q3) edge [above] node [align=center]  {$b$} (Q5)
+                                    (Q4) edge [above] node [align=center]  {$a$} (Q5)
+                                    (Q1) edge [right] node [align=center]  {$b$} (Q6)
+                                    (Q4) edge [below] node [align=center]  {$b$} (Q6)
+                                    (Q5) edge [loop right] node [align=center]  {$a$} (Q5)
+                                    (Q6) edge [loop below] node [align=center]  {$a,b$} (Q6)
+                                    (Q3) edge [loop above] node [align=center]  {$b$} (Q3);
+                    \end{tikzpicture}
+                \end{center}
+            \end{minipage}
+            
+            \begin{minipage}{0.48\linewidth}
+                \begin{center}
+                    Pour $\bcA_1$
+                \end{center}
+            \end{minipage}
+            %
+            \hfill
+            %
+            \begin{minipage}{0.48\linewidth}
+                \begin{center}
+                    Pour $\bcA_2$
+                \end{center}
+            \end{minipage}
+        \end{center}
+    }
+    
+    \subsection{Automates et expressions régulières}
+    
+    Pour chacun des automates suivants, donner une expression régulière décrivant le langage reconnu par l'automate.
+    
+    \subsection{Automate déterministe}
+    
+    Donner un automate déterministe complet sur $\Sigma = \ens{a, b}$ reconnaissant tous les mots n'ayant pas plus de deux occurrences consécutives de la même lettre.
+    
+    \boxansconc{
+        \begin{center}
+            \begin{tikzpicture}[>=Latex,auto,node distance=3 cm]
+                \node[state,accepting,initial,initial text={}] (Q1) {$q_i$};
+            \end{tikzpicture}
+        \end{center}
+    }
+    
+    \subsection{Automate déterministe}
+    
+    Soit l'alphabet $\Sigma = \ens{a, b}$.
+    
+    \begin{enumerate}
+        \item Construire un automate déterministe qui accepte les mots ayant un nombre pair de $b$.
+        
+        \boxansconc{
+            \begin{center}
+                \begin{tikzpicture}[>=Latex,auto,node distance=3 cm]
+                    \node[state,accepting,initial,initial text={}] (Q1) {$q_1$};
+                    \node[state] (Q2) [right of=Q1] {$I_b$};
+                    
+                    \path[->]   (Q1) edge [above, bend left] node [align=center]  {$b$} (Q2)
+                                (Q2) edge [below,bend left] node [align=center]  {$b$} (Q1)
+                                (Q1) edge [loop above] node [align=center]  {$a$} (Q1)
+                                (Q2) edge [loop right] node [align=center]  {$a$} (Q2);
+                \end{tikzpicture}
+            \end{center}
+        }
+        
+        \item Construire un automate déterministe  qui accepte les mots ayant au plus deux $a$ consécutifs.
+        
+        \boxansconc{
+            \begin{center}
+                \begin{tikzpicture}[>=Latex,auto,node distance=3 cm]
+                    \node[state,accepting,initial,initial text={}] (Q1) {$q_i$};
+                    \node[state] (Q3) [right of=Q1] {$2_a$};
+                    \node[state] (Q2) [above of=Q3] {$1_a$};
+                    \node[state] (Q4) [right of=Q3] {$q_\bot$};
+                    
+                    \path[->]   (Q1) edge [above, bend left] node [align=center]  {$a$} (Q2)
+                                (Q2) edge [below,bend left] node [align=center]  {$b$} (Q1)
+                                (Q2) edge [right] node [align=center]  {$a$} (Q3)
+                                (Q3) edge [below] node [align=center]  {$b$} (Q1)
+                                (Q3) edge [above] node [align=center]  {$a$} (Q4)
+                                (Q1) edge [loop below] node [align=center]  {$a$} (Q1)
+                                (Q4) edge [loop above] node [align=center]  {$a,b$} (Q4);
+                \end{tikzpicture}
+            \end{center}
+        }
+    \end{enumerate}
+    
+    \subsection{Divisibilité en binaire}
+    
+    On considère l'alphabet $\Sigma = \ens{0, 1}$. Pour les trois langages suivants, dire s'il est reconnaissable. Si oui, donner un automate le reconnaissant.
+    
+    \begin{enumerate}
+        \item Le langage $L_2$ des mots binaires représentant un multiple de $2$ (sans zéro non significatif).
+        
+        \boxansconc{
+            \begin{center}
+                \begin{tikzpicture}[>=Latex,auto,node distance=2 cm]
+                    \node[state,initial,initial text={}] (QI) {$q_i$};
+                    \node[state,accepting] (QF) [right of=QI] {$q_f$};
+                    \node[state] (Q1) [below of=QI] {$q_1$};
+                    \node[state, accepting] (Q0) [left of=Q1] {$q_0$};
+                    
+                    \path[->]   (QI) edge [above] node [align=center]  {$0$} (QF)
+                                (QI) edge [right] node [align=center]  {$1$} (Q1)
+                                (Q1) edge [above, bend right] node [align=center]  {$0$} (Q0)
+                                (Q0) edge [below, bend right] node [align=center]  {$1$} (Q1)
+                                (Q0) edge [loop above] node [align=center]  {$0$} (Q0)
+                                (Q1) edge [loop right] node [align=center]  {$1$} (Q1);
+                \end{tikzpicture}
+            \end{center}
+        }
+        
+        \item Le langage $L_3$ des mots binaires représentant un multiple de $3$ (sans zéro non significatif).
+        
+        \boxansconc{
+            \begin{center}
+                \begin{tikzpicture}[>=Latex,auto,node distance=2 cm]
+                    \node[state,initial,initial text={}] (QI) {$q_i$};
+                    \node[state,accepting] (QF) [right of=QI] {$q_f$};
+                    \node[state] (Q1) [below of=QI] {$q_1$};
+                    \node[state, accepting] (Q0) [left of=Q1] {$q_0$};
+                    \node[state] (Q2) [right of=Q1] {$q_2$};
+                    
+                    \path[->]   (QI) edge [above] node [align=center]  {$0$} (QF)
+                                (QI) edge [right] node [align=center]  {$1$} (Q1)
+                                (Q1) edge [above, bend right] node [align=center]  {$0$} (Q0)
+                                (Q0) edge [below, bend right] node [align=center]  {$1$} (Q1)
+                                (Q0) edge [loop above] node [align=center]  {$0$} (Q0)
+                                (Q1) edge [loop right] node [align=center]  {$1$} (Q1);
+                \end{tikzpicture}
+            \end{center}
+        }
+        
+        \item Le langage $L_6$ des mots binaires représentant un multiple de $6$ (sans zéro non significatif).
+    \end{enumerate}
+    
+    \subsection{Ensemble des lettres minuscules}
+    
+    Soit $\Sigma = \ens{a, b, c, \dots, z}$ l'ensemble des lettres minuscules.
+    
+    \begin{enumerate}
+        \item Donner un automate fini non déterministe acceptant les mots contenant le facteur \guill{cpge}.
+        
+        \item Déterminer cet automate
+    \end{enumerate}
+    
+    \subsection{} 
+    
+    Soit l'alphabet $\Sigma = \ens{a, b}$. Pour chacun des langages ci-dessous, donner un automate déterministe le reconnaissant.
+    
+    \indication{Si l'on arrive pas à donner directement un automate pour le langage, on pourra exprimer le langage comme étant l'intersection de deux langages plus simples, et construire l'automate produit.}
+    %
+    \begin{enumerate}
+        \item $L_1 = \ens{w \in \Sigma^\star \enstq \mod{w}_a \geq 3 \et \mod{w}_b \geq 2}$
+        
+        \noafter
+        %
+        \boxans{
+            Construisons un automate qui reconnaît \guill{quand il y a trois $a$}, \ie le langage $\ens{w \in \Sigma^\star \enstq \mod{w}_a \geq 3}$:
+            µ
+            \begin{center}
+                \begin{tikzpicture}[>=Latex,auto,node distance=3 cm]
+                    \node[state,initial,initial text={}] (Q1) {$a_0$};
+                    \node[state] (Q2) [right of=Q1] {$a_1$};
+                    \node[state] (Q3) [right of=Q2] {$a_2$};
+                    \node[state,accepting] (Q4) [right of=Q3] {$a_3$};
+                    
+                    \path[->]   (Q1) edge [above] node [align=center]  {$a$} (Q2)
+                                (Q2) edge [above] node [align=center] {$a$} (Q3)
+                                (Q3) edge [above] node [align=center]  {$a$} (Q4)
+                                (Q1) edge [loop above] node [align=center]  {$b$} (Q1)
+                                (Q2) edge [loop above] node [align=center]  {$b$} (Q2)
+                                (Q3) edge [loop above] node [align=center]  {$b$} (Q3)
+                                (Q4) edge [loop right] node [align=center]  {$a,b$} (Q4);
+                \end{tikzpicture}
+            \end{center}
+            %
+            Construisons de même un automate qui reconnaît \guill{quand il y a deux $n$}, \ie le langage $\ens{w \in \Sigma^\star \enstq \mod{w}_b \geq 2}$ :
+            %
+            \begin{center}
+                \begin{tikzpicture}[>=Latex,auto,node distance=3 cm]
+                    \node[state,initial,initial text={}] (Q1) {$b_0$};
+                    \node[state] (Q2) [right of=Q1] {$b_1$};
+                    \node[state] (Q3) [right of=Q2] {$b_2$};
+                    
+                    \path[->]   (Q1) edge [above] node [align=center]  {$b$} (Q2)
+                                (Q2) edge [above] node [align=center] {$b$} (Q3)
+                                (Q1) edge [loop above] node [align=center]  {$a$} (Q1)
+                                (Q2) edge [loop above] node [align=center]  {$a$} (Q2)
+                                (Q3) edge [loop right] node [align=center]  {$a,b$} (Q3);
+                \end{tikzpicture}
+            \end{center}
+            %
+            Or $L_1 = \ens{w \in \Sigma^\star \enstq \mod{w}_a \geq 3} \cap \ens{w \in \Sigma^\star \enstq \mod{w}_b \geq 2}$, donc on donne l'automate produit, qui reconnaît donc $L_1$ :
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            %
+            \begin{center}
+                \begin{tikzpicture}[>=Latex,auto,node distance=3 cm]
+                    \node[state,initial,initial text={}] (Q1) {$a_0, b_0$};
+                    \node[state] (Q2) [right of=Q1] {$a_1,b_0$};
+                    \node[state] (Q3) [right of=Q2] {$a_2,b_0$};
+                    \node[state] (Q4) [right of=Q3] {$a_3,b_0$};
+                    \node[state] (Q5) [below of=Q1] {$a_0,b_1$};
+                    \node[state] (Q6) [right of=Q5] {$a_1,b_1$};
+                    \node[state] (Q7) [right of=Q6] {$a_2,b_1$};
+                    \node[state] (Q8) [right of=Q7] {$a_3,b_1$};
+                    \node[state] (Q9) [below of=Q5] {$a_0,b_2$};
+                    \node[state] (Q10) [right of=Q9] {$a_1,b_2$};
+                    \node[state] (Q11) [right of=Q10] {$a_2,b_2$};
+                    \node[state,accepting] (Q12) [right of=Q11] {$a_3,b_2$};
+                    
+                    \path[->]   (Q1) edge [above] node [align=center]  {$a$} (Q2)
+                                (Q2) edge [above] node [align=center] {$a$} (Q3)
+                                (Q3) edge [above] node [align=center]  {$a$} (Q4)
+                                (Q1) edge [right] node [align=center]  {$b$} (Q5)
+                                (Q2) edge [right] node [align=center]  {$b$} (Q6)
+                                (Q3) edge [right] node [align=center]  {$b$} (Q7)
+                                (Q4) edge [right] node [align=center]  {$b$} (Q8)
+                                (Q5) edge [above] node [align=center]  {$a$} (Q6)
+                                (Q6) edge [above] node [align=center] {$a$} (Q7)
+                                (Q7) edge [above] node [align=center]  {$a$} (Q8)
+                                (Q5) edge [right] node [align=center]  {$b$} (Q9)
+                                (Q6) edge [right] node [align=center]  {$b$} (Q10)
+                                (Q7) edge [right] node [align=center]  {$b$} (Q11)
+                                (Q8) edge [right] node [align=center]  {$b$} (Q12)
+                                (Q9) edge [above] node [align=center]  {$a$} (Q10)
+                                (Q10) edge [above] node [align=center] {$a$} (Q11)
+                                (Q11) edge [above] node [align=center]  {$a$} (Q12);
+                \end{tikzpicture}
+            \end{center}
+        }
+        %
+        \yesbefore
+        
+        \item 
+        
+        \item
+        
+        \item $L_4 = \ens{w \in \Sigma^\star \enstq \mod{w}_a \equiv 0 \quad \intc{2} \et \text{chaque $a$ est suivi par au moins un $b$}}$.
+    \end{enumerate}
+    
+    \subsection{}
+    
+    \subsection{Thompson et Glushkov}
+    
+    Soit l'alphabet $\Sigma = \ens{a, b, c}$, et l'expression $e = \p{a \vert c}^\star abb\p{a\vert c}^\star$.
+    
+    \begin{enumerate}
+        \item Construire l’automate de \textsc{Thompson} associé à $e$.
+        
+        \boxansconc{
+            \begin{center}
+                \begin{tikzpicture}[>=Latex,auto,node distance=2 cm]
+                    \node[state,initial,initial text={}] (QI) {$q_i$};
+                    \node[state] (Q0) [right of=QI] {$q_0$};
+                    \node[state] (Q1) [above right of=Q0] {$q_1$};
+                    \node[state] (Q2) [right of=Q1] {$q_2$};
+                    \node[state] (Q3) [below right of=Q0] {$q_3$};
+                    \node[state] (Q4) [right of=Q3] {$q_4$};
+                    \node[state] (Q5) [below right of=Q2] {$q_5$};
+                    \node[state] (Q6) [right of=Q5] {$q_6$};
+                    
+                    \path[->]   (QI) edge [above] node [align=center]  {$\epsilon$} (Q0)
+                                (Q0) edge [above] node [align=center]  {$\epsilon$} (Q1)
+                                (Q1) edge [above] node [align=center]  {$a$} (Q2)
+                                (Q2) edge [above] node [align=center]  {$\epsilon$} (Q5)
+                                (Q5) edge [above] node [align=center]  {$\epsilon$} (Q6)
+                                (Q0) edge [below] node [align=center]  {$\epsilon$} (Q3)
+                                (Q3) edge [below] node [align=center]  {$b$} (Q4)
+                                (Q4) edge [below] node [align=center]  {$\epsilon$} (Q5)
+                                (Q0) edge [above, bend left] node [align=center]  {$\epsilon$} (Q5)
+                                (Q5) edge [above, bend left] node [align=center]  {$\epsilon$} (Q0);
+                \end{tikzpicture}
+            \end{center}
+        }
+    \end{enumerate}
 \end{document}
