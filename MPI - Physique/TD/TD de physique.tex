@@ -685,7 +685,7 @@
     \subsection{}
     
     \begin{minipage}{0.48\linewidth}
-        Un ca
+        Un camion
     \end{minipage}
     %
     \hfill
@@ -704,6 +704,98 @@
         \end{tikzpicture}
     \end{minipage}
     
+    \subsection{}
     
+    \subsection{}
+    
+    \subsection{}
+    
+    \newpage
+    
+    \subsection{Pointe et cylindre}
+    
+    \begin{minipage}{0.48\linewidth}
+        Une plaque homogène d'épaisseur négligeable, de masse $m$ et de longueur $L$ repose sur une pointe et un cylindre, de rayon $R$, de moment d'inertie $J$ et qui peut tourner sans frottement autour de son axe. La plaque glisse sur la pointe sans frotter et son contact avec le cylindre est caractérisé par un coefficient de frottement $f$. La distance entre le centre de la poulie et la pointe vaut $a > 0$. À l'instant initial, la plaque est immobile et $h\p{0} = h_0 < \dfrac{1}{2}L$. Pour $t \geq 0$, un opérateur exerce une force horizontale constante $\vec{F}$. 
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}{0.5\linewidth}
+        \centering
+        \begin{tikzpicture}
+            %\draw[very thick] (0, 0) --++ (4, 0) --++(0, 1) --++(-1, 1) --++(0, -2);
+            
+            \draw[fill=main3!30] (-2, 1) rectangle (4, 1.1);
+            \draw (0, 0.5) circle[radius=0.5];
+            
+            \draw[fill=black] (0, 0.5) circle[radius=0.05];
+            
+            \draw[main3, very thick, <->] (-2, 1.5) -- node[midway, fill = white] {$h\p{t}$} (0, 1.5);
+            
+            \draw[main3, very thick, ->] (4, 1.05) --++(0.8, 0) node[label={[font=\footnotesize]right:$\vec{F}$}] {};
+            
+            \draw[ultra thick, -Latex] (3, 0) --++(0, 1);
+        \end{tikzpicture}
+    \end{minipage}
+    
+    \begin{enumerate}
+        \item À quelle condition sur $\vec{F}$ la plaque ne glisse-t-elle pas sur le cylindre ?
+        
+        \boxans{
+            On se place dans le référentiel $R\p{O, \vec{u_x}, \vec{u_y}, \vec{u_z}}$ où $O$ est la position initiale (en $t = 0$) du centre de gravité $G$ de la plaque, $\vec{u_x}$ est dirigé selon la force $\vec{F}$, 
+        }
+    \end{enumerate}
+    
+    
+    \chapter{Chimie en solution organique}
+    
+    \subsection{}
+    
+    \subsection{}
+    
+    À $T= \qty{1000}{\kelvin}$, la constance $K^\circ$ de l'équilibre suivant vaut $K^\circ = \qty{0.91}{}$. On considère la réaction :
+    %
+    \[ {\text{Ca}\text C\text O_3}_\text{(s)} \xrightleftharpoons{\hspace{0.4cm}} {\text{Ca}\text O}_\text{(s)} + {\text C\text O_2}_\text{(g)}\]
+    
+    \begin{enumerate}
+        \item Quelle est la pression partielle du dioxyde de carbone à l'équilibre ?
+        
+        \boxansconc{
+            Par st\oe{}chiométrie, on a $K^\circ = \dfrac{P_{\text C\text O_2}\p{t_\text{eq}}}{P^\circ}$ d'où $P_{\text C\text O_2}\p{t_\text{eq}} = \qty{0.91}{\bar}$.
+        }
+        
+        
+    \end{enumerate}
+
+    \subsection{}
+
+    On réalise la pile suivante $Zn(s)\mid Zn^{2+}\|Ag^+\mid Ag(s)$ appelée pile Daniell. 
+    \begin{enumerate}
+        \item Écrire la réaction lorsque la pile débite un courant.
+
+        \boxans{ $Zn \rightarrow Z_n^{2+} + 2e^-$ \\ $Ag \rightarrow Ag^+ + e^-$}
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{$2Ag^++Zn(s) \rightarrow 2Ag(s) + Zn^{2+}$}
+        \yesbefore
+        
+        \item Rappeler la polarité de la pile 
+
+        \boxansconc{$\ominus Zn(s)\mid Zn^{2+}\|Ag^+\mid Ag(s) \oplus$}
+
+        \item Calculer la f.e.m. de la pile pour des concentrations des espèces en solution de $0,1\text{mol.L}^{-1}$ 
+
+        \boxans{
+            $E_\oplus =  E^\circ_{Ag^+/Ag} + \dfrac{0.06}{1}\log\left(\dfrac{\left[Ag^+\right]}{1}\right) = 0.76\text{V}$ \\ 
+            $E_\ominus = E^\circ_{Zn^{2+}/Zn} + \dfrac{0.06}{2}\log\left(\dfrac{\left[Zn^{2+}\right]}{1}\right) = -0.82\text{V}$
+        }
+        \nobefore\yesafter 
+        \boxansconc{$U_o = E_\oplus - E_\ominus = 1.58\text{V}$}
+        \yesbefore 
+        
+        \item Calculer la f.e.m de la pile lorsque l'équilibre est atteint. Quel est la composition de la pile ?
+
+        \item Quelle quantité d'électricité a traversé la pile ?
+    \end{enumerate}
 \end{document}
-% lim francois = paien ~ paysan ===> golem

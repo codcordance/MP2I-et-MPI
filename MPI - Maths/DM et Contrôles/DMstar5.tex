@@ -1,0 +1,425 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{../../Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\thesection}{\Roman{section}}
+    \renewcommand{\labelenumi}{\Roman{section}.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\Roman{section}.\arabic{enumi}.\arabic{enumii}.}
+
+    \stylizeDocSpe{Maths}{Devoir maison $\star$ n° 5}{CCP MP MATH 1 2000}{Pour le vendredi 25 novembre 2022}
+    
+    Le problème proposé à pour but la démonstration d'un théorème relatif aux contractions d'un espace de \textsc{Banach} et l'étude, grâce à ce théorème, d'une équation fonctionnelle.
+    
+    \subsubsection*{Notations et définitions}
+    
+    \begin{enumerate}
+        \itt Si $X$ et $Y$ sont des ensembles, $Y^X$ désigne l'ensemble des applications de $X$ dans $Y$.
+        
+        \itt Si $X$ est un ensemble non vide, $\bcN_\infty$ désigne la norme de la convergence uniforme sur l'espace vectoriel des applications bornées de $X$ dans $\bdR$ :
+        %
+        \[ \bcN_\infty\p{f} = \sup\limits_{x \in X} \mod{f} = \sup\limits \ens{\mod{f\p{x}},\ x \in X}\]
+    \end{enumerate}
+    
+    \section{Convergence uniforme dans $\bcC\p{\intc{0, 1}, \bdR}$}
+    
+    Soit $\suite{f_n}$ une suite de \textsc{Cauchy}, pour $\bcN_\infty$, de $\bcC\p{\intc{0, 1}, \bdR}$.
+    
+    \begin{enumerate}
+        \item Montrer que, pour tout $x \in \intc{0, 1}$, $\suite{f_n\p{x}}$ converge. Soit $f$ la limite simple de la suite $\suite{f_n}$.
+        
+        \noafter
+        %
+        \boxans{
+            Soit $\epsilon > 0$. Puisque $\suite{f_n{x}}$ est de \textsc{Cauchy}, il existe $n_0 \in \bdN$  tel que pour tout $\p{p, q} \in \iintor{N, +\infty}^2$ on a $\bcN_\infty\p{f_p - f_q} \leq \epsilon$, \ie
+            %
+            \[ \sup \ens{\mod{f_p\p{t} - f_q\p{t}},\ t \in \intc{0, 1} } \leq \epsilon\]
+            %
+            Soit $x \in \intc{0, 1}$, on a donc $\mod{f_p\p{x} - f_q\p{x}} \leq \epsilon$, ainsi la suite $\suite{f_n\p{x}}$ est de \textsc{Cauchy}. 
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            La suite $\suite{f_n\p{x}}$ étant à valeurs réelles, et $\bdR$ étant complet, on conclut que la suite $\suite{f_n\p{x}}$ converge.
+        }
+        %
+        \yesbefore
+        
+        \item Montrer que $f$ est bornée et que $\bcN_\infty\p{f_n - f} \lima{n \to +\infty} 0$.
+        
+        \noafter
+        %
+        \boxans{
+             La suite $\suite{f_n}$ est de \textsc{Cauchy} donc il existe $n_0 \in \bdN$ tel que :
+             %
+             \[ \forall \p{p, q} \in \bdN,\qquad \bcN_\infty\p{f_{n_0 + p} - f_{n_0 + q}} \leq 1 \qquad\text{donc en faisant tendre $q$ vers $+\infty$ on a}\qquad \bcN_\infty\p{{f_{n_0 + p} - f}} \leq 1\]
+             %
+             Donc avec $p = 0$, pour tout $x \in \intc{0, 1}$, on a $\mod{f_{n_0}\p{x} - f\p{x}} \leq 1$ d'où $\mod{f\p{x}} \leq 1 + \mod{f_{n_0}\p{x}}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Ainsi, en posant $M = 1 + \bcN_\infty\p{f_{n_0}}$, pour tout $x \in \intc{0, 1}$ on a $\mod{f\p{x}} \leq M$, donc $f$ est bornée. Enfin :
+            %
+            \[ \lim\limits_{n \to +\infty }f_n\p{x} - f\p{x} = 0 \qquad\text{donc}\qquad \lim\limits_{n \to +\infty}\bcN_\infty\p{f_n - f} = \lim\limits_{n \to +\infty}\sup \ens{f_n\p{x} - f\p{x}} = 0 \]
+        }
+        %
+        \yesbefore
+        
+        \item Justifier que $\p{\bcC\p{\intc{0, 1}, \bdR}, \bcN_\infty}$ est un espace de \textsc{Banach}.
+        
+        \noafter
+        %
+        \boxans{
+            D'après la question précédente, toute suite $\suite{f_n}$ de $\bcC\p{\intc{0, 1}, \bdR}$, de \textsc{Cauchy} pour $\bcN_\infty$, est convergente pour $\bcN_\infty$ vers $f \in \bcF\p{\intc{0, 1}, \bdR}$ sa limite simple. Il faut donc montrer que $f$ est continue.\medskip
+            
+            Soit $x_0 \in \intc{0, 1}$ et $\epsilon > 0$. Il existe $n_0 \in \bdN$ tel que 
+            %
+            \[ \bcN_\infty\p{f - f_{n_0}} \leq \epsilon \qquad\text{c'est-à-dire}\qquad \forall x \in \intc{0, 1},\qquad \mod{f\p{x} - f_{n_0}\p{x}} \leq \dfrac{\epsilon}{3} \]
+            %
+            On a donc, pour tout $x \in \intc{0, 1}$, par inégalité triangulaire
+            %
+            \begin{align*}
+                \mod{f\p{x} - f\p{x_0}} &= \mod{f\p{x} - f_{n_0}\p{x} + f_{n_0}\p{x} - f_{n_0}\p{x_0} + f_{n_0}\p{x_0} -f\p{x_0}}\\
+                &\leq \mod{f\p{x} - f_{n_0}\p{x}} + \mod{f_{n_0}\p{x} - f_{n_0}\p{x_0}} + \mod{f\p{x_0} - f_{n_0}\p{x_0}}\\
+                &\leq \dfrac{2\epsilon}{3} + \mod{f_{n_0}\p{x} - f_{n_0}\p{x_0}}
+            \end{align*}
+            %
+            Or $f_{n_0}$ est continue en $x_0$, donc il existe $\eta$ tel que 
+            %
+            \[ \forall x \in \intc{0, 1},\qquad \mod{x - x_0}\leq \eta \implies \mod{f_{n_0}\p{x} - f_{n_0}\p{x_0}} \leq \dfrac{\epsilon}{3} \implies \mod{f\p{x} - f\p{x_0}} \leq \epsilon\]
+            %
+            En vertu de cela, $f$ est continue, \ie $f \in \bcC\p{\intc{0, 1}, \bdR}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Donc $\p{\bcC\p{\intc{0, 1}, \bdR}, \bcN_\infty}$ est un espace de \textsc{Banach}.
+        }
+        %
+        \yesbefore
+        
+        \item Soit $\suite{u_n}$ la suite de $\bcC\p{\intc{0, 1}, \bdR}$ définie par $u_n\p{x} = e^{x^n}$ pour tout $x \in \intc{0, 1}$.
+        
+        Montrer que, pour tout $x \in \intc{0, 1}$, la $\suite{u_n\p{x}}$ converge. La suite $\suite{u_n}$ est-elle de \textsc{Cauchy} pour $\bcN_\infty$ ?
+        %
+        \indication{Étudier la continuité de la limite.}
+        
+        \noafter
+        %
+        \boxans{
+            Si $x \in \intor{0, 1}$, alors $x^n \lima{n \to +\infty} 0$, donc par continuité de la fonction exponentielle, $u_n\p{x} = e^{x^n} \lima{n \to +\infty} 1$. 
+            
+            Sinon, $x = 1$, donc $x^n \lima{n \to +\infty} 1$, donc on obtient de même $u_n\p{1} \lima{n \to +\infty} e$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Donc pour $x \in \intc{0, 1}$, la $\suite{u_n\p{x}}$ converge. On note $u$ la limite simple de la suite $\suite{u_n}$, donc par les questions précédentes c'est également sa limite pour $\bcN_\infty$. Or $u\p{x} \lima{x \to 1^-} 1 \neq u\p{1}$ d'où $u$ n'est pas continue.
+            
+            Or les fonctions $\suite{u_n}$ sont continues de $\intc{0, 1}$ dans $\bdR$, et $\p{\bcC\p{\intc{0, 1}, \bdR}, \bcN_\infty}$ est un espace de \textsc{Banach}, en vertu de quoi $u$ ne peut pas être de \textsc{Cauchy} (sans quoi elle serait continue).
+        }
+        %
+        \yesbefore
+        
+        \item Soit $\suite{v_n}$ la suite de $\bcC\p{\intc{0, 1}, \bdR}$ définie par $v_n\p{x} = \displaystyle\int_0^x e^{t^n}\dif t$ pour tout $x \in \intc{0, 1}$.
+        
+        Montrer que $\suite{v_n}$ converge uniformément sur $\intc{0, 1}$ vers un élément $v$ de $\bcC{\intc{0, 1}, \bdR}$.
+        
+        \noafter
+        %
+        \boxans{
+            Pour $t \in \intc{0, 1}$ et $n \in \bdN$, $t^n \leq t^{n+1}$ d'où $u_n\p{t} \leq u_{n+1}\p{t}$ donc la suite $\suite{u_n}$ est décroissante. Par la question précédente, elle converge vers une fonction $u$. Par \emph{théorème de convergence monotone}, on a donc
+            %
+            \[ \forall x \in \iint{0, 1},\qquad \int_0^x \p{\lim\limits_{n \to +\infty} u_n\p{t}}\dif t = \lim\limits_{n \to +\infty}\p{ \int_0^x u_n\p{t}\dif t} \qquad\text{donc}\qquad \lim\limits_{n \to +\infty} v_n\p{x} = \int_0^x u\p{t}\dif t\]
+            %
+            Soit $v$ la limite simple de la suite $\suite{v_n}$. Pour $x \in \intor{0, 1}$, on a directement $u\p{x} = 1$ donc $v\p{x} = x$.
+            
+            On obtient donc la limite simple $v = \displaystyle\int_{\intor{0, 1}} u = \Id_{\intc{0, 1}}$. Montrons que la suite $\suite{v_n}$ converge uniformément vers $v$.
+            
+            Soit $\epsilon > 0$. Pour tout $x \in \intc{0, 1-\epsilon}$, on a $v_n\p{x} - v\p{x} = \displaystyle\int_0^x \p{e^{t^n} - 1}\dif t \leq \int_0^{1-\epsilon} \p{e^{t^n} - 1}\dif t \leq e^{\p{1-\epsilon}^n} - 1$.
+            
+            Or $1 - \epsilon < 1$ donc $e^{\p{1-\epsilon}^n} \lima{n \to +\infty} 1$ donc il existe $n_0 \in \bdN$ tel que pour tout $n \geq n_0$, on ait $\mod{v_n\p{x} -v\p{x}} \leq \epsilon$.
+            %
+            \[ \forall x \in \intol{1 - \epsilon, 1},\ \forall n \geq n_0,\qquad v_n\p{x} - v\p{x} = \int_0^{1-\epsilon} \p{e^{t^n} - 1}\dif t + \int_{1-\epsilon}^x \p{e^{t^n} - 1}\dif t \leq \epsilon + \intc{\p{e-1}t}_{1-\epsilon}^1 = e\epsilon\]
+            %
+        }
+        %
+        \yesafter\nobefore
+        %
+        \boxansconc{
+            On a donc pour tout $\epsilon > 0$ l'existence d'un $n_0 \in \bdN$, tel que pour tout $n \in \bdN$ supérieur à $n_0$, $\bcN_\infty\p{v_n - v} \leq e\epsilon$. En d'autre termes, $\bcN_\infty\p{v_n - v} \lima{n \to +\infty} 0$, donc la suite $\suite{v_n}$ converge uniformément vers $v$, continue par les questions précédentes.
+        }
+        %
+        \yesbefore
+    \end{enumerate}
+    
+    \section{Théorème du point fixe de Banach}
+    
+    Soit $\p{E, \norm{\cdot}}$ un espace de \textsc{Banach} réel, soit $A$ un sous-ensemble fermé non vide de $E$ et soit $T \in A^A$ vérifiant
+    %
+    \[ \exists \alpha \in \intor{0, 1},\qquad \forall \p{x, y} \in A^2,\qquad \norm{T\p{x} - T\p{y}} \leq \alpha \norm{x - y}\]
+    %
+    \textbf{\sffamily N.B.} On dit que $T$ est contractante, ou encore que $T$ est une contraction.
+    
+    \begin{enumerate}
+        \item Soient $\p{x, y} \in A^2$ tel que $T\p{x} = x$ et $T\p{y} = y$. Montrer que $x = y$.
+        
+        \boxansconc{
+            Par l'absurde, supposons que $x \neq y$. Alors $\dfrac{\norm{T\p{x} - T\p{y}}}{\norm{x - y}} \leq \alpha$, \ie $\dfrac{\norm{x - y}}{\norm{x - y}} \leq \alpha$, donc $1 \leq \alpha$.
+            
+            Or $\alpha < 1$, ce qui est absurde. Donc $x = y$.
+        }
+        
+        \item Soit $a \in A$, on définit la suite $\suite{a_n}$ par $a_0 = a$ et $a_{n+1} = T\p{a_n}$ pour tout $n \in \bdN$.
+        
+        \begin{enumerate}
+            \item Montrer que $\norm{a_{n+1} - a_n} \leq \alpha^n \norm{a_1 - a_0}$.
+            
+            En déduire que la série $\sum\limits_{n \in \bdN} a_{n+1} - a_n$ est absolument convergente.
+            
+            \boxansconc{
+                Le début de la question s'obtient de manière rapide à l'aide d'une récurrence simple, en invoquant la propriété de contraction de $T$.\medskip
+                
+                La série $\sum\limits_{n \in \bdN} \norm{a_{n+1} - a_n}$ est donc majorée par la série $\norm{a_1 - a_0}\sum\limits_{n \in \bdN} \alpha^n$, à laquelle on applique le \emph{critère de convergence des séries géométriques} : puisque $\alpha < 1$, la série $\sum\limits_{n \in \bdN} a_{n+1} - a_n$ est absolument convergente.
+            }
+            
+            \item Montrer que $\p{a_n}_{n \in \bdN}$ est convergente et que sa limite est un élément de $A$. 
+            
+            \boxansconc{
+                Avec un peu plus de calcul à la question précédente, on peut montrer que pour $\p{n, p} \in \bdN^2$ avec $p > 0$, on a
+                %
+                \[ \norm{a_{n+p} - a_n} \leq \norm{a_1 - a_0}\p{\sum_{i=0}^{p-1} \alpha^{n+i}} = \norm{a_1 - a_0}\dfrac{\alpha^n}{1-\alpha} \lima{n \to +\infty} 0\]
+                %
+                La suite $\suite{a_n}$ de \textsc{Cauchy} pour $\norm{\cdot}$. Puisque $\p{E, \norm{\cdot}}$ est un espace de \textsc{Banach}, $\suite{a_n}$ est convergente vers un élément $\ell \in \overline A = A$ puisque $A$ est fermé.
+            }
+            
+            \item Montrer que $T$ possède un unique point fixe qui est la limite de $\suite{a_n}$. On établit ainsi le \emph{théorème du point fixe de \textsc{Banach}} 
+            %
+            \begin{theorem*}{Théorème du point fixe de Banach}{}
+                Toute \hg{contraction $T$} d'un \hg{fermé non vide $A$} d'un \hg{espace de \textsc{Banach}} possède un \hg{point fixe unique}.
+                
+                De plus, si \hg{$a \in A$}, la suite \hg{$\suite{a_n}$} définie par \hg{$a_0 = a$} et \hg{$a_{n+1} = T\p{a_n}$} pour tout $n \in \bdN$ \hg{converge vers ce point fixe}.
+            \end{theorem*}
+            
+            \boxansconc{
+                L'unicité est livrée par la question \enumrefraw{II.1}. L'existence est livrée par l'unicité de la limite de la suite $\suite{a_n}$ :
+                %
+                \[ \lim\limits_{n \to +\infty} a_n = \ell \qquad\et\qquad \lim\limits_{n \to +\infty} a_{n+1} = \lim\limits_{n \to +\infty} T\p{a_n} = \ell = T\p{\ell}\]
+            }
+        \end{enumerate}
+        
+        \item On suppose que $A = E$. Soit $U = E^E$ définie par $U\p{x} = x + T\p{x}$.
+        
+        \begin{enumerate}
+            \item Montrer que $U$ est une bijection continue de $E$ sur $E$.
+            
+            \noafter
+            %
+            \boxans{
+                $U$ est la somme de $\Id_E$ (continue) et de $T$ contractante ($\alpha$-lipschitzienne) donc continue, d'où $U$ est continue. Soit $y \in E$ et $x \in E$ tel que $U\p{x} = y$, donc $x + T\p{x} = y$, donc $x = y - T\p{x}$. Posons $U_y \in E^E$ telle que $U_y\p{z} = y - T\p{z}$ pour $z \in E$, ainsi $x = U_y\p{x}$. Or :
+                %
+                \[ \forall \p{z, z'} \in E^2,\qquad \norm{U_y\p{z} - U_y\p{z'}} = \norm{y - T\p{z} - y + T\p{z'}} = \norm{T\p{z} - T\p{z'}} \leq \alpha\norm{z - z'} \]
+                %
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Donc, $U_y$ est $\alpha$-contractante. D'après le théorème précédente, elle admet un unique point fixe, d'où l'unicité et l'existence de $x$. Finalement, $U$ est continue et bijective de $E$ dans $E$.
+            }
+            %
+            \yesbefore
+            
+            \item Montrer que, pour tout $\p{x, y} \in E$ on a
+            %
+            \[ \norm{U^{-1}\p{x} - U^{-1}\p{y}} <\p{1 - \alpha}^{-1}\norm{x - y}\]
+            %
+            \textbf{\sffamily N.B.} $U$ est donc un homéomorphisme de $E$ sur lui-même.
+            
+            \boxansconc{
+                Soit $a = U^{-1}\p{x}$ et $b = U^{-1}\p{y}$. On a $U\p{a} = a + T\p{a} = x$ et $U\p{b} = b + T\p{b} = y$. Donc :
+                %
+                \[ \norm{a - b} = \norm{x - T\p{a} - y + T\p{b}} \leq \norm{x - y} + \norm{T\p{a} - T\p{b}} \leq \norm{x - y} + \alpha\norm{a - b} \]
+                %
+                On trouve bien $\p{1 - \alpha}\norm{U^{-1}\p{x} - U^{-1}\p{y}} \leq \norm{x - y}$.
+            }
+        \end{enumerate}
+        
+        \item Soit $\bcL\p{E} = \ens{V \in E^E \enstq V \ \text{est linéaire et continue}}$. On note encore $\norm{V} = \sup \ens{\norm{V\p{x}}\vphantom{\dfrac{a}{b}} \enstq \norm{x} \leq 1}$ la norme subordonne de $V$, pour $V \in \bcL\p{E}$. Soit $I$ l'identité de $E$.
+        
+        \begin{enumerate}
+            \item Soit $V \in \bcL\p{E}$ telle que $\norm{V} < 1$, montrer que $V$ est contractante.
+            
+            \boxansconc{
+                Soient $\p{x, y} \in E^2$. On a par linéarité
+                %
+                \[ \norm{V\p{x} - V\p{y}} = \norm{V\p{\dfrac{x - y}{\norm{x - y}}}\norm{x - y}} \leq \norm{V}\norm{x - y} \]
+                %
+                donc $V$ est bien $\beta$-contractante pour $\beta = \norm{V} \in \intor{0, 1}$.
+            }
+            
+            \item Soient $\suite{V_n}$ une suite de $\bcL\p{E}$ et $V \in \bcL\p{E}$ tels que $\norm{V_n} < 1$ pour tout $n \in \bdN$, $\norm{V} < 1$ et $\norm{V_n - V} \lima{n \to +\infty} 0$.
+            
+            Soit $y \in E$. D'après \enumrefraw{II.3}, $I + V_n$ et $I + V$ sont des isomorphismes de $E$. On peut donc définir $\suite{x_n} = \suite{\p{I + V_n}^{-1}\p{y}}$ et $x = \p{I + V}^{-1}\p{y}$. Montrer que $\norm{x_n - x} \lima{n \to +\infty} 0$.
+            
+            \indication{On aura intérêt à écrire $V\p{x} - V_n\p{x_n} = \p{V\p{x} - V_n\p{x}} + \p{V_n\p{x - x_n}}$.}
+            
+            \noafter
+            %
+            \boxans{
+                Soit $n \in \bdN$. On a $y = x + V\p{x}$ et $y = x_n + V_n\p{x_n}$, ainsi 
+                %
+                \[ x_n - x = V_n\p{x} - V\p{x_n} = V\p{x} - V_n\p{x_n} + V_n\p{x} - V_n\p{x} = V\p{x} - V_n\p{x} - V_n\p{x_n - x} \]
+                %
+                Donc $\p{I + V_n}\p{x_n - x} = V\p{x} - V_n\p{x}$. Or $I + V_n$ est bijectif donc $x_n - x = \p{I + V_n}^{-1}\p{V\p{x} - V_n\p{x}}$. D'après \enumrefraw{II.3.2} et\enumrefraw{II.4.1}, on obtient :
+                %
+                \[ \norm{x_n - x} \leq \p{1 - \norm{V_n}}^{-1}\norm{V\p{x} - V_n\p{x}} \leq \dfrac{\norm{\p{V_n - V}\p{\dfrac{x}{\norm{x}}}\norm{x}}}{1 - \norm{V_n}}\]
+                %
+                On a $\norm{V_n} \lima{n \to +\infty} \norm{V}$ par continuité de $\norm{\cdot}$ donc il existe $\beta \in \intor{0, 1}$ et $n_0 \in \bdN$ tel que
+                %
+                \[ \forall n \in \bdN,\qquad n \geq n_0 \implies \norm{x_n - x} \leq \dfrac{\norm{V_n - V}}{1 - \beta}\norm{x} \lima{n \to +\infty} 0\]
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                On a donc bien montré que $\norm{x_n - x} \lima{n \to +\infty} 0$.
+            }
+        \end{enumerate}
+    \end{enumerate}
+    
+    \section{Une transformation de $\bcC\p{\intc{0, 1}, \bdR}$}
+    
+    Soit $\varphi : \intc{0, 1}^2 \times \bdR \to \bdR$. On dira que $\varphi$ est de type $\bcU$ lorsque $\varphi$ est continue et qu'il existe $r \in \bdR_+$ tel que l'on ait
+    %
+    \[ \forall \p{x, y, z, z'} \in \intc{0, 1}^2 \times \bdR^2,\qquad \mod{\varphi\p{x, y, z} - \varphi\p{x, y, z'}} \leq r\mod{z - z'}\]
+    %
+    \begin{enumerate}
+        \item Montrer que s'il existe $\p{\psi, M} \in \bcC^1\p{\bdR^3, \bdR} \times \bdR$ tel que $\varphi = \psi_{\vert \intc{0, 1}^2 \times \bdR}$ et $\mod{\dfrac{\partial \psi}{\partial z}\p{x, y, z}} \leq M$ pour tout $\p{x, y, z} \in \intc{0, 1}^2 \times \bdR$, alors $\varphi$ est de type $\bcU$.
+        
+        \noafter
+        %
+        \boxans{
+            Soient $\p{x, y, z, z'} \in \intc{0, 1}^2 \times \bdR^2$ avec $z' > z$. Supposons l'hypothèse vérifiée pour $\p{x, y, z}$. Posons 
+            %
+            \[ \psi_{x, y, \bullet} : \begin{array}[t]{rcl}
+                \bdR &\to& \bdR  \\
+                z &\mapsto & \psi\p{x, y, z} 
+            \end{array} \quad\text{donc on a}\qquad \dfrac{\dif\psi_{x, y, \bullet}}{\dif z} = \dfrac{\partial \psi}{\partial z} \]
+            %
+            On applique l'\emph{inégalité des accroissements finis} à $\psi_{x, y, \bullet}$ sur $\bdR$
+            %
+            \[ \mod{\psi_{x, y, \bullet}\p{z} - \psi_{x, y, \bullet}\p{z'}} \leq M\mod{z - z'}\]
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a bien montré que 
+            %
+            \[ \forall \p{x, y, z, z'} \in \intc{0, 1}^2 \times \bdR^2,\qquad \mod{\varphi\p{x, y, z} - \varphi\p{x, y, z'}} \leq r\mod{z - z'} \]
+            %
+            donc par définition $\varphi$ est de type $\bcU$.
+        }
+        %
+        \yesbefore
+        
+        \item On suppose que $\varphi$ est de type $\bcU$.
+        
+        \begin{enumerate}
+            \item Soit $u \in \bcC\p{\intc{0, 1}, \bdR}$. Montrer que pour tout $x \in \intc{0, 1}$, on a $y \mapsto \varphi\p{x, y, u\p{y}} \in \bcC\p{\intc{0, 1}, \bdR}$.
+            
+            \boxansconc{
+                L'application donnée est une composée d'applications continues, elle est donc continue.
+            }
+            
+            \item Montrer que l'on peut définir $T_\varphi : \begin{array}[t]{rcl}
+                \bcC\p{\intc{0, 1}, \bdR} &\to& \bdR^{\intc{0, 1}} \\
+                u &\mapsto& T_\varphi\p{u}
+                \end{array}$ où $T_\varphi\p{u} : \begin{array}[t]{rcl}
+                    \intc{0, 1} &\to& \bdR  \\
+                    x &\mapsto& \displaystyle\int_0^1 \varphi\p{x, y, u\p{y}}\dif y 
+                \end{array}$.
+                
+                Montrer que $T_\varphi\p{u} \in \bcC\p{\intc{0, 1}, \bdR}$ pour tout $u \in \bcC\p{\intc{0, 1}, \bdR}$.
+                
+            \boxansconc{
+                D'après la question précédente, $T_\varphi\p{u}$ pour $u \in \bcC\p{\intc{0, 1}, \bdR}$ est l'intégrale d'une fonction continue donc est définissable, d'où $T_\varphi$ l'est également.\medskip
+                
+                De plus, puisque $u$ est continue, son intégrale $T_\varphi\p{u}$ l'est également. 
+            }
+            
+            \item Montrer que l'on a
+            %
+            \[ \forall \p{u_1, u_2} \in \p{\bcC\p{\intc{0, 1}, \bdR}}^2,\qquad \bcN_\infty\p{T_\varphi\p{u_1} - T_\varphi\p{u_2}} \leq r \bcN_\infty\p{u_1 - u_2} \]
+            
+            \noafter
+            %
+            \boxans{
+                Soient $\p{u_1, u_2} \in \p{\bcC\p{\intc{0, 1}, \bdR}}^2$ et $x \in \intc{0, 1}$. On a
+                %
+                \[ \mod{T_\varphi\p{u_1}\p{x} - T_\varphi\p{u_2}\p{x}} = \mod{\int_0^1 \varphi\p{x, y, u_1\p{y}} - \varphi\p{x, y, u_2\p{y}}}\dif y \leq \int_0^1 \mod{\varphi\p{x, y, u_1\p{y}} - \varphi\p{x, y, u_2\p{y}}}\dif y\]
+                %
+                Or $\varphi$ est de type $\bcU$ donc
+                %
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                \[ \mod{T_\varphi\p{u_1}\p{x} - T_\varphi\p{u_2}\p{x}} \leq \int_0^1 r\mod{u_1\p{y} - u_2\p{y}}\dif y \leq \int_0^1 r\bcN_\infty\p{u_1 - u_2}\dif y = r\bcN_\infty\p{u_1 - u_2}\]
+            }
+            %
+            \yesbefore
+            
+            \item On définit, pour $\lambda \in \bdR$, $S_{\p{\varphi, \lambda}} : \begin{array}[t]{rcl}
+                \bcC\p{\intc{0, 1}, \bdR} &\to& \bcC\p{\intc{0, 1}, \bdR}  \\
+                u &\mapsto& u + \lambda T_\varphi\p{u} 
+            \end{array}$. Pour $r > 0$, montrer que si $\lambda \in \into{-\sfrac{1}{r}, \sfrac{1}{r}}$, alors $S_{\p{\varphi, \lambda}}$ est un homéomorphisme de $\p{\bcC\p{\intc{0, 1}, \bdR}, \bcN_\infty}$ sur lui-même.
+            
+            \noafter
+            %
+            \boxans{
+                On a montré à la question \enumrefraw{I.3} que $\p{\bcC\p{\intc{0, 1}, \bdR}, \bcN_\infty}$ est un espace de \textsc{Banach}.
+                
+                Posons $V = \lambda T_\varphi$. On a, en vertu de la question précédente,
+                %
+                \[ \forall \p{u_1, u_2} \in \bcC\p{\intc{0, 1}, \bdR}^2,\qquad \bcN_\infty{V\p{u_1} - V\p{u_2}} = \mod{\lambda}\bcN_\infty\p{T_\varphi\p{u_1} - T_\varphi\p{u_2}} \leq r\mod{\lambda}\bcN_\infty\p{u_1 - u_2}\]
+                %
+                Donc $V$ est $\alpha$-contractante, pour $\alpha = r\mod{\lambda}$. Puisque $\mod{\lambda} < \sfrac{1}{r}$, on a $\alpha < 1$.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                En appliquant la question \enumrefraw{II.3}, $S_{\p{\varphi, \lambda}} = \Id_{\bcC\p{\intc{0, 1}, \bdR}} + V$ est un homéomorphisme de $\p{\bcC\p{\intc{0, 1}, \bdR}, \bcN_\infty}$ sur lui-même.
+            }
+        \end{enumerate}
+        
+        \item Soient $\mu \in \bcC\p{\intc{0, 1}^2, \bdR}$, $\varphi : \begin{array}[t]{rcl}
+            \intc{0, 1}^2 \times \bdR &\to& \bdR  \\
+            x,y,z &\mapsto& \mu\p{x, y}z
+        \end{array}$. On supposera que $\mu \neq 0$.
+        
+        \begin{enumerate}
+            \item Montrer que $\varphi$ est de type $\bcU$ et que si $\lambda \in \into{-\frac{1}{\bcN_\infty\p{\mu}}, \frac{1}{\bcN_\infty\p{\mu}}}$, alors $S_{\p{\varphi, \lambda}}$ est un automorphisme de $\p{\bcC\p{\intc{0, 1}, \bdR}, \bcN_\infty}$.
+            
+            \boxansconc{
+                $\mu$ est continue sur le pavé $\intc{0, 1}^2$ qui est compact, donc elle est majorée par $r = \sup\limits_{\intc{0, 1}^2} \mod{\mu}$. Dès lors $\dfrac{\partial \psi}{\partial z} = \mu\p{x, y} \leq r$ donc en appliquant la question \enumrefraw{III.1}, $\varphi$ est de type $\bcU$. On conclut en appliquant la question précédente.
+            }
+            
+            
+        \end{enumerate}
+    \end{enumerate}
+\end{document}

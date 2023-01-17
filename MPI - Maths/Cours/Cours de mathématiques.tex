@@ -1521,4 +1521,780 @@
     \end{exercise}
     
     Transformation d'Abel (TA) = ipp. $\sum_{n=p}^q a_nb_n$
+    
+    \chapter{Intégrales impropres}
+    
+    Etude de $\displaystyle \int_0^\infty f\p{t}\dif t$
+    
+    \chaptertoc
+    
+    \section{Généralités}
+    
+    \subsection{Continuité par morceaux}
+    
+    \begin{definition}{Fonction continue par morceaux}{}
+        On dit qu'une fonction $f : \intc{a, b} \to \bdR, \bdC, E, \dots$ est continue par morceaux lorsque 
+        %
+        \[ \exists x_0 = a < x_1 < \dots < x_n = b\]
+        %
+        tels que $f$ est continue sur $\into{x_i, x_{i+1}}$, et $f$ admet une limite à droite et à gauche aux $x_i$.
+    \end{definition}
+    %
+    \begin{notation}
+        On note $f \in \bcC^0_{\mathfrak{m}}\p{\intc{a, b}, \dots}$.
+    \end{notation}
+    
+    On remarque :
+    %
+    \begin{enumerate}
+        \itt $f$ est $C^0_\text m$ sur $I$ un intervalle réel si elle est $C^0_\text m$ sur tout compact de $I$. Les points à problèmes peuvent s'accumuler mais seulement sur un bord de $I \not\in I$.
+    \end{enumerate}
+    
+    \begin{example}{}{}
+        La fonction $f\p{x} = \floor{\dfrac{1}{x}}$ est $C^0_\text m$ sur $\intor{a, \infty}$ mais pas sur $\into{0, \infty}$ (où $a > 0$).
+        
+        En effet, $f$ est $\bcC^0$ sur $\intol{\dfrac{1}{n+1}, \dfrac{1}{n}}$ avec $f\p{\dfrac{1}{n+1} + h} \lima{h \to 0^+} n$.
+    \end{example}
+    
+    \subsection{Classes $\bcC^k$ par morceaux}
+    
+    \begin{definition}{}{}
+        On dit qu'une fonction $f : \intc{a, b} \to \bdR, \bdC, E, \dots$ est de classe $\bcC^k$ par morceaux lorsque 
+        %
+        \[ \exists x_0 = a < x_1 < \dots < x_n = b\]
+        %
+        tels que $f$ est de classe $\bcC^k$ sur $\into{x_i, x_{i+1}}$, et $g_i = f_{\vert \into{x_i, x_{i+1}}}$ se prolonge en une fonction de classe $\bcC^k$ sur $\intc{x_i, x_{i+1}}$.
+    \end{definition}
+    %
+    \begin{notation}
+        On note $f \in \bcC^k_\text m\p{\intc{a, b}, \dots}$.
+    \end{notation}
+    
+    On remarque de même :
+    %
+    \begin{enumerate}
+        \itt La continuité par morceaux est bien le cas particulier de la classe $\bcC^0$.
+        
+        \itt De même, $f$ est $\bcC_m^k$ sur $I$ si $\bcC_m^k$ sur tout compact de $I$.
+    \end{enumerate}
+    
+    \begin{theorem}{Caractérisation}{}
+        $f$ est $\bcC_m^k$ sur $\intc{a, b}$ si
+        %
+        \begin{enumerate}
+            \itast $f$ est $\bcC^k$ sur $\into{x_i, x_{i+1}}$
+            
+            \itast $f^{\p{k}}$ admet une limite à droite et à gauche aux $x_i$.
+        \end{enumerate}
+    \end{theorem}
+    
+    Autre CNS : existence de $f^{(j)}\p{x_i + 0}$ et $f^{(j)}\p{x_i - 0}$ pour $j \in \iint{0, k}$.
+    
+    \begin{example}{}{}
+        Fonction en escalier.
+    \end{example}
+    
+    \begin{theorem}{Théorème du prolongement}{}
+        \begin{psse}
+            \item $f$ est $\bcC^1$ sur $\intol{0, a}$. Si $f' \lima{0} \ell$, alors $f$ se prolonge en $F$ $\bcC^1$ sur $\intc{0, a}$.
+            
+            \item $f$ est $\bcC^1$ sur $I \setminus \ens{x_0}$. Si $f' \lima{x_0} \ell$, ...
+            
+            \item $f$ est $\bcC^k$ sur $\intol{0, a}$ avec $k \geq 1$. Si $f^{\p{k}} \lima{0} \ell_k$, alors $f$ se prolonge en $F$ $\bcC^k$ sur $\intc{0, a}$.
+            
+            \item $f$ est $\bcC^k$ sur $I \setminus \ens{x_0}$ avec $k \geq 1$. Si $f^{\p{k}} \lima{0} \ell_k$ et $f$ est $\bcC^0$ sur $I$, \dots
+        \end{psse}
+    \end{theorem}
+    
+    \subsection{CVA et SCV}
+    
+    $f$ $\bcC^0_{\mathfrak{m}}$ sur $\intor{a, b}$ ($b = \infty$ autorisé).
+    
+    $F\p{x} = \displaystyle\int_a^x f$.
+    
+    On dit $\displaystyle \int_a^b f$ CV et $\displaystyle \int_a^b f = \ell$ si $F \lima{b} \ell$
+    
+    \begin{property}{CVA entraîne CV}{}
+        CVA entraîne CV.
+    \end{property}
+    %
+    \begin{nproof}
+        On suppose $\displaystyle\int_a^b \norm{f}$ CV. On remarque que :
+        %
+        \[ \int_a^x f = \int_a^c f + \int_c^x f \qquad\text{avec}\qquad x \geq c\]
+        %
+        $x \lima b$ : $\displaystyle \int_a^b f $ CV ssi. $\displaystyle\int_c^b f$ CV.
+        
+        Si oui, $\displaystyle\int_a^b f = \int_a^c f + \int_c^b f$. De plus, si CV, $\displaystyle\int_c^b f \lima{c \to b} 0$ (reste d'une $\int$ CV).
+        
+        Soit $F\p{x} = \displaystyle\int_a^x f$. O, veut montrer que $\lim\limits_b F$ existe :
+        
+        caractérisation seq $x_n \lima b$ mq $F\p{x_n}$ admet une limite.
+        
+        $\norm{F\p{x_n}} \leq \int_a^b \norm{f}$ est bornée. Compacité, mq unique va : si 2 va $\ell_1$ et $\ell_2$, deux extractrices $\varphi_1$ et $\varphi_2$, tels que :
+        %
+        \[ \int_a^{x_{\varphi_1\p{n}}} f \lima \ell_1 \qquad\et\qquad \int_a^{x_{\varphi_2\p{n}}} f \lima \ell_2\]
+        %
+        Ainsi $\displaystyle\int_{x_{\varphi_1\p{n}}}{x_{\varphi_2\p{n}}} f = \ell_2 - \ell_1$. Dès lors 
+        %
+        \[ \norm{\ell_2 - \ell_1} = \norm{\int_{x_{\varphi_1\p{n}}}^{x_{\varphi_2\p{n}}} f} \leq \int_{x_{\varphi_1\p{n}}}^{x_{\varphi_2\p{n}}} \norm{f} = \int_{x_{\varphi_1\p{n}}}^b \norm{f} - \int_{x_{\varphi_2\p{n}}}^b \norm{f} \lima{n \to +\infty} 0 - 0 = 0\]
+        %
+        Ainsi $\ell_1 = \ell_2$.
+    \end{nproof}
+    
+    \section{Cas de la positivité}
+    
+    \subsection{Alternative}
+    
+    \subsection{}
+    
+    \subsection{Règle de l'équivalent}
+    
+    \subsection{Règle du $\bco$, $\bcO$}
+    
+    Si $f = \o{b}{g}$ \emph{- resp. $\O{b}{g}$ -} avec $g \geq 0$ positif, alors :
+    %
+    \begin{enumerate}
+        \itt Si $\int_a^b g$ CV alors $\int_a^b f$ CV et $\int_x^b = \o{b}{\int_x^b g}$
+        
+        \itt Si $\int_a^b g$ DV alors $\int_a^x f = \o{b}{\int_a^x g}$.
+    \end{enumerate}
+    
+    \subsection{Intégrales de Riemann}
+    
+    \begin{enumerate}
+        \itt $\int_0^1 \dfrac{\dif t}{t^\alpha}$ CV si $\alpha < 1$ et DV si $\alpha \geq 1$
+        
+        \itt $\int_1^\infty \dfrac{\dif t}{t^\alpha}$ CV si $\alpha > 1$ et DV si $\alpha \leq 1$.
+    \end{enumerate}
+    
+    \section{Méthodes pratiques}
+    
+    \subsection{Différence série intégrales}
+    
+    \begin{warning}{}{}
+        \bf{PAS DE DIVERGENCE GROSSIÈRE !}
+        
+        \[ \int_0^\infty f \text{ CV } \implies f \text{ bornée ? \bf{FAUX !}} \qquad f \lima 0 \text{ ? \bf{FAUX!}}\]
+    \end{warning}
+    
+    \subsection{Comparaison}
+    
+    $f$ $\bcC^0_{\mathfrak{m}}$ sur $\intor{0, \infty}$. 
+    
+    \begin{enumerate}
+        \itt $t^2f\p{t} \lima 0 \implies$ CVA
+        
+        \itt $tf\p{t} \lima \infty$ avec $f \geq 0 \implies$ DV
+    \end{enumerate}
+    
+    \begin{example}{}{}
+        \begin{enumerate}
+            \itt $\displaystyle\int_0^\infty e^{-\alpha t} \dif t$ CV avec $a > 0$ et $DV \leq 0$.
+            
+            \itt $\displaystyle\int_0^\infty e^{-\alpha t} \dif t$ si $\alpha > 0$.
+        \end{enumerate}
+    \end{example}
+    
+    \subsection{Changement de variable}
+    
+    \chapter{Suites et séries de fonctions}
+    
+    \chaptertoc
+    
+    \section{Convergence}
+    
+    \subsection{Convergence simple (CVS)}
+    
+    Suite $f_n : I \to E$. On dit $f_n$ simplement convergente vers $f$ sur $I$ si $\forall x \in I$, $f_n\p{x} \lima_{n \to +\infty} f\p{x}$
+    
+    I en général un intervalle réel ($I \subset F$ normé autorisé).\medskip
+    
+    Séries : $u_n : I\to E$
+    
+    On dit $\sum u_n$ CVS sur $I$ sur $\forall x \in I$, $\Sigma u_n\p{x}$ CV.
+    
+    \subsection{Convergence uniforme (CVU)}
+    
+    Suite $f_n : I \to E$. On a $f_n$ CVU sur $I$ vers $f$, si $N_\infty \p{f_n - f} \lima 0$\medskip
+    
+    Série $u_n : I \to E$, $\Sigma u_n$ CVU sur $I$ si $R_n$ CVU vers $0$ :
+    %
+    \[ \sup\limits_{x \in I} \norm{\sum_{k=n+1}^{+\infty} u_k\p{x}} \lima{n \to +\infty} 0\]
+    
+    $\sum u_n$ CVU sur $I$ si $\sum\limits_{n=0}^N u_n$ CVU sur $I$ (vers $\sum\limits_0^\infty u_n$). En effet :
+    %
+    \[ \sum_0^\infty u_n - S_N\p{u} = \sum_{N+1}^\infty u_n\]
+    
+    \subsection{Convergence normale (CVN) - que pour les séries}
+    
+    $u_n : I \to E$. On dit $\sum u_n$ CVN sur $I$ si $\sum N_\infty\p{u_n}$ CV.
+    
+    prop : CVN $\implies$ CVU : 
+    %
+    \[ \norm{\sum_{k=n+1}^{+\infty} u_k\p{x}} \leq \sum_{n+1}^\infty N_\infty\p{u_k}\]
+    %
+    Donc $\sup\limits_x \displaystyle \norm{\sum_{k=n+1}^\infty u_k} \leq \sum_{k=n+1}^\infty N_\infty\p{u_k} \lima{n \to \infty} 0$.
+    
+    \section{Théorèmes}
+    
+    \subsection{Continuité}
+    
+    Suite $f_n : I \to E$ avec $f_n \in \bcC^0$. Si $f_n$ CVU vers $f$ sur $I$ alors $f \in \bcC^0$ sur $I$.
+    
+    Série $u_n : I \to E$ avec $u_n \in \bcC^0$. Si $\sum u_n$ CVU/CVN sur $I$ alors $\sum u_n \in \bcC^0$ sur $I$.
+    
+    \subsection{Dérivabilité}
+    
+    Suite $f_n : I \subseteq \bdR \to E$ avec $f_n \in \bcC^1$. Si $f_n$ CVS sur $I$ vers $f$ et $f_n'$ CVU sur $I$ vers $g$, alors $f \in \bcC^1$ et $f' = g$.
+    
+    Notes :
+    %
+    \begin{itemize}
+        \item CVU sur $f_n'$ essentielle
+        \item Parfois on a vérifié la CVU de $f_n$ pour avoir $f \in \bcC^0$
+    \end{itemize}
+    
+    \begin{align*}
+         \left.\begin{array}{c}
+        f_n \in \bcC^1  \\
+        f_n \ \text{CVU vers} \ f\\
+        f_n' \ \text{CVU vers} \ g
+    \end{array}\right\rbrace &\implies \begin{array}{c}
+        f \in \bcC^1\\
+        f' = g
+    \end{array}\\
+    \left.\begin{array}{c}
+        f_n \in \bcC^1 \ \text{sur} \ I \\
+        f_n \ \text{CVS en} \ x_0 \in I\\
+        f_n' \ \text{CVU vers} \ g
+    \end{array}\right\rbrace &\implies \begin{array}{c}
+        f_n \ \text{CVS sur} \ I \ \text{ver} f\\
+        \p{\text{CVU sur tout compact de} \ I}\\
+        f \in \bcC^1 \et f' = g
+    \end{array}
+    \end{align*}
+    %
+    Séries :
+    %
+    \begin{align*}
+        \left.\begin{array}{c}
+        u_n \in \bcC^1 \ \text{sur} \ I \subset \bdR \to E  \\
+        \sum u_n \ \text{CVS sur} \ I\\
+        \sum u_n' \ \text{CVU/CVN sur} \ I
+    \end{array}\right\rbrace &\implies \begin{array}{c}
+        \sum u_n \in \bcC^1\\
+        \p{\sum u_n}' = \sum u_n'
+    \end{array}\\
+    \left.\begin{array}{c}
+        u_n \in \bcC^1 \ \text{sur} \ I \subset \bdR \to E  \\
+        \sum u_n \ \text{CVU sur} \ I\\
+        \sum u_n' \ \text{CVU sur} \ I
+    \end{array}\right\rbrace &\implies \begin{array}{c}
+        \sum u_n \in \bcC^1\\
+        \p{\sum u_n}' = \sum u_n'
+    \end{array}\\
+    \left.\begin{array}{c}
+        u_n \in \bcC^1 \ \text{sur} \ I \subset \bdR \to E  \\
+        \sum u_n \ \text{CVS en} \ x_0 \in I\\
+        \sum u_n' \ \text{CVU sur} \ I
+    \end{array}\right\rbrace &\implies \begin{array}{c}
+        \sum u_n \ \text{CVS sur} \ I\\
+        \text{(CVU sur tout compact)}\\
+        \p{\sum u_n}' = \sum u_n'
+    \end{array}
+    \end{align*}
+    
+    \subsection{$\bcC^2$, $\bcC^k$}
+    
+    Suite :
+    %
+    \[\left.\begin{array}{c}
+        f_n \in \bcC^k \ \text{sur} I\\
+        f_n \ \text{CVS sur} \ I \ \text{vers} \ f\\
+        f_n' \ \text{CVS sur} \ I \ \text{vers} \ f_1\\
+        \vdots\\
+        f_n^{\p{k-1}} \ \text{CVS sur} \ I \ \text{vers} \ f_{k-1}\\
+        f_n^{\p{k}} \ \text{\underline{CVU} sur} \ I \ \text{vers} \ f_k
+    \end{array}\right\rbrace \implies \begin{array}{c}
+        \sum f \in \bcC^k \ \text{sur} \ I\\
+        f^{\p{i}} = f_i \qquad i \leq k
+    \end{array}\]
+    %
+    Série :
+    %
+    \[\left.\begin{array}{c}
+        u_n \in \bcC^k\p{I, E}\\
+        \sum u_n \ \text{CVS}\\
+        \sum u_n' \ \text{CVS}\\
+        \vdots\\
+        \sum u_n^{\p{k-1}} \ \text{CVS}\\
+        \sum u_n^{\p{k}} \ \text{\underline{CVU}}\\
+    \end{array}\right\rbrace \implies \begin{array}{c}
+        \sum f \in \bcC^k \ \text{sur} \ I\\
+        f^{\p{i}} = f_i \qquad i \leq k
+    \end{array}\]
+    
+    \subsection{$\bcC^\infty$}
+    %
+    Suite :
+    %
+    \[\left.\begin{array}{c}
+        f_n \in \bcC^\infty\\
+        f_n, f_n', \dots, f_n^{\p{(n_0 -1}} \ \text{CVS vers} \ f, f_1, \dots, f_{n_0 - 1}\\
+        f_n^{\p{i}} \ \text{CVU} \ \text{pour} \ i \geq n_0
+    \end{array}\right\rbrace \implies \begin{array}{c}
+        \sum f \in \bcC^\infty \ \text{sur} \ I\\
+        f^{\p{i}} = f_i \qquad \forall i
+    \end{array}\]
+    %
+    Série : pareil
+    
+    Pratique :
+    %
+    \begin{itemize}
+        \item CVU de $\sum u_n^{\p{k}}$, \qquad $\forall k \geq 0$
+        
+        (CVU de $\sum u_n^{\p{k}}$,\qquad $\forall k \geq 1$ et CVS pour $k = 0$)
+        
+        \itstar \textsc{Fubini} (vers l'an prochain).
+    \end{itemize}
+    
+    \subsection{Intégration sur un segment}
+    
+    $f_n$ CVU sur $\intc{a, b}$ vers $f$.
+    %
+    \[ f_n \in \bcC^0_{\mathfrak{m}} \implies \int_a^b f_n \lima \int_a^b f\]
+    %
+    (CVU + Compacité)\medskip
+    
+    
+    $\sum u_n$ CVU sur $\intc{a, b}$ :
+    %
+    \[ u_n \in \bcC^0_{\mathfrak{m}} \qquad \int_a^b \sum u_n = \sum \int_a^b u_n\]
+    
+    \section{Méthodes pratiques}
+    
+    \subsection{CVU d'une suite}
+    %
+    $f_n\p{x} = \dots$. CVS. CVU.
+    
+    CVS : on rédige $f_n \lima f$ sur $I$
+    
+    CVU : $\sup \mod{f_n - f}$ : variations de $f_n - f$, et majorer $\mod{\p{f_n - f}\p{x}}$ en choisissant $x$\medskip
+    
+    S'éloigner des points à problèmes. Par exemple, avec $0$ point à problème.
+    
+    Si $\p{f_n - f}\p{x}$, non sur $x \in \bdR_+$, mais sur $\into{0, +\infty}$, avec :
+    %
+    \[ \sup\limits_{\into{0, +\infty}} \mod{f_n - f} = \sup\limits_{\intor{0, +\infty}} \mod{f_n - f}\]
+    
+    \subsection{CVN d'une série}
+    
+    \begin{itemize}
+        \item évaluer $N_\infty\p{u_n}$
+        
+        \item variations
+        
+        \item majorer $\mod{u_n\p{x}}$ indep de $x$
+        
+        \item (minorer $\mod{u_n\p{x}}$ indep de $x$ pour rédiger la non CVN)
+        
+        \item s'éloigner des points à problème
+    \end{itemize}
+    
+    %
+    exo : $f_n\p{x} = n^\alpha x^n$ sur $\intc{-1, 1}$. CVS CVU.
+    
+    
+    \newpage
+    
+    \[ F\p{x} = \sum_{n \geq 1} \dfrac{1}{n^2 + x^2} \qquad\qquad x \in \bdR_+ \]
+    %
+    \begin{enumerate}
+        \item CVS à $x$ fixé : $u_n\p{x} = \dfrac{1}{n^2 - x^2} = \bcO\p{\dfrac{1}{n^2}}$ donc CVA.
+        
+        CVN : $x \in \bdR_+$, et $\mod{u_n\p{x}} \leq \dfrac{1}{n^2}$ indépendamment de $x$. 
+    \end{enumerate}
+    
+    \newpage
+    
+    Soit $F\p{x} = \sum\limits_{n \geq 0} \dfrac{e^{-nx}}{n^2 + 1}$
+    
+    \begin{enumerate}
+        \item Pour $x \in \bdR_+$ CVS évidente, $\bcO\p{\dfrac{1}{n^2}}$ sinon divergence. 
+    \end{enumerate}
+    
+    \chapter{Intégrales et interversion}
+    
+    \chaptertoc
+    
+    \section{Théorèmes d'interversions}
+    
+    \subsection{Limite et intégrale}
+    
+    $f_n : I \to E$ 
+    
+    \begin{itemize}
+        \itt Convergence : $\suite{f_n}$ CVS sur $I$ vers $f$
+        
+        \itt Régularité : $f_n, f \in \bcC^0_\text m$ sur $I$
+        
+        \itt Domination : on dispose de $g \in L^1$ sur $I$ tq $\forall n$, $\norm{f_n} \leq g$
+    \end{itemize}
+    
+    Dans ce cas, on a $\displaystyle\int_I f_n \lima{n \to +\infty} \int_I f$
+    
+    \subsection{Somme et intégrale}
+    
+    $f = \sum u_n$ avec $u_n \in \bcC^0$ sur $I \to E$
+    
+    \begin{itemize}
+        \itt Convergence : $\sum u_n$ CVS sur $I$
+        
+        \itt Régularité : $u_n, \sum u_n \in \bcC^0_\text m$ sur $I$
+        
+        \itt Domination : $\displaystyle\sum_n \int_I \norm{u_n}$ CV
+    \end{itemize}
+    
+    Dans ce cas, on a $\displaystyle \int_I \sum u_n = \sum \int_I u_n$
+    
+    \subsection{Hors programme : convergence monotone}
+    
+    $f = \sum u_n$ avec $u_n \in \bcC^0$ sur $I \to E$
+    
+    \begin{itemize}
+        \itt Convergence : $\sum u_n$ CVS sur $I$
+        
+        \itt Régularité : $u_n, \sum u_n \in \bcC^0_\text m$ sur $I$
+        
+        \itt Monotonie : $u_n \geq 0$
+    \end{itemize}
+    
+    Dans ce cas on a $f = \sum u_n$ qui est $\bbL^1$ sur $I$ ssi $\displaystyle \sum\int_I u_n$ CV. Si oui, $\displaystyle\int_I f = \sum \int_I u_n$.
+    
+    
+    \section{Intégrales à paramètre}
+    
+    \newpage
+    
+    \begin{exercise}{}{}
+        $F_n \in \bcC^0$ CVS vers $f \in \bcC^0$. $\p{f_n\p{x}}_n$ croissante, $I = \intc{0, 1}$. Montrer que $f_n$ CVU vers $f$.
+        
+        Pour cela, soit $\epsilon > 0$. Posons $F_n = \ens{x \in I, \enstq f_n\p{x} - f_{n+1}\p{x} \geq \epsilon}$.
+        
+        Montrer la convergence uniforme revient à montrer que $F_n$ est vide à partir d'un certain rang.
+    \end{exercise}
+    
+    \chapter{Séries entières}
+    
+    \section{Rayn de convergence}
+    
+    $\suite{a_n} \in \bdC^\bdN$. En pratique il existe $R \in \intc{0, +\infty}$ tq si $\mod{z} < R$ alors $\sum a_nz^n$ ACV et si $\mod{z} > R$ la série diverge grossièrement. $R$ s'appelle rayon de convergence. Définition plus rigoureuse (lemme d'\textsc{Abel}) :
+    %
+    \[ R = \sup \ens{\rho \in \bdR_+ \enstq \exists M \in \bdR_+,\ \forall n \in \bdN,\quad a_n\rho^n \leq M}\]
+    %
+    Montrons que $\serie a_nz^n$ ACV si $\mod{z} < R$. Il existe $\mod{z} < \rho  R$ et l'on a $a_nz^n = a_n\rho^n \times \p{\dfrac{z}{\rho}}^n$.
+    
+    Ainsi $\mod{a_nz^n} = \mod{a_n\rho^n}\times\p{\dfrac{\mod{z}}{\rho}}^n$ ACV car $\mod{a_n\rho^n}$ bornée et $\dfrac{\mod{z}}{\rho} < 1$.
+    
+    Si $\mod{z} > R$, $a_n\mod{z}^n$ non borné, il existe $R < \rho < \mod{z}$, tel que $a_n\rho^n$ est non bornée. On conclut similairement (produit non borné).
+    
+    \begin{enumerate}
+        \itt $\bsD\p{0, R}$ se nomme le disque de CV / l'ouvert de CV
+        \itt $\bsC\p{0, R}$ se nomme cercle de CV (mal nommé, il n'y a pas forcément CV)
+        \itt Il y a CVA sur l'ouvert de CV / le disque de CV
+    \end{enumerate}
+    
+    \section{Méthodes de calcul}
+    
+    $a = \suite{a_n}$ et $R_a$ le rayon de convergence de $\sum a_nz^n$.
+    
+    \begin{enumerate}
+        \itstar $R_a = R_{\mod{a}}$
+        
+        \itstar $0 \leq a_n \leq b_n \implies R_a \geq R_b$
+        
+        \itstar $R_{\lambda a} = R_a$
+        
+        \itstar $a_n \asymp b_n \implies R_a = R_b$ ou mieux, $\dfrac{1}{2}\mod{a_n} \leq \mod{b_n} \leq \dfrac{3}{2}\mod{a_n} \implies R_a = R_b$.
+        
+        ex $a_n = 2 + \sin n$, on a $1 \leq a_n \leq 3$ d'où $1 = R_1 \geq R_a \geq R_3 = 1$, \ie $R_a = 1$.
+        
+        autre ex, on verra $R_{\sfrac{1}{n}} = R_n = 1$ : $\dfrac{1}{n} \leq \mod{a_n} \leq r_n \implies R_a 1$ avec $1 \geq R_a \geq 1$.
+    \end{enumerate}
+    
+    \section{d'Alembert}
+    
+    $\sum a_nz^n$ : $\mod{\dfrac{a_{n+1}}{a_n}} \lima{n \to +\infty} \ell \implies R = \dfrac{1}{\ell}$.
+    
+    Attention !!! $\sum a_nz^n$ de rayon $R$ n'implique PAS que $\mod{\dfrac{a_{n+1}}{a_n}} \lima{+\infty} R$.
+    
+    Théorème de d'Alembert : 
+    
+    
+    \newpage
+    
+    \newpage
+    
+    \chapter{Probabilités}
+    
+    \begin{center}
+        \emph{\EBGaramond De l'art de bien conditionner...}
+    \end{center}
+    
+    \chaptertoc
+    
+    \section{Dénombrabilité}
+    
+    \subsection{Définitions}
+    
+    \begin{definition}{Partie finie et dénombrable}{}
+        Une partie \hg{$A$ est dite finie} \emph{(resp. dénombrable)} si \hg{$A$ est en bijection avec une partie finie} \emph{(resp. dénombrable)} de l'ensemble des \hg{entiers naturels $\bdN$}.
+    \end{definition}
+    
+    \textbf{\sffamily N.B.} La distinction entre fini et dénombrable se fait en France. Dans le monde anglo-saxon, le terme \guill{dénombrable} est utilisé pour désigner les deux cas. 
+    
+    \begin{property}{Parties des naturels}{}
+        Soit $A \subset \bdN$. Soit \hg{$A$ est finie}, soit \hg{$A$ est en bijection avec $\bdN$}, \ie
+        %
+        \[ A \hookrightarrow \bdN \qquad\text{(s'injecte)} \implies A \ \text{dénombrable}\]
+    \end{property}
+    
+    \begin{nproof}
+        Soit $A \subset \bdN$. Si $A = \emptyset$, $A$ est finie. Sinon, considérons $A \neq \emptyset$.
+        
+        Soit $a_0 = \inf A$. Si $A = \ens{a_0}$, $A$ est finie. Sinon, soit $a_1 = \inf A \backslash \ens{a_0}$.\medskip
+        
+        On ré-itère le processus pour construire $a_1, a_2, \dots$ tant que c'est possible. Si on s'arrête, alors $A$ est finie. Sinon, on a $A = \ens{a_i}_{i \in \bdN}$. On a donc la bijection
+        %
+        \[ \p{a} : \begin{array}[t]{ccc}
+            \bdN &\to A  \\
+            i &\mapsto a_i 
+        \end{array}\]
+    \end{nproof}
+    
+    \subsection{Exemples}
+    
+    \begin{enumerate}
+        \itt $A$ et $B$ dénombrables $\implies A \cup B$ dénombrable. Par exemple :
+        %
+        \[ 2\bdN \cup 2\bdN + 1 = \bdN\]
+        
+        \itt $A$ et $B$ dénombrables $\implies A \times B$ dénombrable. Notamment, $N \times \bdN$ dénombrable : carré et diagonales.
+        
+        \item $\bdQ$ dénombrable : $\bdQ \hookrightarrow \bdN \times \bdN*$.
+    \end{enumerate}
+    
+    \begin{property}{Cantor}{}
+        Pour un ensemble $X$, $\bcP\p{X}$ ne s'injecte pas dans $X$.
+    \end{property}
+    
+    \begin{nproof}
+        Classique, voir sup, ou cours d'info :)
+    \end{nproof}
+    
+    \begin{property}{Cantor-Bernstein}
+        Si $X \hookrightarrow Y$ et $Y \hookleftarrow X$, alors $X \approx Y$ (en bijection). 
+    \end{property}
+    
+    \begin{nproof}
+        En exo.
+    \end{nproof}
+    
+    \begin{enumerate}
+        \itt $\bdN^\bdN$ non dénombrable
+        
+        \item exo : l'ensembles des parties finies de $\bdN$ est dénombrable
+        
+        \item exo : l'ensemble des nombres algébriques sur $\bdQ$ est dénombrable.
+    \end{enumerate}
+    
+    \section{Tribu}
+    
+    \subsection{Définition}
+    
+    \begin{definition}{}
+        Une \hg{tribu $\bcT$} sur $\Omega$ est un ensemble de parties de $\Omega$ (\ie $\bcT \subset \bcP\p{\Omega}$) vérifiant :
+        %
+        \begin{psse}
+            \item $\emptyset \in \bcT$ et $\Omega \in \bcT$
+            
+            \item $A \in \bcT \implies \overline A \in \bcT$ (où $\overline A = \Omega \backslash A$).
+            
+            \item $A_n \in \bcT$ pour $n \in \bdN \implies \displaystyle\bigcup_{n \geq 0} A_n \in \bcT$ et $\displaystyle\bigcap_{n \geq 0} A_n \in \bcT$.
+        \end{psse}
+    \end{definition}
+    
+    Exemples de tribu :
+    %
+    \begin{enumerate}
+        \itt $\ens{\emptyset, \Omega}$ (tribu triviale)
+        
+        \itt $\bcP\p{\Omega}$ (tribu grossière)
+    \end{enumerate}
+    
+    \subsection{Tribu engendrée}
+    
+    Soit $X \subset \bcP\p{\Omega}$. On veut définir la tribu engendrée par $X$ : c'est la plus petite tribu $\bcT$ telle que $X \subset \bcT$. 
+    
+    \begin{property}{}{}
+        Pour $\bcT_i$, $i \in I$ des tribus, $\displaystyle\bigcap \bcT_i$ est une tribu.
+    \end{property}
+    
+    La tribu engendrée par $X$ est donc l'intersection des tribu qui contiennent $X$.
+    
+
+    
+    exo** : qu'est-ce qu'une tribu \textbf{finie} sur $\Omega$ ??
+    
+    \section{Probabilités}
+    
+    \subsection{Définition}
+    
+    \begin{definition}{Mesure de probabilité}{}
+        Soit $\Omega$ un univers, $\bcT$ une tribu sur $\Omega$. Une \hg{mesure de probabilité} est une application 
+        %
+        \[ \bbP : \Omega \to \intc{0, 1} \]
+        %
+        telle que :
+        %
+        \begin{psse}
+            \item $\bcP\p{\Omega} = 1$
+            
+            \item ($\sigma$-additivité) $\displaystyle\bbP\p{\bigsqcup_{n \in \bdN} A_n} = \sum_{n \in \bdN} \bbP\p{A_n}$.
+        \end{psse}
+    \end{definition}
+    
+    \subsection{De l'intérêt d'une tribu}
+    
+    Dans $\bdR$ tribu des boréliens : tribu engendrée par les ouverts de $\bdR$ (\cf premier ordinaux transfinis, \dots $\omega_1$ \dots). 
+    
+    Sur $\bdR$, la mesure $\mu : \begin{array}[t]{ccc}
+        \bcP\p{\bdR} &\to& \bdR  \\
+        X &\mapsto& \mu\p{X} 
+    \end{array}$.
+    
+    $\mu\p{X}$ éventuellement infini. $\mu$ invariant par translation, respectant la $\sigma$-additivité.
+    
+    Considérons $\sfrac{\bdR}{\bdQ}$ : $x \asymp y \iff x - y \in \bdQ$. $\mathrm{Cl}\p{x} = x + \bdQ$.
+    
+    On peut remplacer $x_i$ par $x_i - q$, pour $q \in \bdQ$. On va donc supposer $x_i \in \intc{0, 1}$. Soit $X = \ens{x_i, i \in I}$ (NÉCESSITE AXIOME DU CHOIX).
+    
+    On a $X \subset \intc{0, 1}$ donc $0 \leq \mu\p{X} \leq 1$.
+    
+    \begin{enumerate}
+        \itt (Attention difficile) On a $X + \intc{-1, 1} \cap \bdQ \supset \intc{0, 1}$, d'où $x \in \intc{0, 1}$ et $x \in \mathrm{Cl}\p{x_i}$, \ie $x = x_i + q$ et $q \in \intc{-1, 1} \cap \bdQ$.
+        
+        Donc $\mu\p{X + q} = \mu\p{X}$. Dès lors
+        %
+        \[ \mu\p{\intc{0, 1}} = 1 \leq \mu\p{X + \intc{-1, 1} \cap \bdQ} = \sum_{q \in \intc{-1, 1} \cap \bdQ} \mu\p{X + q}\]
+        %
+        Donc en conclusion $\mu\p{X} > 0$.
+        
+        \itt Mais $X + \intc{-1, 1} \cap \bdQ \subset \intc{-1, 2}$ d'où $\displaystyle\sum_{q \in \intc{-1, 1} \cap \bdQ} \mu\p{X + q} \leq 3$
+        
+        En conclusion $\mu\p{X} = 0$.
+    \end{enumerate}
+    
+    Absurde, donc cet ensemble n'est pas mesurable.\bigskip\bigskip
+    
+    Soit $\bbP$ proba sur $\Omega, \bcT$. Les éléments de $\bcT$ s'appellent évènements. Exemple :
+    %
+    \begin{enumerate}
+        \itt on tire à $P$ ou $F$ un certain nombre de fois : $X_1, X_2, \dots$
+        
+        \itt $\p{X_1 = 0}$
+        
+        \itt $\p{X_1 = 0, X_2 = 1, X_3 = 1}$
+        
+        \itt autre ex : $\Omega$ et $\bcT = \ens{\emptyset, \Omega}$. $\bbP\p{\emptyset} = 0$ et $\bbP\p{\Omega} = 1$.
+    \end{enumerate}
+    
+    \subsection{Espérance conditionnelle}
+    
+    $X$ et $Y$ : $\bbP\p{X = x \enstq Y = y}$. Espérance conditionnelle :
+    %
+    \[ \bdE\p{X \enstq Y = y} = \sum_x x\bbP\p{X = x \enstq Y = y} = \varphi\p{y}\]
+    %
+    D'où $\bdE\p{X \enstq Y} = \varphi\p{Y}$. Intérêt :
+    %
+    \[ \bdE\p{\bdE\p{X \enstq Y}} = \bdE\p{X}\]
+    %
+    On a  $\bdE\p{X \enstq Y} = \varphi\p{y}$ donc
+    %
+    \begin{align*}
+        \bdE\p{\bdE\p{X \enstq Y}} &= \bdE\p{\varphi\p{Y}} = \sum_y \varphi\p{Y}\bbP\p{Y = y} = \sum_{x, y}x\bbP\p{X = x \enstq Y = y}\bbP\p{Y = y}\\
+        &= \sum_x x \sum_y \bbP\p{X = x, Y = y} = \sum_x x \bbP\p{X = x} = \bdE\p{X}
+    \end{align*}
+    %
+    
+    \section{Exemples}
+    
+    \subsection{Fonctions génératrices}
+    
+    $X : \Omega \to \bdN$
+    
+    
+    \newpage
+    
+    Considérons un jeu de pile ou face. On a $P$ le succès \guill{la pièce tombe sur pile}, de probabilité $0 < p \geq 1$, et $F$ l'échec \guill{la pièce tombe sur face} de probabilité $q = 1 - p$ (selon la terminologie d'une épreuve de \textsc{Bernoulli}). On a donc une variable aléatoire discrète de loi $\bcB\p{p}$. On observe la première apparition de $PP$.\medskip
+    
+    On considère la variable aléatoire $X$, telle que $X = k$ ssi. la première apparition de $PP$ se fait au $k$-ième tirage. On a :
+    %
+    \begin{align*}
+        \p{X = 2} &= \p{PP} = \p{X_1 = X_2 = 1} = \p{X_1 = 1} \cap \p{X_2 = 1} \in \bcT\\
+        \p{X = 3} &= \p{FPP}\\
+        \p{X = 4} &= \p{\begin{array}{c}
+            F  \\
+            P
+        \end{array}FPP} \qquad\text{union finie d'éléments de } \bcT\\
+        \vdots
+    \end{align*}
+    %
+    Bref, on est assuré de l'appartenance à la tribu $\bcT$. On considère alors
+    %
+    \[ \p{X = k} = (F\underbrace{ \cdots PP}_{\approx\; \p{X = k-1}}) \cup (PF\underbrace{\cdots PP}_{\approx\; \p{X = k-2}})\]
+    %
+    En notant $P_k = \bbP\p{X = k}$, on a donc la relation de récurrence
+    %
+    \[ P_k = qP_{k-1} + pqP_{k-2} \]
+    %
+    La suite $\suite{P_n}$ se calcule donc à l'aide d'une relation de récurrence, et selon les valeurs initiales $P_0 = 0$, $P_1 = 0$ et $P_2 = p^2$. Notons $\lambda$ et $\mu$ les deux racines du polynôme $Q\p{X} = X^2 - qX - pq$.
+    
+    On a $\Delta = \p{-q}^2 -4\p{-pq} = q^2 + 4pq > 0$, donc $\lambda$ et $\mu$ sont réels. Notons que :
+    %
+    \[ \lambda + \mu = q \qquad\et\qquad \lambda \mu = -pq\]
+    %
+    Donc $\lambda < 0 < \mu$ (choix arbitraire sans perte d'information) et $\mod{\lambda} < \mu$. Par ailleurs 
+    %
+    \[ Q\p{1} = 1 - q - pq = p - pq = p\p{1 - q} = p^2 > 0\]
+    %
+    Donc $\mod{\lambda} <  \mu < 1$, en vertu de quoi on a le caractère $\ell^1$ pour $\sum \lambda^k$ et $\sum \mu^k$. Finalement, on a $P_k = \alpha \lambda^k + \beta \mu^k$. On peut donc calculer $\bbP\p{X = \infty} = \lim\limits_{k \to +\infty} \bbP\p{X \geq k} = 0$ et $\bbP\p{X < \infty} = \displaystyle\sum$
+    %
+    \[ \bdE\p{X} = \sum_{k \geq 0} kP_k = \alpha\sum_{}\]
+    
+    \newpage
+    
+    Soit $X : \Omega \to E$ et $Y : \Omega \to F$ deux variables aléatoires discrètes, et une fonction $f : E \times F \to G$.
+    
+    Montrer que $Z = f\p{X, y}$ est une variable aléatoire discrète.\bigskip
+    
+    On prend $E = \ens{x_i}_{i \in \bdN}$ et $F = \ens{y_j}_{j \in \bdN}$ d'où $f\p{E, F} = \ens{f\p{x_i, y_j}}_{\p{i, j} \in \bdN^2}$ et $\bdN^2$ est dénombrable.
+    
+    Prenons $z \in f\p{E, F}$. On a $\p{Z = z} = \displaystyle\bigcup_{x, y \ \text{tq} \ f\p{x, y} = z} \p{X =x, Y = y}$ dénombrable car inclus dans $X \times Y$ dénombrable.\newpage
+    
+    Deux usines $U_1$, $U_2$, proportions d'objets défectueux $p_1$, $_2$. On se procure un sac de $n$ objets (même provenance). 
+    
+    Le premier est opérationnel.\newpage
+    
+    Deux jours de fortune initiale $a$ et $b$, avec $a + b = N$. Chaque partie $\bcB\p{p}$ pour le gain du premier joueur. On note 
+    %
+    \[ \bbP_n = \bbP\p{\text{le premier joueur ruine le deuxième avec au départ une fortune de $n$}} \]
+    %
+    On a $\bbP_n = p\bbP_{n+1} + q\bbP_{n-1}$, \ie 
+    %
+    \[\bbP_{n+2} = \dfrac{1}{p}\bbP_{n+1} + \dfrac{q}{p}\bbP_n \qquad\text{d'où l'on considère les $r$ tels que}\ r^2 - \dfrac{1}{p}r - \dfrac{q}{p} = 0\]
+    %
+    $\Delta = \dfrac{1}{p^2} - 4{1-p}{p} = \dfrac{1}{p}\p{\dfrac{1}{p} + 4p - 4}$
 \end{document}

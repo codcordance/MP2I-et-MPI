@@ -24,6 +24,7 @@
 \newcommand{\Atom}{\mathop{\bcA_\text{tom}}\nolimits}
 \newcommand{\langOcaml}{\texttt{\color{ocamlColor!20!black}OCaml}}
 \newcommand{\langC}{\texttt{\color{ocamlColor!20!black}C}}
+\newcommand{\langPython}{\texttt{\color{ocamlColor!20!black}Python}}
 
 \DeclareMathOperator{\Reg}{Reg}
 \DeclareDocumentCommand\FO{g}{\funlv{FO}{#1}}
@@ -40,8 +41,11 @@
 \DeclareDocumentCommand\Pref{g}{\funlv{Pref}{#1}}
 \DeclareDocumentCommand\Suff{g}{\funlv{Suff}{#1}}
 
+\funlvi{dom}
+
 \newcommand{\cP}{\bbP}
 \newcommand{\cNP}{\bbN\bbP}
+\newcommand{\SAT}{\textsf{SAT}}
 
 \newcommand{\chaptertoc}[0]{
     \begin{tcolorbox}[
@@ -295,53 +299,66 @@
     
     \chapter{Logique et systèmes de preuve}
     
-    %\subfile{chapitre1}
+    \subfile{chapitre1}
     
     \chapter{Langages formels et théorie des automates}
     
-    %\subfile{chapitre2}
+    \subfile{chapitre2}
     
-    \chapter{Calculabilité et complexité}
+    \chapter{Théorie de la calculabilité}
     
-    L'an dernier, l'on avait démontré deux résultats importants : le premier était l'indécidabilité du problème de l'arrêt, c'est-à-dire qu'il n'existe pas d'algorithme prenant en entrée le code source d'un programme $P$ et un argument $x$ de $P$ et renvoyant si $P$ termine sur $x$ ; le deuxième était l'inexistence d'un algorithme de tri par comparaisons dont la complexité dans le pire des cas serait meilleure que $\O{}{n\log n}$.\medskip
+    L'an dernier, l'on avait démontré deux résultats particulièrement importants en informatique. Le premier était l'\emph{indécidabilité du problème de l'arrêt}, c'est-à-dire qu'il n'existe pas d'algorithme prenant en entrée le code source d'un programme $P$ et un argument $x$ de $P$ et renvoyant si $P$ termine sur $x$. Le deuxième était l'\emph{inexistence d'un algorithme de tri par comparaisons dont la complexité dans le pire des cas serait meilleure que $\O{}{n\log n}$}.\medskip
     
-    Dans les deux cas, ces résultats resteront vrais dans le futur, peu importe les progrès technologiques qui seront faits sur les ordinateurs et dans les sciences en général. En effet, durant les démonstrations, jamais les capacités actuelles des ordinateurs n'ont été utilisées, le raisonnement ne se basant que sur la difficulté intrinsèque que rencontre un algorithme pour résoudre un problème. Historiquement, les ordinateurs n'existaient d'ailleurs même pas lors de la démonstration de l'indécidabilité du problème de l'arrêt.\medskip
+    Dans les deux cas, ces résultats resteront vrais dans le futur, peu importe les progrès technologiques qui seront faits sur les ordinateurs et dans les sciences en général. En effet, leur démonstration ne fait aucune hypothèses sur les capacités des ordinateurs utilisés, le raisonnement ne se basant que sur la difficulté intrinsèque que rencontre un algorithme pour résoudre un problème. Historiquement, les ordinateurs n'existaient d'ailleurs même pas lors de la démonstration de l'indécidabilité du problème de l'arrêt.\medskip
     
-    Le but de ce chapitre est de généraliser ces deux notions : d'une part introduire et étudier la notion de \emph{calculabilité} (ou de \emph{décidabilité}), qui caractérise les problèmes qu'il est possible (ou au contraire impossible) de résoudre à l'aide d'un algorithme (ou de manière équivalente, reconnaissables par une machine de \textsc{Turing}) ; d'autres part, pour les problèmes \emph{décidables}, de les découper en plusieurs \emph{classes de complexité}, regroupant les problèmes de même difficulté, \ie les problèmes tels que les meilleurs algorithmes les résolvants sont de complexité similaires.\medskip
+    Le but de ce chapitre est de généraliser ces deux notions : d'une part introduire et étudier la notion de \emph{calculabilité} (ou de \emph{décidabilité}), qui caractérise les problèmes qu'il est possible (ou au contraire impossible) de résoudre à l'aide d'un algorithme (ou de manière équivalente, reconnaissables par une machine de \textsc{Turing}) ; d'autres part, pour les problèmes \emph{décidables}, de les découper en plusieurs \emph{classes de complexité}, regroupant les problèmes de même difficulté, \ie les problèmes tels que les meilleurs algorithmes les résolvants sont de complexité similaires. La branche de l'informatique qui s'intéresse à ces problèmes se nomme \emph{théorie de la calculabilité}.\medskip
     
-    En particulier, nous nous pencherons sur les deux classes de complexité les plus célèbres 
-    : $\cP$ \emph{(pour \textsf{\textbf{P}olynomial})} l'ensemble des problèmes qui peuvent être résolus par une machine de \textsc{Turing} \emph{déterministe} en temps polynomial, et $\cNP$ \emph{(pour \textsf{\textbf{N}on déterministe \textbf{P}olynomial)}} l'ensemble des problèmes qui peuvent être résolus par une machine de \textsc{Turing} \emph{non déterministe} en temps polynomial.\medskip 
+    En particulier, nous nous pencherons sur les deux classes de complexité les plus célèbres : $\cP$ \emph{(pour \textsf{\textbf{P}olynomial})} l'ensemble des problèmes qui peuvent être résolus par une machine de \textsc{Turing} \emph{déterministe} en temps polynomial, et $\cNP$ \emph{(pour \textsf{\textbf{N}on déterministe \textbf{P}olynomial)}} l'ensemble des problèmes qui peuvent être résolus par une machine de \textsc{Turing} \emph{non déterministe} en temps polynomial.\medskip 
 
-    Tout comme on l'avons vu pour les automates finis, toute machine de \textsc{Turing} non déterministe peut être transformée en une machine de \textsc{Turing} déterministe, mais cette transformation va \textit{\large\EBGaramond a priori} augmenter le temps d'exécution de la machine de \textsc{Turing} de manière exponentielle. Ainsi, \textit{\large\EBGaramond a priori}, on a $\cP \subseteq \cNP$ (car une machine de \textsc{Turing} déterministe est une cas particulier de machine de \textsc{Turing} non déterministe), mais on sait pas si $\cNP \subseteq \cP$.\bigskip
+    Tout comme nous l'avons démontré pour les automates finis, il se trouve que toute machine de \textsc{Turing} non déterministe peut être transformée en une machine de \textsc{Turing} déterministe. Cependant cette transformation va \emph{\EBGaramond{}a priori} augmenter le temps d'exécution de la machine de \textsc{Turing} de manière exponentielle. Ainsi, on a \emph{\EBGaramond{}a priori} $\cP \subseteq \cNP$ (car une machine de \textsc{Turing} déterministe est une cas particulier de machine de \textsc{Turing} non déterministe). Le sens réciproque, \ie savoir si $\cNP \subseteq \cP$, reste à démontrer (ou à infirmer). Ce problème, introduit par Stephen \textsc{Cook} (un des pères fondateur de la \emph{théorie de la calculabilté}) dans un article de 1971, est d'ailleurs un des problèmes du prix du millénaires de l'\emph{institut de mathématiques \textsc{Clay}}, connus pour leur extrême difficulté.\bigskip
     
     \chaptertoc
     
+    \section{Avant-propos}
+    
+    \subsection{Machine de Turing (HP)}
+    
+    Une notion fondamentale en informatique, mentionné plusieurs fois dans l'introduction ci-dessus, est celle de \emph{Machine de \textsc{Turing}}.
+    
+    \begin{minipage}{0.70\linewidth}
+         Intuitivement, on peut voir une Machine de \textsc{Turing} comme un objet mathématique abstrait (malgré la terminologie \emph{machine}), \guill{travaillant} sur un ruban infini
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}{0.25\linewidth}
+        \includegraphics[width=\textwidth]{MPI - Informatique/Cours/Dessin/turingmachine.png}
+    \end{minipage}
+    
     La notion de \emph{machine de \textsc{Turing}} n'étant pas au programme, on étudiera les notions de calculabilité et de complexité en raisonnant sur des algorithmes écrits en \langOcaml{} et en \langC. Ceci revient au même, car l'\langOcaml{} et le \langC sont \textsc{Turing}-complets, c'est-à-dire que l'ensemble des fonctions qu'on peut écrire dans ces langages est en bijection avec l'ensemble des machines de \textsc{Turing} (c'est en fait le cas de n'importe quel langage ayant des variables de type \texttt{int} et des boucles \texttt{while}, c'est donc notamment le cas de Minecraft\texttrademark, des briques Lego\texttrademark, \dots).\medskip
     
-    Les entrées et sorties du programme peuvent \textit{\large\EBGaramond a priori} être de n'importe quel type de langage utilisé.
-    Pour les entrées, il sera souvent plus pratique d'utiliser le type \texttt{string} (chaîne de caractères), car il permet de représenter n'importe quel type manipulable par un ordinateur.
+    Les entrées et sorties du programme peuvent \emph{\EBGaramond a priori} être de n'importe quel type de langage utilisé. Pour les entrées, il sera souvent plus pratique d'utiliser le type \texttt{string} (chaîne de caractères), car il permet de représenter n'importe quel type manipulable par un ordinateur.
     
     
-    \begin{definition}{Sérialisation}{}
+    \begin{definition*}{Sérialisation}{}
         \begin{enumerate}
             \itast La \hg{conversion} d'une \hg{valeur arbitraire} en une \hg{chaîne de caractères} est appelée opération de \hg{sérialisation}. 
             
             \itast Inversement, le \hg{décodage} d'une \hg{chaîne de caractères} en un \hg{type donné} est appelé opération de  \hg{désérialisation}.
-        \end{enumerate}
-    \end{definition}
+        \end{enumerate} 
+    \end{definition*}
     
-    Ces deux opérations sont très utilisées en informatique, notamment lorsque deux programmes doivent communiquer des données entre eux, ou qu'un programme doit sauvegarder des données dans un fichier pour une utilisation future.
+    Ces deux opérations sont très utilisées en informatique, notamment lorsque deux programmes doivent communiquer des données entre eux, ou qu'un programme doit sauvegarder des données dans un fichier pour une utilisation future     .
     
-    \begin{example}{}{}
-        En \langOcaml, le module \camlline{Marshal} permet d'éffectuer de telles opérations:
+    \begin{form}{En pratique}{}
+        En \langOcaml, le module \camlline{Marshal} permet d'effectuer de telles opérations :
         
         \begin{enumerate}
-            \itt \camlline{Marshal.to_string : 'a -> extern_flags list -> string} où l'argument de type \camlline{extern_flags list} une liste d'options, notamment la liste vide \camlline{[]} si aucune options particulière n'est à utiliser.
+            \itt \camlline{Marshal.to_string : 'a -> extern_flags list -> string} où l'argument de type \camlline{extern_flags list} une liste d'options, par exemple la liste vide \camlline{[]} si aucune options particulière n'est à utiliser.
                 
-            \itt \camlline{Marshal.of_string : string -> int -> a'} où l'argument de type \camlline{int} est la position initiale dans la chaîne, en pratique \camlline{0}.
+            \itt \camlline{Marshal.of_string : string -> int -> 'a} où l'argument de type \camlline{int} est la position initiale dans la chaîne, en pratique \camlline{0}.
         \end{enumerate}
-        
-    \end{example}
+    \end{form}
     
     \textbf{\sffamily Attention :} \langOcaml{} ne peut pas vérifier qu'il n'y a pas de problème de type concernant la valeur renvoyée par \camlline{Marshal.of_string}. Pour qu'une chaîne de caractères soit proprement décodée par ce moyen il faut qu'elle ait été obtenue par la fonction \camlline{Marshal.to_string} de la même version d'\langOcaml.
     
@@ -353,13 +370,13 @@
     
     \subsection{Problème de décision}
     
-    \begin{definition}{Problème algorithmique}
+    \begin{definition}{Problème algorithmique}{}
         On appelle \hg{problème algorithmique} la spécification des données suivantes :
         %
         \begin{enumerate}
-            \itast un ensemble d'entrées admissibles 
+            \itast un \hg{ensemble d'entrées} admissibles ;
             
-            \itast Une description des résultats attendu en fonction de l'entrée
+            \itast une \hg{description des résultats attendu} en fonction de l'entrée.
         \end{enumerate}
     \end{definition}
     
@@ -425,8 +442,8 @@
         On dis qu'un tel problème est décidable si $f$ est calculable. Sinon; le problèmes est dit indécidable. Si $A$ est un algorithme calculant $f$, on dis que $A$ résout le problème de décision.
     \end{definition}
     
-    \begin{example}
-        Les problèmes suivants sont décidables.
+    \begin{example}{Problèmes décidables}{}
+        Les problèmes suivants sont des problèmes de décision décidables.
         \begin{enumerate}
             \itt\hg{Entrée :} un tableau $t$ d'entiers.
             
@@ -439,8 +456,961 @@
             \itt\hg{Entrée :} un graphe pondéré $G$, deux sommets $s$ et $t$.
             
                 \hg{Effet :} donner le plus court chemin de $s$ à $t$ dans $G$.
+                
+            \itt\hg{Entrée :} un graphe $G$
+            
+                \hg{Effet :} donner si $G$ peut être colorié avec $4$ couleurs
+                
+            \itt\hg{Entrée :} un automate fini $\bcA$, un mot $u \in \Sigma^\star$
+            
+                \hg{Effet :} déterminer si $m \in \bcL\p{\bcA}$
+                
+            \itt\hg{Entrée :} une grammaire algébrique $G$
+                
+                \hg{Sortie :} Déterminer si $\epsilon \in \bcL\p{G}$ 
         \end{enumerate}
     \end{example}
     
+    On remarque le point suivant :
     
+    \begin{property}{Calculalibité des problèmes à entrées fini}{}
+        Un problème de décision dont l'ensemble des entrées est fini est décidable.
+    \end{property}
+    %
+    \begin{nproof}
+        Soit un problème de décision dont l'ensemble des entrées $E$ est fini. Notons $n = \mod{E}$ son cardinal. On peut numéroter les entrées dans $\iint{0, n-1}$, c'est-à-dire fabriquer une bijection de $E$ dans $\iint{0, n-1}$.
+        
+        Ainsi, la fonction associée au problème de décision peut être vue comme une fonction de $\bdB^{\iint{0, n-1}}$, \ie une fonction $f : \iint{0, n-1} \to \bdB$, qui est calculable.
+    \end{nproof}
+    
+    Toutefois, ce calcul de la réponse par force brute est susceptible de prendre beaucoup de temps.
+    
+    \begin{example}{}{}
+        \begin{enumerate}
+            \itt\hg{Entrée :} un joueur, une position aux échecs
+            
+                \hg{Effet :} le joueur a-t-il une stratégie gagnante ?
+                
+                Ce problème est décidable, car l'ensemble des plateaux de jeu \guill{accessibles} depuis le plateau actuel est fini. 
+        \end{enumerate}
+        %
+        \begin{enumerate}
+            \itt\hg{Entrée :} $\emptyset$
+            
+                \hg{Effet :} \emph{Dieu} existe-t-il ?
+                
+                Ce problème est décidable, car l'ensemble des entrées est fini. Il est d'ailleurs résolu par l'un des deux algorithmes suivants :
+                
+                \begin{minipage}{0.48\linewidth}
+                    \begin{ocaml}
+let f () = true;;
+                    \end{ocaml}
+                \end{minipage}
+                %
+                \hfill
+                %
+                \begin{minipage}{0.48\linewidth}
+                    \begin{ocaml}
+let f () = false;;
+                    \end{ocaml}
+                \end{minipage}
+        \end{enumerate}
+    \end{example}
+    
+            
+        Pour s'intéresser à la décidabilité, on cherchera donc au moins à généraliser les problèmes pour qu'ils prennent une infinité d'entrées, afin d'obtenir des problèmes intéressants.
+    
+
+    %viens t'arreter de tout le temps repasser deriere moi et tu avance sur le cours mdrrr
+    
+    %si c'est beau mdrrr
+    
+    \begin{definition}{Problème de l'arrêt}{}
+        On appelle \hg{problème de l'arrêt} le problème suivant :
+        %
+        \[ \bcP_\text{arrêt} \left\vert\begin{array}{ll}
+            \hg{\text{Entrée :}} & \text{une chaîne de caractères contenant le code source d'un algorithme $\bcA$}\\
+            & \text{une chaîne de caractères contenant la sérialisation d'un argument $x$ de l'algorithme $\bcA$}\\[0.2cm]
+            \hg{\text{Sortie :}} & \text{est-ce que l'éxécution de $A$ sur $x$ termine ?}
+        \end{array}\right.\]
+    \end{definition}
+    
+    On peut montrer l'indécidabilité du problème de l'arrêt.
+    
+    \begin{theorem}{Alain Turing, 1936}{}
+        Le problème de l'arrêt \hg{$\bcP_\text{arrêt}$ est indécidable}.
+    \end{theorem}
+    
+    \begin{nproof}
+        Par l'absurde, supposons que $\bcP_\text{arrêt}$ est décidable.
+        
+        Il existe donc une fonction $\langOcaml$ \camlline{arret = string * string -> bool} qui résout $\bcP_\text{arrêt}$.
+        
+        Considérons maintenant la fonction \camlline{paradoxe = string -> unit} suivante :
+        %
+        \begin{ocaml}
+let paradoxe (s : string) : () =
+    if arret(s, s) then
+        begin
+            while true do
+                print_string "vive la MPI*!"
+            done
+        end
+;;
+        \end{ocaml}
+        
+        Notons \camlline{code_paradoxe} le code source de la fonction \camlline{paradoxe}.
+        
+        \begin{enumerate}
+            \itt Si \camlline{paradoxe code_paradoxe} termine, alors \camlline{arret(code_paradoxe, code_paradoxe)} renvoie \camlline{true}, donc on rentre dans le \camlline{if}, donc dans la boucle infinie, donc \camlline{paradoxe code_paradoxe} ne termine pas.
+            
+            \itt Si \camlline{paradoxe code_paradoxe} ne termine pas, alors \camlline{arret(code_paradoxe, code_paradoxe)} renvoie \camlline{false}, donc on ne rentre pas dans le \camlline{if} donc \camlline{paradoxe code_paradoxe} termine.
+        \end{enumerate}
+        
+        Dans les deux cas, c'est absurde. Ainsi, la fonction \camlline{arret} n'existe pas : le problème de l'arrêt est indécidable.
+    \end{nproof}
+    
+    Historiquement, on a commencé à se poser ces questions de calculabilité dans les années 1930, avant même que les premiers ordinateurs n'aient été fabriqués ! Le théorème ci-dessus a d'ailleurs été montré par Alain \textsc{Turing} en 1936.
+    
+    
+    \begin{definition}{Semi-décidabilité}{}
+        
+        Un problème de décision $f: E \to B$ est dit semi-décidable s'il existe un algorithme $A$ tel que, pour toute entrée $e \in E$, l'algorithme $A$ appliqué à $e$ :
+        %
+        \begin{enumerate}
+            \itast termine en un temps finis et renvoie \camlline{true} si $f\p{e}$ est vrai ;
+            
+            \itast renvoie \camlline{false}, ne termine pas ou renvoie un erreur si $f\p{e}$ est faux.
+        \end{enumerate}
+    \end{definition}
+    
+    On notera qu'un tel algorithme $A$ ne se trompe jamais sur les instances positives du problème. Mais si le programme met du temps à répondre sur $e$, soit $f\p{e}$ est vrai, mais le programme $A$ a besoin de plus de temps pour répondre, soit $f\p{e}$ est faux, et le programme $A$ est peut-être entré dans une boucle infinie.\medskip
+    
+    En fait, de nombreux problèmes indécidables \guill{naturels} sont en réalité semi-décidables, bien qu'il existe tout de même une infinité de problèmes qui ne sont pas semi-décidables. Ce genre de problèmes sont généralement moins \guill{naturels}, et il faut utiliser des constructions diagonales pour les obtenir.
+    
+    \begin{example}{}{}
+        \begin{enumerate}
+            \itt Le problème de l'arrêt $\bcP_\text{arrêt}$ est semi-décidable. En effet, il suffit de lancer l'algorithme sur son entrée, et de répondre \camlline{true} s'il termine.
+            
+            \itt Le problème de décision suivant n'est pas semi-décidable :
+            %
+            \[ \bcP \left\vert\begin{array}{ll}
+                \text{\hg{Entrée :}} & \text{le code source d'une fonction \langOcaml{} \camlline{f : string -> bool}}  \\[0.2cm]
+                \text{\hg{Sortie :}} & \text{\camlline{true} si et seulement si la fonction \camlline{f} appliquée à son propre code ne renvoie pas \camlline{true}}
+            \end{array}\right.\]
+            %
+            En effet, si on suppose par l'absurde qu'il existe une fonction \langOcaml{} \camlline{diag : string -> bool} telle que si \camlline{s} est le code source d'une fonction \langOcaml{} \camlline{f : string -> bool}, alors :
+            %
+            \begin{enumerate}
+                \itb si \camlline{f s} renvoie \camlline{false}, alors \camlline{diag s} renvoie \camlline{true} ;
+                
+                \itb si \camlline{f s} ne termine pas ou renvoie une erreur, alors \camlline{diag s} renvoie \camlline{true}  ;
+                
+                \itb si \camlline{f s} renvoie \camlline{true}, alors \camlline{diag s} renvoie \camlline{false}, renvoie une erreur ou ne termine pas.
+            \end{enumerate}
+        \end{enumerate}
+        
+        En considérant l'application de la fonction \camlline{diag} à son propre code source \camlline{s_diagg}, on a :
+        %
+        \begin{enumerate}
+            \itb si \camlline{diag s_diag} renvoie \camlline{false}, ne termine pas ou renvoie une erreur, alors \camlline{diag s_diag} renvoie \camlline{true}.
+            
+            \itb si \camlline{diag s_diag} renvoie \camlline{true}, alors \camlline{diag s_diag} renvoie \camlline{false}
+        \end{enumerate}
+        %
+        Dans les deux cas c'est absurde, donc une telle fonction \camlline{diag} n'existe pas, et donc le problème $\bcP$ n'est pas semiè-décidable.
+    \end{example}
+        
+    \subsection{Algorithme universel}
+    
+    Dans la partie précédente, nous avons résonné sur des programmes prenant en argument le code source d'un autre programme. %NEIIIIIIN
+    Parmi ce genre de programmes, certains nous intéressent plus particulièrement.
+    
+    \begin{definition}{Algorithme universel}
+        On appelle \hg{algorithme universel} (ou \hg{machine de \textsc{Turing} universelle}) un algorithme \hg{capable de simuler tous les autres}, c'est-à-dire un algorithme $\bfU$ qui prend en entrée un couple $\p{\bfA, e}$ avec $\bfA$ un algorithme (ou plutôt son code source), et $e$ une entrée de $\bfA$, et qui simule l'éxécution de $\bfA$ sur $e$ :
+        %
+        \begin{enumerate}
+            \itast si $\bfA\p{e}$ termine, alors $\bfU\p{A, e}$ termine et renvoie le résultat de $\bfA\p{e}$ ;
+            
+            \itast si $\bfA\p{e}$ renvoie une erreur, alors $\bfU\p{A, e}$ renvoie une erreur ;
+            
+            \itast si $\bfA\p{e}$ ne termine pas, alors $\bfU\p{A, e}$ ne termine pas.
+        \end{enumerate}
+    \end{definition}
+    
+    \begin{example}{}{}
+        \begin{enumerate}
+            \itt Les programmes \texttt{gcc} et \texttt{ocamlopt}, combinés au système d'exploitation, sont des algorithmes universels codés en \langC{}. Ceci prouve d'ailleurs que \langC{} est \textsc{Turing}-complet.
+            
+            \itt Les interpréteurs \langOcaml{} et \langPython{} sont des algorithmes universels.
+        \end{enumerate}
+        
+    
+        
+    \end{example}
+    
+    \begin{theorem}{}{}
+        \[ \hg{\text{\langOcaml{} est \textsc{Turing}-Complet}} \]
+    \end{theorem}
+    %
+    \begin{nproof}
+        On peut coder un algorithme universel en \langOcaml{},\ie une fonction 
+        \camlline{eval: string * stirng -> string} 
+        qui prend en entrée un couple \camlline{(s, e)} où \camlline{s} est le code source d'une fonction \langOcaml{} \camlline{f : sring -> string} et \camlline{c} est un argument de \camlline{f}, et telle que
+        %
+        \begin{enumerate}
+            \itt \camlline{eval (s, e)} termine et renvoie la valeur de \camlline{f e} si \camlline{f e} termine ;
+            
+            \itt ne termine pas si \camlline{f e} ne termine pas.
+        \end{enumerate}
+    \end{nproof}
+    
+    On peut profiter de ce point pour montrer la semi-décidabilité de $\bcP_\text{arrêt}$ en \langOcaml{}, puisque la fonction suivante convient :
+    %
+    \begin{ocaml}
+let arret (s, e) =
+    let _ = eval (s, e) in true
+;;
+    \end{ocaml}
+    %
+    où \camlline{eval} est la fonction utilisée dans la démonstration précédente.
+    
+    \subsection{Réduction calculatoire}
+    
+    Une première méthode pour prouver qu'un problème est indécidable est de construire un paradoxe à l'aide d'argument diagonaux. Une fois qu'on connaît au moins un problème indécidable, on peut s'en servir pour montrer que d'autres problèmes sont indécidables : cette technique s'appelle la \emph{réduction}.
+    
+    \begin{definition}{Réduction calculatoire}{}
+        Soient deux problèmes de décision définis par les fonctions $f_1 : E_1 \to \bdB$ et $f_2 : E_2 \to \bdB$. On dit que \hg{$f_1$ se réduit (calculatoirement) à $f_2$}, et on note \hg{$f_1 \leq f_2$}, lorsqu'il existe une fonction calculable $g : E_1 \to E_2$ telle que $\forall e \in E_1$, $f_1\p{e} = f_2 \circ g\p{e}$.
+    \end{definition}
+    
+    La notation $f_1 \leq f_2$ vient du fait qu'on peut classer les problèmes par difficulté croissante : si $f_1 \leq f_2$, c'est que le problème $f_2$ est plus difficile à résoudre que $f_1$.
+    En effet, si $f_1 \leq f_2$ et si $f_2$ est décidable, alors $f_1$ est décidable :
+    %
+    \begin{enumerate}
+        \item Traduire une instance de $f_1$ en une instance de $f_2$ grâce à la fonction $g$ ($g$ est calculable, donc la traduction est constructive)
+        
+        \item Puisqu'on sait résoudre $f_2$, appliquer sont algorithme à la sortie de $g$.
+    \end{enumerate}
+    %
+    Plus formellement :
+    
+    \begin{theorem}{Réduction d'un problème indécidable}{}
+        Soient deux \hg{problèmes de décision $f_1 : E_1 \to \bdB$} et \hg{$f_2 : E_2 \to \bdB$} tels que \hg{$f_1 \leq f_2$}.
+        %
+        \[ \hg{f_1 \ \text{indécidable} \implies f_2 \ \text{indécidable}}\]
+    \end{theorem}
+    
+    \begin{nproof}
+        Soient deux problèmes de décision $f_1 : E_1 \to \bdB$ et $f_2 : E_2 \to \bdB$ tels que $f_1 \leq f_2$ et $f_1$ est indécidable. Supposons par l'absurde que $f_2$ est décidable. Il existe donc une fonction \langOcaml{} \camlline{a_f2 : string -> bool} qui résout $f_2$. De plus, puisque $f_1 \leq f_2$, il existe $g : E_1 \to E_2$ calculable, et une fonction \langOcaml{} \camlline{a_g : string -> string} qui calcule $g$. Dès lors, la fonction \langOcaml{} suivante résout $f_1$ :
+        %
+        \begin{ocaml}let a_f1 e1 = a_f2 (g e1);;
+        \end{ocaml}
+        %
+        Il y a donc contradiction puisque $f_1$ est indécidable, donc par l'absurde $f_2$ est indécidable.
+    \end{nproof}
+    
+    On montre ci-dessous un exemple d'utilisation de la réduction pour montrer l'indécidabilité du \emph{problème de la trivialité} :
+    %
+    \begin{example}{Problème de la trivialité}{}
+        On considère le problème $\bcP_\text{trivial}$ suivant, appelé \hg{problème de la trivialité} :
+        %
+        \[ \bcP_\text{trivial} \left\vert\begin{array}{ll}
+                \text{\hg{Entrée :}} & \text{le code source d'une fonction \langOcaml{} \camlline{f : string -> bool}}  \\[0.2cm]
+                \text{\hg{Sortie :}} & \text{est-ce que \camlline{f} renvoie toujours \camlline{true}\footnotemark ?}
+            \end{array}\right.\]
+        %
+        \footnotetext{Dans le cas où \camlline{f} renvoie toujours \camlline{true}, on dit que \camlline{f} est triviale, d'où le nom du problème.}Montrons que ce problème est indécidable, en réduisant pour cela  $\bcP_\text{arrêt}$ à $\bcP_\text{trivial}$. Considérons l'algorithme universel \camlline{eval : string -> string -> string} d'\langOcaml{} satisfaisant le théorème de \textsc{Turing}-complétude. 
+        
+        Posons la fonction \langOcaml{}{} \camlline{g : string * string -> string} suivante :
+        %
+        \begin{ocaml}
+let g (s, e) =
+    "fun _ -> try let _ = eval \"" ^ s ^ "\" \"" ^ e ^ "\" in true with _ -> true"
+;;
+        \end{ocaml}
+        %
+        \camlline{g} est bien une réduction $\bcP_\text{arrêt} \leq \bcP_\text{trivial}$. Or $\bcP_\text{arrêt}$ est indécidable, donc $\bcP_\text{trivial}$ est indécidable.
+    
+    
+    \end{example}
+    
+    Un autre exemple utilise l'équivalence sémantique, qu'on définit ci-dessous :
+    %
+    \begin{definition}{Équivalence sémantique}{}
+        Deux algorithmes $A$ et $B$ de mêmes domaines d'entrée $E$ et de sortie $S$ sont dits \hg{sémantiquement équivalents} lorsque :
+        %
+        \begin{enumerate}
+            \itast ils terminent sur les mêmes entrées (et dans ce cas, renvoient les mêmes valeurs) ;
+            
+            \itast ils renvoient une erreur sur les mêmes entrées ;
+            
+            \itast ils ne terminent pas sur les mêmes entrées ;
+        \end{enumerate}
+    \end{definition}
+    
+    On peut donc utiliser la réduction pour montrer l'indécidabilité du \emph{problème de l'équivalence sémantique} 
+    %
+    \begin{example}{Problème de l'équivalence sémantique}{}
+        On considère le problème $\bcP_\text{éq. sém.}$ suivant, appelé \hg{problème de l'équivalence sémantique} :
+        %
+        \( \bcP_\text{éq. sém.} \left\vert\begin{array}{ll}
+                \text{\hg{Entrée :}} & \text{les codes sources de deux fonctions \langOcaml{}}  \\[0.2cm]
+                \text{\hg{Sortie :}} & \text{est-ce que les deux fonctions sont sémantiquement équivalentes ?}
+            \end{array}\right.\)
+    
+        Montrons que ce problème est indécidable, en réduisant $\bcP_\text{trivial}$ à $\bcP_\text{éq. sém.}$ :
+        %
+        \begin{ocaml}
+let g s = (s , "fun _ -> true");;
+        \end{ocaml}
+        %
+        $g$ est bien une réduction $\bcP_\text{trivial} \leq \bcP_\text{éq. sém.}$. Or $\bcP_\text{trivial}$ est indécidable donc $\bcP_\text{éq. sém.}$ est indécidable.
+    \end{example}
+    
+    Un troisième exemple peut se voir dans la démonstration du théorème de \textsc{Rice}. Celui-ci indique que n'importe quelle question non triviale sur le sémantique des algorithmes est indécidable, ou plus formellement :  
+    
+    \begin{theorem}{Théorème de Rice}{}
+        Soient l'\hg{ensemble des algorithmes $\bcA$} et une \hg{fonction totale $f : \bcA \to \bdB$} telle que :
+        %
+        \begin{enumerate}
+            \itast $f$ est \hg{non triviale}, \ie 
+            %
+            \[ \hg{\exists \p{A, B} \in \bcA^2,\qquad f\p{A} = \top \et f\p{B} = \bot} \] 
+            
+            \itast $f$ est \hg{sémantique}, \ie 
+            %
+            \[ \hg{\forall \p{A, B} \in \bcA^2,\qquad A \et B \ \text{sémantiquement équivalents} \implies f\p{A} = f\p{B}}\]
+        \end{enumerate}
+        %
+        Le \hg{problème de décision défini par $f$} est \hg{indécidable}.
+    \end{theorem}
+    
+    \begin{nproof}
+        Considérons l'algorithme $A_1$ défini par le code \langOcaml{} suivant :
+        %
+        \begin{ocaml}
+let a_1 s = while true do () done;;
+        \end{ocaml}
+        %
+        Puisque $f$ est non triviale, il existe $A_2 \in \bcA$ tel que $f\p{A_1} \neq f\p{A_2}$? Notons \camlline{s1} et \camlline{s2} le code source \langOcaml{} des algorithmes $A_1$ et $A_2$. Supposons par l'absurde que $f$ est calculable, selon une fonction \langOcaml{} \camlline{a_f : string -> bool}. Alors la fonction suivante résout le problème de l'arrêt :
+        %
+        \begin{ocaml}
+let arret (s, e) =
+    (a_f ("let _ = try eval \"" ^ s ^ "\" \"" ^ e ^ "\" with _ -> \" MPI \" in \"" ^ s2 ^ "\"")) <> a_f s1
+;;
+        \end{ocaml}
+        %
+        En effet :
+        %
+        \begin{enumerate}
+            \itt Si \camlline{eval s e} termine (éventuellement par une erreur), alors $A_3$ (l'algorithme dont le code est donné par la chaîne de caractère) est sémantiquement équivalent à $A_2$. Donc $f\p{A_3} = f\p{A_2} \neq f\p{A_1}$ donc \camlline{arret (s, e)} renvoie \camlline{true}. 
+            
+            \itt Sinon, $A_3$ ne termine pas, donc $A_3$ est sémantiquement équivalent à $A_1$ donc $f\p{A_3} = f\p{A_1}$ donc \camlline{arret (s, e)} renvoie \camlline{false}.
+        \end{enumerate}
+        %
+        Or $\bcP_\text{arrêt}$ est indécidable, donc $f$ n'est pas calculable. Autrement dit, le problème de décision associé à $f$ n'est pas décidable.
+    \end{nproof}
+    
+   
+    
+    Ce théorème généralise l'indécidabilité du problème de l'arrêt car $\bcP_\text{arrêt}$ est un problème sémantique non trivial. Néanmoins, le théorème de \textsc{Rice} se déduit de l'indécidabilité du problème de l'arrêt.
+    
+    \section{Classes de complexité}
+    
+    Bien que certains problèmes de décision soient décidables, certains d'entre eux sont intrinsèquement plus difficiles que d'autres. Autrement dit, pour certains problèmes, même s'il existe en théorie un algorithme qui des résout, le meilleur algorithme possible aura une complexité rédhibitoire. Ainsi l'ensemble des problèmes décidables a été découpé en plusieurs \guill{classes de complexité}, pour hiérarchiser les problèmes seront leur difficulté intrinsèque à être résolu, c'est-à-dire la meilleure complexité possible d'un algorithme les résolvant.\medskip
+    
+    Comme dans la partie précédente, l'étude des classes de complexité va être centrée autour des problèmes de décision. Cependant, la plupart des problèmes naturels vont se présenter sous d'autres formes. Nous allons voir ici des formes plus courantes, et comment les relier à des problèmes de décision associés.
+    
+    \subsection{Problèmes de recherche}
+    
+    Très souvent, plus que de prouver qu'il existe une solution à un problème, on va chercher à construire une telle solution. Par exemple, étant donné une grille de Sudoku, on ne va jamais se contenter de savoir qu'il existe une solution, mais chercher à la déterminer.
+    
+    
+    \begin{definition}{Problème de recherche}{}
+        On appelle \hg{problème de recherche} sur un \hg{domaine d'entrée $E$} et un \hg{domaine de sortie $S$} un problème défini par une \hg{relation binaire $\bcR \subseteq E \times S$}. On dit qu'un \hg{algorithme $A$ résout un problème de recherche $\bcR$} lorsque \hg{pour toute entrée $e \in E$}, \hg{$A$ appliqué à $e$} renvoie une solution \hg{$s \in S$} telle que \hg{$s \; \bcR \; e$} lorsque une telle solution existe.
+    \end{definition}
+    
+    On notera les points suivants :
+    
+    \begin{enumerate}
+        \itt Un problème de recherche peut, pour une même entrée, avoir plusieurs solutions ou n'en avoir aucune.  
+    
+        \itt Lorsque chaque entrée possède une unique solution on parle de \emph{problème de calcul}. 
+        
+        \itt Un problème de décision est un cas particulier de \emph{problème de calcul}, lorsque $S = \bdB$.
+    \end{enumerate}
+    
+    
+    \begin{example}{}{}
+        \begin{enumerate}
+            \itt \( \left\vert\begin{array}{ll}
+                \text{\hg{Entrée :}} & \text{un tableau \camlline{t}}\\[0.2cm]
+                \text{\hg{Sortie :}} & \text{un doublon dans \camlline{t}}
+            \end{array}\right.\)
+            
+            \itt \( \left\vert\begin{array}{ll}
+                \text{\hg{Entrée :}} & \text{un graphe $G$, deux sommets $s$ et $t$}  \\[0.2cm]
+                \text{\hg{Sortie :}} & \text{un chemin de $s$ à $t$ dans $G$}
+            \end{array}\right.\)
+            
+            \itt \( \left\vert\begin{array}{ll}
+                \text{\hg{Entrée :}} & \text{un graphe $G$}  \\[0.2cm]
+                \text{\hg{Sortie :}} & \text{une coloration de $G$}
+            \end{array}\right.\)
+        \end{enumerate}
+    \end{example}
+    
+    À un problème de recherche, on peut associer deux problèmes de décision naturels : le problème d'existence d'une solution, et le problème de vérification d'une solution potentielle:
+    
+    
+    \begin{definition}{Problème d'existence et de vérification}{}
+        Soit \hg{$\bcR \subseteq E \times S$} un \hg{problème de recherche}.
+        %
+        \begin{enumerate}
+            \itast On appelle \hg{problème d'existence d'une solution} associé a $\bcR$ le problème de décision sur le domaine d'entrée $E$ défini par la fonction $\hg{f_\exists : \begin{array}[t]{rcl}
+                E &\to& \bdB  \\
+                e &\mapsto& \left\lbrace\begin{array}{rl}
+                    \top &\text{si} \ \exists s \in S,\quad e \; \bcR \; s  \\
+                    \bot &\text{sinon} 
+                \end{array}\right. 
+            \end{array}}$.
+            
+            \itast On appelle \hg{problème de vérification d'une solution} associé a $\bcR$ le problème de décision sur le domaine d'entrée $E \times S$ défini par la fonction $\hg{f_\text v : \begin{array}[t]{rcl}
+                E \times S &\to& \bdB  \\
+                \p{e, s} &\mapsto& \left\lbrace\begin{array}{rl}
+                    \top &\text{si} \ \exists s \in S,\quad e \; \bcR \; s  \\
+                    \bot &\text{sinon} 
+                \end{array}\right. 
+            \end{array}}$.
+        \end{enumerate}
+    \end{definition}
+    
+    \begin{example}{}{}
+        Au problème de recherche d'un chemin dans un graphe, on peut lui associer les deux problèmes suivants 
+    
+        \begin{enumerate}
+            \itt \( \left\vert\begin{array}{ll}
+                \text{\hg{Entrée :}} & \text{un graphe $G$, deux sommets $s$ et $t$}  \\[0.2cm]
+                \text{\hg{Sortie :}} & \text{existe-t-il un chemin de $s$ à $t$ dans $G$ ?}
+            \end{array}\right.\)
+            
+            \itt \( \left\vert\begin{array}{ll}
+                \text{\hg{Entrée :}} & \text{un graphe $G$, deux sommets $s$ et $t$, une liste de sommets}  \\[0.2cm]
+                \text{\hg{Sortie :}} & \text{la liste de sommets est-elle un chemin de $s$ à $t$ dans $G$}
+            \end{array}\right.\)
+        \end{enumerate}
+    \end{example}
+    
+
+    \subsection{Problèmes d'optimisation}
+    
+    Lorsqu'un problème de recherche possède potentiellement plusieurs solutions, on s'intéresse souvent a un raffinement du problème consistant à chercher non pas une solution quelconque, mais la \guill{meilleure solution possible}. On appelle ce raffinement un \emph{problème d'optimisation} :
+    
+    \begin{definition}{Problème d'optimisation}{}
+        On appelle \hg{problème d'optimisation} sur un \hg{domaine d'entrée $E$} et un \hg{domaine de sortie $S$} le problème défini par
+        %
+        \begin{enumerate}
+            \itast une \hg{relation $\bcR \subseteq E \times S$} ;
+            
+            \itast une \hg{fonction de coût $c : S \to \bdR_+$}.
+        \end{enumerate}
+        %
+        L'objectif d'un tel problème est, étant donné un $e \in E$, de déterminer $s \in S$ tel que $e \bcR s$ et $c\p{s}$ est minimal.
+        
+        Un algorithme $A$ résout un tel problème si, pour toute entrée $e \in E$, $A\p{e}$ renvoie une solution $s \in S$ telle que
+        %
+        \begin{enumerate}
+            \item 
+        \end{enumerate}
+    \end{definition}
+    
+    On peut transformer tout problème d'optimisation en un problème de décision en fixant un \emph{seuil} et en reformulant la question ainsi: 
+    %
+    \[ \text{\guill{existe-il une solution de count inferieur ou egal au seuil ?}}\]
+    
+    \begin{definition}{Problème de seuil}{}
+        Soit un problème d'optimisation $P$ définis par $\bcR \subseteq E \times S$ et une fonction de coût $c : S \to \bdR_+$. Pour tout choix de seuil $c_0 \in \bdR_+$, la fonction 
+        %
+        \[ \hg{f_S : \begin{array}[t]{rcl}
+            E &\to& \bdB  \\
+            e &\mapsto& \left\lbrace\begin{array}{cc}
+                \top &\text{s'il existe} \ s \in S,\ \text{tel que} \ e \; \bcR\; s \et c\p{s} \leq c_0  \\
+                \bot &\text{sinon} 
+            \end{array}\right.
+        \end{array}}\]
+        %
+        est un problème de décision \hg{associé à $\bcP$ et $c_0$}, appelé \hg{problème de seuil}.
+    \end{definition}
+    
+    \begin{example}{}{}
+        \begin{enumerate}
+            \itt \( \left\vert\begin{array}{ll}
+                \text{\hg{Entrée :}} & \text{un graphe $G$, deux sommets $s$ et $t$}  \\[0.2cm]
+                \text{\hg{Sortie :}} & \text{la liste de sommets est-elle un chemin de $s$ à $t$ dans $G$ de longueur inférieure à \hguo{$100$} ?}
+            \end{array}\right.\)
+            
+            \itt \( \left\vert\begin{array}{ll}
+                \text{\hg{Entrée :}} & \text{un graphe $G$}  \\[0.2cm]
+                \text{\hg{Sortie :}} & \text{$G$ peut-il être colorié avec \hguo{$3$} couleurs ?}
+            \end{array}\right.\)
+            
+            \itt \( \left\vert\begin{array}{ll}
+                \text{\hg{Entrée :}} & \text{un graphe $G$}  \\[0.2cm]
+                \text{\hg{Sortie :}} & \text{$G$ peut-il être colorié avec \hguo{$4$} couleurs ?}
+            \end{array}\right.\)
+        \end{enumerate}
+    \end{example}
+
+    \subsection{Modèles de complexité}
+
+    Les algorithmes étudiées sont toujours considérés comme étant exécutés par des ordinateurs ayant une mémoire infinie. Cependant, dans cette partie, on va chercher à évaluer la complexité temporelle et/ou spatiale nécessaire pour résoudre un problème. Ces complexités sont exprimées en fonction de la taille de l'entrée du problème.
+    
+    \subsubsection{La classe $\cP$}
+
+    \begin{definition}{Classe $\cP$}{}
+        On appelle \hg{classe $\cP$} l'\hg{ensemble des problèmes de décision} qui admettent un \hg{algorithme les résolvant} dont la \hg{complexité temporelle} est \hg{majoré asymptotiquement par un polynôme} en la taille de l'entrée.
+    \end{definition}
+
+    Cette classe de problèmes est en général considérée comme l'ensemble des problèmes \guill{raisonnables}, c'est-à-dire l'ensemble des problèmes pour lesquels on pourra obtenir un résultat \emph{suffisamment} rapidement pour l'algorithme soit effectivement utile.
+    
+    \begin{warning}{}{}
+        Cette définition ne concerne que les \hg{problèmes de décision}, et non les problèmes de recherche ou d'optimisation. C'est d'ailleurs pour cette raison que l'on a précédemment d'expliquer comment transformer un problème de recherche ou d'optimisation en un problème de décision 
+    \end{warning}
+    
+    
+    \subsubsection{Réduction polynomiale}
+    
+    On introduit dans la partie I la notion de réduction calculatoire permettant de convertir 
+    blablablablalbmabablalabbablalbablba
+    
+    
+    \begin{definition}{réduction polynomiale}{}
+        Soit deux probleme de décision $f_1: E_1 \text{->} B$ et $f2$
+        
+        On dis que $f_1$ se reduit polynomialement a $f_2$ et on note $f1$ < $f2$ si il existe une fonction 
+        $g$: $E_1$ -> $E_2$ de complexité polynomiale en la taille de son entrée tq $\forall e \in E, f_1(e) = f_2(g(e))$
+        
+    
+    
+    \end{definition}
+    
+    
+    \subsubsection{La classe NP}
+    
+    \begin{definition}{Classe NP}{}
+    Un problème de décision f:E->$\bcB$
+        
+    \end{definition}
+
+    
+    \begin{theorem}{Inclusion de $\cP$ dans $\cNP$}{}
+        \[ \hg{\cP \subseteq \cNP}\]
+    \end{theorem}
+
+  \begin{nproof}
+      Soit $f : E \to \bsB$ telle que $f \in P$
+      Montrons que $f \in NP$
+      posons $C = \ens{0}$, et $g : E \times C \to \bsB$ tel que $\p{e, 0} \to f\p{e}$
+      \begin{enumerate}
+          \itt La taille du certificat unique 0 est bien de taille en $\mod e$
+          \itt La complexité de g est la même que $f$ donc $g\in \cP$
+      \end{enumerate}
+        Ainsi on a bien $f \in \cNP$
+  \end{nproof}
+    On remarque que cette inclusion est stricte, autrement dit, que $\cP \neq \cNP$.
+    Dans ce cas, cela voudrait dire qu'il existe des problèmes dans $\cNP$ qu'on ne peut pas résoudre en temps polynomial.
+    Mais personne n'a encore réussi à prouver que $\cP \neq \cNP$ (ou que $\cP = \cNP$).
+  C'est un problème ouvert depuis 50 ans.
+
+    \subsection{$\cNP$-complétude}
+
+\subsection{Définitions}
+
+    Au sein de la classe $\cNP$, on peut caractériser les problèmes dont la difficulté est "maximale" au sens de $\leq p$
+
+    \begin{definition}{Problème $\cNP$-difficile}{}
+
+        Un problème de décision $f$ est dit $\cNP$-difficile (ou $\cNP$-dur)
+        si $\forall f' \in \cNP, f' \leq pf$.
+        
+    \end{definition}
+
+    \begin{definition}{problème $\cNP$-complet}{}
+        Un problème de décision $f$ est dit $\cNP$-complet si :
+        \begin{enumerate}
+            \itt $f$ est $\cNP$-difficile
+            \itt $f \in \cNP$
+        \end{enumerate}
+    \end{definition}
+
+    On remarque que montrer qu'un problème est dans $\cNP$ est en général facile.
+    En revanche, montrer qu'un problème est $\cNP$-difficile semble être très compliqué, car il faut trouver une réduction polynomiale vers ce problème pour \underline{chaque} problème de $\cNP$...
+
+    Heureusement, il y a plus simple, une fois qu'on connaît au moins un problème $\cNP$-complet.
+
+    \begin{theorem}{Réduction polynomiale d'un problème $\cNP$-difficile}{}
+
+        Soit deux problèmes de décision $f_1 : E_1 \to \bsB$ et $f_2 : E_2 \to \bsB$
+        Si $f_1$ est $\cNP$-difficile, et si $f_1 \leq pf _2$, alors $f_2$ est $\cNP$-difficile.
+        
+    \end{theorem}
+
+    \begin{nproof}
+    
+        Ce théorème vient du fait que la relation $\leq p$ est transitive.
+        En effet, si $f_A \leq p f_B \leq p f_C$, alors
+        Soit $g_{AB} E_A \to E_B$ et $g_{BC} : E_B \to E_C$
+        Les fonctions de complexité polynomiale correspondent à ces réductions.
+        La fonction $g_{AB} \circ g_{BC}$ est bien une réduction polynomiale de $f_A$ vers $f_C$.
+        Donc $f_A \leq p f_C$.
+        Ainsi, si $f_1$ est $\cNP$-difficile :
+        \[\forall f' \in \cNP, f' \leq p f_1 \leq p f_2,
+        \forall f' \in \cNP, f' \leq p f_2,
+        f_2\] est $\cNP$-difficile.
+        
+    \end{nproof}
+
+    \begin{warning}{}{}
+
+        Si $f_1$ est $\cNP$-complet, et qu'on montre que $f_1 \leq p f_2$ on ne peut pas en conclure que $f_2$ est $\cNP$-complet, mais seulement que $f_2$ est $\cNP$-difficile.
+        Il faudra d'autre part montrer que $f_2 \in \cNP$ pour en conclure que $f_2$ est $\cNP$-complet.
+        
+    \end{warning}
+
+    L'intérêt des problèmes $\cNP$-complet est le résultat suivant :
+
+    \begin{theorem}{}{}
+
+        S'il existe un problème décision $f \cNP$ - complet tel que $f \in \cP$, alors $f \in \cNP$.
+        
+    \end{theorem}
+
+    \begin{nproof}
+        Supposons $f$ $\cNP$-complet, et supposons qu'il existe un algorithme $a-f$ qui décide $f$ en temps polynomial.
+        Soit $f' \in \cNP$. Montrons que, sous ces hypothèses, $f' \in \cP$.
+        Comme $f$ est $\cNP$-difficile, on a :
+        Soit $a-g$ un algorithme en temps polynomial qui réduit $f'$ à $f$.
+        Alors la fonction $a-f'$ suivante résout $f'$ en temps polynomial :
+        \begin{ocaml}
+let a-f' = a-f (a-g e) ;;
+        \end{ocaml}
+        Donc $f' \in \cP$
+        Donc $\cNP \subseteq \cP$
+        Or $\cP \subseteq \cNP$
+        Donc $\cP = \cNP$
+        
+    \end{nproof}
+
+    \subsection{Problème de référence SAT}
+
+    On rappelle ici le problème $\SAT$ :
+    
+    \begin{definition}{Problème SAT}{}
+        \( \SAT : \left\vert\begin{array}{ll}
+                \text{\hg{Entrée :}} & \text{une formule $\varphi$ de la logique propositionelle}  \\[0.2cm]
+                \text{\hg{Sortie :}} & \text{$\varphi$ est-elle satisfiable ?}
+            \end{array}\right.\)
+    \end{definition}
+    
+    \begin{theorem}{Cook-Levin}{}
+        \hg{$\SAT$ est un problème $\cNP$-complet}.
+    \end{theorem}
+
+    \begin{nproof}
+        On a déjà les points suivants :
+        %
+        \begin{enumerate}
+            \itt $\SAT \in \cNP$ (déjà vu dans un exemple précédent)
+            
+            \itt $\SAT$ est $\cNP$-difficile (admis)
+        \end{enumerate}
+
+        Soient un problème $f \in \cNP : E \to \bdB$ arbitraire, $C$ un ensemble de certificat et \camlline{a_f} l'algorithme de vérification associé à $f$. Pour toute entrée $e \in E$, on va construire un formule $\varphi_e$ telle que :
+        %
+        \begin{enumerate}
+            \itt on peut calculer $\varphi_e$ en temps polynomial ou $\mod e = n$ ;
+            \itt $\varphi_e$ est satisfiable si et seulement s'il existe $c \in C$ tel que \camlline{a_f (e, c)} renvoie \camlline{true}.
+        \end{enumerate}
+        L'idée est déconstruire $\varphi_e$ en décrivant exhaustivement le calcul de l'algorithme $a-f$
+
+        \begin{enumerate}
+            \item $\forall e \in E, \forall c \in C$ tel que $\mod c$ est polynomial en $\mod e = n$, l'exécution de $a-f \p{e, c}$ va effectuer un nombre d'étapes de calcul polynomial en $n \p{\bcP_\text T\p{n}}$, et utiliser un espace mémoire polynomial en $n \bcP_\text S\p{n}$
+            \item Ainsi, on peut décrire exhaustivement l'exécution de $a-f \p{e, c}$ en considérant un nombre $\bcP_\text S\p{n}$ bits de mémoire pendant un nombre $\bcP_\text T\p{n}$ d'étapes de calcul.
+            On a donc une surface d'espace temps polynomiale :
+
+            \begin{center}
+                \begin{tikzpicture}
+                    \node[] at (-0.2, -0.2) {$0$};
+                    
+                    \fill[main1!10] (0, 0) rectangle (4, 2.5);
+                    
+                    \draw[main1] (0, 2.5) -- (4, 2.5) -- (4, 0);
+                    
+                    \draw[main2,dashed] (0, 1.5) -- (2.7, 1.5) -- (2.7, 0);
+                    
+                    \node[main2] at (2.9, 1.7) {$X_{i, k}$};
+                    
+                    \node[main2] at (2.7, -0.2) {$i$};
+                    \node[main2] at (-0.2, 1.5) {$k$};
+                    
+                    \node[main1] at (4.0, -0.3) {$\bcP_\text S\p{n}$};
+                    \node[main1] at (-0.55, 2.5) {$\bcP_\text T\p{n}$};
+                    
+                    
+                    \draw[thick,->] (-0.1, 0) -- (5, 0);
+                    \node[] at (5.6, 0) {espace};
+                    
+                    \draw[thick,->] (0, -0.1) -- (0, 3);
+                    \node[] at (0, 3.2) {temps};
+                    
+                    
+                \end{tikzpicture}
+            \end{center}
+        
+            Pour chaque coordonnée $(i, u)$ dans cette surface, on introduit une variable propositionnelle $X_{i, k}$ qui vaut :
+            \[ \left\lbrace\begin{array}{cl}
+                0 &\text{si le $i$\ieme~bit de la mémoire vaut $1$ à l'étape $k$ du calcul}  \\
+                1 &\text{sinon}
+            \end{array}\right.\]
+        
+            On obtient un nombre polynomial de variables $\bcP_\text T\p{n} \times \bcP_\text S\p{n}$
+            
+            \item On écrit des formules logiques décrivant 2 choses :
+            
+            \begin{enumerate}
+                \item l'état initial de la mémoire (variables $X_{i, 0}$
+                \begin{enumerate}
+                    \itt le programme est exécuté
+                    \itt l'entrée e écrite en binaire
+                    \itt un nombre de bits polynomiale en $\mod e$ pour stocker le certificat $c$
+                \end{enumerate}
+                
+                \item l'évolution de chaque bit de la mémoire entre une étape $k$ et une étape $k + 1$,\ie de $X_{i, k+1}$ en fonction des $X_{j, k}$
+                
+                Ces 2 étapes peuvent être automatisées par un programme prenant en entrée $e$ et le code source de $a-f$, et va produire (en temps polynomial) une formule $\varphi_e$ ayant les propriétés voulues...
+            \end{enumerate}
+        \end{enumerate}
+    \end{nproof}
+    
+    \begin{exercise}{Montrer que $3-\SAT$ $\leq p$ $\SAT$}
+        On introduit mentalement le problème suivant :
+    
+        \( 3-\SAT : \left\vert\begin{array}{ll}
+            \text{\hg{Entrée :}} & \text{une formule} \ \varphi \ \text{de la logique propositionelle, sous forme normale conjonctive, où chaque}\\
+            & \text{clause contient au plus 3 littéraux}  \\[0.2cm]
+            \text{\hg{Sortie :}} & \varphi \ \text{\varphi est-elle satisfiable ?}
+        \end{array}\right.\)
+    
+        Soit $E_{3-\SAT}$ et $E_{\SAT}$ l'ensemble des instances des 2 problèmes, on a $E_{3-\SAT} \subset E_{\SAT}$ donc la fonction
+        \begin{ocaml}
+let id phi = phi;;
+        \end{ocaml}
+        est bien une réduction polynomiale de $3-\SAT$ vers $\SAT$.
+    \end{exercise}
+    
+    \begin{theorem}{$3-\SAT$ est $\cNP$-Complet}{}
+        $3-\SAT$ est $\cNP$-Complet.
+    \end{theorem}
+ 
+    \begin{nproof}
+        \begin{enumerate}
+            \itt $3-\SAT \in \cNP$ (même argument que pour $\SAT$)
+            %
+            \begin{enumerate}
+                \ithand certificats : valuations partielles
+                
+                \ithand vérification du certificat : tester si $\nu \vDash \varphi$ se fais bien en un temps polynomial en $\mod \varphi$ : par induction structurelle sur sur $\varphi$.
+            \end{enumerate}
+            \itt Pour montrer que $3-\SAT$ est $\cNP$-difficile, il suffit de montrer que $\SAT \leq p 3-\SAT$
+            Pour cela il faut trouver comment transformer $\varphi$ en une formule $\Tilde{\varphi}$ telle que :
+            \begin{enumerate}
+                \itt on peut calculer $\Tilde{\varphi}$ en temps polynomial sur $\mod \varphi$
+                \itt $\Tilde{\varphi}$ est satisfiable si $\varphi$ est satisfiable.
+            \end{enumerate}
+    
+        \end{enumerate}
+    \end{nproof}
+    
+    Il faut trouver comment transformer toute formule $\varphi$ en une formule $\Tilde{\varphi}$ tel que
+    
+    \begin{enumerate}
+        \itt $\Tilde{\varphi}$ soit une formule $3-\SAT$
+        \itt on peut calculer $\Tilde{\varphi}$ en un temps polynomial en $\mod \varphi$
+        \itt $\Tilde{\varphi}$ soit si et seulement si $\varphi$ est \SAT
+    \end{enumerate}
+    
+    Pour transformer $\varphi$ en $\tilde \varphi$, on utilise la \emph{transformation de \textsc{Tseitin}}. Pour cela, commençons par mettre sous format $3-\SAT$ les formules suivantes :
+    %
+    \begin{psse}
+        \item \begin{align*}
+            x \leftrightarrow (y \land z) &\equiv \p{x \to \p{y \land z}} \land \p{\p{y \land z} \to x}\\
+            &\equiv \p{\neg x \lor \p{y \land z}} \land \p{\neg \p{y \land z } \lor x }\\
+            &\equiv \underbrace{\p{\neg x \lor y } \land \p{\neg x \lor z } \land \p{\neg y \lor \neg z \lor x}}_{\Psi_\land\p{x, y, z}}
+        \end{align*}
+        
+        \item \begin{align*}
+            x \mapsto \p{y \lor z} &\equiv \p{\neg x \lor y \lor z} \land \p{\neg \p{y \lor z} \lor x}\\
+            &\equiv \p{\neg x \lor y \lor z} \land \p{\p{\neg y \land \neg z} \lor x}\\
+            &\equiv \underbrace{\p{\neg x \lor y \lor z} \land \p{\neg y \lor x} \land \p{\neg z \lor x}}_{\psi_\lor \p{x, y, z}}
+        \end{align*}
+        
+        \item \begin{align*}
+            x \leftrightarrow \neg y &\equiv \underbrace{\p{\neg x \lor \neg y} \land \p{y \lor x}}_{\psi_\neg\p{y \lor x}}
+        \end{align*}
+    \end{psse}
+    
+    Plus généralement, si une formule $\psi$ est une conjonction de plusieurs formules de l'une des formules précédentes (1), (2) ou (3) on peut mettre $\psi$ sous format $3-\SAT$. De plus, on sait que toute formule $\varphi$ peut être ré-écrite en temps polynomial en utilisant uniquement les connecteurs de $\ens{\land, \lor, \neg}$.
+    
+    Soit $\varphi$ une formule n'utilisant que les connecteurs de $\ens{\land, \lor, \neg}$. On va transformer $\varphi$ en une formule $\varphi'$ qui sera une conjonction de plusieurs formules de la forme (1), (2) ou (3). Pour cela, on va introduire des nouvelles variables chaque sous-arbre de l'arbre syntaxique de $\varphi$.
+    
+    \begin{example}{}{}
+        Considérons la formule $\varphi = \p{x \land y} \lor \neg x$. Son sous-arbre syntaxique est
+        %
+        \begin{center}
+            \begin{tikzpicture}[nodes={}, ->,
+                level 1/.style = {sibling distance = 2cm},
+                level 2/.style = {sibling distance = 1.33cm},
+            ]
+                \node[circle, fill=main2,draw=white,text=white,label={[font=\footnotesize]right:$\hg{z_1}$}]{$\lor$} %z1
+                child {
+                    node[circle, fill=main2,draw=white,text=white,,label={[font=\footnotesize]right:$\hg{z_2}$}]{$\land$} %z2
+                    child {node {$x$}}
+                    child {node {$y$}}
+                }
+                child {
+                    node[circle, fill=main2,draw=white,text=white,,label={[font=\footnotesize]right:$\hg{z_3}$}]{$\neg$}
+                    child {node {$x$}}
+                };
+            \end{tikzpicture}
+        \end{center}
+        %
+        On associe les n\oe{}uds de cet arbre aux variables $\hg{z_1}$, $\hg{z_2}$ et $\hg{z_3}$ correspondant à la représentation ci-dessus. On pose alors
+        %
+        \[ \hg{\varphi' = z_1 \land\; \underbrace{\p{z_1 \leftrightarrow z_2 \lor z_3}}_{(2)} \land\; \underbrace{\p{z_2 \leftrightarrow x \land y}}_{(1)} \land\; \underbrace{\p{z_3 \leftrightarrow \neg x}}_{(3)}}\]
+        %
+        D'après ce qui précède, on a donc
+        %
+        \[ \hg{\varphi' \equiv z_1 \land \psi_\lor\p{z_1, z_2, z_3} \land \psi_\land\p{z_2, x, y} \land \psi_\land\p{z_3, x}} \]
+        %
+        Cette dernière formule est bien au format $3-\SAT$.
+    \end{example}
+    
+    On généralise cet exemple : on définir une fonction $f$ par induction structurelle qui prend en entrée une formule $\varphi$ et renvoie un couple $\p{x, \varphi'}$ tel que \begin{enumerate}
+        \itt $\varphi'$ est sous format $3-\SAT$
+        \itt $\varphi'$ aura plus de $2\mod \varphi$ clauses
+        \itt $x$ est une variable fraîche
+        \itt $x \land \varphi'$ est satisfiable si et seulement si $\varphi$ est satisfiable
+        \itt $f\p{z} = \p{z, T}$
+        \itt $f\p{\top} = \p{x, x}$ avec $x$ une variable fraîche
+        \itt $f\p{\top} = \p{x, \neg x}$ avec $x$ une variable fraîche
+        \itt $f\p{\neg \varphi_\land} = \p{x, \psi_\neg \p{x, y-1} \land \psi_\land'}$ avec x variable fraîche et $\p{\varphi_\land, \varphi_\land'} = f\p{\varphi_\land}$
+        \itt $f \p{\varphi_1 \land \varphi_2} = \p{x, \psi_\land \p{x, y_1, y_2} \land \varphi_1' \land \varphi_2'}$ avec $x$ une nouvelle variable, $\p{y_1, \varphi_1'} = f\p{\varphi_1}$ et $\p{y_2, \varphi_2'} = f\p{\varphi_2}$
+        \itt $f \p{\varphi_1 \lor \varphi_2} = \p{x, \psi_\lor \p{x, y_1, y_2} \land \varphi_1' \land \varphi_2'}$ avec $x$ une nouvelle variable, $\p{y_1, \varphi_1'} = f\p{\varphi_1}$ et $\p{y_2, \varphi_2'} = f\p{\varphi_2}$
+    \end{enumerate}
+        
+    On montre facilement par induction structurelle que $\varphi'$ est sous forme $3-\SAT$ et contient au plus $3 \mod \varphi$ classes. Montrons par induction structurelle sur $\varphi$ la propriété
+    %
+    \begin{align*}
+        \bcP\p{\varphi} : &\text{Une définition} \ \nu \ \text{pour les variable de} \ \varphi \ \text{satisfait} \ \varphi \iff \nu \ \text{ peut être étendue en une valuation} \ \nu'\\
+        &\text{satisfaisant} \ x \land \varphi' \ou \p{x, \varphi'} = f\p{\varphi}
+    \end{align*}
+    %
+    \begin{enumerate}
+        \itt \underline{cas $\varphi = z \in \nu$} On a $f(z) = \p{z, T}$ et $z \land T$ est \SAT si et seulement si $z$ est \SAT (par les mêmes valuations). \itt \underline{cas $\varphi = T$} On a $f\p{T} = (x, x)$ $T$ est satisfiable par la valuation tel que $\nu(x) = 1$
+            
+        \itt \underline{cas $\underline = \bot$} $f(\bot) = (x, \neg x)$ $\bot$ n'est pas \SAT, $x \land \neg x$ n'est pas \SAT.
+            
+        \itt \underline{cas $\varphi = \varphi_1 \land \varphi_2$} Notons $f\p{\varphi_1} = \p{y_1, \varphi_1'}$ et $f\p{\varphi_2} = \p{y_2, \varphi_2'}$. Par hypothèse d'induction, on suppose que $\bcP\p{\varphi_1}$ et que $\bcP\p{\varphi_2}$. On a $f\p{\varphi} = \p{x, \varphi'}$ et
+        %
+        \[ \varphi' = \p{\neg x \lor y_1} \land \p{\neg x \lor y_2} \land \p{\neg y_1 \lor \neg y_2 \lor x} \land \varphi_1' \land \varphi_2'\]
+        %
+        Montrons l'équisatisfiabilité de $\varphi$ et $x \land \varphi'$.
+        %
+        \begin{itemize}
+            \item supposons qu'il existe $\nu$ tel que $\nu \vDash \varphi_1 \land \varphi_2$. On a donc $\nu \vDash \varphi_1$ et $\nu \vDash \varphi_2$.
+            
+            D'après $\bcP\p{\varphi_1}$, il existe une extension $\nu_1'$ de $\nu$ tel que $\nu_1' \vDash y_1 \land \varphi_1'$
+                
+            D'après $\bcP\p{\varphi_2}$, il existe une extension $\nu_2'$ de $\nu$ tel que $\nu_2' \vDash y_2 \land \varphi_2'$
+            
+            Comme chaque variable introduite ($y_1$, $y_2$, celles introduites pour les appels récursifs dans le calcul de $\varphi_1'$ et $\varphi_2'$) sont des variables \emph{fraiches}, on a :
+            %
+            \[ \dom\p{\nu_1'} \cap \dom{\nu_2'} = \dom{\nu}\]
+            %
+            Ainsi, la valuation $\nu'$ suivant est bien définie :
+            %
+            \[ \left\lbrace.\begin{array}{cl}
+                \nu'\p{x} = 1 \\
+                \nu'\p{z} = \nu\p{z} & \text{si} \ z \in \dom(\nu) \\
+                \nu'\p{z} = \nu_1'\p{z} & \text{si} \ z \in \dom(\nu_1') \\
+                \nu'\p{z} = \nu_2'\p{z} & \text{si} \ z \in \dom(\nu_2') \\
+            \end{array}\right.\]
+            %
+            Puisque l'on a $\nu'(x) = 1 = \nu_1'(y_1) = \nu_2'(y_2)$, on a donc
+            %
+            \[ \nu' \vDash \underbrace{\p{\neg x \lor y_1} \land \p{\neg x \lor y_2} \land \p{\neg y_1 \lor \neg y_2 \lor x} \land \varphi_1' \land \varphi_2'}_{\varphi'} \]
+            %
+            donc $\nu' \vDash x \land \varphi'$
+            
+            \item Réciproquement, supposons qu'il existe une valuation $\nu$' tel que $\nu' \vDash x \land \varphi'$. En particulier, on a 
+            %
+            \begin{align*}
+                \nu' &\vDash x\\
+                \nu' &\vDash \neg x \lor y_1 &&\text{donc}\qquad \nu' \vDash y_1\\
+                \nu' &\vDash \neg x \lor y_2 &&\text{donc}\qquad \nu' \vDash y_2\\
+                \nu' &\vDash \varphi_1' \et \nu' \varphi_2'
+            \end{align*}
+            %
+            Donc $\nu'\p{x} = \nu'\p{y_1} = \nu'\p{y_2} = 1$. Ainsi
+            %
+            \begin{align*}
+                \nu' &\vDash y_1 \land \varphi_1' &&\text{donc par} \ \bcP\p{\varphi_1} \ \text{on a}\qquad \nu' \vDash \varphi_1
+                \nu' &\vDash y_2 \land \varphi_2' &&\text{donc par} \ \bcP\p{\varphi_2} \ \text{on a}\qquad \nu' \vDash \varphi_2
+            \end{align*}
+            %
+            Dès lors $\nu' \vDash \varphi_1 \land \varphi_2$, donc $\varphi$ est satisfiable. 
+        \end{itemize}
+        %
+        \item Les cas $\varphi = \neg \varphi_1$ et $\varphi = \varphi_1 \lor \varphi_2$ se montrent de manière similaire.
+    \end{enumerate}
+    
+    Ainsi, en partant d'une formule $\varphi$ quelconque (instance de $\SAT$), on peut construire en temps polynomial en $\mod{\varphi}$ une formule $x \land \varphi'$ instance de $3-\SAT$ qui soit satisfiable si et seulement si $\varphi$ est satisfiable.
+    
+    On a donc montré que $\SAT \leq_p 3-\SAT$, d'où $3-\SAT$ est $\cNP$-difficile donc $\cNP$-complet.
+        
+    \subsection{Coloriage de graphe}
+            
+        On étudie maintenant un problème de décision très classique sur les graphes.
+            
+        \[ \bcP_\text{3-Color} \left\vert\begin{array}{ll}
+            \text{Entrée :} & \text{Un graphe $G$}  \\[0.2cm]
+            \text{Sortie :} & \text{$G$ est-il coloriable avec 3-couleurs ?}
+        \end{array}\right.\]
+            
+        \begin{theorem}{Exercice classique}{}
+            3-Color est $\cNP$-complet
+        \end{theorem}
+        \begin{nproof}
+            Montrons que 3-Color $\in \cNP$
+            \begin{enumerate}
+                \itt Un tableau associant a chaque sommet de G une couleur : Un tel tableau de taille $\mod S$ donc bien polynomial en $\mod G$ avec $G = \p{S, A}$
+                \itt verif $\p{G, c}$ :
+                \begin{enumerate}
+                    \itt vérifier que la longueur du tableau $c$ est de taille $\mod S$, et ne contient qu'au plus 3 couleur
+                    \itt pour tout $\p{S, T} \in A$ vérifier que $c\p{S} \neq c\p{t}$ en temps $O\p{\mod A}$, donc bien polynomial en $\mod G$
+                    \itt pour montrer que 3-Color est $\cNP$-difficile on montre que 
+                \end{enumerate}
+            \end{enumerate}
+        \end{nproof}
+        
+        
+        
+        \begin{form}
+            coucoucoucouc
+        \end{form}
+        
+        
+
+
+
 \end{document}

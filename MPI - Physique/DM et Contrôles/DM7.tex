@@ -1,0 +1,181 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}} 
+    \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii}.}
+    \renewcommand*{\labelenumiii}{\alph{enumiii}.}
+    
+    \stylizeDocSpe{Physique}{Devoir maison n° 7}{}{Pour le mardi 29 novembre 2022}
+    
+    \section{Latitude de mise au point d'un microscope}
+    
+    Un microscope est schématisé par deux lentilles minces convergentes de même axe optique :
+    %
+    \begin{enumerate}
+        \itt $\bsL_1$ (objectif) de centre $O_1$ et de distance focale image $f_1' = \qty{5.0}{\mm}$ ;
+        
+        \itt $\bsL_2$ (oculaire) de centre $O_2$ et de distance focale image $f_2' = \qty{25}{\mm}$ ;
+    \end{enumerate}
+    %
+    On note $F_1'$ et $F_2$ respectivement les foyers image de $\bsL_1$ et objet de $L_2$. L'axe optique étant orienté de $O_1$ vers $O_2$, on donne l'intervalle optique $\Delta = \overline{F_1'F_2} = \qty{25}{\cm}$.
+    
+    L'\oe{}il, placé au foyer image de l'oculaire, étudie un petit objet $AB$ disposé dans un plan de front ($AB$ perpendiculaire à l'axe optique, $A$ situé sur l'axe optique).
+    
+    \begin{enumerate}
+        \item Où doit être situé $A$ pour que l'\oe{}il n'ait pas à accommoder ? Répondre en donnant l'expression littérale et la valeur numérique $\overline{F_1A}$. On précise que, sans accommoder (\ie sans fatigue), l'\oe{}il \guill{normal} vise à l'infini.
+        
+        \noafter
+        \boxans{
+            Considérons les points $A_1$, $B_1$, $A_2$ et $B_2$, tels que $AB \xrightarrow{\bsL_1} A_1B_1 \xrightarrow{\bsL_2} A_2B_2$. On veut que $A_2B_2$, l'image \guill{reçu} par l'\oe{}il, se forme à l'infini, donc que $A_1B_1$ soit situé en $F_2$, et donc $\overline{F_1'A_1} =\overline{F_1'F_2} = \Delta$.
+            
+            La \emph{relation de conjugaison de \textsc{Newton}} livre :
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+             \[ \overline{F_1A}\times \overline{F_1'A_1} = -{f_1'}^2 \qquad\text{donc}\qquad \overline{F_1A}\Delta = -{f_1'}^2 \qquad\text{donc finalement}\qquad \overline{F_1A} = - \dfrac{{f_1'}^2}{\Delta}\]
+            %
+            L'application numérique livre $\overline{F_1A} = \qty{-0.10}{\mm}$.
+        }
+        %
+        \yesbefore
+        
+        \item On se place dans les conditions de la question précédente. Sur une figure où l'on ne cherchera pas les ordres de grandeurs de $f_1'$, $f_2'$, $\Delta$ mais où on tiendra seulement compte de la relation d'ordre $f_1' < f_2' < \Delta$, représenter la marche d'un faisceau lumineux de $B$.
+        
+        \boxansconc{
+            \begin{center}
+                \begin{tikzpicture}[decoration={markings,mark=at position 0.5 with {\arrow{>}}}]
+                    \draw[very thick,->] (-6.5, 0) -- (7.5, 0); %axe optique
+                    
+                    \draw[very thick, Latex-Latex] (-3.5, -3) --(-3.5, 3) node[label={above:$\bsL_1$}] {}; %objectif
+                    
+                    \draw[very thick, Latex-Latex] (3.25, -3) --(3.25, 3) node[label={above:$\bsL_2$}] {}; %oculaire
+                    
+                    \draw[thick,main1,postaction={decorate}] (-6, 1) to (-3.5, 0);
+                    \draw[thick,main1,postaction={decorate}] (-3.5, 0) to (0.25, -1.5);
+                    \draw[thick,main3,postaction={decorate}] (-6, 1) to (-3.5, 1);
+                    \draw[thick,main3,postaction={decorate}] (-3.5, 1) to (0.25, -1.5);
+                    \draw[thick,main5,postaction={decorate}] (-6, 1) to (-3.5, -1.5);
+                    \draw[thick,main5,postaction={decorate}] (-3.5, -1.5) to (0.25, -1.5);
+                    \draw[thick,main5,postaction={decorate}] (0.25, -1.5) -- (3.25, -1.5);
+                    \draw[thick,main5,postaction={decorate}] (3.25, -1.5) -- (7.25, 0.5);
+                    
+                    \draw[thick,main7,postaction={decorate}] (0.25, -1.5) -- (7.25, 2);
+                    
+                    \draw[thick,->] (-6, 0) node[label={[font=\footnotesize]below:$A$}] {} -- (-6, 1) node[label={[font=\footnotesize]above:$B$}] {}; %AB
+                    
+                    
+                    \draw[thick,densely dotted,->] (0.25, 0) node[label={[font=\footnotesize]above:$A_1$}] {} -- (0.25, -1.5) node[label={[font=\footnotesize]below:$B_1$}] {}; %A1B1
+                    
+                    \draw[] (-5, 0.2) --(-5, -0.2) node[label={[font=\footnotesize]below:$F_1$}] {}; %F1
+                                        
+                    \draw[] (-2, 0.2) --(-2, -0.2) node[label={[font=\footnotesize]below:$F_1'$}] {}; %F1'
+                    
+                    \draw[] (0.25, 0.2) --(0.25, -0.2) node[label={[font=\footnotesize]below:$F_2$}] {}; %F2
+                    
+                    \draw[] (6.25, 0.2) --(6.25, -0.2) node[label={[font=\footnotesize]below:$F_2'$}] {}; %F2'
+                \end{tikzpicture}
+            \end{center}
+        }
+        
+        \item Soit $\alpha'$ l'angle algébrique sous lequel l'\oe{}il voit l'image définitive de $AB$ à travers le microscope et $\alpha$ l'angle algébrique sous lequel il apercevrait l'objet sans se déplacer en l'absence de microscope. Calculer le grossissement $G = \sfrac{\alpha'}{\alpha}$ (littéralement puis numériquement). Interpréter le signe de ce rapport.
+        
+        \noafter
+        %
+        \boxans{
+            On a $\tan \alpha' = \dfrac{\overline{A_1B_1}}{f_2'}$ et $\tan \alpha = \dfrac{\overline{A_1B_1}}{f_1' + \Delta}$. Dans les conditions de \textsc{Gauus}, $\tan \theta \approx \theta$ d'où :
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            \[ \dfrac{\alpha'}{\alpha} = \dfrac{f_1' + \Delta}{f_2'}\]
+            %
+            L'application numérique livre $G = \qty{10}{}$.
+        }
+        %
+        \yesbefore
+        
+        \item En accomodant, l'\oe{}il peut observer nettement un objet situé entre $\Delta = \qty{25}{\cm}$ et l'infini. De combien peut-on modifier la distance entre l'objectif et l'objet si l'on veut toujours pouvoir observer nettement l'objet $AB$ à travers le microscope (lattitude de mise au point) ? Commenter.
+        
+        \noafter
+        %
+        \boxans{
+            On veut $\overline{F_2'A_2} \geq \Delta$ et par \emph{relation de conjugaison de \textsc{Newton}}, on a $\overline{F_2'A_2} = -\dfrac{{f_2'}^2}{\overline{F_2A_1}}$ et $\overline{F_1'A_1} = -\dfrac{{f_1'}^2}{\overline{F_1A_1}}$
+            
+            Or $\overline{F_2A_1} = \overline{F_2F_1'} + \overline{F_1'A_1} = \overline{F_1'A_1} - \Delta$ d'où :
+            %
+            \[ \overline{F_2'A_2} = \dfrac{{f_2'}^2}{\frac{{f_1'}^2}{\overline{F_1A_1}} + \Delta} \geq \Delta \qquad\text{donc}\qquad \p{{f_2'}^2 -\Delta^2}\overline{F_1A_1} \geq \Delta{f_1'}^2\]
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Or $\Delta > f_2'$ donc $\overline{A_1F_1} \leq \dfrac{\Delta}{\Delta^2 - {f_2'}^2}{f_1'}^2$ d'où $\overline{A_1O_1} \leq f_1' + \dfrac{\Delta}{\Delta^2 - {f_2'}^2}{f_1'}^2$
+            
+            L'application numérique livre $\overline{F_1A_1} \leq \qty{51}{\mm}$. On obtient un résultat très proche de celui obtenu à la question \enumrefraw{I.1} : il y a donc peu de marge de man\oe{}vre, et l'\oe{}il n'a presque pas à accomoder lorsque l'objet est visible. 
+        }
+    \end{enumerate}
+    
+    \section{Deuxième problème}
+    
+    \emph{Manque de temps}
+    
+    \section{Troisième problème}
+    
+    \begin{enumerate}
+        \item Calculer le pH de $V = \qty{500}{\mL}$ d'une solution aqueuse préparée par dissolution totale de $m = \qty{2,675}{\g}$ de chlorure d'amonium $\text N \text H_4 \text{Cl}$.
+        
+        \emph{Données :} $\bbM\p{\text{Cl}} = \qty{35,5}{\g \per \mol}$, $\bbM\p{\text{N}} = \qty{14}{\g \per \mol}$, $\bbM\p{\text{H}} = \qty{1}{\g \per \mol}$, $\text{p}K_a\p{{\text N\text H_4}^+/\text N\text H_3} = \qty{9,2}{}$.
+        
+        \noafter
+        %
+        \boxans{
+            On considère qu'on a initialement dissous une concentration $c$ de $\text N \text H_4 \text{Cl}$ dans de l'eau à température standard de pH initial égal à $7$. On a $c = \dfrac{m}{V\bbM\p{\text N \text H_4 \text{Cl}}}$. La réaction est alors
+            %
+            \[ {\text N \text H_4 \text{Cl}} + \text H_2\text O \xrightleftharpoons{\hspace{0.4cm}} {\text N\text H_3} + {\text H_3\text O}^+ + \text{Cl}^-\]
+            %
+            On note $X$ l'avancement en concentration, on a alors :
+            \begin{center}
+                \NiceMatrixOptions{cell-space-top-limit=3pt}
+                \begin{NiceTabular}{|c||cc|ccc|}[]
+                    \CodeBefore
+                        \rowcolor{main3!10}{1}
+                        \cellcolor{main1!10}{2-3,3-3}
+                    \Body
+                        \toprule
+                        \text{Avancement ($\qty{}{\mol \per \litre}$)} & \Block{1-5}{${\text N \text H_4 \text{Cl}} + \text H_2\text O \xrightleftharpoons{\hspace{0.4cm}} {\text N\text H_3} + {\text H_3\text O}^+ + \text{Cl}^-$} \\ \midrule
+                        $X_\text i = 0$ & $c$ & \Block{2-1}{solvant} & $0$ & $10^{-7}$ & $0$\\
+                        $X_\text{eq}$ & $c - X_\text{eq}$ & & $X_\text{eq}$ & $10^{-7} + X_\text{eq}$ & $X_\text{eq}$\\  
+                        \bottomrule
+                \end{NiceTabular}
+            \end{center}
+            %
+            La réaction acido-basique est par ailleurs ${\text N\text H_4}^+ \text H_2\text O \xrightleftharpoons{\hspace{0.4cm}} \text N\text H_3 + {\text H_3\text O}^+$, d'où $K_a = \dfrac{X_\text{eq}\p{10^{-7} + X_\text{eq}}}{c - X_\text{eq}}$.
+            
+            Ainsi $K_ac - K_aX_\text{eq} = {X_\text{eq}}^2 + 10^{-7}X_\text{eq}$ d'où ${X_\text{eq}}^2 + X_\text{eq}\p{10^{-7} + K_a} - K_ac = 0$. Donc :
+            %
+            \[ X_\text{eq} = \dfrac{-\p{10^{-7} + K_a} + \sqrt{\p{10^{-7} + K_a}^2 - 4K_ac}}{2} \qquad\p{\text{on prend la solution positive car} \ X_\text{eq} > 0}\]
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a donc $\text p\text H = -\log_{10}\p{10^{-7} + X_\text{eq}}$. L'application numérique livre $\text p\text H = \qty{5.1}{}$.
+        }
+        %
+        \yesbefore
+        
+    \end{enumerate}
+\end{document}

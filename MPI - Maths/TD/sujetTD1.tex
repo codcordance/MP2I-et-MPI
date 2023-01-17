@@ -1,0 +1,225 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{../../Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\thesection}{\Roman{section}}
+    \renewcommand{\labelenumi}{\Roman{section}.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\Roman{section}.\arabic{enumi}.\arabic{enumii}.}
+    \renewcommand*{\labelenumiii}{\alph{enumiii}.}
+
+    \stylizeDocSpe{Maths}{Sujet TD $\star$ n° 1}{CCS MP MATH 1 1996}{Le mercredi 30 novembre 2022}
+    
+    On note $\bcF$ l'ensemble des fonctions définies sur $\bdR$ à valeurs dans $\bdR$ et $\bcL$ le sous-ensemble de $\bcF$ formé des fonctions lipschitziennes, c'est-ç-dire des fonctions $\varphi$ pour lesquelles existe une constante $K_\varphi \geq 0$ telle que
+    %
+    \[ \forall \p{x, y} \in \bdR^2,\qquad \mod{\varphi\p{x} - \varphi\p{y}} \leq K_\varphi\mod{x - y}\]
+    %
+    On a pour but, dans ce problème, de rechercher les fonctions $F \in \bcL$ telles que
+    %
+    \begin{equation}
+        \label{eq:eq1}\forall x \in \bdR,\qquad F\p{x} - \lambda F\p{x + a} = f\p{x}
+    \end{equation}
+    %
+    où $f$ est une fonction de $\bcL$ donnée et où $a$ et $\lambda$ sont deux réels non nuls donnés.
+    
+    Les parties \enumref{sec:sec3} et \enumref{sec:sec4} sont largement indépendantes.
+    
+    \section{Question préliminaire}
+    
+    \begin{enumerate}
+        \item Soit $F \in \bcF$ vérifiant \eqref{eq:eq1}. Montrer que, pour tout $x \in \bdR$ et tout $n \in \bdN^\star$, on a
+        %
+        \begin{align}
+            F\p{x} &= \lambda^nF\p{x + na} + \sum_{k=0}^{n-1} \lambda^k f\p{x + ka}\label{eq:eq2}\\
+            F\p{x} &= \lambda^{-n}F\p{x - na} - \sum_{k=1}^n \lambda^{-k}f\p{x - ka}\label{eq:eq3}
+        \end{align}
+        
+        \noafter
+        %
+        \boxans{
+            On montre \eqref{eq:eq2} par récurrence sur $n \in \bdN^\star$. Pour l'initialisation, en $n = 1$, on a :
+            %
+            \[ \forall x \in \bdR,\qquad F\p{x} = f\p{x} + \lambda F\p{x + a} = \lambda^1F\p{x + 1\times a} + \sum_{k=0}^0 \lambda^k f\p{x + ka}\]
+            %
+            Donc la propriété est vraie au rang $n = 1$. Supposons la propriété vraie au rang $n \in \bdN^\star$. On a alors
+            %
+            \begin{align*}
+                \forall x \in \bdR,&& F\p{x} &= \lambda^nF\p{x + na} + \sum_{k=0}^{n-1} \lambda^k f\p{x + ka}\\
+                && &= \lambda^n f\p{x + na} + \lambda^{n+1}F\p{x + \p{n+1}a} + \sum_{k=0}^{n-1} \lambda^k f\p{x + ka}\\
+                && &= \lambda^{n+1}F\p{x + \p{n+1}a} + \sum_{k=0}^{n} \lambda^k f\p{x + ka}
+            \end{align*} 
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Donc la propriété est vraie au rang $n+1$. Ainsi, par \emph{principe de récurrence}, la propriété \eqref{eq:eq2} est vraie pour tout $n \in \bdN^\star$. Pour montrer \eqref{eq:eq3}, on remarque que 
+            %
+            \[ F\p{x - na} = \lambda^nF\p{x} + \sum_{k=0}^{n-1} \lambda^k f\p{x - na + ka} \qquad\text{donc}\qquad F\p{x} = \lambda^{-n}F\p{x - na} + \sum_{k=0}^{n-1} \lambda^{k -n}\p{f + \p{k-n}a}\]
+            %
+            On conclut à la propriété \eqref{eq:eq3}. 
+        }
+        %
+        \yesbefore
+    \end{enumerate}
+    
+    \section{Quelques propriétés des fonctions lipschitziennes}
+    
+    \begin{enumerate}
+        \item Montrer que $\bcL$ est un sous-espace vectoriel réel de $\bcF$.
+        
+        \noafter
+        %
+        \boxans{
+            Soient $\p{f, g} \in \bcL^2$ et $\lambda \in \bdR$. Soient de plus $\p{x, y} \in \bdR^2$. On a :
+            %
+            \begin{align*}
+                 \mod{\;\p{\lambda f + g}\p{x} - \p{\lambda f + g}\p{y}} &= \mod{\lambda\p{f\p{x} - f\p{y}} + g\p{x} - g\p{y}} \leq \lambda\mod{f\p{x} - f\p{y}} + \mod{g\p{x} - g\p{y}}\\
+                 &\leq \lambda K_f\mod{x- y} + K_g\mod{x - y} = \p{\lambda K_f + K_g}\mod{x + y}
+            \end{align*}
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Enfin $0 \in \bcL$, car $\mod{0\p{x} - p\p{y}} = 0 \leq \mod{x - y}$. Donc $\p{\bcL, +, \cdot_\bdR}$ est un sous-espace vectoriel de $\p{\bcF, +, \cdot_\bdR}$.
+        }
+        %
+        \yesbefore\newpage
+        
+        \item Soit $f \in \bcF$ dérivable. Montrer que, pour que $f \in \bcL$, il faut et il suffit que sa dérivée $f'$ soit bornée.
+        
+        \noafter
+        %
+        \boxans{
+            Supposons que, $f'$ soit bornée, et ainsi qu'il existe un réel $M$ tel que $\mod{f'} \leq M$.
+            
+            Soient $\p{a, b} \in \bdR^2$ tels que $a < b$. Puisque $f$ est continue sur $\intc{a, b}$ (car dérivable) et dérivable sur $\into{a, b}$, le \emph{théorème des accroissements finis} livre 
+            %
+            \[ \exists c \in \into{a, b},\qquad \mod{\dfrac{f\p{b} - f\p{a}}{b - a}} = \mod{f'\p{c}} \]
+            %
+            Or $\mod{f'\p{c}} \leq M$ d'où $\mod{f\p{b} - f\p{a}} \leq M\mod{b - a}$, d'où le caractère lipschitzien, \ie $f \in \bcL$.\medskip
+            
+            Réciproquement, si $f \in \bcF$, alors pour $\p{x, h} \in \bdR^2$ on a :
+            %
+            \[ \mod{f\p{x + h} - f\p{x}} \leq K_f\mod{x + h - x} \qquad\text{donc}\qquad \mod{\dfrac{f\p{x + h} - f\p{x}}{h}} \leq K_f\]
+            %
+            Lorsque $h$ tends vers $0$, on obtient par définition de la dérivée $\mod{f'\p{x}} \leq K_f$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a donc bien montré que $f \in \bcL$ si et seulement si $f'$ est bornée.
+        }
+        %
+        \yesbefore
+        
+        \item $f$ et $g$ étant deux fonctions bornées de $\bcL$, montrer que leur produit $fg$ est aussi une fonction de $\bcL$. En est-il de même si $f$ et $g$ ne sont pas toutes les deux bornées ?
+        
+        \noafter
+        %
+        \boxans{
+            Soient $\p{x, y} \in \bdR^2$. On a :
+            %
+            \begin{align*}
+                fg\p{x} - fg\p{y} &= f\p{x}g\p{x} - f\p{x}g\p{y} + f\p{x}g\p{y} - f\p{y}g\p{y}\\
+                &\leq f\p{x}\p{g\p{x} - g\p{y}} + g\p{y}\p{f\p{x} - f\p{y}}\\
+                &\leq f\p{x}K_g\mod{x - y} + g\p{y}K_f\mod{x-y}\\
+                &\leq \p{K_gf\p{x} + K_fg\p{y}}\mod{x - y}
+            \end{align*}
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Soient $\p{M_f, M_g} \in \bdR^2$ tels que $\mod{f} \leq M_f$ et $\mod{g} \leq M_g$, on pose $K_{fg} = K_gM_f + K_fM_g$ et on obtient finalement
+            %
+            \[ \mod{fg\p{x} - fg\p{y}} \leq K_{fg}\mod{x - y} \qquad\text{donc on a bien}\qquad fg \in \bcL\]
+            
+            Dans le cas non bornée, il suffit de prendre $f = g = \Id_\bdR$, de caractère 1-lipschitzien.
+            
+            Pour tout $x \in \bdR$, on a $fg\p{x} = x^2$ d'où $fg'\p{x} = 2x$. Puisque $fg'$ n'est pas borné, $fg$ n'est pas dans $\bcL$.
+        }
+        %
+        \yesbefore
+        
+        \item\label{qu:2.4} Soit $f \in \bcL$. Montrer l'existence de deux réels positifs $A$ et $B$ tels que
+        %
+        \begin{equation}
+            \forall x \in \bdR,\qquad \mod{f\p{x}} \leq A\mod{x} + B\label{eq:eq4}
+        \end{equation}
+        
+        \noafter
+        %
+        \boxans{
+            On a $\mod{f\p{x} - f\p{0}} \leq K_f\mod{x}$ d'où 
+            %
+            \[ f\p{x} - f\p{0} \leq K_f\mod{x} \qquad\text{donc}\qquad f\p{x} \leq K_f\mod{x} + f\p{0} \qquad\text{donc}\qquad f\p{x} \leq K_f\mod{x} + \mod{f\p{0}}\]
+            %
+            Et
+            %
+            \[ f\p{0} - f\p{x} \leq K_f\mod{x} \qquad\text{donc}\qquad -f\p{x} \leq K_f\mod{x} - f\p{0} \qquad\text{donc}\qquad -f\p{x} \leq K_f\mod{x} + \mod{f\p{0}} \]
+            %
+            On a donc $\mod{f\p{x}} \leq K_f\mod{x} + \mod{f\p{0}}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a bien démontré le résultat escompté pour toute fonction $f \in \bcL$ avec $A = K_f$ et $B = \mod{f\p{0}}$.
+        }
+        %
+        \yesbefore
+        
+        \item Soit $f \in \bcL$. On suppose qu'il existe un réel positif $M$ tel que, pour tout $\p{x, y} \in \bdR^2$ vérifiant $0 \leq x - y \leq 1$, on a $\mod{f\p{x} - f\p{y}} \leq M\mod{x - y}$. Démontrer que $f \in \bcL$.
+        
+        \noafter
+        %
+        \boxans{
+            Soient $\p{a, b} \in \bdR^2$ avec $a < b$. On considère une subdivision $\p{x_0, x_1, \dots, x_p}$ de $\intc{a, b}$ telle que $x_0 = a$, $x_p = b$, et que pour tout $i \in \iint{0, p-1}$, on ait $0 \leq x_{i+1} - x_i \leq 1$. Dès lors :
+            %
+            \[ \mod{f\p{b} - f\p{a}} = \mod{f\p{x_p} - f\p{x_0}} = \mod{\sum_{i=0}^{p-1} f\p{x_{i+1} - f\p{x_i}}} \leq \sum_{i=0}^{p-1} \mod{f\p{x_{i+1} - f\p{x_i}}} \leq \sum_{i=0}^{p-1}C\mod{x_{i+1} - x_i}\]
+            %
+            Or pour tout $i \in \iint{0, p-1}$, on a $x_{i+1} - x_i \geq 0$ d'où $\mod{f\p{b} - f\p{a}} \leq C\displaystyle \sum_{i=0}^{p-1} x_{i+1} - x_i = C\p{x_p - x_0}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Or $x_p = b > x_0 = a$ donc on obtient finalement $\mod{f\p{b} - f\p{a}} \leq C\mod{b - a}$.
+        }
+        %
+        \yesbefore
+    \end{enumerate}
+    
+    \section{Etude de \eqref{eq:eq1} pour $\mod{\lambda} \neq 1$}\label{sec:sec3}
+    
+    \begin{enumerate}
+        \item On suppose dans cette sous-partie que $\mod{\lambda} < 1$.
+        
+        \begin{enumerate}
+            \item \begin{enumerate}
+                \item Montrer que, pour tout $x \in \bdR$, la série $\sum\limits_{n=0}^{+\infty} \lambda^n f\p{x + na}$ est absolument convergente.
+                
+                \boxans{
+                    %Soit $S_n = \sum\limits_{k=0}^{n} \lambda^k f\p{x + ka}$.
+                    D'après la question \quref{2.4} il existe $\p{A, B} \in \bdR^2$ tels que
+                    %
+                    \[ \sum_{k=0}^n \lambda^k f\p{x + ka} \leq \sum_{k=0}^n \lambda^k f\p{x + ka} \lambda^k \p{A\mod{x + ka} + B}\]
+                }
+            \end{enumerate}
+        \end{enumerate}
+    \end{enumerate}
+    
+    \section{Etude de \eqref{eq:eq1} pour $\mod{\lambda} = 1$}\label{sec:sec4}
+    %
+    $F\p{x} - F\p{x + 2\pi} = \cos{x}$ donc pour $x_k = 2k\pi$ avec $k \in \bdN$, on a $F\p{x_k} - F\p{x_{k+1}} = 1$. En sommant, on obtient $F\p{x_k} - F\p{x_0} = k$, soit $F\p{2k\pi} = k + F\p{0}$
+\end{document}

@@ -295,9 +295,279 @@
     
     \subsection{}
     
-    \underline{$\boxed$ Plus tard}
+    \newpage
+    
+    \chapter{Topologie}
+    
+    \subsection{Exercice 11}
+    
+    Soit $E$ un espace vectoriel normé et $C \subset E$ une partie convexe.
+    
+    \chapter{Séries}
+    
+    \subsection*{Exercice 21}
+    
+    Soit $E$ l'espace vectoriel des suites vérifiant $u_{n+2} = u_n + u_{n+1}$. On note $u \in E$ la suite vérifiant $u_0 = 1$, $u_1 = 0$ et $v \in E$ la suite vérifiant $v_0 = 0$, $v_1 = 1$.
+    
+    \begin{enumerate}
+        \item Montrer que $\p{u, v}$ est une base de $E$.
+        
+        \boxans{
+            Une suite $w \in E$, est entièrement déterminée par $w_0$ et $w_1$. On a donc $w = w_1u + w_0v$ (générateur).
+            
+            Si $\lambda u + \mu v = 0$, alors en $n = 1$ on obtient $\lambda = 0$ et en $n = 0$ on obtient $\mu = 0$ (libre).
+        }
+        
+        \item Montrer que $u_{n+1}v_n - u_nv_{n+1} = \p{-1}^{n+1}$.
+        
+        \boxans{
+            Pour $n = 0$, on a $u_1v_0 - u_0v_1 = 0 - 1 = \p{-1}^1$. Donc l'hypothèse est vérifiée.
+            
+            Pour $n = 1$, on a $u_2v_1 - u_1v_2 = u_2 = u_1$
+            
+            
+            Supposons l'hypothèse vérifiée jusqu'à un rang $n \geq 2$. On a :
+            %
+            \[ u_{n+2}v_{n+1} - u_{n+1}v_{n+2} = \p{nu_n + u_{n+1}}v_{n+1} - u_{n+1}\p{nv_n + v_{n+1}} = n\p{u_nv_{n+1} - u_{n+1}v_n} = \p{-1}^{n+2}\]
+        }
+        
+        \item Montrer que $u_n \geq n - 2$ et $v_n \geq n - 1$ puis $n^2 = \O{}{u_n}$ et $n^2 = \O{}{v_n}$.
+        
+        \boxans{
+            Par récurrence. On a $u_0 \geq -1$, $u_1 \geq 0$. Si la propriété est vraie jusqu'au rang $n+1$ avec $n \in \bdN$, alors $u_{n+2} = u_{n+1} + u_n \geq n + n - 1 = 2n - 1 \geq n - 2$, \etc . De même pour $v_n$.
+            
+            On 
+        }
+        
+        \item Montrer la convergence de la série $\sum \dfrac{u_{n+1}}{v_{n+1}} - \dfrac{u_n}{v_n}$. On note $L$ sa limite, qui est la limite de $\dfrac{u_n}{v_n}$.
+        
+        \boxans{
+            On a $\dfrac{u_{n+1}}{v_{n+1}} - \dfrac{u_n}{v_n} = \dfrac{u_{n+1}v_n - u_nv_{n+1}}{v_{n+1}v_n} = \dfrac{\p{-1}^{n+1}}{v_nv_{n+1}} \leq \dfrac{1}{n\p{n-1}}$ CVA.
+        }
+        
+        \item En utilisant les séries alternées, montrer $v_nL - u_n \lima 0$ donc $L - \dfrac{u_n}{v_n} = \o{\dfrac{1}{v_n}}$.
+        
+        \boxans{
+            $v_nL - u_n$
+        }
+        
+        \item Soit $w = au + bv$. En écrivant $w = v\p{b + a\dfrac{u}{v}}$, établir la convergence et calculer la limite de $w$ (éventuellement infinie).
+        
+        \boxans{
+            
+        }
+    \end{enumerate}
+    
+    \subsection*{Produits infinis}
+    
+    On considère une suite $u_n \in \bdR$ ou $\bdC$. On pose $P_n = \prod\limits_{k=1}^n u_k$.
+    
+    On parle de produit convergeant si $P_n \to L \neq 0$ et de produit divergeant sinon.
+    
+    Produit convergeant $\implies u_n \to 1$. On considère $\prod\limits_{k=1}^\infty \p{1 + u_k}$.\bigskip
+    
+    Cas réel $\displaystyle\prod\limits_{k \geq k_0} \p{1 + u_k}$. Quand est-ce qu'il y a convergence ?
+    
+    Pour CNS : utilisation du logarithme. Avec $u_k$ positif. 
+    On a $\ln{\displaystyle\prod\limits_{k \geq k_0} \p{1 + u_k}} = \sum\limits_{k \geq k_0} \ln{1 + u_k}$, qui converge ssi (par équivalent) $\displaystyle\sum\limits_{k \geq k_0} u_k$ converge.\bigskip
+    
+    Considérons $\displaystyle\prod\limits_{k \geq 2} \p{1 + \dfrac{\p{-1}^k}{k^\alpha}}$. On a $\alpha > 0$ ou divergence grossière. Donc somme $\displaystyle\sum_{k \geq 2} \ln{1 + \dfrac{\p{-1}^k}{k^\alpha}}$.
+    
+    Or $\ln{1 + \dfrac{\p{-1}^k}{k^\alpha}} \asymp \dfrac{\p{-1}^k}{k^\alpha}$. donc CVA si $\alpha > 1$ et non CVA si $0 \leq \alpha \leq 1$.
+    
+    On a $\ln{1 + \dfrac{\p{-1}^k}{k^\alpha}} = \underbrace{\dfrac{\p{-1}^k}{k^\alpha}}_{\text{CVS}} - \underbrace{\dfrac{1}{2k^{2\alpha}}} + \o{}{\dfrac{1}{k^{2\alpha}}}$ 
+    
+    
+    $u_n = \dfrac{1! + \dots + n!}{\p{n+2}!} = \dfrac{1! + \dots + {n-1}!}{\p{n+2}!} + \dfrac{n!}{\p{n+2}!}$
+    
+    
+    \subsection*{Bijection}
+    
+    Soit $\sigma$ une bijection de $\bdN^\star$. Montrer que $\sum\limits_{n \geq 1} \dfrac{\sigma\p{n}}{n^2}$ diverge.
+    
+    Soit $S_n = \dfrac{\sigma\p{1}}{1^2} + \dots + \dfrac{\sigma\p{n}}{n^2}$ et $A_n = \sigma\p{1} + \dots + \sigma\p{2}$.
+    
+    On a $\sigma\p{n} = A_n - A_{n-1}$
+    
+    \subsection*{Intégrale sinus cardinal}
+    
+    $\displaystyle\int_0^\infty \dfrac{\sin t}{t}\dif t$ -> IPP
+    
+    \[ \int_a^A \dfrac{\sin t}{t}\dif t = \left[\vphantom{\dfrac{a}{b}}\right.\underbrace{- \dfrac{\cos t}{t}}_{\lima{t \to \infty} 0}\left.\vphantom{\dfrac{a}{b}}\right]_a^A - \int_a^A \underbrace{\dfrac{\cos t}{t^2}\dif t}_{\substack{L^1 \ \text{sur} \ \intor{a, \infty}\\ \text{car} \ \O{}{\frac{1}{t^2}}}}\]
+    %
+    Pour $A \to \infty$ : \qquad $\displaystyle \int_a^\infty \dfrac{\sin t}{t}\dif t = \dfrac{\cos a}{a} - \int_a^\infty \dfrac{\cos t}{t^2}\dif t \qquad\et\qquad \int_0^\infty \dfrac{\sin t}{t}\dif t$ SCV.
+    
+    
+
+    
+    \subsection{Etude}
+    
+    Soit $F\p{x} = \displaystyle\int_0^\infty \dfrac{\sin u}{x^2 + u^2}\dif u$
+    
+    \begin{enumerate}
+        \item Continuité ? Tout d'abord, existence. On pose $f\p{x, uu} = \dfrac{\sin u}{x^2 + u^2}$. On a $u \mapsto f\p{x, u}$ $\bcC^0$ sur $\into{0, +\infty}$ si $x = 0$, $\intor{0, +\infty}$ si $x > 0$.
+        
+        \begin{enumerate}
+            \ithand Si $x = 0$, étude en $0$ : $\dfrac{\sin u}{u^2} \asymp $
+        \end{enumerate}
+    \end{enumerate}
     
     \newpage
     
+    \subsection*{Exercice 9}
+    
+    Étude de $F\p{x} = \displaystyle\sum_{n \geq 0} \p{\arctan{n + x} - \arctan{n}}$
+    
+    \begin{enumerate}
+        \item Établir la convergence simple, en utilisant par exemple $\arctan\p{x} - \arctan{\dfrac{1}{x}} = \mathrm{sgn}\p{x}\dfrac{\pi}{2}$.
+        
+        \boxansconc{
+            Soit $x \in \bdR_+$, on a $\mathrm{sgn}\p{x} = 1$ et $\arctan{x} = \dfrac{\pi}{2} - \arctan\p{\dfrac{1}{x}}$. Ainsi pour $N \in \bdN$, on a 
+            %
+            \begin{align*}
+                \sum_{n = 0}^N \p{\arctan{n+x} - \arctan{n}} &= \sum_{n=0}^N \p{\dfrac{\pi}{2} - \arctan{\dfrac{1}{n+x}} - \dfrac{\pi}{2} + \arctan{\dfrac{1}{n}}}\\
+                &= \sum_{n = 0}^N \p{\arctan{\dfrac{1}{n}} - \arctan{\dfrac{1}{n+x}}}
+            \end{align*}
+        }
+    \end{enumerate}
+    
+    \chapter{Interversion}
+    
+    \subsection{}
+    
+    A l’aide d’une interversion série / intégrale, calculer $\displaystyle\int_0^1 \dfrac{\ln t}{t- 1}\dif t$.
+    
+    \boxansconc{
+        Posons $f_n : \begin{array}[t]{rcl}
+            \intol{0, 1} &\to& \bdR   \\
+            t &\mapsto & t^n\ln{\frac{1}{t}} 
+        \end{array}$. Pour tout $n \in \bdN$, la fonction $f_n$ est intégrable sur $\intol{a, 1}$ avec $a > 0$. 
+        
+        De plus $f_n = \O{t \to 0}\p{\dfrac{1}{t^2}}$ donc par comparaison à une intégrale de \textsc{Riemann}, $f_n$ est intégrable sur $\intol{0, 1}$. Par ailleurs, $f_n$ est continue sur $\intol{0, 1}$. Remarquons que pour $N \in \bdN$, on a :
+        %
+        \[ \sum_{n=0}^N f_n = \sum_{n=0}^N t^n\ln{\dfrac{1}{t}} = -\ln{t}\sum_{n=0}^N t^n = -\ln{t}\dfrac{t^{N+1}-1}{t - 1} \lima{N \to +\infty} \dfrac{\ln t}{t - 1}\]
+        %
+        Pour tout $t \in \intol{0, 1}$, $\ln{\dfrac{1}{t}} = -\ln{t} \geq 0$ d'où $\mod{f_n\p{t}} = f_n\p{t} \geq 0$, d'où
+        %
+        \[ \int_0^1 \mod{f_n} = -\int_0^1 t^n\ln{t}\dif t = -\intc{\dfrac{t^{n+1}}{n+1}\ln t}_0^1 + \int_0^1 \dfrac{t^n}{n+1}\dif t = \intc{\dfrac{t^{n+1}}{\p{n+1^2}}}_0^1 = \dfrac{1}{\p{n+1}^2} = \O{n \to +\infty}{\frac{1}{n^2}}\]
+        %
+        Donc par comparaison à une série de \textsc{Riemann}, on a $\displaystyle\sum_{n = 0}^{+\infty} \int_0^1 \mod{f_n}$ est convergente.
+        
+        Par \emph{théorème d'interversion série-intégrale}, on a :
+        %
+        \[ \int_0^1 \sum_{n = 0}^{+\infty} f_n\p{t}\dif t = \int_0^1 \dfrac{\ln t}{t - 1}\dif t = \sum_{n = 0}^{+\infty} \int_0^1 f_n\p{t}\dif t = \sum_{n=0}^{+\infty} \dfrac{1}{\p{n+1}^2} = \sum_{n=1}^{+\infty} \dfrac{1}{n^2} = \zeta\p{2} = \dfrac{\pi^2}{6}\]
+    }
+    
+    \subsection{}
+    
+    On pose, sous réserve d'existence, la fonction $F$ telle que $F\p{x} = \displaystyle\int_0^{+\infty} t^x \dfrac{e^{-t}}{1 + e^{-t}}\dif t$.
+    
+    \begin{enumerate}
+        \item Montrer l'existence de $F\p{x}$ pour $x > -1$.
+        
+        \boxansconc{
+            On a $t^{x + 2}\dfrac{e^{-t}}{1 + e^{-t}} = \O{t \to 0}$
+        }
+        
+        \item Calculer $F\p{x}$ à l'aide de $\zeta\p{x + 1}$ et $\Gamma\p{x + 1}$ si $x > 0$.
+        
+        
+    \end{enumerate}
+    
+    \subsection{}
+    
+    On rappelle que $\Gamma\p{x} = \displaystyle\int_0^{+\infty} t^{x-1}e^{-t}\dif t$. On pose $f_n\p{t} = \left\lbrace\begin{array}{cl}
+        \p{1 - \dfrac{t}{n}}^n &\text{si} \ t \in \intc{0, n}  \\
+        0 & \text{si} t > n
+    \end{array}\right.$ pour 
+    
+    \subsection{}
+    
+    En posant $1 + t = e^u$ et en faisant une interversion série / intégrale, montrer que $\displaystyle\int_0^{+\infty} \dfrac{\ln{1 + t}}{t\sqrt{1 + t}}\dif t = \sum_{n \geq 0} \dfrac{1}{\p{2n + 1}^2}$.
+    
+    \subsection{TD exo 9}
+    
+    On pose $I_n = \displaystyle\int_0^{+\infty} \dfrac{ne^{-nt}}{1 + nt}\dif t$. On veut un DA de $I_n$.
+    
+    \chapter{Séries entières}
+    
+    \subsection{Rayon}
+    
+    Calculer le rayon $R$ de la série entière $\sum \sin{n\alpha}x^n$.
+    
+    \boxans{
+        On a $R \geq 1$ car $\mod{\sin{n\alpha}}$.
+        %
+        \begin{enumerate}
+            \item Pour $x = 1$, DV grossière ? Montrons que $\sin n\alpha \not\lima 0$ : si $\sin n\alpha \to 0$, alors
+        \end{enumerate}
+    }
+    
+    \subsection{Une série entière}
+    
+    $f\p{x} = \sum_{n \geq 1}$
+    
+    \begin{enumerate}
+        \item $R = 1$
+        
+        \boxansconc{
+            $1 \leq \ln n \leq n$ donc $1 \geq R \geq 1$
+        }
+        
+        
+    \end{enumerate}
+    
+    \newpage
+    
+    \subsection{Inverse}
+    
+    Soit $f\p{x} = \sum\limits_{n \geq 0} a_nx^n$ avec $a_0 \neq 0$ de rayon $R$. On prendra sans perte d'information $a_0 = 1$. But : $\dfrac{1}{f}$ DSE (Hors Programme).
+    
+    \begin{enumerate}
+        \item $\exists ! \suite{b_n}$ tq $\forall n \in \bdN$, $\displaystyle\sum_{p +q = n} a_pb_q = \delta_{0,n}$.
+        
+        \boxansconc{
+            Pour $n = 0$, il existe uniquement $b_q = \dfrac{1}{a_0} = 1$. (seul possibilité : $p = 0$ et $q = 0$.
+            
+            Ensuite pour $n = 1$, on a $a_0b_1 + a_1b_0 = 0$ d'où $b_1 = -\dfrac{a_1b_0}{a_0} = -a_1$.
+            
+            On suppose la propriété valide au rang $n \in \bdN$. Donc $\exists ! \p{b_0, b_1, \dots, b_n}$ qui satisfont la propriété.
+            %
+            Au rang $n+1$, on a $b_{n+1}a_0 + b_na_1 + \dots + b_0a_{n+1} = 0$ avec lequel on construit $b_{n+1}$. On a toujours :
+            %
+            \[ b_n = - \sum_{i = 0}^{n-1} b_ia_{n-i}\]
+        }
+        
+        \item Si $R > 1$, montrer que $\sum b_nx^n$ est de rayon $R_b \neq 0$.
+        
+        
+        
+        \item Conclure.
+        
+        \boxansconc{
+            Produit de \textsc{Cauchy}.
+        }
+    \end{enumerate}
+    
+    \section{Un DSE}
+    
+    Soit $p \in \bdR$, $f\p{x} = \p{x + \sqrt{1 + x^2}}^p$. On a :
+    %
+    \[f'\p{x} = p\p{1 + \dfrac{x}{\sqrt{1 + x^2}}}\p{x + \sqrt{1 + x^2}}^{p-1} = \dfrac{pf\p{x}}{\sqrt{x^2 + 1}}\]
+    %
+    Donc $\sqrt{x^2 + 1}f'\p{x} = pf\p{x}$, donc en dérivant :
+    %
+    \[ \dfrac{x}{\sqrt{1 + x^2}}f'\p{x} + \sqrt{x^2 + 1}f''\p{x} = pf'\p{x}\]
+    %
+    Ainsi $xf'\p{x} + \p{1 + x^2}f''\p{x} = p^2f\p{x}$, on a donc l'équation diff :
+    %
+    \[ \p{1 + x^2}y'' + xy' = p^2f\]
+    
+    
+    \subsection{}
+
+    \begin{equation}
+        \dfrac{\partial^n}{\partial x^n}\left(f\circ g\right)(x) = \sum_{m_k} \dfrac{n!}{\prod m_k!} f^{(\sum m_k)}\circ g(x) \prod \left(\dfrac{g^{(j)}(x)}{j!}\right)^{m_j}
+    \end{equation}
     
 \end{document}

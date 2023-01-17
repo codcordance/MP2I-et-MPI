@@ -976,7 +976,7 @@
     
     \cleardoublepage
     \def\khdate{du 4 au 8 octobre 2021}
-    \chapter{Nombres complexes - Première partie}
+    \chapter{Nombres complexes I}
     
     \section*{Le corps $\bdC$}
     
@@ -1193,7 +1193,173 @@
     
     \cleardoublepage
     \def\khdate{du 11 au 15 octobre 2021}
-    \chapter{Nombres complexes - Deuxième partie}
+    \chapter{Nombres complexes II}
     
     \section*{Exponentielle complexe}
+    
+    \def\khdate{du 18 au 22 octobre 2021}
+    \chapter{Relations binaires}
+    
+    \def\khdate{du 15 au 19 novembre 2021}
+    \chapter{Analyse réelle I}
+    
+    \def\khdate{du 22 au 26 novembre 2021}
+    \chapter{Analyse réelle II}
+    
+    \section*{Fonctions usuelles (cf. programme précédent)}
+
+    \begin{enumerate}
+        \ithand \textit{\cf programme précédent}.
+    
+        \ithand Fonctions circulaires réciproques : $\arcsin$, $\arccos$, $\arctan$.
+    
+        \ithand Fonction hyperboliques : $\sh$, $\ch$, $\th$.
+    \end{enumerate}
+
+    \section*{Calculs de primitives et intégrales}
+
+    \begin{enumerate}
+        \ithand Définition d'une primitive. Ensemble des primitives d'une fonction $f$ continue sur un intervalle $I$, à valeurs dans $\bdK$.
+    
+        \ithand Rappel des primitives des fonctions usuelles, avec l'intervalle de validité.
+    
+        \ithand Changements affine : primitive de $x \mapsto \lambda f\p{ax + b}$.
+    
+        \ithand Linéarité : primitive de $x \mapsto \lambda f + \mu g$.
+    
+        \ithand Primitive de $x \mapsto \dfrac{1}{\p{x-a}\p{x-b}}$ avec $a$ et $b$ deux réels distincts.
+    
+        \ithand Primitive de $x \mapsto u'\left(x\right)f\left(u'\left(x\right)\right)$.
+    
+        \ithand Rappels de trigonométrie : linéarisation.
+    
+        \ithand Primitive de $x \mapsto \dfrac{1}{x^2+px+q}$ avec $q$ et $p$ deux réels.
+    
+        \ithand Primitive de $x \mapsto \dfrac{1}{x + \alpha}$ avec $\alpha \in \bdC$.
+        
+        \ithand Intégrale d'une fonction continue sur un intervalle $I$, à valeurs dans $\bdR$ ou $\bdC$.
+
+        \ithand Théorème fondamental de l'analyse. Intégration par parties. Changement de variables.
+    \end{enumerate}
+
+    \savoirfaire
+
+    \begin{enumerate}
+        \itt Savoir calculer une intégrale par intégration par parties.
+    
+        \itt Savoir calculer une intégrale par changement de variable.
+    \end{enumerate}
+
+    \questionsdecours
+
+    \begin{enumerate}
+        \item Montrer que $\sh$ admet une bijection réciproque $\argsh$ définie sur $\bdR$.
+        
+        En donner une expression explicite, et une expression explicite de la dérivée.
+    
+        \boxans{
+            La fonction $\sh$ est strictement croissante et continue sur $\bdR$, et de plus :
+            %
+            \[ \lim\limits_{x \to -\infty} \sh x = -\infty \qquad\et\qquad \lim\limits_{x \to +\infty} \sh x = +\infty \]
+            %
+            Ainsi, en vertu du \textit{théorème de la bijection}, $\sh$ est une bijection de $\bdR$ dans $\bdR$ et admet admet une bijection réciproque, strictement croissante et continue de $\bdR$ et $\bdR$, qu'on nommera $\argsh$.\medskip
+        
+            Soient deux réels $\p{x, y} \in \bdR^2$ tels que $\sh x = y$, c'est-à-dire tels que $x = \argsh y$. On a :
+            %
+            \[ \sh x = y \qquad\text{donc}\qquad \dfrac{e^x-e^{-x}}{2} = y \qquad\text{donc}\qquad \p{e^x}^2 - 2ye^x - 1 = 0\]
+            %
+            On pose alors $X = e^x$, de sorte que $X^2 - 2yX - 1 = 0$. On reconnaît un polynôme de degré $2$ en $X$, de discriminant $\Delta = 4y^2 + 4 = 4\p{y^2 + 1} > 0$. Les solutions de l'équation sont donc :
+            %
+            \[ X_\pm = \dfrac{2y \pm 2\sqrt{y^2 + 1}}{2} = y \pm \sqrt{y^2 + 1} \qquad\text{et par positivité de l'exponentielle} \ X > 0\ \text{donc}\qquad X = y + \sqrt{y^2 + 1}\]
+            %
+            On obtient finalement que $x = \ln{y + \sqrt{y^2 + 1}}$, donc pour tout réel $x$ on a $\argsh x = \ln{x + \sqrt{x^2 + 1}}$.
+            
+            Par opérations (somme, composition) $\argsh$ est dérivable sur $\bdR$. On obtient :
+            %
+            \[ \forall x \in \bdR,\qquad \argsh'\p{x} = \dfrac{1 + \frac{2x}{2\sqrt{x^2+1}}}{x+\sqrt{x^2+1}} = \dfrac{\frac{\sqrt{x^2+1}+x}{\sqrt{x^2+1}}}{x+\sqrt{x^2+1}} = \dfrac{1}{\sqrt{x^2+1}}\]
+    }
+    
+    \item Montrer que $\th$ admet une bijection réciproque $\argth$ définie sur $\into{-1, 1}$.
+    
+    En donner une expression explicite, et une expression explicite de la dérivée.
+    
+    \boxans{
+        La fonction $\th$ est strictement croissante et continue sur $\bdR$, et de plus :
+        %
+        \[ \lim\limits_{x \to -\infty} \th x = -1 \qquad\et\qquad \lim\limits_{x \to +\infty} \th x = 1 \]
+        %
+        Ainsi, en vertu du \textit{théorème de la bijection}, $\sh$ est une bijection de $\bdR$ dans $\into{-1, 1}$ et admet admet une bijection réciproque, strictement croissante et continue de $\into{-1, 1}$ et $\bdR$, qu'on nommera $\argth$.\medskip
+        
+        Soient deux réels $\p{x, y} \in \bdR^2$ et $y$ tels que $\th x = y$, c'est-à-dire tels que $\argth y = x$. On a :
+        %
+        \[ \th x = \dfrac{\sh x}{\ch x} = \dfrac{e^{2x}-1}{e^{2x}+1} = y \qquad\text{donc}\qquad e^{2x}-1 = y\left(e^{2x}+1\right) \qquad\text{donc}\qquad e^{2x}\left(1-y\right) = 1+y\]
+        %
+        On a donc $2x = \ln{\dfrac{1+y}{1-y}}$, donc pour tout réel $x$ on a $\argth x = \ln{\sqrt{\dfrac{1+x}{1-x}}}$.
+        %
+        Par opérations (somme, composition) $\argth$ est dérivable sur $\left] - 1, 1\right[$. On obtient :
+        %
+        \[ \forall x \in \bdR,\qquad \argth'\p{x} = \dfrac{1}{2\p{1+x}} - \dfrac{-1}{2\p{1-x}} = \dfrac{2}{2\p{1-x^2}} = \dfrac{1}{1-x^2} \]
+        
+    }
+    \item Donner une primitive de $x \mapsto \dfrac{1}{\p{x -a}\p{x - b}}$ avec $\p{a, b} \in \bdR^2$ deux réels distincts.
+    
+    \boxans{
+        Soit $f$ définie sur un intervalle $I \subset \bdR \backslash \{a, b\}$ par $f\p{x} =  \dfrac{1}{\p{x -a}\p{x - b}}$. On réduit $f$ en élément simples :
+        %
+        \[ \forall x \in I,\qquad f\p{x} = \dfrac{1}{\p{x - a}\p{x - b}} = \dfrac{1}{a-b}\p{\dfrac{1}{x-a}-\dfrac{1}{x-b}}\] 
+        %
+        Une primitive de $\dfrac{1}{x-a}$ est $\ln|x-a| + \text{cte}$. De même, une primitive de $\dfrac{1}{x-b}$ est $\ln|x-b| + \text{cte}$.
+        
+        Par linéarité, une primitive de $x \mapsto \dfrac{1}{\p{x -a}\p{x - b}}$ est donc $x \mapsto \dfrac{1}{a-b}\ln\mod{\dfrac{x-a}{x-b}}+ \text{cte}$.
+    }
+    \item  Savoir trouver une primitive d'une fonction de la forme $u' \times \left(f \circ u\right)$ donnée par l'examinateur.
+    
+    \item  Savoir trouver une primitive d'une fonction de la forme $x \mapsto \dfrac{1}{x^2 + px + q}$, donnée par l'examinateur.
+    \boxans{
+    Il s'agit tout d'abord d'étudier le polynôme de degré 2 du dénominateur. Soit $\Delta$ son discriminant. Si $\Delta > 0$, on se ramène à la démonstration plus haut avec $a$ et $b$ les racines distinctes du polynôme.
+    
+    Si $\Delta = 0$, on note $r$ la racine unique du polynôme. On a $\dfrac{1}{x^2 + px + q} = \dfrac{1}{\left(1+r\right)^2}$.
+    
+    On reconnaît la forme $u' \times u^{-2}$ de primitive $(-2+1)u^{-2+1}$. 
+    
+    Une primitive est alors \boxsol{$x \mapsto \dfrac{-1}{r-x}$}.
+    
+    Enfin si $\Delta < 0$, le polynôme ne s'annule pas ($I$ peut être $\bdR$). On peut alors l'écrire sous forme canonique. $x^2 + px + q = \left(x+\dfrac{p}{2}\right)^2 - \left(\dfrac{p}{2}\right)^2 + q = \left(x+\dfrac{p}{2}\right)^2 - \dfrac{\Delta}{4}$. On pose $a = \dfrac{p}{2}$ et $b = \dfrac{\Delta}{2}$. 
+    
+    Donc :
+    
+    $\dfrac{1}{x^2+px+q} = \dfrac{1}{(x+a)^2+b^2} = b\times \dfrac{b}{\left(\frac{x+a}{b}\right)^2+1}$. 
+    
+    Une primitive est donc \boxsol{$x \mapsto b \arctan{\dfrac{x+a}{b}}$}.
+    }
+    \item Déterminer une primitive de $x \mapsto \dfrac{1}{x-i}$ sur $\bdR$.
+    \boxans{
+    On a $\dfrac{1}{x-i} = \dfrac{x+i}{x^2+1} = \dfrac{x}{x^2+1} + i\dfrac{1}{x^2+1}$. Donc : \boxsol{$\displaystyle \int \dfrac{1}{x-i} \text dx = \dfrac{1}{2}\ln(x^2+1) + i\arctan{x}$}
+    }
+    \item Déterminer une primitive de $x \mapsto \cos x e^x$ en passant par les complexes.
+    \boxans{
+        On remarque que $\cos x e^x = \Re{e^{ix}e^x} = \Re{e^{x(i+1)}}$. $x \mapsto e^{x(i+1)}$ primitivé donne $x \mapsto \dfrac{1}{1+i}e^{x(i+1)}$.
+        Par linéarité, $\displaystyle \int \cos x e^x \text dx = \int \Re{e^{x(i+1)}} \text dx = \Re{\int e^{x(i+1)} \text dx} = \Re{\dfrac{1}{1+i}e^{x(i+1)}}$.
+        
+        $\dfrac{1}{1+i}e^{x(i+1)} = \dfrac{1-i}{2}e^x\left(\cos x + i \sin x\right) = \dfrac{e^x}{2}\left(\cos x + \sin x + i\left(\sin x - \cos x\right)\right)$.
+        
+        \boxsol{Une primitive de $x \mapsto \cos x e^x$ est donc $x \mapsto \dfrac{e^x}{2}\left(\cos x + \sin x\right)$}
+    }
+    \item Trouver une primitive sur $\bdR$ de $x \mapsto e^{\sqrt x}$.
+    
+    \boxans{
+    $x \mapsto \sqrt{x}$ est défini et continu sur $\bdR_+$. On travaille donc sur $I = \bdR_+$. Soit $(x,a) \in \bdR_+$. On cherche $\displaystyle \int_a^x e^{\sqrt t} \text dt$.
+    
+    On procède d'abord par changement de variable.
+    
+    On pose $u = \sqrt t$. Alors $\text du = \dfrac{1}{2\sqrt{t}}\text dt$ donc $\text dt = 2\sqrt{t}\text du = 2u\text du$. Donc :
+    $\displaystyle \int_a^x e^{\sqrt t} \text dt = \int_{\sqrt a}^{\sqrt x} 2ue^u \text du$.
+    
+    On procède alors par intégration par partie.
+    
+    \[\int_{\sqrt a}^{\sqrt x} 2ue^u \text du = \left[2ue^u\right]_{\sqrt a}^{\sqrt x} - \int_{\sqrt a}^{\sqrt x} ue^u \text du = 2\sqrt{x}\left(\sqrt{x}-1\right) + \lambda\]
+    
+    Donc \boxsol{ une primitive sur $\bdR$ de $x \mapsto e^{\sqrt x}$ est $x \mapsto 2e^{\sqrt x}\left(\sqrt x - 1\right)$}
+    }
+\end{enumerate}
 \end{document}

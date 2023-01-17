@@ -1,0 +1,66 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\thesection.\arabic{enumi}.\arabic{enumii}.}
+    
+    \stylizeDocSpe{Physique}{Travaux pratiques n° 8}{Séquence frottement solide}{Le mercredi 16 novembre 2022}
+    
+    \section{Loi de Coulomb et coefficient de frottement statique}
+    
+    L'objectif est de vérifier la validité des lois de \textsc{Coulomb} du frottement solide et de savoir mesurer un coefficient de frottement statique.
+    
+    \noafter
+    %
+    \boxans{
+        \begin{experience}{Mesure du coefficient de frottement statique}{}
+            \begin{enumerate}
+                \ithand Mesurer les coefficients de frottement statique métal/plastique, métal feutre et métal/mousse.
+            \end{enumerate}
+        \end{experience}
+    }
+    %
+    \nobefore\yesafter
+    %
+    \begin{expcom}
+        On a le dispositif suivant :
+        %
+        \begin{minipage}{0.45\linewidth}
+            \begin{center}
+                \begin{tikzpicture}
+                    \draw (0.3, 0) -- (5, 2.7) -- (5, 0) -- (0.3, 0);
+                
+                    \draw[fill = main3!30] (2.5, 1.28) --++(-0.5, 0.8660) --++(0.8660, 0.5) --++(0.5, -0.8660) --++(-0.8660, -0.5);
+                
+                    \draw[main1, very thick, ->] (2.683, 1.963) --++(0, -1) node[label={[font=\footnotesize]right:$m\vec g$}] {};
+                
+                    \fill (2.683, 1.963) circle[radius=0.05];
+                
+                    \draw[main2, very thick, ->] (2.933, 1.53)  --++(0.8660, 0.5) node[label={[font=\footnotesize]below:$\vec T$}] {};
+                
+                    \draw[main2, very thick, ->] (2.933, 1.53)  --++(-0.5, 0.8660) node[label={[font=\footnotesize]above:$\vec N$}] {};
+                
+                    \fill (2.683, 1.963) circle[radius=0.05];
+                    \fill (2.933, 1.53) circle[radius=0.05];
+                \end{tikzpicture}
+            \end{center}
+        \end{minipage}
+        %
+        \hfill
+        %
+        \begin{minipage}{0.5\linewidth}
+            Soit $G$ le centre d'inertie de la masse $m$ (ci-contre en violet).
+        \end{minipage}
+    \end{expcom}
+    %
+    \yesbefore
+    
+\end{document}

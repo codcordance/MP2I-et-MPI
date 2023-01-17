@@ -46,7 +46,7 @@
         \[ f \in \bcC^0\p{A, B} \qquad f \ \text{bijective} \qquad f^{-1} \in \bcC^0{B, A}\]
     \end{definition}
     
-    \begin{definition}{Difféomorphisme}
+    \begin{definition}{Difféomorphisme}{}
         $f : A \subset E \rightarrow B \subset F$ est un $\bcC^k$-difféomorphisme lorsque :
         %
         \[ f \in \bcC^k\p{A, B} \qquad f \ \text{bijective} \qquad f^{-1} \in \bcC^k{B, A}\]
@@ -55,6 +55,22 @@
     \begin{property}{CNS de difféomorphisme}{}
         $f$ définit un $\bcC^k$-difféomorphisme de $I \rightarrow f\p{I}$ ssi $f \in \bcC^k$ et $f'$ ne s'annule pas
     \end{property}
+    
+    \newpage
+    
+    Soit $\p{x_0, y_0}$ l'unique solution de $\p{\bsS_1}$, telle que $x_0\p{t_0} = \widetilde{x_0} > 0$ et $y_0\p{t_0} = \widetilde{y_0} > 0$. Supposons qu'il existe $t_1$ tel que $x\p{t_1} = 0 = \widetilde{x_1}$, et posons $\widetilde{y_1} = y\p{t_1}$. Notons alors $\p{x_1, y_1}$ l'unique couple solution de $\p{\bsS_1}$ avec $t_1$, $\widetilde{x_1}$ et $\widetilde{y_1}$. On a par la question \quref{1.(a)} :
+    %
+    \[ \forall t \in \bdR,\qquad x_1\p{t} = 0 \qquad\et\qquad y_1\p{t} = \widetilde{y_1}e^{-d\p{t - t_1}}\]
+    %
+    Or $x_0\p{t_1} = \widetilde{x_1}$ et $y_0\p{t_1} = \widetilde{y_1}$, et de puis $x_0$ et $y_0$ vérifient les équations 
+    %
+    \[ x'\p{t} = \p{a - by\p{t}}x\p{t} \qquad\et\qquad y'\p{t} = \p{cx\p{t} - d}y\p{t}\]
+    %
+    Donc $x_0$ et $y_0$ vérifient $\p{\bsS_1}$ avec $t_1$, $\widetilde{x_1}$ et $\widetilde{y_1}$. Par unicité, on a donc $x_0 = x_1$ et $y_0 = y_1$.
+    
+    On en déduit $\widetilde{x_0} = x_0\p{t_0} = x_1\p{t_0} = 0$ ce qui est absurde.
+    
+    
     
     
 

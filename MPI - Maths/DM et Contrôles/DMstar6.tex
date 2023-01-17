@@ -1,0 +1,305 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{../../Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\thesection}{Partie \Roman{section}}
+    \renewcommand{\labelenumi}{\Roman{section}.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii}.}
+
+    \stylizeDocSpe{Maths}{Devoir maison $\star$ n° 6}{CCS MP MATH 1 1998}{Pour le vendredi 9 décembre 2022}
+    
+    \subsubsection*{Notations et définitions}
+    
+    \begin{enumerate}
+        \itt Soient $a$ et $b$ tels que $- \infty \leq a < b \leq +\infty$ et $f$ une fonction de $\into{a, b}$ dans $\bdR$ de classe $\bcC^\infty$ sur $\into{a, b}$.
+        
+        \itt $f$ est dite absolument monotone (en abrégé AM) si
+        %
+        \[ \forall n \in \bdN,\qquad \forall x \in \into{a, b},\qquad f^{(n)}\p{x} \geq 0\]
+        
+        \itt $f$ est dite complètement monotone (en abrégé CM) si
+        %
+        \[ \forall n \in \bdN,\qquad \forall x \in \into{a,b},\qquad \p{-1}^nf^{(n)}\p{x} \geq 0\]
+    \end{enumerate}
+    
+    \section{}
+    
+    \begin{enumerate}
+        \item Soient $f$ et $g$ deux fonctions AM définies sur $\into{a, b}$. Montrer que $f + g$ et $fg$ sont AM. Qu'en est-il pour les fonctions CM ?
+        
+        \noafter
+        %
+        \boxans{
+            Soit $n$ \in $\bdN$ et $x \in \into{a, b}$. On a 
+            %
+            \[ \p{f + g}^{(n)}\p{x} = f^{(n)}\p{x} + g^{(n)}\p{x} \geq 0 + 0 = 0\]
+            %
+            et par \emph{formule de \textsc{Leibniz}} on a également
+            %
+            \[ \p{fg}^{(n)}\p{x} = \sum_{k=0}^n \binom{n}{k} f^{(k)}\p{x}g^{(n-k)}\p{x} \geq 0\]
+            %
+            Dans le cas où $f$ et $g$ sont CM, on a 
+            %
+            \begin{align*}
+                \p{-1}^n\p{f + g}^{(n)}\p{x} = \p{-1}^nf^{(n)}\p{x} + \p{-1}^ng^{(n)}\p{x} \geq 0\\
+                prédi\p{-1}^n\p{fg}^{(n)}\p{x} = \p{-1}^n\sum_{k=0}^n \binom{n}{k} f^{(k)}\p{x}g^{(n-k)}\p{x} = \sum_{k=0}^n \binom{n}{k} \p{-1}^kf^{(k)}\p{x}\p{-1}^{n-k}g^{(n-k)}\p{x} \geq 
+            \end{align*}
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Donc si $f$ et $g$ sont AM \emph{(respectivement CM)}, alors $f + g$ et $fg$ sont AM \emph{(resp. CM)}.
+        }
+        %
+        \yesbefore
+        
+        \item Si $f$ est une fonction AM sur $\into{a, b}$, montrer par récurrence que $e^f$ l'est aussi.
+        
+        \boxansconc{
+            On montre par récurrence sur $n \in \bdN$ que
+            %
+            \[ \forall n \in \bdN,\qquad \p{e^f}^{(n)} =  e^f\sum_{k=0}^{n-1} \binom{n-1}{k} f^{(k+1)}\]
+            %
+            Si $f$ est AM, on obtient donc que $e^f$ est AM. 
+        }
+        
+        \item Soit $f : \into{a, b} \to \bdR$ et $g : \into{-b, -a} \to \bdR$ définie par $g\p{x} = f\p{-x}$. Montrer que $f$ est AM sur $\into{a, b}$ si, et seulement si, $g$ est CM sur $\into{-b, -a}$.
+        
+        \boxansconc{
+            On montre par récurrence simple sur $n \in \bdN$ que l'on a $g^{(n)} = \p{-1}^n\p{f \circ -\Id_\bdR}$.
+            
+            Dès lors $f$ est AM si et seulement si $g$ est CM.
+        }
+        
+        \item \begin{enumerate}
+            \item Vérifier que la fonction $-\ln$ est CM sur $\into{0, 1}$.
+            
+            \noafter
+            %
+            \boxans{
+                On vérifie par récurrence simple sur $n \in \bdN^\star$ que l'on a $\p{- \ln}^{(n)} = \p{n-1}!\dfrac{\p{-1}^n}{x^n}$.
+                
+                Or $\forall x \in \into{0, 1}$, on a $\ln x \leq 0$ d'où $\p{-1}^0-\ln x \geq 0$.
+                
+                De plus, $\p{-1}^n\p{- \ln}^{(n)} = \dfrac{\p{n-1}!}{x^n} \geq 0$.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Donc par définition, la fonction $-\ln$ est CM sur $\into{0, 1}$.
+            }
+            %
+            \yesbefore
+            
+            \item Montrer que la fonction $\tan$ est AM sur $\into{0, \dfrac{\pi}{2}}$.
+            
+            \noafter
+            %
+            \boxans{
+                 Montrons par récurrence que pour tout entier $n \in \bdN$, il existe $P \in \bdR\intc{X}$ tel que $\tan^{(n)} = P_n\p{\tan}$. 
+                
+                Pour $n = 0$, on prend simplement $P = X$. Supposons maintenant la propriété vraie au rang $n \in \bdN$ :
+                %
+                \[ \exists k \in \bdN,\qquad \exists \p{\lambda_i}_{i \in \iint{0, k}} \in \bdR^{k+1},\qquad \tan^{(n)} = \sum_{i=0}^k \lambda_i \tan^i \]
+                %
+                On a donc $\tan^{(n+1)} = \displaystyle\sum_{i=1}^k i\lambda_i \tan'\tan^{i-1}$. En utilisant l'identité $\tan' = 1 + \tan^2$, on montre bien qu'il existe un polynôme $P_{n+1} \in \bdR\intc{X}$ tel que $\tan^{(n+1)} = P_{n+1}\p{\tan}$. On conclut par \emph{principe de récurrence}.
+                
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+               Puisque $\tan$ est positive sur $\into{0, \dfrac{\pi}{2}}$, $\tan^{(n)}$ l'est donc également. Ainsi $\tan$ est AM.
+            }
+            %
+            \yesbefore
+        \end{enumerate}
+        
+        \item \begin{enumerate}
+            \item On suppose dans cette question que $a \in \bdR$ et que $f$ est AM sur $\into{a, b}$. Montrer qu'il existe $\lambda \in \bdR$ tel que $\lim\limits_{a^+} f = \lambda$. On prolonge $f$ en posant $f\p{a} = \lambda$. Montrer que $f$ est dérivable à droite en $a$, et que $f'$ est continue à droite en $a$.
+            
+            \boxansconc{
+                Puisque $f$ est AM, elle est croissante (dérivée positive) et minorée par $0$ sur $\into{a, b}$. En vertu \emph{théorème de limite monotone}, $f$ admet une limite finie $\lambda$ à droite en $a$.
+                
+                Le même argument s'applique à $f'$ (également AM), qui admet une limite $\ell \in \bdR$ en $a$. Puisque $\ell$ est finie, le \emph{théorème de prolongement de la dérivée} permet de conclure.
+            }
+            
+            \item Plus généralement, montrer que $f$ est indéfiniment dérivable à droite en $a$ avec des dérivées positives ou nulles. Le même phénomène se produit-il en $b$ ?
+            
+            \boxansconc{
+                Si $f$ est AM, alors chacune de ses dérivées est également AM. On applique alors la question précédente sur chacune des dérivées pour montrer qu'elles sont dérivables à droite en $a$, et donc que $f$ est indéfiniment dérivable à droite en $a$.
+                
+                On ne peut cependant pas généraliser cela à $b$, puisqu'on n'a pas de majoration : on peut donc avoir une limite infinie, comme avec $\tan$ en $\dfrac{\pi}{2}$.
+            }
+        \end{enumerate}
+        
+        \item On suppose dans cette question que $0 \leq a < b < +\infty$. On note $\bcC\p{\intc{a, b}, \bdR}$ l'espace vectoriel des fonctions continues de $\intc{a, b}$ dans $\bdR$. Une application $\mu : \bcC\p{\intc{a, b}, \bdR} \to \bdR$ est appelée forme linéaire positive si elle est linéaire et si, de plus, on a :
+        %
+        \[ \forall f \in \bcC\p{\intc{a, b}, \bdR}, \qquad f > 0 \implies \mu\p{f} \geq 0\]
+        %
+        Soit $\mu$ une forme linéaire positive et $e_x$ la fonction définie par $e_x\p{t} = e^{-xt}$ pour $t \in \intc{a, b}$.
+        
+        On pose $\widetilde{\mu} \p{x} = \mu\p{e_x}$.
+        
+        \begin{enumerate}
+            \item Soit $f \in \bcC\p{\intc{a, b}, \bdR}$, montrer que $\mod{\mu\p{f}} \leq \mu\p{\mod f}$.
+            
+            \boxansconc{
+                On a $\mod{f} \geq f$, d'où $\mod{f} - f \geq 0$, d'où $\mu\p{\mod{f} - f} \geq 0$, soit $\mu\p{\mod{f}} - \mod{\mu\p{f}} \geq 0$, soit $\mu\p{\mod f} \geq \mu\p{f}$.
+                
+                De même $\mod{f} \geq -f$, d'où $\mu\p{\mod f} \geq -\mu\p{f}$. On a donc $\mu\p{\mod{f}} \geq \mod{\mu\p{f}}$.
+            }
+            
+            \item Montrer que pour tout $f \in \bcC\p{\intc{a, b}, \bdR}$, on a $\mu\p{f} \leq \mu\p{f_0}\norm{f}_\infty$ où $f_0\p{x} = 1$ et $\norm{f}_\infty = \sup\limits_{\intc{a, b}} \mod{f}$.
+            
+            \boxansconc{
+                On applique le même principe qu'à la question précédente (croissance de $\mu$). 
+                
+                On a $f\p{x} \leq \norm{f}_\infty$ d'où l'on obtient bien que $f \leq f_0\norm{f}_\infty$, d'où $\mu\p{f} \leq \mod{\mu\p{f_0}}\norm{f}_\infty$.
+            }
+            
+            \item Montrer que $\widetilde{\mu}$ est positive, décroissante et continue sur $\intc{a, b}$.
+            
+            \boxansconc{
+                Soient $\p{t, x, y} \in \intc{a, b}^3$. Si $x \leq y$, alors $-xt \geq -xy$, d'où $e_x \geq e_y$. Par croissance de $\mu$, $\widetilde{\mu}\p{x} \geq \widetilde{\mu}\p{y}$ d'où la forme $\widetilde{\mu}$ est décroissante. De plus
+                %
+                \[ \mod{\widetilde{\mu}\p{x} - \widetilde{\mu}\p{y}} = \mod{\mu\p{e_x} - \mu\p{e_y}} \leq \mu\p{f_0}\norm{e_x - e_y}_\infty \lima{\mod{y - x} \to 0} 0\]
+                %
+                D'où $\widetilde{\mu}$ est continue.
+            }
+            
+            \item On note $e_{n, x}$ la fonction définie par $e_{n, x}\p{t} = t^ne^{-xt}$ pour $t \in \intc{a, b}$. Montrer que $\varphi : \intc{a, b} \to \bdR$ définie par $\varphi\p{x} = \mu\p{e_{n, x}}$ est dérivable sur $\intc{a, b}$, décroissante, et que $\varphi'\p{x} = -\mu\p{e_{n+1, x}}$.
+            
+            \noafter
+            %
+            \boxans{
+                 Soient $\p{x, h} \in \intc{a, b} \times \bdR$, on a
+                 %
+                 \begin{align*}
+                     \mod{\dfrac{\varphi\p{x + h} - \varphi\p{x}}{h} + \mu\p{e_{n+1, x}}} &= \mod{\dfrac{\mu\p{e_{n, x+h}} - \mu\p{e_{n, x}}}{h} + \mu\p{e_{n+1, x}}}\\
+                     &= \mod{\mu\p{t \mapsto t^n\dfrac{e^{-t\p{x+h}} - e^{-tx}}{h} + t^{n+1}e^{-xt}}}\\
+                     &\leq \mod{\mu\p{f_0}}\p{\sup\limits_{t \in \intc{a, b}} t^n\dfrac{e^{-t\p{x+h}} - e^{-tx}}{h} + t^{n+1}e^{-xt}}\\
+                     &\lima{h \to 0} \mod{\mu\p{f_0}}\p{\sup\limits_{t \in \intc{a, b}} t^n\p{\exp \circ -t\Id}'\p{x} + t^{n+1}e^{-xt}}\\
+                     &= \mod{\mu\p{f_0}}\p{\sup\limits_{t \in \intc{a, b}} -t^{n+1}e^{-xt} + t^{n+1}e^{-xt}} = 0
+                 \end{align*}
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Donc $\varphi$ est bien dérivable telle que $\varphi'\p{x} = -\mu\p{e_{n+1, x}}$. Quant à la décroissance, on procède similairement à $\widetilde{\mu}$.
+            }
+            %
+            \yesbefore
+            
+            \item Montrer que $\widetilde{\mu}$ est indéfiniment dérivable sur $\intc{a, b}$ et que $\widetilde{\mu}^{(n)}\p{x} = \p{-1}^n\mu\p{e_{n, x}}$.
+            
+            En déduire que $\widetilde{\mu}$ est CM.
+            
+            \noafter
+            %
+            \boxans{
+                Pour $n \in \bdN$, on pose $\varphi_n$ la fonction $\varphi$ définie à la question précédente. Le résultat montré est donc que $\varphi_n$ est dérivable et que $\varphi_n' = -\varphi_{n+1}$. Ainsi $\varphi_n$ est indéfiniment dérivable, et pour tout $k \in \bdN$, on a $\varphi_n^{(k)} = \p{-1}^{k}\varphi_{n+k}$.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                On conclut en remarquant que $\widetilde{\mu} = \varphi_0$. Dès lors, $\widetilde{\mu}^{(n)} = \p{-1}^n\varphi_{n} = x \mapsto \p{-1}^n\mu\p{e_{n, x}}$. 
+                
+                Par positivité de l'exponentielle et de $\mu$, a bien que $\widetilde{\mu}$ est CM.
+            }
+            %
+            \yesbefore
+            
+            \item Proposer deux exemples de formes linéaires non nulles positives $\mu_1$ et $\mu_2$. Calculer $\widetilde{\mu_1}$ et $\widetilde{\mu_2}$.
+            
+            \boxansconc{
+                Pour $f \in \bcC\p{\intc{a, b}, \bdR}$, on peut prendre $\mu_1\p{f} = f\p{a}$ et $\mu_2\p{f} = f\p{\frac{a + b}{2}}$. Pour $x \in \intc{a, b}$, on a alors
+                %
+                \[ \widetilde{\mu_1}\p{x} = \mu_1\p{e_x} = e^{-xa} \qquad\et\qquad \widetilde{\mu_2}\p{x} = \mu_2\p{e_x} = e^{-x\p{\frac{a + b}{2}}}\]
+            }
+        \end{enumerate}
+    \end{enumerate}
+    
+    \section{}
+    
+    On suppose dans cette partie que : $-\infty < a < 0 < b \leq +\infty$.
+    
+    On utilisera librement la formule de \textsc{Taylor} avec reste intégral.
+    
+    \begin{enumerate}
+        \item Soit $f$ une fonction AM sur $\into{a, b}$ et $R_n\p{f, x} = f\p{x} - f\p{0} - \displaystyle\sum_{k=1}^n \dfrac{f^{(k)}\p{0}}{k!}x^k$.
+        
+        \begin{enumerate}
+            \item Prouver que, pour $n$ fixé, la fonction $x \mapsto \dfrac{R_n\p{f, x}}{x^n}$ est croissante sur $\into{0, b}$ et possède une limite nulle quand $x$ tend vers $0$.
+            
+            \noafter
+            %
+            \boxans{
+                Par formule de \textsc{Taylor} avec reste intégral, on obtient que $R_n\p{f, x} =  \displaystyle\int_0^x \dfrac{\p{x-t}^n}{n!}f^{(n+1)}\p{t}\dif t$.
+                
+                Posons $t = xu$, ainsi $\dif t = x\dif u$, d'où $\dfrac{R_n\p{f, x}}{x^n} =  \dfrac{x}{n!}\displaystyle\int_0^1 \p{1-u}^nf^{(n+1)}\p{xu}\dif u$.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Par croissance et positivité de $f^{n+1}$ et de $\Id$, on obtient la croissance de $x \mapsto \dfrac{R_n\p{f, x}}{x^n}$.
+                
+                Puisque l'intégrale est bornée, on obtient également que avec cette expression que $\dfrac{R_n\p{f, x}}{x^n} \lima{x \to 0} 0$.
+            }
+            %
+            \yesbefore
+            
+            \newpage
+            
+            \item Montrer que la série $\displaystyle\sum_{n \geq 0} \frac{f^{(n)}\p{0}}{n!}x^n$ converge pour $x \in \intor{0, b}$. Soit $g\p{x}$ sa somme, montrer que $g \leq f$.
+            
+            \noafter
+            %
+            \boxans{
+                Pour $n \in \bdN$, notons $S_n\p{x} = \displaystyle\sum_{k = 0}^n \frac{f^{(n)\p{0}}}{n!}x^n$. On a $S_n\p{x} = f\p{x} - R_n\p{f, x} = f\p{x} + x^n\p{-\dfrac{R_n{f, x}}{x^n}}$.  Or par la question précédente, $x \mapsto \dfrac{R_n{f, x}}{x^n}$ est décroissante de limite nulle en $0$, d'où $S_n \leq f\p{x}$. Puisque
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                 $\p{S_n}_n$ est croissante, on a par \emph{théorème de la limite monotone} que la série $\displaystyle\sum_{n \geq 0} \frac{f^{(n)}\p{0}}{n!}x^n$ converge pour $x \in \intor{0, b}$ et que $g\p{x}$ sa somme, vérifie $g \leq f$.
+            }
+            %
+            \yesbefore
+            
+            \item Déduire des deux questions précédentes que $g = f$ sur $\intc{0, b}$.
+            
+            \boxansconc{
+                On a $g\p{x} - f\p{x} = \lim\limits_{n \to +\infty} R_n\p{f, x} =   \lim\limits_{n \to +\infty}\dfrac{x}{n!}\displaystyle\int_0^1 \p{1-u}^nf^{(n+1)}\p{xu}\dif u$. Puisque l'intégrale est bornée, on a bien que $g\p{x} - f\p{x} = 0$, soit $g = f$.
+            }
+            
+            \item Montrer que $f$ est développable en série entière au voisinage de $0$. On pourra poser $\epsilon \in \ens{-1, 1}$, $h_\epsilon\p{x} = f\p{x} + \epsilon f\p{-x}$ si $\mod{x} < r$ et $r = \min{b, -a}$.
+        \end{enumerate}
+        
+        \item En suivant les indications de la question \enumrefraw{I.5}, on prolonge $f$ en $a$. Montrer que pour tout $x \in \intor{a, b}$, on a $f\p{x} = \displaystyle\sum_{n=0}^{+\infty} f^{(n)}\p{a}\dfrac{\p{x - a}^n}{n!}$.
+        
+        \item Montrer que si $f$ s'annule en $x_0 \in \into{a, b}$, alors $f$ est nulle. Donner l'ensemble des fonctions $f$ AM sur $\into{a, b}$ telles que, pour un $p \in \bdN$ fixé, $f^{(p)}$ possède un zéro dans $\intc{a, b}$.
+        
+        \boxansconc{
+            On a donc $\displaystyle\sum_{n=0}^{+\infty} f^{(n)}\p{a}\dfrac{\p{x_0 - a}^n}{n!} = 0$. Or $x_0 > a$ donc $x_0 - a \neq 0$, et puisqu'il s'agit d'une somme de termes positifs, on a forcément $f^{(n)}\p{a} = 0$ pour tout $n \in \bdN$. Ainsi $f$ est nulle.
+            
+            Une conséquence est que toute fonction $f$ AM sur $\into{a, b}$ telle que $f^{(p)}$ possède un zéro dans $\intc{a, b}$ pour $p \in \bdN$ vérifie donc $f^{(p)} = 0$. On montre par récurrence simple sur les dérivées de $f$, en intégrant successivement $p$ fois depuis $f^{(p)}$ et par positivité (AM), que l'on a 
+            %
+            \[ \exists \p{\lambda_i}_{i \in \iint{0, p-1}} \in \p{\bdR_+}^p,\qquad f = \sum_{k=0}^{p-1} \lambda_i\p{x-a}^i\]
+        }
+    \end{enumerate}
+    
+\end{document}

@@ -19,6 +19,26 @@
 %\renewcommand{\thesection}{\hspace{-11pt}}
 %\renewcommand{\thesubsection}{}
 
+\newcommand{\Atom}{\mathop{\bcA_\text{tom}}\nolimits}
+\newcommand{\langOcaml}{\texttt{\color{ocamlColor!20!black}OCaml}}
+\newcommand{\langC}{\texttt{\color{ocamlColor!20!black}C}}
+\newcommand{\langPython}{\texttt{\color{ocamlColor!20!black}Python}}
+
+\DeclareMathOperator{\Reg}{Reg}
+\DeclareDocumentCommand\FO{g}{\funlv{FO}{#1}}
+\DeclareDocumentCommand\FV{g}{\funlv{FV}{#1}}
+\DeclareDocumentCommand\BV{g}{\funlv{BV}{#1}}
+\DeclareDocumentCommand\FP{g}{\funlv{FP}{#1}}
+\DeclareDocumentCommand\th{g}{\funlv{th}{#1}}
+\DeclareDocumentCommand\First{g}{\funlv{First}{#1}}
+\DeclareDocumentCommand\Last{g}{\funlv{Last}{#1}}
+\DeclareDocumentCommand\Fact{g}{\funlv{Fact}{#1}}
+\DeclareDocumentCommand\NFact{g}{\funlv{NFact}{#1}}
+\DeclareDocumentCommand\Loc{g}{\funlv{Loc}{#1}}
+\DeclareDocumentCommand\CFL{g}{\funlv{CFL}{#1}}
+\DeclareDocumentCommand\Pref{g}{\funlv{Pref}{#1}}
+\DeclareDocumentCommand\Suff{g}{\funlv{Suff}{#1}}
+
 \newcommand{\chaptertoc}[0]{
     \setcounter{minitocdepth}{4}
     \begin{tcolorbox}[
@@ -1634,4 +1654,85 @@
             \end{center}
         }
     \end{enumerate}
+    
+    \newpage
+    
+    \section{Grammaires non contextuelles}
+    
+    \subsection{}
+    
+    \subsection{}
+    
+    Soit $\Sigma = \ens{a, b, c, \dots, z, +, (, )}$
+    
+    \subsection{}
+    
+    Soit l'alphabet $\Sigma = \ens{a, b}$. Pour chacun des langages suivants, donner une grammaire non contextuelle la reconnaissant :
+    
+    \begin{enumerate}
+        \item $L_1 = \ens{w \in \Sigma^\star \benstq \mod{w}_a \geq 3}$
+        
+        \item $L_2 = \ens{w \in \Sigma^\star \benstq w \ \text{commence et fini par la même lettre}}$
+        
+        \item $L_3 = \ens{w \in \Sigma^* \benstq \mod{w} \equiv 1 \quad \intc{2}}$
+        
+        \item $L_4 = \ens{w \in \Sigma^\star \benstq \mod{w} \equiv 1 \quad \intc{2} \et \text{son symbole du milieu est} \ a}$
+        
+        \item $L_5 = \mathfrak{Pal} = \ens{w \in \Sigma^\star \benstq w \ \text{est un palindrome}}$
+        
+        \item $L_6 = \overline{L_5}$ 
+        
+        \item $L_7 = \emptyset$
+        
+        \item $L_8 = \ens{w \in \Sigma^\star \benstq \mod{w}_a \geq \mod{w}_b}$
+        
+        \item $L_9 = \ens{a^nb^n \enstq n \geq 0}$
+        
+        \item $L_{10} = \overline{L_9}$
+        
+        \item Sur $\Sigma \cup \ens{\#}$, $L_{11} = \ens{w\# x \benstq \p{w, x} \in \p{\Sigma}^\star \et w^\bbR \ \text{est un sous-mot de} \ x}$
+        
+        \item Sur $\Sigma \cup \ens{\#}$, $L_{12} = \ens{x_1 \# x_2 \# \dots \# x_k \enstq k \geq 1, \ \text{chaque} \ x_i \in \Sigma^\star \et \exists \p{i, j} \in \bdN^2 \ \text{tels que} \ x_i = {x_j}^\bbR}$
+    \end{enumerate}
+    
+    \subsection{Listes \langOcaml{}}
+    
+    Soit $\Sigma = \ens{\texttt{[}, \texttt{]}, \texttt{1}, \texttt{;}}$. Donner une grammaire non contextuelle reconnaissant les listes \langOcaml{} de \camlline{1}. Par exemple, les mots \texttt{[]}, \texttt{[1]} et \texttt{[1; 1]} sont reconnus par la grammaire.
+    
+    \boxansconc{
+        La grammaire $\bcG = \p{\bcV, \Sigma, \bcR, I}$ avec $\bcV = \ens{I, S}$ et $\bcR = \begin{array}[t]{rcl}
+            I &\to & \texttt{[]} \mid \texttt{[} S \texttt{]} \\
+            S &\to & \texttt{1} \mid S\texttt{;}S 
+        \end{array}$ convient.
+    }
+    %
+
+    \chapter{Théorie de la calculabilité}
+
+    \section{Calculabilité}
+
+    \subsection{Problème de l'arrêt sur vide}
+
+    \subsection{Problème de l'arrêt universel}
+
+    \subsection{Fonction des castors affairés}
+
+    \subsection{Et si on savait décider le problème de l’arrêt ?}
+
+    \section{Complexité}
+
+    \subsection{Problème Max-2-SAT}
+
+    \subsection{Problème FNC-SAT}
+
+    \subsection{Sur les automates}
+
+    \subsection{Coloration de graphe}
+
+    \subsection{Clique dans un graphe}
+
+    \subsection{Cycle dans un graphe}
+
+    
+    
 \end{document}

@@ -1736,7 +1736,7 @@
     \subsection{Grammaires et langages non contextuels}
     
     \begin{definition}{Grammaire non contextuelle}{}
-        On appelle \hg{grammaire non contextuel} (\hg{context-free grammar} en anglais) la donnée d'un \hg{quadruplet $\bcG = \p{\bcV, \Sigma, \bcR, S}$} où :
+        On appelle \hg{grammaire non contextuelle} (\hg{context-free grammar} en anglais) la donnée d'un \hg{quadruplet $\bcG = \p{\bcV, \Sigma, \bcR, S}$} où :
         %
         \begin{enumerate}
             \itast \hg{$\bcV$} est un \hg{alphabet} de \hg{symboles} appelés \hg{non terminaux} (on parle aussi de \hg{variables}).
@@ -2007,43 +2007,43 @@
         On donne ci-dessous deux arbres de dérivation de  \hg{$2+4\times 3 - 7 \in \bcL\p{\bcG_\text{arithm}}$} :\newline
         
         \begin{minipage}{0.5\linewidth}
-        \begin{center}
-            \begin{tikzpicture}[nodes={}, ->,
-                level 2/.style = {sibling distance = 2.5cm},
-                level 3/.style = {sibling distance = 1.75cm},
-                level 4/.style = {sibling distance = 0.75cm}
-            ]
-                \node[circle, fill=main2,draw=white,text=white]{$S$}
-                child {
-                    node[circle, fill=main2,draw=white,text=white]{$E$}
-                    child {
-                        node[circle, fill=main2,draw=white,text=white]{$E$}
-                        child { node {$2$} }
-                    }
-                    child {node {$+$}}
+            \begin{center}
+                \begin{tikzpicture}[nodes={}, ->,
+                    level 2/.style = {sibling distance = 2.5cm},
+                    level 3/.style = {sibling distance = 1.75cm},
+                    level 4/.style = {sibling distance = 0.75cm}
+                ]
+                    \node[circle, fill=main2,draw=white,text=white]{$S$}
                     child {
                         node[circle, fill=main2,draw=white,text=white]{$E$}
                         child {
                             node[circle, fill=main2,draw=white,text=white]{$E$}
-                            child { node {$4$} }
+                            child { node {$2$} }
                         }
-                        child {node {$\times$}}
+                        child {node {$+$}}
                         child {
                             node[circle, fill=main2,draw=white,text=white]{$E$}
                             child {
                                 node[circle, fill=main2,draw=white,text=white]{$E$}
-                                child { node {$3$} }
+                                child { node {$4$} }
                             }
-                            child {node {$-$} }
+                            child {node {$\times$}}
                             child {
                                 node[circle, fill=main2,draw=white,text=white]{$E$}
-                                child { node {$7$} }
+                                child {
+                                    node[circle, fill=main2,draw=white,text=white]{$E$}
+                                    child { node {$3$} }
+                                }
+                                child {node {$-$} }
+                                child {
+                                    node[circle, fill=main2,draw=white,text=white]{$E$}
+                                    child { node {$7$} }
+                                }
                             }
                         }
-                    }
-                };
-            \end{tikzpicture}
-        \end{center}
+                    };
+                \end{tikzpicture}
+            \end{center}
         \end{minipage}
         \begin{minipage}{0.5\linewidth}
         \begin{center}

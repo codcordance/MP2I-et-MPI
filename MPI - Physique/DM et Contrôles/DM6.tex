@@ -1,0 +1,395 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}} 
+    \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii}.}
+    \renewcommand*{\labelenumiii}{\alph{enumiii}.}
+    
+    \stylizeDocSpe{Physique}{Devoir maison n° 6}{}{Pour le mercredi 16 novembre 2022}
+
+    \section{Plasma sanguin et transferrine}
+
+    Le plasma sanguin est considéré comme étant une solution aqueuse. Le produit ionique de l'eau est donné par :
+    %
+    \[ 2{\text H_2\text O}_\text{($\ell$)} \xrightleftharpoons{\hspace{0.4cm}} {\text H_3\text O}^+_\text{(aq)} + {\text H\text O}^-_\text{(aq)} \qquad\qquad\text{de constante d'équilibre à $\qty{37}{\celsius}$}\quad K_\text e=\qty{2.4e-14}{} \]
+    %
+    Le fer joue un rôle essentiel dans l'organisme, nécessaire notamment à la fabrication de l'hémoglobine présente dans les globules rouges qui assure le transport du dioxygène. On donne l'équation de la réaction de formation de l'hydroxyde de fer $\text{Fe}\p{\text O\text H}_3$ dans l'eau à partir des ions $\text{Fe}^{3+}$ et hydroxyde $\text{OH}^{-}$ :
+    %
+    \begin{equation}
+        \label{eq:eq1}
+        \text{Fe}^{3+}_\text{(aq)} + 3{\text H\text O}^-_\text{(aq)} \xrightleftharpoons{\hspace{0.4cm}} {\text{Fe}\p{\text O\text H}_3}_\text{(s)} \qquad\qquad\text{de constante d'équilibre à $\qty{37}{\celsius}$}\quad K^\standard = \qty{e37}{}
+    \end{equation}
+    %
+    \emph{Données :}
+    %
+    \begin{enumerate}
+        \itt Dans le sang, le pH a une valeur fixée égale à \qty{7.4}{}.
+        
+        \itt $\bbM\p{\text{Fe}} = \qty{55.8}{\g \per \mol}$.
+    \end{enumerate}
+    
+    \begin{enumerate}
+        \item Exprimer le quotient réactionnel $Q$ de la réaction \eqref{eq:eq1}.
+
+        \boxansconc{
+            Le quotient réactionnel est $Q=\dfrac{{C^\standard}^2}{\intc{\text{Fe}^{3+}}\intc{{\text H\text O}^-}^3}$.
+        }
+        
+        \item Calculer la concentration en ions hydroxyde ${\text H\text O}^-$ dans le sang.
+
+        \noafter
+        %
+        \boxans{
+            On a $\intc{{\text H\text O}^-} = \dfrac{{C^\standard}^2K_\text e}{\intc{{\text H_3\text O}^+}}$ et $\text{pH} = -\log{\dfrac{\intc{{\text H_3\text O}^+}}{C^\standard}}$, \ie $\intc{{\text H_3\text O}^+} = C^\standard 10^{-\text{pH}}$, d'où $\intc{{\text H\text O}^-} = C^\standard K_\text e 10^{\text{pH}}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            L'application numérique livre $\intc{{\text H\text O}^-} = \qty{6.0e-7}{\mol \per \litre}$.
+        }
+        %
+        \yesbefore
+        
+        \item En utilisant le critère d'évolution d'un système chimique, en déduire la concentration maximale en ions $\text{Fe}^{3+}$ pour qu'il n'y ait pas formation de $\text{Fe}\p{\text O\text H}_3$. Commenter.
+
+        \noafter
+        %
+        \boxans{
+            Pour qu'il n'y ait pas de formation de $\text{Fe}\p{\text O\text H}_3$, il faut que la réaction n'ait pas lieu dans le sens indirect, donc que $Q \geq K^\standard$. On a donc $\intc{\text{Fe}^{3+}}_\text{max} = \dfrac{{C^\standard}^2}{K^\standard \intc{{\text H\text O}^-}^3}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            L'application numérique livre $\intc{\text{Fe}^{3+}}_\text{max} = \qty{4.6e-19}{\mol \per \litre}$.
+        }
+        %
+        \yesbefore
+    \end{enumerate}
+
+    Dans le plasma sanguin, en moyenne, il y a au total \qty{1.0}{\mg} de fer $\text{Fe}^{3+}$ par litre, libre (c'est-à-dire vraiment sous la forme $\text{Fe}^{3+}$) ou complexé (c'est-à-dire lié à d'autres atomes ou molécules).
+
+    \begin{enumerate}[resume]
+        \item Calculer la concentration totale en fer $\text{Fe}^{3+}$ dans le plasma. Commenter en comparant cette valeur à celle de la question précédente.
+        
+        \noafter
+        %
+        \boxans{
+            On a la concentration massique en ion ferrique $\rho\p{\text{Fe}^{3+}} = \qty{1.0}{\mg \per \litre}$. On a donc $\intc{\text{Fe}^{3+}} = \dfrac{\rho\p{\text{Fe}^{3+}}}{\bbM\p{\text{Fe}}}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            L'application numérique livre $\intc{\text{Fe}^{3+}} = \qty{1.8e-5}{\mol \per \litre}$. Cette concentration est bien supérieure au seuil déterminé à la question précédente, il y a donc principalement formation de ${\text{Fe}\p{\text O\text H}}_3$ donc le fer va se retrouver sous forme complexée.
+        }
+    \end{enumerate}
+
+    Chez l'homme, le stockage et le transport des ions $\text{Fe}^{3+}$ est en fait assuré pas une protéine appelée \emph{transferrine}. La réaction chimique de complexation du fer par la \emph{transferrine}, notée $\text{Tr}$, peut être modélisée de la façon suivante :
+    %
+    \[ {\text{Fe}^{3+}}_\text{(aq)} + \text{Tr}_\text{(aq)} \xrightleftharpoons{\hspace{0.4cm}} {\text{Fe}\text{Tr}}^{3+}_\text{(aq)} \qquad\qquad\text{de constante d'équilibre}\qquad K_\text{Tr}^\standard = \qty{e24}{}\]
+    %
+    Dans le plasma sanguin, en moyenne, la concentration totale en \emph{transferrine} sous forme libre ou complexée est de $\qty{3.3e-5}{\mol\per\litre}$. D'après la valeur de la constante $K_\text{Tr}^\standard$, très élevée, on remarque que la réaction entre les ions du fer et la transferrine est totale.
+
+    \begin{enumerate}[resume]
+        \item Proposer un tableau d'avancement. Que contient le plasma finalement si l'on tient compte du caractère total de la réaction ?
+        
+        \noafter
+        %
+        \boxans{
+            On note $\intc{\text{Tr}}_\text i$ la concentrations initiale de \emph{transferrine} sous forme libre. À première approximation, il n'y a pas de \emph{transferrine} sous forme complexée donc $\intc{\text{Tr}}_\text i = \qty{3.3e-5}{\mol \per \litre}$. On dénote également la concentration initiale d'ions ferriques (supposés libres) $\text{Fe}^{3+}$ par $\intc{\text{Fe}^{3+}}_\text i = \qty{1.8e-5}{\mol \per \litre}$.  On obtient par st\oe{}chiométrie que le fer est le réactif limitant.
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            \begin{center}
+                \NiceMatrixOptions{cell-space-top-limit=3pt}
+                \begin{NiceTabular}{|c||cc|c|}[]
+                    \CodeBefore
+                        \rowcolor{main3!10}{1}
+                    \Body
+                        \toprule
+                        \text{Avancement ($\qty{}{\mol \per \litre}$)} & \Block{1-3}{${\text{Fe}^{3+}}_\text{(aq)} + \text{Tr}_\text{(aq)} \xrightleftharpoons{\hspace{0.4cm}} {\text{Fe}\text{Tr}}^{3+}_\text{(aq)}$} \\ \midrule
+                        $0$ & $\intc{\text{Fe}^{3+}}_\text i$ & $0$ & $\intc{{\text{Fe}\text{Tr}}^{3+}}_\text i$\\
+                        $\xi$ & $\intc{\text{Fe}^{3+}}_\text i - \xi$ & $\intc{\text{Tr}}_\text i - \xi$ & $\xi$\\
+                        $\xi_f = \intc{\text{Fe}^{3+}}_\text i$ & $0$ & $\intc{\text{Tr}}_\text i - \intc{\text{Fe}^{3+}}_\text i$ & $\intc{\text{Fe}^{3+}}_\text i$\\
+                        \bottomrule
+                \end{NiceTabular}
+            \end{center}
+            %
+            À l'état final, le plasma ne contient donc plus que de la \emph{transferrine} sous forme libre et complexée.
+        }
+        %
+        \yesbefore
+
+        \item En utilisant $K_\text{Tr}^\circ$, calculer la concentration des ions $\text{Fe}^{3+}$ qui restent libres (non complexés) à l'équilibre.
+
+        \noafter
+        %
+        \boxans{
+            À première approximation, $\intc{\text{Fe}^{3+}}_\text{eq} = \dfrac{\intc{\text{Fe}^{3+}}_\text i}{K_\text{Tr}^\standard\p{\intc{\text{Tr}}_i - \intc{\text{Fe}^{3+}}_\text i}}$ où $\intc{\text{Fe}^{3+}}_\text{eq}$ est la quantité recherchée.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            L'application numérique livre $\intc{\text{Fe}^{3+}}_\text{eq} = \qty{1.2e-24}{\mol \per \litre}$.
+        }
+        %
+        \yesbefore
+
+        \item Dans ces conditions, l'hydroxyde de fer $\text{Fe}\p{\text O\text H}_3$ se forme-t-il dans le sang ?
+
+        \boxansconc{
+            On a $\intc{\text{Fe}^{3+}}_\text{eq} \ll \intc{\text{Fe}^{3+}}_\text{max}$ donc il n'y a pas formation d'hydroxyde de fer.
+        }
+    \end{enumerate}
+    
+    \newpage
+    
+    \section{Chute d'un arbre mort}
+    
+    Un bûcheron assimilé à un point matériel $B$ de masse $m$ souhaite abattre un arbre mort assimilé à un cylindre homogène de masse $M$ avec $M > m$, de hauteur $H$ et de section droite carrée de côté $2a$ représentée sur la figure \ref{fig:fig1}. Il tire pour cela sur un câble fixé en $C$ à l'arbre, de longueur $BC = \ell$ et de masse négligeable, afin de faire tourner l'arbre autour de l'axe $\p{O, \vec{u_y}}$ dirigé par le vecteur $\vec{u_y} = \vec{u_z} \wedge \vec{u_x}$.\medskip
+    
+    L'arbre étant mort, on néglige l'action de ses racines, de telle sorte qu'au moment où l'arbre commence à tourner, les actions de contact qu'il subit se limitent à une force $\vec{R_1} = T_1\vec{u_x} + N_1\vec{u_z}$ appliquée au point $O$ et satisfaisant aux lois de \textsc{Coulomb} avec un coefficient de frottement $f$. De même, les actions du sol sur le bûcheron sont décrites par une force $\vec{R_2} = T_2\vec{u_x} + N_2\vec{u_z}$ appliquée au point $B$ et satisfaisant aux lois de \textsc{Coulomb} avec le même coefficient de frottement $f$.\medskip
+    
+    Les composantes $T_1$, $N_1$, $T_2$, $N_2$ ont des valeurs algébriques. Le câble est supposé tendu. On note $\vec{F}$ la force exercée par le câble sur l'arbre au point $C$, supposée parallèle au câble et $F$ sa norme. Les angles sont orientés positivement dans le sens trigonométrique autour de $\p{O, \vec{u_y}}$ et on note $\alpha$ l'angle (positif) entre $\vec{BO}$ et $\vec{BC}$.
+    
+    \begin{center}
+        \begin{minipage}{0.30\linewidth}
+            \begin{center}
+                \begin{tikzpicture}
+                    \fill[main3!30] (1.3, 0) rectangle (2, 2.6);
+                    
+                    \draw[thick, draw=main3!30!black!80] (1.3, 0) rectangle (2, 2.6);
+                    
+                    \draw[dashed, ->] (0.2, 0) -- (5.2, 0);
+                    \draw[dashed, ->] (2, 0) -- (2, 3);
+                    \draw[main3, very thick, ->] (2, 0) --++(1, 0) node[label={[font=\footnotesize]below:$\vec{u_x}$}] {};
+                    \draw[main3, very thick, ->] (2, 0) --++(0, 1) node[label={[font=\footnotesize]right:$\vec{u_z}$}] {};
+                    
+                    \node[label={[font=\footnotesize]south east:$O$}] at (1.9, 0.1) {};
+                    \node[label={[font=\footnotesize]south east:$B$}] at (3.9, 0.1) {};
+                    \node[label={[font=\footnotesize]north east:$C$}] at (1.9, 1.7) {};
+                    
+                    \draw[thin] (2, 1.8) -- (4, 0);
+                    
+                    \fill (2, 0) circle[radius=0.05];
+                    
+                    \fill (2, 1.8) circle[radius=0.05];
+                    \fill (4, 0) circle[radius=0.05];
+                    
+                    \draw [->] (3.3, 0) arc(0:-45:-0.65cm) node[midway,left] {$\alpha$};
+                    
+                    \draw [<->] (1, 0) -- node[midway, left] {$H$} (1, 2.6);
+                    
+                    \draw [<->] (1.3, 3.2) -- node[midway, above] {$2a$} (2, 3.2);
+                \end{tikzpicture}
+            \end{center}
+        \end{minipage}
+        %
+        \begin{minipage}{0.25\linewidth}
+            \begin{center}
+                \begin{tikzpicture}
+                    \fill[main3!30] (1.3, 0) rectangle (2, 2.6);
+                    
+                    \fill[main3!50] (1.3, 1.5) rectangle (2, 1.9);
+                    
+                    \draw[thick, draw=main3!30!black!80] (1.3, 0) rectangle (2, 2.6);
+                    
+                    \draw[dashed, ->] (0.3, 0) -- (3, 0);
+                    \draw[dashed, ->] (2, 0) -- (2, 3);
+                    
+                    \node[label={[font=\footnotesize]south east:$O$}] at (1.9, 0.1) {};
+                    
+                    \draw [<->] (1, 0) -- node[midway, left] {$H$} (1, 1.5);
+                    \draw [<->] (1, 1.5) -- node[midway, left] {$\dif z$} (1, 1.9);
+                    
+                    \draw [<->] (1.3, 3.2) -- node[midway, above] {$2a$} (2, 3.2);
+                    
+                    \draw[main1, very thick, ->] (1.3, 1.7) --++(1, 0) node[label={[font=\footnotesize]right:$\dif\vec{F_v}$}] {};
+                    
+                    \fill (2, 0) circle[radius=0.05];
+                    
+                    \draw[main3, very thick, ->,opacity=0] (2, 0) --++(1, 0) node[label={[font=\footnotesize]below:$\phantom{\vec{u_x}}$}] {};
+                \end{tikzpicture}
+            \end{center}
+        \end{minipage}
+        %
+        \begin{minipage}{0.25\linewidth}
+            \begin{center}
+                \begin{tikzpicture}
+                    \fill[main3!30, rotate=-30,shift={(-0.28,0.97)}] (1.3, 0) rectangle (2, 2.6);
+                    
+                    \draw[thick, draw=main3!30!black!80, rotate=-30,shift={(-0.28,0.97)}] (1.3, 0) rectangle (2, 2.6);
+                    
+                    \draw[dashed, ->] (0.3, 0) -- (3, 0);
+                    \draw[dashed, ->] (2, 0) -- (2, 3);
+                    
+                    \node[label={[font=\footnotesize]south east:$O$}] at (1.9, 0.1) {};
+                    
+                    \fill (2, 0) circle[radius=0.05];
+                    
+                    \draw [->] (2, 2.2) arc(90:60:2.15cm) node[midway,below] {$\theta$};
+                    
+                    \draw [<->,opacity=0] (1.3, 3.2) -- node[midway, above] {$\phantom{2a}$} (2, 3.2);
+                    
+                    \draw[main3, very thick, ->,opacity=0] (2, 0) --++(1, 0) node[label={[font=\footnotesize]below:$\phantom{\vec{u_x}}$}] {};
+                \end{tikzpicture}
+            \end{center}
+        \end{minipage}
+        
+        \captionof{figure}{Chute d'un arbre}
+	    \label{fig:fig1}
+    \end{center}
+    
+    \begin{enumerate}
+        \item Le bûcheron est supposé ne pas glisser dans la situation initiale décrite par la figure \ref{fig:fig1}. Exprimer $N_2$ et $T_2$ en fonction de $F$, $\alpha$, $m$ et $g$. En déduire l'expression de la valeur maximale $F_\text{max}$ de $F$.
+        
+        \noafter
+        %
+        \boxans{
+            Par hypothèse de non glissement, on a :
+            %
+            \[ \vec{v_g}\p{\sfrac{\text{sol}}{\text{homme}}} = \vec v\p{B \in \ens{\text{Sol}}} - \vec v\p{B \in \ens{\text{Bûcheron}}} = \vec 0 \]
+            %
+            Or $\vec v\p{B \in \ens{\text{Sol}}} = \vec 0$ donc $\vec v\p{B \in \ens{\text{Bûcheron}}} = \vec 0$. On note $\vec a\p{B} = \dfrac{\dif\vec v\p{B \in \ens{\text{Bûcheron}}}}{\dif t} = \vec 0$ l'accélération du bûcheron modélisé par le point matériel $B$.\medskip
+            
+            Puisque le câble est sans masse, les forces qui s'exercent dessus se composent par \emph{théorème du centre d'inertie}. On obtient donc que la force $\vec F$ exercée par le câble sur l'arbre au point $C$ est de même norme $F$ que la force exercée par le câble sur le bûcheron $B$. Le \emph{principe fondamental de la dynamique} sur $B$ livre donc :
+            %
+        }
+        %
+        \nobefore
+        %
+        \boxansconc{
+            \[ \begin{array}{rlc}
+                \overline{T_2} &= F\cos \alpha &\qquad\qquad\text{selon } \p{O, \vec{u_x}}  \\
+                \overline{N_2} &= mg - F\sin \alpha &\qquad\qquad\text{selon } \p{O, \vec{u_z}}
+            \end{array}\]
+            %
+        }
+        %
+        \boxans{
+            Les lois de \textsc{Coulomb} livrent $\norm{\vec{T_2}} \leq f\norm{\vec{N_2}}$, soit $F\cos \alpha \leq f\p{mg - F\sin \alpha}$.
+        }
+        %
+        \yesafter
+        %
+        \boxansconc{
+            On obtient donc $F_\text{max} = \dfrac{fmg}{\cos \alpha + f \sin \alpha}$.
+        }
+        %
+        \yesbefore
+        
+        \item L'arbre est supposé au repos dans la situation initiale décrite par la figure \ref{fig:fig1}. Exprimer $N_1$ et $T_1$ en fonction de $F$, $\alpha$, $M$ et $g$. En déduire que pour $0 \leq F \leq F_\text{max}$ le glissement n'est pas possible en $O$.
+        
+        \noafter
+        %
+        \boxans{
+            On note $G$ le centre d'inertie de l'arbre. Lorsque l'arbre est supposé au repos, son accélération $\vec a\p{G} = \vec 0$ est nulle. Le \emph{théorème du centre d'inertie} appliqué à l'arbre livre 
+            %
+            \[ \begin{array}{rlc}
+                \overline{T_1} &= -F\cos \alpha &\qquad\qquad\text{selon } \p{O, \vec{u_x}}  \\
+                \overline{N_1} &= Mg + F\sin \alpha &\qquad\qquad\text{selon } \p{O, \vec{u_z}}
+            \end{array}\]
+            %
+            S'il y a glissement en $O$, alors par loi de \textsc{Coulomb} on a $\norm{\vec{T_1}} = f\norm{\vec{N_1}}$, d'où $F = \dfrac{fMg}{\cos \alpha + f\sin \alpha} > F_\text{max}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+             Par contraposée, si $F \leq F_\text{max}$, alors il n'y a pas glissement en $O$.
+        }
+        %
+        \yesbefore
+        
+        \item Exprimer le moment $\Gamma_g$ du poids de l'arbre par rapport à l'axe $\p{O, \vec{u_y}}$ dans la situation initiale décrite par la figure \ref{fig:fig1}.
+        
+        \boxansconc{
+            Par homogénéité, le point $G$ a pour position $\p{-a, \sfrac{H}{2}}$. Par bras de levier, on obtient $\Gamma_g = -\alpha Mg$.
+        }
+        
+        \item Soit $\Gamma_B$ le moment par rapport à l'axe $\p{O, \vec{u_y}}$ exercé par le bûcheron sur l'arbre via le câble. Quelle est la valeur minimale de $\Gamma_B$ permettant à l'arbre de pivoter autour de l'axe $\p{O, \vec{u_y}}$ ?
+        
+        \noafter
+        %
+        \boxans{
+            On applique le \emph{théorème du moment cinétique} sur l'arbre en $O$ par rapport à l'axe $\p{O, \vec{u_y}}$. Soit $J$ le moment d'inertie de l'arbre, on a $J\ddot \theta = \Gamma_p + \Gamma_B$ (le moment des forces de frottement est nul car le point d'application est $O$). On veut $\ddot \theta \leq 0$, donc $\dfrac{\Gamma_p + \Gamma_B}{J} \leq 0$, soit $\Gamma_B \leq -\Gamma_p$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On obtient $\Gamma_{B,\text{min}} = \alpha Mg$
+        }
+        %
+        \yesbefore
+        
+        \item En supposant $f$ constant, justifier qu'il existe une valeur optimale $\alpha_\text m $ de l'angle $\alpha$.
+        
+        \boxansconc{
+            Le moment du poids $\Gamma_p = -\alpha Mg$ s'oppose à la rotation de l'arbre, il faut donc minimiser $\alpha$. Cependant le bûcheron ne glisse pas, donc on veut vérifier $F\p{\alpha} \leq F_\text{max}\p{\alpha}$. Il existe donc un $\alpha_\text m$ minimum tel que $F \leq \dfrac{fmg}{\cos \alpha_\text m + f\sin \alpha_\text m}$.
+        }
+    \end{enumerate}
+    
+    On suppose que, quelque soit l'angle $\alpha$, l'action du bûcheron est telle qu'on est à la limite du glissement : $F$ prend la valeur $F_\text{max}$.
+    
+    \begin{enumerate}[resume]
+        \item Montrer que le moment $\Gamma_B$ par rapport à l'axe $\p{O, \vec{u_y}}$ exercé par le bûcheron via le câble s'écrit $\Gamma_B = \dfrac{mg\ell}{\phi\p{\alpha}}$, avec $\phi\p{\alpha} = \dfrac{1}{f\sin \alpha} + \dfrac{1}{\cos \alpha}$. En déduire l'expression de l'angle $\alpha_\text m$ qui maximise l'action du bûcheron en fonction de $f$.
+        
+        \noafter
+        %
+        \boxans{
+            On a $\Gamma_B = \p{\vec{OC} \wedge \vec F} \cdot \vec{u_y} = F_\text{max}\ell \sin \alpha\p{ \vec{u_z} \wedge \p{\cos{\alpha}\vec{u_x} - \sin{\alpha}\vec{u_z}}}\cdot \vec{u_y} = \ell\sin{\alpha}\cos{\alpha}F_\text{max}$.
+            
+            Ainsi $\Gamma_B = \dfrac{fmg\ell\sin \alpha\cos \alpha}{\cos \alpha + f \sin \alpha} = mg\ell \dfrac{f\sin \alpha \cos \alpha}{\cos \alpha + f\sin \alpha} = mg\ell\p{\dfrac{1}{\cos \alpha} + \dfrac{1}{f\sin \alpha}}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On obtient bien $\Gamma_B = \dfrac{mg\ell}{\phi\p{\alpha}}$. Pour maximiser $\Gamma_B$, on minimise $\phi\p{\alpha}$. En dérivant, on obtient que $\phi$ est décroissante puis croissante, et atteint un minimum $\alpha_\text m = \arctan{\sqrt[3]{\dfrac{1}{f}}}$.
+        }
+        %
+        \yesbefore
+        
+        \item On donne $M = \qty{e3}{\kg}$, $H = \qty{20}{\m}$, $a = \qty{0.5}{\m}$, $m = \qty{e2}{\kg}$ et $f = \qty{1}{}$. Calculer la force $F_\text{max}$ et la longueur de corde $\ell$ nécessaires pour initier la rotation de l'arbre. Commenter.
+        
+        \boxansconc{
+            L'application numérique livre $F_\text{max} = \qty{6.9e2}{\newton}$ et $\ell = \qty{14}{\m}$. Les résultats sont cohérents.
+        }
+    \end{enumerate}
+    
+    On suppose que l'arbre a commencé sa rotation autour de l'axe $\p{O, \vec{u_y}}$, repérée par l'angle $\theta$ que fait $\vec{OC}$ avec $\p{O, \vec{u_z}}$.
+    
+    \begin{enumerate}[resume]
+        \item Après avoir fait une figure représentant la situation et faisant apparaître les différents paramètres, exprimer l'énergie potentielle de pesanteur $E_\text{pp}$ de l'arbre en fonction de $M$, $g$, $H$, $a$ et $\theta$. Le bûcheron opère de manière quasi-statique, c'est-à-dire sans communiquer d'énergie cinétique à l'arbre. À partir de quel angle $\theta_\text s$ peut-il lâcher le câble ?
+        
+        \noafter
+        %
+        \boxans{
+            Pour le solide $\ens{\text{arbre}}$, en supposant le champ de pesanteur $\vec{g}$ constant, on a $E_\text{pp} = Mgz\p{\theta}$ où $z\p{\theta}$ où $z\p{\theta}$ est la position sur l'axe $\p{O, \vec{u_z}}$ du centre d'inertie $G$ de l'arbre, \ie $z = \vec{OG} \cdot \vec{u_z}$. Or $\vec{OG} = -a\vec{u_\theta} + \dfrac{H}{2}\vec{u_r}$ où les vecteurs $\vec{u_r}$ et $\vec{u_\theta}$ forment la base polaire de centre $O$ et dont les angles sont orientés comme $\theta$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On obtient donc $E_\text{pp} = Mg\p{a\sin \theta + \dfrac{H}{2}\cos \theta}$. Le bûcheron peut lâcher la corde lorsque $G$ est \guill{au dessus} de $O$, \ie lorsque $\vec{OG} \cot \vec{u_x} = 0$, soit pour un angle $\theta_\text s$ tel que $a\cos \theta_\text s = \dfrac{H}{2}\sin \theta_\text s$, soit finalement $\theta_s = \arctan{\dfrac{2a}{H}}$.
+        }
+        %
+        \yesbefore
+    \end{enumerate}
+\end{document}

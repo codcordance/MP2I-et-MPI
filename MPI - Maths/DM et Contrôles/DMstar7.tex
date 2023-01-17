@@ -1,0 +1,606 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{../../Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\thesubsection}{\Roman{section}.\Alph{subsection}}
+    \renewcommand{\labelenumi}{\thesubsection.\arabic{enumi})}
+    \renewcommand*{\labelenumii}{\alph{enumii})}
+
+    \stylizeDocSpe{Maths}{Devoir maison $\star$ n° 7}{CCS MP MATH 1 2012}{Pour le vendredi 13 janvier 2023}
+    
+    \subsubsection*{Notations et définitions}
+    
+    \begin{enumerate}
+        \itt On note $C\p{\bdR}$ le $\bdC$-espace vectoriel des fonctions \emph{continues} de $\bdR$ dans $\bdC$.
+        
+        \itt On note $C_\text b\p{\bdR}$ le sous-espace vectoriel de $C\p{\bdR}$ constitué des fonctions \emph{bornée} de $C\p{\bdR}$.
+        
+        \itt On note $L^1\p{\bdR}$ le sous-espace vectoriel de $C\p{\bdR}$ constitué des fonctions \emph{intégrables sur $\bdR$} de $C\p{\bdR}$.
+        
+        \itt On note $L^2\p{\bdR}$ le sous-espace vectoriel de $C\p{\bdR}$ constitué des fonctions \emph{de carré intégrable sur $\bdR$} de $C\p{\bdR}$.
+    \end{enumerate}
+    
+    On admet que les expressions suivantes définissent des normes sur les espaces en question :
+    
+    \begin{enumerate}
+        \itt Pour toute fonction $f$ de $C_\text b\p{\bdR}$, on pose $\norm{f}_\infty = \sup\limits_{t \in \bdR} \mod{f\p{t}}$.
+        
+        \itt Pour toute fonction $f$ de $L^1\p{\bdR}$, on pose $\norm{f}_1 = \displaystyle\int_\bdR \mod{f\p{t}}\dif t$.
+        
+        \itt Pour toute fonction $f$ de $L^2\p{\bdR}$, on pose $\norm{f}_2 = \displaystyle\sqrt{\int_\bdR \mod{f\p{t}}^2\dif t}$.
+    \end{enumerate}
+    
+    Soit $f$ une fonction complexe d'une variable réelle. Par définition, le \emph{support de $f$} est l'adhérence de l'ensemble $A_f = \ens{x \in \bdR \enstq f\p{x} \neq 0}$. On dit que \emph{$f$ est à support compact} si son support est un compact de $\bdR$ ; en d'autres termes, $f$ est à support compact si et seulement s'il existe un réel $A \geq 0$ tel que $f$ soit nulle en dehors de $\intc{-A, A}$.
+    
+    Par définition, une \emph{approximation de l'unité} est une suite de fonctions $\suite{f_n}$, continues par morceaux et intégrables sur $\bdR$, vérifiant les conditions suivantes :
+    %
+    \[ \left\lbrace\begin{array}{lll}
+        \forall n \in \bdN,& &f_n \ \text{est positive sur} \ \bdR  \\
+        \forall n \in \bdN,& &\displaystyle\int_\bdR f_n = 1\\
+        \forall \epsilon > 0,& &\displaystyle\lim_{n \to +\infty} \int_{-\infty}^{-\epsilon} f_n = 0 \quad\et\quad \lim_{n \to +\infty} \int_\epsilon^{+\infty} f_n = 0
+    \end{array}\right.\]
+    
+    \section{Produit de convolution}
+    
+    Soient $f, g \in C\p{\bdR}$. Lorsque la fonction $t \mapsto f\p{t}g\p{x - t}$ est intégrable sur $\bdR$, on pose $\;\displaystyle\p{f \ast g}\p{x} = \int_\bdR f\p{t}g\p{x - t}\dif t$.
+    
+    La fonction $f \ast g$ est appelée \emph{produit de convolution} de $f$ par $g$.
+    
+    \subsection{Généralités}
+    
+    \begin{enumerate}
+        \item Dans chacun des deux cas suivants, montrer que $f \ast g$ est définie et bornée sur $\bdR$. Donner une majoration de $\norm{f \ast g}_\infty$ pouvant faire intervenir $\norm{\cdot}_1$, $\norm{\cdot}_2$ ou $\norm{\cdot}_\infty$.
+        
+        \begin{enumerate}
+            \item $f \in L^1\p{\bdR}$ et $g \in C_\text b\p{\bdR}$\label{qu:I.A.1) a)}
+            
+            \noafter
+            %
+            \boxans{
+                Soient $x \in \bdR$ et la fonction de la variable réelle $h_x :t \mapsto f\p{t}g\p{x - t}$, montrons que $\p{f \ast g}\p{x}$ est défini, c'est-à-dire que $h_x$ est intégrable sur $\bdR$. Premièrement, $h_x$ est produit de deux fonctions de $C\p{\bdR}$, donc la fonction $h_x$ est continue sur $\bdR$. Soient maintenant $a, b \in \overline{\bdR}$ avec $a < b$, et $c \in \into{a, b}$. On a :
+                %
+                \[ \int_c^b \mod{h_x\p{t}}\dif t = \int_c^b \mod{f\p{t}}\mod{g\p{x - t}}\dif t \leq \int_c^b \mod{f\p{t}}\norm{g}_\infty\dif t = \norm{g}_\infty\int_c^b \mod{f\p{t}}\dif t\]
+                %
+                Puisque $f$ est intégrable sur $\bdR$, on peut considérer $b = +\infty$ et on a $\displaystyle\int_c^{+\infty} \mod{h} \leq \norm{g}_\infty \int_c^{+\infty} \mod{f\p{t}}\dif t \in \bdR$.
+                
+                Le même raisonnement s'applique pour $a = -\infty$, et on obtient donc que :
+                %
+                \[ \int_\bdR \mod{h_x\p{t}}\dif t = \int_a^c \mod{h_x\p{t}}\dif t + \int_c^b \mod{h_x\p{t}}\dif t \leq \norm{g}_\infty \p{\int_a^c \mod{f\p{t}}\dif t + \int_c^b \mod{f\p{t}}\dif t} = \norm{f}_1\norm{g}_\infty\]
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Par définition $h_x$ est donc intégrable sur $\bdR$ pour tout $x \in \bdR$, en vertu de quoi la fonction $f \ast g$ est définie sur $\bdR$. Elle est également bornée, selon la majoration $\norm{f \ast g}_\infty \leq \norm{f}_1\norm{g}_\infty$.
+            }
+            %
+            \yesbefore
+            
+            \newpage
+            
+            \item $f, g \in L^2\p{\bdR}$\label{qu:I.A.1) b)}
+            
+            \noafter
+            %
+            \boxans{
+                Soient de même $x \in \bdR$ et la fonction de la variable réelle $h_x :t \mapsto f\p{t}g\p{x - t}$, continue sur $\bdR$ ; soient $a, b \in \overline{\bdR}$ avec $a < b$, et $c \in \into{a, b}$. On a :
+                %
+                \[ 0 \leq \int_{\into{a, b}} \mod{Xf\p{t} - g\p{x - t}}^2 \dif t \leq X^2\int_{\into{a, b}} \mod{f\p{t}}^2 + 2X\int_{\into{a, b}} \mod{f\p{t}g\p{x - t}} + \int_{\into{a, b}} \mod{g\p{x - t}}^2\]
+                %
+                Il s'agit d'un polynôme du deuxième degré, toujours positif donc de discriminant inférieur ou égal à $0$, \ie
+                %
+                \[ 4\p{\int_{\into{a, b}} \mod{f\p{t}g\p{x - t}}\dif t}^2 - 4\int_{\into{a, b}} \mod{f\p{t}}^2\dif t \int_{\into{a, b}} \mod{g\p{x - t}\dif t}^2 \leq 0\]
+                %
+                On obtient donc $\displaystyle\int_{\into{a, b}} \mod{h_x\p{t}}\dif t \leq \sqrt{\int_{\into{a, b}} \mod{f\p{t}}^2\dif t}\sqrt{\int_{\into{x-b, x-a}} \mod{g\p{u}}^2\dif u}$.
+                
+                
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Puisque $f$ et $g$ sont dans $L^2$, la majoration existe toujours pour $a = -\infty$ et $b = +\infty$. Ainsi $f \ast g$ est définie sur $\bdR$ et l'on a $\norm{f \ast g}_\infty \leq \norm{f}_2\norm{g}_2$.
+                
+                \textbf{\sffamily N.B.} On pourrait en fait, sous réserve de définition, voir $f \ast g\p{x}$ comme une forme bilinéaire, symétrique et positive sur $L^2$. En utilisant l'inégalité de \textsc{Cauchy-Schwarz}, on obtient le résultat escompté.
+            }
+            %
+            \yesbefore
+        \end{enumerate}
+        
+        \item Soient $f, g \in C\p{\bdR}$ telles que $f \ast g\p{x}$ soit défini pour tout réel $x$. Montrer que $f \ast g = g \ast f$.
+        
+        \boxansconc{
+            Comme aux questions précédentes, on se replace sur un intervalle $\into{a, b}$ et on prend $x \in \bdR$. On a 
+            %
+            \[ \int_{\into{a, b}} f\p{t}g\p{x - t}\dif t = \int_{\into{x-b, x-a}} f\p{x - u}g\p{u}\dif u\]
+            %
+            Pour $a = -\infty$ et $b = +\infty$, on obtient bien $f \ast g = g \ast f$.
+        }
+        
+        \item Montrer que si $f$ et $g$ sont à support compact, alors $f \ast g$ est à support compact.\label{qu:I.A.3)}
+        
+        \noafter
+        %
+        \boxans{
+            Soient $A$ et $B$ deux réels positifs tels que $f$ est nulle en dehors de $\intc{-A, A}$ et $g$ est nulle en dehors de $\intc{-B, B}$.
+            
+            Soit un réel $x \in \bdR$. Pour $t$ en dehors de $\intc{x - B, x + B}$, on a $g\p{x - t} = 0$, d'où 
+            %
+            \[ \forall x \in \bdR,\qquad \forall t \in \bdR,\qquad t \in \underbrace{\intc{x - B, x + B} \cap \intc{-A, A}}_{I} \iff f\p{t}g\p{x - t} \neq 0\]
+            %
+            Pour cette raison, on a directement $\displaystyle\int_I f\p{t}g\p{x - t}\dif t = \int_\bdR f\p{t}g\p{x - t}\dif t = \p{f \ast g}\p{x}$.  
+            
+            Soit $x > A + B = M$ et $t \in \bdR$, on a :
+            %
+            \begin{enumerate}
+                \itt Si $t \leq A$, alors $x - t > B$ donc $g\p{x - t} = 0$. 
+                
+                \itt Si $t > A$, alors $f\p{t} = 0$.  
+            \end{enumerate}
+            %
+            Donc $f\p{t}g\p{x - t}$ est nul sur $\bdR$, d'où $\p{f \ast g}\p{x} = 0$. Le même raisonnement s'applique pour $x < -M$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a bien montré que $\p{f \ast g}$ est à support compact, nulle en dehors de $\intc{-A-B, A+B}$.
+        }
+        %
+        \yesbefore
+    \end{enumerate}
+    
+    \subsection{Produit de convolution de deux éléments de $L^2\p{\bdR}$}\label{subsec:I.2}
+    
+    Pour toute fonction $h$ de $C\p{\bdR}$ et tout réel $\alpha$, on définit la fonction $T_\alpha\p{h}\p{x} = h\p{x - \alpha}$ pour tout $x \in \bdR$.
+    
+    Dans cette sous-partie \textbf{\sffamily\ref{subsec:I.2}}, on suppose que $f$ et $g$ appartiennent à $L^2\p{\bdR}$.
+    
+    \begin{enumerate}
+        \item Montrer qu'une fonction $h$ est uniformément continue sur $\bdR$ si et seulement si $\lim\limits_{\alpha \to 0} \norm{T_\alpha\p{h} - h}_\infty = 0$.\label{qu:I.B.1)}
+        
+        \noafter
+        %
+        \boxans{
+            \begin{enumerate}
+                \itt $\boxed{\implies}$ Soit $h$ uniformément continue, on a :
+                %
+                \[ \forall \epsilon \in \bdR,\qquad \exists \eta \in \bdR,\qquad \forall \p{a, b} \in \bdR^2,\qquad \mod{a - b} \leq \eta \implies \mod{h\p{a} - h\p{b}} \leq \epsilon\]
+                %
+                Soit $\alpha \in \bdR$, on prend $a = x - a$ et $b = x$ :
+                %
+                \begin{align*}
+                    &&\forall \epsilon \in \bdR,\qquad \exists \eta \in \bdR,&\qquad \forall x \in \bdR,\qquad \mod{x - \alpha - x} \leq \eta \implies \mod{h\p{x - \alpha} - h\p{x}} \leq \epsilon\\
+                    \text{donc} && \forall \epsilon \in \bdR,\qquad \exists \eta \in \bdR,&\qquad \mod{\alpha} \leq \eta \implies \p{\forall x \in \bdR,\qquad \mod{h\p{x - \alpha} - h\p{x}} \leq \epsilon}\\
+                    \text{donc} && \forall \epsilon \in \bdR,\qquad \exists \eta \in \bdR,&\qquad \mod{\alpha} \leq \eta \implies \norm{T_\alpha\p{h} - h}_\infty \leq \epsilon
+                \end{align*} 
+                %
+                Donc si $h$ est uniformément continue, alors $\lim\limits_{\alpha \to 0} \norm{T_\alpha\p{h} - h}_\infty = 0$.
+            
+                \itt $\boxed{\impliedby}$ Réciproquement, supposons que $\lim\limits_{\alpha \to 0} \norm{T_\alpha\p{h} - h}_\infty = 0$. On a 
+                %
+                \[ \forall \epsilon \in \bdR,\qquad \exists \eta \in \bdR,\qquad \forall \alpha \in \bdR,\qquad \forall x \in \bdR,\qquad \mod{\alpha} \leq \eta \implies \mod{f\p{x - \alpha} -f\p{x}} \leq \epsilon\]
+                %
+                En considérant $\p{a, b} \in \bdR^2$ et en prenant $\alpha = b - a$, on obtient
+                %
+                \[ \forall \epsilon \in \bdR,\qquad \exists \eta \in \bdR,\qquad \forall \p{a, b} \in \bdR^2,\qquad \mod{a - b} \leq \eta \implies \mod{h\p{a} - h\p{b}} \leq \epsilon\]
+                %
+                D'où $h$ est uniformément continue.
+            \end{enumerate}
+        }
+        %
+        \nobefore
+        %
+        \boxansconc{
+            On a bien montré que $h$ est uniformément continue si et seulement si $\lim\limits_{\alpha \to 0} \norm{T_\alpha\p{h} - h}_\infty = 0$.
+        }
+        %
+        \yesbefore
+        
+        \item Pour tout réel $\alpha$, montrer que $T_\alpha\p{f \ast g} = T_\alpha\p{f} \ast g$.\label{qu:I.B.2)}
+        
+        \noafter
+        %
+        \boxans{
+            Soit $\alpha \in \bdR$. On a $f \in L^2\p{\bdR}$ et $\bdR$ est invariant par la translation $u: x \mapsto x - \alpha$ donc $T_\alpha\p{f} \in L^2\p{\bdR}$.
+            %
+            \[ \forall x \in \bdR,\quad T_\alpha\p{f \ast g}\p{x} = \int_\bdR f\p{t}g\p{x - \alpha - t}\dif t = \int_\bdR f\p{u - \alpha}g\p{x - u}\dif u = \p{T_\alpha\p{f} \ast g}\p{x}\]
+        }
+        %
+        \nobefore
+        %
+        \boxansconc{
+            On a bien montré que pour tout $\alpha \in \bdR$, on a $T_\alpha\p{f \ast g} = T_\alpha\p{f} \ast g$.
+        }
+        %
+        \yesbefore
+        
+        \item Pour tout $\alpha \in \bdR$, montrer que $\norm{T_\alpha\p{f \ast g} - f \ast g}_\infty \leq \norm{T_\alpha\p{f} - f}_2 \norm{g}_2$.
+        
+        \noafter
+        %
+        \boxans{
+            On montre facilement que $\ast$ est bilinéaire (linéarité de l'intégrale et bilinéarité du produit dans $\bdR$). Soit $\alpha \in \bdR$,
+            %
+            \[ \norm{T_\alpha\p{f \ast g} - f \ast g}_\infty = \norm{T_\alpha\p{f} \ast g - f \ast g}_\infty = \norm{\;\p{T_\alpha\p{f} - f} \ast g}\]
+        }
+        %
+        \nobefore
+        %
+        \boxansconc{
+            Par linéarité de $L^2\p{\bdR}$, on a $T_\alpha\p{f} - f \in L^2\p{\bdR}$.  Par \quref{1.A.1) b)}, $\norm{T_\alpha\p{f \ast g} - f \ast g}_\infty \leq \norm{T_\alpha\p{f} - f}_2 \norm{g}_2$.
+        }
+        %
+        \yesbefore
+        
+        \item En déduire que $f \ast g$ est uniformément continue dans le cas où $f$ est à support compact.
+        
+        \noafter
+        %
+        \boxans{
+            Supposons que $f$ est à support compact $A_f \subset \overline{B}\p{0, M}$. $f$ est continue sur $\intc{-M,  M}$, donc par \emph{théorème de \textsc{Heine}}, $f$ est uniformément continue sur $\intc{0, M}$, et donc sur $\bdR$. D'après la question \quref{I.B.1)}, on a donc $\lim\limits_{\alpha \to 0} \norm{T_\alpha\p{f} - f}_\infty = 0$. Par ailleurs les questions précédentes livrent que $T_\alpha\p{f} - f \in L^2\p{\bdR}$, et de support compact inclus dans $I = \overline{B}\p{0, M'}$, donc
+            %
+            \[ \norm{T_\alpha\p{f} - f}_2 = \sqrt{\int_I \mod{T_\alpha\p{f}\p{t} - f\p{t}}^2\dif t} \leq \sqrt{\int_I \p{\norm{T_a\p{f} - f}_\infty}^2\dif t} = \sqrt{2M'} \norm{T_a\p{f} - f}_\infty\]
+            %
+            Donc $\lim\limits_{\alpha \to 0} \norm{T_\alpha\p{f} - f}_2 = 0$, et donc par la question précédente, $\lim\limits_{\alpha \to 0} \norm{T_\alpha\p{f \ast g} - f \ast g}_\infty = 0$.
+        }
+        %
+        \yesafter\nobefore
+        %
+        \boxansconc{
+            On a donc montré que si $f$ est à support compact, $f \ast g$ est uniformément continue.
+        }
+        %
+        \yesbefore
+        
+        \item Montrer que $f \ast g$ est uniformément continue dans le cas général.
+        
+        \noafter
+        %
+        \boxans{
+            Soit $\alpha \in \bdR$. Puisque $f \in L^2\p{\bdR}$, il existe $A \in \bdR_+$ tel que $\displaystyle\int_A^{+\infty} \mod{f\p{t}}^2\dif t \leq \mod{\alpha}$ et $\displaystyle\int_{-\infty}^{-A} \mod{f\p{t}}^2\dif t \leq \mod{\alpha}$.
+            
+            On pose $\Omega = \intc{-A, A}$, et on introduit les fonctions $f_\omega$ et $f_\epsilon$, définie pour tout $x \in \bdR$ par
+            %
+            \[ f_\omega\p{x} = \bdOne_\Omega\p{x}f\p{x} \qquad\qquad f_\epsilon\p{x} = f\p{x} - f_\omega\p{x}\]
+            %
+            où $\bdOne_\Omega\p{x}$ vaut $1$ si $x \in \Omega$ et $0$ sinon. On a ainsi $f = f_\omega + f_\epsilon$. On a par ailleurs que $f_\omega$ est à support compact $\Omega$. Par distributivité, on a 
+            %
+            \[ f \ast g = \p{f_\omega + f_\epsilon} \ast g = f_\omega \ast g + f_\epsilon \ast g \]
+            %
+            Avec la question précédente, $f_\omega \ast g$ est uniformément continue. Il reste à montrer que c'est le cas pour $f_\epsilon \ast g$.
+            %
+            \[ \norm{T_\alpha\p{f_\epsilon} - f_\epsilon}_2 \leq \norm{T_\alpha\p{f_\epsilon}}_2 + \norm{f_\epsilon}_2 = \sqrt{\int_\bdR \mod{f_\epsilon\p{t- \alpha}}^2\dif t} + \norm{f_\epsilon}_2 = \sqrt{\int_\bdR \mod{f_\epsilon\p{u}}^2\dif u} + \norm{f_\epsilon}_2 = 2\norm{f_\epsilon}_2\]
+            %
+            On peut dès lors majorer $\norm{f_\epsilon}_2$ à l'aide de $\alpha$, car la fonction est nulle sur $\Omega$ (donc son intégrale l'est également) :
+            %
+            \[ \norm{f_\epsilon}_2 = \displaystyle \sqrt{\int_\bdR \mod{f_\epsilon\p{t}}^2\dif t} = \sqrt{\int_{-\infty}^{-A} \mod{f\p{t}}^2\dif t + \int_A^{+\infty} \mod{f\p{t}}^2\dif t} \leq \sqrt{2\mod{\alpha}} \]
+            %
+            Ainsi
+            %
+            \[ \norm{T_\alpha\p{f_\epsilon \ast g} - f_\epsilon \ast g}_\infty \leq \norm{T_\alpha\p{f_\epsilon} - f_\epsilon}_2\norm{g}_2 \leq 2\norm{g}_2\norm{f_\epsilon}_2 \leq 2\norm{g}_2\sqrt{2\mod{\alpha}} \lima{\alpha \to 0} 0 \]
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Par la question \quref{I.B.1)}, $f_\epsilon \ast g$ est également uniformément continue. Finalement $f \ast g$ est uniformément continue.
+        }
+        %
+        \yesbefore
+    \end{enumerate}
+    
+    \subsection{Continuité, dérivabilité, séries de Fourier}
+    
+    \begin{enumerate}
+        \item On suppose que $f \in L^1\p{\bdR}$ et $g \in C_\text b\p{\bdR}$.
+        %
+        \begin{enumerate}
+            \item Montrer que $f \ast g$ est continue.
+            
+            \noafter
+            %
+            \boxans{
+                Considérons la fonction $h : \begin{array}[t]{rcl}
+                    \bdR^2 &\to& \bdR  \\
+                    \p{x, t} &\mapsto& f\p{t}g\p{x - t} 
+                \end{array}$.
+                %
+                \begin{enumerate}
+                    \itt Pour tout $x \in \bdR$, La fonction $t \mapsto h\p{x, t}$ est continue sur $\bdR$.
+                    
+                    \itt Pour tout $t \in \bdR$, la fonction $x \mapsto h\p{x, t}$ est continue sur $\bdR$.
+                    
+                    \itt Pour tout $\p{x, t} \in \bdR^2$, on a $\mod{h\p{x, t}} = \mod{f\p{t}g\p{x - t}} \leq \mod{f\p{t}}\norm{g}_\infty$, avec $t \mapsto \mod{f\p{t}}\norm{g}_\infty \in L^1\p{\bdR}$. 
+                \end{enumerate}
+            }
+            %
+            \nobefore\noafter
+            %
+            \boxansconc{
+                Par \emph{théorème de continuité des intégrales à paramètre}, $f \ast g : x \mapsto \displaystyle\int_\bdR h\p{x, t}\dif t$ est continue sur $\bdR$. 
+            }
+            %
+            \yesbefore
+            
+            \item Montrer que si $g$ est uniformément continue sur $\bdR$, alors $f \ast g$ est uniformément continue sur $\bdR$.
+            
+            \noafter
+            %
+            \boxans{
+                Par commutativité du produit de convolution et à l'aide de la question \quref{I.B.2)}, on montre que $T_\alpha\p{f \ast g} = f \ast T_\alpha\p{g}$. On a donc :
+                %
+                \[ \norm{T_\alpha\p{f \ast g} - f \ast g}_\infty = \norm{f \ast T_\alpha\p{g} - f \ast g}_\infty = \norm{f \ast \p{T_\alpha\p{g} - g}}_\infty \] 
+                %
+                Or $T_\alpha\p{g} \in C_\text b$ d'où $T_\alpha\p{g} - g \in C_\text b$, et en vertu de la question \quref{I.A.1) a)}, on a donc
+                %
+                \[ \norm{T_\alpha\p{f \ast g} - f \ast g}_\infty \leq \norm{f}_1 \norm{T_\alpha\p{g} - g}_\infty \]
+                %
+            }
+            %
+            \yesafter\nobefore
+            %
+            \boxansconc{
+                Si $g$ est uniformément continue, la question \quref{I.B.1)} livre $\lim\limits_{\alpha \to 0} \norm{T_\alpha\p{g} - g}_\infty = 0$, d'où l'on a donc que $\lim\limits_{\alpha \to 0}\norm{T_\alpha\p{f \ast g} - f \ast g}_\infty$. Finalement, toujours par \quref{I.B.1)}, on conclut que $f \ast g$ est uniformément continue.
+            }
+            %
+            \yesbefore
+        \end{enumerate}
+        
+        \item Soit $k$ un entier naturel non nul. On suppose que $g$ est de classe $\bcC^k$ sur $\bdR$ et que toutes ses fonctions dérives, jusqu'à l'ordre $k$, sont bornées sur $\bdR$. Montrer que $f \ast g$ est de classe $\bcC^k$ et préciser sa dérivée d'ordre $k$.
+        
+        \noafter
+        %
+        \boxans{
+            Considérons la fonction $h : \begin{array}[t]{rcl}
+                \bdR^2 &\to& \bdR  \\
+                \p{x, t} &\mapsto& f\p{t}g\p{x - t} 
+            \end{array}$.
+            %
+            \begin{enumerate}
+                \itt Pour tout $x \in \bdR$, La fonction $t \mapsto h\p{x, t}$ est continue et intégrable sur $\bdR$.
+                
+                \itt Pour tout $i \in \iint{1, k}$, pour tout $\p{x, t} \in \bdR^2$, on a $\dfrac{\partial^i h}{\partial x^i}\p{x, t} = f\p{t}g^{(i)}\p{x - t}$. Les fonctions $t \mapsto \dfrac{\partial^i h}{\partial x^i}\p{x, t}$ et $x \mapsto \dfrac{\partial^i h}{\partial x^i}\p{x, t}$ sont continues sur $\bdR$.
+                    
+                \itt Pour tout $i \in \iint{1, k}$, pour tout $\p{x, t} \in \bdR^2$, on a 
+                %
+                \[ \mod{\dfrac{\partial^i h}{\partial x^i}\p{x, t}} = \mod{f\p{t}g^{(i)}\p{x - t}} \leq \mod{f\p{t}}\norm{g^{(i)}}_\infty \qquad\text{avec} \ t \mapsto \mod{f\p{t}}\norm{g^{(o)}}_\infty \in L^1\p{\bdR}\]
+                %
+            \end{enumerate}
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Par \emph{théorème de dérivabilité des intégrales à paramètre}, $f \ast g : x \mapsto \displaystyle\int_\bdR h\p{x, t}\dif t$ est de classe $\bcC^k$ sur $\bdR$, et l'on a
+            %
+            \[ \forall i \in \iint{1, k},\qquad \forall x \in \bdR,\qquad F^{(i)}\p{x} = \int_\bdR \dfrac{\partial^i h}{\partial x^i}\p{x, t}\dif t = \int_\bdR f\p{t}g^{(i)}\p{x - t}\dif t = f \ast g^{(i)}\p{x}\]
+        }
+        %
+        \yesbefore
+        
+        \item Dans cette question, on supposera que $g$ est continue, $2\pi$-périodique et de classe $\bcC^1$ par morceaux.
+        
+        \begin{enumerate}
+            \item Énoncer sans démonstration le théorème sur les séries de \textsc{Fourier} applicable aux fonctions continues, $2\pi$-périodiques et de classe $\bcC^1$ par morceaux.
+            
+            \boxansconc{
+                Pour toute fonction $f$ continue sur $\bdR$, $2\pi$-périodique et de classe $\bcC^1$ par morceaux, la série de \textsc{Fourier} de $f$ converge normalement et sa somme est égale à $f$.
+            }
+            
+            \item Montrer que $f \ast g$ est $2\pi$-périodique et est somme de sa série de \textsc{Fourier}. Expliciter les coefficients de \textsc{Fourier} de $f \ast g$ à l'aide des coefficients de \textsc{Fourier} de $g$ et d'intégrales faisant intervenir $f$.
+            
+            \noafter
+            %
+            \boxans{
+                Soit $x \in \bdR$, on a 
+                %
+                \[ \p{f \ast g}\p{x + 2\pi} = \int_\bdR f\p{t}g\p{x + 2\pi - t}\dif t = \int_\bdR f\p{t}g\p{x - t}\dif t = \p{f \ast g}\p{x}\]
+                %
+                Donc $f \ast g$ est $2\pi$-périodique. Puisque $g$ est continue et $2\pi$-périodique, elle est bornée et donc $f \ast g$ est $\bcC^1$ par morceaux en vertu des questions précédentes.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Par le théorème de la question précédente, la série de \textsc{Fourier} de $f \ast g$ converge normalement et sa somme est égale à $f \ast g$. On note $\p{c_n\p{f}}_{n \in \bdZ}$ les coefficients de \textsc{Fourier} d'une fonction $f$. On a
+                %
+                \begin{align*}
+                    c_n\p{f \ast g} &= \dfrac{1}{2\pi}\int_0^{2\pi}\p{\int_\bdR f\p{t}g\p{x - t}\dif t}e^{-\ii nx}\dif x\\
+                    &= \int_\bdR f\p{t}e^{-\ii n t} \p{\dfrac{1}{2\pi}\int_0^{2\pi} g\p{x - t}e^{-\ii n\; \p{x - t}}\dif x}\dif t &&\text{(\textsc{Fubini})}\\
+                    &= \int_\bdR f\p{t}e^{-\ii n t} \p{\dfrac{1}{2\pi}\int_{-t}^{2\pi-t} g\p{u}e^{-\ii nu}\dif u}\dif t\\
+                    &= c_n\p{g}\int_\bdR f\p{t}e^{-\ii n t}\dif t
+                \end{align*}
+            }
+        \end{enumerate}
+    \end{enumerate}
+    
+    \subsection{Approximation de l'unité}
+    
+    Soit $f \in C_\text b\p{\bdR}$ et soit $\suite{\delta_n}$ une suite de fonctions approximation de l'unité.
+    
+    \begin{enumerate}
+        \item Montrer que la suite $\suite{f \ast \delta_n}$ converge simplement vers $f$ sur $\bdR$.
+        
+        \noafter
+        %
+        \boxans{
+            Soient $n \in \bdN^*$ et $x \in \bdR$. Posons de plus $\epsilon_n = \dfrac{1}{n} > 0$. On a :
+            %
+            \begin{align*}
+                \p{f \ast \delta_n - f}\p{x} &= \p{\delta_n \ast f}\p{x} - \p{\int_\bdR \delta_n\p{t}\dif t}f\p{x} = \int_\bdR \delta_n\p{t}\p{f\p{x - t} - f\p{x}}\dif t\\
+                &\leq \int_{-\infty}^{-\epsilon_n} \delta_n\p{t}\mod{f\p{x - t} - f\p{x}}\dif t + \int_{-\epsilon_n}^{\epsilon_n} \delta_n\p{t}\mod{f\p{x - t} - f\p{x}}\dif t + \int_{\epsilon_n}^{+\infty} \delta_n\p{t}\mod{f\p{x - t} - f\p{x}}\dif t \\
+                &\leq 2\norm{f}_\infty\p{\int_{-\infty}^{-\epsilon_n}\delta_n\p{t}\dif t + \int_{\epsilon_n}^{+\infty}\delta_n\p{t}\dif t} + \sup\limits_{t \in \intc{-\epsilon_n, \epsilon_n}} \mod{f\p{x - t} - f\p{x}}\int_{-\epsilon_n}^{\epsilon_n} \delta_n\p{t}
+            \end{align*}
+            %
+            On a $\lim\limits_{n \to +\infty} \epsilon_n = \lim\limits_{n \to +\infty} \dfrac{1}{n} = 0$ d'où $\displaystyle\lim\limits_{n \to +\infty} \int_{-\epsilon_n}^{\epsilon_n} \delta_n\p{t} = 0$. Par ailleurs, par définition des approximations de l'unité, on a :
+            %
+            \[ \lim\limits_{n \to +\infty} \int_{-\infty}^{-\epsilon_n}\delta_n\p{t}\dif t = 0 \qquad\et\qquad \lim\limits_{n \to +\infty} \int_{\epsilon_n}^{+\infty}\delta_n\p{t}\dif t = 0\]
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a donc $\lim\limits_{n \to +\infty}  \p{f \ast \delta_n}\p{x} - f\p{x} = 0$, d'où $ \p{f \ast \delta_n}\p{x} = f\p{x} $
+        }
+        %
+        \yesbefore
+        
+        \item Montrer que si $f$ est à support compact, alors la suite $\suite{f \ast \delta_n}$ converge uniformément vers $f$ sur $\bdR$.
+        
+        \boxansconc{
+            Si $f$ est à support compact, elle est uniformément continue sur $\bdR$. On reprend alors la démonstration précédente, en quantifiant uniformément $\epsilon_n$ par rapport à $x$.
+        }
+        
+        \item Pour tout entier naturel $n$, on note $h_n$ la fonction définie sur $\intc{-1, 1}$ par
+        %
+        \[ h_n\p{t} = \dfrac{\p{1 - t^2}^n}{\lambda_n}\]
+        %
+        et nulle en dehors de $\intc{-1, 1}$, le réel $\lambda_n$ étant donné par la formule $\displaystyle \lambda_n = \int_{-1}^1 \p{1 - t^2}^n \dif t$
+        %
+        \begin{enumerate}
+            \item Montrer que la suite de fonctions $\suite{h_n}$ est une approximation de l'unité.
+            
+            \noafter
+            %
+            \boxans{
+                \begin{enumerate}
+                    \itt Soit $n \in \bdN$. La fonction $f_n : \begin{array}[t]{rcl}
+                        \into{-1, 1} &\to& \bdR  \\
+                        t &\mapsto& \p{1 - t^2}^n
+                    \end{array}$ est paire. On en déduit
+                    %
+                    \[ \lambda_n = \int_{-1}^1 f_n\p{t}\dif t = 2\int_0^1 f_n\p{t}\dif t = 2\int_0^1 \p{1 - t^2}^n\dif t \geq 2\int_0^1 \p{1 - t}^n\dif t = \dfrac{2}{n+1} > 0\]
+                    %
+                    Ainsi $h_n$ est positive sur $\intc{-1, 1}$, donc sur $\bdR$.
+                    
+                    \itt Pour tout $n \in \bdN$, on a 
+                    %
+                    \[ \int_\bdR h_n\p{t}\dif t = \int_{-1}^1 h_n\p{t}\dif t = \dfrac{1}{\lambda_n}\int_{-1}^1 \p{1 - t^2}^n \dif t = \dfrac{\lambda_n}{\lambda_n} = 1\]
+                    
+                    \itt Soient $\epsilon > 0$ et $n \in \bdN$. Si $\epsilon \geq 1$, on a de manière évidente $\displaystyle\int_{\epsilon}^{+\infty} h_n = \int_{-\infty}^{-\epsilon} h_n = 0$.
+                    
+                    Considérons donc $\epsilon < 1$.
+                    %
+                    \[ \int_{\epsilon}^{+\infty} h_n = \dfrac{1}{\lambda_n}\int_{\epsilon}^1 \p{1 - t^2}^n \dif t \leq \dfrac{1}{\lambda}\int_\epsilon^1 \p{1 - \epsilon^2}^n \dif t \leq \dfrac{n+1}{2} \p{1 - \epsilon^2}^n\p{1 - \epsilon} \lima{n \to +\infty} 0\]
+                    %
+                    On obtient par parité que $\displaystyle\lim\limits_{n \to +\infty} \int_{-\infty}^{\epsilon} h_n = 0$. 
+                \end{enumerate}
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                On a bien montré que la suite de fonctions $\suite{h_n}$ est une approximation de l'unité.
+            }
+            %
+            \yesbefore
+            
+            
+            \item Montrer que si $f$ est une fonction continue à support inclus dans $\intc{-\sfrac{1}{2}, \sfrac{1}{2}}$, alors $f \ast h_n$ est une fonction polynomiale sur $\intc{-\sfrac{1}{2}, \sfrac{1}{2}}$ et nulle en dehors de l'intervalle $\intc{-\sfrac{3}{2}, \sfrac{3}{2}}$.
+            
+            \noafter
+            %
+            \boxans{
+                Tout d'abord, $f$ est à support compact inclus dans $\intc{-\sfrac{1}{2}, \sfrac{1}{2}}$, et $h_n$ est à support compact inclus dans $\intc{-1, 1}$. Par la question \quref{I.A.3)}, $f \ast h_n$ est à support compact inclus dans $\intc{-\sfrac{3}{2}, \sfrac{3}{2}}$, et est donc nulle en dehors de cet intervalle. Soit $x \in \intc{-\sfrac{1}{2}, \sfrac{1}{2}}$, on a 
+                %
+                \[ \p{f \ast h_n}\p{x} = \int_\bdR f\p{t}h_n\p{x - t}\dif t = \dfrac{1}{\lambda_n}\int_{-\sfrac{1}{2}}^{\sfrac{1}{2}} f\p{t}\p{1 - \p{x - t}^2}^n\dif t\]
+                %
+                On a $1 - \p{x - t}^2 \in \bdR_2\intc{x}$, donc $\p{1 - \p{x - t}^2}^n \in \bdR_{2n}\intc{x}$. On écrira donc $\p{1 - \p{x - t}^2}^n = \displaystyle\sum_{k = 0}^{2n} a_k\p{t}x^k$, d'où
+                %
+                \[ \p{f \ast h_n}\p{x} = \dfrac{1}{\lambda_n}\int_{-\sfrac{1}{2}}^{\sfrac{1}{2}} f\p{t}\p{\sum_{k = 0}^{2n} a_k\p{t}x^k}\dif t = \sum_{k = 0}^{2n} \p{\dfrac{1}{\lambda_n}\int_{-\sfrac{1}{2}}^{\sfrac{1}{2}} f\p{t}a_k\p{t} \dif t}x^k\]
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Donc $f \ast h_n$ est polynomiale sur $\intc{-\sfrac{1}{2}, \sfrac{1}{2}}$ et nulle en dehors de l'intervalle $\intc{-\sfrac{3}{2}, \sfrac{3}{2}}$.
+            }
+            %
+            \yesbefore
+            
+            \item En déduire une démonstration du théorème de \textsc{Weierstrass} : toute fonction complexe continue sur un segment de $\bdR$ est limite uniforme sur ce segment d'une suite de fonctions polynomiales.
+            
+            \noafter
+            %
+            \boxans{
+                Considérons une fonction $f$ complexe, continue sur un segment $I \subset \intc{-M, M}$ de $\bdR$. On définit la fonction $g_I\p{f}$ sur $\bdR$ par
+                %
+                \[ \forall x \in \bdR,\qquad g_I\p{f}\p{x} = \bdOne_{I}\p{x}f\p{x}\]
+                %
+                Ainsi $g$ est à support compact $\intc{-M, M}$. Par les questions précédentes, pour tout $n \in \bdN$, $g_I\p{f} \ast h_n$ est polynomiale sur $\intc{-M, M}$, et $g \ast h_n$ converge uniformément vers $g_I\p{f}$.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                On a bien montré que toute fonction complexe $f$ continue sur un segment $I$ de $\bdR$ est limite uniforme sur ce segment d'une suite $\suite{g_I\p{f} \ast h_n}$ de fonctions polynomiales.
+            }
+            %
+            \yesbefore
+        \end{enumerate}
+        
+        \item Existe-t-il une fonction $g \in C_\text b\p{\bdR}$ telle que pour toute fonction $f$ de $L^1\p{\bdR}$, on ait $f \ast g = f$ ?
+        
+        \noafter
+        %
+        \boxans{
+            Supposons l'existence d'une telle fonction $g \in C_\text b\p{\bdR}$. Pour tout $n \in \bdN$, on a $h_n \ast g = h_n$, et $h_n \ast g \lima{n \to +\infty} g$. En vertu de quoi, on a $h_n \lima{n \to +\infty} g$.\medskip
+            
+            Donc $g\p{0} = \lim\limits_{n \to +\infty} h_n\p{0} = \lim\limits_{n \to +\infty} \dfrac{1}{\lambda_n}$. Or $\lambda_n \lima{n \to +\infty} 0$ donc $g\p{0} \lima{n \to +\infty} +\infty$ ce qui est absurde car $g$ est 
+        }
+        %
+        \yesafter\nobefore
+        %
+        \boxansconc{
+            bornée. Donc $g$ ne peut pas exister.
+        }
+    \end{enumerate}
+    
+    \section{Transformée de Fourier}
+    
+    \setcounter{subsection}{1}
+    Pour toute fonction $f \in L^1\p{\bdR}$, on appelle \emph{transformée de \textsc{Fourier}} de $f$ la fonction, notée $\hat f$, définie par
+    %
+    \[ \forall x \in \bdR,\qquad \hat f\p{x} = \int_\bdR f\p{t}e^{-\ii x t}\dif t\]
+    
+    \begin{enumerate}
+        \item Pour toute fonction $f \in L^1\p{\bdR}$, montrer que $\hat f$ appartient à $C_\text b\p{\bdR}$.
+        
+        \boxansconc{
+            \(\displaystyle\forall x \in \bdR,\qquad \mod{\hat f\p{x}} = \mod{\int_\bdR f\p{t}e^{-\ii x t}\dif t} \leq \int_\bdR \mod{f\p{t}}\mod{e^{-\ii x t}}\dif t = \int_\bdR \mod{f\p{t}}\dif t = \norm{f}_1 \qquad\text{d'où} \ f \in C_\text b\p{\bdR}\)
+        }
+    \end{enumerate}
+    
+    \subsection{Transformée de Fourier d’un produit de convolution}\label{subsec:II.B}
+    
+    Dans cette sous-partie \textbf{\sffamily\ref{subsec:II.B}}, on considère $f$ et $g$ appartenant à $L^1\p{\bdR}$. 
+    
+    \begin{enumerate}
+        \item On suppose que $g$ est bornée.
+        
+        \begin{enumerate}
+            \item Montrer que $f \ast g$ est intégrable sur $\bdR$ et déterminer $\displaystyle\int_\bdR f \ast g$ en fonction de $\displaystyle\int_\bdR f$ et $\displaystyle\int_\bdR g$.
+            
+            \boxans{
+                L'existence de $f \ast g$ provient de la question \quref{I.C.1)}. Soient $M \in \bdRp$, on a 
+                %
+                \begin{align*}
+                    \int_{-M}^M \mod{\;\p{f \ast g}\p{x}} \dif x &\leq \int_{-M}^M \p{\int_\bdR \mod{f\p{t}}\mod{g\p{x - t}}\dif t} \dif x\\
+                    &\leq \int_{-M}^M \mod{f\p{t}} \p{\int_\bdR \mod{g\p{u}}\dif u}\dif t \leq \norm{g}_1\int_{-M}^M \mod{f\p{t}}\dif t \leq \norm{f}_1\norm{g}_1
+                \end{align*}
+                %
+                En prenant $M \to +\infty$, on obtient que $f \ast g$ est intégrable sur $\bdR$.
+            }
+            
+            \item Montrer que $\hat{f \ast g} = \hat{f} \times \hat{g}$.
+        \end{enumerate}
+    \end{enumerate}
+\end{document}

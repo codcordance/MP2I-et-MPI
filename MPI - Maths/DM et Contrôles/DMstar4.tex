@@ -279,15 +279,114 @@
             
             \item On suppose que $F \neq E$, montrer que $F + H = E$ puis que l'on peut compléter une base $\bcB_F$ de $F$ par des vecteurs de $H$ pour obtenir une base $\bcB'$ de $E$. En utilisant les matrices de $u$ et $v$ dans la base $\bcB'$ montrer que l'on aboutit à une contradiction.
             
-            \boxansconc{
+            \noafter
+            %
+            \boxans{
                 Soit $x \in F \backslash H$. On a donc $x \not\in H$, donc $\Vect\p{x} \oplus H = E$. Or a donc $F + H = E$.
                 
                 Soit $\bcB_F$ une base de $F$. On considère les vecteurs de $\bcB_F$ appartenant à $F \cap H$, formant donc une base de $F \cap H$. On complète en une base de $H$ en ajoutant une famille de vecteur $\bsB$. Ainsi les vecteurs de $\bsB$ ne sont pas dans $F$, et vérifient que $\bcB' = \bcB_F \cup \bsB$ est une base de $E$.
                 
-                On ordonne $\bcB'$ de manière à a ce que les $n-1$ derniers vecteurs forment une base de $H$. Puisque $u_{\vert H} = v_{\vert H}$, on a $\Mat_{\bcB'} u = \begin{pNiceMatrix}\ast & \ast\\ 0 & C\end{pNiceMatrix}$ et $v = \begin{pNiceMatrix}\ast & \ast\\ 0 & C\end{pNiceMatrix}$, avec une matrice $C$ commune. On a alors $\chi_C \mid \chi_U$ et $\chi_C \mid \chi_V$, ce qui contredit l'hypothèse $\pgcd{\chi_U, \chi_V} = 1$.
+                On ordonne $\bcB'$ de manière à a ce que les $n-1$ derniers vecteurs forment une base de $H$. Puisque $u_{\vert H} = v_{\vert H}$, on a $\Mat_{\bcB'} u = \begin{pNiceMatrix}\ast & \ast\\ 0 & C\end{pNiceMatrix}$ et $v = \begin{pNiceMatrix}\ast & \ast\\ 0 & C\end{pNiceMatrix}$, avec une matrice $C$ commune.
             }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                On a $\chi_C \mid \chi_U$ et $\chi_C \mid \chi_V$, ce qui contredit l'hypothèse $\pgcd{\chi_U, \chi_V} = 1$.
+            }
+            %
+            \yesbefore
+            
             
             \item Quels sont les seuls sous-espaces stables à la fois par $u$ et par $v$ ?
+            
+            \boxansconc{
+                En vertu de la question précédente, tout sous-espace $F$ stable par $u$ et par $v$ non réduit à $\ens{0}$ est forcément égal à $E$. On vérifie également que $\ens{0}$ est bien stable par $u$ et $v$, donc les seuls sous-espaces stables par $u$ et $v$ sont $E$ et $\ens{0}$.
+            }
         \end{enumerate}
+        
+        \item Pour $j \in \bdN$, on note $G_j = \ens{x \in E, u^j\p{x} \in H}$.
+        
+        \begin{enumerate}
+            \item Montrer que les sous-espaces $G_j$ sont des hyperplans vectoriels de $E$.
+            
+            \boxansconc{
+                $U \in \GL_n\p{\bdK}$ donc $u$ est inversible, et de même $u^{-1}$. Ainsi $u^{-j}$ est un isomorphisme. Or $G_j = u^{-j}\p{H}$, donc $\dim G_j = \dim H = n-1$, d'où $G_j$ est un hyperplan.
+            }
+            
+            \item Montrer que $\displaystyle\bigcap_{j=0}^{n-2} G_j \neq \ens{0}$.
+            
+            \noafter
+            %
+            \boxans{
+                Soit $H$ un hyperplan de $E$ et $F$ un sev de $E$. Montrons que $\dim{F \cap H} \geq \dim F - 1$ :
+
+                Soit $x$ tel que $H \oplus \Vect{x} = E$, donc $F = F \cap H \oplus F \cap \Vect{x}$. Donc :
+                %
+                \[ \dim{F \cap H} = \dim F - \dim{F \cap \Vect{x}} \geq \dim F - 1\]
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Par récurrence, on montre que $\dim{\displaystyle\bigcap_{j=0}^{n-2} G_j} \geq 1$ donc on a bien $\displaystyle\bigcap_{j=0}^{n-2} G_j \neq \ens{0}$.
+            }
+            %
+            \yesbefore
+            
+            \item Soit $y$ un vecteur non nul de $\displaystyle\bigcap_{j=0}^{n-2} G_j \neq \ens{0}$, on pour pour $j \in \iint{0, n-1}$ le vecteur $e_j = u^j\p{y}$.
+            
+            Montrer que $\bcB'' = \p{e_0, \dots, e_{n-1}}$ est une base de $E$.
+            
+            \indication{On pourra considérer $F = \Vect\p{y, u\p{y}, u^{p-1}\p{y}}$ où $p$ est le plus grand entier naturel non nul pour lequel la famille $\p{y, u\p{y}, u^{p-1}\p{y}}$ est libre.}
+            
+            \noafter
+            %
+            \boxans{
+                Soit $\bsF = \p{y, u\p{y}, u^{p-1}\p{y}}$ avec $p$ maximal tel que $\bsF$ est libre ($p$ existe car au moins $\Vect\p{y}$ est libre, et il est forcément majoré par $n$). $\bsF$ est donc une base de $F = \Vect\p{\bsF}$. Il suffit de montrer que $p = n$.\medskip
+                
+                On a $y \in H$ par définition $y \in u^{-1}\p{H}$ donc $u\p{y} \in H$, \dots, $u^{n-2}\p{y} \in H$. Si $p < n$, alors $p \leq n-1$, donc $F \subset H$ et $u\p{F} \subset F$ par maximalité de $p$. On a donc $u_F = v_F$, donc $F$ est stable par $v$. On a donc $F = \ens{0}$ par les questions précédentes, puisque $p < n$.\medskip
+                
+                Ceci est absurde, puisque $F$ contient au moins $y$.
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                On a bien $F = E$, d'où $\bcB'' = \bcF$ est une base de $E$.
+            }
+            %
+            \yesbefore
+            
+            \item Montrer que la matrice de $u$ \emph{(respectivement $v$)} dans $\bcB''$ est $C_U$ \emph{(respectivement $C_V$)}.
+            
+            \noafter
+            %
+            \boxans{
+                Pour $k \in \iint{0, n-2}$, on a évidemment $u\p{u^k\p{y}} = u^{k+1}\p{y}$.
+                
+                Par \emph{théorème de \textsc{Cayley-Hamilton}}, on a $\chi_u\p{u} = 0$ donc $u^n + a_{n-1}u^{n-1} + \dots + a_0 = 0$.
+                
+                En évaluant ce polynôme d'endomorphisme en $y$ pour $k \in \iint{0, n-2}$, on obtient :
+                %
+                \[ u^n\p{y} + a_{n-1}u^{n-1}\p{y} + \dots + a_0 = 0 \quad\text{donc}\qquad u^n\p{y} = u\p{u^{n-1}\p{y}} = -a_0 - \dots - a_{n-1}u^{n-1}\p{y}\]
+                %
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                On a donc bien $\Mat_{\bcB''} u = C_U$. On montre de la même manière que $\Mat_{\bcB''} v = C_V$.
+            }
+            %
+            \yesbefore
+            
+            \item Conclure.
+            
+            \boxansconc{
+                Soit $P$ la matrice de passage entre la base canonique et $\bcB''$. On a montré avec la question précédente que $U = P^{-1}C_UP$ et $V = P^{-1}C_VP$. On a donc bien montré la relation \enumrefraw{(**)}.
+            }
+        \end{enumerate}
+.
     \end{enumerate}
 \end{document}
