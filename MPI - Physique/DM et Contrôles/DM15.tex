@@ -1,0 +1,223 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+\usepackage{tikz-3dplot}
+ 
+\tdplotsetmaincoords{70}{122}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}} 
+    \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\roman{enumii})}
+    
+    \stylizeDocSpe{Physique}{Devoir maison n° 15}{}{Pour le lundi 6 mars 2023}
+    
+    \section{Un système de communication}
+    
+    On se propose d'examiner quelques phénomènes mis en œuvre dans un système de communication, ainsi que quelques méthodes pour coder des informations. Dans tout le problème, le souligné est utilisé pour dénoter les grandeurs complexes ($\underline Z,\underline{\vec A}$) où $\jj$ est tel que $\jj^2 = -1$. Dans les deux parties, l'atmosphère terrestre est considérée comme un milieu dont les propriétés sont celles du vide : $\epsilon_0 = \frac{1}{36\pi}\;\unit{\farad\per\meter}$ et $\mu_0 = 4\pi\;\unit{\henry\per\meter}$.
+    
+    \subsection{Rayonnement d'une antenne}
+    
+    \begin{minipage}{0.5\linewidth}
+        \begin{center}
+            \begin{tikzpicture}
+                \draw[->] (0, 0, 0) -- (0, 0, 2) node[right] {$x$};
+                \draw[->] (0, 0, 0) -- (0, 2, 0) node[right] {$z$};
+                \draw[->] (0, 0, 0) -- (2, 0, 0) node[right] {$y$};
+            \end{tikzpicture}
+            %
+            \captionof{figure}{Situation du problème}
+    	    \label{fig:fig1}
+	    \end{center}
+    \end{minipage}
+    %
+    \begin{minipage}{0.5\linewidth}
+        Un élément de courant $i\p{t}\dif z \vec{e_z}$, placé à l'origine des espaces le long de l'axe $\p{O, \vec{e_z}}$ crée dans l'espace un champ électromagnétique. Le point $M$ est repéré par les coordonnées sphériques $\p{r, \theta, \varphi}$, comme indiqué sur la figure \ref{fig:fig1} ci-contre.
+    \end{minipage}
+    
+    \begin{enumerate}
+        \item Le courant $i\p{t} = I\cos{\omega t}$ est sinusoïdal de pulsation $\omega$ et d'amplitude $I$. Justifier que le champ électromagnétique s’écrit en notation complexe en fonction de $\dfrac{e^{\jj\p{\omega t - kr}}}{r}$. Que représente la constante $k$ ?
+        
+        
+    \end{enumerate}
+    
+    
+    
+    \section{Deuxième problème}
+    
+    
+    
+    \newpage
+    %
+    \section{Troisième problème}
+    
+    On s'intéresse dans cette partie à la solubilité du $\mathrm C \mathrm O_2$ en solution aqueuse à $T = \qty{298}{\kelvin}$. \emph{Données :}
+    
+    \begin{enumerate}
+        \itt Constante de dissolution du dioxyde de carbone :
+        %
+        \[  {\mathrm{CO}_2}_\text{(g)} \xrightleftharpoons{\hspace{0.4cm}} {\mathrm{CO}_2}_\text{(aq)} \qquad k_{\mathrm C\mathrm O_2} = \qty{3.33e-2}{} \]
+        
+        \itt Constante d'acidité des couples du ${\mathrm{CO}_2}$ :
+        %
+        \begin{align*}
+            {\mathrm C \mathrm O_2}_\text{(aq)} &/ \mathrm{HCO_3}^- && \mathrm p{K_a}_1 = \qty{6.3}{}\\
+            \mathrm{HCO_3}^- &/ {\mathrm{CO}_3}^{2-} && \mathrm p{K_a}_2 = \qty{10.3}{}
+        \end{align*}
+    \end{enumerate}
+    
+    \subsection{Solubilité du $\mathrm C \mathrm O_2$ dans l'eau pure}
+    
+    On dispose d'un mélange gazeux contenant $n_0 = \qty{0.1}{\mol}$ de $\mathrm C \mathrm O_2$ sous la pression partielle $p_1 = \qty{0,3}{\bar}$ et d'un volume $V_0 = \qty{1}{\litre}$ d'eau distillée. Le système est fermé et de volume constant. On suppose de plus que la dissolution se fait sans changement de volume de la solution aqueuse.
+    
+    \begin{enumerate}
+        \item Quelle est la pression partielle de $\mathrm C \mathrm O_2$ gazeux à l'équilibre, ainsi que la concentration en ${\mathrm C \mathrm O_2}_\text{(aq)}$, en négligeant les propriétés acido-basiques du dioxyde de carbone ?
+        
+        \noafter
+        %
+        \boxans{
+            Puisqu'on néglige les propriétés acido-basiques du dioxyde de carbone, on n'a pas d'autre transformation exceptée la dissolution du gaz. On note $p_\text{eq}$ la pression partielle de $\mathrm C \mathrm O_2$ à l'équilibre et $\intc{{\mathrm C \mathrm O_2}_\text{(aq)}}_\text{eq}$ la concentration en dioxyde de carbone dissous à l'équilibre. Par définition on a :
+            %
+            \[ k_{\mathrm C\mathrm O_2} = \dfrac{\intc{{\mathrm C \mathrm O_2}_\text{(aq)}}_\text{eq} p^\standard}{p_\text{eq}C^\standard}\]
+            %
+            Le volume $V_0$ de l'eau ne change pas, donc en notant $V_\text g$ le volume initial du gaz et par \emph{loi des gaz parfaits} : 
+            %
+            \[ p_\text{eq} = \dfrac{n_0 - \intc{{\mathrm C \mathrm O_2}_\text{(aq)}}_\text{eq}V_0}{V_\text g}RT = \dfrac{n_0 - \intc{{\mathrm C \mathrm O_2}_\text{(aq)}}_\text{eq}V_0}{n_0RT}p_1RT = p_1\p{1 - \intc{{\mathrm C \mathrm O_2}_\text{(aq)}}_\text{eq}\dfrac{V_0}{n_0}} \]
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a donc $\intc{{\mathrm C \mathrm O_2}_\text{(aq)}}_\text{eq} = \dfrac{n_0\p{p_1 - p_\text{eq}}}{V_0p_1}$ d'où $k_{\mathrm C\mathrm O_2} = \dfrac{n_0}{V_0C^\standard}\dfrac{p^\standard\p{p_1 - p_\text{eq}}}{p_\text{eq}p_1}$. Ainsi $p_\text{eq} = \dfrac{n_0p^\standard p_1}{V_0C^\standard k_{\mathrm C\mathrm O_2}p_1 + n_0p^\standard}$.
+            
+            L'application numérique livre $p_\text{eq} = \qty{3.0}{\pascal}$ et $ \intc{{\mathrm C \mathrm O_2}_\text{(aq)}}_\text{eq} = \qty{1.0e-2}{\mol\per\litre}$.
+        }
+        %
+        \yesbefore
+        
+        \item En réalité, le ${\mathrm C \mathrm O_2}_\text{(aq)}$ est un diacide faible (ne tenir compte que de la première acidité). En partant de la concentration déterminée à la question précédente, déterminer le $\mathrm pH$ que l'on obtiendrait, ainsi que la composition de la solution. L'hypothèse faite à la question précédente est-elle justifiée ?
+        
+        \noafter
+        %
+        \boxans{
+            On considère la réaction acide-base du ${\mathrm C \mathrm O_2}_\text{(aq)}$. En posant $C = \intc{{\mathrm C \mathrm O_2}_\text{(aq)}}_\text{eq}$ on a le tableau d'avancement :
+            \begin{center}
+                \NiceMatrixOptions{cell-space-top-limit=3pt}
+                \begin{NiceTabular}{|c||cc|cc|}[]
+                    \CodeBefore
+                        \rowcolor{main3!10}{1}
+                        \cellcolor{main1!10}{2-3,3-3}
+                    \Body
+                        \toprule
+                        \text{Avancement ($\qty{}{\mol \per \litre}$)} & \Block{1-4}{${\mathrm C \mathrm O_2}_\text{(aq)} + 2{\mathrm H_2\mathrm O} \xrightleftharpoons{\hspace{0.4cm}} {\mathrm H \mathrm C \mathrm O_3}^- + {\mathrm H_3 \mathrm O}^+ $} \\ \midrule
+                        $0$ & $C$ & \Block{2-1}{\text{ }\ solvant\ \text{ }} & $0$ & $0$\\
+                        $\xi$ & $\quad C - \xi\quad$ & & $\quad\xi\quad$ & $\quad\xi\quad$\\
+                        \bottomrule
+                \end{NiceTabular}
+            \end{center}
+            %
+            On remarque préalablement que ${K_a}_1 = 10^{-\mathrm p {K_a}_1} \ll 1$ donc $\xi \ll 1$ d'où $C - \xi \approx C$. Dès lors ${K_a}_1 = \dfrac{\xi^2}{CC^\standard}$ donc :
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            \[ \mathrm pH = -\log{\dfrac{\xi}{C^\standard }} = -\log{\sqrt{{K_a}_1 \dfrac{C}{C^\standard} }} = -\dfrac{1}{2}\log{{K_a}_1 \dfrac{C}{C^\standard} } = \dfrac{1}{2}\p{\mathrm p{K_a}_1 -\log{\dfrac{C}{C^\standard}}}\]
+            %
+            L'application numérique livre $\mathrm p H = \qty{3.7}{}$. On remarque que ce $\mathrm p H$ est assez différent de celui habituel de l'eau en conditions standards (\ie $7$). L'hypothèse précédente n'est donc pas très précise, mais elle permet tout de même de faire une première approximation du résultat réel.
+        }
+        %
+        \yesbefore
+        
+        \item Quelle est la proportion $p$ de $\mathrm C \mathrm O_2$ éliminée du mélange gazeux ?
+        
+        \boxansconc{
+            On a un volume $V = \qty{1}{\liter}$ d'eau, on calcule donc le rapport de quantité de matière de gaz dissous sur la quantité initiale :
+            %
+            \[ p = \dfrac{V\p{C - \xi}}{n_0} = V\dfrac{C - 10^{-\sfrac{\xi}{C^\standard}}}{n_0} \qquad\text{L'application numérique livre}\qquad p = \qty{9.8}{\% } \]
+        }
+        %
+    \end{enumerate}
+    
+    \subsection{Solubilité en milieu basique}
+    
+    Cette méthode ne permettant pas d'éliminer assez de $\mathrm C\mathrm O_2$, on se propose d'utiliser à présent une solution tamponnée à $\mathrm pH = \qty{12}{}$. On dispose d'un volume $V_0 = \qty{1}{\liter }$ de cette solution.
+    
+    \begin{enumerate}
+        \itt On notera $n_{{\mathrm C\mathrm O_2}_\text{(g)}}$, $n_{{\mathrm C\mathrm O_2}}$, $n_{{\mathrm H\mathrm C\mathrm O_3}^-}$ et $n_{{\mathrm C\mathrm O_3}^{2-}}$ respectivement les quantités de matière de $\mathrm C\mathrm O_2$ gazeux, $\mathrm C\mathrm O_2$ gazeux, ${\mathrm H\mathrm C\mathrm O_3}^-$ aqueux et ${\mathrm C\mathrm O_3}^{2-}$ aqueux à l'équilibre. On pourra noter $h$ l'activité de $\mathrm H_3\mathrm O^+$.
+        
+        \itt On prend, au départ, le même mélange gazeux que dans la partie précédente.
+        
+        \itt On note $p^\standard = \qty{1}{\bar}$ la pression standard et $C^\standard = \qty{1}{\mol\per\litre}$ la concentration standard.
+    \end{enumerate}
+    
+    \begin{enumerate}
+        \item Établir la relation de conservation de la quantité de matière en carbone.
+        
+        \boxansconc{
+            \[ n_0 = n_{{\mathrm C\mathrm O_2}_\text{(g)}} + n_{{\mathrm C\mathrm O_2}} + n_{{\mathrm H\mathrm C\mathrm O_3}^-} + n_{{\mathrm C\mathrm O_3}^{2-}}\]
+        }
+        
+        \item Exprimer l'activité du $\mathrm C\mathrm O_2$ gazeux à l'équilibre en fonction de $n_{{\mathrm C\mathrm O_2}_\text{(g)}}$, $p_1$, $n_0$ et $p^\standard$.
+        
+        \boxansconc{
+            À l'équilibre, l'activité $a$ du $\mathrm C\mathrm O_2$ gazeux vérifie
+            %
+            \[ a = \dfrac{n_{{\mathrm C\mathrm O_2}_\text{(g)}}RT}{V_0p^\standard} = \dfrac{n_{{\mathrm C\mathrm O_2}_\text{(g)}}p_1}{n_0p^\standard}\]
+        }
+        
+        \item \begin{enumerate}
+            \item Montrer qu'à l'équilibre, on peut écrire $n_{\mathrm C\mathrm O_2} = \alpha n_{{\mathrm C\mathrm O_2}_\text{(g)}}$ où $\alpha$ est une constante que l'on exprimera en fonction de $k_{\textrm C\textrm O_2}$, $V_0$, $C^\standard$, $n_0$, $p_1$ et $p^\standard$.
+            
+            \boxansconc{
+                À l'équilibre, on a $k_{\mathrm C\mathrm O_2} = \dfrac{n_{\mathrm C\mathrm O_2}}{V_0C^\standard a} = \dfrac{n_{\mathrm C\mathrm O_2}n_0p^\standard}{V_0C^\standard n_{{\mathrm C\mathrm O_2}_\text{(g)}} p_1}$ d'où $n_{\mathrm C\mathrm O_2} = \alpha n_{{\mathrm C\mathrm O_2}_\text{(g)}}$ avec $\alpha = k_{\mathrm C\mathrm O_2}\dfrac{V_0C^\standard}{n_0}\dfrac{p_1}{p^\standard}$.
+            }
+            
+            \item De même, montrer qu'on peut écrire $n_{{\mathrm H\mathrm C\mathrm O_3}^-} = \beta n_{{\mathrm C\mathrm O_2}_\text{(g)}} $ où $\beta$ s'exprime en fonction de $\alpha$, ${K_a}_1$ et $h$.
+            
+            \boxansconc{
+                À l'équilibre, on a ${K_a}_1 = \dfrac{n_{{\mathrm H\mathrm C\mathrm O_3}^-}h}{n_{\mathrm C\mathrm O_2}} = \dfrac{n_{{\mathrm H\mathrm C\mathrm O_3}^-}h}{\alpha n_{{\mathrm C\mathrm O_2}_\text{(g)}}}$ donc $n_{{\mathrm H\mathrm C\mathrm O_3}^-} = \beta n_{{\mathrm C\mathrm O_2}_\text{(g)}} $ où $\beta = \dfrac{{K_a}_1\alpha }{h}$
+            }
+            
+            \item De même, montrer qu'on peut écrire $n_{{\mathrm C\mathrm O_3}^{2-}} = \gamma n_{{\mathrm C\mathrm O_2}_\text{(g)}}$ où $\gamma$ s'exprime en fonction de $\alpha$, ${K_a}_1$, ${K_a}_2$, $h$.
+            
+            \boxansconc{
+                À l'équilibre, on a ${K_a}_2 = \dfrac{n_{{\mathrm C\mathrm O_3}^{2-}}h}{n_{{\mathrm H\mathrm C\mathrm O_3}^-}}$ d'où $n_{{\mathrm C\mathrm O_3}^{2-}} = \dfrac{{K_a}_2n_{{\mathrm H\mathrm C\mathrm O_3}^-}}{h} = \dfrac{{K_a}_2\beta}{h}n_{{\mathrm C\mathrm O_2}_\text{(g)}} = \underbrace{\dfrac{{K_a}_1{K_a}_2 \alpha}{h}}_{\gamma}n_{{\mathrm C\mathrm O_2}_\text{(g)}}$.
+            }
+        \end{enumerate}
+        
+        \item \begin{enumerate}
+            \item Déduire de tout ce qui précède la quantité $n_{{\mathrm C\mathrm O_2}_\text{(g)}}$ de $\mathrm C\mathrm O_2$ restant dans la phase gazeuse en fonction de $\alpha$, $\beta$, $\gamma$ et $n_0$.
+            
+            \boxansconc{
+                On obtient directement $n_{{\mathrm C\mathrm O_2}_\text{(g)}} = \dfrac{n_0}{1 + \alpha + \beta + \gamma}$
+            }
+            
+            \item \emph{Applications numériques :} calculer $\alpha$, $\beta$ et $\gamma$. Que remarque-t-on ? Était-ce prévisible ?
+            
+            \boxansconc{
+                Les applications numériques livrent $\alpha = \qty{0,10}{}$, $\beta = \qty{5,0e4}{}$ et $\gamma = \qty{2.5e6}{}$. On remarquent que les ions ${\mathrm C\mathrm O_3}^{2-}$ dominent, suivi par les ions ${\mathrm H\mathrm C\mathrm O_3}^{-}$, qui correspondent au carbone dissous, la méthode de la solution basique semble donc efficace.
+            }
+            
+            \item Calculer finalement la quantité restante de $\mathrm C\mathrm O_2$ gazeux ainsi que la composition de la solution.
+            
+            \boxansconc{
+                On a directement $n_{{\mathrm C\mathrm O_2}_\text{(g)}} = \dfrac{n_{\mathrm C\mathrm O_2}}{\alpha}$, l'application numérique livre $n_{{\mathrm C\mathrm O_2}_\text{(g)}} = \qty{3.9e-8}{\mol}$.
+            }
+            
+            \item Quel est le taux d’élimination du gazeux par la solution considérée ? Comparer avec le résultat obtenu dans la partie précédente et conclure quant à l’efficacité de ce procédé.
+            
+            \boxansconc{
+                On a directement $p' = 1 - \dfrac{n_{{\mathrm C\mathrm O_2}_\text{(g)}}}{n_0}$ d'où $p' \approx \qty{100}{\% }$. La méthode est donc bien plus efficace que celle de la première partie.
+            }
+        \end{enumerate}
+    \end{enumerate}
+    
+\end{document}

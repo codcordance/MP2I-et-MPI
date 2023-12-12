@@ -1,0 +1,215 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage[
+    top         = 1in,
+    bottom      = 1in,
+    inner       = 1.5in,
+    outer       = 1in,
+    headheight  = 16pt,
+    headsep     = 0.4in,
+    footskip    = 0.4in,
+    includeheadfoot,
+    heightrounded,
+    twoside,
+    %showframe,
+    ]{geometry}
+\usepackage{booktabs}
+\usepackage{minitoc}
+\usepackage{./Structure/4PE18TEXTBnogeom}
+\usepackage{proof}
+\usepackage{pdfpages}
+\usepackage[skip=10pt plus1pt,indent=0pt]{parskip}
+\usepackage{blindtext}
+
+\makeatletter
+\renewcommand\tableofcontents{%
+    \@starttoc{toc}%
+}
+%\renewcommand*\l@section{\@dottedtocline{1}{1em}{3em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{2em}{3em}}
+\makeatother
+
+\newboxans
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{Ex \arabic{subsection}.}
+\mtcsettitle{minitoc}{}
+
+\DeclareDocumentCommand\Sp{g}{\funlv{Sp}{#1}}
+
+\begin{document}
+    
+    %==============================
+    % METADONNEES
+    %==============================
+    
+    \title{}
+    \author{SIAHAAN--GENSOLLEN Rémy}
+    \date{\today}
+    \hypersetup{
+        pdftitle={Révisons pour les oraux de physique : Mécanique},
+        pdfauthor={SIAHAAN--GENSOLLEN Rémy},
+        pdflang={fr-FR},
+        pdfsubject={Rapport de TIPE, Durcissement des villes modernes face aux rayonnements ionisants},
+        pdfkeywords={Révisons oraux, 2022-2023}
+        pdfstartview=
+    }
+    
+    %==============================
+    % MISE EN PAGE
+    %==============================
+
+    %top         = 1.5in,
+    %bottom      = 1.5in,
+    %inner       = 1.5in,
+    %outer       = 1in,
+    %headheight  = 16pt,
+    %headsep     = 0.3in,
+    %footskip    = 0.3in,
+    %includeheadfoot,
+    %heightrounded,
+    %twoside
+    
+    %==============================
+    % STYLE DES EN-TÊTES ET PIEDS DE PAGES
+    %==============================
+    
+    \fancypagestyle{plain}{
+        \fancyhf{}
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0pt}
+        \fancyfoot[RO,LE]{\sffamily\color{white5}\thepage~/~\pageref{LastPage}}
+        %\fancyhead[LE]{\sffamily\color{white5}\bfseries SIAHAAN--GENSOLLEN Rémy}
+        \fancyhead[LE]{\sffamily\color{white5}Révisions pour les oraux de physique}
+        %\fancyhead[LO]{\sffamily\color{white5}\nouppercase{\rightmark}}
+        \fancyhead[RO]{\sffamily\color{white5}Mécanique}
+    }
+
+    \pagestyle{plain}
+
+    %==============================
+    % CONTENU
+    %==============================
+    
+    \begin{tcolorbox}[
+            enhanced,
+            frame hidden,
+            sharp corners,
+            spread upwards      = 0.1in,
+            halign              = center,
+            valign              = center,
+            interior style      = {color=main3!20},
+            arc                 = 0in,
+            outer arc           = 0pt,
+            leftrule            = 0pt,
+            rightrule           = 0pt,
+            fontupper           = \color{black},
+            %width               = \paperwidth, 
+            top                 = 0.4in, 
+            bottom              = 0.3in
+        ]
+            {\large\scshape{SIAHAAN--GENSOLLEN Rémy}\par}
+            \vspace{0.3in}
+            {\Huge\sffamily{Révisions pour les oraux de physique}\par}
+    	\vspace{0.05in}
+            {\Huge\bfseries\sffamily Mécanique\par}
+    \end{tcolorbox}
+
+    \section*{Avant-propos}
+
+    \qquad Les exercices de ce document sont issus du premier TD donné par \textsc{M. Blain} à l'occasion des révisions pour les écrits. J'y ai reporté et formatté les énoncés, et rajouté pour quelques exercices des résolutions inspirées de celles données en cours, en prenant quelques libertés. Il est bien possible que plusieurs erreurs se soient glissées, ainsi j'aviserai tout lecteur à faire preuve de précaution.
+
+    \bigskip
+    
+    \begin{tcolorbox}[
+        enhanced,
+        frame hidden,
+        sharp corners,
+        detach title,
+        spread outwards,
+        halign              = center,
+            valign              = center,
+        borderline west     = {3pt}{0pt}{main3},
+        coltitle            = main3, 
+        interior style      = {
+            left color      = main1white2!65!gray!11,
+            middle color    = main1white2!50!gray!10,
+            right color     = main1white2!35!gray!9
+        },
+        arc                 = 0 cm,
+        title               = SOMMAIRE,
+        boxrule             = 0pt,
+        fonttitle           = \bfseries\sffamily,
+        overlay             = {
+            \node[rotate=90, minimum width=1cm, anchor=south,yshift=-0.8cm]
+            at (frame.west) {\tcbtitle};
+        },
+    ]
+        \begin{minipage}{0.83\linewidth}
+            \sffamily
+            \tableofcontents
+        \end{minipage}
+    \end{tcolorbox}
+
+    \bigskip
+
+    \section{Mécanique du point}
+
+    \subsection{Bille sur une sphère}
+        
+    Un point matériel de masse $m$ est lâché sans vitesse initiale du sommet d'une sphère de rayon $R$. Quitte-t-il la sphère et à quel endroit ?
+
+    \subsection{Looping}
+
+    Une bille ponctuelle est lâchée du haut d'un tremplin de hauteur $h$ par rapport au sol. La bille descend le tremplin puis pénètre dans un tonneau circulaire de rayon $R$. Quelle est la condition pour que la bille fasse un looping ?
+
+    \subsection{Équilibre et stabilité}
+
+    Soit un ion calcium $\textrm{Ca}^{2+}$ se déplaçant dans une zone de l'espace où existe un potentiel électrique de la forme $V = \alpha\p{x - x_0}^2$. Déterminer la ou les positions d'équilibre et leurs stabilités. Dans le cas d'un équilibre stable, déterminer la fréquence des petites oscillations autour de cette position.
+    
+    \emph{Données :} $\alpha = \qty{1e10}{\volt \per \meter\squared}$, $M_\text{Ca} = \qty{40}{\g \per \mol}$.
+
+    \subsection{Satellite}
+
+    On considère un astre de masse $m$ décrivant une trajectoire circulaire uniforme autour de la terre, d'altitude $h$.
+
+    \begin{enumerate}
+        \item Calculer sa vitesse, son énergie totale et sa période.
+
+        \item Les hautes couches de l'atmosphère freinent lentement le mouvement. Quelle sera la forme de la trajectoire ?
+    \end{enumerate}
+
+    On suppose que l'altitude décroît linéairement en fonction du temps, selon $\dif z = C\dif t$ où $C$ est une constante. 
+
+    \begin{enumerate}[resume]
+        \item Calculer la variation d'altitude et de vitesse pendant un tour. Commenter le signe de la variation de vitesse.
+
+        \item Calculer le travail des forces de frottement pendant un tour.
+    \end{enumerate}
+
+    On modélise les forces de frottement par $\vec f = k v^n \dfrac{\vec v}{\norm{\vec v}} = kv^{n-1} \vec v$. 
+
+    \begin{enumerate}[resume]
+        \item Trouver $k$ et $n$.
+    \end{enumerate}
+
+    \subsection{Satellite et navette}
+
+    Soit un satellite en orbite circulaire de rayon $a$ autour de la terre. 
+    
+    \begin{enumerate}
+        \item Retrouver la troisième loi de \textsc{Kepler} et déterminer son énergie mécanique en fonction de $a$.
+
+        \boxans{
+            Le satellite est soumis uniquement à la force d'attraction gravitationnelle $\vec P$, laquelle est une force centrale Newtonienne. Par le cours, le mouvement est plan, et on a :
+            %
+            \[ \vec P = -\bcG \dfrac{mM}{a^2}\vec{e_r}\]
+        }
+
+        
+    \end{enumerate} On admet que la loi de \textsc{Kepler} et l'es
+
+    
+
+    
+
+\end{document}

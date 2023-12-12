@@ -431,6 +431,7 @@
     
     \subsection{Application linéaire associée à une matrice}
     
+    
     \begin{enumerate}
         \itt $\bdK^n = \bcM_{n, 1}\p{\bdK}$
         
@@ -915,6 +916,7 @@
         Le polynôme caractéristique de $u$ est $\chi_u\p{X} = \det{u - X\Id}$
     \end{definition}
     
+    
     exemple : $u \in \Sp{u} \iff \exists x \in E,\quad x \neq 0,\quad u\p{x} = 0\iff u \ \text{non inversible et non injective}$
     
     \subsection{Propriétés}
@@ -966,7 +968,7 @@
     
     demo : $P = \sum a_iX^i$ et $Q =\sum b_iX^i$
     
-    Donc $\lambda P \u Q = \sum \p{\lambda a_i + \mu b_i}X^i$, on pousse la craie, ok.
+    Donc $\lambda P Q = \sum \p{\lambda a_i + \mu b_i}X^i$, on pousse la craie, ok.
     
     Produit : 1ère rédac,$P = \sum a_iX^i$ et $Q =\sum b_iX^i$, donc $PQ = \sum c_kX^k$ avec $c_k = \sum_{i+j = k} a_ib_j$. On pousse la craie, ok.
     
@@ -1452,6 +1454,7 @@
         %
         \[ \norm{\int_0^x f_n' - \int_0^n g} \leq \]
     \end{example}
+    %coucouc
     
     \chapter{Séries numériques}
     
@@ -2231,7 +2234,7 @@
     
     \section{Exemples}
     
-    \subsection{Fonctions génératrices}
+A    \subsection{Fonctions génératrices}
     
     $X : \Omega \to \bdN$
     
@@ -2297,4 +2300,340 @@
     \[\bbP_{n+2} = \dfrac{1}{p}\bbP_{n+1} + \dfrac{q}{p}\bbP_n \qquad\text{d'où l'on considère les $r$ tels que}\ r^2 - \dfrac{1}{p}r - \dfrac{q}{p} = 0\]
     %
     $\Delta = \dfrac{1}{p^2} - 4{1-p}{p} = \dfrac{1}{p}\p{\dfrac{1}{p} + 4p - 4}$
+    
+    \newpage
+    
+    \subsection*{Poissons}
+    
+    On considère une suite $\suiteZ{\lambda_n}$ telle que la série $\sum\limits_{n \geq 1} \lambda_n$ converge. Soient alors $\p{X_n}_{n \geq 1}$ variables aléatoires mutuellement indépendantes, telles que $X_n \rightsquigarrow \bcP\p{\lambda_n}$. On pose finalement $S = \sum\limits_{n \geq 1} X_n$
+    
+    \begin{enumerate}
+        \item Montrer que, presque sûrement, on a $S < +\infty$.
+        
+        \boxans{
+            Soit $n \in \bdN^*$, posons l'évènement $A_n = \displaystyle\bigcap_{k \geq n} \p{X_k = 0}$. Remarquons déjà que la suite $\suiteZ{A_n}$ est croissante. Que dire alors de $\lim\limits_{n \to +\infty}\bbP\p{A_n} $ ?
+            %
+            \[ \bbP\p{A_n} = \bbP\p{\bigcap_{k \geq n} \p{X_n = 0}} \eq{\bot} \prod_{k \geq n} \bbP\p{X_k = 0} = \prod_{k \geq n} e^{-\lambda_k}\dfrac{\lambda_k^0}{1!} = \exp{- \sum_{k \geq n} \lambda_k} \lima{n \to +\infty} \exp{0} = 1\]
+            %
+            Par croissance de $\suiteZ{A_n}$, on l'union $\displaystyle\bigcup_{n \geq 1} A_n$ est croissante, d'où
+            %
+            \[ \bbP\p{\bigcup_{n \geq 1} \bigcap_{k \geq n} \p{X_k = 0}} = 1\qquad\text{\ie}\qquad \bbP\p{X_n = 0 \ \text{sauf pour un ensemble fini de valeurs de}\ n} = 1\]
+            %
+            Posons maintenant $S_p\p{X_n} = \displaystyle\sum_{n = 1}^p X_n \rightsquigarrow \bcP\p{S_p\p{\lambda_n}}$. Montrons que $S \rightsquigarrow \bcP\p{\displaystyle\sum_{n \geq 1} \lambda_n}$. 
+            
+            On pose $\lambda = \displaystyle\sum_{n \geq 1} \lambda_n$, et on commence par montrer que $\bcP\p{S = k} = e^{-\lambda}\dfrac{\lambda^k}{k!}$.
+            %On a une union croissante, d'où $\bbP\p{A_n} \lima{n \to +\infty} 1$
+        }
+        
+        \item Déterminer la loi de $S$
+        
+        \item On pose maintenant $Y = \displaystyle\prod\limits_{n \geq 1} {p_n}^{X_n}$
+        
+        \item Montrer que, presque sûrement, on a  $Y < +\infty$.
+        
+        \item Donner l'espérance $\bdE\p{Y}$ de $Y$.
+    \end{enumerate}
+    
+    \subsection*{Radelaker et trace}
+    
+    $X_{ij} \rightsquigarrow \textsc{Rademaker}, p = \sfrac{1}{2}$ \ie $\bdP\p{X = 1} = \bdP\p{X = -1} = \sfrac{1}{2}$, puis $M = \p{X_{ij}}_{1 \leq i, j \leq n}$.
+    
+    \begin{enumerate}
+        \item $\bdE\p{\Tr{M}}$ ?
+        
+        \boxans{
+            $\bdE\p{X_{ij}} = 0$ donc $\bdE\p{\Tr{M}} = 0$
+        }
+        
+        \item $\bdE\p{\Tr{M^2}}$ ?
+        
+        \boxans{
+            $\Tr{M^2} = \sum_{i, j} X_{ij}X_{ji}$. Or $\bdE\p{X_{ij}X_{ji}} = \begin{cases} 0 \ \text{si} \ i = j\\
+            1 \ \text{sinon}
+            \end{cases}$, donc $\bdE\p{\Tr{M^2}} = n$.
+        }
+        
+        \item $\bdE\p{\Tr{M^3}}$ ?
+        
+        \boxans{
+            $\p{M^2M}_{ii} = \displaystyle\sum_{k=1}^{n}\p{\sum_{p=1}^n X_{ip}X_{pk}}X_{ki}$ d'où $\bdE\p{\Tr{M^3}} = \displaystyle\sum_{i=1}^n\sum_{k=1}^n\sum_{p=1}^n \bdE\p{X_{ip}X_{pk}X_{ki}}$.
+        }
+    \end{enumerate}
+    
+    \chapter{Produit scalaire}
+    
+    \chaptertoc{}
+    
+    \section{Espaces préhilbertiens}
+    
+    \subsection{Définition}
+    
+    \begin{definition}{Produit scalaire}{}
+
+        Soit $E$ un $\bdR$-espace vectoriel de (dimension finie ou non). On appelle \emph{produit scalaire sur $E$} une \hg{forme bilinéaire  $\p{\cdot \mid \cdot} : E \times E \to \bdR$} vérifiant :
+        %
+        \begin{enumerate}
+            \itast \hg{$\p{\cdot \mid \cdot}$ est symétrique} :
+            %
+            \[ \forall \p{x, y} \in E^2,\qquad \p{x \mid y} = \p{y \mid x} \]
+        
+            \itast \hg{$\p{\cdot \mid \cdot}$ est positive} :
+            %
+            \[ \forall x \in E,\qquad \p{x \mid x} \geq 0 \]
+    
+            \itast \hg{$\p{\cdot \mid \cdot}$ est définie} :
+            %
+            \[ \forall x \in E,\qquad x = 0 \iff \p{x \mid x} = 0\] 
+        \end{enumerate}
+    \end{definition}
+    
+    A X-ENS, on pourra avoir des cas plus particuliers, par exemple $\bdK = \bdC$, ou $\p{\cdot \mid \cdot } : E \times E \to \bdC$. On pourrait avoir une propriété de sesquilinéarité :
+    %
+    \begin{enumerate}
+        \itt $y \mapsto \p{x \mid y}$ linéaire
+        \itt $x \mapsto \p{x \mid y}$ antilinéaire / semi-linéaire :
+        %
+        \[ \p{\lambda x + \mu x' \mid y} = \overline \lambda \p{x \mid y} + \overline{\mu}\p{x' \mid y}\]
+        
+        \itt $\p{x \mid y} = \overline{\p{y \mid x}}$
+        
+        \itt $\p{x \mid x} \in \bdRp$ si $x \neq 0$.
+    \end{enumerate}
+    
+    Remarquons que $\p{x \mid y} = \overline{\p{y \mid x}} \implies \p{x \mid x} = \overline{\p{x \mid x}}$ \ie $\p{x \mid x} \in \bdR$.
+    
+    \subsection{Exemples}
+    
+    \begin{example}{sur $\bdR^n$}{}
+        $X = \p{x_j}_{j \in \iint{0, n-1}}\in \bdR^n$. On peut définir
+        %
+        \[ \p{X \mid Y} = \sum_{i=0}^{n-1} x_iy_i = \mtrans XY\]
+        %
+        Il s'agit du produit scalaire canonique.
+    \end{example}
+    
+    On peut généraliser à un $\bdR$-espace vectoriel $E$ de dimension finie :
+    
+    \begin{example}{sur $E$ de dimension finie}{}
+        Considérons une base $\bcB = \p{e_i}_{i \in \iint{0, n-1}}$ de $E$. Pour $x \in E$, on écrit $x = \sum_{i=0}^{n-1} x_ie_i$.
+        
+        \[ \p{x \mid y} = \mtrans X Y = \sum x_iy_i\]
+        %
+        Il s'agit du produit scalaire canonique pour lequel $\bcB$ est orthonormé.
+    \end{example}
+    
+    Sur $\bdC^n$, on pourrait définir $\p{X \mid Y} = \mtrans \overline{X} Y = \sum \overline{x_i}y_i$ : produit scalaire hermitien canonique.
+    
+    
+    
+    \subsection{Norme associé}
+    
+    $||x|| = \sqrt{(x|y)}$ c'est une norme (dite associé au produit scalaire)
+    
+    CS $$||(x|y)|| <  ||x|| * ||y||$$ \\
+    
+    
+    inégalité triangle provient de CS.
+    
+    \subsection{BON / famille OrthoNormé}
+    \begin{form}{BON / famille OrthoNormé}{}
+        $(e_i)_{i=1,---,n)}$ BON si base $(e_i|e_j) = \delta_{ij}$
+        \vspace{1cm}
+
+        interet:  x=blabla 
+        
+    \end{form}
+    
+    
+    \begin{form}{d-App}{}   % <----
+        $Ker p = {x \forall i (x|e_i)=0}  $
+    \end{form}
+
+    \subsection{Orthonalisation}
+    
+    \begin{definition}
+        E ev prehilbertien (ie ps)
+        
+        $(e_n)_{n \in \bcN}$ famille libre 
+        
+        $ON$ de Gram-Schmidt ( G S )
+        \begin{enumerate}
+            \itt \[ \scalebox{1.5}{\boxed{\exists (f_n)_{n>=0}  \bot  \text{ tq } \forall k \text{  Vect(}f_0 \text{ \--- }f_k) = \text{Vect(}e_0,\dots,e_k)}}   \]
+            
+            
+            \itt  
+        \end{enumerate}
+
+        
+    \end{definition}
+
+    \newpage
+    
+    \begin{form}{suite du cours de maths}{}
+        Si $i,j \bot $ seulement : $j=k \wedge i $ \\
+        
+        $sin \theta = (u(i')j') = (u(i) | j) * cst $        avec $cst > 0$\\
+        
+        $[(x|y) = det_{_{BON>0}} (x,y,z)]$\\
+    \end{form}
+    
+    \begin{form}{exemple matrice}{}
+        $k = \begin{pmatrix}
+1 \\
+2 \\ 
+1
+\end{pmatrix} \qquad i = \begin{pmatrix}
+1 \\
+0 \\
+-1
+\end{pmatrix}$
+    
+    ex $R$ rotation en $dim 3 \qquad$
+    $u=e^a \qquad  a$ antisym
+    \vspace{1cm}
+    
+    $\bsM a u = \begin{pmatrix}
+\end{pmatrix}$
+    
+    \end{form}
+    
+    
+    \section{TODO}
+    \section{TODO}
+    
+    \newpage
+    
+    \subsection{Endormorphismes symétriques positifs}
+    
+    Dans $\bdC$, on ne peut appliquer certaines opérations algébriques que sur certains réels. Par exemple :
+    %
+    \begin{enumerate}
+        \itt on ne peut calculer $\sqrt{x}$ que pour $x \in \bdR_+$ ;
+        
+        \itt on ne peut calculer $\ln{x}$ que pour $x \in \bdR_+^*$ ;
+        
+        \itt on ne peut dire que $x \leq y$ \emph{(respectivement $x < y$)} que pour $y - x \in \bdR_+$ \emph{(resp. $x - y \in \bdR_+^*$)}.
+    \end{enumerate}
+    %
+    On remarquera que ces cas sont liés à la positivité, ou stricte positivité, d'un réel. Ces comportements se retrouvent dans certaines matrices symétriques, qu'on dit positives ou définies positives.
+    
+    \begin{definition}{Endomorphismes symétriques (défini) positifs}{}
+        Soit \hg{$u \in \bcL\p{E}$} un endomorphisme de \hg{$\p{E, \phyavg{\mid}}$}, tel que \hg{$u \in \bcS\p{E}$ est symétrique}.
+        %
+        \begin{enumerate}
+            \itast On dit que \hg{$u$ est positif} lorsque pour tout $x \in E$, on a \hg{$\phyavg{u\p{x} \mid x} \geq 0$}.
+            
+            \itast On dit que \hg{$u$ est défini positif} \emph{(ou \hg{strictement positif})} lorsque pour tout $x \in E \backslash \ens{0}$, on a \hg{$\phyavg{u\p{x} \mid x} > 0$}.
+        \end{enumerate}
+    \end{definition}
+    
+    Comme dans $\bdR$, on pourra utiliser les symboles $\geq$ et $>$. 
+    
+    \begin{notation}{}{}
+        On note généralement \hg{$u \geq 0$} lorsque \hg{$u$ est positif}, et \hg{$u > 0$} lorsque \hg{$u$ est défini positif}. On note également \hg{$\bcS_+\p{E}$} l'ensemble des endomorphismes positifs de $E$ et \hg{$\bcS_+^\vdash\p{E}$} celui des endomorphismes définis positifs.
+    \end{notation}
+    
+    On peut donner une condition nécessaire et suffisante de positivité et définie positivité d'un endomorphisme :
+    
+    \begin{theorem}{CNS Spectrale}{}
+        Soit \hg{$u \in \bcL\p{E}$} un endomorphisme de \hg{$\p{E, \phyavg{\mid}}$}, tel que \hg{$u \in \bcS\p{E}$ est symétrique}.
+        %
+        \[ \hg{u \geq 0 \iff \Sp\p{u} \subset \bdR_+} \qquad\et\qquad \hg{u > 0 \iff \Sp\p{u} \subset \bdR_+^*}\]
+    \end{theorem}
+    
+    \begin{nproof}
+        Si $u \geq 0$, considérons $x$ un vecteur propre de $u$, et de valeur propre associée $\lambda$. On a 
+        %
+        \[ \lambda \norm{x}^2 = \phyavg{u\p{x} \mid x} \geq 0 \qquad\text{donc}\qquad x \geq 0 \]
+        %
+        Réciproquement, considérons $\p{e_i}_{1 \leq i \leq n}$ une base orthonormée de diagonalisation. On prend $x = \sum x_ie_i$, et l'on a :
+        %
+        \[ \phyavg{u\p{x} \mid x } = \sum \underbrace{\lambda_i}_{\geq 0} x_i^2 \geq 0 \]
+        %
+        La même démonstration s'applique pour $u > 0$.
+    \end{nproof}
+    
+    On pourrait même écrire $u \leq v$ lorsque $v - u \in \bcS_+$ et $\p{u, v} \in \bcS$. Cette conception n'est cependant pas très intuitive :
+    %
+    \[ \begin{pNiceMatrix}
+        1 & 0\\
+        0 & 1
+    \end{pNiceMatrix} \not\leq \begin{pNiceMatrix}
+        1 & 2\\
+        2 & 1
+    \end{pNiceMatrix} \qquad\text{en effet,}\quad \Sp\begin{pNiceMatrix}
+        0 & 2\\
+        2 & 0
+    \end{pNiceMatrix} = \ens{2, -2} \not\subset \bdR_+ \]
+    
+    \begin{exercise}{}{}
+        \begin{center}
+            Montrer que \hg{$\rho\p{u\transp u} = \rho\p{uu\transp}$}, autrement dit que \hg{$\tnorm{u} = \tnorm{u\transp}$}.
+        \end{center}
+        
+        \begin{enumerate}
+            \itt Remarquons déjà que $\tnorm{u\transp} \leq \tnorm{u}$ suffit, par involutivité de la transposition.
+            
+            \itt Soit $x \in E$ tel que $\norm{x} = 1$. On a
+            %
+            \[ \tnorm{u\transp}^2 = \phyavg{u\transp\p{x} \mid  u\transp\p{x}} = \]
+        \end{enumerate}
+    \end{exercise}
+    
+    Une propriété des endomorphismes symétriques positifs est l'existence d'une \guill{racine} :
+    
+    \begin{property}{Racine des endomorphismes symétriques positifs}{}
+        Soit $u \in \bcS_+\p{E}$. Il existe un unique $v \in \bcS_+\p{E}$ tel que $v^2 = u$.
+    \end{property}
+    
+    \newpage
+    
+    \chapter{Arithmétique}
+    
+    \chaptertoc
+    
+    \section{Groupes}
+    
+    \subsection{def}
+    
+    $\p{G, \star}$ groupe lorsque $\star :G \times G \to G$ 
+    %
+    \begin{enumerate}
+        \itt Associative $x \star \p{y \star z} = \p{x \star y} \star z$
+        
+        \itt Existence d'un neutre : il existe $1_G \in G$ tel que pour tout $x \in G$, on a  $x \star 1_G = 1_G \star x = x$
+        
+        \itt Existence des symétriques : pour tout $x \in G$, il existe $x' \in G$ tel que $x \star x' = x' \star x = 1$
+    \end{enumerate}
+    
+    \bigskip
+    
+    \begin{exercise}{}{}
+        \hg{Soit $p \in \bdP$ un nombre premier strictement supérieur à $5$. Montrer que le développement en base 10 de $\sfrac{1}{p}$ est périodique de longueur de période divisant $p-1$.}\medskip
+    
+        Notons $d = o\p{p}$ dans $\bdZ/n\bdZ$, on a $10^d = 1$ mod $n$, donc il existe $Q \in \bdN$ tel que $10^d - 1 = nQ$. On a
+        %
+        \[ \dfrac{1}{n} = \dfrac{Q}{10^d - 1} \]
+    \end{exercise}
+
+
+\chapter{Equations différentelles linéaires}
+
+\chaptertoc{}
+
+\section{Aspects théoriques}
+
+\subsection{Ordre 1}
+
+\[ ay' + by = 0 \qquad a, b \in \bcC^0\p{I}\]
+
+\begin{theorem}{Cauchy-Lipschitz}{}
+    L'ensemble des solutions sur $I$ est un ev de dimension $1$
+\end{theorem}
+
+\[ ay' + by = c\]
+
+CL : l'ensemble des solutions est un espace affine, dirigé par l'ev des solutions de l'eq homogène associée.
+    
+    
 \end{document}

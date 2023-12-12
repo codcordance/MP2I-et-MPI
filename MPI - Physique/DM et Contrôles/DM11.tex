@@ -1,0 +1,329 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+\usepackage{tikz-3dplot}
+ 
+\tdplotsetmaincoords{70}{122}
+\pgfplotsset{compat=newest}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}} 
+    \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii}.}
+    \renewcommand*{\labelenumiii}{\alph{enumiii}.}
+    
+    \newcommand{\ON}{\mathbf{ON}}
+    
+    \stylizeDocSpe{Physique}{Devoir maison n° 11}{Mouvement dans une cuvette hémisphérique}{Pour le mercredi 18 janvier 2023}
+    
+    On considère le mouvement d'un point matériel $M$, de masse $m$, dans une cuvette hémisphérique de rayon $r$, centrée à l'origine $O$ d'un repère orthonormé $\p{Oxyz}$, de sorte que $\p{Oz}$ soit selon la verticale ascendante ; on a alors pour le vecteur champ de pesanteur $\vec{g} = -g\vec k$, avec $g = \qty{9.81}{\meter \per \second \squared}$.
+    
+    \begin{minipage}{0.5\linewidth}
+        On suppose que le point $M$ glisse sur la surface de la cuvette sans frottement, et que le référentiel terrestre, par rapport auquel la cuvette reste immobile, est galiléen. On désigne par $\vec \imath$ et $\vec \jmath$ les vecteurs portant les axes $\p{Ox}$ et $\p{Oz}$. On définit les angles $\theta = \p{\vec k, \vec{OM}}$ et $\varphi = \p{\vec \imath, \vec{OH}}$ où $H$ est la projection orthogonale de $M$ sur le plan $\p{Oxy}$ : le triplet $\p{r, \theta, \varphi}$ définit le système de coordonnées sphériques. En supposant que $M$ reste sur la surface de la cuvette, sa position est définie par la donnée du couple $\p{\theta, \varphi}$ avec $\sfrac{\pi}{2} \leq \theta \leq \pi$ et $0 \leq \varphi \leq 2\pi$. À $t = 0$, on lance le point $M$ à la surface de la cuvette de telle sorte que $\varphi = 0$, $\theta = \theta_0$, $\dot \theta = 0$ et $\dot \varphi = \dot \varphi_0$ (conditions initiales).
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}{0.5\linewidth}
+        \begin{center}
+            \begin{tikzpicture}[tdplot_main_coords, scale = 2.5]
+            \coordinate (M) at ({1/sqrt(3)},{1/sqrt(3)},{-1/sqrt(3)});
+            
+            \shade[ball color = main3,opacity = 0.2, rotate=180] (1cm,0) arc (0:-180:1cm and 3.4mm) arc (180:0:1cm and 1cm);
+            \draw[main3, thick] (0,0,0) -- (M) node[above left] {$M$};
+            
+            \draw[->] (1.3, 0, 1.4) --++ (0, 0, -0.3) node[above left] {$\vec{g}$};
+            
+            
+            \draw[fill = main3] (M) circle (0.2pt);
+            \shade[ball color = main3, opacity = 0.4] (1cm,0) arc (0:-180:1cm and 3.4mm) arc (180:0:1cm and -1cm);
+             
+            \tdplotsetrotatedcoords{0}{0}{0};
+            \draw[dashed,
+                tdplot_rotated_coords,
+                gray
+            ] (0,0,0) circle (1);
+            \draw[->, tdplot_rotated_coords] (0.3,0,0) arc (0:45:0.3) node[above left] {$\varphi$};
+            
+            \draw[densely dotted, thick,
+                tdplot_rotated_coords,
+                main3
+            ] (0,0,{-1/sqrt(3)}) circle (0.8);
+             
+            \tdplotsetrotatedcoords{90}{90}{-90};
+            \draw[dashed,
+                tdplot_rotated_coords,
+                opacity=0.2
+            ] (1,0,0) arc (0:180:1);
+             
+            \tdplotsetrotatedcoords{0}{90}{-90};
+            \draw[dashed,
+                tdplot_rotated_coords,
+                opacity=0.2
+            ] (1,0,0) arc (0:180:1);
+            
+            \tdplotsetrotatedcoords{-45}{90}{0};
+            \draw[densely dotted, thick,
+                tdplot_rotated_coords,
+                main3
+            ] (1,0,0) arc (0:180:1);
+            \draw[->, tdplot_rotated_coords] (-0.4,0,0) arc (0:-127:-0.4) node[below] {$\theta$};
+             
+            \draw[thin, densely dotted, main3, thick] (0, 0, 0) -- ({1/sqrt(2)},{1/sqrt(2)},0);
+    
+    
+            \draw[-stealth] (0,0,0) -- (1.80,0,0) 
+                node[below left] {$x$};
+             
+            \draw[-stealth] (0,0,0) -- (0,1.30,0)
+                node[below right] {$y$};
+             
+            \draw[-stealth] (0,0,0) -- (0,0,1.2)
+                node[above] {$z$};
+             
+            \draw[dashed, gray] (0,0,0) -- (-1.3,0,0);
+            \draw[dashed, gray] (0,0,0) -- (0,-1.3,0);
+            \draw[dashed, gray] (0,0,0) -- (0,0,-1.3);
+            
+            \draw[->] (M) -- ({1/sqrt(3)+0.3},{1/sqrt(3)+0.3},{-1/sqrt(3)-0.3}) node[right] {$\vec{u_r}$};
+            
+            \draw[->] (M) --++ (-0.3, 0.3, 0) node[right] {$\vec{u_\varphi}$};
+            \draw[->] (M) --++ (-0.3, -0.3, -0.5) node[below] {$\vec{u_\theta}$};
+            \end{tikzpicture}
+        \end{center}
+    \end{minipage}
+    
+    \section{Constantes du mouvement}
+    
+    \begin{enumerate}
+        \item Donner l'expression du carré de la norme de la vitesse en fonction de $r$, $\theta$, $\dot\theta$ et $\dot\varphi$.
+        
+        \noafter
+        %
+        \boxans{
+            En coordonnées sphériques, le déplacement élémentaire s'écrit $\dif \vec{OM} = \dif r \vec{u_r} + r\dif \theta \vec{u_\theta} + r\sin \theta \dot \varphi \vec{u_\varphi}$. Or $\vec v = \dfrac{\dif \vec{OM}}{\dif t}$, et $r$ est constant ($\dif r = 0$) donc :
+            %
+            \[ \vec v = r\dfrac{\dif \vec{u_r}}{\dif t} = r\p{\dot \theta\vec{u_\theta} + \dot \varphi \sin \theta \vec{u_\varphi}}\]
+            %
+            
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a donc $v^2 = \norm{\vec v}^2 = \vec v \cdot \vec v = r^2\p{\dot \theta^2 + \dot \varphi^2 \sin^2 \theta}$
+        }
+        %
+        \yesbefore
+        
+        \item En déduire l'expression de l'énergie mécanique $\bsE_\text m$ du point matériel dans le champ de pesanteur en fonction des mêmes variables et des constantes nécessaires (on prendra l'origine de l'énergie potentielle de pesanteur dans le plan $z = 0$).
+        
+        \noafter
+        %
+        \boxans{
+            Il n'y a pas de frottement, donc le point matériel $M$ n'est soumis qu'à son poids $\vec P = m\vec g$, qui est une force conservative. Dès lors, par \emph{théorème de la puissance mécanique}, on a $\dfrac{\dif \bsE_\text m}{\dif t} = 0$ d'où l'énergie mécanique $\bsE_\text m$ est constante. Soit $\bsE_\text{pp}$ l'énergie potentielle de pesanteur. En prenant $\bsE_\text{pp}\p{z = 0} = 0$, on a $\bsE_\text{pp}\p{z} = mgz$. On note également $\bsE_\text c$ l'énergie cinétique, vérifiant $\bsE_\text c = \dfrac{mr^2}{2}\p{\dot \theta^2 + \dot \varphi^2 \sin^2 \theta}$. On a donc :
+            %
+            \[ \forall t,\qquad \bsE_\text m\p{t} = \bsE_\text m\p{t = 0} = \bsE_\text c\p{t = 0} + \bsE_\text{pp}\p{t = 0} = \dfrac{mr^2}{2}\p{\dot \varphi_0^2 \sin^2 \theta_0} + mgr\cos \theta_0\]
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a donc $\bsE_\text m = \dfrac{1}{2}mr^2\dot \varphi_0^2 \sin^2 \theta_0 + mgr\cos \theta_0$. Généralement, $\bsE_\text m = \dfrac{1}{2}mr^2\p{\dot \theta^2 + \dot \varphi^2 \sin^2 \theta} + mgr\cos \theta$.
+        }
+        %
+        \yesbefore
+        
+        \item Par application du \emph{théorème du moment cinétique}, montrer que $\dot\varphi \sin^2 \theta = C$ où $C$ est une constante. On choisit alors $\theta_0 = \sfrac{3\pi}{4}$, valeur qu'on gardera jusqu'à la fin du problème. Donner la valeur de cette constante $C$ en fonction de $\dot \varphi_0$.
+        
+        \noafter
+        %
+        \boxans{
+            Le point $O$ est fixe. Considérons l'axe $\Delta = \p{Oz}$ porté par $\vec k$, et déterminons le moment $\bcM_\Delta(\vec P)$ du poids exercé sur $M$ en $O$ projeté sur cet axe. Puisque $\vec P$ est orienté selon $\vec u_z$, on a que $\vec{\bcM}_O(\vec P) = \vec{OM} \wedge \vec P$ est perpendiculaire à $\vec{u_z}$ d'où $\bcM_\Delta(\vec P) = \vec{\bcM}_O(\vec P) \cdot \vec{u_z} = 0$. Par \emph{théorème du moment cinétique}, on obtient que $\sigma_\Delta\p{M}$, le moment cinétique de $M$ en $O$ projeté sur l'axe $\Delta$ est constant. Or :
+            %
+            \begin{align*}
+                 \sigma_\Delta\p{M} &= \p{m\vec{OM} \wedge \vec v}\cdot \vec{k} = \p{mr \vec{u_r} \wedge r\p{\dot \theta\vec{u_\theta} + \dot \varphi \sin \theta \vec{u_\varphi}}}\cdot \vec{k}\\
+                 &= mr^2\p{\dot \theta \vec{u_\varphi} - \dot\varphi \sin \theta \vec{u_\theta}}\cdot \vec{k} = -mr^2\cdot \varphi \sin \theta \p{-\sin \theta}\\
+                 &= mr^2\dot \varphi \sin^2 \theta = mr^2C
+            \end{align*}
+            
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            D'où $mr^2C$ est constant. Or $mr^2$ est constant donc $C$ est constant. On a donc $C = \dot \varphi_0 \sin^2 \theta_0 = \dfrac{1}{2}\dot \varphi_0$.
+        }
+        %
+        \yesbefore
+    \end{enumerate}
+    
+    \section{Énergie potentielle effective}
+    
+    \begin{enumerate}
+        \item En utilisant les résultats de la partie précédente, donner l'expression de l'énergie mécanique $\bsE_\text m$ en fonction de $\theta$, $\dot \theta$ et des constantes nécessaires.
+        
+        \boxansconc{
+            \begin{align*}
+                \bsE_\text m &= \bsE_\text c + \bsE_\text{pp} = \dfrac{mr^2}{2}\p{\dot \theta^2 + \dot \varphi^2\sin^2 \theta} + mgr\cos{\theta}\\
+                &= \dfrac{1}{2}mr^2\dot \theta^2 + mr\p{\dfrac{rC^2}{2\sin^2 \theta} + g\cos\theta} = \dfrac{1}{2}mr^2\dot \theta^2 + mr\p{\dfrac{r\dot \varphi_0^2}{8\sin^2 \theta} + g \cos \theta}
+            \end{align*}
+        }
+        
+        \item On définit l'énergie potentielle effective par l'expression $\bsE_\text p'= \bsE_\text m - \dfrac{1}{2}mr^2\dot \theta^2$. Exprimer $\bsE_\text{p'}$ en fonction de $\theta$, $\dot \theta$ et des constantes nécessaires.
+        
+        \boxansconc{
+            On a directement $\bsE_\text p'= mr\p{\dfrac{r\dot \varphi_0^2}{8\sin^2 \theta} + g \cos \theta}$.
+        }
+    \end{enumerate}
+    
+    On pose pour toute la suite du problème $\dot \varphi_0^2 = \dfrac{\sqrt{2}ga}{r}$ où $a$ est une constante positive.
+    
+    \begin{enumerate}[resume]
+        \item Tracer l'allure de la courbe représentative de la fonction $y = \dfrac{\bsE_\text p'}{mgr}$ pour $\theta \in \intc{\sfrac{\pi}{2}, \pi}$.
+        
+        \boxansconc{
+            On a $\bsE_\text p'= mr\p{\dfrac{r\dot \varphi_0^2}{8\sin^2 \theta} + g \cos \theta} = mr\p{\dfrac{\sqrt{2}ga}{8\sin^2 \theta} + g\cos \theta}$ d'où $y = \dfrac{\bsE_\text p'}{mgr} = \dfrac{\sqrt{2}}{8}\dfrac{a}{\sin^2 \theta} + \cos \theta$. On en déduit que $\dfrac{\dif y}{\dif \theta} = -\dfrac{\sqrt{2}}{4}\dfrac{a\cos \theta}{\sin^3 \theta} - \sin \theta$, d'où $\left\lbrace\begin{array}{rl}
+                y\p{\dfrac{\pi}{2}} &= \dfrac{\sqrt{2}}{8}\\
+                y\p{\dfrac{3\pi}{4}} &= \dfrac{\sqrt{2}}{4}\p{a-2}\\
+                y\p{\pi} &= +\infty
+            \end{array}\right.$ et $\left\lbrace\begin{array}{rl}
+                \dfrac{\dif y}{\dif \theta}\p{\dfrac{\pi}{2}} &= 1\\
+                \dfrac{\dif y}{\dif \theta}\p{\dfrac{3\pi}{4}} &= \dfrac{\sqrt{2}}{4}\p{a-1}\\
+                \dfrac{\dif y}{\dif \theta}\p{\pi} &= +\infty
+            \end{array}\right.$
+            
+            \begin{center}
+                \begin{tikzpicture}
+                    \begin{axis}[
+                        axis lines          =   middle,
+                        axis line style     =   {-stealth,shorten >=-3mm},
+                        trig format plots   =   rad,
+                        trig format         =   rad,
+                        domain              =   3.14/2:3.1,
+                        xmin                =   3.139/2,
+                        xmax                =   3.14,
+                        ymin                =   -1,
+                        ymax                =   2.5,
+                        xlabel              =   $\theta$,
+                        ylabel              =   $y$,
+                        xtick               =   {3.14/2, 3*3.14/4, 3.14},
+                        xticklabels         =   {$\sfrac{\pi}{2}$, $\sfrac{3\pi}{4}$, $\pi$},
+                        grid                =   both,
+                        width               =   14cm,
+                        height              =   9cm,
+                        ytick               =   {},
+                        yticklabels         =   {}
+                    ]  
+                        %Energie potentielle
+
+                        \addplot[color=main1, samples=300, smooth, thick, name path=A1] {0.176776695*0.1/(sin(x)^2) + cos(x)};
+                        \addplot[color=main2, samples=300, smooth, thick, name path=B1] {0.176776695*1.8/(sin(x)^2) + cos(x)};
+                        \addplot[color=main3, samples=300, smooth, thick, name path=C1, domain=3.139/2:2.8] {0.176776695*3.5/(sin(x)^2) + cos(x)};
+                        \addplot[color=main4, samples=300, smooth, thick, name path=D1, domain=3.139/2:2.8] {0.176776695*6/(sin(x)^2) + cos(x)};
+                       
+                        \legend{$a \leq 1$, $1 < a \leq 2$,$2 < a \leq a_\text{max}$, $a_\text{max} < a$}
+                        
+                        %Energie meca
+                        
+                        \addplot[color=main1, densely dotted, samples=300, smooth, very thick, domain=3.14/2:3.14, name path=A2] {-0.671751442127};
+                        \addplot[color=main2, densely dotted, samples=300, smooth, very thick, domain=3.14/2:3.14, name path=B2] {-0.0707106781187};
+                        \addplot[color=main3, densely dotted, samples=300, smooth, very thick, domain=3.14/2:3.14, name path=C2] {0.53033008589};
+                        \addplot[color=main5, densely dotted, samples=300, smooth, very thick, domain=3.14/2:3.14, name path=D2] {1.41421356237};
+                        
+                        %Zone atteignable
+                        
+                        \addplot[main1!20] fill between[of=A1 and A2, soft clip={domain=2.35619449019:2.8956}];
+                        \addplot[main2!20] fill between[of=B1 and B2, soft clip={domain=2.0815:2.35619449019}];
+                        \addplot[main3!20] fill between[of=C1 and C2, soft clip={domain=1.6648:2.35619449019}];
+                        \addplot[main4!20] fill between[of=D1 and D2, soft clip={domain=1.5708:2.35619449019}];
+                    \end{axis}
+                \end{tikzpicture}
+            \end{center}
+        }
+        
+        \item Après avoir tracé sur le graphe précédent la droite d'équation $y = \dfrac{\bsE_\text m}{mgr}$ pour $\theta \in \intc{\sfrac{\pi}{2}, \pi}$, déduire les différents types de mouvements observables. Montrer en particulier que pour certaines valeurs de $a$, le mouvement s'effectue entre deux plans définis par les angles $\theta_1$ et $\theta_2$.
+        
+        \noafter
+        %
+        \boxans{
+            En $t = 0$, on a $\dot \theta_0 = 0$ d'où $\bsE_\text m\p{t = 0} = \bsE_\text p'\p{t = 0}$. Or en $t = 0$, $\theta_0 = \sfrac{3\pi}{4}$ donc $\bsE_\text m = \bsE_\text p'\p{\sfrac{3\pi}{4}}$. Les droites sont tracées en pointillés sur le graphique précédent. Puisque $\frac{1}{2}mr^2\dot \theta^2 \geq 0$, l'équation $\bsE_\text m \geq \bsE_\text{pp}$ est toujours vérifiée.
+            
+            Dès lors, les $\theta$ accessibles sont tels que la courbe $y = \dfrac{\bsE_\text p'}{mgr}$ est en dessous de la droite $y = \dfrac{\bsE_\text m}{mgr}$. On colorie ces zones sur le graphique ci-dessous. On constate alors qu'il existe $a_\text{max}> 0$ tel que :
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            \begin{enumerate}
+                \itt Pour $a \leq 1$, le point matériel tourne dans la cuvette entre deux plans horizontaux définis par $\theta_1 = \sfrac{3\pi}{4}$ et $\theta_2 > \theta_1$. Dans le cas particulier $a = 1$, le point matériel est dans le cas particulier où $\dfrac{\dif y}{\dif \theta}$ change de signe en $\sfrac{3\pi}{2}$, ce qui en fait un minimum. On a alors $\theta_1 = \theta_2 = \sfrac{3\pi}{4}$, donc le mouvement est circulaire horizontal.
+                
+                \itt Pour $1 < a \leq a_\text{max}$, le point matériel tourne entre deux plans horizontaux définis par $\theta_1$ et $\theta_2 = \sfrac{3\pi}{4} > \theta_1$. Dans le cas particulier $a = 4$, le système atteint le bord de la sphère ($\theta_1 = \sfrac{\pi}{2}$) avec une vitesse nulle, et redescend en spirale jusqu'à $\theta_2$. On notera que l'énergie mécanique est positive si et seulement si $a \geq 2$.
+                
+                \itt Pour $a_\text{max} < a$, le point matériel monte et atteint $\theta = \sfrac{\pi}{2}$ avec une vitesse non nulle, et sort donc de la sphère.
+            \end{enumerate}
+        }
+        %
+        \yesbefore
+        
+        \item Quelle valeur maximale peut-on admettre pour $a$, sous peine de voir sortir le point matériel de la cuvette ?
+        
+        \noafter
+        %
+        \boxans{
+            Il s'agit de $a_\text{max}$. Il est tel que $\bsE_\text p'\p{\sfrac{\pi}{2}} = \bsE_\text p'\p{\sfrac{3\pi}{2}}$, soit en divisant par $mgr$ : \qquad $\dfrac{\sqrt{2}}{8}a = \dfrac{\sqrt{2}}{4}a - \dfrac{\sqrt{2}}{2}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On obtient facilement $a_\text{max} = 4$.
+        }
+    \end{enumerate}
+    
+    \section{Étude de quelques mouvements particuliers}
+    
+    \begin{enumerate}
+        \item On considère le cas $a = 1$. Calculer $\theta_1$ et $\theta_2$, quelle trajectoire observe-t-on ?
+        
+        \boxansconc{
+            Il s'agit d'un polynôme du second degré en $\cos \theta$. C'est un peu fastidieux, mais après calcul, on obtient $\theta_1 = \theta_2 = \dfrac{3\pi}{4}$. On a donc un mouvement circulaire avec $z = r\cos \theta$ constant.
+        }
+        
+        \item Pouvait-on simplement prévoir cette situation ? Expliquer.
+        
+        \boxansconc{
+            On a montré dans la partie précédente que pour $a = 1$, le minimum de $\dfrac{\dif y}{\dif \theta}$ est en $\sfrac{\pi}{3}$, ce qui force directement $\theta_1 = \theta_2$. On peut sinon comprendre que
+            %
+            \[ \bsE_\text c\p{t = 0} = mr^2\dot \varphi_0^2\sin^2 \theta_0 = mrg\dfrac{\sqrt{2}}{2} = -mrg\cos{\theta_0} = -\bsE_\text{pp}\p{t = 0}\]
+            %
+            Il y a donc un équilibre parfait entre l'énergie cinétique et l'énergie potentielle de pesanteur : le point matériel est lancé juste suffisamment vite pour compenser exactement les effets de la gravité.
+        }
+        
+        \item On considère le cas $a = \sqrt{2}$. Calculer $\theta_1$ et $\theta_2$. Une simulation numérique sur ordinateur montre que l'écart angulaire $\delta \varphi$ entre deux maxima (ou deux minima) de $\theta$ est de $\delta \varphi = \sfrac{4\pi}{3}$. Donner l'allure de la projection orthogonale de la trajectoire sur le plan $\p{Oxy}$. Au bout de combien de tours la trajectoire se referme-t-elle sur elle même ?
+        
+        \noafter
+        %
+        \boxans{
+            De même que dans le cas $a = 1$. On obtient $\theta_1 = \arccos{\sfrac{1}{4}\p{1 - \sqrt{17 - 2\sqrt{2}}}} \approx \qty{2.3}{rad}$ et $\theta_2 = \sfrac{3\pi}{4}$. Le mouvement se déroule donc entre deux plans horizontaux d'abscisse $z_1 = r\cos \theta_1$ et $z_2 = r\cos \theta_2$. Le point $M$ tourne autour de l'axe $\p{Oz}$, dont il est distant un rayon $r_M = r\cos \theta$. Il oscille donc entre deux cercles de rayon $r_\text{min} = r\cos \theta_2$ et $r_\text{max} = r\cos \theta_1$.\medskip
+            
+            Le système est initialement sur le cercle de rayon $r_\text{max}$. Il descend sur le cercle de rayon $r_\text{min}$ en effectuant une rotation $\delta \phi$ puis remonte celui de rayon $r_\text{max}$, et a alors parcouru une rotation de $\delta \varphi = 2\delta \phi$. On a donc $\delta \phi = \sfrac{2\pi}{3}$. Au bout d'un tour, le système a parcouru une rotation de $2\pi$, soit de $3\delta \phi$ : il est donc situé sur le 
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            cercle de rayon $r_\text{min}$. Il faut donc effectuer deux tour pour que le point matériel revienne à son point de départ.
+        }
+        %
+        \yesbefore
+    \end{enumerate}
+    
+\end{document}

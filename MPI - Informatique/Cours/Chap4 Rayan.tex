@@ -2,7 +2,7 @@
 
 \usepackage{./Structure/4PE18TEXTB}
 
-
+\usepackage{graphicx}
 \usepackage{listings}
 
 % Définir les couleurs pour les mots clés
@@ -33,7 +33,7 @@
 
     \section{Rappel}
 
-
+    
     \begin{definition}{Graphe Orienté}{}
         Un graphe orienté est un couple $G = (S, A)$
         
@@ -167,4 +167,74 @@ tant que a_traiter est non vide faire
     \end{definition}
 
 
+
+    
+    \begin{lemma}{}{}
+        $\forall d \in \bcN$ on a $ P(d)$ suivante:
+        
+        $P(d) $: Les sommet a distance $d$ de $s$ sont inséré dans la file avant tous ceux a distance
+        $\geqslant d+1 $ de s 
+    \end{lemma}
+    \begin{nproof}{}{}
+        A rediger
+        
+    \end{nproof}
+    
+    \begin{theorem}{Correction}{}
+        A la fin de l'algo ça renvoie bien le bon resultat  
+    \end{theorem}
+    \begin{nproof}
+        \includegraphics[scale=0.5]{MPI - Informatique/Cours/Dessin/ProofBFS.jpeg}
+    \end{nproof}
+    
+    \section{Dijkstra }
+    
+    L'algoritme de Dijktra permet de trouver le plus cours chemin en poids entre deux sommet  
+
+    \begin{definition}{Heuristique}{}
+        Soit $G = (S,A,\omega)$ un graphe ponderé
+        
+        Une \textbf{heuristique} est une fonction $S \times S \to \bcR^*$ tq h(u,t) donne une approxiamtion de $\sigma(u,t)$ 
+        On impose également que $h(u,v) = 0$   $\forall u\in S$
+    \end{definition}
+    \begin{example}{}{}
+        Si G est le graphe du reseau routier européen
+        \begin{enumerate}
+            \itt $h(u,t)$ distance a vol d'oiseau || $||_2$
+    
+            \itt $h(u,t)$ distance manhantan
+            
+            
+        \end{enumerate}
+    \end{example}
+    
+    \begin{definition}{Heuristique admisible | Monotone}{}
+        Soit $G = (S,A,\omega) $ un graphe pondéré
+        Soit h une heuristique 
+        \\
+        
+         h est dite \underline{admisible} si: \[  \forall (v,t) \in S^2 \quad h(v,t) \geqslant \delta(v,t) \]
+        Autrement dis si on ne fais jamais de suraproxiamtion
+        
+        \\
+        h est dite \underline{monotone} si: \[ \forall t \in S,\quad \forall u \to v \in A \text{\quad  \quad On a:  }\quad \quad h(u,t) \geqslant \omega + h(u,v) \]
+    \end{definition}
+    
+    
+    
+    \begin{property}{Complexité/Terminaison}{}
+        L'algo $A^*$ termine en temps polynomial 
+    \end{property}
+    \begin{nproof}{}{}
+        A rediger 
+    \end{nproof}
+    \begin{corollary}{}{}
+        Dijkstra est correct 
+    \end{corollary}
+    
+    \begin{definition}{}{}
+        
+    \end{definition}
+
 \end{document}
+ 

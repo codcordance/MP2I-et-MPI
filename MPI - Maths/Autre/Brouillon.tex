@@ -70,6 +70,31 @@
     
     On en déduit $\widetilde{x_0} = x_0\p{t_0} = x_1\p{t_0} = 0$ ce qui est absurde.
     
+    \newpage
+    
+    Soit $f$ la fonction définie sur $\intc{0, 1}$ par $f\p{x} = \ln{x + \sqrt{1 + x^2}}$.
+    
+    \begin{enumerate}
+        \itt On vérifie aisément que $f$ est strictement croissante de $\intc{0, 1}$ dans $\intc{0, \ln{1 + \sqrt{2}}}$. Elle est donc bijective, et on note $g : \intc{0, \ln{1 + \sqrt{2}}} \to \intc{0, 1}$ sa réciproque.
+        
+        \itt En posant le changement de variable $x = f\p{t}$, d'où $\dif x = \dif f\p{t} = f'\p{t}\dif t$, on obtient 
+        %
+        \[ \boxed{\int_0^{\ln{1 + \sqrt{2}}} g\p{x}\dif x = \int_0^1 tf'\p{t}\dif t} \]
+        %
+        En intégrant par partie, on obtient :
+        %
+        \[ \int_0^{\ln{1 + \sqrt{2}}} g\p{x}\dif x = \intc{tf\p{t}}_0^1 - \int_0^1 f\p{t}\dif t \qquad\text{d'où}\qquad \boxed{\int_0^1 f\p{t}\dif t = \ln{1 + \sqrt{2}} - \int_0^{\ln{1 + \sqrt{2}}} g\p{t}\dif t}\]
+        
+        \itt Exprimons $f'$ sur $\intc{0, 1}$ :
+        %
+        \[ f'\p{x} = \dfrac{1 + \dfrac{2x}{2\sqrt{1 + x^2}}}{x + \sqrt{1 + x^2}} = \dfrac{\dfrac{\sqrt{1 + x^2}}{\sqrt{1 + x^2}} + \dfrac{x}{\sqrt{1 + x^2}}}{x + \sqrt{1 + x^2}} = \dfrac{\dfrac{x + \sqrt{1 + x^2}}{\sqrt{1 + x^2}}}{x + \sqrt{1 + x^2}} = \dfrac{1}{\sqrt{1 + x^2}}\]
+        %
+        On en déduit par la formule précédente que 
+        %
+        \[ \int_0^{\ln{1 + \sqrt{2}}} g\p{x}\dif x = \int_0^1\dfrac{t}{\sqrt{1 + x^2}}\dif t = \intc{\sqrt{x^2 + 1}}_0^1 = \sqrt{2} - 1\]
+        %
+        Finalement, on obtient donc $\boxed{\displaystyle \int_0^1 f\p{t}\dif t = \ln{1 + \sqrt{2}} + 1 - \sqrt{2}}$.
+    \end{enumerate}
     
     
     

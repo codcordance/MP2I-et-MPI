@@ -1,0 +1,523 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{../../Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\thesubsection}{\Roman{section}.\Alph{subsection}}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii})}
+
+    \stylizeDocSpe{Maths II}{Concours Commun Mines-Ponts}{Session MP 2013}{Quelques propriétés géométriques du groupe orthogonal}
+    
+    \subsubsection*{Notations et définitions}
+    
+    \begin{enumerate}
+        \itt Soit $E$ un espace vectoriel euclidien, \ie préhilbertien réel de dimension finie $n \in \bdN$, avec $n \geq 2$. On note $\phyavg{\ ,\; }$ le produit scalaire de $E$ et $\norm{\ }$ la norme euclidienne associée. Si $H$ est une partie de $E$, on appelle \emph{enveloppe convexe de $H$}, notée $\Conv{H}$, la plus petite partie convexe de $E$ contenant $H$, c'est-à-dire l'intersection de tous les convexes de $E$ contenant $H$.
+        
+        \itt On désigne par $\bcM_n\p{\bdR}$ l'espace vectoriel des matrices carrées d'ordre $n$ à coefficients réels. On note $I$ la matrice identité de $\bcM_n\p{\bdR}$ et si $A \in \bcM_n\p{\bdR}$, note $A^\top$ la matrice transposée de $A$ et $\Tr{A}$ la trace de $A$. On rappelle que le \emph{groupe orthogonal} $\bcO_n\p{\bdR}$ de $\bcM_n\p{\bdR}$ est l'ensemble des matrices $U$ de $\bcM_n\p{\bdR}$ telles que $UU^\top = I$. On rappelle également qu'une matrice symétrique réelle est dite \emph{positive} si ses valeurs propres sont positives ou nulles.
+        
+        \itt On pourra identifier $\bdR^n$ et l'ensemble des matrices colonnes $\bcM_{n, 1}\p{\bdR}$, que l'on suppose munu du produit scalaire canonique, pour lequel la base canonique de $\bdR^n$ est orthonormée. On note $\norm{\ }_2$ la norme sur $\bcM_n\p{\bdR}$ subordonnée à la norme euclidienne sur $\bdR^n$ : 
+        %
+        \[ \forall A \in \bcM_n\p{\bdR},\qquad \norm{A}_2 = \sup\limits_{X \in \bdR^n,\; \norm{X} = 1}\norm{AX}\]
+    \end{enumerate}
+    
+    Les parties \textbf{\sffamily I}, \textbf{\sffamily II} et \textbf{\sffamily III} sont indépendantes.
+    
+    \section{Produit scalaire de matrices}
+    
+    On rappelle que $\Tr{A}$ désigne la trace de la matrice $A \in \bcM_n{\bdR}$.
+    
+    \begin{enumerate}
+        \item Montrer que pour toute base orthonormée $\p{e_1, e_2, \dots, e_n}$ de $\bdR^n$, on a la formule $\displaystyle\Tr{A} = \sum_{i=1}^n \phyavg{Ae_i, e_i}$.
+        
+        \boxansconc{
+            \[ \Tr{A} = \sum_{i=1}^n \intc{A}_{i, i} = \sum_{i=1}^n \intc{Ae_i}_i \eq{\text{base orthonormée}} \sum_{i=1}^n \phyavg{Ae_i, e_i} \]
+        }
+        
+        \item Montrer que l'application $\p{A, B} \to \Tr{A^\top B}$  définit un produit scalaire sur $\bcM_n\p{\bdR}$, noté $\phyavg{\ ,\; }$.
+        
+        \noafter
+        %
+        \boxans{
+            Soient $A$, $B$ et $B'$ deux matrices de $\bcM_n\p{\bdR}$, ainsi qu'un scalaire $\lambda \in \bdR$. L'application est :
+            %
+            \begin{enumerate}
+                \itt \emph{symétrique} car $\Tr{A^\top B} = \Tr{\p{A^\top B}^\top} = \Tr{B^\top A}$ ;
+                
+                \itt \emph{bilinéaire} car symétrique et car $\Tr{A^\top\p{\lambda B + B'}} = \Tr{\lambda A^\top B + A^\top B'} = \lambda\Tr{A^\top B} + \Tr{A^\top B'}$
+                
+                \itt \emph{positive} car $\displaystyle\Tr{A^\top A} = \displaystyle \sum_{i = 1}^n \intc{A^\top A}_{i, i} = \sum_{i=1}^n \sum_{k=1}^n \intc{A^\top}_{i, k} \intc{A}_{k, i} = \sum_{i=1}^n \sum_{k=1}^n \intc{A}_{k, i}^2 \geq 0$.
+                
+                \itt \emph{définie} car si $\Tr{A^\top A} = 0$, les $\intc{A}_{k, i}$ sont tous nulle par somme nulle de termes positifs (ci-dessus).
+            \end{enumerate}
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            L'application $\p{A, B} \to \Tr{A^\top B}$  définit un produit scalaire sur $\bcM_n\p{\bdR}$
+        }
+    \end{enumerate}
+    
+    On note $\norm{\ }_1$ la norme euclidienne associée à ce produit scalaire. \emph{L'attention du candidat est attirée sur le fait que $\bcM_n\p{\bdR}$ est désormais muni de deux normes différentes $\norm{\ }_1$ et $\norm{\ }_2$.}
+    
+    \begin{enumerate}[resume]
+        \item Si $A$ et $B$ sont symétriques réelles positives, montrer que $\phyavg{A, B} \geq 0$.
+        
+        \noafter
+        %
+        \boxans{
+            La matrice $A$ \emph{(respectivement $B$)} est semblable à $D = \diag{\lambda_1, \lambda_2, \dots, \lambda_n}$ \emph{(resp. $D' = \diag{\mu_1, \mu_2, \dots, \mu_n}$)} dans une base orthonormée, avec $A = P^\top DP$ \emph{(resp. $B = P'^{\top}D'P'$)} où $\p{P, P'} \in \bcO_n\p{\bdR}^2$. Dès lors :
+            %
+            \[ \phyavg{A, B} = \Tr{A^\top B} = {\p{P^\top DP}P'^\top D' P} = \Tr{P^{-1}PP'^{-1}PD'^\top D} = \Tr{D^\top D'} = \sum_{i=1}^n \lambda_i \mu_i\]
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Or les $\p{\lambda_i}_{i \in \iint{1, n}}$ et les $\p{\mu_i}_{i \in \iint{1, n}}$ sont tous positifs car $A$ et $B$ sont symétriques positives, donc $\phyavg{A, B} \geq 0$.
+        }
+        %
+        \yesafter
+    \end{enumerate}
+    
+    \section{Décomposition polaire}
+    
+    Soit $f$ un endomorphisme de $E$, de matrice $A$ dans une base orthonormée de $E$. On note $f^*$ l'adjoint de $f$.
+    
+    \begin{enumerate}
+        \item Montrer que $A^\top A$ est une matrice symétrique réelle positive. Exprimer ensuite $\norm{A}_2$ en fonction des valeurs propres de $A^\top A$.
+        
+        \noafter
+        %
+        \boxans{
+            Soit $M = A^\top A$. On a  $M^\top = \p{A^\top A}^\top A^\top \p{A^\top}^\top = A^\top A = M$ donc $M$ est symétrique. Soit $X \in \bdR^n$, on a
+            %
+            \[ \phyavg{MX, X} = \phyavg{A^\top AX, A} = \phyavg{AX, AX} = \norm{AX}^2 \geq 0\]
+        }
+        %
+        \nobefore
+        %
+        \boxansconc{
+            Si $X \in E_\lambda\p{M}$ avec $\lambda \in \Sp{M}$, on a $\phyavg{MX, X} = \phyavg{\lambda X, X} = \lambda \norm{X}^2$, d'où $\lambda \geq 0$, donc $M \in \bcS_n^+\p{\bdR}$.
+        }
+        %
+        \boxans{
+            Posons $\ens{\lambda_i}_{i \in \iint{1, n}}$ les valeurs propres de $M$ et $\bcB = \p{e_1, e_2, \dots, e_n}$ une base orthonormée de vecteurs propres associés. On note $X = \p{x_i}_{i \in \iint{1, n}}$ dans la base $\bcB$ et on suppose que $\norm{X} = 1$. Soit $\lambda = \max{\Sp M}$, on a :
+            %
+            \[ \norm{AX}^2 = \phyavg{MX, X} = \phyavg{\sum_{i=1}^n M x_i e_i, X} = \phyavg{\sum_{i=1}^n \lambda_i x_i e_i, x} \leq \phyavg{\lambda \sum_{i=1}^n x_i e_i, X} = \lambda\phyavg{ X, X} = \lambda\norm{X}^2 = \lambda\]
+            %
+            Donc $\norm{AX}^2 \leq \lambda$. On a par ailleurs montré que si $X \in E_\lambda{M}$, l'égalité est atteinte. 
+        }
+        %
+        \yesafter
+        %
+        \boxansconc{
+            On a donc $\norm{A}_2 = \sup_{X \in \bdR^n,\ \norm{X} = 1} \norm{AX} = \sqrt{\max{\Sp M}}$
+        }
+        %
+        \yesbefore
+        
+        \item Montrer qu'il existe un endomorphisme auto-adjoint positif $h$ de $E$ tel que $f^* \circ f = h^2$.
+        
+        \noafter
+        %
+        \boxans{
+            Soit $\bcB$ la base orthonormée de $E$ telle que $\Mat_\bcB f = A$, et donc 
+            %
+            \[ \Mat_\bcB f^* \circ f = \Mat_\bcB f^* \Mat_\bcB f = \p{\Mat_\bcB f}^\top \Mat_\bcB f = A^\top A = M \]
+            %
+            On a $M \in \bcS^+\p{\bdR}$ par la question précédente donc $M$ est diagonalisable en une matrice $D = \diag{\lambda_1, \lambda_2, \dots, \lambda_n}$ de valeurs propres toutes positives, avec $M = P^\top DP$ où $P \in \bcO_n\p{\bdR}$. Posons $\sqrt{D} = \diag{\sqrt{\lambda_1}, \sqrt{\lambda_2}, \dots, \sqrt{\lambda_n}}$ d'où $\sqrt{D}^2 = D$ et $h$ l'endomorphisme de $E$ tel que $\Mat_\bcB h = P\sqrt{D}P^{-1}$. On a
+            %
+            \[ \Mat_\bcB h^2 = \p{\Mat_\bcB h}^2 = \p{P^\top \sqrt{D}P}^2 = P^\top \sqrt{D}\hspace{-0.6cm}{\underbrace{P^\top P}_{= I_n \ \text{car} \ P \in \bcO_n\p{\bdR}}}\hspace{-0.6cm}\sqrt{D}P = P^\top D P = \Mat_\bcB f^\ast \circ f \]
+            %
+            On a donc $h^2 = f^* \circ f$. De plus $\Mat_\bcB h^* = \p{P^\top \sqrt{D}P}^\top = P^\top \sqrt{D}^\top P = P^\top \sqrt{D} P = \Mat_\bcB h$ car $\sqrt{D}$ est diagonale donc $h$ est auto-adjoint. Enfin, $h$ est positif car ses valeurs propres le sont.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+              On a bien construit un endomorphisme auto-adjoint positif $h$ de $E$ tel que $f^* \circ f = h^2$.
+        }
+        %
+        \yesbefore
+        
+        \item Montrer que la restriction de $h$ à $\Imm h$ induit un automorphisme de $\Imm h$. On notera cet automorphisme $\widetilde h$.
+        
+        \boxansconc{
+            $h$ est diagonalisable donc $E = \Ker h \oplus \Imm h$. Or $h$ induit un isomorphisme de $\Imm h$ sur un supplémentaire de $\Ker h$, donc $\widetilde h = h_{\vert \Imm h}$ est un automorphisme de $\Imm h$.
+        }
+        
+        \item Montrer que $\norm{h\p{x}} = \norm{f\p{x}}$ pour tout $x \in E$. En déduire que $\Ker h$ et $\p{\Imm f}^\bot$ ont même dimension et qu'il existe un isomorphisme $v$ de $\Ker h$ sur $\p{\Imm f}^\bot$ qui conserve la norme.
+        
+        \noafter
+        %
+        \boxans{
+            Soit $x \in E$, on a
+            %
+            \[ \norm{f\p{x}}^2 = \phyavg{f\p{x}, f\p{x}} = \phyavg{f^* \circ f\p{x}, x} = \phyavg{h^2\p{x}, x} = \phyavg{h\p{x}, h\p{x}} = \norm{h\p{x}}^2\]
+            %
+        }
+        %
+        \nobefore
+        %
+        \boxansconc{
+            Donc $\norm{f\p{x}} = \norm{h\p{x}}$ pour tout $x \in E$.
+        }
+        %
+        \boxans{
+            On a directement $\Ker f = \Ker h$, et par \emph{théorème du rang} :
+            %
+            \[ \dim \p{\Imm f}^\bot = \dim E - \rg f = \dim{\Ker f} = \dim{\Ker h}\]
+            %
+            Ainsi $\Ker h$ et $\p{\Imm f}^\bot$ ont même dimension. Si cette dimension est nulle, on pose $v$ l'endomorphisme nul, qui conserve la norme. Sinon, on considère $\p{u_1, u_2, \dots, u_p}$ \emph{(respectivement $\p{u_1', u_2', \dots, u_p'}$)} une base orthonormée de $\Ker h$ \emph{(respectivement  $\p{\Imm f}^\bot$)}. On pose alors $v$ l'endomorphisme de $\Ker h$ dans $\p{\Imm f}^\bot$ tel que 
+            %
+            \[ \forall i \in \iint{1, p},\qquad  v\p{u_i} = u_i' \]
+        }
+        %
+        \yesafter
+        %
+        \boxansconc{
+            On a donc bien un isomorphisme $v$ de $\Ker h$ sur $\p{\Imm f}^\bot$ qui conserve la norme.
+        }
+        %
+        \yesbefore
+        
+        \newpage
+        
+        \item À l'aide de $\widetilde h$ et $v$, construire un automorphisme orthogonal $u$ de $E$ tel que $f = u \circ h$.
+        
+        \noafter
+        %
+        \boxans{
+            On a $E = \Imm h \oplus \Ker h$, donc on peut poser $u$ l'endomorphisme de $E$ tel que $u_{\vert \Imm h} = f \circ \widetilde h^{-1}$ et $u_{\vert \Ker h} = v$.
+            %
+            \[ \forall x \in \Imm h,\qquad u \circ h\p{x} = f\p{h^{-1}\p{h\p{x}}} = f\p{x} \qquad\et\qquad \forall x \in \Ker h = \Ker f,\qquad u \circ h\p{x} = v\p{0} = 0 = f\p{x}\]
+            %
+            Donc $f = u \circ h$. On a immédiatement que $u_{\vert \Ker h} = v$ conserve la norme, et par la question précédente :
+            %
+            \[ \forall x \in \Imm h,\qquad \norm{u_{\vert \Imm h}\p{x}} = \norm{f\p{\widetilde h^{-1}\p{x}}} = \norm{h\p{h^{-1}\p{x}}} = \norm{x} \qquad\text{donc}\qquad u_{\vert \Imm h} \ \text{conserve la norme} \]
+            %
+            Enfin $u\p{\Imm h} \subset \Imm f$ et $u\p{\Ker h} = v\p{\Ker h} = \p{\Imm f}^\bot$ donc $u\p{\Imm h} \bot u\p{\Ker h}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Ainsi $u$ conserve globalement la norme, il s'agit donc d'un automorphisme orthogonal de $E$ tel que $f = u \circ h$.
+        }
+        %
+        \yesbefore
+        
+        \item En déduire que toute matrice $A \in \bcM_n\p{\bdR}$ s'écrit sous la forme $A = US$, où $U \in \bcO_n\p{\bdR}$ et $S$ est une matrice symétrique positive.
+        
+        \noafter
+        %
+        \boxans{
+            Soit $A \in \bcM_n\p{\bdR}$ et $\bcB$ une base orthonormée de $E$. On considère alors $f$ tel que $\Mat_\bcB f = A$. Par les questions précédentes, il existe un endomorprhisme auto-adjoint positif $h$ tel que $f^\ast \circ f = h^2$ et un automorphisme orthogonal $u$ tel que $f = u \circ h$. On pose 
+            %
+            \[ U = \Mat_\bcB u \in \bcO_n{\bdR}\qquad\et\qquad S = \Mat_\bcB u \in \bcS_n^+\p{\bdR}\]
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a finalement $A = \Mat_\bcB f = \Mat_\bcB u \circ h = \Mat_\bcB u \Mat_\bcB h = US$.
+        }
+        %
+        \yesbefore
+        
+    \end{enumerate}
+    
+    On admet que si $A$ est inversible, cette écriture est unique.
+    
+    \section{Projeté sur un convexe compact}
+    
+    Soit $H$ une partie de $E$, convexe et compacte, et soit $x \in E$. On note
+    %
+    \[ d\p{x, H} = \inf_{h \in H} \norm{x - h}\]
+    %
+    \begin{enumerate}
+        \item Montrer qu'il existe un unique $h_0 \in H$ tel que $d\p{x, H} = \norm{x - h_0}$. On pourra utiliser pour $h_0$ et $h_1$ dans $H$ la fonction $q$ définie sur $\bdR$ par
+        %
+        \[ \forall t \in \bdR,\qquad q\p{t} = \norm{x - th_0 - \p{1 - t}h_1}^2\]
+        
+        \noafter
+        %
+        \boxans{
+            Par continuité de la norme, la fonction $h \to \norm{x - h}$ est continue sur $H$, donc par compacité, il existe $h_0 \in H$ tel que $d\p{x, H} = \norm{x - h_0}$. Soit $h_1 \in H$ tel que $d\p{x, H} = \norm{x - h_1}$. On pose $\Delta h = h_1 - h_0$ et on considère les fonctions $f : \begin{array}[t]{ccc}
+                \intc{0, 1} &\to& E \\
+                t &\mapsto&  \Delta ht + h_0
+            \end{array}$ qui est à image dans $H$ par convexité et  $q : \begin{array}[t]{ccc}
+                \intc{0, 1} &\to& \bdR \\
+                t &\mapsto& \norm{x - f\p{t}}
+            \end{array}$.\medskip
+            
+            On a $f\p{0} = h_0$ et $f\p{h_1} = h_1$, donc $q\p{0} = q\p{1} = \d{x - h}^2$ et par minimalité (définition de $d\p{x, H}$), $q$ rencontre ainsi un minimum local en $0$ et en $1$. Or l'on remarque que $q$ est $\bcC^\infty$, et que
+            %
+            \[ \forall t \in I,\qquad q'\p{t} = -2\phyavg{x - h_0 - \Delta ht, \Delta h} \qquad\text{et donc}\qquad q''\p{t} = 2\phyavg{\Delta h, \Delta h} = 2\norm{\Delta h}^2\]
+            %
+            Donc $q$ est convexe sur $\intc{0, 1}$. On en déduit que $q$ est forcément constante, d'où $2\norm{\Delta h}^2 = 0$, et donc $\Delta h = 0$. 
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a montré l'existence et l'unicité d'un $h_0 \in H$ tel que $d\p{x, H} = \norm{x - h_0}$.
+        }
+        %
+        \yesbefore
+        
+        
+        \item Montrer que $h_0$ est caractérisé par la condition $\phyavg{x - h_0, h - h_0} \leq 0$ pour tout $h \in H$. On pourra utiliser la même fonction $q\p{t}$ qu'à la fonction précédente.
+        
+        \noafter
+        %
+        \boxans{
+            On reprend les fonctions de la question précédente, avec cette fois $h_1 = h$ un point quelconque de $H$. La fonction $q$ est convexe de minimum local atteint en $0$ donc croissante en $0$. On a donc 
+            %
+            \[ q'\p{0} \geq 0\qquad\text{donc}\qquad -2\phyavg{x - h_0, \Delta h} \geq 0\qquad\text{donc}\qquad \phyavg{x - h_0, h - h_0} \leq 0\]
+            
+            Réciproquement, soit $h_0 \in H$ tel que pour tout $h \in H$, on ait $\phyavg{x - h_0, h - h_0} \leq 0$. On a
+            %
+            \[ \norm{x - h}^2 = \norm{x - h_0 + h_0 - h}^2 = \norm{x - h_0}^2 - 2\phyavg{x - h_0, h - h_0} + \norm{h_0 - h}^2 \geq \norm{x - h_0}^2\]
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Donc $h_0$ est caractérisé par la condition $\phyavg{x - h_0, h - h_0} \leq 0$ pour tout $h \in H$.
+        }
+    \end{enumerate}
+    
+    Le vecteur $h_0$ est appellé \emph{projeté} de $x$ sur $H$.
+    
+    \section{Théorème de \textsc{Carathéodory} et compacité}
+    
+    Dans cette partie, on suppose que $E$ est de dimension $n$. On dit que $x \in E$ est une \emph{combinaison convexe} des $p$ élements $\p{x_1, x_2, \dots, x_p} \in E^p$ s'il existe des réels $\p{\lambda_1, \lambda_2, \dots, \lambda_p}$ positifs ou nuls tels que
+    %
+    \[x = \sum_{i=1}^p \lambda_i x_i \qquad\et\qquad \sum_{i=1}^p \lambda_i = 1\]
+    
+    \begin{enumerate}
+        \item Montrer que l'enveloppe convexe $\Conv{H}$ d'une partie $H$ de $E$ est constituée de combinaisons convexes d'éléments de $H$.
+        
+        \noafter
+        %
+        \boxans{
+            Tout convexe de $E$ contient par définition l'ensemble des combinaisons convexes de ses éléments. En posant $F$ l'ensemble des combinaisons convexes d'éléments de $H$, on obtient donc que $F$ est inclus dans tout convexe contenant $H$. On a donc $F \subset \Conv{H}$.\medskip
+            
+            Par ailleurs, pour tout $h \in H$, $h$ est une combinaison convexe de lui-même donc $H \subset F$. Pour $\p{x, y} \in F^2$ avec comme ci-dessus $x = \displaystyle \sum_{i=1}^p \lambda_i x_i$ et $\displaystyle y = \sum_{i=1}^{p'} \mu_i y_i$ et $t \in \intc{0, 1}$, on a $z = \displaystyle xt + \p{1 - t}y = \sum_{i=1}^p t\lambda_i x_i + \sum_{i=1}^{p'} \p{1 - t} \mu_i y_i$.
+            
+            On pose $\gamma_i = \begin{cases}t\lambda_i&\text{si }i \in \iint{1, p}\\\p{1 - t}\mu_{i-p}&\text{si }i \in \iint{p+1, p'}\end{cases}$ et $z_i = \begin{cases}x_i&\text{si }i \in \iint{1, p}\\y_i&\text{si }i \in \iint{p+1, p+p'}\end{cases}$, ainsi $z = \displaystyle\sum_{i=1}^{p+p'} \gamma_i z_i$. On vérifie aisément que la somme des $\p{\gamma_i}_{i \in \iint{1, p+p'}}$ fait $1$, et donc $F$ est un convexe contenant $H$. 
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Par double inclusion, $\Conv{F}$ est l'ensemble des combinaisons convexes d'éléments de $H$.
+        }
+        %
+        \yesbefore
+    \end{enumerate}
+    
+    On souhaite montrer que l'enveloppe convexe $\Conv{H}$ est constituée des combinaisons convexes d'\emph{au plus} $n+1$ éléments de $H$. Soit $x = \displaystyle \sum_{i=1}^n \lambda_i x_i$ une combinaison convexe de $\p{x_1, x_2, \dots, x_p} \in H^p$ avec $p \geq n+2$.
+    
+    \begin{enumerate}[resume]
+        \item Montrer qu'il existe $p$ réels non tous nuls $\p{\mu_1, \mu_2, \dots, \mu_p}$ tels que
+        %
+        \[ \sum_{i=1}^n \mu_i x_i = 0 \qquad\et\qquad \sum_{i=1}^p \mu_i = 0\]
+        %
+        On pourra considérer la famille $\p{x_2 - x_1, x_3 - x_1, \dots, x_p - x_1}$.
+        
+        \noafter
+        %
+        \boxans{
+            La famille $\p{x_2 - x_1, x_3 - x_1, \dots, x_p - x_1}$ contient $p - 1 \geq n + 1$ vecteurs donc elle est liée dans $E$ de dimension $n$. Il existe donc $p-1$ réels $\p{\mu_2, \mu_3, \dots, \mu_p}$ non tous nuls tels que
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            \[ \sum_{i=2}^n \mu_i \p{x_i - x_1} = 0\qquad\text{donc}\qquad \underbrace{\p{-\sum_{i=2}^n \mu_i}}_{\mu_1 = 0}x_1 + \sum_{i=2}^n \mu_i x_i = 0 \qquad\text{donc}\qquad \sum_{i=1}^n \mu_i = 0\]
+            %
+            On a par ailleurs $\displaystyle\sum_{i=1}^n \mu_i = \sum_{i=2}^n \mu_i - \sum_{i=2}^n \mu_i = 0$.
+        }
+        %
+        \yesbefore
+        
+        \item En déduire que $x$ s'écrit comme combinaison convexe d'au plus $p-1$ éléments de $H$ et conclure que $\Conv{H}$ est constituée des combinaisons convexes d'au plus $n+1$ éléments de $H$. On pourra considérer une suite de coefficients de la forme $\lambda_i - \theta\mu_i \geq 0$ pour $i \in \iint{1, p}$ et un réel $\theta$ bien choisi.
+        
+        \noafter
+        %
+        \boxans{
+            Soit $\theta = \min\ens{\dfrac{\lambda_i}{\mu_i} \enstq i \in \iint{1, p} \et \mu_i \neq 0} = \dfrac{\lambda_{i_0}}{\mu_{i_0}}$. On a $\displaystyle\sum_{i=1}^n \p{\lambda_i - \theta\mu_i}x_i = \sum_{i=1}^n \lambda_i x_i - \theta\sum_{i=1}^n \mu_ix_i = x - 0 = x$ et
+            %
+            \[ \sum_{i=1}^n \lambda_i - \theta\mu_i = \sum_{i=1}^n \lambda_i - \theta\sum_{i=1}^n \mu_i = 1 - 0 = 1\]
+            %
+            \vspace{-0.35cm} Enfin, pour tout $i \in \iint{1, n}$, on a $\lambda_i - \theta\mu_i \geq \lambda_i - \dfrac{\lambda_i}{\mu_i}\mu_i \geq \lambda_i - \lambda_i = 0$. Enfin, $\lambda_{i_0} - \theta\mu_{i_0} = 0$. 
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a donc $x = \displaystyle\sum_{i=1}^p \p{\lambda_i - \theta \mu_i}x_i = \sum_{i =1,\ i \neq i_0}^p \p{\lambda_i - \theta x_i}x_i = \sum_{i=1}^{p' = p-1} \lambda_i' x_i$. On peut réitérer ce processus tant que $p' > n+1$, donc au final, $\Conv{H}$ est constituée des combinaisons convexes d'au plus $n+1$ éléments de $H$.
+        }
+        %
+        \yesbefore
+        
+        \item Si $H$ est une partie compacte de $E$, montrer que $\Conv{H}$ est compacte. On pourra introduire l'ensemble compact de $\bdR^{n+1}$ défini par
+        %
+        \[ \Lambda = \ens{\p{t_1, \dots, t_{n+1}} \in \p{\bdR_+}^{n+1} \enstq \sum_{i=1}^{n+1} t_i = 1}\]
+        
+        \begin{lemma*}{}{}
+                Soit $H = \ens{\p{t_1, t_2, \dots, t_n} \in \bdR^n \enstq \displaystyle\sum_{i=1}^{n+1} t_i = 1}$, on a $\Lambda = \p{\bdR_+}^{n+1} \cap H$. On sait que $\bdR_+$ est fermé donc $\p{\bdR_+}^n$ l'est également. Par ailleurs, en posant $\varphi$ la forme linéaire définie sur $\bdR^{n+1}$ par 
+                %
+                \[ \varphi\p{t_1, \dots, t_{n+1}} = \sum_{i=1}^{n+1} t_i \]
+                %
+                on obtient que $H = \varphi^{-1}\p{1}$. Par continuité de $\varphi$, on obtient que $H$ est fermé donc $\Lambda$ est fermé. Enfin, $\Lambda \subset \intc{0, 1}^{n+1}$ donc il s'agit d'un fermé borné en dimension finie, donc \hg{$\Lambda$ est compact}.
+        \end{lemma*}
+        
+        \noafter
+        %
+        \boxans{
+            Considérons l'application $\mathbf{\Omega} : \lambda \times H^{n+1} \to \Conv{H}$ telle que
+            %
+            \[ \forall \gamma = \p{t_1, t_2, \dots, t_{n+1}} \in \Gamma,\qquad h = \forall \p{x_1, x_2, \dots, x_{n+1}} \in H,\qquad \mathbf{\Omega}\p{\gamma, h} = \sum_{i=1}^{n+1} t_ix_i\]
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Cette application est linéaire sur l'espace vectoriel $\lambda \times H^{n+1}$ de dimension finie et donc continue. Il en résulte que $\Conv{H} = \mathbf{\Omega}\p{ \lambda \times H^{n+1}}$ est un fermé.
+        }
+        %
+        \yesbefore
+    \end{enumerate}
+    
+    \section{Enveloppe convexe de $\bcO_n\p{\bdR}$}
+    
+    \begin{enumerate}
+        \item Montrer que l'enveloppe convexe $\Conv{\bcO_n\p{\bdR}}$ est compacte.
+        
+        \noafter
+        %
+        \boxans{
+            L'application $\varphi : \begin{array}[t]{ccc}
+                \bcM_n\p{\bdR} &\to& \bcM_n\p{\bdR}  \\
+                M &\mapsto& M^\top M
+            \end{array}$ est continue sur $\bcM_n\p{\bdR}$, par continuité (linéarité en dimension finie) de la trace et du produit. Or $\bcO_n\p{\bdR} = \varphi^{-1}\p{I_n}$ donc $\bcO_n\p{\bdR}$ est fermé.\medskip
+            
+            Soient $M \in \bcO_n\p{\bdR}$. La matrice $M$ étant orthogonale, elle préserve la norme, d'où :
+            %
+            \[ \norm{M}_2 = \sup_{X \in \bdR^n,\ \norm{X} = 1} \norm{AX} = \sup_{X \in \bdR^n,\ \norm{X} = 1} \norm{X} = 1 \]
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            Donc $\bcO_n\p{\bdR}$ est borné. Par la question précédente, $\Conv{\bcO_n\p{\bdR}}$ est compact.
+        }
+    \end{enumerate}
+    
+    On note $\bsB$ la boule unité fermée de $\p{\bcM_n\p{\bdR}, \norm{\ }_2}$.
+    
+    \begin{enumerate}[resume]
+        \item Montrer que $\Conv{\bcO_n\p{\bdR}}$ est contenu dans $\bsB$.
+        
+        \boxansconc{
+            Pour tout $M \in \bcO_n\p{\bdR}$ on a $\norm{M}_2 = 1$, donc $\bcO_n\p{\bdR} \subset \bsB$. Une boule étant convexe, on a $\Conv{\bcO_n\p{\bdR}} \subset \bsB$.
+        }
+    \end{enumerate}
+    
+    On suppose qu’il existe $M \in \bsB$ telle que $M$ n’appartient pas à $\Conv{\bcO_n\p{\bdR}}$. On note $N$ le projeté de $M$ sur $\Conv{\bcO_n\p{\bdR}}$ défini à la partie \textbf{\sffamily III} pour la norme $\norm{\ }_1$, et on pose $A = \p{M - N}^\top$. On écrit enfin $A = US$, avec $U \in \bcO_n\p{\bdR}$ et $S$ symétrique réelle positive (partie \textbf{\sffamily II}).
+    
+    \begin{enumerate}[resume]
+        \item Montrer que pour tout $V \in \Conv{\bcO_n\p{\bdR}}$, on a $\Tr{AV} \leq \Tr{AN} < \Tr{AM}$. Déduire de cette inégalité que $\Tr{S} < \Tr{USM}$.
+        
+        \noafter
+        %
+        \boxans{
+            Pour $V \in \Conv{\bcO_n\p{\bdR}}$, la partie \textbf{\sffamily III} livre $\phyavg{M - N,  V - N} \leq 0$, donc $\Tr{AV} \leq \Tr{AN}$. De plus :
+            %
+            \[ \Tr{AM} - \Tr{AN} = \phyavg{M - N, M} - \phyavg{M - N, N} = \phyavg{M - N, M - N} = \norm{M - N}_1^2 \]
+            %
+            Or $M \not\in \Conv{\bcO_n\p{\bdR}}$ donc $M \neq N$ donc $ \norm{M - N}_1^2 > 0$ et donc $\Tr{AM} > \Tr{AN}$.
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            \[ \forall V \in \Conv{\bcO_n\p{\bdR}},\qquad \Tr{AV} \leq \Tr{AN} < \Tr{AM} \]
+            %
+            On écrit $A = US$, et on considère $V = U^\top \in \bcO_n\p{\bdR} \subset \Conv{\bcO_n\p{\bdR}}$. On obtient donc $\Tr{S} < \Tr{USM}$.
+        }
+        %
+        \yesbefore
+        
+        \item Montrer que $\Tr{MUS} \leq \Tr{S}$. On pourra appliquer le résultat de la première question.
+        
+        \noafter
+        %
+        \boxans{
+            $S$ étant symétrique positive, elle est diagonalisable dans une base $\p{e_1, e_2, \dots, e_n}$ orthonormée de vecteurs propres en une matrice $\diag{\lambda_1, \lambda_2, \dots, \lambda_n}$ de valeurs propres $\p{\lambda_i}_{i \in \iint{1, n}}$ positives. Par la première question :
+            %
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            \[ \Tr{MUS} = \sum_{i=1}^n \phyavg{MUSe_i, e_i} = \sum_{i=1}^n \lambda_i \phyavg{MUe_i, e_i} \underset{\textsc{Cauchy-Schwarz}}{\leq} \sum_{i=1}^n \lambda_i \norm{MUe_i}^2 \norm{e_i}^2 = \sum_{i=1}^n \lambda_i = \Tr{S}\]
+        }
+        %
+        \yesbefore
+        
+        \item Conclure en déterminant $\Conv{\bcO_n\p{\bdR}}$.
+        
+        \boxansconc{
+            Les inégalités ci-dessus sont contradictoires, donc par l'absurde il ne peut exister $M \in \bsB \backslash \Conv{\bcO_n\p{\bdR}}$, donc
+            %
+            \[ \Conv{\bcO_n\p{\bdR}} = \bsB \]
+        }
+    \end{enumerate}
+    
+    \section{Points extrémaux}
+    
+    Un élément $A \in \bsB$ est dit extrémal dans $\bsB$ si l’écriture $A = \sfrac{1}{2}\p{B + C}$, avec $B$ et $C$ appartenant à $\bsB$, entraîne $A = B = C$. Dans cette partie, on cherche à déterminer l’ensemble des points extrémaux de $\bsB$.
+    
+    \begin{enumerate}
+        \item On suppose que $U \in \bcO_n\p{\bdR}$ s'écrit sous la forme $U = \sfrac{1}{2}\p{V + W}$, avec avec $\p{V, W} \in \bsB^2$. Montrer que pour tout $X \in \bdR^n$, les vecteurs $VX$ et $WX$ sont liés. En déduire que $U$ est extrémal dans $\bsB$.
+        
+        \noafter
+        %
+        \boxans{
+            La matrice $U$ préserve la norme, donc pour tout vecteur $X \in \bdR^n$, on a 
+            %
+            \[ \norm{X} = \norm{UX} = \dfrac{1}{2}\norm{VX + WX} \leq \dfrac{1}{2}\p{\norm{VX} + \norm{WX}} = \dfrac{1}{2}\p{\norm{X} + \norm{X}} = \norm{X}\]
+            %
+            On a donc le cas d'égalité de l'inégalité triangulaire, en vertu de quoi $VX$ et $WX$ sont liés.
+        }
+    \end{enumerate}
+    
+    Soit $A$ appartenant à $\bsB$ mais n'appartenant pas à $\bcO_n\p{\bdR}$.
+    
+    \begin{enumerate}[resume]
+        \item Montrer que l'on peut écrire $A$ sous la forme $A = PDQ$, où $P$ et $Q$ sont deux matrices orthogonales et où $D$ est une matrice diagonale dont les éléments diagonaux $\p{d_1, d_2, \dots, d_n}$ sont positifs ou nuls.
+        
+        \item Montrer que $d_i \leq 1$ pour tout $i \in \iint{1, n}$, et qu'il existe $j \in \iint{1, n}$ tel que $d_j < 1$.
+        
+        \item En déduire qu’il existe deux matrices $A_\alpha$ et $A_{-\alpha}$ appartenant à $b$ telles que $A = \dfrac{1}{2}\p{A_\alpha + A_{-\alpha}}$. Conclure.
+
+    \end{enumerate}
+    
+\end{document}

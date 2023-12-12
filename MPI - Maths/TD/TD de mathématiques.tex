@@ -570,4 +570,194 @@
         \dfrac{\partial^n}{\partial x^n}\left(f\circ g\right)(x) = \sum_{m_k} \dfrac{n!}{\prod m_k!} f^{(\sum m_k)}\circ g(x) \prod \left(\dfrac{g^{(j)}(x)}{j!}\right)^{m_j}
     \end{equation}
     
+    \newpage
+    
+    \chapter{Espaces euclidiens}
+    
+    \subsection{}
+    
+    \underline{Rappel :} 
+    %
+    \[ \Tr{u} = 0 \iff \exists \bcB,\qquad \Mat_\bcB u = \begin{pNiceMatrix} 0 & & \star \\
+     & \Ddots & \\
+    \star & & 0\end{pNiceMatrix} \]
+    %
+    Pour $u \in \bcS$, montrer que $\Tr{u} = 0 \iff \exists \bcB \ \text{BON},\qquad \Mat_\bcB u =  \begin{pNiceMatrix} 0 & & \star \\
+     & \Ddots & \\
+    \star & & 0\end{pNiceMatrix}$.
+    
+    \newpage
+    
+    Posons $M $
+
+    \chapter{Arithmétique}
+
+    \subsection{Symbole de Pochhammer}
+
+    Soit $\p{A, +, \times}$ un anneau commutatif. pour $x \in A$et $n \in \bdN$, on définit $x^{(n)}$ par :
+    %
+    \[ x^{(0)} = 1_A,\qquad x^{(n)} = x\p{x-1}\cdots\p{x - n + 1}\]
+
+    Montrer que pour tous $x$ et $y \in A$ et tout $n \in \bdN$, on a :
+    %
+    \[ \p{x + y}^{(n)} = \sum_{k = 0}^n \binom{n}{k}x^{(k)}y^{(n-k)}\]
+
+    \boxans{
+        Soient $\p{x, y} \in A^2$. Pour $n \in \bdN$, on note $\bcP\p{n}$ le prédicat 
+        %
+        \[ \bcP\p{n} : \p{x + y}^{(n)} = \sum_{k = 0}^n \binom{n}{k}x^{(k)}y^{(n-k)}\]
+        %
+        On a $\bcP\p{0}$ car $\p{x + y}^{(0)} = 1_A$ et $\binom{0}{0}x^{(0)}y^{(0)} = 1_A1_A = 1_A$.
+        
+        Supposons alors que la propriété est vrai jusqu'au rang $n \in \bdN$. On a :
+        %
+        \begin{align*}
+            \p{x + y}^{(n+1)} &= \p{x + y}^{(n)}\p{x + y - n} = \p{\sum_{k = 0}^n \binom{n}{k}x^{(k)}y^{(n-k)}}\p{x + y - n}\\
+            &= \sum_{k = 0}^n \binom{n}{k}x^{(k)}y^{(n-k)}\p{x + y - n} = \sum_{k = 0}^n \binom{n}{k}x^{(k)}y^{(n-k)}\p{x -k + y - \p{n - k}}\\
+            &= \sum_{k = 0}^n \binom{n}{k}x^{(k)}\p{x -k}y^{(n-k)} + \sum_{k = 0}^n \binom{n}{k}x^{(k)}y^{(n-k)}\p{y - \p{n -k }}\\
+            &= \sum_{k = 0}^n \binom{n}{k}x^{(k + 1)}y^{(n-k)} + \sum_{k = 0}^n \binom{n}{k}x^{(k)}y^{(n-k + 1)}\\
+            &= \sum_{k = 1}^{n+1} \binom{n}{k-1}x^{(k)}y^{(n-k+1)} + \sum_{k = 0}^n \binom{n}{k}x^{(k)}y^{(n-k + 1)}\\
+            &= x^{(n+1)} + \sum_{k = 1}^{n} \binom{n+1}{k}x^{(k)}y^{(n+1-k)} + y^{(n+1)} = \sum_{k = 0}^{n+1} \binom{n+1}{k}x^{(k)}y^{(n+1-k)}
+        \end{align*}
+    }
+    
+    \newpage
+    
+    \[ \chi_{M\p{z}} = \begin{vNiceMatrix}X & 0 &-z\\-1 & X - 1 & 0\\ 0 & -1 & X\end{vNiceMatrix} = X\begin{vNiceMatrix}X - 1& 0\\-1 & X \end{vNiceMatrix} -z\begin{vNiceMatrix}-1 & X - 1\\0 & -1\end{vNiceMatrix} = X\p{X-1}X - z\p{-1}^2 = X^3 - X^2 - z\]
+    
+    On a $\chi_{M\p{z}}' = 3X^2 - 2X^2 = X\p{3X - 2}$ de racines $0$ et $\sfrac{2}{3}$.
+    
+    Ça c'est un $\chi$ et ça c'est un $\xi$
+    
+    \[ \rg\begin{pNiceMatrix}\sfrac{2}{3} & 0 & \sfrac{4}{27}\\ - 1 & -\sfrac{1}{3} & 0\\ 0 & -1 & \sfrac{2}{3}\end{pNiceMatrix} = \rg\begin{pNiceMatrix}\sfrac{2}{3} & 0 & \sfrac{4}{27}\\ 0 & -\sfrac{1}{3} & \sfrac{2}{9}\\ 0 & -1 & \sfrac{2}{3}\end{pNiceMatrix} = \rg\begin{pNiceMatrix}\sfrac{2}{3} & 0 & \sfrac{4}{27}\\ 0 & -\sfrac{1}{3} & \sfrac{2}{9}\\ 0 & 0 & 0\end{pNiceMatrix} \]
+    
+    \[ \bbP\p{Y = j} = \sum_{k \in \bdN^*} \bbP\p{X = k}\bbP\p{Y = j \enstq X = k} = \sum_{k=1}^j \dfrac{1}{n}\dfrac{1}{k} = \sum_{k=1}^j \dfrac{1}{kn} \]
+
+    \[ \bdE\p{Y} = \dfrac{1}{n}\sum_{j=1}^n \sum_{k=1}^j \dfrac{j}{k} = \dfrac{1}{n}\sum_{1 \leq k \leq j \leq n} \dfrac{j}{k} = \dfrac{1}{n}\sum_{k=1}^n\dfrac{1}{k}\sum_{j=k}^n j = \dfrac{1}{n}\sum_{k=1}^n \dfrac{\p{n-k+1}\p{n+k}}{2k}\]
+
+
+    \newpage 
+
+    \[  \]
+    
+    
+    \chapter{Calcul différentiel}
+    
+    \subsection{Polynômes}
+    
+    Soit $f: P \in \bdR\intc{X} \mapsto \displaystyle\int_0^1 P^3$. Déterminer $\dif f_P\p{Q}$.
+    
+    \boxans{
+        \begin{align*}
+        f\p{P + H} &= \int_0^1 \p{P + H}^3\\
+        &= \int_0^1 P^3 + \int_0^1 3P^2 H + \int_0^1 PH^2 + \int_0^1 H^3\\
+        &= f\p{P} + \int_0^1 3P^2 H + 3\int_0^1 PH^2 + \bco\p{\norm{H}}\\
+        &= f\p{P} + \underbrace{\int_0^1 3P^2 H}_{\dif f_P\p{H}} + \bco\p{\norm{H}}
+        \end{align*}
+    }
+    
+    \subsection{Equation différentielle}
+    
+    Soient $g$ et $h$ de classe $\bcC^2$ et $f\p{x, y} = g\p{\dfrac{y}{x}} + xh\p{\dfrac{y}{x}}$.
+    
+    \begin{enumerate}
+        \item Montrer que $x^2\dfrac{\partial^2 f}{\partial x^2} + 2xy\dfrac{\partial^2 f}{\partial x\partial y} + y^2\dfrac{\partial^2 f}{\partial y^2} = 0$
+        
+        \boxans{
+            Posons $t = \dfrac{y}{x}$, d'où $\dfrac{\partial t}{\partial x} = -\dfrac{y}{x^2} = -\dfrac{t}{x}$ et $\dfrac{\partial t}{\partial y} = \dfrac{1}{x}$. On a d'une part :
+            %
+            \[ \dfrac{\partial f}{\partial x} = \dfrac{\partial t}{\partial x}\dfrac{\partial g}{\partial t}\p{t} + h\p{t} + x\dfrac{\partial t}{\partial x}\dfrac{\partial h}{\partial t}\p{t} = -\dfrac{y}{x^2}g'\p{\dfrac{y}{x}} + h\p{\dfrac{y}{x}} - \dfrac{y}{x}h'\p{\dfrac{y}{x}} \]
+            %
+            D'autre part :
+            %
+            \[ \dfrac{\partial f}{\partial y} = \dfrac{\partial t}{\partial y}\dfrac{\partial g}{\partial t}\p{t} + x\dfrac{\partial t}{\partial y}\dfrac{\partial h}{\partial t}\p{t} = \dfrac{1}{x}g'\p{\dfrac{y}{x}} + h'\p{\dfrac{y}{x}}\]
+            %
+            On obtient alors :
+            %
+            \[ \dfrac{\partial^2 f}{\partial x\partial y} = -\dfrac{1}{x^2}g'\p{t} + \dfrac{1}{x}\dfrac{\partial t}{\partial x}\dfrac{\partial g'}{\partial t}\p{t} + \dfrac{\partial t}{\partial x}\dfrac{\partial h'}{\partial t}\p{t} = -\dfrac{1}{x^2}g'\p{\dfrac{y}{x}} - \dfrac{y}{x^3}g''\p{\dfrac{y}{x}} -\dfrac{y}{x^2}h''\p{\dfrac{y}{x}}\]
+        }
+    \end{enumerate}
+    
+    
+    \newpage
+    
+    \[ \dfrac{\partial f}{\partial x}\p{x, y} = -a\dfrac{\partial f}{\partial y}\p{x, y} \]
+    
+    Si $f\p{x, y} = -af\p{y, x}$
+
+    \newpage
+    
+    \begin{align*}
+        f\p{X + H} &= \phyavg{AX + AH \mid X + H} + \phyavg{U \mid X + H} = \phyavg{AX \mid X} + \phyavg{AX \mid H} + \phyavg{AH \mid X} + \phyavg{AH \mid H} + \phyavg{U \mid X} + \phyavg{U \mid H}\\
+        &= f\p{X} + f\p{H} + \phyavg{AX \mid H} + \phyavg{AH \mid X}\\
+        &= f\p{X} + \phyavg{2AX \mid H} + f\p{H} = f\p{X} + \phyavg{\textrm{Grad} f\p{X} \mid H} + \bco\p{\norm{H}}
+    \end{align*}
+    %
+    Donc $\textrm{Grad} f\p{X} = 2AX$.
+    \newpage
+    
+    \begin{form}{Un peu de topologie}{}
+        \begin{center}
+            \hg{Montrons que l'adhérence de $\suite{e^{\ii \sqrt{n}}}$ est le cercle unité $\bdU$.} 
+        \end{center}
+        %
+        \medskip
+        
+        Soit $z \in \bdU$, on écrit $z = e^{\ii \theta}$. On pose $t_k = \p{2k\pi + \theta}^2$. La suite des $\p{t_k}_{k \in \bdN}$ est croissante et diverge vers $+\infty$, tout en vérifiant :
+        %
+        \[ \forall k \in \bdN,\qquad e^{\ii\sqrt{t_k}} = e^{\ii \theta} = z \]
+        %
+        Soit $k \in \bdN$. On pose $n = \floor{t_k} + 1$ l'entier supérieur le plus proche de $t_k$. Par la formule de l'arc moitié :
+        %
+        \[ \mod{e^{\ii\sqrt{n}} - e^{\ii \theta}} = \mod{e^{\ii\sqrt{n}} - e^{\ii \sqrt{t_k}}} = 2\mod{\sin{\sqrt{n} - \sqrt{t_k}}}\mod{e^{\ii\frac{\sqrt{n} + \sqrt{t_k}}{2}}} = 2\sin{\sqrt{n} - \sqrt{t_k}}\]
+        %
+        Par ailleurs le théorème des accroissements finis livre l'existence d'un $c_k \in \intc{t_k, n}$ tel que
+        %
+        \[ \sqrt{n} - \sqrt{t_k} = \dfrac{n - t_k}{2\sqrt{c_k}} \leq \dfrac{n - t_k}{2\sqrt{t_k}} \leq \dfrac{1}{2\sqrt{t_k}} \lima{k \to +\infty} 0 \]
+        %
+        Soient $\epsilon > 0$ et $n_0 \in \bdN$ On sait que $\sin{x} \lima{x \to 0} 0$ donc posons $\eta > 0$ tel que $\forall x \in \intc{0, \eta}$, $\sin{x} \leq \dfrac{\epsilon}{2}$. On pose 
+        %
+        \[ k_0 = \min\ens{k \in \bdN \enstq \dfrac{1}{2\sqrt{t_k}} \leq \eta \et t_k \geq n_0}\]
+        %
+        Dès lors $n \geq t_k \geq n_0$ et $\sqrt{n} - \sqrt{t_k} \leq \eta$ d'où :
+        %
+        \[ \mod{e^{\ii\sqrt{n}} - z} = \mod{e^{\ii\sqrt{n}} - e^{\ii \theta}} = 2\sin{\sqrt{n} - \sqrt{t_k}} \leq 2\sin{\eta} \leq 2\dfrac{\epsilon}{2} = \epsilon \]
+        %
+        Donc $z$ est valeur d'adhérence de la suite $\suite{e^{\ii \sqrt{n}}}$. Finalement 
+        %
+        \[ \hg{\overline{\ens{e^{\ii \sqrt{n}},\ n \in \bdN}} = \bdU}\]
+    \end{form}
+    
+     \chapter{Oral}
+
+     \subsection{510}
+
+     \begin{enumerate}
+         \item Calculer \(\p{u - \Id}v_n\).
+
+         \boxansconc{
+            \[ \p{u - \Id}v_n = \dfrac{1}{n+1}\p{u - \Id}\sum_{k=0}^n u^k = \dfrac{1}{n+1}\intc{\sum_{k=0}^n u^{k+1} - \sum_{k=0}^n u^k} = \dfrac{u^{n+1} - \id}{n+1}\]
+         }
+
+         \item Montrer que $\Ker\p{u - \Id}$ et $\Imm\p{u - \Id}$ sont en somme directe.
+
+         \boxansconc{
+            Soit $x \in \Ker\p{u - \Id}$ donc $u\p{x} = x$. On suppose de plus qu'il existe $y \in E$ tel que $u\p{y} - y = x$.
+
+            \[ u\p{y} = x + y \qquad\text{donc}\qquad \norm{x + y} = \norm{u\p{y}} \leq \norm{y}\]
+
+            \[ u\p{y} - u\p{x} = y \qquad\text{donc}\qquad \norm{y} = \norm{u\p{y} - u\p{x}} \leq \norm{y - x} \]
+
+
+            \[ \norm{u(y)} = \norm{u(y) - y + y} \leq \norm{x} + \norm{y}\]
+            u(x) <= u(x) - x + x <= || u(x) - (x) || + ||x||
+         }
+     \end{enumerate}
+    
+    
+    
+    
+
 \end{document}
+
+

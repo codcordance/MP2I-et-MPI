@@ -40,6 +40,7 @@
 \DeclareDocumentCommand\CFL{g}{\funlv{CFL}{#1}}
 \DeclareDocumentCommand\Pref{g}{\funlv{Pref}{#1}}
 \DeclareDocumentCommand\Suff{g}{\funlv{Suff}{#1}}
+\DeclareDocumentCommand\Nu{}{\mathcal{v}}
 
 \funlvi{dom}
 
@@ -86,11 +87,11 @@
     %==============================
     
     \title{Cours d'Informatique de MPI* (2022-2023)}
-    \author{SIAHAAN--GENSOLLEN Rémy}
+    \author{Rayan DRISSI}
     \date{\today}
     \hypersetup{
         pdftitle={Cours d'Informatique de MPI* (2022-2023)},
-        pdfauthor={SIAHAAN--GENSOLLEN Rémy},
+        pdfauthor={Rayan DRISSI},
         pdflang={fr-FR},
         pdfsubject={MPI*, Cours d'Informatique},
         pdfkeywords={MPI*, Cours d'Informatique, 2022-2023}
@@ -252,7 +253,7 @@
     
     \begin{center}
         \begin{minipage}{0.85\linewidth}
-            \large \qquad Comme son nom peut l'indiquer, cet ouvrage est la compilation de notes de cours d'informatique dispensés par M. Antony
+            \large \qquad Comme son nom peut l'indiquer, cet ouvrage est la compilation de notes de cours d'informatique dispensés par M. Anthony
             \textsc{Lick} durant mon année de \guill{spé'} en \textsf{MPI*} à \emph{Janson-de-Sailly} (année académique 2022-2023). De ce fait,
             certaines parties risquent d'être elliptiques, lacunaires, voire inexistantes, alors qu'elles seraient vitale à la compréhension du
             cours. Elles pourraient de plus être erronées, ou rédigées maladroitement, et donc induire en erreur. Ainsi, je conseillerai à tout
@@ -297,9 +298,9 @@
     
     \pagestyle{plain}
     
-    \chapter{Logique et systèmes de preuve}
+%    \chapter{Logique et systèmes de preuve}
     
-    \subfile{chapitre1}
+%    \subfile{chapitre1}
     
     \chapter{Langages formels et théorie des automates}
     
@@ -1411,6 +1412,186 @@ let id phi = phi;;
         
         
 
+    \chapter{Graphes}
+    
+    \chapter{Algorithmique pour l'intelligence artificielle}
+    
+    Très employé par le grand public, le terme \emph{intelligence artificielle} désigne en fait un large ensemble de techniques, très différentes les unes des autres. Ces techniques ont tout de même pour point commun un même objectif : celui d'accomplir des tâches, ou de résoudre des problèmes, qui semblerait \emph{a priori} très difficiles pour une machine, mais facile pour un humain. Ce peut être, par exemple :
+    %
+    \begin{enumerate}
+        \itt jouer un jeu à deux joueurs (échecs, dames, go, \dots) ;
+        
+        \itt reconnaître et localiser un objet dans une image ;
+        
+        \itt lire un texte sur une photo ;
+        
+        \itt avoir une conversation avec un être humain ;
+        
+        \itt \dots
+    \end{enumerate}
+    %
+    Dans ce chapitre, on s'intéressera en premier temps à des techniques permettant de résoudre le premier exemple de problème (jeux à deux joueurs), et l'on se penchera ensuite sur les autres problèmes.
+    
+    \chaptertoc{}
+    
+    \section{Théorie des jeux}
+    
+    \subsection{Définitions}
+    
+    Dans cette partie, nous nous intéresserons à des jeux à deux joueurs ayant les propriétés suivantes :
+    
+    \begin{definition}{Jeu d'accès}{}
+        
+    \end{definition}
+    
+    Dans cette partie, nous nous interogerons a des jeux à 2 joueur ayant la proprieté suivantes
+    
+    \begin{enumerate}
+        
+        \itt Jeux "tour par tour"
+        
+        \itt un meme joueur ne peut pas jouer 2 fois d'affiler 
+        
+        \itt jeu sans hasard
+        
+        \itt jeux a information complete
+        
+        \itt jeux a somme nulle  
+        
+    \end{enumerate}
+    
+    
+\chapter{Algorithmique d'approximation}
 
+    Comme on l'a vu avec l'étude de problèmes $\cNP$-complet, il existe des problèmes qu'on ne sait \emph{a priori} pas résoudre en temps polynomial. On a notamment vu des problèmes d'optimisation dont les problèmes de décision de décision associés sont $\cNP$-complet. Dans ce chapitre, on étudie l'algorithmique d'approximation afin de chercher à pallier ce problème.
+    
+    \chaptertoc{}
+
+    \section{Algorithme d'approximation}
+
+    \begin{definition}{$\alpha$-approximation}{}
+        ?
+    \end{definition}
+
+
+    \begin{property}{}{}
+        Si \hg{chaque clause de $\phi$ contient au moins 
+        $k \in \bdN$ littéraux}, alors
+        %
+        \[ \hg{\bdE\p{\varphi} \geq c\p{1 - \dfrac{1}{2^k}}} \]
+
+        Alors $\bcE(\phi) \geq c(1 - 1/2^k) $
+    \end{property}
+    
+    \begin{nproof}
+        Soit $\psi$ une clause de $\varphi$ à $k' \geq k$ littéraux. On a 
+        %
+        \[ \bdE\p{\psi} = 1 - \dfrac{1}{2^{k'}} \geq 1 - \dfrac{1}{2^k}\]
+        %
+        Donc $\bdE\p{\varphi} = \displaystyle\sum_{\psi \in \varphi} \bdE\p{\psi} \geq \sum_{\psi \in \varphi} \p{1 - \dfrac{1}{2^k}} = c\p{1 - \dfrac{1}{2^k}}$
+    \end{nproof}
+    
+    \begin{corollary}{}{}
+        Avec $k = 1$, on a \hg{$\bdE\p{\varphi} \geq \dfrac{c}{2}$}.
+    \end{corollary}
+
+    \subsection{Dérandomisation : méthode de l'espérance conditionelle}
+    
+    Plutôt que de se contenter de l'algorithme probabiliste que l'on vient de décrire (lequel tire une valuation au hasard), on peut utiliser l'analyse probabiliste pour obtenir un algorithme \emph{déterministe} renvoyant toujours une valuation satisfaisant un nombre de clause supérieure à $\bdE\p{\varphi}$. En voici le principe :
+    %
+    
+    \begin{form}{Algorithme}{}
+    
+        Le principe de cet algorithme est d'\hg{affecter à tour de rôle une valeur de vérité} à chacune des $n$ variables $\p{x_1, \dots, x_n}$ de $\varphi$.
+        
+        \begin{enumerate}
+            \itt Pour choisir $\nu\p{x_i}$ en connaissant $\nu\p{x_1} = \nu_1, \dots, \nu\p{x_{i-1} = \nu_{i-1}}$, on calcule :
+            %
+            \begin{align*}
+                && \hg{\bdE\p{\vphantom{\dfrac{a}{a}}\varphi \enstq \nu\p{x_1} = \nu_1, \dots, \nu\p{x_{i-1}} = \nu_{i-1}, \nu\p{x_i} = \top}}\\
+                \text{et} && \hg{\bdE\p{\vphantom{\dfrac{a}{a}}\varphi \enstq \nu\p{x_1} = \nu_1, \dots, \nu\p{x_{i-1}} = \nu_{i-1}, \nu\p{x_i} = \bot}}
+            \end{align*}
+            %
+            On fixe alors \hg{$\nu\p{x_i} = \nu_i$ avec le choix donnant la meilleure espérance}.
+        \end{enumerate}
+   \end{form}
+   
+   Notons $\Nu_i = \p{\nu_1, \dots, \nu_i}$ la valuation partielle des variables $\p{x_1, \dots, x_i}$ obtenue à l'issue de la $i$-\ieme étape de l'algorithme. On a 
+   %
+   \[ \underbrace{\bdE\p{\varphi \enstq \Nu_i}}_{\text{nb de clauses de $\varphi$ satisfaites}} = \sum_{\phi \in \varphi} \bbP\p{\psi \enstq \Nu_i}\]
+   
+   Soit $\psi$ une clause de $\varphi$.
+   %
+   \begin{enumerate}
+       \itt Si l'un des littéraux de $\psi$ est rendu vrai par $\Nu_i$ alors $\bbP\p{\psi \enstq \Nu_i} = 1$.
+       
+       \itt Si tous les littéraux de $\psi$ sont rendus faux par $\Nu_i$, alors $\bbP\p{\psi \enstq \Nu_i} = 0$.
+       
+       \itt Si tous les littéraux dans le domaine de définition de $\Nu_i$ sont rendus faux et qu'il reste $k > 0$ littéraux non définis par $\Nu_i$, alors
+       %
+       \[ \bbP\p{\psi \enstq \Nu_i} = 1 - \dfrac{1}{2^k}\]
+   \end{enumerate}
+   
+    \begin{property}{Invariant de boucle}{}
+        A l'issue de la $i$\ieme~étape, on a
+        %
+        \[ \hg{\bdE\p{\varphi \enstq \Nu_i} \geq \bdE{\varphi}}\]
+    \end{property}
+   
+    \begin{nproof}
+        Au début de l'algorithme, on a $\bdE\p{\varphi \enstq \Nu_0} = \bdE\p{\varphi}$ car $\Nu_0$ est la valuation vide.
+        
+        \begin{enumerate}
+            \itt Supposons que 
+            %
+            \[ \bdE\p{\varphi \enstq \Nu_i} = \dfrac{1}{2}\bdE\p{\varphi \enstq \Nu_i, \nu_{i+1} = \top} + \dfrac{1}{2}\bdE\p{\varphi \enstq \Nu_i, \nu_{i+1} = \bot} \]
+            %
+            et que 
+            %
+            \[ \bdE\p{\varphi \enstq \nu_{i+1}} = \max{\bdE_{i_\top}, \bdE\p{i_\bot}} \geq \dfrac{\bdE_{i_\top} + \bdE_{i_\bot}}{2}= \bdE\p{\varphi \enstq \Nu_i} \geq \bdE\p{\varphi} \]
+        \end{enumerate}
+    \end{nproof}
+
+    \begin{property}{}{}
+        L'algorithme obtenu par dérandomisation est une $\sfrac{1}{2}$-approximation de \textsf{MAXSAT}.
+    \end{property}
+    
+    \begin{nproof}
+        Notons $\text{opt}_\varphi$ le nombre de clauses maximes de $\varphi$ \textsf{SAT} simultanément, et notons $\textrm{rep}_\varphi$ le nombre de clauses de $\varphi$ \textsf{SAT} par la réponse de l'algorithme précédent. On a 
+        %
+        \[ \textrm{rep}_\varphi = \bdE\p{\varphi \enstq \Nu_n} \geq \bdE\p{\varphi} \geq \dfrac{c}{2} \geq \dfrac{\textrm{opt}_\varphi}{2}\]
+    \end{nproof}
+
+
+    \chapter{Concurrence, synchronisation}
+    
+    Sur un ordinateur moderne, de nombreuses tâches s'exécutent \emph{en parallèle}, c'est-à-dire \guill{en même temps} les unes que les autres. Ces \emph{processus} sont d'ailleurs très souvent indépendants les uns des autres, par exemple écouter de la musique et travailler sur un éditeur de texte. S'il est théoriquement possible d'exécuter chaque processus sur un c\oe{}-ur différent, ils sont en pratique trop nombreux.\medskip
+    
+    Le \emph{système d'exploitation} (ou OS pour \emph{operating system}) va donc continuellement les mettre en pause et leur redonner la main alternativement, à intervalles de temps plus ou moins réguliers. On parle d'\emph{ordonnancement} et d'\emph{entrelacement} des tâches. Cela est géré par l'\emph{ordonnanceur de processus} qui est un programme \emph{non déterminisite} (aléatoire de type \textsc{Monte-Carlo}) intégré à l'OS.\medskip
+    
+    Cependant, il peut arriver que plusieurs tâches exécutées en parallèle ne soient pas indépendantes, mais partagent ou se disputent des ressources du système, par exemple jouer à un jeu vidéo avec des effets sonores tout en écoutant de la musique. On peut même donner pour exemple plus complexe celui d'un site de réservation de billets de train, où l'on aura un processus par transaction, chaque processus cherchant à modifier le même endroit de la mémoire.\medskip
+    
+    Enfin, on peu parfois avec plusieurs processus exécutés en parallèle qui doivent coopérer pour résoudre un même problème, par exemple l'entraînement d'un réseau de neurones sur plein d'exemples en parallèle, ou l'affichage de l'image d'un jeu vidéo à l'écran (les calculs des polygones de l'image étant lancés en parallèles sur la carte graphique). Dans tous ces exemples, il ne faut pas laisser l'OS entrelacer l'exécution des processus de manière arbitraire : on parle de \emph{programmation concurrente}. Cela nécessite des mécanisme pour gérer un processus (le créer, l'exécuter, l'arrêter, \dots), synchroniser les activités et partager ou protéger l'accès aux ressources du système.
+
+    \chaptertoc{}
+    
+    \section{Processus}
+    
+    \subsection{Synchronisation}
+    
+    Dans un système d'exploitation, un \emph{processus} est un programme en cours d'exécution. A chaque processus est attribué un numéro unique, et un \emph{contexte}, soit la donnée de :
+    %
+    \begin{enumerate}
+        \itt l'ensemble de la mémoire vive allouée par l'OS pour l'exécution du programme (code exécutable du programme copié dans la RAM, mémoire allouée pour la pile d'appel, mémoire allouée par le tas) ;
+        
+        \itt l'ensemble des \emph{ressources} utilisées par le programme (fichiers ouverts, connexions réseaux, \dots) ;
+        
+        \itt l'ensemble des valeurs stockées dans tous les \emph{registres} du processeur
+    \end{enumerate}
+    %
+    On notera que les \emph{espaces d'adressage} des processus sont toujours disjoints : il n'est pas possible pour un processus d'accéder à la mémoire d'un autre processus.
+
+
+    
 
 \end{document}

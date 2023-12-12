@@ -1,0 +1,56 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{../../Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\thesubsection}{\Roman{section}.\Alph{subsection}}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii})}
+
+    \stylizeDocSpe{Maths B}{Sujet Tiré du concours Polytechnique}{Session MP}{Equation différentielle et orthogonalité}
+    
+    \subsubsection*{Notations et définitions}
+    
+    \section{Partie I}
+    
+    On considère l'équation
+    %
+    \[ \p{1 - x^2}y'' - 2xy' + \lambda y = 0 \qquad\p{E} \]
+    
+    \begin{enumerate}
+        \item Trouver les solutions DSE sur $\into{-1, 1}$ ainsi que leur rayon. Y a-t-il d'autres solutions sur $\into{-1, 1}$ ?
+        
+        \item Pour quelles valeurs de $\lambda$ l'équation $\p{E}$ admet-elle des polynômes pour solutions ? Quel est, en fonction de $\lambda$, le degré de ces polynômes ? Vérifient-ils des conditions de parité ?
+        
+        \item Vérifier que, pour chaque $n \in \bdN$, le polynôme $P_n$ défini par
+        %
+        \[ P_0 = 1 \qquad\et\forall n \in \bdN^*\qquad P_n = \dfrac{1}{2^n n!}\intc{\p{X^2 - 1}^n}^{\p{n}} \]
+        %
+        est une solution de $\p{E}$ sur $\bdR$ pour $\lambda = n\p{n+1}$.
+        
+        \boxans{
+            On pose $Q = \p{x^2 -1}^n$. On a 
+            %
+            \[ Q' = n \qquad\et\qquad Q'' = nQ'\]
+            %
+            %\[ \p{2+n}\p{x^2 - 1}Q^{\p{n+2}} - 2xQ^{\p{n+1}} + n\p{n-1}Q^{\p{n}} = 0\]
+            %
+            %\[ \]
+            \begin{align*}
+                \intc{\p{X^2 - 1}^n}^{\p{n+2}} &= \intc{\p{X-1}^n\p{X+1}^n}^{\p{n+2}}\\
+                &= \sum_{k=0}^{n+2} \dbinom{n+2}{k}\intc{\p{X-1}^n}^{(k)}\intc{\p{X+1}^n}^{\p{n+2-k}}\\
+                &= \sum_{k=2}^{n} \dbinom{n+2}{k}\intc{\p{X-1}^n}^{(k)}\intc{\p{X+1}^n}^{\p{n+2-k}}\\
+                &= \sum_{k=2}^{n} \dbinom{n+2}{k}\intc{\p{X-1}^n}^{(k)}\intc{nX\p{X+1}^\p{n-1}}^{\p{n+1-k}}\\
+                &= \sum_{k=2}^{n} \dbinom{n+2}{k}\intc{\p{X-1}^n}^{(k)}\intc{n\p{X+1}^{n-1}+n\p{n-1}X^2\p{X+1}^{n-2}}^{\p{n-k}}\\
+                &= n\sum_{k=2}^{n} \dbinom{n+2}{k}\intc{\p{X-1}^n}^{(k)}\intc{\p{X+1}^{n-1}}^{\p{n-k}} + n\p{n-1}X^2\sum_{k=2}^{n} \dbinom{n+2}{k}\intc{\p{X-1}^n}^{(k)}\intc{\p{X+1}^{n-2}}^{\p{n-k}}
+            \end{align*}
+        }
+    \end{enumerate}
+
+\end{document}

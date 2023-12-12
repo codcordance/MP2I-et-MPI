@@ -1,0 +1,89 @@
+\documentclass[a3paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\usepackage{graphicx}
+\usepackage{listings}
+
+% Définir les couleurs pour les mots clés
+\definecolor{keywords}{RGB}{255,0,90}
+
+% Définir les mots clés
+\lstset{
+    language=C,
+    keywordstyle=\color{keywords}\bfseries,
+    morekeywords={Données,graphe,deja_vu,G,listes,adjacences,sommet,départ,s,a_traiter,implémentée,file,deja_vu,dist,pred,tant,faire,retourner,pour,tout,voisin,tel,que,est}
+}
+
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}} 
+    \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii}.}
+    \renewcommand*{\labelenumiii}{\alph{enumiii}.}
+    
+    \def\authorvar{DRISSI Rayan}
+    \stylizeDocSpe{Maths}{Produit Scalaire}{}{Espaces Prehilbertiens}
+
+    
+    
+    \chaptertoc{}
+    \section{Espaces préhilbertiens}
+    
+    \subsection{Définition}
+    
+    Soit $E$ un $\bdR$-espace vectoriel de (dimension finie ou non). On appelle \emph{produit scalaire sur $E$} une forme bilinéaire  $\p{\cdot \mid \cdot} : E \times E \to \bdR$ vérifiant :
+    %
+    \begin{enumerate}
+        \itast Pour tout $\p{x, y} \in E^2$, on a $\p{x \mid y} = \p{y \mid x}$ \qquad\emph{(symétrie)}
+        
+        \itast Pour tout $x \in E$, on a $\p{x \mid x} \geq 0$ \qquad\emph{(positivité)}
+    
+        \itast Pour tout $x \in E$,\qqua$x\notequal 0 \implies \p{x \mid x} > 0$  
+    \end{enumerate}
+    
+    \subsection{Exemple}
+    
+    Sur $R^\bcN: X=(x_{j})_j \in \bcR^{\bcN}$
+
+    
+    $(X|Y) = \sum_{i} x_i y_i = \mtrans{X}Y$ p.s canonique
+    \\
+    
+    - Bilin \\
+    - Sym \\
+    - $X \notequal 0 \implies (X|X) > 0 = \sum x_i^2 $
+    \\
+    Sur E de dim finie. $\qquad \qquad \bcB = (e_i)_i$ base 
+    \\
+    $x = \sum x_i e_i \qquad y= \sum y_i e_i$
+    \\
+    $(x|y) = \mtrans{X}Y = \sum x_i y_i \qquad$         ps pour lequel $\bcB $ est ON
+    
+    
+    \vspace{2cm}
+    
+    
+    Sur $E = \ens{f \quad \bcC^0 \text{sur [}0;\infty[ \text{ tq }x \to f^2(x)e^{-x}\quad L^1 \text{ sur } \bcR_+ }$
+    
+    \begin{enumerate}
+        \itast E ev 
+        \itast (|)  produit scalaire sur E 
+    \end{enumerate}
+    
+    \textasteriskcentered Intervale $\pi:I \to \bcR_+ \qquad C$ 
+    
+    \subsection{Norme associé}
+    
+    
+    
+    
+    
+\end{document}
+ 

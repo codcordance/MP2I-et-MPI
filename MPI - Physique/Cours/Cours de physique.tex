@@ -6,6 +6,9 @@
 \usepackage{proof}
 \usepackage{pdfpages}
 \usepackage[version=4]{mhchem}
+\usepackage{xcolor}
+\usepackage{tikz-3dplot}
+
 
 \makeatletter
 \renewcommand*\l@section{\@dottedtocline{1}{1.8em}{3.5em}}
@@ -18,6 +21,7 @@
 \mtcsettitle{minitoc}{}
 
 \DeclareDocumentCommand\NO{g}{\funlv{N.O.}{#1}}
+
 
 
 \newcommand{\chaptertoc}[0]{
@@ -60,11 +64,11 @@
     %==============================
     
     \title{Cours de Physique de MPI/MPI* (2022-2023)}
-    \author{SIAHAAN--GENSOLLEN Rémy}
+    \author{SIAHAAN--GENSOLLEN Rémy, Rayan Drissi}
     \date{\today}
     \hypersetup{
         pdftitle={Cours de Physique de MPI/MPI* (2022-2023)},
-        pdfauthor={SIAHAAN--GENSOLLEN Rémy},
+        pdfauthor={SIAHAAN--GENSOLLEN Rémy, Rayan Drssi},
         pdflang={fr-FR},
         pdfsubject={MPI/MPI*, Cours de Physique},
         pdfkeywords={MPI/MPI*, Cours de Physique, 2022-2023}
@@ -158,7 +162,7 @@
     
     \begin{titlepage}
 	    \begin{center}
-	        {\scshape SIAHAAN--GENSOLLEN Rémy\par}
+	        {\scshape SIAHAAN--GENSOLLEN Rémy, Rayan Drssi\par}
 	        \vspace{2cm}
 	        {\huge\sffamily Cours de\par}
 	        \vspace{0.5cm}
@@ -225,7 +229,7 @@
     
     \begin{center}
         \begin{minipage}{0.85\linewidth}
-            \large \qquad Comme son nom l'indique, l'objectif de cet ouvrage est de fournir un cours de physique ~NEGRE~ en accord avec le programme des classes préparatoires \textsf{MPI/MPI*}. Il contiendra principalement des notes de cours, dont je serai dispensé mon année de \guill{spé'} (année 2022/2023) à \textit{Janson-de-Sailly}, par M. \textsc{Marc Antoine Blain}. J'essaierai par ailleurs de détailler et d'enrichir le plus possible son contenu au fil de l'année, à l'aide de mes cours de première année, d'autres ouvrages et de recherches en général. La rédaction de ce cours constitue un important projet, d'autant plus que j'en mène un similaire pour les enseignements de mathématiques et de physique cette année. C'est un travail qui peut s'avérer extrêmement chronophage, aussi risque-t-il d'être rarement mené jusqu'au bout.\newline
+            \large \qquad Comme son nom l'indique, l'objectif de cet ouvrage est de fournir un cours de physique en accord avec le programme des classes préparatoires \textsf{MPI/MPI*}. Il contiendra principalement des notes de cours, dont je serai dispensé mon année de \guill{spé'} (année 2022/2023) à \textit{Janson-de-Sailly}, par M. \textsc{Marc Antoine Blain}. J'essaierai par ailleurs de détailler et d'enrichir le plus possible son contenu au fil de l'année, à l'aide de mes cours de première année, d'autres ouvrages et de recherches en général. La rédaction de ce cours constitue un important projet, d'autant plus que j'en mène un similaire pour les enseignements de mathématiques et de physique cette année. C'est un travail qui peut s'avérer extrêmement chronophage, aussi risque-t-il d'être rarement mené jusqu'au bout.\newline
     
             \qquad Je ne prétends à aucun moment être enseignant, et ce livre reste avant tout destiné à mon usage personnel, aussi j'aviserai tout lecteur potentiel à faire preuve de prudence lors du parcours de ce texte, à ne pas hésiter à en vérifier le contenu par lui même. Il est très probable que de multiples erreurs (en tout genre) se soient glissés durant la rédaction, que je n'aurait su repérer, ou que le manque de temps empêche la correction. N'hésitez d'ailleurs pas à me le signaler, ou à me faire part de vos remarques en général.\newline
     
@@ -233,7 +237,7 @@
         \end{minipage}
     \end{center}
     
-    \hfill{\large\textsc{Siahaan--Gensollen Rémy}}
+    \hfill{\large\textsc{Siahaan--Gensollen Rémy, , Rayan Drssi}}
     
     \pagestyle{intro}
     
@@ -253,702 +257,568 @@
     
     \pagestyle{plain}
     
-    \setcounter{chapter}{5}
-    \chapter{Introduction à l'optique ondulatoire}
+    \setcounter{chapter}{9}
+    \chapter{Équations de Maxwell}
     
-    Historiquement, les physiciens ont pensé la lumière selon une approche mécanique : en la considérant comme un ensemble de \guill{grains de lumière}. En s'inspirant des modèles mécaniques, les physiciens développent l'optique géométrique, qui pendant longtemps suffit à décrire les comportements ondulatoires.\medskip
+    Ce chapitre a pour objectif d'étudier les équations de \textsc{Maxwell}, et de les appliquer à des billes d'énergies élémentaire, ainsi qu'aux ondes élémentaires.
     
-    Du \textsc{XVII}\ieme~au \textsc{XVIII}\ieme~siècle, la mise en évidence des phénomènes d'interférence et de diffraction entraîne des incohérences avec ce premier modèle mécanique, et pousse les physiciens à développer un modèle ondulatoire, dans lequel la lumière est définie comme une onde afin d'expliquer ces phénomènes.\medskip
+    \chaptertoc{}
     
-    À la fin du \textsc{XIX}\ieme siècle, la découverte de l'effet photoélectrique montre que l'intensité lumineuse ne semble pas être en lien avec l'énergie de l'onde lumineuse. Albert \textsc{Einstein} démontre alors les limites du modèle purement ondulatoire, notamment en utilisant des particules de masse nulles, les photons comme constituant de la lumière \emph{- chacune de ces particules possédant d'ailleurs une énergie $E = h\nu$ -} tout en conservant des propriétés ondulatoires : c'est la dualité onde-corpuscule. Grâce à \textsc{De Broglie}, ces résultats seront généralisés aux différentes particules.
+    \section{Équations de Maxwell}
+    
+    \subsection{Rappels sur les équations locales}
+    
+    Rappelons tout d'abord les équations locales en électrostatique
+    %
+    \begin{form}{Loi électrostatiques locales}{}
+        \[ \begin{array}{c}
+            \displaystyle\hg{\oiint_S \vec E \cdot \dif \vec S = \dfrac{Q_\text{int}}{\epsilon_0}} \qquad\text{donc par théorème d'\textsc{Ostrogradski},}\qquad \hg{\vec \nabla \cdot \vec E = \dfrac{\rho}{\epsilon_0}}\\
+            \displaystyle \hg{\oint_\bcC \vec E \cdot \dif \vec{\ell} = 0} \qquad\text{donc par théorème de \textsc{Stokes},}\qquad \hg{\vec \nabla \wedge \vec E = \vec 0}
+        \end{array} \]
+    \end{form}
+    %
+    De même pour les équations en magnétostatique :
+    %
+    \begin{form}{Loi électrostatiques locales}{}
+        \[ \begin{array}{c}
+            \displaystyle \hg{\oiint_S \vec B \cdot \dif \vec S = 0} \qquad\text{donc par théorème d'\textsc{Ostrogradski}}\qquad \hg{\vec \nabla \cdot \vec B = 0}\\
+            \displaystyle \hg{\oint_\bcC \vec B \cdot \dif \vec{\ell} = 0} \qquad\text{donc par théorème de \textsc{Stokes}}\qquad \hg{\vec \nabla \wedge \vec B = \mu_0 \vec \imath }
+        \end{array} \]
+    \end{form}
+    %    
+    En régime variable, $I_\text e$ n'est pas définit de manière uniforme, et le phénomène d'induction impose une relation entre $\vec E$ et $\vec B$, donnée la loi de \textsc{Faraday} :
+    %
+    \begin{form}{loi de Faraday}{}
+        \[ \hg{e = -\dfrac{\dif Q}{\dif t}\phi_{\vec B}\p{\vec{S_\bsC}}}\]
+        %
+        où $e$ est la \hg{force électromotrice}, et $\hg{\phi_{\vec B}\p{\vec{S_\bsC}} = \displaystyle\niint_{S_\bsC} \vec B \cdot \dif \vec S}$.
+    \end{form}
+    
+    
+    
+    
+    23/01 11h30 ça me soule d'ecrire a la main j'ecrit en latex 
+    
+    
+    \begin{definition}{$\bsE_{elm_{int}}$}{}
+    on introduit $\bsE_{elm}$ la densité volumique d'energie electromagnetique
+    
+    \[ \bsE_{elm_{int}}(v) = \iiint e_{elm}d\bsV  \]
+    \end{definition}
+    
+    \begin{definition}{}{}
+        On introduig le vecteur densité de courant d'energie electromagnetique $\vec{j}_{\bsE_{elm}}$ tel que:
+        
+        \[ \boxed{ \vec{j_{\bsE_{elm}}} \cdot \vec{dS} = \dfrac{ \delta \bsE_{elm}(\vec{dS}) }{dt}} \]
+        
+    on nomme et on note ce vecteur: vecteur de \underline{Poynting} 
+    \[ \vec{j_{elm}} = \vec{R} \quad ou \quad \vec{\Pi} \]
+    \end{definition}
+    
+    
+    \begin{definition}{$\dfrac{ \delta \bsE_{elm_{crée}}(v)}{dt}$}{}
+        
+        \[\dfrac{ \delta \bsE_{elm_{crée}}(v)}{dt} \]
+        
+        $ \delta \bsE_{elm_{cree}}(v) =  \delta \bsE_{elm_{obstrue}}$ 
+        les energies blablablablablablablbabl
+        
+        plein de calcul chiant pour arriver à:
+        
+        $$\boxed{\bcp_{elm_{absorbé}} = \dfrac{\delta \bsE_{elm_{abs}}}{dt d\tau} = \vec{j}\cdot \vec{E} }$$
+        
+    \end{definition}
+    
+    \begin{form}{}{}
+        cherchons l'equation locale de conservation de l'$\bsE_{elm} $
+        
+        $\dfrac{d}{dt}(\iiint_\bcV e_{elm}d\tau) = - \varoiint_{S_G} \vec{R} \vec{dS}  - \iiint_\bcV \vec{j}E d\tau $
+        
+        blablabla 
+        
+        \[\textcolor{red}{\boxed{ \dfrac{\delta e_{elm}}{\delta t} = div\vec{R} + \vec{j E} = 0 }}\]
+        
+        Equation de Poynting
+        Equation locale de conservation de l'$\bcE_{elm}$
+        
+        blablablabla 
+        
+        \[\textcolor{red}{\boxed{ \vec{R} = \dfrac{\vec{E} \wedge \vec{B}}{\mu_0} } = \text{Vecteur de poynting}} \]
+            
+        remarque importante: 
+        
+        \begin{enumerate}
+            \itt $e_{elm}$, $\vec{R}$, $p_{v_{disparition}}$ sont trois grandeur energitique \underline{\textbf{quadratique}} en $\vec{E} \wedge \vec{B}$
+            
+            \itt Certains calcul ou  raisonmeent sont plus simple en modelisant l'onde elm 
+            par un flux de photon 
+            
+        \end{enumerate}
+        
+    \end{form}
+    
+    \begin{example}{le conducteur ohmique}{}
+        \begin{enumerate}
+            \itt \hg{Préliminaire : modélisation de charge d'un conducteur électrique.} Dans un conducteur électrique, il y a des charges dites \guill{libres} (des électrons), lesquelles peuvent se déplacer macroscopiquement. On modélise l'interaction entre les charges et le réseau d'ions positifs par une force frottement visqueux 
+            %
+            \[ \hg{\vec f = \dfrac{-m}{\tau} \vec v} \]
+            %
+            Une étude mécanique du mouvement des charges permet d'établir l'équation d'état d'un conducteur ohmique (\cf TD).
+            
+            
+            On donne la \hg{loi d'\textsc{Ohm} locale} : \qquad $\hg{\boxed{\vec \jmath = \gamma \vec E}}$ où $\gamma$ est la \emph{conductivité du matériaux}. Pour un conduteur ohmique $\gamma \in \bdR$ est une constant positive, avec généralement 
+            %
+            \[ \qty{1e6}{\per\ohm\per\meter} \leq \gamma \leq \qty{1e8}{\per \ohm \per \meter}\]
+            
+            \begin{minipage}{0.5\linewidth}
+                \itt \hg{Bilan d'énergie élémentaire :} pour un conducteur ohmique cylindrique d'un axe $\p{Oz}$, de rayon $R$, de hauteur $h$ et parcouru par un courant $I$ en régime stationnaire.\medskip
+                
+                Le courant $I$ est uniforme sur la section $\bcS = \pi R^2$. Par ailleurs, $\vec \jmath  = \dfrac{I}{\pi r^2} \vec {e_z}$ 
+            \end{minipage}
+            %
+            \begin{minipage}{0.5\linewidth}
+                \begin{center}
+                    \tdplotsetmaincoords{70}{20}
+                    \pgfplotsset{compat=newest}
+                    
+                    \begin{tikzpicture}[tdplot_main_coords, scale = 1.8]
+                        \draw[-stealth] (0, 0, 0) --++ (1, 0, 0) node[above] {$x$};
+                        \draw[-stealth] (0, 0, 0) --++ (0, 1, 0) node[above] {$y$};
+                        \draw[-stealth] (0, 0, 0) --++ (0, 0, 1) node[above] {$z$};
+                        
+                        \draw[dashed, gray] (0, 0, 0) --++ (-1, 0, 0);
+                        \draw[dashed, gray] (0, 0, 0) --++ (0, -1, 0);
+                        \draw[dashed, gray] (0, 0, 0) --++ (0, 0, -1);
+                        
+                        \draw plot[variable=\x,domain=0:360,samples=180] ({cos(\x)},{sin(\x)},-0.5);
+                        \draw plot[variable=\x,domain=-45:135,samples=180] ({cos(\x)},{sin(\x)},0.5);
+
+                        \foreach \x in {135,-45}
+                            {\draw ({cos(\x)},{sin(\x)},-0.5) -- ({cos(\x)},{sin(\x)},0.5);}
+                    \end{tikzpicture}
+                \end{center}
+            \end{minipage}
+            %helpppppppppp
+            
+            
+            $\forall r<R$ $\vec{E} = \dfrac{\vec j}{\gamma} = \dfrac{I}{\pi \gamma R^2}\vec u_z$
+            
+            Si $r>R$ $\gamma = 0 $
+            
+            Symetrie invarience: $\Pi_s(M,\vec u_y,\vec u_r)$ \Rightarrow{} $\vec B =  B(r)\vec{e_\theta}$
+            
+            Cercle de rayon $r < R$ orienté suivant $\vec{e_\theta}$
+            
+            \[ \oint \vec{B} \cdot \vec{dl} = \mu_0 (I_e + I_o)\]
+            \[ 2 \Pi_r B(r) = \mu_0 \dfrac{I}{\pi r^2} * \pi r^2 \Rightarrow{} \Vec{B(r)} = \dfrac{\mu_0 I_r}{2 \pi r^2} \vec{e_\theta}  \]
+            
+            Bilan d'energie sur le condensateur :
+            
+            \begin{enumerate}
+                \item $\displaystyle\dfrac{\dif \bsE_\text{element int}}{\dif t} = \dfrac{\dif}{\dif t} \iiint e_\text{elem}\dif \tau = \dfrac{\dif}{\dif t}\oiint \p{\dfrac{1}{2}\epsilon_0 E^2 + \dfrac{B^2}{2\mu}}\dif \tau$
+                
+                \item $\oiint_{\bsS_G} \vec R \cdot \dif \vec S = 0 + 0 + \p{-\dfrac{RI^2}{2\pi^2R^4\gamma}}2\pi Rh$.
+            \end{enumerate}
+            
+            
+        \end{enumerate}
+    \end{example}
+    
+    \chapter{Induction}
+    
+    Bien que l'\emph{induction} soit un phénomène étudié en première année, on se propose ici d'en rappeler les principes dans un chapitre de format différent, et de les approfondir légèrement, à l'aide d'exercices. L'idée importante de l'induction est le lien entre le mécanique et l'électromagnétique : les phénomènes à l'\oe{}uvre permettent de transformer l'énergie mécanique et énergie électromagnétique, et inversement. Les exercices qui en découlent posent généralement une certaine difficulté aux élèves, car remplis de problèmes de signe (orientation des volumes, des surfaces, orientation des vecteurs dans les formules, \dots). On présentera donc les résultats avec une grande rigueur en ce qui concerne ce point.
+    
+    \chaptertoc{}
+    
+    \section{Méthode générale}
+    
+    Comme on l'a dit précédemment, les problèmes de signes sont nombreux en induction. On donne ci-dessous une méthode, à suivre rigoureusement pour ne pas se tromper.
+    
+    \begin{form}{Méthode}{}
+        \begin{enumerate}
+            \itt \colorbox{colform!20}{\textnormal{\color{colform}\sffamily\bfseries \,étape 1\,}} on choisit arbitrairement un sens pour l'intensité $i$ dans le circuit.
+            
+            \itt \colorbox{colform!20}{\textnormal{\color{colform}\sffamily\bfseries \,étape 2\,}} $\text C$ est orienté par $\vec \imath$ donc $\bcS_\text C$ aussi.
+            
+            \itt \colorbox{colform!20}{\textnormal{\color{colform}\sffamily\bfseries \,étape 3\,}} On calcule les forces de \textsc{Laplace} avec $\vec{\dif \ell}$ orienté par $\vec \imath$.
+        \end{enumerate}
+    \end{form}
+    
+    \section{Exercices}
+    
+    \subsection{Couplage de deux barres}
+    
+    On considère deux rails parallèles à la direction $\vec{Ox}$, parfaitement conducteurs, séparés par la distance $d$ et contenus dans le plan $\p{xOy}$. On pose dessus deux barres, de résistance $R$ et de masse $m$, qui peuvent glisser sans frottement. Le tout est plongé dans le champ magnétique stationnaire et uniforme $\vec B = B_0\vec{u_z}$.
+    
+    \begin{enumerate}
+        \item On impose une vitesse constante à la première barre $\vec v_1 = v_0\vec{u_x}$. Quelle est l'évolution de la vitesse de la deuxième barre, sachant qu'elle est initialement immobile ?
+        
+        
+    \end{enumerate}
+    
+    `\chapter{Milieux dispersifs : Définition et exemples}
+    
+    Une onde sinusoïdale a une pulsation $\omega$ fixée par la source. L'expression de son vecteur d'onde $k$ dépend du milieu de propagation : l'équation de dispersion $k = k\p{\omega}$ permet de connaître les caractéristiques de la propagation dans le milieu (elle s'obtient en injectant l'onde dans l'équation de propagation).
     
     \chaptertoc
     
-    \subsection{Rappel sur la diffraction}
+    \section{Phénoème de dispersion}
     
-    \begin{minipage}{0.5\linewidth}
+    \subsection{Ondes réelles (ou ondes physiques)}
+    
+    \subsubsection{Rappel : modèle de l'OPPM}
+    
+    \begin{form}{Modèle de l'OPPM}
+        Une \hg{OPPM} vérifie l'équation complexe suivante :
+        %
+        \[ \underline{\vec E}\p{M, t} = \vec{E_0}e^{\jj\p{\omega t - \vec k \vec r}}\]
+        %
+        où $\omega$ est la pulsation de l'onde, $\vec k = k\vec{u}$ est son vecteur d'onde avec $\vec u$ le vecteur directeur de la direction de propagation.
+    \end{form}
+    
+    Comme on l'a vu, une OPPM a des surfaces d'onde infinies, donc nécessite une énergie infinie : elle n'existe donc pas concrètement, et il s'agit uniquement d'un modèle. Cependant ce modèle est applicable dans beaucoup de situations :
+    %
+    \begin{center}
+        \emph{les ondes réelles présentent localement la structure d'une OPPM}
+    \end{center}
+    %
+    Donnons quelques exemples :
+    %
+    \begin{example}{}{}
         \begin{center}
             \begin{tikzpicture}
-                \draw (0, -1) -- (0, 0);
-                \draw (0, 1) -- (0, 2);
-                \draw (-0.2, 0) -- (0.2, 0);
-                \draw (-0.2, 1) -- (0.2, 1);
+                \node[main1] at (-0.3, 0.2) {S};
                 
-                \draw[red] (-1.5, -1.5) -- (1.5, 1.5);
+                \draw[dashed, gray, ->] (-1, 0) -- (5.5, 0);
+                \draw[main1] (0, 0) -- (5, 0);
+                \draw[main1] (0, 0) -- (1, 1) -- (5, 1);
+                \draw[main1] (0, 0) -- (1, -1) -- (5, -1);
+                
+                \draw[thick, <->] (1, -1.4) -- (1, 1.4);
+                
+                \draw[main10] (3, -0.5) --++ (0, 1);
+                \draw[main10] (3.2, -0.5) --++ (0, 1);
+                \draw[main10] (3.4, -0.5) --++ (0, 1);
+                \draw[main10] (3.6, -0.5) --++ (0, 1);
+                \draw[main10] (3.8, -0.5) --++ (0, 1);
+                \draw[main10] (4, -0.5) --++ (0, 1);
+                
+                \draw (2.9, -0.4) rectangle (4.1, 0.4);
+                 \draw[thick, main3 ,<->] (4.3, -0.4) --node[midway, right] {$\ell$} (4.3, 0.4);
+                
+                
+                \draw[thick, main3 ,<->] (5.7, -1.4) --node[midway, right] {$\phi$} (5.7, 1.4);
             \end{tikzpicture}
         \end{center}
-    \end{minipage}
-    %
-    \hfill
-    %
-    \begin{minipage}{0.5\linewidth}
-        A savoir :
-        \begin{enumerate}
-            \item centre de la boucle de diffraction dans le prolongement géométrique de l'onde incidente.
-        
-            \item Cône de diffraction qui constitue la tâche centrale de l'angle au sommet $\theta = \dfrac{\lambda}{a}$
-            
-            \item présence de tache secondaire moins lumineuses
-        \end{enumerate}
-    \end{minipage}
-    
-    \section{Généralités sur les ondes}
-
-    \subsection{Définition}
-    
-    \begin{definition}{Onde}{}
-        On appelle \hg{onde} une grandeur physique (intensive) qui varie \hg{spatio-temporellement}.
-    \end{definition}
-    %
-    \begin{notation}
-        On notera donc une onde avec la fonction $\bcs$ de $\bdR^3 \times \bfT$, qu'on peut donc voir comme un champ. Au point $M \in \bdR^3$ et à l'instant $t \in \bfT$, sa valeur sera donnée par $\bcs\p{M, t}$.
-    \end{notation}
-        
-    On remarquera les points suivants :
-    %
-    \begin{enumerate}
-        \itt $\bcs\p{M}$ ne dépend pas du temps, c'est donc un champs stationnaire.
-        
-        \itt $\bcs\p{t}$ ne dépend que du temps, c'est donc un champs uniforme.
-    \end{enumerate}
-    
-    \begin{definition}{Caractéristique d'une onde}{}
-        Une onde $\bcs$ est caractérisée selon ces deux points :
-        \begin{psse}
-            \item On dit qu'elle est \hg{scalaire} si $\bcs$ est un scalaire, et \hg{vectorielle} si $\vec{\bcs}$ est un vecteur.
-        
-            \item On appelle \hg{direction de propagation} $\p{\vec{u}}$ la direction / le sens dans lequel se propage l'onde.
-
-            Si $\bcs\p{M,t}$ \hg{vibre dans la direction de propagation}, alors on dit  que l'onde est \hg{longitudinale}.
-            
-            Si $\bcs\p{M,t}$ \hg{vibre perpendiculairement à la direction de propagation}, on dit que l'onde est \hg{transversale}.
-        \end{psse}
-    \end{definition}
-
-    \begin{example}{Quelques exemples d'onde}{}
-       \begin{enumerate}
-           \itt Une ondulation à la surface de l'eau, la houle : $\bcs\p{M,t} = h\p{M,t}$. C'est une onde scalaire et transversale.
-           
-           \itt Les ondes sonores (pression) dans les gaz : $\bcs\p{M,t} = P\p{M,t}$. C'est une onde scalaire et longitudinale.
-           
-           \itt Les ondes sismiques. Peuvent être longitudinale ou transversale.
-           
-           \itt Une onde sur une corde tendue : $\bcs\p{M, t} = y\p{x, t}$.
-        \end{enumerate}
         %
+        Pour $\ell \ll \phi$, l'onde se comporte comme une OPPM.\bigskip
+        
+        
         \begin{center}
             \begin{tikzpicture}
+            
+                \node[main1] at (-0.3, 0) {S};
+                
+                \draw[dashed, gray, ->] (-1, 0) -- (5.5, 0);
+                
+                \draw (0,-1) arc (-90:90:1);
+            \end{tikzpicture}
+        \end{center}
+    \end{example}
+    
+    On va en fait montrer que les OPPM forment une base des ondes réelles.
+    
+    \subsubsection*{Somation d'OPPM : Transformée de \textsc{Fourier}}
+    
+    Soit $\underline f\p{t}$ une fonction bornée $\bcC^1$ telle que $f\p{\pm \infty} = 0$ (on posera $\tau$ la durée sur laquelle $f\p{t}$ a des valeurs notables). On a :
+    %
+    \[ f\p{t} = \int_0^{+\infty} g\p{\omega}\cos{\omega t}\dif \omega\]
+    %
+    ainsi que $k \dfrac{2\pi}{\lambda}$ et $\Delta k = 2\pi \dfrac{\delta \lambda}{\lambda^2}$.
+    
+    \begin{enumerate}
+        \itt $g\p{\omega}$ apparaît comme l'amplitude de la composante sinusoïdale de pulsation $\omega$ de $f\p{t}$.
+        
+        \itt $g\p{\omega}$ est le spectre de $f\p{t}$
+    \end{enumerate}
+    
+    \begin{property}{Propriété fondamentale}{}
+        \[ \hg{\Delta \omega \times \tau \approx 1}\]
+    \end{property}
+    
+    On notera que $g\p{\omega}$ est liée à la transformée de \textsc{Fourier} de $f$.
+    
+    \subsubsection*{Généralisation}
+    
+    Soit une onde $f\p{t, z}$ de volume fini, de durée $\tau$ et de longueur $L$. On a $L = v\tau$.
+    
+    On admet que, avec l'équation de dispersion $k = k\p{\omega}$, on a 
+    %
+    \[ f\p{t, z} = \int_0^{+\infty} g\p{\omega}\cos{\omega t - k\p{\omega}z}\dif \omega \qquad\ou\qquad \int_0^{+\infty} h\p{k}\cos{\omega\p{k}t - kz}\dif k\]
+    %
+    Ici $q\p{\omega}$ est le spectre en pulsation, $h\p{k}$ est le spectre en vecteur d'onde (et $h_2\p{\lambda}$ est le spectre en longueur d'onde)
+    
+    \begin{form}{A retenir}
+        Toute onde réelle peut s'écrire comme une somme d'OPPM, avec
+        %
+        \[ \hg{\Delta \omega \tau \approx 1} \qquad\et\qquad \hg{\Delta k L \approx 1}\]
+        %
+        Conclusion : les OPPM forment une base des ondes réelles.
+    \end{form}
+    
+    \begin{example}{à connaître}{}
+        \begin{center}
+            \emph{Onde quasi-sinusoïdale}, aussi appelée \emph{paquet d'onde}.
+            
+            \begin{tikzpicture}
                 \begin{axis}[
-                    clip                =   true,
                     axis lines          =   middle,
-                    %minor tick num      =   4,
-                    domain              =   0:53,
-                    %xtick distance      =   1,
-                    %ytick distance      =   1,
+                    axis line style     =   {-stealth,shorten >=-3mm},
                     trig format plots   =   rad,
                     trig format         =   rad,
-                    xlabel              =   {$x$},
-                    ylabel              =   {$y$},
+                    domain              =   0:2,
                     xmin                =   0,
-                    xmax                =   10,
+                    xmax                =   2,
                     ymin                =   -1.2,
                     ymax                =   1.2,
-                    width               =   15cm,
-                    height              =   8cm,
+                    xlabel              =   $t$,
+                    ylabel              =   $f\p{t, x}$,
                     grid                =   none,
-                    xtick               =   {0, 2},
-                    ytick               =   {-0.76},
-                    xticklabels         =   {$0$, $x_0$},
-                    yticklabels         =   {$s\p{t, x_0}$}
+                    width               =   14cm,
+                    height              =   9cm,
+                    xtick               =   {},
+                    ytick               =   {},
+                    yticklabels         =   {}
                 ]
-                    \addplot[color=main2,thick,samples=500,smooth,domain=0:10] {sin(\x+2)};
-                    \addplot[color=main3,thick,dashed,samples=500,smooth,domain=0:10] {sin(\x+1.8)};
-                    \addplot[color=main4,opacity=0.5,thick,dashed,samples=500,smooth,domain=0:10] {sin(\x+1.6)};
-                    \addplot[color=main5,opacity=0.25,thick,dashed,samples=500,smooth,domain=0:10] {sin(\x+1.4)};
-                    \legend{$s\p{x, t}$,$s\p{x, t + \dif t}$};
-                    
-                    \draw [main3, densely dotted] (0, -0.76) -- (2, -0.76) -- (2, 0);
+                    \addplot[color=main1, samples=300, smooth, thick] {0.8*sin(15*pi*x)*exp(-15*(x-1)^4)};
+                        
+                    \draw [<->, main3] (0.9, -0.85) --node[midway, below] {$\tau_0$} (1.0333, -0.85);
                 \end{axis}
             \end{tikzpicture}
         \end{center}
-        %
-        \begin{enumerate}
-            \itt Une onde électromagnétique : $\vec\bcs\p{M,t} = \vec E\p{M,t}$ \emph{- ou $\vec B\p{M,t}$ le champ électromagnétique}. C'est une onde vectorielle, qui peut être transverse ou longitudinale, selon la direction de $\vec{E}$ par rapport à $\vec{u}$ (tous les cas sont possibles).
-       \end{enumerate}
     \end{example}
     
-    \subsection{Différents types d'ondes}
-
-    \subsubsection{Équation d'onde et de propagation}
+    \subsection{Propagation d'une onde réelle}
     
-    Presque toujours, une onde physique $\bcs$ peut être caractérisée par une équation différentielle sur $\bcs$ :
-
-    \begin{definition}{Équation d'onde}{}
-        On appelle \hg{équation d'onde} ou \hg{équation de propagation} d'une \hg{onde $\bcs$} une \hg{équation spatio-temporelle aux dérivées partielles caractérisant la propagation de $\bcs$}.
-    \end{definition}
+    \subsubsection*{Positionnement du problème : milieu dispersif}
     
-    On donne ci-dessous un exemple d'établissement d'équation de propagation
-    
-    \begin{example}{Onde sur une corde tendue}{}
-        On considère une onde transverse de faible amplitude sur une corde tendue. En l'absence d'onde, la corde a une \hg{longueur $L$} et une \hg{tension $T_0$}. Pour cela, on étudie des ondes transverses de petite amplitude, qu'on décrira donc selon \hg{$\vec{M_0M} = y\p{x_0,t}\vec{u_y}$}, avec le point \hg{$M_0\p{x_0, 0}$}.
-        
-        \begin{minipage}{0.5\linewidth}
-            \begin{center}
-                \begin{tikzpicture}[scale=0.85]
-                    \draw[->] (0, 0) -- (8, 0) node[] {$\qquad x$};
-                    \draw (0, -0.2) -- (0, 0.2);
-                    \node at (0, -0.5) {$O$};
-                    \draw (6, -0.2) -- (6, 0.2);
-                    \node at (6, -0.5) {$L$};
-                    
-                    \draw (4.5, -0.1) -- (4.5, 0.1);
-                    \node at (4.5, -0.5) {$x_0$};
-    
-                    \draw[main2, thick] (0, 0) -- (6, 0);
-                    
-                    \draw[->, thick, main10] (4.5, 0) -- (3.5, 0) node[label={[font=\footnotesize]below:$\vec{T_0}$}] {};
-                    \draw[->, thick, main10] (4.5, 0) -- (5.5, 0) node[label={[font=\footnotesize]below:$\vec{T_0}$}] {};
-                
-                    \draw[->, thick, main10] (6, 0) -- (7, 0) node[label={[font=\footnotesize]below:$\vec{T_0}$}] {};
-                \end{tikzpicture}
-            \end{center}
-        \end{minipage}
-        %
-        \begin{minipage}{0.5\linewidth}
-            \begin{center}
-                \begin{tikzpicture}[scale=0.85]
-                    \draw[->] (0, 0) -- (8, 0) node[] {$\qquad x$};
-                    %\draw[->] (0, 0) -- (0, 1);
-                    %\node at (0, 1.5) {$\qquad \vec{u_y}$};
-                    \draw (0, -0.2) -- (0, 0.2);
-                    \node at (0, -0.5) {$O$};
-                    \draw (6, -0.2) -- (6, 0.2);
-                    \node at (6, -0.5) {$L$};
-                
-                    \draw (4.5, -0.2) -- (4.5, 0.2);
-                    \node at (4.5, -0.5) {$x_0$};
-                
-                    \draw[main2, thick] plot [smooth, tension=0.7] coordinates {(0,0) (1.5, -0.5) (3, 0) (4.5,0.5) (6, 0)};
-                    \draw[main3, dashed, opacity=0.75, thick] plot [smooth, tension=0.7] coordinates {(0,0) (1.5, -0.4) (3, 0) (4.5,0.4) (6, 0)};
-                    \draw[main4, dashed, opacity=0.5, thick] plot [smooth, tension=0.7] coordinates {(0,0) (1.5, -0.3) (3, 0) (4.5,0.3) (6, 0)};
-                    \draw[main5, dashed, opacity=0.25, thick] plot [smooth, tension=0.7] coordinates {(0,0) (1.5, -0.2) (3, 0) (4.5,0.2) (6, 0)};
-                
-                    \draw[->, thick, main10] (4.5, 0) -- (4.5, 0.5);
-                
-                    \node[main10,label={[font=\footnotesize]above:$\color{main10}\vec{M_0M}$}] at (4.5, 0.3) {};
-            \end{tikzpicture}
-            \end{center}
-        \end{minipage}
-        %
-        On cherche à déterminer l'équation d'onde, donc l'équation de mouvement d'un point de la corde. Pour cela on applique la RFD à un bout de corde de longueur $\dif x$ situé au repos entre $x$ et $x+\dif x$. On note $\mu$ la masse linéique de la corde, on fait le bilan des forces :
-        %
-        \begin{enumerate}
-            \itt Le poids du bout de corde : $\vec P = \mu\dif x \vec{g}$
-            
-            \itt La tension que la partie de la corde à droite de $x$ exerce sur la partie à gauche $\vec T\p{x,t} = \vec{T_d}\p{x,t}$.
-            
-            Ici, on a donc sur l'extrémité droite du bout de corde $\vec{T}\p{x+\dif x,t}$.
-            
-            De même on a à l'extrémité gauche du bout de corde  $-\vec{T}\p{x,t}$
-            On note $\alpha\p{x,t}$ l'angle formé par la tangente à la corde avec l'axe $\p{O, \vec{u_x}}$.
-        \end{enumerate}
-        
-        En appliquant la RFD, on obtient \qquad $\hg{\hg{\mu\dif x \vec{A}\p{G,t} = \vec{T}\p{x+\dif x,t}- \vec{T}\p{x,t} +\mu\dif x\vec{g}}}$.
-
-        On projette sur les axes pour obtenir :
-        %
-        \[ \left\vert\begin{array}{rlc}
-            0 &= \vec{T}\p{x+\dif x,t}\cos\p{\alpha\p{x+\dif x, t}} - \vec{T}\p{x,t}\cos\p{\alpha\p{x,t}} & \qquad\p{\text{sur} \ \vec{u_x}}\\
-            \mu\dif x \dfrac{\partial^2}{\partial t^2}y\p{x+\frac{\dif x}{2},t} &= \vec{T}\p{x+\dif x,t}\sin\p{\alpha\p{x+\dif x, t}} - \vec{T}\p{x,t}\sin\p{\alpha\p{x,t}} -\mu\dif x g &\qquad\p{\text{sur} \ \vec{u_y}}
-        \end{array}\right.\]
-        %
-        En reconnaissant une formule de \textsc{Taylor} au premier ordre, on a \hg{$0 =  \dfrac{\partial}{\partial x}\p{\vphantom{\dfrac{}{}}T\p{x,t}\cos\p{\alpha\p{x,t}}}$}.
-        
-        En remarquant qu'à l'ordre 1 l'accélération du centre de gravité est la même que celle du bout gauche de la corde, on obtient \qquad \hg{$\mu\dfrac{\partial^2 y}{\partial t^2}\dif x = \dfrac{\partial}{\partial x} \p{T\p{x,t}\sin\p{\alpha\p{x,t}}}$}.
-        
-        On néglige le poids car son influence est minime. En allégeant les notations, on obtient donc :
-        %
-        \[0 = \dfrac{\partial}{\partial}\p{T\cos\alpha} \qquad\qquad\et\qquad\qquad \mu\dfrac{\partial^2 y}{\partial t^2} = \dfrac{\partial}{\partial x}\p{T\sin\alpha} \]
-        %
-        Puisqu'on se place aux petites oscillations, on a donc $\cos\alpha \approx 1$ et $\sin\alpha \approx \alpha$ on peut donc réécrire \hg{$0=\dfrac{\partial T}{\partial x}$}.
-        
-        Donc \hg{$T$ est une constante $T_0$}, ainsi la tension est la même en tout point de la corde. On réécrit également : 
-        %
-        \[ \hg{\mu\dfrac{\partial^2 y}{\partial t^2} = T_0\dfrac{\partial\alpha}{\partial x}} \]
-        %
-         On a $\tan\alpha = \dfrac{\partial y}{\partial t}$, donc par approximation des petits angles on a $\alpha\approx\dfrac{\partial y}{\partial x}\p{x,t}$ donc en injectant dans (2) on trouve
-
-        \[\mu\dfrac{\partial^2y}{\partial t^2}=T_0\dfrac{\partial}{\partial x}\p{\dfrac{\partial y}{\partial x}} \implies \dfrac{\partial^2y}{\partial x^2} - \dfrac{\mu}{T_0}\dfrac{\partial^2 y}{\partial t^2} = 0\]
-        On a ainsi obtenu l'équation de propagation d'une onde transverse de faible amplitue sur une corde tendue.
-    \end{example}
-
-    \begin{definition}{Corde souple}{}
-        Une corde souple (sans raideur) est telle que la tension $\vec{T}$ est tangente à la corde.
-    \end{definition}
-
-    \begin{example}{Onde sonore dans un solide}{}
-    % ce sera des xi 
-        On peut modéliser une solide comme un ensemble d'atomes reliés entre eux par des ressorts identiques. On pose $\xi_n\p{t}$ le mouvement suivant $Ox$ de l'atome $n$. En appliquant la RFD on a $m\dfrac{\dif^2\xi_n}{\dif t^2}=\vec{T}_{(n-1)\to n} + \vec{T}_{(n+1)\to n} = -k\p{\p{\xi_n - \xi_{n-1}+a}-a} + k\p{\p{\xi_{n+1}-\xi_n+a}-a} = k\p{-2\xi_n+\xi_{n+1}+\xi_{n-1}}$
-
-        Passage à la modélisation en milieu continu
-
-        On pose $\epsilon\p{x,t}$ le mouvement de la tranche de solide située en $x$. $\epsilon$ doit vérifier $\epsilon\p{x_n,t}=\xi_n\p{t}$
-        $\epsilon_{n+1} + \epsilon_{n-1} - 2\epsilon = \epsilon(x_{n+1},t) + \epsilon(x_{n-1},t) - 2\epsilon(x_n,t) = \epsilon(x_{n+1}a,t) + \epsilon(x_{n-1}a,t) - 2\epsilon(x_na,t)$
-
-        On reconnaît par \textsc{Taylor} : $\xi_{n+1}+\xi_{n-1}-2\xi_n=\dfrac{\partial^2\epsilon}{\partial t^2}$ et on a cette égalité pour tout $t$ donc en injectant on a 
-        \[\dfrac{\partial^2\epsilon}{\partial x^2} -\dfrac{m}{ka^2}\dfrac{\partial^2\epsilon}{\partial t^2} = 0 \]
-        donc avec $\mu=\frac{m}{a}$ la masse linéique et $E$ le module d'Young du matériau 
-        \[\dfrac{\partial^2\epsilon}{\partial x^2} -\dfrac{\mu}{E}\dfrac{\partial^2\epsilon}{\partial t^2}\]
-    \end{example}
-    
-    \subsubsection{Équation de d'Alembert}
-    
-    On définit ci-dessous l'opérateur d'alembertien :
-    
-    \begin{definition}{Opérateur d'alembertien}{}
-        On appelle \hg{opérateur d'alembertien} l'opérateur 
-        %
-        \[ \hg{\dfrac{\partial^2}{\partial x^2} - \dfrac{1}{c^2}\dfrac{\partial^2}{\partial t^2}}\]
-    \end{definition}
-    %
-    \begin{notation}
-        L'\hg{opérateur d'alembertien} est noté $\Box = \dfrac{\partial^2}{\partial x^2} - \dfrac{1}{c^2}\dfrac{\partial^2}{\partial t^2}$.
-    \end{notation}
-    
-    Cet opérateur sert surtout à marquer l'importance de l'équation suivante : d nombreux phénomènes oscillatoires physiques (linéaires et sans perte) vérifient la même équation de propagation, appelée équation de \textsc{d'Alembert} :
-    %
-    \begin{definition}{Équation de d'Alembert}{}
-        Soit $s$ un signal. On a :
-        %
-        \[ \hg{\Box s = \dfrac{\partial^2s}{\partial x^2} - \dfrac{1}{c^2}\dfrac{\partial^2s}{\partial t^2} = 0}\]
-    \end{definition}
-    %
-    Mathématiquement, on résout cette équation par changement de variable :
-    %
-    \begin{enumerate}
-        \itt On pose $u\p{x, t} = x - ct$ et $v\p{x, t} = x + ct$. Dès lors, on a
-        $s\p{x, t} = s\p{u\p{x, t}, v\p{x, t}}$. 
-        
-        Après divers calculs, on retombe sur
-        %
-        \[ \frac{\partial^2 s}{{\partial x}^2} - \frac{1}{c^2}\frac{\partial^2 s}{{\partial t}^2} = 0 \qquad\implies\qquad 4\frac{\partial^2 s}{\partial u \partial v} = 0 \]
-        
-        \itt On calcule ensuite la primitive avec $u$ constante : on a $\dfrac{\partial s}{\partial v} = G\p{v}$ où $u$ est une constante de $G$.
-    
-        On intègre alors respectivement à $v$ :
-        %
-        \[ s\p{u, v} = \int G \p{v} \dif v + \text{cte}\p{u} = g\p{v} + f\p{u}\]
-        
-        \itt Toute solution de l'équation de \textsc{d'Alembert} s'écrit donc :
-        %
-        \[ s\p{x, t} = f\p{x - ct} + g\p{x + ct}\]
-       soit $s\p{u, v} = G\p{v} + f\p{u}$
-    \end{enumerate}
-
-    \subsubsection{Onde progressive}
-
-    Interprétation de $f\p{x - ct}$
+    Pour une OPPM on a $v_\varphi = \dfrac{\omega}{k}$ la vitesse de phase.
     
     \begin{nproof}
-        On a $s\p{x, t} = f\p{x - ct}$. A $t = 0$, on a $s\p{x, 0} = f\p{x}$.
-        
-        On connaît la forme de l'onde à $t = 0$ : \qquad $s\p{x, 0} = f\p{x}$.
-        
-        DESSIN
-
-        à $t \not\eq 0$ on fait le changement de variable $X = x - ct$. Ainsi $s\p{x, t} = s\p{X, 0} = f\p{X}$.
-        
-        Soit $O'$ l'origine du nouveau repère, on a $X_{O'} = 0 = x_{O'} - ct$ d'où $x_{O'} = ct$. On en conclu que pendant la durée $t$ l'onde s'est déplacée d'une distance $ct$ vers les $x$ croissants sans changer de forme.
+        \[ \varphi\p{t, z} = \omega t - kz = -k\p{z - \dfrac{\omega}{k}t} = f\p{z - \dfrac{\omega}{k}t}\]
+        %
+        La phase progresse donc à la vitesse $v_\varphi = \dfrac{\omega}{k}$.
     \end{nproof}
-
-    \begin{form}{à retenir}{}
-        Il faut retenir que $f\p{x - ct}$ se déplace vers les $x$ croissants à la vitesse $c$.
-    De même, $g\p{x, t}$ est une onde progressive vers les $x$ décroissants à la vitesse $c$.
-    \end{form}
     
-    Une autre démonstration, moins rigoureuse, donne :
-    \begin{nproof}
-        Montrons que $f\p{x - ct}$ est une onde progressive vers les $x$ croissants à la vitesse $c$. Pendant $\Delta t$ l'onde se propage de $\Delta x$, ce qui implique $f\p{x + \Delta x - c \p{t + \Delta t}} = f\p{x - ct}$ ce qui nous donne $f\p{x - ct + \Delta x - c \Delta t} = f(x - ct)$ soit $\Delta x - c \Delta t = 0$
-        $\frac{\Delta x}{\Delta t} = c$ donc l'onde se propage vers les $x$ croissants ($c > 0$) à la vitesse c.
-    \end{nproof}
-
-    \subsection{Différentes ondes progressives}
-
-    \begin{definition}{Surface d'onde}{}
-        On appelle \hg{surface d'onde $\bcS$} un \hg{ensemble des points contigus} qui vibrent de la même manière :
-        %
-        \[ s\p{M \in \bcS, t} = \text{cte}\p{t}\]
-    \end{definition}
+    Or une OPPM ne dépend que de sa phase donc elle se propage aussi à la vitesse $v_\varphi$.
     
-    \subsubsection{Onde plane}
-    %
-    \begin{example}{}{}
-        Une onde plane est de la forme $s\p{x, t} = f\p{x - ct}$ telle que $\forall M\p{x, y}$ avec $x = \text{cte}$, $s\p{M, t} = \text{cte}\p{t}$.
-      
-        \begin{enumerate}
-            \itt \hg{$s\p{x, t)}$ es une onde plane ssi. les plans $x = \text{cte}$ sont les surface d'onde}.
-        \end{enumerate}
-        
-        On peut généraliser cela à $s\p{M, t} = f\p{\vec{u} \cdot \vec{r} - ct}$ avec $\vec{u}$ un vecteur unitaire constant.
+    \begin{warning}{}{}
+        \begin{center}
+            \emph{Une OPPM n'existe pas donc \hg{on peut parfaitement avoir $v_\varphi > c$} !}
+        \end{center}
+    \end{warning}
     
-        Les surfaces d'onde sont telles que $\vec u \cdot \vec r = \text{cte}$, \ie
-        %
-        \[ \vec u \cdot \vec r = \alpha x + \beta y + \gamma z = \text{cte} \]
-        %
-        et l'on reconnaît l'équation d'un plan. Donc les surfaces d'ondes sont des plans perpendiculaires à $\vec{u}$.
-    \end{example}
-    
-    On retiendra les points suivants :
-    
-    \begin{form}{À retenir}{}
-        \begin{enumerate}
-            \itt $f\p{\vec u \cdot \vec r - ct}$ est une onde progressive (car le temps et l'espace sont couplés) plane dans le sens et la direction de $\vec u$ à la vitesse $c$.
-            
-            \itt $\p{\vec u \cdot \vec r + ct}$ est une onde progressive plane se propageant dans la direction $\vec u$ et le sens $-\vec u$ à la vitesse $c$.
-            
-            \itt \colorbox{colform!20}{\textnormal{\color{colform}\sffamily\bfseries \,Remarque fondamentale\,}} Une onde plane n'existe pas car les plans d'ondes sont infinis, et donc une telle onde nécessiterai une énergie infinie ! Plus techniquement, elles n'existent pas mais forment une base des ondes réelles.
-        \end{enumerate}
-    \end{form}
-
-    \subsubsection{ondes sphériques}
-
-    $s\p{M, t} = \dfrac{f\p{\vec u \cdot \vec r - ct}}{r}$ avec $\vec r \norm{vec{OM}}$ et $\vec u = \dfrac{\vec{OM}}{r}$.
-    
-    On a $\vec u \vec r = r$ donc $s\p{M, t} = \dfrac{f\p{r - ct}}{r}$.
-    
-    À l'instant $t$, pour tout point $M$ appartenant à la sphère de rayon $r$ : \qquad\qquad $s\p{M, t} = \text{cte}\p{t}$.
-    
-    \begin{form}{À retenir et à savoir}{}
-        \begin{enumerate}
-            \itt $s\p{M, t} = \dfrac{f\p{\vec u \cdot \vec r - ct}}{r}$ est une onde progressive ($t$ et $r$ couplés) sphérique ($r = \text{cte}$ donne une surface d'onde) se propageant de manière centrifuge par rapport à $O$ à la vitesse $c$.
-            
-            \itt $s\p{M, t} = \dfrac{f\p{\vec u \cdot \vec r + ct}}{r}$ est une onde progressive ($t$ et $r$ couplés) sphérique ($r = \text{cte}$ donne une surface d'onde) se propageant de manière centripète par rapport à $O$ à la vitesse $c$.
-        \end{enumerate}
-    \end{form}
-    
-    On peut interpréter différemment le $\frac{1}{r}$ :
-    %
-    \begin{enumerate}
-        \itt Mathématiquement : on a $\Box s = \Delta s - \dfrac{1}{c^2}\dfrac{\partial^2 s}{\partial t^2} = \dfrac{1}{r}\dfrac{\partial^2}{\partial r^2}\p{rs} - \dfrac{1}{c^2}\dfrac{\partial^2}{\partial t^2}\p{rs} = 0$.
-        
-        Donc  $rs = f\p{r - ct} + g\p{r + ct}$ soit $s = \dfrac{f\p{r - ct}}{r} + \dfrac{g\p{r + ct}}{r}$.
-        
-        \itt Physiquement : on admet que les grandeurs énergétiques locales liées à l'onde sont proportionnelles à $s^2$ (c'est souvent le cas en physique) :
-        %
-        \[ \dfrac{\dif \bcE}{\dif \bcS} = ks^2 \qquad\implies\qquad \text{l'énergie d'une surface d'onde $\bcS$ est $ks^2\bcS\p{r}$}\]
-        %
-        Si une onde sphérique se propage sans absorption il faut que $\bcE\p{r, t} = \bcE\p{r + \delta r, t + \delta t}$ avec $\dfrac{\delta r}{\delta t} = c$.
-        
-        Donc $ks^2\p{r, t}k\pi r^2 = ks^2\p{r + \dif r, t + \dif t}\times 4\pi r^2$
-        
-        Il faut que $ks^2\times 4\pi r^2 = \text{cte}$ donc $s^2r^2 = \text{cte}$ donc $s$ est proportionnel à $\dfrac{1}{r}$.
-        
-    \end{enumerate}
-
-    Conclusion : 
-    
-    $s = s_0 \cos \p{\vec k \cdot \vec r - w t + \phi_0}$ c'est :
+    Qualitativement, une onde réelle est une superposition d'OPPM chacune allant à la vitesse $v_\varphi = \frac{\omega}{k}$. Or $k = k\omega$ donc $v_\varphi = \dfrac{\omega}{k\p{\omega}}$.
     
     \begin{enumerate}
-        \itt Une onde (car $t$ et $\vec r$)
-        \itt progressive (car $t$ et $\vec r$ couplés)
-        \itt si $k = \dfrac{2\pi}{\lambda}\vec u$ avec $\vec u$ constant, alors l'onde est plane et elle se propage dans la direction et le sens de $\vec u$.
+        \itt Si $v_\varphi$ est une indépendante de $\omega$, alors chaque composante de l'onde réelle se déplace à la même vitesse. Ainsi l'onde réelle se déplace aussi à la vitesse $v_\varphi$ sans se déformer.
+        
+        \itt En revanche si $v_\varphi$ est une fonction de $\omega$, chaque composante sinusoïdale de l'onde réelle a une vitesse différente, et elles se décalent les unes par rapport aux autres : l'onde réelle se propage à une vitesse à définir, et \emph{\EBGaramond a priori} en se déformant.
     \end{enumerate}
-
-    Commentaires importants :
+    
+    \begin{definition}{Milieu dispersif}{}
+        On appelle \hg{milieu dispersif} un milieu dans lequel \hg{$v_\varphi$ est une fonction de $\omega$}.
+    \end{definition}
+    
+    Remarquons que $v_\varphi = \dfrac{\omega}{k\p{\omega}}$, donc dans un milieu dispersif $k\p{\omega} \neq \omega \times\; \p{\text{facteur indépendant de $\omega$}}$. En conséquence :
     %
-    \begin{psse}
-        \item Si un seul $w$, alors onde monochromatique ou harmonique ou sinusoïdale : OPPM, OPPH, DPPS.
-        
-        \item La source impose $w$ donc $w$ est une caractéristique intrinsèque de l'onde.
-    Or on a : $s = s_0 \cos \p{k x - w t + \phi_0}$
-    $s = s_0\cos\p{k\p{x - \frac{w}{k}t} + \phi_0}$
-    On en déduit que la propagation a bien lieu à la vitesse : $c = \frac{w}{r} = \frac{\frac{2\pi}{T}}{\frac{2\pi}{\lambda}} = \frac{\lambda}{T} \to \lambda = c T \to$ lambda dépend du millieu de propagation.
-    Dans le cas des ondes lumineuse on note $c_0$ la vitesse dans le vide $\lambda_0 = c_0 T$ et v la vitesse de propagation dna sun millieu d'indice n : tel que $\frac{c_0}{v} = n > 1 \to \lambda_0 = c_0 T \textit{et} \lambda = v T \to \frac{\lambda}{\lambda_0} = \frac{v}{c}$. Finalement $\lambda = \frac{\lambda_0}{n}$
-    On remarque que $\lambda$ d'une onde lumineuse dépend du milieu de propagation, $T, w$ sont les caractéristiques de l'onde ainsi que $\lambda_0$ longueur d'onde dans le vide.
-    
-        \item On a 
-        %
-        \[\varphi\p{\vec r} = \vec k \cdot \vec r + \varphi_0 \qquad\qquad s\p{r, t} = s_0\cos\p{\Phi\p{\vec r} - w t}\]
-        %
-        et $\forall M\p{\vec r} \textit{tel que} \Phi\p{M} = \text{cte}$ ce qui correspond à une surface équiphase.
-        %
-        Pour une OPPM $\forall M t$ équiphase $s\p{M, t} = \textit{cte} \to$ surface d'onde. Pour une OPPM : surface équiphase $\equiv$ surface d'onde.
-    On remarque que $s\p{M, t} = s_0 e^{-\frac{y}{\delta}}\cos\p{kx - wt}$
-    Ici les surfaces équiphases sont des plans $x = \textit{cte}$ mais ce ne sont pas des surfaces d'ondes
-    
-    
-        \item Pour une OPPM, on peut utiliser les complexes :
-        %
-        \[ s\p{\vec r, t} = s_0\cos\p{\vec k \cdot \vec r -\omega t + \phi_0} \qquad\text{ce qui revient à}\qquad \underline S\p{\vec r, t} = \underline S\p{\vec r}e^{-\jj \omega t} = \underline S_0 e^{\jj\p{\vec k \cdot \vec r - \omega t}}\]
-        
-
-    ATTENTION / $s_1 \times s_2$ n'est pas la même onde que $\underline S_1 \underline S_2$
-    Il est interdit d'utiliser les complexes pour les grandeurs quadratique. On peut utiliser $<s_1\p{t}s_2\p{t}> = \frac{1}{2}\textit{Re}\p{\underline S_1 \underline S_2^\star}$
-    $<s^2\p{t}> = \frac{1}{2} \mod{\underline S}^2$
-        \item Les OPPM forment une bas des ondes réelles :
-    $s\p{M, t} = \int_0^{+\infty} g\p{w} e^{\jj \p{\vec k \cdot \vec r - wt}}d\omega$ grâce à Fourier.
-    $g\p{\omega}$ amplitude de l'onde de pulsation $\omega$ la courbe de $g\p{\omega}$ est le spectre de la source de $s\p{M,t}$.
-        \item Une OPPM n'existe pas !
-    car elle est infinie dans le temps et l'espace elle nécessite donc une énergie infinie.
-    Mais importantes car elle en forment une base.
-    Localement des ondes ont la forme d'une OPPM dans une zone de taille caractéristique L.
-    \end{psse}
-    
-    \subsubsection{Onde stationnaire}
-    
-    \begin{definition}{Onde stationnaire}{}
-        On appelle \hg{onde stationnaire} une onde où \hg{le temps et l'espace sont découplés}.
-        %
-        \[ \hg{s\p{M, t} = f\p{M}g\p{t}}\]
-    \end{definition}
-    
-    \begin{example}{Onde stationnaire}{}
-        Considérons $s\p{\vec r, t} = f\p{\vec r \cdot \vec u}g\p{t}$
-        %
-        \begin{enumerate}
-            \itt Si $\vec u$ est constant, c'est une onde plane stationnaire
-            
-            \itt Si $\vec u = \vec{e_r}$, c'est une onde plane sphérique
-        \end{enumerate}
-    \end{example}
-
-    I Propagation rectiligne de la lumière
-
-    Dans un millieu homogène les rayons lumineux sont rectilignes
-
-    On remarque que si n = n(x, y, z) milieu inhomogène => alors le rayon lumineux est courbé (CF td exo 1)
-
-    II PRIL
-    Principe du retour inverse de la lumière
-    tkt tkt on connais déjà
-
-    \subsection{Notion de chemin optique}
-
-    \subsection{Définition}
-
-    \begin{definition}{Chemin optique}{}
-        Soient $A$ et $B$ deux points d'un même rayon lumineux, on appelle \hg{chemin optique de $A$ à $B$} la grandeur \hg{$L_{AB} = (AB) = \int_{AB}n\dif s$}
-    \end{definition}
-    
-    Interprétation : l'onde se propage à la vitesse $v$ :
+    \[ \emph{un milieu dispersif est un milieu dans lequel l'équation de dispersion n'est pas linéaire}\]
     %
-    \[ \dif s = v\p{n}\dif t = \dfrac{c}{n\p{M}}\dif t \qquad\text{car}\qquad n\p{M} = \dfrac{c}{v\p{n}} \]
-    
-    \chapter{Interférences}
-    
-    \chaptertoc{}
-    
-    \section{TODO}
-    
-    \subsection{}
-    
-    \subsection{Calcul de base}
-    
-    \subsubsection{Condition de non nullité du terme interférentiel}
-    
-    \begin{center}
-        \begin{tikzpicture}[decoration={markings,mark=at position 0.5 with {\arrow{>}}}]
-            \draw[thick, main1, postaction={decorate}] (1.5, 0) -- (3, -1);
-            \draw[thick, main1, postaction={decorate}] (1.8, -1.5) -- (3, -1);
-            
-            \fill[main2] (3, -1) circle[radius=1.25pt];
-            \node[] at (3.3, -1) {M};
-        \end{tikzpicture}    
-    \end{center}
-    
-    On a $s_1\p{M, t} = s_{10}\cos{\omega_1 t - \varphi_1\p{M}}$ et $s_2\p{M, t} = s_{20}\cos{\omega_2 t - \varphi_1\p{M}}$.
-    
-    On a donc les intensités $I_1 = k\phyavg{{s_1}^2}$ et $I_2 = k\phyavg{{s_2}^2}$. On développe :
-    \begin{align*}
-        I\p{M} &= k\phyavg{{s_\text{tot}^2\p{M}}} = k\phyavg{\p{s_1 + s_2}^2}\\
-        &= k\phyavg{{s_{10}}^2\cos^2\p{\omega_1 t - \varphi_1} + {s_{20}}^2\cos^2\p{\omega_1 t - \varphi_2} + 2s_{10}s_{20}\cos{\omega_1 t - \varphi_1}\cos{\omega_2 t - \varphi_2}}\\
-        &= I_1 + I_2 + \underbrace{2ks_{10}s_{20}}_{4\sqrt{I_1I_2}}\underbrace{\phyavg{\cos{\omega_1 t - \varphi_1}\cos{\omega_2 t - \varphi_2}}}_{\text{terme d'interférence}}
-    \end{align*}
-    
-    \begin{definition}{Terme interférentiel}{}
-        On appelle \hg{terme interférentiel} de $s_1$ et $s_2$ la quantité \hg{$\bcA = \phyavg{\cos{\omega_1 t - \varphi_1}\cos{\omega_2 t - \varphi_2}}$}
+    \begin{definition}{Indice de réfraction}{}
+        L'\hg{indice de réfraction} d'un milieu matériel est défini par \hg{$n = \dfrac{c}{v_\varphi}$}.
     \end{definition}
+    %
+    Par exemple, dans le vide $k = \dfrac{\omega}{c}$ donc $v_\varphi = c$, ainsi $n = 1$. Il s'agit là d'un milieu non dispersif.
+    
+    \begin{enumerate}
+        \itt Si $\Delta \omega$ du spectre d'une onde réelle est suffisamment petit on pourra toujours prendre
+        %
+        \[ v_\varphi = v_\varphi\p{\omega_0} + \underbrace{\dfrac{\dif v_\varphi}{\dif \omega}\int_{\omega_0}\dif \omega}_{\text{négligeable}}\]
+    \end{enumerate}
+    
+    \subsubsection*{Cas d'une onde quasisinusoïdale}
     
     \newpage
     
+    \section{Exemple de milieu dispersif : le plasma}
     
-    \chapter{Électrostatique}
+    \subsection{Modélisation}
     
-    \chaptertoc{}
+    \subsubsection*{Présentation générale}
     
-    \section{Généralités sur la  charge électrique}
-    
-    \subsection{Charge électrique dans la matière}
-    
-    Au niveau microscopique, on distingue deux particules chargées principales (sans rentrer dans toutes les spécificités des particules du modèle standard) :
-    %
-    les électrons $e⁻$ dans le nuage électronique, et les protons dans le noyaux, très difficiles à séparer. La plupart du temps le courant électrique est dû à un déplacement de charge. On notera le cas particulier des solutés dans les liquides : le courant est créé par le mouvement des ions.
-    
-    \subsection{Modélisation de la charge}
-    
-    \begin{enumerate}
-        \itt Modélisation volumique. On note $\rho\p{M}$ la densité volumique de charge. On a :
-    
-        \[ \rho\p{M} = \dfrac{\dif Q_{\dif v}}{\dif V\p{M}} = \dfrac{\dif q}{\dif V}\]
-        
-        \itt Modélisation surfacique : $\sigma\p{M} = \dfrac{\dif Q_{\dif S}}{\dif S}$ ainsi $\dif Q = \sigma \dif S$ soit $Q = \displaystyle\niint_S\sigma\dif S$.
-        
-        \itt Modélisation linéique : $\lambda\p{M} =\dfrac{\partial Q_{\dif \ell}}{\dif \ell}$ ainsi $\dif Q= \lambda\p{M}\dif \ell$ soit $\displaystyle Q=\int_C\lambda\dif \ell$
-
-        \itt Modélisation ponctuelle : $\sqrt{V} \ll L_\text{carac}$ on estime alors $q\p{M} = \rho V$.
-    \end{enumerate}
-
-    \section{Champ et potentiel électrostatique}
-
-    La \emph{magnétosatique} et l'\emph{électrostatique} sont les études du champ magnétique $\vec B$ et électrique $\vec E$ dans le cas stationnaire.
-    
-    On étudie $\vec E$ et $\vec B$ créés par $\rho$ et $\vec{\jmath}$, où $\vec{\jmath}$ est la grandeur liée à $i$ en tout point de l'espace. Dans le cas stationnaire :
-    %
-    \[ \dfrac{\partial \rho}{\partial t} = 0 \quad\et\quad \dfrac{\partial \vec{\jmath}}{\partial t} = \vec 0 \qquad\text{donc}\qquad \dfrac{\partial \vec E}{\partial t} = \vec 0 \quad\et\quad \dfrac{\partial \vec B}{\partial t} = \vec 0   \]
-    %
-    On montrera que dans ce cas $\vec E$ et $\vec B$ peuvent être décomplés.
-
-    \subsection{Champs électrostatique}
-
-    \subsubsection{Loi de \textsc{Coulomb}} %xD il a découvert l'amérik et les 1diens ; moi je veux découvrir les 2diens. 
-    %
-    La loi de \textsc{Coulomb} donne l'expression de $\vec E$ créé par un charge ponctuelle :
-    \[ \vec F_{q\to q'} = \dfrac{qq'}{4\pi\epsilon_0 PM^2}\times\dfrac{\vec{PM}}{\norm{\vec PM}} = q'\p{\dfrac{q}{4\pi\epsilon_0PM^3}\vec{PM}}\]
-    %
-    \begin{definition}{Champ électrique}{}
-        On définit le \hg{champ électrique} créé par une \hg{charge $q$ située en $P$ en un point $M$} par
-        %
-        \[ \hg{ \vec E_{q\p{P}}\p{M} = \dfrac{q\p{P}}{4\pi\epsilon_0PM^3}\vec{PM} = \dfrac{q\p{P}}{4\pi\epsilon_0PM^2}\vec{u_{PM}}} \]
-    %
+    \begin{definition}{Plasma}{}
+        Un \hg{plasma} est un mélange d'ions et d'électrons (c'est un gaz ionisé).
     \end{definition}
     
-    On remarquera qu'en coordonnées sphériques, lorsque $P = O$ on aura $\vec E = \dfrac{q}{4\pi \epsilon_0 r^2}\vec{u_r}$.
-
-    \begin{theorem}{Théorème de superposition}{}
-        Le champ électrique créé par une somme de charge est la somme des champs électriques créés par les charges.
-    \end{theorem}
+    Dans toute la suite de cette étude, on considéra valides les hypothèses suivantes :
+    %
+    \begin{center}
+        \begin{minipage}{0.7\linewidth}
+            \emph{Les plasma étudiés sont monovalents (constitués d'ions monovalents), on aura donc autant d'$e^-$ que d'ions. On ne modélisera par ailleurs les interactions intérieures au plasma que par des chocs.}
+        \end{minipage}
+    \end{center}
+    %
+    On étudiera donc un mélange de deux gaz parfaits : celui des ions et celui des électrons, ce qui est généralement possible quand le plasma est peu dense.
     
-    \begin{form}{Calcul direct de champ créé par des distributions continues de charge (HP)}{}
+    
+    
+    \begin{notation}
+        On pose tout d'abord quelques notations :
+        %
         \begin{enumerate}
-            \itt Distribution volumique seln $\rho\p{P}$
-            %
-            \[ \hg{\vec E \p{M} = \iiint_V \dfrac{\rho\p{P} \dif V\p{P}}{4\pi \epsilon_0 PM^2} \vec{u_{PM}}}\]
-            %
-            \itt Distribution surfacique selon $\sigma\p{P}$ 
-            %
-            \[ \hg{ \vec E\p{P} = \niint_V \dfrac{\sigma\p{P} \dif S\p{P}}{4\pi \epsilon_0 PM^2} \vec{u_{PM}}} \]
-            %
-            \itt Distribution linéique selon $\lambda\p{P}$ 
-            %
-            \[ \hg{ \vec E\p{P} = \niint_V \dfrac{\lambda\p{P} \dif \ell\p{P}}{4\pi \epsilon_0 PM^2} \vec{u_{PM}}} \]
+            \itt $M$ désigne la masse des ions
+            
+            \itt $m$ désigne la masse des $e^-$
+            
+            \itt $n_+$ désigne la densité volumique d'ions et $n_-$ la densité volumique d'$e^-$.
+            
+            \itt On aura $N_-$ et $n_+$ tels que $n_- = \dfrac{\dif N_-}{\dif V}$ et $n_+ = \dfrac{\dif N_+}{\dif V}$.
+            
+            \itt Les quantités $v_+$ et $v_-$ désignent les vitesses \guill{moyenne} respectivement des ions et des $e^-$.
         \end{enumerate}
-    \end{form}
-    % moi quand l'action à gauche est différente de l'action à droite parce que l'action a gauche contient des migrants -----> L'action à gauche qui dérive.... le bateau qui coule naturellement. r/moiquand le module à gauche de nabla n'a aucun sens (on est en physique xD jécrukoi) -- nan mais de base nabla ca n'a aucun sens le truc c'est un vecteur de fonction ??? genre dans R^3 le vecteur (cos sin tan) en fait. littéralement cahsohtoa le moment dans R3 dans la réalité de R le ring of isomorphism of the dodecahedron
-    % ---Alerte lemgo !!!! d'où x+y+z c'est r ??????? c'était pas avec des carrés ???????? ?????????? c'est presque pareil pi = g = 10 = 100000 << c. avogadro = 24! (issou). Deja avogadro >> c donc avogadro = +\infty.
-    % le prof abasourdi par ma question, il ne comprends pas comment le majorant en titre ne comprend pas ses sous entendus
-    \subsection{Potentiel électrostatique $V\p{M}$}
+    \end{notation}
     
-    \subsubsection{Expression de $V$}
+    Initialement à l'équilibre, le plasma est neutre d'où l'on a $n_+\p{0}  = n_-\p{0} = n_0$. En présence d'une onde, on aura
+    %
+    \[ n_+ = n_0 + \delta n_+ \qquad\et\qquad n_- = n_0 + \delta n_-\]
+    %
+    En l'absence d'onde, on aura aussi $v_+ = v_- = 0$ (plasma neutre à l'équilibre).\bigskip
+    
+    \underline{Remarque :} on étudie la propagation d'une OPPM d'amplitude \guill{pas trop grande} dans le plasma afin de pouvoir supposer que les perturbations due à l'onde sont faibles, et pouvoir faire des DL à l'ordre 1. Ainsi $v_+, v_-, \delta n_+, \delta n_-$ sont des quantités infinitésimales.
+    
+    \begin{property}{Distribution de charge et densité de courant d'un plasma monovalent}{}
+        Pour un \hg{plasma monovalent $\bfP$} (supposé uniforme), on a la \hg{distribution de charge}
+        %
+        \[ \hg{\rho = e\p{\delta n_+ + \delta n_-}} \]
+        %
+        et la \hg{densité de courant}
+        %
+        \[ \hg{\vec \jmath = n_0e\p{\vec{v_+} + \vec{v_-}}} \]
+    \end{property}
+    %
+    \begin{nproof}
+        \begin{align*}
+            \forall M \in \bfP,&& \rho\p{M} &= n_+e n_-\p{-e} = \p{n_0 + \delta n_+}e - \p{n_0 + \delta n_-}e = e\p{\delta n_+ + \delta n_-}\\
+            \forall M \in \bfP,&& \vec \jmath \p{M} &= n_+e\vec{v_+} + n_-\p{-e}\vec{v_-} = n_0e\underbrace{\p{\vec{v_+} + \vec {v_-}}}_{\text{ordre } 1} + e\underbrace{\p{\delta n_+ \vec{v_+} - \delta n_-\vec{v_-}}}_{\text{ordre } 2} \approx n_0e\p{\vec{v_+} + \vec{v_-}}
+        \end{align*}
+    \end{nproof}
+    
+    \subsubsection*{Loi constitutive}
+    
+    On cherche $\vec j = f\p{\vec E}$. Pour cela, on applique la RFD à un $e^-$ :
+    %
+    \[ m \dfrac{\dif \vec{v_-}}{\dif t} = m\vec g - e\vec E - e\vec{v_-} \wedge \vec B\]
     %
     \begin{enumerate}
-        \itt Dans le cas d'une charge ponctuelle :
+        \itt On peut déjà négliger le poids $\vec{P} = m\vec g$ devant la force électrique $\vec{F_e} = e\vec E$. En effet :
         %
-        \[ \vec{E_{q\p{P}}}\p{M} = \dfrac{q\p{P}}{4\pi \epsilon_0 PM}\vec{u_{PM}} \eq{P = O} \dfrac{q}{4\pi \epsilon_0 r^2}\vec{u_r} \]
+        \[ \dfrac{mg}{eE} \approx \dfrac{10^{-30} \times 10}{10^{-19} \times E} = \dfrac{10^{-10}}{E} \ll 1 \]
         %
-        Remarquons que pour $\vec r = x\vec{u_x} + y\vec{u_y} + z\vec{u_z}$, donc tel que $r = \sqrt{x^2 + y^2 + z^2}$, on a :
-        %
-        \[ \vec \nabla \dfrac{1}{r} = -\dfrac{x}{r^3}\vec{u_x} - \dfrac{y}{r^3}\vec{u_y} - \dfrac{z}{r^3}\vec{u_z} = \dfrac{-1}{r^2}\vec{u_r}\]
-        %
-        D'où l'on obtient :
-        %
-        \[ \vec E\p{M} = \dfrac{q}{4\pi \epsilon_0}\times \p{-\vec{\grad}\p{\dfrac{1}{r}}} = -\vec{\nabla}\p{\dfrac{q}{4\pi\epsilon_0 r}} \]
-        %
-        On définit le potentiel électrique créé par la charge $q$ situé en $O$ en $M$ par $V\p{M} = \dfrac{q}{4\pi\epsilon_0 r}$. On a alors 
-        %
-        \begin{property}{}{}
-            \[ \hg{\vec E = -\vec{\grad}\;\p{V} = - \vec\nabla V}\]
-        \end{property}
-        %
+        dès que $E \gg \qty{10e-10}{\volt \per \meter}$, ce qu'on considérera comme étant toujours vrai.
         
-        \itt Pour une distribution de $N$ charges ponctuelles $\p{q_i\p{P_i}}_{i \in \iint{1, N}}$ :
+        \itt Par ailleurs, on voudrait également pouvoir négliger la force magnétique $\vec{F_m} = e\vec{v_-}\wedge B$. On a :
         %
-        \[ \vec E\p{M} = \sum_{i= 1}^N \dfrac{q_i}{4\pi \epsilon_0 PM^2}\vec{u_{PM}} = - \vec\nabla\p{\sum_{i=1}^N \dfrac{q_i}{4\pi \epsilon_0 P_iM}}\]
+        \[ \dfrac{F_m}{F_e} \approx \dfrac{ev_-B}{eE} = \dfrac{v_-B}{E} \underset{\text{(OPPM)}}{\approx} \dfrac{v_-}{v_\varphi} \]
         %
-        On aura donc $V\p{M} = \displaystyle\sum_{i=1}^N \dfrac{q_i}{4\pi \epsilon_0 P_iM}$.
+        Or $v_\varphi = \dfrac{c}{n} = \approx c$ donc tant que les électrons ne sont pas relativistes on a $F_m \ll F_e$.
     \end{enumerate}
-
-    \subsection{Circulation de $\vec E$}
-
-    On considère la propriété suivante du gradient :
     %
-    \[ \vec\nabla \varphi \cdot \vec{\dif \ell} = \dfrac{\partial \varphi}{\partial x} \dif x + \dfrac{\partial \varphi}{\partial y}\dif y + \dfrac{\partial \varphi}{\partial z}\dif z = \dif \varphi\]
+    En conclusion, $m\dfrac{\dif \vec{v_-}}{\dif t} = -e\vec E$. Or $\vec{\underline E} = \vec{\underline{E_0}} e^{\jj \p{\omega t - \vec k \cdot \vec r}}$, d'où
     %
-    On on obtient $\varphi\p{B} - \varphi\p{A} = \displaystyle\int_{\hat{AB}} \vec\nabla \varphi \cdot \vec{\dif \ell}$.
+    \[ \]
     %
+    On relève un premier problème : l'équation n'est pas linéaire en $r\p{t}$.
     
-    $\vec E\times\vec{\dif l} = -\dif V$ donc $\displaystyle \int_{\vec{AB}}\vec E\times\vec{\dif l} = V\p{A}-V\p{B}$. On remarque que la circulation du champs entre deux points ne dépend pas du chemin choisi mais des potentiels aux extrémités.
+
+
+    \newcommand{\deriv}[1]{\dv{#1}{t}}
+    \newcommand{\derivv}[1]{\dfrac{\mathrm{d}^2 #1}{\mathrm{d}t^2}}
+
+    %mais arrête de créer 3000 commandes.... copie le cours plutôt mdr
+    \begin{form}{Première méthode}{}
+        On cherche une solution sous la forme 
+        
+        $\vec v_- = \vec{v_{0_-}} e^{\jj(\omega t-\vec{k}\dot \vec r}$
+        \newline 
+        On a donc $\deriv{\vec{ v_-}} = \vec{ v_{0-}} j(w- \vec k \deriv{\vec r})e^{j(wt-\vec k \cdot \vec r)}$. Or
+        %
+        \[ \dfrac{\mod{\vec k \cdot \dfrac{\dif \vec r}{\dif t}}}{\omega} \approx \dfrac{\dfrac{2\pi}{\lambda} v_-}{\omega} = 2\pi \dfrac{v_-}{\omega \lambda} = \dfrac{v_-}{v_\varphi} \l 1\]
+    \end{form}
+    
+    On présente ci-dessous une seconde méthode
+
+    \begin{form}{Deuxième méthode}{}
+        TODO 
+        
+        \[ \vec E = \vec E_0 e^{\jj\p{\omega t - \vec k \vec r_0}}e^{-\jj \vec k \cdot \delta \vec r}\]
+        %
+        Or $\vec k \cdot \delta \vec r \ll \pi$ d'où $e^{-\jj \vec k \cdot \delta \vec r} \approx 1$. Ainsi
+        %
+        \[ \vec E \pprox \vec{e_0}e^{\jj\p{\omega t - \vec k \vec{r_0}}} \qquad\text{d'où}\qquad m\dfrac{\dif\vec{v_-}}{\dif t} = \p{-e\vec{E_0}e^{-\jj\vec k \cdot \vec{r_0}}}e^{\jj \omega t}\]
+        %
+        On intègre : \qquad $m\vec v_- = \p{-e\vec{E_0}e^{-\jj \vec k \vec{r_0}}}\dfrac{e^{\jj \omega t}}{\jj \omega}$
+    \end{form}
+    
+    En conclusion, on a 
     %
     \begin{property}{}{}
-        Puisque $\vec E \cdot \vec {\dif \ell} = -\dif V$, on obtient que $\vec E$ pointe / est dirigé vers les potentiels décroissants.
-        
-        Par ailleurs, \bf{$\vec E$ est $\bot$ aux équipotentiels}.
+        Puisque $v_- \ll c$ (soit $a \ll \lambda$) entraîne
+        %
+        \[ \hg{\dfrac{\dif \vec{v_-}}{\dif t} \approx \dfrac{\partial \vec{v_-}}{\partial t}} \]
     \end{property}
-
-    \begin{definition}{Symétrie}{}
-        Soit $E$ un ensemble. On appelle groupe symétrique de $E$ l'ensemble des applications bijectives de $E$ sur $E$ muni de la composition d'applications (la loi $\circ$). On le note $S(E)$ ou $ {\displaystyle {\mathfrak {S}}(E)}$
-        Un cas particulier courant est le cas où $E$ est l'ensemble fini $\{1, 2, … , n\}$, $n$ étant un entier naturel ; on note alors $\mathfrak S_n$ ou $S_n$ le groupe symétrique de cet ensemble. Les éléments de $\mathfrak S_n$ sont appelés permutations et $\mathfrak S_n$ est appelé groupe des permutations de degré n ou groupe symétrique d'indice n (un sous-groupe du groupe symétrique est appelé un groupe de permutations).
-
-Si deux ensembles sont équipotents alors leurs groupes symétriques sont isomorphes. En effet, si $f$ est une bijection de $E$ dans $F$, alors l'application de $S(E)$ dans $S(F)$ qui à $\sigma$ associe $f\circ\sigma\circ f^{−1}$ est un isomorphisme. En particulier si $E$ est un ensemble fini à $n$ éléments, alors ${\displaystyle {\mathfrak {S}}(E)}$ est isomorphe à $\mathfrak S_n$. En conséquence, il suffit de connaître les propriétés du groupe  $\mathfrak S_n$ pour en déduire celles du groupe ${\displaystyle {\mathfrak {S}}(E)}$. C'est pourquoi la suite de cet article ne portera que sur $\mathfrak S_n$. 
-    \end{definition}
     
-    \chapter{Magnétostatique}
-    
-    \chaptertoc
-    
-    \section{Modélisation du courant éléectrique}
-    
-    Un courant électrique est un déplacement macroscopique de charge.
-    
-    \begin{warning}{}{}
-        Il ne faut pas confondre la \hg{vitesse instantanée \guill{macroscopique} d'une charge} et le \hg{champ des vitesses moyen \guill{macroscopique} de l'ensemble des charges} :
-        %
-        \begin{enumerate}
-            \itt $\vec{v_i}\p{t}$ correspond à la vitesse de la charge $i$
-            
-            \itt $\vec{v}\p{M, t}$ correspond au champ des vitesses des charges.
-        \end{enumerate}
-        %
-        Dans un volume $\dif \tau$ mésoscopique (avec $\dif N$ charges dans $\dif \tau$), on a 
-        %
-        \[ \hg{\vec{v}\p{M, t} = \dfrac{1}{\dif N} \sum_{i \in \dif \tau} \vec{v_i}}\]
-        %
-        A l'\hg{équilibre électrique}, on a 
-        %
-        \[ \forall M, \forall t, \qquad \hg{\vec{v}\p{M, t} = \vec{0}} \qquad\text{mais}\qquad \forall i,\qquad \hg{\vec{v_i}\p{t} \neq \vec{0}}\]
-        %
-        De plus, en \hg{présence d'un champ électrique}, on a \hg{$\vec{v}\p{M, t} \vec{0}$}.
-    \end{warning}
-    
-    \subsection{Définition}
-    
-    \begin{definition}{Courant électrique}{}
-        Le \hg{courant électrique} est défini et caractérisé par son \hg{intensité} :
-        %
-        \[ \hg{I\p{\vec{S}} ) \dfrac{\delta \overline{Q_\text T}\p{\vec{S}}}{\dif t}} \]
-    \end{definition}
+    On a donc :
     %
-    \begin{form}{Autrement dit}{}
-        $I\p{\vec S}$ est l'intensité du courant électrique à travers $\vec{S}$, elle est égale au débit de charge à travers $\vec S$.
+    \begin{align*}
+        && m\dfrac{\dif v}{\dif t} &= -e\vec{E_0} e^{\jj \p{\omega t - \vec k \cdot \vec r}}\\
+        \implies && m\dfrac{\partial v}{\partial t} &= -e\vec{E_0} e^{\jj \p{\omega t - \vec k \cdot \vec r}}\\
+        \implies && m\vec{v_-} &= -e\vec{E_0}\dfrac{e^{\jj\p{\omega t - \vec k\vec r}}}{\jj \omega} + \underbrace{C}_{= 0 \ \text{car on étudie la réponse à ?}}
+    \end{align*}
+    %
+    Soit finalement
+    %
+    \[ \vec{v_-} = \dfrac{-e\vec E}{\jj m \omega}\]
+    %
+    ...
+    
+    On a donc $M \dfrac{\dif \vec{v_+}}{\dif t} = e\vec E$ d'où $\vec{v_+} = \dfrac{e\vec E}{\jj M \omega} + \underbrace{\vec{cte}}_{= 0}$. P
+    
+    \begin{form}{Remarque}{}
+        \begin{enumerate}
             
-        Ainsi $I\p{\vec{S}}$ est la quantité de charge traversant $\vec S$ par unité de temps comptées positivement dans le sens de $\vec S$.
+            \itast Consequence energitique de $\gamma \in i \bcR$
+            
+            \itast TODO
+            
+            
+        \end{enumerate}
     \end{form}
     
+    \subsection{Propagation d'une OPPM  dans un plasma }
+        \subsubsection{Equation de Maxwell et Consequence}
+        
+        
+        $\vec E = \vec E_0 exp{j(\omega t - \vec k \cdot r)}$
+        
+        \itast Maxwell Faraday TODOOOOOO
+        
+        \begin{form}{}{}
+            Equation de dispertion 
+            
+            (-j\vec k)^2xM TODO
+            
+        \end{form}
     
     
     
-    
-    
-    
-    
-\end{document}
+\end{document}  

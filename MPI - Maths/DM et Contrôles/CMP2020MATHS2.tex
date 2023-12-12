@@ -1,0 +1,167 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{../../Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\thesubsection}{\Roman{section}.\Alph{subsection}}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii})}
+
+    \stylizeDocSpe{Maths II}{Concours Commun Mines-Ponts}{Session MP 2020}{Nombre de sites visités par une marche aléatoire}
+    
+    \subsubsection*{Notations et définitions}
+    
+    \begin{enumerate}
+        \itt Dans tout le texte, $d$ est un élément de $\bdN^*$. On note $0_d$ le $d$-uplet dont toutes les coordonnées valent $0$, c'est-à-dire le vecteur nul de $\bdR^d$.
+        
+        \itt On considère une variable aléatoire $X$ à valeurs dans $\bdZ^d$, $\p{X_k}_{k \in \bdN^\star}$ une suite de variables aléatoires mutuellement indépendantes suivant chacune la loi de $X$ et définies sur un même espace probabilisé. La suite de variable aléatoires $\suite{S_n}$ est définie par $S_0 = 0_d$ et
+        %
+        \[ \forall n \in \bdN^*,\qquad S_n = \sum_{k=1}^n X_k\]
+        %
+        La suite $\suite{S_n}$ est une \emph{marche aléatoire de pas $X$}, à valeurs dans $\bdZ^d$.
+        
+        \itt On note $R$ la variable aléatoire à valeurs dans $\bdN^\star \cup \ens{+\infty}$ définie par
+        %
+        \[ R = \left\lbrace\begin{array}{cl}
+            \min\ens{n \in \bdN^\star \enstq S_n = 0_d} &\text{si cet ensemble est non vide}  \\
+            +\infty &\text{sinon} 
+        \end{array}\right.\]
+        %
+        Autrement dit, $R$ est égal à $+\infty$ si la marche aléatoire $\suite{S_n}$ ne revient jamais en $0_d$, et au premier instant auquel cette marche aléatoire revient en $0_d$ sinon.
+        
+        \itt Pour $n \in \bdN$, on note $N_n$ le cardinal du sous-ensemble $\ens{S_k,\ k \in \iint{0, n}}$ de $\bdZ^d$. Le nombre $N_n$ est donc le nombre de points de $\bdZ^d$ visités par la marche aléatoire $\suite{S_n}$ après $n$ pas.
+    \end{enumerate}
+    
+    Le but de ce problème est d'étudier asymptotiquement l'espérance $\bdE\p{N_n}$ de la variable aléatoire $N_n$. La partie \textbf{\sffamily IV} est indépendante des parties précédentes.
+    
+    \section{Préliminaires}
+    
+    Les cinq questions de cette partie sont indépendantes et utilisées dans les parties \textbf{\sffamily III} et \textbf{\sffamily V}.
+    
+    \begin{enumerate}
+        \item Soit $n \in \bdN$. En utilisant la factorisation de $\p{X + 1}^{2n} = \p{X + 1}^n\p{X + 1}^n$, montrer que
+        %
+        \[ \sum_{k=0}^n \binom{n}{k}^2 = \binom{2n}{n}\]
+        
+        \item Rappeler la formule de \textsc{Stirling}, puis déterminer un nombre réel $c > 0$ tel que $\dbinom{2n}{n} \asymp{n \to +\infty} c \dfrac{4^n}{\sqrt{n}}$.
+        
+        \item Si $\alpha$ est un élément de $\into{0, 1}$, montrer (par exemple en utilisant une comparaison série-intégrale) que 
+        %
+        \[ \sum_{k=1}^n \dfrac{1}{k^\alpha} \asymp{n \to +\infty} \dfrac{n^{1-\alpha}}{1 - \alpha}\]
+        %
+        Si $\alpha$ est un élément de $\into{1, +\infty}$, montrer de même que
+        %
+        \[ \sum_{k=n+1}^{+\infty} \dfrac{1}{k^\alpha} \asymp{n \to +\infty} \dfrac{1}{\p{\alpha - 1}n^{\alpha - 1}}\]
+        
+        \item Pour $x \in \intor{2, +\infty}$, on pose
+        %
+        \[ I\p{x} = \int_2^x \dfrac{\dif t}{\ln t}\]
+        %
+        Justifier, pour $x \in \intor{2, +\infty}$, la relation
+        %
+        \[ I\p{x} = \dfrac{x}{\ln x} - \dfrac{2}{\ln 2} + \int_2^x \dfrac{\dif t}{\p{\ln t}^2}\]
+        %
+        Établir par ailleurs la relation
+        %
+        \[ \int_2^x \dfrac{\dif t}{\p{\ln t}^2} \eq{x \to +\infty} \o{}{I\p{x}}\]
+        %
+        En déduire finalement un équivalent de $I\p{x}$ lorsque $x$ tend vers $+\infty$.
+        
+        \item Pour $\alpha \in \bdR$, rappeler, sans donner de démonstration, le développement en série entière de $\p{1 + x}^\alpha$ sur $\into{-1, 1}$. Justifier la formule
+        %
+        \[ \forall x \in \into{-1, 1},\qquad \dfrac{1}{\sqrt{1 - x}} = \sum_{n = 0}^{+\infty} \binom{2n}{n} \p{\dfrac{x}{4}}^n\]
+    \end{enumerate}
+    
+    \section{Marches aléatoires, récurrence}
+    
+    On considère les fonctions $F$ et $G$ définies par les formules
+    %
+    \begin{align*}
+        \forall x \in \into{-1, 1},&& F\p{x} &= \sum_{n=0}^{+\infty} \bbP\p{S_n = 0_d} x^n\\
+        \forall x \in \intc{-1, 1},&& G\p{x} &= \sum_{n=1}^{+\infty} \bbP\p{R = n}x^n
+    \end{align*}
+    
+    \begin{enumerate}
+        \item Montrer que les séries entières définissant $F$ et $G$ ont un rayon de convergence supérieur ou égal à $1$. Justifier alors que les fonctions $F$ et $G$ sont définies de classe $\bcC^\infty$ sur $\into{-1, 1}$.
+    
+        Montrer que $G$ est définie et continue sur $\intc{-1, 1}$ et que 
+        %
+        \[ G\p{1} = \bbP\p{R \neq +\infty}\]
+        
+        \item Si $k$ et $n$ sont des entiers naturels non nuls tels que $k \leq n$, montrer que
+        %
+        \[ \bbP\p{(S_n = 0_d) \cap (R = k)} = \bbP\p{R = k}\bbP\p{S_{n-k} = 0_d}\]
+        %
+        En déduire que
+        %
+        \[ \forall n \in \bdN^\star,\qquad \bbP\p{S_n = 0_d} = \sum_{k=1}^n \bbP\p{R = k}\bbP\p{S_{n-k} = 0_d}\]
+        
+        \item Montrer que
+        %
+        \[ \forall x \in \into{-1, 1},\qquad F\p{x} = 1 + F\p{x}G\p{x}\]
+        %
+        Déterminer la limite de $F\p{x}$ lorsque $x$ tend vers $1^-$, en discutant selon la valeur de $\bbP\p{R \neq +\infty}$.
+        
+        \item Soit $\p{c_k}_{k \in \bdN}$ une suite d'éléments de $\bdR_+$ telle que la série entière $\sum c_kx^k$ ait un rayon de convergence de $1$ et que la série $\sum c_k$ diverge. Montrer que
+        %
+        \[ \sum_{k=0}^{+\infty} c_kx^k \lima{x \to 1^-} +\infty\]
+        %
+        \indication{L'élément $A$ de $\bdR_+^*$ étant fixé, on montrera qu'il existe $\alpha \in \into{0, 1}$ tel que
+        %
+        \[ \forall x \in \into{1 - \alpha, 1},\qquad \sum_{k=0}^{+\infty} c_kx^k > A\]
+        }
+        
+        \item Montrer que l série $\sum \bbP\p{S_n = 0_d}$ est divergente si et seulement si $\bbP\p{R \neq +\infty} = 1$.
+        
+        \item Pour $i \in \bdN^*$, soit $Y_i$ la variable de \textsc{Bernoulli} indicatrice de l'évènement $\p{S_i \not\in \ens{S_k,\ k \in \iint{0, i-1}}}$. Montrer que, pour $i \in \bdN^*$ :
+        %
+        \[ \bbP\p{Y_i = 1} = \bbP\p{R > i}\]
+        %
+        En déduire que, pour $n \in \bdN^*$, on a
+        %
+        \[ \bdE\p{N_n} = 1 + \sum_{i=1}^n \bbP\p{R > i}\]
+    \end{enumerate}
+    
+    On admet le théorème de \textsc{Cesàro} : 
+    
+    \begin{tcolorbox}[
+        breakable,
+        enhanced,
+        frame hidden,
+        interior style      = {fill = main3!10},
+        sharp corners       = downhill,
+        arc                 = 0 cm,
+        boxrule             = 0 cm,
+    ]
+        \color{main3}{
+            Si $\suiteZ{u_n}$ est une suite réelle convergeant vers le nombre réel $\ell$, alors
+            %
+            \[ \dfrac{1}{n}\sum_{k=1}^n u_k \lima{n \to +\infty} \ell \]
+        }
+    \end{tcolorbox}
+        
+    
+    \begin{enumerate}[resume]
+        
+        \item Conclure que
+        %
+        \[ \dfrac{\bdE\p{N_n}}{n} \lima{n \to +\infty} \bbP\p{R = +\infty}\]
+        
+        
+    \end{enumerate}
+    
+    \section{Les marches de \textsc{Bernoulli} sur $\bdZ$}
+    
+    \section{Un résultat asymptotique}
+    
+    \section{La marche aléatoire simple sur $\bdZ^2$ : un théorème d'\textsc{Erdös} et \textsc{Dvoretzky}}
+    
+    
+    
+\end{document}

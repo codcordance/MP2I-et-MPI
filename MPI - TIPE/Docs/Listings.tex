@@ -1,0 +1,400 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage[
+    top         = 1in,
+    bottom      = 1in,
+    inner       = 1.5in,
+    outer       = 1in,
+    headheight  = 16pt,
+    headsep     = 0.4in,
+    footskip    = 0.4in,
+    includeheadfoot,
+    heightrounded,
+    twoside,
+    %showframe,
+    ]{geometry}
+\usepackage{booktabs}
+\usepackage{minitoc}
+\usepackage{./Structure/4PE18TEXTBnogeom}
+\usepackage{proof}
+\usepackage{pdfpages}
+\usepackage[skip=10pt plus1pt,indent=40pt]{parskip}
+\usepackage{blindtext}
+\usepackage{biblatex}
+\usepackage{svg}
+
+\addbibresource{refs.bib}
+
+\makeatletter
+\renewcommand\tableofcontents{%
+    \@starttoc{toc}%
+}
+%\renewcommand*\l@section{\@dottedtocline{1}{1em}{3em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{2em}{3em}}
+\makeatother
+
+\newboxans
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\mtcsettitle{minitoc}{}
+
+\DeclareDocumentCommand\Sp{g}{\funlv{Sp}{#1}}
+
+\lstnewenvironment{outputlog}{
+    \lstset{
+        tabsize=2,
+        breaklines,
+        basicstyle=\footnotesize\ttfamily,
+        frame=leftline
+    }
+}{}
+
+\begin{document}
+    
+    %==============================
+    % METADONNEES
+    %==============================
+    
+    \title{}
+    \author{SIAHAAN--GENSOLLEN Rémy}
+    \date{\today}
+    \hypersetup{
+        pdftitle={Programmes informatiques du TIPE : Durcissement des villes modernes face aux rayonnements ionisants},
+        pdfauthor={SIAHAAN--GENSOLLEN Rémy},
+        pdflang={fr-FR},
+        pdfsubject={TIPE, Durcissement des villes modernes face aux rayonnements ionisants},
+        pdfkeywords={TIPE, 2022-2023}
+        pdfstartview=
+    }
+    
+    %==============================
+    % MISE EN PAGE
+    %==============================
+
+    %top         = 1.5in,
+    %bottom      = 1.5in,
+    %inner       = 1.5in,
+    %outer       = 1in,
+    %headheight  = 16pt,
+    %headsep     = 0.3in,
+    %footskip    = 0.3in,
+    %includeheadfoot,
+    %heightrounded,
+    %twoside
+    
+    %==============================
+    % STYLE DES EN-TÊTES ET PIEDS DE PAGES
+    %==============================
+    
+    \fancypagestyle{plain}{
+        \fancyhf{}
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0pt}
+        \fancyfoot[RO,LE]{\sffamily\color{white5}\thepage~/~\pageref{LastPage}}
+        %\fancyhead[LE]{\sffamily\color{white5}\bfseries SIAHAAN--GENSOLLEN Rémy}
+        \fancyhead[LE]{\sffamily\color{white5}Programmes informatiques du TIPE}
+        %\fancyhead[LO]{\sffamily\color{white5}\nouppercase{\rightmark}}
+        \fancyhead[RO]{\sffamily\color{white5}Durcissement des villes modernes face aux rayonnements ionisants}
+    }
+
+    \pagestyle{plain}
+
+    %==============================
+    % CONTENU
+    %==============================
+    
+    \begin{tcolorbox}[
+            enhanced,
+            frame hidden,
+            sharp corners,
+            spread upwards      = 0.1in,
+            halign              = center,
+            valign              = center,
+            interior style      = {color=main3!20},
+            arc                 = 0in,
+            outer arc           = 0pt,
+            leftrule            = 0pt,
+            rightrule           = 0pt,
+            fontupper           = \color{black},
+            %width               = \paperwidth, 
+            top                 = 0.4in, 
+            bottom              = 0.3in
+        ]
+            {\large{\scshape{SIAHAAN--GENSOLLEN}} Rémy\par}
+            \vspace{0.2in}
+            {Candidat $n^\circ\ 15930$\par}
+    	\vspace{0.05in}
+            {\Huge\bfseries\sffamily Programmes informatiques du TIPE\par}
+    \end{tcolorbox}
+
+    \bigskip
+
+    \begin{tcolorbox}[
+        enhanced,
+        frame hidden,
+        sharp corners,
+        detach title,
+        spread outwards,
+        halign              = center,
+            valign              = center,
+        borderline west     = {3pt}{0pt}{main3},
+        coltitle            = main3, 
+        interior style      = {
+            left color      = main1white2!65!gray!11,
+            middle color    = main1white2!50!gray!10,
+            right color     = main1white2!35!gray!9
+        },
+        arc                 = 0 cm,
+        title               = SOMMAIRE,
+        boxrule             = 0pt,
+        fonttitle           = \bfseries\sffamily,
+        overlay             = {
+            \node[rotate=90, minimum width=1cm, anchor=south,yshift=-0.8cm]
+            at (frame.west) {\tcbtitle};
+        },
+    ]
+        \begin{minipage}{0.83\linewidth}
+            \sffamily
+            \tableofcontents
+        \end{minipage}
+    \end{tcolorbox}
+
+    \bigskip
+    
+    \section{Code de \textsc{Hamming}}
+
+    \subsection{Matrice $\bbG$}
+
+        \begin{C}
+const uint8_t g[7] =
+        {
+                0b1000,
+                0b0100,
+                0b0010,
+                0b0001,
+                0b1101,
+                0b1011,
+                0b0111
+        };
+    \end{C}
+
+    \subsection{Matrice $\bbH$}
+    
+    \begin{C}
+const uint8_t h[3] =
+        {
+            0b1101100,
+            0b1011010,
+            0b0111001
+        };
+    \end{C}
+
+    \subsection{Sommation des composantes dans $\p{\bdZ/2\bdZ}^8$}
+    
+    \begin{C}
+uint8_t sumBits(uint8_t b)
+{
+    uint8_t s = 0;
+    for (uint8_t m = 1; m < 0b10000000; m <<= 1) {
+        if (b & m) s++;
+    }
+    return s & 0b0000001;
+}
+    \end{C}
+
+    \subsection{Multiplication par $\bbG$}
+    \begin{C}
+uint8_t hammingG(uint8_t b)
+{
+    uint8_t e = 0;
+    for (uint8_t i = 0; i < 7; i++) {
+        e <<= 1;
+        if (sumBits(g[i] & b)) e |= 1;
+    }
+    return e;
+}
+    \end{C}
+
+    \subsection{Multiplication par $\bbH$}
+    
+    \begin{C}
+uint8_t hammingH(uint8_t e)
+{
+    uint8_t s = 0;
+    for (uint8_t i = 0; i < 3; i++)
+    {
+        s <<= 1;
+        if (sumBits(h[i] & e)) s |= 1;
+    }
+    return s;
+}
+    \end{C}
+
+
+\newpage     \subsection{Correspondance avec $S$ et décodage avec correction d'une erreur}
+    \begin{C}
+const uint8_t sCor[8] =
+        {
+                0 << 0,
+                1 << 0,
+                1 << 1,
+                1 << 4,
+                1 << 2,
+                1 << 5,
+                1 << 6,
+                1 << 3
+        };
+
+uint8_t hammingFix(uint8_t e) {
+    return ((e ^ sCor[hammingH(e)]) & 0b1111000)
+    >> 3;
+}
+
+    \end{C}
+
+
+    \subsection{Test de performance}
+
+    \begin{C}
+int main() {
+    uint8_t code = 0b1011;
+    uint8_t pert = 1 << 4;
+    int size = 10*1000*1000;
+    time_t start = time(NULL);
+    for (int i = 0; i < size; i++)
+        if (hammingFix(hammingG(code) ^ pert)
+        != code) {
+            printf("Erreur d'éxécution !\n");
+            return 1;
+    }
+    unsigned long d = difftime(time(NULL), start);
+    printf("Exécution réussie en %ld s\n", d);
+    return 0;
+}
+    \end{C}
+
+    \medskip
+    
+    \begin{outputlog}
+Exécution réussie en 1 s
+    \end{outputlog}
+
+\newpage 
+\section{RAID-6}
+
+    \subsection{Calcul des puissances de $2$}
+
+    \begin{C}
+uint8_t tpow2(uint8_t u, int k)
+{
+    return (k >= 0) ? (u << k) : (u >> -k);
+}
+    \end{C}
+
+    \subsection{Calcul de $p$ et $q$}
+
+    \begin{C}
+uint8_t computeP(const uint8_t *u, int n)
+{
+    uint8_t p = 0;
+    for (int i = 0; i < n; i++) p ^= u[i];
+    return p;
+}
+
+uint8_t computeQ(const uint8_t *u, int n)
+{
+    uint8_t q = 0;
+    for (int i = 0; i < n; i++)
+        q ^= tpow2(u[i], i);
+    return q;
+}
+    \end{C}
+
+    \subsection{Calcul de $u_k$ depuis $p$}
+
+    \begin{C}
+uint8_t computeUkFromP(uint8_t *u, int n,
+    int k, int p)
+{
+    uint8_t ptilde = 0;
+    for (int i = 0; i < n; i++)
+        ptilde ^= (i != k) ? u[i] : 0;
+    u[k] = p ^ ptilde;
+    return u[k];
+}
+    \end{C}
+
+ \newpage
+     \subsection{Calcul de $u_k$ depuis $q$}
+
+    \begin{C}
+uint8_t computeUkFromQ(uint8_t *u, int n,
+    int k, int q)
+{
+    uint8_t qtilde = 0;
+    for (int i = 0; i < n; i++)
+        qtilde ^= (i != k) ? tpow2(u[i], i) : 0;
+    u[k] = tpow2(q ^ qtilde, -k);
+    return u[k];
+}
+    \end{C}
+
+    \subsection{Calcul de $u_k$ et $u_\ell$ depuis $p$ et $q$}
+
+    \begin{C}
+void computeUkUl(uint8_t *u, int n, int k,
+    int l, int p, int q)
+{
+    uint8_t ptilde = 0;
+    uint8_t qtilde = 0;
+    for (int i = 0; i < n; i++) {
+        if (i != k && i != l) {
+            ptilde ^= u[i];
+            qtilde ^= tpow2(u[i], i);
+        }
+    }
+    u[l] = (tpow2(q ^ qtilde, -k) ^
+        tpow2(p ^ ptilde, k - l ))
+        / (tpow2(1, l - k) ^ 1);
+    u[k] = (p ^ ptilde) ^ u[l];
+}
+    \end{C}
+
+    \newpage
+
+    \subsection{Test de performance}
+    
+    \begin{C}
+int main()
+{
+    uint8_t* m = malloc(4 * sizeof(uint8_t));
+    m[0] = 0b01;
+    m[1] = 0b10;
+    m[2] = 0b11;
+    m[3] = 0b10;
+    int size = 10*1000*1000;
+    time_t start = time(NULL);
+    for (int i = 0; i < size; i++) {
+        uint8_t p = computeP(m, 4);
+        uint8_t q = computeQ(m, 4);
+        if (m[2] != computeUkFromP(m, 4, 2, p) ||
+        m[2] != computeUkFromQ(m, 4, 2, q))
+            return 1;
+        computeUkUl(m, 4, 2, 3, p, q);
+        if (m[2] != 0b11 || m[3] != 0b10)
+            return 2;
+    }
+    unsigned long d = difftime(time(NULL), start);
+    printf("Exécution réussie en %ld s", d);
+    free(m);
+    return 0;
+}
+    \end{C}
+
+    \medskip 
+    \begin{outputlog}
+        Exécution réussie en 2 s
+    \end{outputlog}
+
+
+    \end{document}

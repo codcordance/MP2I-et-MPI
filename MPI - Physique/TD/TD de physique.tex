@@ -4,6 +4,7 @@
 \usepackage{minitoc}
 \usepackage{Structure/4PE18TEXTB}
 \usepackage{pdfpages}
+\usepackage{tikz-3dplot}
 
 \newboxans
 \renewcommand{\questionsdecours}{\section*{\centering\EBGaramond\Large Questions~ de~ cours}}
@@ -76,7 +77,7 @@
             spread sidewards    = 5pt,
             halign              = center,
             valign              = center,
-            interior style      = {color=main10!20},
+            interior style      = {color=main3!20},
             arc                 = 0 cm,
             fontupper           = \color{black}\sffamily\bfseries\huge,
             fonttitle           = \normalfont\color{white}\sffamily\small,
@@ -88,7 +89,7 @@
             },
             boxed title style = {
                 frame code={
-                \path[left color=main21!95!gray!90,right color=main21!95!gray!90] 
+                \path[left color=main3!95!gray!90,right color=main3!95!gray!90] 
                     ([xshift=-10mm]frame.north west) -- 
                     ([xshift=10mm]frame.north east) -- 
                     ([xshift=10mm]frame.south east) -- 
@@ -110,7 +111,7 @@
             spread sidewards    = 5pt,
             halign              = center,
             valign              = center,
-            interior style      = {color=main10!20},
+            interior style      = {color=main3!20},
             arc                 = 0 cm,
             outer arc           = 0pt,
             leftrule            = 0pt,
@@ -238,564 +239,510 @@
     
     \pagestyle{plain}
     
-    \chapter{Quelques notions indispensables}
+    \chapter{Électrostatique}
     
-    \subsection{}
-    
-    Calculer pour un gaz parfait la quantité :
-    %
-    \[ \dep{\dfrac{\partial V}{\partial T}}_P \dep{\dfrac{\partial T}{\partial P}}_V \dep{\dfrac{\partial P}{\partial V}}_T\]
-    
-    \noafter
-    %
-    \boxans{
-        L'équation des gaz parfaits donne $PV = nRT$. Pour $n$ donné et puisque $R$ est une constante, on a donc :
-        %
-        \[ V\p{P, T} = \dfrac{nRT}{P} \qquad T\p{P, V} = \dfrac{PV}{nR} \qquad P\p{V, T} = \dfrac{nRT}{V}\]
-        %
-        Ainsi on a :
-        %
-        \[ \dep{\dfrac{\partial V}{\partial T}}_P = \dfrac{nR}{P}\qquad \dep{\dfrac{\partial T}{\partial P}}_V = \dfrac{V}{nR} \qquad \dep{\dfrac{\partial P}{\partial V}}_T = -\dfrac{nRT}{V^2}\]
-        %
-        On multiplie donc pour obtenir :
-    }
-    %
-    \nobefore\yesafter
-    %
-    \boxansconc{
-        \[ \dep{\dfrac{\partial V}{\partial T}}_P \dep{\dfrac{\partial T}{\partial P}}_V \dep{\dfrac{\partial P}{\partial V}}_T = \dfrac{nR}{P}\dfrac{V}{nR}\p{-\dfrac{nRT}{V^2}} = -\dfrac{nRT}{PV} = -1 \]
-    }
-    %
-    \yesbefore
-    
-    \subsection{}
-    
-    La force $\vec{F}$ s'exprime dans le repère $\p{\vec{e_x}, \vec{e_y}, \vec{e_z}}$ de la façon suivante : \quad $\vec{F} = \left(\begin{array}{c}
-        x  \\
-        z^2 y \\
-        y^2 z + C
-    \end{array}\right)$.
-    %
-    \begin{enumerate}
-        \item Est-ce une force conservative ?
-        
-        \noafter
-        %
-        \boxans{
-            Soit $\delta W_{\vec{F}} = \vec{F} \cdot \dif \vec{OM}$. On cherche à savoir s'il existe une fonction $E_\text p$ telle que $\delta W_{\vec{F}} = -\dif E_\text p$.
-            
-            Posons les composantes $F_x = \vec{F} \cdot \vec{e_x}$, $F_y = \vec{F} \cdot \vec{e_y}$ et $F_z = \vec{F} \cdot \vec{e_z}$. L'énoncé amène :
+    \begin{tcolorbox}[
+        breakable,
+        enhanced,
+        frame hidden,
+        interior style      = {fill = main3!10},
+        sharp corners       = downhill,
+        arc                 = 0 cm,
+        boxrule             = 0 cm,
+    ]
+        \color{main3}{
+            On rappelle l'expression du Laplacien en coordonnées sphériques, quand il y a une symétrie sphérique :
             %
-            \[ F_x\p{x, y, z} = x \qquad F_y\p{x, y, z} = z^2y \qquad F_z\p{x, y, z} = y^2z + C \]
-            %
-            On a donc $\delta W_{\vec{F}} = F_x\p{x, y, z}\dif x + F_y\p{x, y, z}\dif y + F_z\p{x, y, z}\dif z$.
-            
-            \begin{enumerate}
-                \begin{minipage}{0.48\linewidth}
-                    \itt $\dep{\dfrac{\partial F_x}{\partial y}}_{x, z} = 0$
-                    
-                    \itt $\dep{\dfrac{\partial F_x}{\partial z}}_{x, y} = 0$
-                    
-                    \itt $\dep{\dfrac{\partial F_y}{\partial z}}_{x, y} = 2yz$
-                \end{minipage}
-                %
-                \hfill
-                %
-                \begin{minipage}{0.48\linewidth}
-                    \itt $\dep{\dfrac{\partial F_y}{\partial x}}_{y, z} = 0$
-                    
-                    \itt $\dep{\dfrac{\partial F_z}{\partial x}}_{y, z} = 0$
-                    
-                    \itt $\dep{\dfrac{\partial F_z}{\partial y}}_{x, z} = 2yz$
-                \end{minipage}
-            \end{enumerate}
-            %
-            On remarque que $\dep{\dfrac{\partial F_x}{\partial y}}_{x, z} = \dep{\dfrac{\partial F_y}{\partial x}}_{y, z}$, que $\dep{\dfrac{\partial F_x}{\partial z}}_{x, y} = \dep{\dfrac{\partial F_z}{\partial x}}_{y, z}$, et que $\dep{\dfrac{\partial F_y}{\partial z}}_{x, y} = \dep{\dfrac{\partial F_z}{\partial y}}_{x, z}$. Il existe donc bien une telle fonction $E_\text p$, qui est l'énergie potentielle associée à $\vec{F}$.
+            \[ \Delta f = \dfrac{1}{r}\dfrac{\partial^2 rf}{\partial r^2}\]
         }
-        %
-        \nobefore\yesafter
-        %
-        \boxansconc{
-            Puisqu'il existe une énergie potentielle associée à la force $\vec{F}$, celle-ci est bien conservative.
-        }
-        %
-        \yesbefore
-        
-        \item Si oui, quelle est l'énergie potentielle associée ?
-        
-        \noafter
-        %
-        \boxans{
-            On a $\delta W_{\vec{F}} = -\dif E_\text p$, il s'agit donc d'intégrer $\delta W_{\vec{F}}$. D'après la question précédente, on a :
-            %
-            \[ \dif E_\text p = -\delta W_{\vec{F}} = -F_x \dif x - F_y \dif y - F_z \dif z \qquad\text{où}\qquad F_x = x, \qquad F_y = z^2y, \qquad F_Z = y^2z + C \]
-            %
-            \underline{\EBGaramond\itshape Première méthode :} On intègre de $O = \p{0, 0, 0}$ à $M = \p{X, Y, Z}$, on a en décomposant sur chaque axe (la force étant conservative on peut parfaitement choisir le chemin qu'on veut) :
-            %
-            \[ E_\text p\p{M} = E_\text p\p{M} - E_\text p\p{O} = \int_{0, 0, 0}^{X, Y, Z} \dif E_p = -\int_{x = 0}^{X} F_x\p{x, 0, 0}\dif x - \int_{y = 0}^{Y} F_y\p{X, y, 0}\dif y - \int_{z = 0}^{Z}  F_Z\p{X, Y, z}\dif z\]
-            %
-            Or on a :
-            %
-            \[ \left\lbrace\begin{array}{lll}
-                \displaystyle\int_{x = 0}^{X} F_x\p{x, 0, 0}\dif x &= \displaystyle\int_0^X x\dif x &= \dfrac{X^2}{2}  \\[10pt]
-                \displaystyle\int_{y = 0}^Y F_y\p{X, y, 0}\dif y &= \displaystyle\int_{0}^Y 0\times y^2\dif y &= 0 \\[10pt]
-                \displaystyle\int_{z = 0}^Z F_z\p{X, Y, z}\dif z &= \displaystyle\int_0^Z \p{Y^2z + C}\dif z &= \dfrac{Y^2Z^2}{2} + CZ
-            \end{array}\right.\]
-            %
-            En développant puis en simplifiant, on obtient :
-        }
-        %
-        \nobefore
-        %
-        \boxansconc{
-            \[ E_\text p\p{X, Y, Z} = - CZ - \dfrac{X^2 + Y^2Z^2}{2} + E_\text p\p{0, 0, 0}\]
-        }
-        %
-        \boxans{
-            \underline{\EBGaramond\itshape Deuxième méthode :} En dérivant  $E_\text p$ par rapport à $x$, on obtient : \quad $\dfrac{\partial E_\text p}{\partial x} = -F_x = -x$. En intégrant, on a donc :
-            %
-            \[ E_\text p \p{x, y, z} = -\dfrac{x^2}{2} + D\p{x, y} \qquad\text{avec} \ D \ \text{une fonction à déterminer}\]
-            %
-            Pour déterminer $D$, on dérive $E_\text p$ par raport à $y$ : \quad $\dfrac{\partial E_\text p}{\partial y} = -F_y = -z^2y$. Or :
-            %
-            \[ \dfrac{\partial E_p}{\partial y} = 0 + \dfrac{\partial D}{\partial y}\qquad\text{donc}\qquad \dfrac{\partial D}{\partial y} = -z^2y \]
-            %
-            En intégrant, on a donc $D\p{x, y} = -\dfrac{z^2y^2}{2} + D'\p{z}$, avec $D'$ une fonction à déterminer. On a donc :
-            %
-            \[ E_\text p\p{x, y, z} = -\dfrac{x^2}{2} - \dfrac{z^2y^2}{2} + D'\p{z}\]
-            %
-            Pour déterminer $D'$, on réitère le procédé. On a $\dfrac{\partial E_\text p}{\partial z} = -F_z = -y^2z - C$ et :
-            %
-            \[ \dfrac{\partial E_\text p}{\partial z} = -y^2z + \dfrac{\partial D'}{\partial y} \qquad\text{donc}\qquad \dfrac{\partial D'}{\partial y} = -C \qquad\text{donc}\qquad D'\p{z} = -Cz + cte\]
-            %
-            On a donc finalement :
-            %
-        }
-        \yesafter
-        %
-        \boxansconc{
-            \[ E_\text p\p{x, y, z} = - cZ - \dfrac{x^2 + y^2z^2}{2} + cte\]
-        }
-        %
-        \yesbefore
-    \end{enumerate}
-
-    \subsection{}
+    \end{tcolorbox}
     
-    La fréquence de vibration d'une goutte de liquide dépend de plusieurs paramètres : le rayon de la goutte $R$, la masse volumique du liquide $\rho$, la tension superficielle due à l'interface liquide-extérieur $A$ homogène à une énergie surfacique. Donner l'expression de la fréquence $f$ sous la forme
-    %
-    \[ f = kR^\alpha \rho^\beta A^\gamma \qquad\text{(où} \ k \ \text{est un nombre sans dimension que l'on ne cherche pas à déterminer)}\]
-    %
-    en déterminant les valeurs de $\alpha$, $\beta$ et $\gamma$.
     
-    \noafter
-    %
-    \boxans{
-        On procède par analyse dimensionnelle. On a $\intc R = \textsf{L}$, $\intc \rho = \textsf{M} \cdot \textsf{L}^{-3}$, $\intc A = \textsf{M} \cdot \textsf{T}^{-2}$ et $\intc f = \textsf{T}^{-1}$.
-        
-        Avec $f = kR^\alpha \rho^\beta A^\gamma$, on a  donc :
-        %
-        \[ \textsf{T}^{-1} = \textsf{L}^\alpha \cdot \p{\textsf{M} \cdot \textsf{L}^{-3}}^{\beta} \cdot \p{\textsf{M} \cdot \textsf{T}^{-2}}^{\gamma} = \textsf{T}^{-2c} \cdot \textsf{L}^{\alpha - 3b} \cdot \textsf{M}^{b + c} \]
-        %
-        On a donc le système $\left\lbrace\begin{array}{ccc}
-            -1 &=& -2c \\
-            0 &=& a - 3b \\
-            0 &=& b + c
-        \end{array}\right.$ qui se resout en $\left\lbrace\begin{array}{ccc}
-            c &=& \sfrac{1}{2} \\
-            b &=& -\sfrac{1}{2} \\
-            a &=& -\sfrac{3}{2}
-        \end{array}\right.$.
-        
-        On a donc :
-        %
-        \[ f = kR^{-\sfrac{3}{2}}\rho^{-\sfrac{1}{2}}A^{\sfrac{1}{2}} \]
-        %
-        Finalement, on obtient :
-        %
-    }
-    %
-    \nobefore\yesafter
-    %
-    \boxansconc{
-        \[ f = k\sqrt{\dfrac{A}{\rho R^3}}\]
-    }
-    %
-    \yesbefore
     
-    \subsection{}
+    \subsection{Condensateur plan}
     
-    Pour calculer la viscosité $\eta$ d'un fluide, on utilise l'expression de la force de frottement exercée sur une sphère de rayon $r$, de masse $m$ et de vitesse $\vec{v}$ établie par \textsc{Stokes} : \quad $\vec{f} = -6\pi\eta r \vec{v}$.
-    
-    On fait l'expérience suivante : on mesure la vitesse limite acquise par une bille en chute libre dans le fluide en mesurant le temps de parcours sur une distance $h$ connue. 
+    Soit un condensateur plan dont les armatures sont des disques de surface $S$, séparés d'une distance $e$. Le milieu inter-armature est considéré comme équivalent au vide.
     
     \begin{enumerate}
-        \item En négligeant la poussée d'\textsc{Archimède} montrer que $\eta = \dfrac{mg\tau}{6\pi rh}$.
+        \item On impose une tension $V_0$ aux bornes du condensateur. Sachant que $e \ll \sqrt{S}$, quelle est la forme des lignes de champ dans l'espace inter-armature ? Justifier.
         
-        \noafter
-        %
-        \boxans{
-            \begin{minipage}{0.40\linewidth}
-                On se place dans la base orthnormée directe $\p{\vec{u_x}, \vec{u_y}, \vec{u_z}}$ décrite dans le schéma ci-contre. Le bilan des forces donne :
-                %
-                \begin{enumerate}
-                    \itt Poids $\vec{P} = m\vec{g} = mg\vec{u_y}$
-                    
-                    \itt Frottements $\vec{f} = -6\pi\eta r \vec{v}$
-                    
-                    \itt Poussée d'\textsc{Archimède} $\vec{\pi}$ négligeable.
-                \end{enumerate}
-            \end{minipage}
-            %
-            \hfill
-            %
-            \begin{minipage}{0.6\linewidth}
-                \begin{center} 
-                     \includegraphics{Figures/sphere-in-liquid.pdf}
+        \boxansconc{
+            \begin{minipage}{0.65\linewidth}
+                \begin{center}
+                    \begin{tikzpicture}[cross/.style={path picture={
+                        \draw[black] (path picture bounding box.south east) -- (path picture bounding box.north west) (path picture bounding box.south west) -- (path picture bounding box.north east);
+                    }}]
+                        \draw[<->] (0, -1) -- (0, 1) node[midway, left] {$e$};
+                        
+                        \draw[thick, main3] (0.4, 1) -- (5.4, 1) node[right] {$S_1$};
+                        \draw[thick, main3] (0.4, -1) -- (5.4, -1) node[right] {$S_2$};
+                        
+                        \draw[-Latex, thick,main5] (4, -0.8) -- (4, 0.8);
+                        
+                        \node[main5] at (4.6, 0) {$V_0 > 0$};
+                        
+                        \draw[->] (6.7, 0.3) --++ (0.7, 0) node[right] {$\vec{e_x}$};
+                        \draw[->] (6.7, 0.3) --++ (0, 0.7) node[right] {$\vec{e_z}$};
+                        \node[draw,circle,cross,minimum width=0.3cm] at (6.7, 0.3){};
+                        \node at (6.7, -0.15) {$\vec{e_y}$}; 
+                    \end{tikzpicture}
                 \end{center}
             \end{minipage}
+            %
+            \begin{minipage}{0.35\linewidth}
+                On constante tout d'abord qu'on a les plans de symétrie
+                %
+                \[ \Pi_\text S\p{M, \vec{e_z}, \vec{e_x}} \qquad\et\qquad \Pi_\text S'\p{M, \vec{e_z}, \vec{e_y}} \]
+            \end{minipage}
+            %
+            Ainsi, le champ $\vec E$ vérifie $\vec E\p{M} \in \Pi_\text S \cap \Pi_\text S'$, et est donc selon $\vec{e_z}$. On a ainsi $\vec E\p{M} = E\p{M}\vec{e_z}$. Par ailleurs, on a invariance par translation selon $\vec{e_x}$ et selon $\vec{e_y}$, d'où $\vec E\p{x, y, z} = E\p{z}\vec{e_z}$. On a bien montré que les lignes de champs sont des droites.
+        }
+        
+        \item Déterminer la capacité de ce condensateur. Que vaut la densité surfacique de chaque en fonction de $V_0$ sur chacune des armatures ?
+        
+        \boxansconc{
+            On a $C = \dfrac{Q_1}{V_1-V_2}$, donc on peut utiliser le \emph{théorème de \textsc{Gauss}} sur une armature isolée, puis \emph{le théorème de superposition}. Tout d'abord, on pose $S_G$ le cube de hauteur $2z$ (??) de sections $S$, ainsi le \emph{théorème de \textsc{Gauss}} livre
+            %
+            \[ \oiint_{S_G} \vec E \cdot \dif\vec S = \dfrac{Q_\text{int}}{\epsilon_0} \qquad\text{d'où}\qquad \niint_{\bsS_{G_1}}\vec E \cdot \dif\vec S + \niint_{\bsS_{G_2}}\vec E \cdot \dif\vec S + \niint_{\bsS_L} \vec E\cdot \dif \vec S = \dfrac{Q_\text{int}}{\epsilon_0} \]
+            %
+            en vertu de quoi on obtient $E\p{z}S - E\p{z}S + 0 = \dfrac{Q_\text{int}}{\epsilon_0} = \dfrac{\sigma S}{\epsilon_0}$. De plus
+            %
+            \[ \vec E\p{\mathfrak{sym}_{\Pi_\text S}\p{z}} = \mathfrak{sym}_{\Pi_\text S}\p{E\p{z}\vec{e_z}} \qquad\text{d'où ???}\qquad \vec{E}\p{-z} = E\p{z}\p{-\vec{e_z}}\]
+            %
+            donc $E\p{z} = \text{sgn}\p{z}\times\dfrac{\sigma}{\epsilon_0}$. Dès lors $E\p{z} = \left\lbrace\begin{array}{cl}
+                0 & \text{si} \ z > e \ou z < 0\\
+                \dfrac{-\sigma}{2\epsilon_0} &\text{si} \ 0\leq z\leq e
+            \end{array}\right.$
             
-            Le mouvement est rectiligne, selon l'axe porté par $\vec{u_y}$. On pose $v_y = \vec{v} \cdot \vec{u_y}$ et on applique le \textit{principe fondamental de la dynamique} sur cet axe :
-            %
-            \[ m\dfrac{\dif v_y}{\dif t} = mg - 6\pi\eta r v_y \qquad\text{soit}\qquad \dfrac{\dif v_y}{\dif t} + \dfrac{6\pi\eta r}{m}v_y = g\]
-            %
-            Cette équation différentielle du premier ordre a pour solution :
-            %
-            \[ v_y\p{t} = A\exp{-\dfrac{6\pi\eta r}{m}t} + \dfrac{m}{6\pi\eta r}g \qquad\text{avec} \ A \ \text{une constante à déterminer}\]
-            %
-            La condition initiale $v_y\p{0} = 0$ livre $A = -\dfrac{mg}{6\pi\eta r}$ d'où $v_y\p{t} = \dfrac{mg}{6\pi\eta r}\p{1 - \exp{-\dfrac{6\pi\eta r}{m}t}}$. On intègre :
-            %
-            \[ y\p{t} = \dfrac{mg}{6\pi\eta r}\intc{t + \dfrac{m}{6\pi\eta r}\exp{-\dfrac{6\pi\eta r}{m}t}} + B \qquad\text{avec} \ B \ \text{une constante à déterminer}\]
-            %
-            Pour de grandes valeurs de $\tau$, on a alors $y\p{\tau} \approx \dfrac{mg}{6\pi\eta r}\tau$, donc pour $y\p{\tau} = h$ on obtient $h = \dfrac{mg\tau}{6\pi\eta r}$, d'où :
-            %
+            Finalement, on a $C = \dfrac{\sigma S}{\frac{\sigma e}{\epsilon_0}} = \dfrac{\epsilon_0 S}{e}$ et $\sigma = \dfrac{V_0\epsilon_0}{e}$.
         }
-        %
-        \nobefore\yesafter
-        %
-        \boxansconc{
-            \[ \eta = \dfrac{mg\tau}{6\pi rh}\]
-        }
-        %
-        \yesbefore
-        
-        \item On mesure $m = \SI{1.00}{\g}$ avec $u\p{m} = \SI{0.01}{\g}$, $m\tau= \SI{1.00}{\s}$ avec $u\p{\tau} = \SI{0.05}{\s}$, $r = \SI{1.0}{\mm}$ avec $u\p{r} = \SI{0.1}{\mm}$. On prendra $g = \SI{9.81}{\m \cdot \s^{-2}}$. Donner et encadrer la valeur de $\eta$.
     \end{enumerate}
     
-    \subsection{}
+    On introduit dans l'espace inter-armature un disque d'épaisseur $e' < e$ et de section $S$, parallèlement aux armatures. Ce disque est constitué d'un matériau assimilé à un conducteur parfait globalement neutre dans lequel le champ électrique est nul.
     
-    La mise en équation de la tension de sortie de l'oscillateur à pont de \textsc{Wien} donne le résultat suivant :
-    %
-    \[ \dfrac{\dif^2 V_\text s}{\dif t^2} + 2\Omega_0 \alpha + \Omega_0^2V_\text s = 0 \qquad\text{où} \ \Omega \ \text{et un réel positif et} \ \alpha \ \text{est un réel}\]
-    %
-    Discuter la stabilité du système et les différentes solutions possibles en fonction de $\alpha$.
-    
-    \boxans{
-        Il s'agit d'un système [décrit pas une équation différentielle] du deuxième ordre. On considère donc 
-    }
-    
-    \subsection{}
-    
-    Un liquide placé dans un récipient cylindrique de section $S$, occupe au repos un volume caractérisé par une hauteur $h_0$. On fait tourner le récipient autour de son axe à vitesse angulaire constante. Une fois le régime permanent établi, la surface libre du liquide prend une forme parabolique d'équation $z = ar^2 + h$.
-    
-    \begin{enumerate}
-        \item Exprimer $h$ en fonction de $h_0$ et des autres données de l'énoncé.
-        
-        \boxansconc{
-            On suppose que l'eau est une phase incompressible et indilatable (PCII). 
-        }
-        
-        \item Une jarre sphérique de rayon $R$ contient une hauteur $h_0$ d'eau. Le volume qui s'évapore par unité de temps est proportionnel à la surface eau-air. Déterminer le temps pour que la jarre soit vide en fonction du coefficient de proportionnalité.
-    \end{enumerate}
+    \begin{enumerate}[resume]
+        \item Démontrer que la répartition de charge qui apparaît ne peux pas être surfacique. Donner les signes et relation entre les densités surfaciques des deux faces.
 
-    \chapter{Électronique, analyse harmonique d'un signal périodique, numérisation}
-    
-    \subsection{}
-    
-    \begin{minipage}{0.48\linewidth}
-         Soit le circuit suivant :\medskip
-    
-    A l'instant initial, le condensateur de capacité $C$ est chargé avec la charge $Q_0$, celui de capacité $C'$ est déchargé.
-    \end{minipage}
-    %
-    \hfill
-    \begin{minipage}{0.48\linewidth}
+        \boxansconc{
             \begin{center}
-        \begin{circuitikz}
-            \draw (0, 0) --++(0, 2) to[C, l=$C$, v=$u_C\p{t}$] ++(3, 0) to[C, l=$C'$, v=$u_{C'}\p{t}$] ++(3, 0) to[short, i=$i\p{t}$] ++(0, -2) to[R, l=$R$, v=$u_R\p{t}$] ++(-6, 0);
-        \end{circuitikz}
-    \end{center}
-    \end{minipage}
+                \begin{tikzpicture}[cross/.style={path picture={
+                    \draw[black] (path picture bounding box.south east) -- (path picture bounding box.north west) (path picture bounding box.south west) -- (path picture bounding box.north east);
+                }}]
+                    \draw[<->] (-0.3, -1) -- (-0.3, 1) node[midway, left] {$e$};
+                    \draw[<->] (0.2, -0.25) -- (0.2, 0.25) node[midway, left] {$e'$};
+                    
+                    \draw[thick, main3] (0.4, 1) -- (5.4, 1) node[right] {$\sigma, V_1$};
+                    \draw[thick, main3] (0.4, -1) -- (5.4, -1) node[right] {$-\sigma, V_2$};
+                    
+                    \fill[main3!30] (0.4, -0.2) rectangle (5.4, 0.2);
+                    
+                    \draw[thick, main3!40] (0.4, 0.25) -- (5.4, 0.25) node[right,main3] {$-\sigma'$};
+                    \draw[thick, main3!40] (0.4, -0.25) -- (5.4, -0.25) node[right,main3] {$\sigma'$};
+                    
+                    \draw[->] (6.7, 0.3) --++ (0.7, 0) node[right] {$\vec{e_x}$};
+                    \draw[->] (6.7, 0.3) --++ (0, 0.7) node[right] {$\vec{e_z}$};
+                    \node[draw,circle,cross,minimum width=0.3cm] at (6.7, 0.3){};
+                    
+                    \node[fill=main3,circle,inner sep=1pt,label={[font=\footnotesize,main3]south east:$A$}] at (3, 1){};
+                    \node[fill=main3,circle,inner sep=1pt,label={[font=\footnotesize,main3]east:$B$}] at (3, 0.25){};
+                    \node[fill=main3,circle,inner sep=1pt,label={[font=\footnotesize,main3]east:$C$}] at (3, -0.25cm){};
+                    \node[fill=main3,circle,inner sep=1pt,label={[font=\footnotesize,main3]north east:$D$}] at (3, -1cm){};
+                    
+                    \node at (6.7, -0.15) {$\vec{e_y}$}; 
+                \end{tikzpicture}
+            \end{center}
+            %
+            On a $\vec E=0$ dans le disque donc $\vec \nabla \cdot \vec E = \sigma$. Or $\vec \nabla \cdot \vec E = \dfrac{e}{\epsilon_0}$ d'où $e = \sigma$. Ainsi, une accumulation de charges elle ne peut être que surfacique. De plus $\sigma_1 = -\sigma_2$ par conservation de la charge et $\sigma_1>0$ car les électrons sont attirés par le plus haut potentiel.
 
-    \begin{enumerate}
-        \item Établir l'expression de $i\p{t}$, le courant qui parcourt le circuit au cours du temps.
-        
-        \boxans{
-        
         }
         
-        \item Quelle est l'énergie dissipée par le circuit ? Comparer avec les énergies initiales et finales ?
-        
-        \boxans{
-        
-        }
-    \end{enumerate}
-    
-    \subsection{}
-    
-    \subsection{}
-    
-    La tension $u\p{t}$ a la forme ci-dessous :
-    
-    DESSIN 
-    
-    On a $T < RC$ et $\alpha < 1$. Déterminer les allures de $u_1$ et $u_2$.
-    
-    \boxans{
-    
-    }
-    \subsection{}
-
-    \subsection{}
-
-    \subsection{}
-    % je sais pas dessiner le circuit (xD)
-    \begin{enumerate}
-        \item \(e(t) = e_0\cos(\omega t)\) On veut que la composante sinusoïdale en \(A\) soit atténué de 40 dB. En déduire une condition sur R, C et \(\omega\), on supposera cette condition vérifiée par la suite.
-
-        \boxans{
-            Sur une sinusoïde : \[V_B = \frac{Z_C}{R + Z_C}V_A \text{donc} H = \frac{1}{1 + jRC\omega}\]
-            Donc sur l'entrée souhaitée \(V_A = ke_0^2\cos^2(\omega t) = \dfrac{ke_0^2}{2} + \dfrac{ke_0^2\cos(2\omega t}{2}\) ainsi la sortie de la composante sinusoïdale est \[V_B = \dfrac{1}{\sqrt{1+ 4(Rc\omega)^2}}\dfrac{ke_0^2}{2}\cos(2 \omega t - \arctan(2RC\omega))\]
-            On a enfin par définition \(G_{dB} = 20\log\left|\dfrac{V_B}{V_A}\right|\) donc 
-            \(G_{dB} = -40 \Leftrightarrow \omega \geq 100 \omega_0\)
-        }
-
-        \item Déterminer \(s(t)\)
-
-        \boxans{
-            On a trivialement \(s^2(t) = k^{-1}V_B\) or \(\omega_0 << \omega\) donc 
-            \(V_B \equiv V_B(0) = k\dfrac{e_0^2}{2}\) donc \(s(t) = \pm \dfrac{e_0}{2}\)
-        }
-
-        \item Le dipôle \(D\) est une diode telle que \(s(t) = \lnot i(t)\)
-
-        \boxans{
-            La diode force la tension positive, donc \(s(t) = \dfrac{\left|e_0\right|}{\sqrt{2}}\)
-        }
-
-        \item Montrer que ce montage fonctionne comme un voltmètre. Est-ce une mesure AC ou DC ? Le fonctionnement serait-il modifié si le signal d'entrée n'était pas sinusoïdal ?
-
-        \boxans{
-            On observe que \(s(t)\) est bel et bien la valeur RMS de \(e(t)\) donc ce montage se comporte bien comme un voltmètre, on est en DC car la valeur moyenne a de l'influence sur le résultat final.
-        }
-    \end{enumerate} 
-
-
-    \subsection{}
-    % je sais pas dessiner le circuit
-    \begin{enumerate}
-        \item Déterminer et caractériser la fonction de transfert \(H(j\omega\) du circuit.
-
-        \boxans{
-            En utilisant le théorème de \textsc{Millman} on trouve \(H = \dfrac{1 - jRC\omega}{1 + jRC\omega}\) ainsi \(G(\omega) = 1\) et \(\varphi = 2 tan^{-1}(RC\omega)\) le filtre est donc déphaseur.
-        }
-
-
-        \item La tension d'entrée \(v_e(t)\) est la fonction créneau définie par \(f(t) = \dfrac{4E}{\pi} \sum_{i=1}^{+\infty} \dfrac{1}{2i+1} \sin \left( 2 \pi (2i+1) \dfrac{t}{T} \right)\) avec \(T >> \tau = RC\) quelle est la tension de sortie ?
-
-        \boxans{
-            On a par définition la sortie \(s(t) = e_0\left|H_0\right| + \sum_{n=1}^{\infty} e_n \left|H(jn\omega)\right|\cos\left(n\omega t + \varphi_n + \arg(H(jn\omega))\right)\) \\
-            Dans notre cas on a donc \[s(t) = \dfrac{4E}{\pi}\sum_{n=1}^{\infty} \dfrac{1}{2n+1} \sin\left((2n+1)\omega(t - 2\tau)\right)\]
-
-            La tension de sortie est donc simplement celle d'entrée déphasée d'environ -180° comme \(T>>\tau\) on est à l'asymptote.
-        }
-    \end{enumerate}
-    
-    \chapter{Changement de référentiel et dynamique en référentiel non galiléen}
-    
-    \subsection{}
-    
-    Dans le cas d'un référentiel $\bcR_2$ en mouvement quelconque par rapport au référentiel $\bcR_1$, utiliser la dérivée covariante pour établir les lois de composition des vitesses et des accélérations dans le cas général. Retrouver l'expression de ces lois dans le cas d'un mouvement de translation puis de rotation uniforme.
-    
-    \subsection{Bifurcation}
-    
-    Un cercle de rayon $R$ tourne autour de son diamètre vertical à la vitesse angulaire constante $\omega$. Une petite bague peut coulisser sans frottements le long de ce cercle. Quelles sont les positions d'équilibre ? Stabilité ? Expliquer le titre.
-    
-    \boxans{
-        $R_1\p{C, \vec{e_x}, \vec{e_y}, \vec{e_z}}$ et $\bcR_2\p{C, \vec{u_\rho}, \vec{u_\alpha}, \vec{u_\gamma}}$.
-        
-        $\vec{R}$ sans composante tangentielle car pas de frottement.
-        
-        
-        
-        Si $\dfrac{G}{R\omega^2} < 1$, alors les positions d'équilibre sont $\pm \arccos{}$
-    }
-    
-    \chapter{Frottement solide}
-    
-    \subsection{}
-    
-    Une caisse cubique est posée sur un sol incliné d'un angle $\alpha$ par rapport à l'horizontale. On appelle $f = \tan \varphi$ le coefficient de frottement caisse-sol. On augmente progressivement $\alpha$, à quelles conditions l'équilibre est-il rompu ? La caisse glisse-t-elle ou bascule-t-elle ?
-    
-    
-    
-    \subsection{}
-    
-    \begin{minipage}{0.48\linewidth}
-        Soit le système mécanique ci-contre.\newline
-        
-        Le fil et la poulie sont de masses négligeables. La masse $M$ glisse sur le plan horizontal avec un coefficient de frottement $f$.\medskip
-        
-        On lâche le système sans vitesse initiale alors que la masse $m$ est à une altitude $h$ du plan inférieur.  
-    \end{minipage}
-    %
-    \hfill
-    %
-    \begin{minipage}{0.5\linewidth}
-        \centering
-        \begin{tikzpicture}
-            \draw[very thick] (0.5, 0) --++(4, 0) --++(0, -4) --++(3, 0); %sol
-            
-            \draw (1, 0) -- (1, 1) -- (2.5, 1) -- (2.5, 0); %boite M
-            \node at (1.75, 1.25) {$M$}; %label M
-            
-            \draw[very thick] (4.5, 0) --++(0.2, 0.2); % Petit truc avant la poulie
-            
-            \draw (2.5, 0.47) -- (4.8, 0.47); %Fil M -> Poulie
-            \draw (4.97, 0.3) --++(0, -1.3); %Fil Poulie -> m
-            
-            \node[circle,draw,minimum size=0.3,very thick] at (4.8,0.3){}; %Poulie
-            
-            \draw (4.7, -1) --++(0.6, 0) --++(0, -0.6) --++(-0.6, 0) --++(0, 0.6);
-            
-            \node at (5.6, -1.3) {$m$};
-        \end{tikzpicture}
-    \end{minipage}
-    
-    \begin{enumerate}
-        \item Montrer que le mouvement de $M$ peut être décomposé en deux phases. Déterminer l'évolution de sa vitesse et établir l'expression de $v_\text{max}$ en fonction des paramètres du problème.
-        
-        \item Déterminer le coefficient de frottement $f$ en fonction de la distance $\ell$ parcourue par $M$.
-        
-        \item Reprendre l'étude en supposant que la poulie possède un rayon $r$ et un moment d'inertie $J$ non négligeables.
-        
-        \item On néglige $J$ et $r$. On recommence l'expérience en plaçant sous la masse $m$ un ressort de raideur $k$ et de longueur à vide $\ell_0$. Il est placé verticalement avec l'une de ses extrémités fixées sur le plan inférieur. Étudier les différentes phases du mouvement.
-    \end{enumerate}
-    
-    \subsection{}
-    
-    \begin{minipage}{0.48\linewidth}
-        Un camion
-    \end{minipage}
-    %
-    \hfill
-    %
-    \begin{minipage}{0.5\linewidth}
-        \centering
-        \begin{tikzpicture}
-            %\draw[very thick] (0, 0) --++ (4, 0) --++(0, 1) --++(-1, 1) --++(0, -2);
-            
-            \draw [fill=main3!30!black!10] (0,0) --++ (4, 0) --++ (0, 0.75) --++(-0.25, 0.75) --++(-0.75, 0) --++(0, -1.2) --++(-2.7, 0) --(0, 0); 
-            \node[circle,draw,minimum size=0.5cm,thin,fill=main3!30] at (0.75,-0.1){};
-            \node[circle,draw,minimum size=0.5cm,thin,fill=main3!30] at (3.25,-0.1){};
-            
-            \fill[fill,pattern=north east lines] (-0.2, -0.35) --++(4.5, 0) --++(0, -0.2) --++(-4.5, 0);
-            \draw[] (-0.2, -0.35) --++(4.5, 0);
-        \end{tikzpicture}
-    \end{minipage}
-    
-    \subsection{}
-    
-    \subsection{}
-    
-    \subsection{}
-    
-    \newpage
-    
-    \subsection{Pointe et cylindre}
-    
-    \begin{minipage}{0.48\linewidth}
-        Une plaque homogène d'épaisseur négligeable, de masse $m$ et de longueur $L$ repose sur une pointe et un cylindre, de rayon $R$, de moment d'inertie $J$ et qui peut tourner sans frottement autour de son axe. La plaque glisse sur la pointe sans frotter et son contact avec le cylindre est caractérisé par un coefficient de frottement $f$. La distance entre le centre de la poulie et la pointe vaut $a > 0$. À l'instant initial, la plaque est immobile et $h\p{0} = h_0 < \dfrac{1}{2}L$. Pour $t \geq 0$, un opérateur exerce une force horizontale constante $\vec{F}$. 
-    \end{minipage}
-    %
-    \hfill
-    %
-    \begin{minipage}{0.5\linewidth}
-        \centering
-        \begin{tikzpicture}
-            %\draw[very thick] (0, 0) --++ (4, 0) --++(0, 1) --++(-1, 1) --++(0, -2);
-            
-            \draw[fill=main3!30] (-2, 1) rectangle (4, 1.1);
-            \draw (0, 0.5) circle[radius=0.5];
-            
-            \draw[fill=black] (0, 0.5) circle[radius=0.05];
-            
-            \draw[main3, very thick, <->] (-2, 1.5) -- node[midway, fill = white] {$h\p{t}$} (0, 1.5);
-            
-            \draw[main3, very thick, ->] (4, 1.05) --++(0.8, 0) node[label={[font=\footnotesize]right:$\vec{F}$}] {};
-            
-            \draw[ultra thick, -Latex] (3, 0) --++(0, 1);
-        \end{tikzpicture}
-    \end{minipage}
-    
-    \begin{enumerate}
-        \item À quelle condition sur $\vec{F}$ la plaque ne glisse-t-elle pas sur le cylindre ?
-        
-        \boxans{
-            On se place dans le référentiel $R\p{O, \vec{u_x}, \vec{u_y}, \vec{u_z}}$ où $O$ est la position initiale (en $t = 0$) du centre de gravité $G$ de la plaque, $\vec{u_x}$ est dirigé selon la force $\vec{F}$, 
-        }
-    \end{enumerate}
-    
-    
-    \chapter{Chimie en solution organique}
-    
-    \subsection{}
-    
-    \subsection{}
-    
-    À $T= \qty{1000}{\kelvin}$, la constance $K^\circ$ de l'équilibre suivant vaut $K^\circ = \qty{0.91}{}$. On considère la réaction :
-    %
-    \[ {\text{Ca}\text C\text O_3}_\text{(s)} \xrightleftharpoons{\hspace{0.4cm}} {\text{Ca}\text O}_\text{(s)} + {\text C\text O_2}_\text{(g)}\]
-    
-    \begin{enumerate}
-        \item Quelle est la pression partielle du dioxyde de carbone à l'équilibre ?
+        \item Que vaut la capacité du condensateur en présence du disque ?
         
         \boxansconc{
-            Par st\oe{}chiométrie, on a $K^\circ = \dfrac{P_{\text C\text O_2}\p{t_\text{eq}}}{P^\circ}$ d'où $P_{\text C\text O_2}\p{t_\text{eq}} = \qty{0.91}{\bar}$.
+            Or $\vec E_\text{int} = \vec 0$ d'où $\dfrac{-\sigma}{\epsilon_0} + \dfrac{\sigma'}{\epsilon_0} = 0$. Donc :
+            %
+            \begin{align*}
+                V_1 - V_2 &= \int_A^D \vec E \cdot \dif\vec e = \int_A^B \vec E \cdot \dif\vec e + \int_B^C \vec E \cdot \dif\vec e +  \int_C^D \vec E \cdot \dif\vec e\\
+                &= \dfrac{-\sigma}{\epsilon_0} \int_A^B \vec{e_z}\dif z\p{-\vec{e_x}} + 0 + \dfrac{-\sigma}{\epsilon_0}\int_C^D \vec{e_z}\dif z\p{-\vec{e_z}}\\
+                &= \dfrac{\sigma}{\epsilon_0}\p{e-e_q-e'} + \dfrac{\sigma}{\epsilon_0}e_q = \dfrac{\sigma}{\epsilon_0}\p{e-e'}
+            \end{align*} 
+            %
+            On a finalement $C = \dfrac{Q_S}{V_1 - V_2} = \dfrac{\sigma S}{\frac{\sigma}{\epsilon_0}\p{e - e'}} =\dfrac{\epsilon_0 S}{e - e'}$
         }
-        
-        
     \end{enumerate}
-
-    \subsection{}
-
-    On réalise la pile suivante $Zn(s)\mid Zn^{2+}\|Ag^+\mid Ag(s)$ appelée pile Daniell. 
+    
+    \subsection{Potentiel}
+    
+    On donne le potentiel électrostatique $V\p{r} = \dfrac{Q}{4\pi \epsilon_0 r}\exp{-\dfrac{r}{r_0}}$ en coordonnées sphériques.
+    
     \begin{enumerate}
-        \item Écrire la réaction lorsque la pile débite un courant.
-
-        \boxans{ $Zn \rightarrow Z_n^{2+} + 2e^-$ \\ $Ag \rightarrow Ag^+ + e^-$}
-        %
-        \nobefore\yesafter
-        %
-        \boxansconc{$2Ag^++Zn(s) \rightarrow 2Ag(s) + Zn^{2+}$}
-        \yesbefore
+        \item Calculer en tout point autre que $O$ la densité de charge $\rho\p{r}$.
         
-        \item Rappeler la polarité de la pile 
-
-        \boxansconc{$\ominus Zn(s)\mid Zn^{2+}\|Ag^+\mid Ag(s) \oplus$}
-
-        \item Calculer la f.e.m. de la pile pour des concentrations des espèces en solution de $0,1\text{mol.L}^{-1}$ 
-
-        \boxans{
-            $E_\oplus =  E^\circ_{Ag^+/Ag} + \dfrac{0.06}{1}\log\left(\dfrac{\left[Ag^+\right]}{1}\right) = 0.76\text{V}$ \\ 
-            $E_\ominus = E^\circ_{Zn^{2+}/Zn} + \dfrac{0.06}{2}\log\left(\dfrac{\left[Zn^{2+}\right]}{1}\right) = -0.82\text{V}$
+        \boxansconc{
+            On a $\vec \nabla \cdot \vec E = \vec \nabla \cdot \p{-\vec \nabla V} = - {\vec \nabla}^2 V = -\Delta V = \dfrac{\rho}{\epsilon_0}$. Or
+            %
+            \[ \Delta V = \dfrac{1}{r}\dfrac{\partial^2 rV\p{r}}{\partial r^2}= \dfrac{1}{r}\dfrac{Q}{4\pi\epsilon_0r_0^2}\exp{-\dfrac{r}{r_0}}\]
+            %
+            Et $\dfrac{-\rho\p{r}}{\epsilon_0} = \vec \nabla \cdot \vec E$, d'où l'on a $\rho\p{r} = -\dfrac{Q}{4\pi r_0^2}\dfrac{1}{r}\exp{-\dfrac{r}{r_0}}$
         }
-        \nobefore\yesafter 
-        \boxansconc{$U_o = E_\oplus - E_\ominus = 1.58\text{V}$}
-        \yesbefore 
         
-        \item Calculer la f.e.m de la pile lorsque l'équilibre est atteint. Quel est la composition de la pile ?
+        \item Calculer la charge à l'intérieur d'une sphère de rayon $R$ centrée en $O$.
 
-        \item Quelle quantité d'électricité a traversé la pile ?
+        \boxansconc{
+            On a $\rho\p{M} = \dfrac{\dif Q_{\dif V}}{\dif V}$
+            \[Q'=\iiint_V\rho\p{r}\dif\tau=\int_0^R\rho(r)r^2\dif r\int_0^{2\pi}\sin\p{\theta}\dif\theta\int_0^{2\pi}\dif\varphi = -Q+Q\exp\p{\dfrac{-R}{r_0}}\p{\dfrac{R}{r_0}-1}\]
+            D'autre part on a $Q_\text{int} = Q'+Q_0 = \epsilon_0E(r)4\pi r^2$ d'après le théorème de \textsc{Gauss}.
+        }
+        
+        \item En déduire la présence en $O$ d'une charge que l'on déterminera.
+        
+        \boxansconc{
+            On a $Q_0 = \lim\limits_{r \to 0} Q_\text{int}\p{r}$, d'où $Q_0 = Q$.
+        }
+        
+        \item Calculer la charge totale de l'espace et la charge de l'espace privée du point $O$.
+        
+        \boxansconc{
+            On a $Q_\text{total} = Q + \lim\limits_{r \to +\infty} Q_\text{int}\p{r}$. On a donc une distribution volumique négative dans tout l'espace, dont la somme vaut $-Q$.
+        }
+        
+        \item Étudier la densité radiale de charge $4\pi r^2\rho\p{r}$.
+        
+        \boxansconc{
+            On a $\dfrac{\dif q}{\dif r}$ ....
+        }
+    \end{enumerate}
+    
+    \subsection{Dsitrubution volumique}
+    
+    Soit la distribution volumique de charge $\rho = \rho_0\exp\p{-\dfrac{\mod{z}}{\delta}}$. Déterminer le champ électrique en tout point de l'espace.
+    
+    \boxansconc{
+        On a les plans de symétries
+        %
+        \[ \Pi_\text S\p{M, \vec{e_x}, \vec{e_z}} \qquad\et\qquad Pi_\text S'\p{M, \vec{e_y}, \vec{e_z}} \]
+        %
+        d'où $\vec E\p{M} = E\p{M}\vec{e_z}$. On a de plus invariance par translation selon $\vec{e_x}$ et selon $\vec{e_y}$, d'où
+        %
+        \[ \vec E\p{x, y, z} = E\p{z}\vec{e_z} \]
+        %
+        De plus $\vec \nabla \cdot \vec E =\dfrac{\rho}{\epsilon_0}$ donc
+        %
+        \[\dfrac{\partial E_z}{\partial z}=\dfrac{\rho_0}{\epsilon_0}\exp\p{\frac{-\left|z\right|}{\delta}}\]
+    }
+    
+    \subsection{Électrode hyperboloïde}
+    
+    \begin{minipage}{0.6\linewidth}
+        On étudie le champ électrique créé par un dispositif constitué de trois électrodes :
+        %
+        \begin{enumerate}
+            \itt une électrode en forme d'hyperboloïde de révolution autour de l'axe $\p{Oz}$, portée au potentiel $V_0$ et dont les sommets sont distants de $R$ de $O$.
+            
+            \itt deux calottes dont les sommets se situent en $z = \pm h$ de potentiel nul.
+        \end{enumerate}
+        %
+        La situation est représentée sur le schéma ci-contre.
+    \end{minipage}
+    %
+    \begin{minipage}{0.4\linewidth}
+        
+    \end{minipage}
+    
+    \begin{enumerate}
+        \item On écrit le potentiel électrique $V$ au voisinage de $O$ à l'aide d'un développement limité à l'ordre $2$ :
+        %
+        \[ V = a + bx + cy + dz + ex^2 + fy^2 + gz^2 + ixy + jxz + kyz\]
+        %
+        Déterminer $a$, $b$, $c$, $d$, $e$, $f$, $g$, $i$, $j$ et $k$. En déduire le champ électrique au voisinage de $O$.
+        
+        \item On place un électron en $O$, est-il à l'équilibre ? Discuter de la stabilité axiale et radiale.
+    \end{enumerate}
+    
+    \subsection{Charge dans un milieu ionisé}
+    
+    Une charge $Q > 0$ est placée dans un milieu ionisé. Pour résoudre l'équation de \textsc{Poisson}, on supposera que les charges suivent une distribution de \textsc{Boltzmann} : la probabilité qu'une particule soit dans un état d'énergie $\bsE$ est proportionelle à $\exp{-\frac{\bsE}{kT}}$. On utilisera l'approximation haute température.
+    
+    \begin{enumerate}
+        \item Le milieu ionisé est un plasma de particules chargées $+q$ et $-q$ mobiles, de densité volumique $n_0$.
+        
+        \boxansconc{
+            \begin{minipage}{0.5\linewidth}
+                \begin{center}
+                    \begin{tikzpicture}
+                        \draw[thick, -latex,main3] (0, 0) -- ({sqrt(2)}, {-sqrt(2)}) node[midway, right] {$r$};
+                        
+                        \node[fill=black,circle,inner sep=1pt,label={left:$O$}] at (0,0){};
+                        
+                        \draw[main3,densely dotted,thick] (0, 0) circle (2);
+                    \end{tikzpicture}
+                \end{center}
+            \end{minipage}
+            %
+            \begin{minipage}{0.5\linewidth}
+                On a $\rho = \dfrac{\dif Q_\text{int}}{\dif \tau} = \dfrac{\dif N_+ q}{\dif \tau} + \dfrac{\dif N_-\p{-q}}{\dif \tau} = q\p{n_+ -n_-}$.
+                
+                Par \emph{théorème de liaison}, on a $\Delta V = -\dfrac{\rho}{\epsilon_0}$.
+                
+                GROS MORCEAU MANQUANT
+            \end{minipage}
+            %
+            \[ \Delta V = \dfrac{2qn_0}{\epsilon_0}\sh{\dfrac{qVr}{kT}} \eq{\text{approx.}\ T \gg 1} \dfrac{2qn_0}{\epsilon_0}\dfrac{qV}{kT} \qquad\text{donc}\qquad \dfrac{1}{r}\dfrac{\partial^2 rV}{\partial r^2} - \dfrac{2q^2n_0}{\epsilon_0 kT}V = 0\]
+            %
+        }
+        
+        \item Résoudre l'équation différentielle en posant $U = rV$.
+        
+        \boxansconc{
+            En posant $U = rV$, on a $\dfrac{\dif^2 U}{\dif r^2} - \dfrac{U}{r_0^2} = 0$, avec $r_0^2 = \dfrac{\epsilon_0 kT}{2q^2n_0}$, d'où l'on a 
+            %
+            \[ U\p{r} = Ae^{\sfrac{r}{r_0}} + Be^{-\sfrac{r}{r_0}} \qquad\text{donc}\qquad V\p{r} = A\dfrac{e^{\sfrac{r}{r_0}}}{r} + B\dfrac{e^{\sfrac{r}{r_0}}}{r}\]
+            %
+            Lorsque $r$ tend vers $+\infty$, ona $\lim\limits_{r \to +\infty} V\p{r} = 0$ d'où $A = 0$. Par ailleurs, lorsque $r$ tend vers $0$,  on a 
+            %
+            \[ V\p{r} \asymp{0} V_Q\p{r} = \dfrac{Q}{4\pi\epsilon_0 r} \qquad\et\qquad V\p{r} \asymp{0} B\dfrac{1 - \sfrac{r}{r_0}}{r} \asymp{0} \dfrac{B}{r} \qquad\text{donc}\qquad B = \dfrac{Q}{4\pi \epsilon_0}\]
+        }
+        
+        \item Justifier l'approximation haute température.
+    \end{enumerate}
+    
+    \subsection{Tunnel dans la Terre}
+    
+    \begin{minipage}{0.7\linewidth}
+        Un tunnel rectiligne est percé dans la terre comme indiqué sur le schéma ci-contre. La Terre est supposée à symétrie sphérique de masse volumique $\rho$ et on admettra que le tunnel ne perturbe pas son champ de gravitation. Une bille de masse $m$ peut glisser sans frotter dans le tunnel, étudier son mouvement.
+    \end{minipage}
+    %
+    \begin{minipage}{0.3\linewidth}
+        \begin{center}
+            \begin{tikzpicture}[scale=1.5]
+                 \node[fill=black,circle,inner sep=1pt,label={left:$O$}] at (0,0){};
+                        
+                \draw[main3,thick] (0, 0) circle (1);
+                
+                \fill[white] (-1, 0.65) rectangle (1, 0.80);
+                \draw[main3,thick] (-0.76, 0.65) -- (0.76, 0.65);
+                \draw[main3,thick] (-0.6, 0.8) -- (0.6, 0.8);
+            \end{tikzpicture}
+        \end{center}
+    \end{minipage}
+    
+    \boxansconc{
+        On se place dans le repère sphérique $\p{r, \theta, \varphi}$. On a les plans de symétrie :
+        %
+        \[ \Pi_\text S\p{M, \vec{u_r}, \vec{u_\theta}} \qquad\et\qquad \Pi_\text S'\p{M, \vec{u_r}, \vec{u_\varphi}}\]
+        %
+        Puisque $\vec G\p{M} \in \Pi_\text S\p{M} \cap \Pi_\text S'\p{M}$, on a $\vec G\p{M} = G\p{M}\vec{u_r}$. Par invariance autour de $\vec{u_\varphi}$, on a $G\p{r, \theta, \varphi} = G\p{r, \varphi}$. Par invariance autour de $\vec{u_z}$, on a $G\p{r, \varphi} = G\p{r}$. On a donc $\vec{G}\p{r, \theta, \varphi} = G\p{r}\vec{u_r}$. Appliquons le \emph{théorème de \textsc{Gauss}} :
+        %
+        \[ \oiint_{S_G} \vec G \cdot \dif \vec S = -M_\text{int}\times 4\pi G\]
+        %
+        avec $S_G$ la sphère de centre $O$ et de rayon $r < R_\text{terre}$.
+    }
+    
+    \subsection{Dipôle astreint et charges sur un triangle}
+    
+    Soient trois charges $q$ placées au sommet d'un triangle équilatéral, et $O$ le centre de gravité de ce triangle. Un dipôle de moment dipolaire $\vec p = p_0 \vec{e_z}$ est astreint à se déplacer sur $\p{O, \vec{e_z}}$ l'axe perpendiculaire au plan du triangle. Décrire les mouvements possibles du dipôle en fonction des signes de $q$ et $p_0$, ainsi que des conditions initiales.
+    
+    \boxansconc{
+        \begin{minipage}{0.5\linewidth}
+            \begin{center}
+                \tdplotsetmaincoords{70}{38}
+                \pgfplotsset{compat=newest}
+                
+                \begin{tikzpicture}[tdplot_main_coords, scale = 2.5]
+
+                    \draw[dashed, gray] (0,0,0) -- (0,0,-0.5);
+                
+                    \fill[main3!50,opacity=0.5] (0.866025403784, -0.5, 0) node[right,main3,opacity=1] {$P_1$} -- (-0.866025403784, -0.5, 0) node[left,main3,opacity=1] {$P_3$} -- (0, 1, 0) node[right,main3,opacity=1] {$P_2$} --cycle;
+                    
+                    \draw[-stealth] (0,0,0) node[left] {$O$} -- (0,0,1)
+                        node[above] {$z$};
+                        
+                    \draw[-latex,very thick,main3] (0,0,0.3) -- (0,0,0.8)
+                        node[midway,right] {$\vec p$};
+                        
+                    \draw[densely dotted, gray] (0,0,0) --node[midway,above] {$r$} (0,1,0);
+                    
+                    \node[fill=main3,circle,inner sep=1pt,label={[main3]left:$M$}] at (0,0,0.3){};
+                \end{tikzpicture}
+            \end{center}
+        \end{minipage}
+        %
+        \begin{minipage}{0.5\linewidth}
+            On utilise le \emph{théorème de superposition}. On a 
+            %
+            \begin{align*}
+                \vec E\p{M} &= \sum_i \vec{E_{q_i}}\p{M}\\
+                &= \dfrac{q}{4\pi \epsilon_0}\dfrac{\vec{P_1M} + \vec{P_2M}+ \vec{P_3M}}{\p{r^2 + z^2}^{\sfrac{3}{2}}}\\
+                &= \dfrac{q}{4\pi \epsilon_0} \dfrac{3\vec{OM} + \vec{P_1O} + \vec{P_2O} + \vec{P_3O}}{\p{r^2 + z^2}^{\sfrac{3}{2}}}\\
+                &= \dfrac{3qz}{4\pi \epsilon_0\p{r^2 + z^2}^{\sfrac{3}{2}}}\vec{u_z}
+            \end{align*}
+        \end{minipage}
+        %
+        On a donc l'énergie potentielle
+        %
+        \[ \bsE_\text p = -\vec{E} \cdot \vec{p} = -\dfrac{3p_0qz}{4\pi \epsilon_0\p{r^2 + z^2}^{\sfrac{3}{2}}} \]
+        %
+        Par ailleurs, le système n'est soumis qu'à des forces conservatives donc est conservatif, par \emph{théorème de la puissance mécanique}, l'énergie mécanique $\bsE_\text m$ est constante. Traçons $\bsE_\text p$ (trait plein) en fonction de $z$ ainsi que $\bsE_\text m$ (en pointillé) : 
+        %
+        \begin{center}
+                \begin{tikzpicture}
+                    \begin{axis}[
+                        axis lines          =   middle,
+                        axis line style     =   {-stealth,shorten >=-3mm},
+                        trig format plots   =   rad,
+                        trig format         =   rad,
+                        domain              =   -4:4,
+                        xmin                =   -4,
+                        xmax                =   4,
+                        ymin                =   -1,
+                        ymax                =   1,
+                        xlabel              =   $z$,
+                        ylabel              =   $\bsE_\text p$,
+                        xtick               =   {},
+                        xticklabels         =   {},
+                        grid                =   both,
+                        width               =   12cm,
+                        height              =   7cm,
+                        ytick               =   {},
+                        yticklabels         =   {}
+                    ]               
+                        \addplot[color=main3,samples=300,smooth,thick]{-2*x/(1+x^2)^(3/2)};
+                        \addplot[color=main3,dashed,samples=300,smooth,very thick]{0.4};
+                    \end{axis}
+                \end{tikzpicture}
+            \end{center}
+            %
+            Supposons qu'à $t = 0$, le point $M$ est sans vitesse initiale. 
+    }
+    
+    \chapter{Propagation dans les milieux dispersifs}
+    
+    \begin{tcolorbox}[
+        breakable,
+        enhanced,
+        frame hidden,
+        interior style      = {fill = main3!10},
+        sharp corners       = downhill,
+        arc                 = 0 cm,
+        boxrule             = 0 cm,
+    ]
+        \color{main3}{
+            On rappelle que dans un milieu diélectrique tout se passe comme dans le vide à l'exception que l'on remplace $\epsilon_0$ par $\epsilon_0\epsilon_r$ où $\epsilon_r$ est la permittivité diélectrique relative du milieu.
+        }
+    \end{tcolorbox}
+
+    
+    \subsection{Réflexion sur un plasma}
+    
+    On étudie un plasma, constitué d'ions et d'électrons, respectivement de charges $q_\text{ion} = +e$ et $q_\text{électron} = -e$, de masse $m_\text{ion} = M$ et $m_\text{électron} = m$ et de densité volumique $n_\text{ion} = n_\text{électron} = n$. On suppose que les ions et les électrons forment un mélange de gaz parfait. On envoi une onde électromagnétique plane progressive monochromatique (OPPM) dans ce milieu, de la forme
+    %
+    \[ \vec E = E_0\exp{\jj\p{\omega t - kz}}\vec{e_y}\]
+    
+    \begin{enumerate}
+        \item \begin{enumerate}
+            \item Écrire les relations fondamentales de la dynamique sur un ions et un électron.
+            
+            \boxansconc{
+                On a $\vec \jmath = \sum n_iq_i \vec{v_i}$. On applique la RFD à un $e^-$ :
+                %
+                \[ m\dfrac{\dif \vec v_\text{électron}}{\dif t} = m\vec{g} - e\vec E - e\vec v_\text{électron} \wedge \vec{B}\]
+                %
+                On néglige le poids et on néglige la force magnétique dans la mesure où les électrons ne sont pas relativistes :
+                %
+                \[ \dfrac{\norm{\vec v_\text{électron} \wedge \vec B}}{\norm{\vec{E}}} \asymp \dfrac{vB}{E} \asymp{\text{OPPM}} \dfrac{v}{v_\varphi} \approx \dfrac{v}{c}\]
+                %
+                On a donc $\displaystyle \dfrac{\dif \vec v_\text{électron}}{\dif t} = -\dfrac{e}{m}E_0 e^{\jj \p{\omega t - kz}}\vec{e_y}$.
+            }
+            
+            \item On cherche à déterminer $\vec v_\text{ion}$ et $\vec v_\text{électron}$ sous la forme
+            %
+            \[ \vec v_\text{ion} = v_i \exp{\jj\p{\omega t - kz}}\vec{e_y} \qquad\et\qquad \vec v_\text{électron} = v_e \exp{\jj\p{\omega t - kz}}\vec{e_y}\]
+            %
+            Montrer qu'alors $\dfrac{\dif \vec v}{\dif t} \approx \dfrac{\partial v}{\partial t}$.
+            
+            \boxansconc{
+                On a 
+                %
+                \[ \dfrac{\partial \vec v_\text{électron}}{\partial t} = j\omega \vec v_\text{électron} \qquad\et\qquad \dfrac{\dif \vec v_\text{électron}}{\dif t} = \vec v_\text{électron}\p{\jj \omega - \jj k\dfrac{\dif z}{\dif t}}\]
+                %
+                Or $\dfrac{k\frac{\dif z}{\dif t}}{\omega} < \dfrac{kv_\text{électron}}{\omega} \asymp \approx{v^-}{v_\varphi}$ d'où $\dfrac{\dif \vec v_\text{électron}}{\dif t} \approx \dfrac{\partial \vec v_\text{électron}}{\partial t}$.
+            }
+            
+            \item En déduire $\vec v_\text{ion}$ et $\vec v_\text{électrons}$ en fonction de $\vec E$.
+            
+            \item Donner l'expression de la densité volumique de courant $\vec \jmath$ dans ce milieu.
+            
+            \item Simplifier $\vec \jmath$ si $M \gg m$.
+        \end{enumerate}
+        
+        \item On veut maintenant établir l'équation de dispersion.
+        
+        \begin{enumerate}
+            \item Écrire les équations de \textsc{Maxwell} dans un plasma.
+            
+            \item Écrire l'équation de propagation dans un plasma.
+            
+            \item En déduire l'équation de dispersion. On posera $\omega_p = \sqrt{\dfrac{ne^2}{m\epsilon_0}}$
+        \end{enumerate}
+        
+        \item \begin{enumerate}
+            \item 
+        \end{enumerate}
+    \end{enumerate}
+    
+    
+    
+    \subsection{Loi de \textsc{Descartes} pour la réfraction}
+    
+    Soient deux milieux diélectriques, notés $1$ et $2$, de permittivités relatives $\epsilon_{r_1}$ et $\epsilon_{r_2}$ séparés par le plan $z = 0$. On envoie une OPPM dans le milieu $1$ avec une incidence $\alpha_1$.
+    
+    \begin{enumerate}
+        \item Écrire les relations de passage sur les champs électriques et magnétiques (on se placera dans un modèle microscopique qui contraint les grandeurs surfaciques à être nulles).
+        
+        \boxansconc{
+            \begin{align*}
+                \vec k_\text{incident} &= k_\text{incident} \cos \alpha \vec{e_z} - k\sin{\alpha} e_z\\
+                \vec k_\text{transmis} &= k_\text{transmis} \p{\cos{\alpha_\text{transmis}} \vec{e_z} - \sin{\alpha_\text{transmis}} \vec{e_x} } + k_{ry}\vec{e_y}\\
+                \vec k_\text{réfléchi} &= k_\text{réfléchi}\p{\sin{\alpha_\text{réfléchi}} \vec{e_x} - \cos{\alpha_\text{réfléchi}} \vec{e_z}} + k_{ry} \vec{e_y}
+            \end{align*}
+        }
+        
+        \item Retrouver les lois de \textsc{Descartes} pour la réflexion et la réfraction.
+    \end{enumerate}
+    
+    \subsection{Coefficient de réflexion et de transmission entre deux diélectriques}
+    
+    \subsection{Vitesse de groupe et propagation de l'énergie}
+    
+    Soit une OPPM qui se propage dans un plasma suivant la direction $\p{Oz}$ et polarisée suivant $\p{Ox}$. La pulsation de l'onde est telle que $\omega > \omega_p = \sqrt{\dfrac{ne}{m\epsilon_0}}$.
+    
+    \begin{enumerate}
+        \item Établir l'équation de dispersion du plasma et calculer la vitesse de groupe associée à l'onde.
+        
+        \item \begin{enumerate}
+            \item Calculer le vecteur de \textsc{Poynting} ainsi que sa moyenne temporelle.
+            
+            \item Calculer la densité volumique d'énergie électromagnétique ainsi que sa moyenne temporelle.
+            
+            \item Calculer la densité volumique d'énergie cinétique des électrons ainsi que sa moyenne temporelle.
+            
+            \item Faire un bilan sur l'énergie totale transportée par l'onde et en déduire la vitesse de l'énergie. Conclusion.
+        \end{enumerate}
+    \end{enumerate}
+    
+    \chapter{Rayonnement dipolaire}
+    
+    \subsection{Diffusion de la lumière par des atomes}
+    
+    On considère un électron de masse $m$ et de charge $e$, lié à un atome : il est soumis de la part du noyau à une force de rappel vers sa position d'équilibre de la forme $-m\omega_0^2 \vec r$, où $\vec r$ représente le déplacement de l'électron par rapport à sa position d'équilibre. Cette modélisation est appelée \emph{modèle de l'électron élastiquement lié}.
+    
+    \begin{enumerate}
+        \item Justifier l'existence de cette force et sa forme.
+    \end{enumerate}
+    
+    L'atome considéré est soumis à une onde électromagnétique (que l'on prendra plane, progressive, sinusoïdale de pulsation $\omega$ et se propageant suivant l'axe $\p{Ox}$), vers les $x$ croissants, polarisée rectilignement suivant $\vec{e_z}$.
+    
+    \begin{enumerate}[resume]
+        \item En appliquant la Relation Fondamentale de la Dynamique à l'électron, montrer que l'on peut considérer l'atome comme un dipôle oscillant. On explicitera clairement les trois approximations qui permettent d'établir ce résultat.
     \end{enumerate}
 \end{document}

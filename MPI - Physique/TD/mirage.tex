@@ -1,0 +1,126 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage[
+    top         = 1in,
+    bottom      = 1in,
+    inner       = 1.5in,
+    outer       = 1in,
+    headheight  = 16pt,
+    headsep     = 0.4in,
+    footskip    = 0.4in,
+    includeheadfoot,
+    heightrounded,
+    twoside,
+    %showframe,
+    ]{geometry}
+\usepackage{./Structure/4PE18TEXTBnogeom}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\thesection.\arabic{enumi}.\arabic{enumii}.}
+    
+    \stylizeDocSpe{Physique}{Travaux dirigés}{Mirage et effet \textsc{Fata Morgana}}{Thermodynamique, Optique}
+
+    \bigskip
+
+    \section{Gradient de température}
+
+    \begin{minipage}{0.5\linewidth}
+        On se place dans un désert. On suppose que les géométries sont propices à l'approximation suivante :
+        %
+        \[ T\p{x, y, z, t} = T\p{z, t}\]
+        %
+        du moins à petite échelle : la température ne dépend que du temps et d'une seule coordonnée d'espace. On suppose de plus que la conductivité thermique $\lambda$, la capacité thermique massique $c$ et la masse volumique $\rho$ de l'air ne sont pas fonction des coordonnées spatio-temporelles.
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}{0.4\linewidth}
+        \begin{tikzpicture}
+            \fill[yellow!15] (0, 0) rectangle (5, -1);
+            \draw[bottom color=main1!30!yellow!15,top color=main1!15, draw=none] (0, 0) rectangle (5, 2);
+            \fill[color=main1!15] (0, 2) rectangle (5, 3);
+            \draw[-Latex] (0, 0) -- (5, 0) node[right] {$x$};
+            \draw[-Latex] (0, -1) -- (0, 3) node[above] {$z$};
+
+            \draw[,dashed] (0, 1) -- (5.5, 1) node[right] {$T\p{z_0}$};
+
+		\draw[,dashed] (0, 1.4) -- (5.5, 1.4) node[right] {$T\p{z_0 + \dif z}$};
+
+            \fill[main3,opacity=0.9] (2.25, 1) rectangle (2.65, 1.4) node[above] {$\Sigma$};
+        \end{tikzpicture}
+    \end{minipage}
+
+    \bigskip
+
+    
+    On applique le premier principe de la thermodynamique infinitésimal sur un système $\Sigma$ composé de l'air contenu dans cylindre droit dont les deux bases de surface $S$ sont comprises dans les plans $z = z_0$ et $z = z_0 + \dif z$, entre deux instants $t_0$ et $t_0 + \dif t$.\medskip
+
+    Dans le cadre d'une approximation du premier ordre en $\dif z$, on peut considérer que la température dans $\Sigma$ est uniformément égale à $T\p{z_0, t_0}$.  La variation élémentaire d'énergie interne de $\Sigma$ est alors :
+
+    \[ \dif^2 U = \rho c S \dif z \times \p{T\p{z_0, t_0 + \dif t} - T\p{z_0, t_0}} = \rho c \dfrac{\partial T\p{z_0, t_0}}{\partial t}S \dif x \dif t\]
+
+    On suppose qu'entre les instants $t_0$ et $t_0+ \dif t$, $\Sigma$ ne reçoit aucun travail extérieur, puisque son volume (infinitésimal) ne change pas.
+    %
+    \[ \delta^2 W = 0\]
+    %
+    On note directement que le vecteur densité de courant thermique vérifie par loi de \textsc{Fourier} :
+    %
+    \[ \vec{\jmath_\text{th}}\p{x, y, z, t} = -\lambda \vec \nabla T\p{z, t} = -\lambda \dfrac{\partial T\p{z, t}}{\partial z} = \vec{\jmath_\text{th}}\p{z, t}\]
+    Entre les instants $t_0$ et $t_0+ \dif t$, $\Sigma$ reçoit par conduction du transfert thermique de la part du reste de l'air :
+    %
+    \begin{enumerate}
+        \itt le transfert thermique à travers la base d'altitude $z_0$ :
+        %
+        \[ \delta Q_{z_0} = \dif t \times \niint_S \dif \Phi  = \dif t \times \niint_S \vec{\jmath_\text{th}}\p{z_0, t_0}\cdot \vec{\dif S} = \dif t \times \vec{\jmath_\text{th}}\p{z_0, t_0}\cdot \vec{u_x} S = \jmath_\text{th}\p{z_0, t_0}S\dif t  \]
+        %
+        \itt de même (mais dans l'autre sens), le transfert à travers la base d'altitude $z_0 + \dif z$ :
+        %
+        \[ \delta Q_{z_0 + \dif z} = \dif t \times \vec{\jmath_\text{th}}\p{z_0 + \dif z, t_0}\cdot \p{-\vec{u_x}} S = -\jmath_\text{th}\p{z_0 + \dif z, t}S\dif t\]
+    \end{enumerate}
+    %
+    Le transfert total reçu est donc 
+    %
+    \[ \delta^2 Q =  \delta Q_{z_0} +  \delta Q_{z_0 + \dif z} = \p{\jmath_\text{th}\p{z_0, t_0} - \jmath_\text{th}\p{z_0 + \dif z, t_0}}S \dif t = -\dfrac{\partial \jmath_\text{th}\p{z_0, t_0}}{\partial z}S\dif z\dif t\]
+    %
+    Finalement, le premier principe pour $\Sigma$ entre les instants $t_0$ et $t_0 +\dif t$ s'écrit :
+    %
+    \[ \dif^2 U = \delta^2 W + \delta^2 Q \qquad\text{donc}\qquad \rho c \dfrac{\partial T\p{z_0, t_0}}{\partial t}S\dif z\dif t = 0 - \dfrac{\partial \jmath_\text{th}\p{z_0, t}}{\partial z}S\dif z\dif t\]
+    %
+    En simplifiant par $S \dif z \dif t$ et par \textsc{Fourier} :
+    %
+    \[ \dfrac{\partial T\p{x_0, t_0}}{\partial t} = \dfrac{\lambda}{\rho c}\dfrac{\partial^2 T\p{z_0, t_0}}{\partial z^2}\]
+    %
+    \begin{form}{Remarque}{}
+        \begin{enumerate}
+        \ithand On retrouve l'équation de \textsc{Laplace} :
+        %
+        \[ \dfrac{\partial T}{\partial t} = a\Delta T\p{M, t} \]
+        %
+        où $a = \dfrac{\lambda}{\rho c}$ est la diffusivité thermique du matériau.
+    \end{enumerate}
+    \end{form}
+    
+
+    On se place en régime permanent, de sorte que le champ de température $T$ ne dépend plus du temps. Ainsi 
+    %
+    \[ \dfrac{\partial T\p{x_0, t_0}}{\partial t} = 0 \qquad\text{donc}\qquad \dfrac{\partial^2 T\p{z_0, t_0}}{\partial z^2} = 0 \qquad\text{donc}\qquad T\p{z} = Az + B\]
+    %
+    On note $T\p{0} = T_\text{sol}$ la température du sol du désert, et $T\p{h} = T_h < T_\text{sol}$ une température inférieure à une altitude $h$. On a donc
+    %
+    \[ T\p{z} = T_\text{sol} - \dfrac{T_\text{sol} - T_h}{h}z\]
+
+    \section{Phénomène optique}
+
+    Intéressons à l'indice optique de l'air. Du fait du gradient linéaire du température exhibé ci-dessus, on peut supposer que celui-ci va varier continuement dans l'air, lui-aussi de manière linéaire :
+    %
+    \[ n\p{z} = n_0 + kz\]
+    %
+    En effet, l'air plus chaud est moins dense, donc la lumière s'y propage plus vite ce qui entraîne un léger décalage de l'angle de déviation. En d'autres termes, plus la température est élevée, plus l'indice de réfraction est faible. Comme ici la température décroît avec l'altitude, l'indice optique lui va augmenter et l'on obtient que $k > 0$.
+
+\end{document}

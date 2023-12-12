@@ -1,0 +1,666 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage[
+    top         = 1in,
+    bottom      = 1in,
+    inner       = 1.5in,
+    outer       = 1in,
+    headheight  = 16pt,
+    headsep     = 0.4in,
+    footskip    = 0.4in,
+    includeheadfoot,
+    heightrounded,
+    twoside,
+    %showframe,
+    ]{geometry}
+\usepackage{booktabs}
+\usepackage{minitoc}
+\usepackage{./Structure/4PE18TEXTBnogeom}
+\usepackage{proof}
+\usepackage{pdfpages}
+\usepackage[skip=10pt plus1pt,indent=0pt]{parskip}
+\usepackage{blindtext}
+\usepackage{biblatex}
+\usepackage{svg}
+
+\addbibresource{refs.bib}
+
+\makeatletter
+\renewcommand\tableofcontents{%
+    \@starttoc{toc}%
+}
+%\renewcommand*\l@section{\@dottedtocline{1}{1em}{3em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{2em}{3em}}
+\makeatother
+
+\newboxans
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\mtcsettitle{minitoc}{}
+
+\DeclareDocumentCommand\Sp{g}{\funlv{Sp}{#1}}
+
+\lstnewenvironment{outputlog}{
+    \lstset{
+        tabsize=2,
+        breaklines,
+        basicstyle=\footnotesize\ttfamily,
+        frame=leftline
+    }
+}{}
+
+\begin{document}
+    
+    %==============================
+    % METADONNEES
+    %==============================
+    
+    \title{}
+    \author{SIAHAAN--GENSOLLEN Rémy}
+    \date{\today}
+    \hypersetup{
+        pdftitle={Exercices de Mathématiques : énoncés et corrections},
+        pdfauthor={SIAHAAN--GENSOLLEN Rémy},
+        pdflang={fr-FR},
+        pdfsubject={Exercices de Mathématiques : énoncés et corrections},
+        pdfkeywords={Exercices de Mathématiques, énoncés et corrections, 2022-2023}
+        pdfstartview=
+    }
+    
+    %==============================
+    % MISE EN PAGE
+    %==============================
+
+    %top         = 1.5in,
+    %bottom      = 1.5in,
+    %inner       = 1.5in,
+    %outer       = 1in,
+    %headheight  = 16pt,
+    %headsep     = 0.3in,
+    %footskip    = 0.3in,
+    %includeheadfoot,
+    %heightrounded,
+    %twoside
+    
+    %==============================
+    % STYLE DES EN-TÊTES ET PIEDS DE PAGES
+    %==============================
+    
+    \fancypagestyle{plain}{
+        \fancyhf{}
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0pt}
+        \fancyfoot[RO,LE]{\sffamily\color{white5}\thepage~/~\pageref{LastPage}}
+        %\fancyhead[LE]{\sffamily\color{white5}\bfseries SIAHAAN--GENSOLLEN Rémy}
+        \fancyhead[LE]{\sffamily\color{white5}Exercices de Mathématiques}
+        %\fancyhead[LO]{\sffamily\color{white5}\nouppercase{\rightmark}}
+        \fancyhead[RO]{\sffamily\color{white5}Énoncés et corrections}
+    }
+
+    \pagestyle{plain}
+
+    %==============================
+    % CONTENU
+    %==============================
+    
+    \begin{tcolorbox}[
+            enhanced,
+            frame hidden,
+            sharp corners,
+            spread upwards      = 0.1in,
+            halign              = center,
+            valign              = center,
+            interior style      = {color=main3!20},
+            arc                 = 0in,
+            outer arc           = 0pt,
+            leftrule            = 0pt,
+            rightrule           = 0pt,
+            fontupper           = \color{black},
+            %width               = \paperwidth, 
+            top                 = 0.4in, 
+            bottom              = 0.3in
+        ]
+            {\large{\scshape{SIAHAAN--GENSOLLEN}} Rémy\par}
+            \vspace{0.3in}
+            {\Huge\sffamily{Exercices de Mathématiques}\par}
+    	\vspace{0.05in}
+            {\Huge\bfseries\sffamily Énoncés et corrections\par}
+    \end{tcolorbox}
+    
+    \begin{tcolorbox}[
+        enhanced,
+        frame hidden,
+        sharp corners,
+        detach title,
+        spread outwards,
+        halign              = center,
+            valign              = center,
+        borderline west     = {3pt}{0pt}{main3},
+        coltitle            = main3, 
+        interior style      = {
+            left color      = main1white2!65!gray!11,
+            middle color    = main1white2!50!gray!10,
+            right color     = main1white2!35!gray!9
+        },
+        arc                 = 0 cm,
+        title               = SOMMAIRE,
+        boxrule             = 0pt,
+        fonttitle           = \bfseries\sffamily,
+        overlay             = {
+            \node[rotate=90, minimum width=1cm, anchor=south,yshift=-0.8cm]
+            at (frame.west) {\tcbtitle};
+        },
+    ]
+        \begin{minipage}{0.83\linewidth}
+            \sffamily
+            \tableofcontents
+        \end{minipage}
+    \end{tcolorbox}
+
+    \bigskip
+
+    \section{Logique et raisonnements}
+
+    \subsection{Modes de raisonnement}
+
+    \subsubsection*{Exercice 1.6}
+    
+    Soient $n$ un entier strictement positif, et $p_n$, s'il existe, le $n$-ième nombre premier.
+
+    \begin{enumerate}
+        \item Montrer qu'il existe une infinité de nombres premiers.
+
+        \boxansconc{
+            Soit $\bdP$ l'ensemble des nombres premiers. Trivialement, on a $\bdP \subset \bdN$ et $\bdP \neq \emptyset$ puisqu'on a au moins $2 \subset \bdP$. Supposons par l'absurde que $\bdP$ est fini, et posons $n = \mod{\bdP}$, de sorte à noter 
+            %
+            \[ \bdP = \ens{p_1, p_2, \dots, p_n} \qquad\text{avec}\qquad \p{p_i}_{i \in \bdN} \ \text{une suite strictement croissante.}\]
+            %
+            \textsf{\bfseries N.B.} \emph{Cette écriture est possible (prop. ou ax.) à puisque $\bdP$ est alors une partie non vide de $\bdN$.}\medskip
+
+            Considérons alors 
+            %
+            \[ \bcp = 1 + p_1p_2\dots p_n  = 1 + \displaystyle \prod_{i=1}^n p_i \]
+            %
+            Puisque $\bcp > p_n$, on a $\bcp \not\in \bdP$, \ie $\bcp$ n'est pas premier. Il existe donc $p_i \in \bcP$ (premier) tel que $p_i \mid \bcp$. Or $p_i \mid \prod_{i=1}^n p_i$, d'où $p_i \mid 1$, d'où $p_i = 1$, ce qui est absurde.\medskip
+            
+            Ainsi finalement $\bcp \in \bdP$, en vertu de quoi $\bdP$ est infini.
+        }
+
+        \item Montrer que pour tout entier $n$ strictement positif, $p_n \leq 2^{2^{n-1}}$.
+
+        \boxansconc{
+            On procède par récurrence. Pour l'initialisation, on a $p_1 = 2$ et $2^{2^{2-1}} = 2^{2^{1}} = 2^{2} = 4$ donc la propriété est valide. Supposons maintenant la propriété vérifie au rang $n \in \bdN$. On remarque par la question précédente que $\bcp = p_1p_2\dots p_n + 1$ est premier d'où $p_{n+1} \leq \bcp$. Par ailleurs, l'hypothèse de récurrence permet d'écrire :
+            %
+            \[ p_{n+1} \leq \bcp \leq 1 + \prod_{i=1}^{n} 2^{2^{i-1}} = 1 + 2^{\p{\sum_{i=0}^n 2^i}} = 1 + 2^{2^{n+1} - 1} \leq 2^{2^{n+1}}\]
+            %
+            Donc la propriété est vérifie au rang $n+1$. Par principe de récurrence, on obtient que la propriété est vraie pour tout entier naturel non nul, \ie $p_n \leq 2^{2^{n-1}}$ pour tout $n \in \bdN^*$.
+        }
+    \end{enumerate}
+
+    \subsubsection*{Exercice 1.7}
+
+    \begin{enumerate}
+        \item Montrer que toute fonction continue $f : \intc{0, 1} \to \bdR$ s'écrit sous la forme $f = g + c$ où $\displaystyle \int_0^1 g\p{t}\dif t = 0$ et $c \in \bdR$. Cette décomposition est-elle unique ?
+
+        \boxansconc{
+            \begin{enumerate}
+                \itt \underline{Analyse}\qquad Considérons deux fonctions continues $f$ et $g$ de $\int{0, 1}$ dans $\bdR$, un réel $c$ tels que
+                %
+                \[ f = g + c \qquad\et\qquad \int_0^1 g\p{t}\dif t = 0\]
+                %
+                On peut directement obtenir la valeur de $c$ par linéarité de l'intégrale :
+                %
+                \[ \int_0^1 f\p{t}\dif t = \int_0^1 g\p{t}\dif t + \int_0^1 c\dif t = c\]
+                %
+                Il reste à poser $g = f - c$, \ie $g\p{x} = f\p{x} - \displaystyle\int_0^1 f\p{t}\dif t$ pour $x \in \intc{0, 1}$.
+
+                \itt \underline{Synthèse}\qquad Considérons une fonction continue $f : \intc{0, 1} \to \bdR$. Posons
+                %
+                \[ c = \int_0^1 f\p{t}\dif t \qquad\et\qquad g = f - c\]
+                %
+                On obtient directement $f = g + c$ et $\displaystyle\int_0^1 g = 0$.
+
+                \itt \underline{Unicité}\qquad Considérons deux décompositions $f = g_1 + c_1$ et $f = g_2 + c_2$. On a 
+                %
+                \[ 0 = f - f = g_1 - g_2 + \p{c_1 - c_2}\]
+                %
+                En intégrant entre $0$ et $1$, on obtient $c_1 - c_2 = 0$ soit $c_1 = c_2$. Finalement
+                %
+                \[ g_1 = f - c_1 = f - c_2 = g_2\]
+                %
+                On a donc unicité de la décomposition (elle est en fait donnée ici dès la synthèse).
+            \end{enumerate}
+        }
+
+        \item Montrer que toute fonction continue $f : \intc{0, 1} \to \bdR$ s'écrit sous la forme $f = g + h$, où $h : x \to ax + b$ est une fonction polynomiale de degré au plus $1$, et où toute fonction polynomiale $P$ de degré au plus $1$ vérifie $\displaystyle \int_0^1 P\p{t}g\p{t} \dif t = 0$. Cette décomposition est-elle unique ? Si oui, exprimer $g$, $a$ et $b$ en fonction de $f$.
+
+        \boxansconc{
+            \begin{enumerate}
+                \itt \underline{Analyse}\qquad Considérons deux fonction continues $f$ et $g$ de  $\intc{0, 1}$ dans $\bdR$, deux réels $a$ et $b$ vérifiant la décomposition de l'énoncé avec $f\p{x} = g\p{x} + ax + b$ pour $x \in \intc{0, 1}$.
+                %
+                Considérons les fonction polynomiale $P = 1$ et $Q = x$. On a 
+                %
+                \begin{align*}
+                    \int_0^1 f\p{t}\dif t &= \int_0^1 P\p{t}f\p{t}\dif t = \int_0^1 P\p{t}g\p{t}\dif t + \int_0^1 \p{at + b}\dif t &= \dfrac{a}{2} + b\\
+                    \int_0^1 tf\p{t}\dif t &= \int_0^1 Q\p{t}f\p{t}\dif t = \int_0^1 Q\p{t}g\p{t}\dif t + \int_0^1 \p{at^2 + bt}\dif t &= \dfrac{a}{3} + \dfrac{b}{2}
+                \end{align*}
+                %
+                On obtient un système que l'on résout en :
+                %
+                \[ a = \int_0^1 f\p{t}\p{2t - 1}\dif t \qquad\et\qquad b = \int_0^1 f\p{t}\p{3t - 2}\dif t \qquad g = f - ax - b\]
+                %
+                \itt \underline{Synthèse et unicité}\qquad Il suffit de tester les résultats obtenus. l'unicité est donnée directement par l'analyse.
+            \end{enumerate}
+        }
+    \end{enumerate}
+
+    \subsubsection*{Exercice 1.8}
+
+    Soient $n \in \bdN^*$ et $x_1, x_2, \dots, x_{n+1}$ des points de l'intervalle $\intc{0, 1}$. Montrer qu'il existe $\left(i, j\right) \in \iint{1, n+1}^2$ tel que $i \neq j$ et $\mod{x_i - x_j} \leq \frac{1}{n}$.
+
+    \boxansconc{
+        Considérons une bijection $\sigma : \iint{1, n+1} \to \iint{1, n+1}$ de façon à ordonner les $\left(x_{\sigma\p{i}}\right)_i$ par ordre croissant, et d'avoir donc :
+        %
+        \[ 0 \leq x_{\sigma\p{1}} \leq x_{\sigma\p{2}} \leq \dots \leq x_{\sigma\p{n+1}} \leq 1\]
+        %
+        On a $x_{\sigma\p{n+1}} - x_{\sigma\p{1}} \leq 1$ d'où : 
+        %
+        \[ 1 \geq x_{\sigma\p{n+1}} - x_{\sigma\p{1}} = x_{\sigma\p{n+1}} + \p{\sum_{i=2}^{n} x_{\sigma\p{i}}} - \p{\sum_{i=2}^{n} x_{\sigma\p{i}}} - x_{\sigma\p{1}} = \sum_{i=1}^{n} \mod{x_{\sigma\p{i+1}} - x_{\sigma\p{i}}} \]
+        %
+        De plus on a :
+        %
+        \[ 1 \geq  \sum_{i=1}^{n} \mod{x_{\sigma\p{i+1}} - x_{\sigma\p{i}}} \geq \sum_{i=1}^n \min\limits_{k \in \iint{1, n}} \mod{x_{\sigma\p{k+1}} - x_{\sigma\p{k}}} = n \times \min\limits_{k \in \iint{1, n}} \mod{x_{\sigma\p{k+1}} - x_{\sigma\p{k}}}\]
+        %
+        On a donc $\min\limits_{k \in \iint{1, n}} \mod{x_{\sigma\p{k+1}} - x_{\sigma\p{k}}} \leq \frac{1}{n}$. On pose finalement $\left(i, j\right) \in \iint{1, n}^2$ tels que
+        %
+        \[ \mod{x_i - x_j} = \min\limits_{j \in \iint{1, n}} \p{\mod{x_{\sigma\p{j+1}} - x_{\sigma\p{j}}}} \]
+        %
+        vérifiant donc $\mod{x_i - x_j} \leq \frac{1}{n}$.
+    }
+
+    \subsubsection*{Exercice 1.9}
+    
+    Sans utiliser l'exponentielle complexe, montrer la formule de \textsc{Moivre} : pour tout entier positif $n$, et tout réel $\theta$,
+    %
+    \[ \cos{n\theta} + \ii \cdot \sin{n\theta} = \p{\cos{\theta} + \ii\cdot \sin{\theta}}^n \]
+
+    \boxansconc{
+        Soit $\theta$ un réel quelconque. On procède par récurrence. Pour $n = 0$, on a 
+        %
+        \[ \cos\p{0} + \ii \cdot \sin\p{0} = 1 = \p{\cos{\theta} + \ii\cdot \sin{\theta}}^0 \]
+        %
+        Supposons maintenant la propriété vérifiée au rang $n \in \bdN$.
+        %
+        \begin{align*}
+            \p{\cos{\theta} + \ii\cdot \sin{\theta}}^{n+1} &= \p{\cos{\theta} + \ii\cdot \sin{\theta}}^n \p{\cos{\theta} + \ii\cdot \sin{\theta}}\\
+            &= \p{\cos{n\theta} + \ii\cdot \sin{n\theta}}\p{\cos{\theta} + \ii\cdot \sin{\theta}}\\
+            &= \cos{n\theta + \theta} + \ii \cdot \sin{n\theta + \theta}\\
+            &= \cos{\p{n+1}\theta} + \ii \cdot \sin{\p{n+1}\theta}
+        \end{align*}
+        %
+        Donc par principe de récurrence, on a bien démontré la formule de \textsc{Moivre}.
+    }
+
+    \newpage
+
+    \subsubsection*{Exercice 1.16}
+
+    \begin{enumerate}
+        \item Montrer que pour tout entier $n$ non nul, on a 
+        %
+        \[ \p{\dfrac{2n}{3} + \dfrac{1}{3}}\sqrt{n} \leq \sum_{k=1}^n \sqrt{k} \leq \p{\dfrac{2n}{3} + \dfrac{1}{2}}\sqrt{n}\]
+
+        \boxansconc{
+            On procède par récurrence. Pour l'initialisation à $n = 1$ :
+            %
+            \[ \p{\dfrac{2\times 1}{3} + \dfrac{1}{3}}\sqrt{1} = 1 \leq \sum_{k=1}^1 \sqrt{k} = 1 \leq \p{\dfrac{2\times 1}{3} + \dfrac{1}{2}}\sqrt{1} = \dfrac{2}{3} + \dfrac{1}{2} = \dfrac{7}{6}\]
+            %
+            Supposons maintenant la propriété valide au rang $n \in \bdN$. On obtient, grâce à l'hypothèse de récurrence, la première inégalité après un peu de calcul :
+            %
+            \begin{align*}
+                \sum_{k=1}^{n+1} \sqrt{k} - \p{\dfrac{2\p{n+1}}{3} + \dfrac{1}{3}}\sqrt{n+1} &\geq \p{\dfrac{2n}{3} + \dfrac{1}{3}}\sqrt{n} + \p{1 - \dfrac{2\p{n+1}}{3} - \dfrac{1}{3}}\sqrt{n+1}\\
+                 &\geq \p{\dfrac{2n}{3} + \dfrac{1}{3}}\sqrt{n} -\dfrac{2n}{3}\sqrt{n+1}\\
+                 &\geq \dfrac{2n}{3}\p{\sqrt{n} - \sqrt{n+1}} + \dfrac{1}{3}\sqrt{n}\\
+                 &\geq \dfrac{2n}{3}\dfrac{\p{\sqrt{n} - \sqrt{n+1}}\p{\sqrt{n} + \sqrt{n+1}}}{\sqrt{n} + \sqrt{n+1}} + \dfrac{1}{3}\sqrt{n}\\
+                 &\geq \dfrac{-2n+\sqrt{n}\p{\sqrt{n} + \sqrt{n+1}}}{3\p{\sqrt{n} + \sqrt{n+1}}}\\
+                 &\geq \dfrac{\sqrt{n}}{3\p{\sqrt{n} + \sqrt{n+1}}}\p{\sqrt{n+1} - \sqrt{n}} \geq 0
+            \end{align*}
+            %
+            On procède de même pour la deuxième inégalité (un peu plus fastidieux) :
+            %
+            \begin{align*}
+                \sum_{k=1}^{n+1} \sqrt{k} - \p{\dfrac{2\p{n+1}}{3} + \dfrac{1}{2}}\sqrt{n+1} &\leq \p{\dfrac{2n}{3} + \dfrac{1}{2}}\sqrt{n} + \p{1 - \dfrac{2\p{n+1}}{3} - \dfrac{1}{2}}\sqrt{n+1}\\
+                 &\leq \p{\dfrac{2n}{3} + \dfrac{1}{2}}\sqrt{n} + \p{\dfrac{1}{2} - \dfrac{2n}{3} - \dfrac{2}{3}}\sqrt{n+1}\\
+                 &\leq \dfrac{\sqrt{n} + \sqrt{n+1}}{2} + \dfrac{2n}{3}\p{\sqrt{n} - \sqrt{n+1}} - \dfrac{2\sqrt{n+1}}{3}\\
+                 &\leq \dfrac{\p{\sqrt{n} + \sqrt{n+1}}^2}{2\p{\sqrt{n} + \sqrt{n+1}}} -\dfrac{2n + 2\p{n+1} + 2\sqrt{n}\sqrt{n+1}}{3\p{\sqrt{n} + \sqrt{n+1}}}\\
+                 &\leq \dfrac{3n + 6\sqrt{n}\sqrt{n+1} + 3\p{n+1} - 4n - 4\p{n+1} - 4\sqrt{n}\sqrt{n+1}}{6\p{\sqrt{n} + \sqrt{n+1}}}\\
+                 &\leq \dfrac{- 2n -1 + 2\sqrt{n}\sqrt{n+1}}{6\p{\sqrt{n} + \sqrt{n+1}}} \leq \dfrac{-2\sqrt{n}\p{\sqrt{n} - \sqrt{n+1}} - 1}{6\p{\sqrt{n} + \sqrt{n+1}}}\\
+                 &\leq \dfrac{2\sqrt{n} - \sqrt{n} - \sqrt{n+1}}{6\p{\sqrt{n} + \sqrt{n+1}}^2} \leq \dfrac{\sqrt{n} - \sqrt{n+1}}{6\p{\sqrt{n} + \sqrt{n+1}}^2} \leq 0
+            \end{align*}
+            %
+            Ainsi, si la propriété est vrai au rang $n \in \bdN$, elle l'est également au rang $n+1$. Par principe de récurrence, elle l'est donc pour tout rang $n \in \bdN$ non nul. Autrement dit, on a montré :
+            %
+            \[ \forall n \in \bdN^*,\qquad  \p{\dfrac{2n}{3} + \dfrac{1}{3}}\sqrt{n} \leq \sum_{k=1}^n \sqrt{k} \leq \p{\dfrac{2n}{3} + \dfrac{1}{2}}\sqrt{n}\]
+        }
+
+        \item En déduire la limite de la suite $\left(u_n\right)_{n \in \bdN^*}$ définie par
+        %
+        \[ \forall n \in \bdN^*,\qquad u_n = \dfrac{1}{n\sqrt{n}}\sum_{k=1}^n \sqrt{k}\]
+
+        \boxansconc{
+            Divisons par $n\sqrt{n}$ dans l'inégalité précédemment démontrée :
+            %
+            \[ \forall n \in \bdN,\qquad \dfrac{2}{3} + \dfrac{1}{3n} \leq u_n = \dfrac{1}{n\sqrt{n}}\sum_{k=1}^n \sqrt{k} \leq \dfrac{2}{3} + \dfrac{1}{2n}\]
+            %
+            Le \emph{théorème d'encadrement} ou \emph{théorème des gendarmes}, permet de conclure quant à la limite de la suite $\left(u_n\right)_{n \in \bdN^*}$ :
+            %
+            \[ \lim\limits_{n \to +\infty} \dfrac{1}{n\sqrt{n}} \sum_{k=1}^n \sqrt{k} = \dfrac{2}{3}\]
+            %
+            \medskip
+            %
+            \textsf{\bfseries N.B.} \emph{On peut également ré-écrire ce résultat sous la forme de l'équivalent suivant :}
+            %
+            \[ \sum_{k=1}^n \sqrt{k} \asymp{n \to +\infty} \dfrac{2n\sqrt{n}}{3} \]
+        }
+    \end{enumerate}
+
+    \subsubsection*{Exercice 1.22 - Fonction 91 de \textsc{McCarthy}}
+
+    Soit $f$ une fonction définie sur $\bdZ$ et vérifiant :
+    %
+    \[ \forall n \in \bdZ, \qquad f\p{n} = \left\lbrace\begin{array}{ll}
+        n - 10 &\text{si} \ n > 100  \\
+        f\p{f\p{n+11}} &\text{sinon} 
+    \end{array}\right.\]
+
+    \begin{enumerate}
+        \item Calculer $f\p{101}$, $f\p{95}$, $f\p{91}$, $f\p{0}$. Qu'observez-vous ?
+
+        \boxansconc{
+            \begin{enumerate}
+                \itt $f\p{101} = 101 - 10 = 91$
+
+                \itt $f\p{95} = f\p{f\p{95 + 11}} = f\p{f\p{106}} = f\p{106 - 10} = f\p{96} = f\p{f\p{107}} = f\p{97} = \dots = f\p{99} = f\p{111} = f\p{101} = 91$
+
+                \itt $f\p{91} = \dots = 91$
+
+                \itt $f\p{0} = \dots = 91$
+            \end{enumerate}
+            %
+            On observe que la fonction semble constante égale à $91$ pour les entiers inférieures à $101$.
+        }
+
+        \item Prouvez l'identité obtenue pour $f\p{n}$, pour tout $n \leq 101$.
+
+        \boxansconc{
+            Prouvons par récurrence sur $n \in \bdN$ la propriété suivante :
+            %
+            \[ \forall k \in \iint{0, 10},\qquad f\p{101 - \p{11n + k}} = 91\]
+            %
+            Pour le cas initial, il suffit de montrer que $f\p{101} = f\p{100} = \dots = f\p{91} = 91$, ce qui a été fait plus haut. Supposons maintenant la propriété vérifiée au rang $n \in \bdN$. Soit $k \in \iint{0, 10}$.
+            %
+            \[ 101 - \p{11\p{n+1} + k} = 101 - \p{11n + 11 + k} = 91 - \p{11n + k} \leq 100\]
+            %
+            Donc par hypothèse de récurrence, on obtient
+            %
+            \[ f\p{101 - \p{11\p{n+1} + k}} = f\p{f\p{101 - \p{11n + k}}} = f\p{91} = 91 \]
+            %
+            Par principe de récurrence, on obtient bien le résultat escompté, qui se réécrit :
+            %
+            \[ \forall n \in \bdN,\qquad f\p{101 - n} = 91 \qquad\text{où}\qquad \forall n \in \bdZ,\qquad n \leq 101 \implies f\p{n} = 91 \]
+        }
+    \end{enumerate}
+
+    \section{Ensembles}
+
+    \subsection{Manipulations ensemblistes et axiomatique}
+
+    \subsubsection*{Exercice 2.6}
+
+    Soient $E$ un ensemble non vide, $A$ et $B$ deux parties de $E$ et $f : \bcP\p{E} \to \bcP\p{E}$ l'application définie par $f\p{X} = \p{A \cap X} \cup \p{B \cap \overline{X}}$ où $\overline{X}$ désigne le complémentaire de $X$ dans $E$.
+
+    Résoudre et discuter l'équation $f\p{X} = \emptyset$.
+
+    \boxansconc{
+        Soit $X \in \bcP\p{E}$ tel que $f\p{X} = \emptyset$. On a $\left(A \cap X\right) \cup \p{B \cap \overline{X}} = \emptyset$ d'où $A \cap X = \emptyset$ et $B \cap \overline X = \emptyset$.
+
+        Ainsi on a $X \subset \overline{A}$ et $\overline{X} \subset \overline{B}$ soit $X \supset B$. On a donc
+        %
+        \[ B \subset X \subset \overline{A}\]
+        %
+        Remarquons que s'il existe $x \in E$ tel que $x \in A \cap B$, alors $x \in B$ mais $x \not\in \overline{A}$ donc $B \not\subset \overline{A}$. Réciproquement, si $B \not\subset \overline{A}$, considérer $x \in B$ tel que $x \not\in \overline{A}$ revient à trouver $x \in A \cap B$. L'équation admet donc des solutions si et seulement si $A$ et $B$ sont disjoints, \ie
+        %
+        \[ A \cap B = \emptyset \]
+        %
+        Les solutions $X$ de l'équation sont les ensembles disjoints de $A$ plus grands (pour $\subset$) que $B$.
+    }
+    
+    \subsubsection*{Exercice 2.12 - Axiome de fondation}
+    
+    L'axiome de fondation s'énonce ainsi : « tout ensemble $E$ non vide possède un élément $y$ n'ayant aucun élément en commun avec $E$ » (on rappelle que dans le cadre de la théorie des ensembles, les éléments sont eux-même des ensembles).
+
+    \begin{enumerate}
+        \item Montrer que l'axiome de fondation implique que pour tout ensemble $E$, $E \not\in E$.
+
+        \boxansconc{
+            Considérons un ensemble $E$. On peut appliquer l'axiome de fondation au singleton $\ens{E}$ :
+            %
+            \[ \exists y \in \ens{E},\qquad y \cap \ens{E} = \emptyset\]
+            %
+            Or le seul élément y de $\ens{E}$ est $E$, autrement dit $E \cap \ens{E} = \emptyset$. 
+            
+            Ainsi, on a $\ens{E} \not\subset E$ d'où $E \not\in E$.
+        }
+
+        \item Montrer plus généralement que pour tout $n \in \bdN^*$, il n'existe pas de cycle 
+        %
+        \[ E_1 \in E_2 \in \dots \in E_n \in E_1 \]
+
+        \boxansconc{
+            Soit $n \in \bdN^*$. Considérons $n$ ensembles $E_1, E_2, \dots, E_n$, et appliquons l'axiome de fondation à l'ensemble $\ens{E_1, E_2, \dots, E_n}$ :
+            %
+            \[ \exists y \in \ens{E_1, E_2, \dots, E_n},\qquad y \cap \ens{E_1, E_2, \dots, E_n} = \emptyset\]
+            %
+            Cet élément y est forcément un $E_j$ pour $j \in \iint{1, n}$, ainsi $\ens{E_1, E_2, \dots, E_n} \not \subset E_j$, d'où :
+            %
+            \[ \forall i \in \iint{1, n},\qquad E_i \not\in E_j\]
+            %
+            Donc il ne peut y avoir de cycle $E_1 \in E_2 \in \dots \in E_n \in E_1$.
+        }
+    \end{enumerate}
+
+    \subsection{Parties d'un ensemble}
+
+    \subsubsection*{Exercice 2.18}
+    
+    Soit $X$ un ensemble. On appelle recouvrement de $X$ une famille $\left(U_i\right)_{i \in I}$ de sous-ensembles de $X$ dont l'union est égale à $X$. On dit qu'un recouvrement $\left(V_j\right)_{j \in J}$ est plus fin qu'un recouvrement $\left(U_i\right)_{i \in I}$ si pour tout $j \in J$, il existe $i \in I$ tel que $V_j \subset U_i$.
+    
+    Montrer qu'étant donné deux recouvrements de $X$, il existe toujours un troisième recouvrement plus fin que les deux premiers, et maximal pour cette propriété (donc moins fin que tout autre recouvrement vérifiant la même propriété). A-t-on unicité ?
+
+    \boxansconc{
+        Considérons deux recouvrements $\left(U_i\right)_{i \in I}$ et $\left(V_j\right)_{j \in J}$ de $X$. Soit la famille $\left(W_{i, j}\right)_{\left(i, j\right) \in I \times J}$ :
+        %
+        \[ \forall i \in I,\qquad \forall j \in J,\qquad W_{i, j} = U_i \cap V_j\]
+        %
+        Montrons tout d'abord qu'il s'agit d'un recouvrement de $X$ :
+        %
+        \[ \bigcup_{\left(i, j\right) \in I \times J} W_{i, j} = \bigcup_{i \in I} \bigcup_{j \in J} W_{i, j} = \bigcup_{i \in I} \bigcup_{j \in J} U_i \cap V_j = \bigcup_{i \in I} \intc{U_i \cap \p{\bigcup_{j \in J} V_j}} = \bigcup_{i \in I} U_i \cap X = \bigcup_{i \in I} U_i = X\]
+        %
+        Par ailleurs, ce recouvrement est plus fin que les recouvrements $\left(U_i\right)_{i \in I}$ et $\left(V_j\right)_{j \in J}$ :
+        %
+        \[ \forall i \in I,\qquad \forall j \in J,\qquad W_{i, j} = U_i \cap V_j \subset U_i \qquad\et\qquad W_{i, j} = U_i \cap V_j \subset V_j\]
+        %
+        Enfin, pour peu qu'il existe un recouvrement $\left(W'_k\right)_{k \in K}$ plus fin que les deux premiers, on aurait
+        %
+        \[ \forall k \in K,\qquad \exists i \in I,\qquad W'_k \subset U_i\qquad\et\qquad \exists j \in J,\qquad W'_k \subset V_j\]
+        %
+        Donc $W'_k \subset U_i \cap V_j = W'_k \subset W_{i, j}$. Ainsi le recouvrement $\left(W_{i, j}\right)_{\left(i, j\right) \in I \times J}$ est maximal pour cette propriété. On a bien démontré le résultat escompté.
+    }
+
+    \subsubsection*{Exercice 2.19 - Schémas simpliciaux}
+
+    \begin{warning}{}{}
+        \centering\hg{Très difficile, ne le faire qu'après avoir terminé les autres}.
+    \end{warning}
+    
+    On appelle schéma simplicial un couple $\left(K,\bcS\right)$ où $K$ est un ensemble et $\bcS$ est un sous-ensemble de parties finies et non vides de $K$, et tel que tout sous-ensemble non vide d’un élément de $\bcS$ est encore dans $\bcS$. Les éléments de $\bcS$ sont appelés simplexes de $K$. La dimension d'un simplexe est un de moins que le cardinal de ce simplexe. Ainsi, les simplexes de dimension $0$ sont les singletons de $\bcS$, aussi appelés \emph{sommets}. Les simplexes de dimension $1$ sont des paires, aussi appelés \emph{arêtes}. Les simplexes de dimension 2 ont trois éléments, et sont aussi appelés \emph{faces}, \etc\!\!.
+
+    \begin{enumerate}
+        \item Soit $X$ un ensemble quelconque, et $\left(U_i\right)_{i \in I}$ un recouvrement de $X$. On convient de dire qu'une partie $S$ de l'ensemble $I$ est un simplexe si elle est finie, non vide, et si l'intersection $\displaystyle\bigcap_{i \in S} U_i$ est non vide. On note $\bcS$ l'ensemble des simplexes ainsi définis.
+        
+        Montrer que le couple $\left(I, \bcS\right)$ est un schéma simplicial (appelé \emph{nerf} du recouvrement).
+
+        \boxansconc{
+            On a $\bcS \subset \bcP\p{I}$, et il s'agit de montrer que :
+            %
+            \[ \forall S \in \bcS,\qquad \forall E \subset S,\qquad E \not\eq \emptyset \implies E \in \bcS\]
+            %
+            Considérons donc un simplexe $S \subset I$, puis un sous-ensemble $E \subset S$ non-vide, et montrons que $E$ est un simplexe. $S$ est finie donc $E$ est finie. On a également pris $E$ non vide par définition. On a convenu que l'intersection des $\left(U_i\right)_{i \in S}$ est non vide, et donc
+            %
+            \[ \emptyset \subsetneq \displaystyle\bigcap_{i \in S} U_i \subset \displaystyle\bigcap_{i \in E} U_i\]
+            %
+            Donc l'intersection des $\left(U_i\right)_{i \in E}$ est non vide. En conclusion, on a $E \in \bcS$ donc le couple $\left(I, \bcS\right)$ est bien un schéma simplicial.
+        }
+
+        \item Soit $\left(K,\bcS\right)$ un schéma simplicial. On désigne par $P\p{K}$ l'ensemble des fonctions $f$ définies sur l'ensemble $K$, à valeurs réelles, et possédant les $3$ propriétés suivantes :
+        %
+        \begin{psse}
+            \item l'ensemble des $x$ tels que $f\p{x} = 0$ est un simplexe de $\bcS$ ;
+
+            \item on a $f\p{x} \geq 0$ pour tout $x \in K$ ;
+
+            \item $\displaystyle\sum_{x \in K} f\p{x} = 1$.
+        \end{psse}
+
+        Soit, pour tout $x \in K$, $U_x$ l'ensemble des $f \in P\p{K}$ tels que $f\p{x} \neq 0$. Montrer que $\left(U_x\right)_{x \in K}$ est un recouvrement de $P\p{K}$ dont le nerf est égal à $\left(K, \bcS\right)$.
+
+        \boxansconc{
+            Laissé en exercice au lecteur.
+        }
+    \end{enumerate}
+
+    Ainsi, on a montré que tout schéma simplicial est le nerf d'un recouvrement.
+
+    \section{Applications}
+
+    \subsection{Injectivité, surjectivité, bijectivité}
+
+    \subsubsection*{Exercice 3.8}
+    
+    Soient $A$, $B$, $C$ et $D$ des ensembles. 
+    
+    \begin{enumerate}
+        \item Construire une bijection entre $C^{A \times B}$ et $\left(C^A\right)^B$.
+
+        \boxansconc{
+            Il s'agit en premier lieu de comprendre en quoi consistent les ensembles de l'énoncé. On peut voir un élément de $C^{A \times B}$ comme une fonction $f : A\times B \to C$, et un élément de $\left(C^A\right)^B$ comme une fonction $g : B \to C^A$. Ainsi $g$ associe à un élément $b \in B$ une fonction de $A$ dans $C$. On peut alors considérer l'application $\chi : C^{A \times B} \to \left(C^A\right)^B$ telle que :
+            %
+            \[ \forall f \in C^{A \times B},\qquad \chi\p{f} : \begin{array}[t]{rcl}
+            B &\to& C^A\\
+            b &\mapsto& \intc{\begin{array}{rcl}
+            A &\to& C\\
+            a &\mapsto& f\p{a, b}\end{array}}\end{array}\]
+            %
+            On peut en exhiber une réciproque $\widetilde \chi : \left(C^A\right)^B \to C^{A \times B}$ :
+            %
+            \[ \forall g \in \p{C^A}^B,\qquad \widetilde\chi\p{g} : \begin{array}[t]{rcl}
+                A \times B &\to& C  \\
+                a, b &\mapsto& g\p{b}\p{a} 
+            \end{array}\]
+            %
+            En effet, on vérifiera facilement que $\widetilde\chi \circ \chi = \Id_{C^{A \times B}}$ et $\chi \circ \widetilde \chi = \Id_{\left(C^A\right)^B}$.
+
+            On a bien construit une bijection $\chi$ (et sa réciproque $\widetilde\chi = \chi^{-1}$) entre $C^{A \times B}$ et $\left(C^A\right)^B$.
+        }
+
+        \item Construire une injection de $C^A \times D^B$ dans $\left(C \times D\right)^{A \times B}$.
+
+        \boxansconc{
+            La méthode est similaire à la question précédente : aux foncions $f : A \to C$ et $g : B \to D$, on associe la fonction $\iota\p{f, g}$ telle que
+            %
+            \[ \forall a \in A,\qquad \forall b \in B,\qquad \iota\p{f, g}\p{a, b} = \p{f\p{a}, g\p{b}}\]
+            %
+            La définition de l'injectivité permet de conclure.
+        }
+    \end{enumerate}
+
+    \subsubsection*{Exercice 3.11} Soit $f : \bdN \to \bdN$ une bijection. Montrer que pour tout $M \geq 0$, il existe $N$ tel que pour tout $n \geq N$, on ait $f\p{n} \geq M$. Cette propriété revient à dire que $\lim\limits_{n \to +\infty} f\p{n} = +\infty$. Cette propriété est-elle vérifiée pour une injection ? Et pour une surjection ?
+
+    \boxansconc{
+        Soit $M \geq 0$. Puisque $f$ est une bijection, on peut considérer sa réciproque $f^{-1}$. On peut alors poser
+        %
+        \[ N = 1 + \max\limits_{k \in \iint{0, 1 + \floor{M}}} f^{-1}\p{k}\]
+        %
+        Soit $n \in \bdN$. Si $f\p{n} < M$, alors $f\p{n} \in \iint{0, 1 + \floor{M}}$ donc par max. $n = f^{-1}\p{f\p{n}} \leq N -1 < N$, \ie
+        %
+        \[ \forall n \in \bdN,\qquad f\p{n} < M \implies n < N \qquad\text{d'où par contraposée}\qquad n \geq N \implies f\p{n} \geq M\]
+        %
+        Par ailleurs, une injection de $\bdN$ dans $\bdN$ est une bijection, et de même pour une surjection. 
+
+        \bigskip
+        
+        \textsf{\bfseries N.B.} \emph{Pour une injection $\iota : I \to \bdN$ on peut restreindre l'ensemble d'arrivée à $\iota\p{I}$ pour avoir une bijection, et la démonstration ci-dessus est toujours valable dans la restriction à $I$.}
+    }
+
+    \subsubsection*{Exercice 3.18}
+    
+    Soient $f : E \to F$, $\widetilde f: \bcP\p{E} \to \bcP\p{F}$ l'application \guill{image directe} et $\widehat{f^{-1}} : \bcP\p{F} \to \bcP{E}$ l'application \guill{image réciproque}.
+
+    \begin{enumerate}
+        \item Montrer que les trois propositions suivantes sont équivalentes :
+        %
+        \begin{psse}
+            \item $f$ est injective ;
+            \item $\widetilde f$ est injective ;
+            \item $\widehat{f^{-1}}$ est surjective.
+        \end{psse}
+
+        \item Montrer que les trois propositions suivantes sont équivalentes :
+        %
+        \begin{psse}
+            \item $f$ est surjective ;
+            \item $\widetilde f$ est surjective ;
+            \item $\widehat{f^{-1}}$ est injective.
+        \end{psse}
+    \end{enumerate}
+
+    \subsubsection*{Exercice 3.19 - Étude d'une homographie}
+
+    On pose $P = \ens{z \in \bdC \enstq \Im{z} > 0}$ et $D = \ens{z \in \bdC \enstq \mod{z}  < 1}$. On note $f$ l'application définie pour tout $z \neq -\ii $ par $f\p{z} = \dfrac{z - 1}{z + 1}$.
+
+    \begin{enumerate}
+        \item Montrer que $f$ réalise une bijection de $P$ sur $D$.
+
+        \item Soit $\left(a, b, c, d\right) \in \bdR^4$ tels que $ad - bc = 1$. On considère l'application $h$ définie sur $D_h \subset \bdC$ par $h\p{z} = \dfrac{az + b}{cz + d}$. Montrer que
+        %
+        \[ \forall z \in D_h,\qquad \Im{h\p{z}} = \dfrac{\Im{z}}{\mod{cz + d}^2}\]
+
+        \item En déduire que $h$ est une bijection.
+    \end{enumerate}
+
+    \subsubsection*{Exercice 3.21}
+
+    Soit $\sigma$ une permutation de $\bdN$. On pose $A = \ens{n \in \bdN,\ \sigma\p{n} < n}$ et $B = \ens{n \in \bdN,\ \sigma\p{n} \geq n}$. Est-il possible que (le démontrer) :
+    %
+    \begin{enumerate}
+        \item $A$ et $B$ soit tous deux finis ?
+        %
+        \item $A$ et $B$ soient tous deux infinis ?
+
+        \item $A$ soit fini et $B$ infini ?
+
+        \item $A$ soit infini et $B$ fini ?
+    \end{enumerate}
+
+    \subsection{Factorisations}
+
+    \subsubsection*{Exercice 3.23 - Factorisation d'une application}
+
+    \begin{enumerate}
+        \item Soit $f : F \to E$ et $g : G \to E$ deux applications. Donner une CNS pour qu'il existe $h : G \to F$ tel que $g = f \circ h$. À quelle $h$ est-elle unique ?
+
+        \item Soit $f : E \to F$ et $g: E \to G$ deux applications. Donner une CNS pour qu'il existe $h: F \to G$ telle que $g = h \circ f$. À quelle condition $h$ est-elle unique ?
+    \end{enumerate}
+
+    
+\end{document}

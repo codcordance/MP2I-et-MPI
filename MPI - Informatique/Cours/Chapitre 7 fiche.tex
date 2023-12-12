@@ -1,0 +1,113 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\usepackage{graphicx}
+\usepackage{listings}
+
+% Définir les couleurs pour les mots clés
+\definecolor{keywords}{RGB}{255,0,90}
+
+% Définir les mots clés
+\lstset{
+    language=C,
+    keywordstyle=\color{keywords}\bfseries,
+    morekeywords={Données,graphe,deja_vu,G,listes,adjacences,sommet,départ,s,a_traiter,implémentée,file,deja_vu,dist,pred,tant,faire,retourner,pour,tout,voisin,tel,que,est}
+}
+
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}} 
+    \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii}.}
+    \renewcommand*{\labelenumiii}{\alph{enumiii}.}
+    
+    \def\authorvar{DRISSI Rayan}
+    \stylizeDocSpe{Info}{Chapitre 6}{}{Concurance, syncronisation}
+    \section{Intro}
+    
+    Des rappelles historique 
+    
+    \begin{example}{Concurance}{}
+        \begin{enumerate}
+            \itt Jouer a un jeu vidéo ecouantant apple music les deux programmes se disputent l'accès a périphérique audio 
+            
+            \itt Sur un site de reservartion de billet
+            
+            \itt l'entrainement d'un reseaux de neuronne 
+        
+        \end{enumerate}
+        
+        
+    \end{example}
+    
+    \section{Processus}
+    
+    \subsection{Syncronisations}
+    
+    
+    \begin{definition}{Processus}{Vocab}
+        Dans un systemen d'exploitation, un processus est un programme en cours d'excution, A chaque processus est attribué un numero unique, et un contexte qui contient
+        \begin{enumerate}
+            \itast L'ensemble de la memoire vide alloué par l'OS pour l'execution du programme (code executable du programme copié dans la RAM, memoire alloué pour la pile d'appel, memoire allouée pour le tas);
+            
+            \itast L'ensemble des ressources utilisée par le programme
+            
+            \itast Les valeurs stockées dans tous les registres du processeur 
+        \end{enumerate}
+        
+    \end{definition}
+        
+    \subsection{Thread}
+    
+    Thread = fil d'execution 
+    
+    les langage C et Ocaml disposent tous les deux d'une biblioteque pour faire du mutlti threading
+    
+    
+    \begin{definition}{Section critique}{}
+        Une \hgu{section critique} est une portion de programme qui ne peut-etre executé par un nombre maximal de thread en même temps  
+    \end{definition}
+    
+    \begin{definition}{Mutex}{}
+        Pour réalisé une section critique, on utilise une primitive de synchronisation appelée verrou (ou \hg{Mutex} pour mutual exclusion en anglais)
+        
+        \begin{enumerate}
+            \itt \hgu{Lock(m)} pour prendre le verrou 
+            
+            \itt \hgu{Unlock(m)} pour liberer (ou relacher)
+        \end{enumerate}
+        
+    \end{definition}
+    \begin{notation}{En C et en Ocaml}{}
+        \begin{enumerate}
+            \itt En C \camlline{pthread_mutex_lock(&m);}
+            
+            \itt En OCaml \camlline{ Mutex.lock : Mutex.t -> unit}
+            
+            
+        \end{enumerate}
+    \end{notation}
+    
+    
+    \begin{definition}{Interlocage}{}
+        Attention on peut faire de la merde avec les MUTEX.
+        
+    \end{definition}
+    
+    
+    \begin{definition}{Type atomique }
+        
+    \end{definition}
+    
+    
+    
+    
+    
+\end{document}

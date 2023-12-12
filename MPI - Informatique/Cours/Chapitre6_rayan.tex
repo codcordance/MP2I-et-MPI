@@ -1,0 +1,87 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\usepackage{graphicx}
+\usepackage{listings}
+
+% Définir les couleurs pour les mots clés
+\definecolor{keywords}{RGB}{255,0,90}
+
+% Définir les mots clés
+\lstset{
+    language=C,
+    keywordstyle=\color{keywords}\bfseries,
+    morekeywords={Données,graphe,deja_vu,G,listes,adjacences,sommet,départ,s,a_traiter,implémentée,file,deja_vu,dist,pred,tant,faire,retourner,pour,tout,voisin,tel,que,est}
+}
+
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}} 
+    \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii}.}
+    \renewcommand*{\labelenumiii}{\alph{enumiii}.}
+    
+    \def\authorvar{DRISSI Rayan}
+    \stylizeDocSpe{Info}{Chapitre 6}{}{Algorithme d'approximation}
+    \section{Intro}
+    
+    Comme on l'a vu avec l'étude de problèmes NP-Complet il existe des problèmes qu'on ne sait a priori pas résoudre ou temps polynomial. 
+
+    On a notamment vu des problèmes d'optimisation dont les problèmes de décision de décision assenée (avec un seuil sont NP-complet)
+
+    \section{Algoritme d'approxiamtion}
+
+    \begin{definition}{$\alpha$-Approxiamation}{}
+        On dis qu'un al 
+    \end{definition}
+
+
+    \begin{property}{}{}
+        Supposons que chaque clause de $\ph$ contient au moins 
+        $k$ littéraux. Alors
+        %
+        \[\bdE\p{\varphi} \geq c\p{1 - \dfrac{1}{2^k}} \]
+
+        Alors $\bcE(\phi) \geq c(1 - 1/2^k) $
+    \end{property}
+    
+    \begin{nproof}
+        Soit $\psi$ une clause de $\varphi$ à $k' \geq k$ littéraux. On a 
+        %
+        \[ \bdE\p{\psi} = 1 - \dfrac{1}{2^{k'}} \geq 1 - \dfrac{1}{2^k}\]
+        %
+        Donc $\bdE\p{\varphi} = \displaystyle\sum_{\psi \in \varphi} \bdE\p{\psi} \geq \sum_{\psi \in \varphi} \p{1 - \dfrac{1}{2^k}} = c\p{1 - \dfrac{1}{2^k}}$
+    \end{nproof}
+    
+    \begin{corollary}{}{}
+        Avec $k = 1$, on a $\bdE\p{\varphi} \geq \dfrac{c}{2}$.
+    \end{corollary}
+
+    \subsection{Derandomisation methode de l'esperance conditionnelel}
+    
+   \begin{form}{Principe de l'algorithme}
+   
+    Voici le principe de l'algo
+
+    \begin{enumerate}
+        \itt on affecte a tour de role une valeur de verité a chacune des n variables 
+        $x_1, ..., x_n$ de $\phi$
+
+        \itt Pour choisir $\v(x_i)$ en connaissa
+        
+    \end{enumerate}
+   
+   \end{form} 
+    
+
+    
+    % ????
+         
+\end{document}

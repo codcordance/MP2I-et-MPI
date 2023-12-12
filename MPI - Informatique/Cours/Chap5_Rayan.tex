@@ -1,0 +1,199 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\usepackage{graphicx}
+\usepackage{listings}
+
+% Définir les couleurs pour les mots clés
+\definecolor{keywords}{RGB}{255,0,90}
+
+% Définir les mots clés
+\lstset{
+    language=C,
+    keywordstyle=\color{keywords}\bfseries,
+    morekeywords={Données,graphe,deja_vu,G,listes,adjacences,sommet,départ,s,a_traiter,implémentée,file,deja_vu,dist,pred,tant,faire,retourner,pour,tout,voisin,tel,que,est}
+}
+
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}} 
+    \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii}.}
+    \renewcommand*{\labelenumiii}{\alph{enumiii}.}
+    
+    \def\authorvar{DRISSI Rayan}
+    \stylizeDocSpe{Info}{Chapitre 4}{}{Algoritme des graphes}
+    \section{Intro}
+    
+    
+    Très employé par le grand public, le terme \emph{intelligence artificielle} désigne en fait un large ensemble de techniques, très différentes les unes des autres. Ces techniques ont tout de même pour point commun un même objectif : celui d'accomplir des tâches, ou de résoudre des problèmes, qui semblerait \emph{a priori} très difficiles pour une machine, mais facile pour un humain. Ce peut être, par exemple :
+
+    \begin{enumerate}
+        \itt jouer un jeu à deux joueurs (échecs, dames, go, \dots) ;
+        
+        \itt reconnaître et localiser un objet dans une image ;
+        
+        \itt lire un texte sur une photo ;
+        
+        \itt avoir une conversation avec un être humain ;
+        
+        \itt \dots
+    \end{enumerate}
+    
+    
+    \section{Theorie des jeux}
+    
+    \subsection{Definition}
+    
+    Dans cette partie, nous nous interogerons a des jeux à 2 joueur ayant la proprieté suivantes
+    
+    \begin{enumerate}
+        
+        \itt Jeux "tour par tour"
+        
+        \itt un meme joueur ne peut pas jouer 2 fois d'affiler 
+        
+        \itt jeu sans hasard
+        
+        \itt jeux a information complete
+        
+        \itt jeux a coups en membre finis
+        
+        \itt jeux a somme nulle  
+        
+    \end{enumerate}
+    
+    Traditionnellement les 2 joueur seront Alice et Bob
+
+    Un jeux respectant tous ces contraintes peut être mobilisée par un graphe bipartie 
+    On parle alors de jeux d'accessibilité à 2 joueur 
+    
+    \begin{definition}{Jeux a 2 joueur}{}
+        Un jeu d'accessibilité à 2 joueur est un graphe Bi-Partie 
+        \[ G = (S,A)  \text{ avec } S = S_A \uplus S_B \] 
+        
+        Un sommet represente un état 
+        
+        Un arc represente un coup 
+        
+    \end{definition}
+    
+    \begin{definition}{Partie}{}
+        \begin{enumerate}
+            
+            \itast Un sommet sans arc sortant un état terminal du jeu 
+            
+            \itast Les état terminaux sont partitionnées en 
+                \[ V_A \uplus V_B \uplus N  \]
+                
+            \itast Condition de vitoire 
+            
+            \itast Une partie est un chemin de certain état, qui part de l'état initial jusqu'a l'état final 
+            
+        \end{enumerate}
+    \end{definition}
+    
+    
+    \begin{example}{Jeux du Nim}{Jeux du 20 pour les alcoolique }
+        Blabla sur les regles 
+        Tkt on connais 
+        
+        
+        
+        Strategie
+        
+        Soit $X = \ens{A, B}$
+        Notation $S_X^{>0}$ l'ensemble des sommets $S_X$ non terminaux 
+        Une strategie pour X est une fonciton $f: S_X^{>0} \to S$ tq 
+        $\forall s \in S_X^{>0} $ , $ s \to f(s)$ est un signe de graphe  (un coup valide)
+        
+        
+        Le strategie ne prend en entrée que les \dots \dots  
+    \end{example}
+    
+    
+    \begin{definition}{Attracteurs}{}
+        On definis incrementalement une suite de sous ensemble de S par 
+        \begin{enumerate}
+            \itast $\bcA_0 = V_A$
+            
+            \itast $\forall j \geq 0, \bcA_j+1 = \bcA_j$
+            
+        \end{enumerate}
+        
+        les \hg{attracteur} de $V_A$ sont $\bcA = \bigcup A_j$
+        
+    \end{definition}
+    
+    \begin{theorem}{}{}
+        Avec les notations précedente. 
+        Alice possede une strategie gagnante depuis tout sommet de $bcA$
+        et seulement ceux-la 
+    \end{theorem}
+    \begin{nproof}{}{}
+        A rediger
+    \end{nproof}
+    
+    \begin{form}{remarque}{}
+        \hspace{1cm}-S'il est possible de faire match nul, il faut calculer independament les attracteurs pour   alice et les attracteur pour bob
+        
+        
+        \hspace{1cm}-En revanche, s'il n'est pas possible d'avoir match nul, les attracteurs pour Bob sont les complementaire des attracteur pour alice 
+    \end{form}
+    
+    
+    \begin{definition}{Min max}{}
+        L'algorithme Min Max est un algorithme de décision qui consiste à parcourir l'arbre des coups d'un jeu à deux joueurs et à évaluer les coups en fonction du score qu'ils génèrent pour les joueurs. Il utilise la théorie de jeu pour déterminer la meilleure stratégie pour les deux joueurs, et retourne le coup qui minimise les pertes pour un joueur et maximise les gains pour l'autre.
+        
+    \end{definition}
+    
+    \section{Algorithme d'apprenitasage}
+    
+    Revenons maintenant aux autres exemples introduits au debut du chapitre.
+    
+    
+        Ce sont des problèmes qui ne réduisent pas a un algorithme simple comme l'étude d'un graphe ou d'un arbre 
+    Ainsi, pour ces problèmes, on ne voit pas d'algo simple a implémenter pour fonctionner en toute généralité...
+    \vspace{0.1cm}
+    
+        On va alors choisir une autre approche écrire un programme qui au départ ne sais pas tout résoudre le problème
+    en question, mais qui est capable "d'apprendre" de ses erreur, et l'entraîner sur suffisamment d'exemples jusqu'à ce qu'il arrive à ne plus se tromper trop souvent 
+    
+        On parle alors d'algorithmes d'apprentissage.
+    
+    
+        Aujourd'hui, la technique la plus utilisée s'appelle les réseaux de neurones, c'est un modèle qui a été mis au 
+    point a la fin des années 1950, mais qui a longtemps été mis de coté car les ordinateurs n'étaient pas pas encore au point 
+    
+    ... ... ... ...
+    \newline
+    \newline
+    
+    On distingue 2 catégories 
+    \begin{enumerate}
+        \itast ...
+    \end{enumerate}
+    
+    
+    \newline \newline
+    
+    Dans la suite, une donnée est un éléments de $\bdR^d$ ou $d$ est une dimension finie 
+    
+    \subsection{Apprentissage supervisé} 
+    
+    Dans cette partie, on suppose disposer d'un ensemble $E=E_x \times E_{de}$ dn donnée d'entrainement de la forme $(x,c)$ ou $x\in \bdR^d$ et $c\in [| 0 ; p-1|]$
+    
+    \begin{definition}{Algo k plus proches voisins}
+        
+    \end{definition}
+    
+    
+\end{document}
+ 

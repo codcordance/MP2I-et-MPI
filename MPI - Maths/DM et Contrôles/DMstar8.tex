@@ -1,0 +1,118 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{../../Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\thesubsection}{\Roman{section}.\Alph{subsection}}
+    \renewcommand{\labelenumi}{\thesubsection.\arabic{enumi})}
+    \renewcommand*{\labelenumii}{\alph{enumii})}
+
+    \stylizeDocSpe{Maths}{Devoir maison $\star$ n° 8}{CCS MP MATH 2 2016}{Pour le vendredi 27 janvier 2023}
+    
+    Le problème étudie quelques propriétés de variables aléatoires réelles finies de la forme $\sum_{k=1}^n a_kX_k$, où les $a_k$ sont des réels et les $X_k$ sont des variables aléatoires mutuellement indépendantes à valeurs dans $\ens{-1, 1}$.
+    
+    \begin{enumerate}
+        \itt La première partie établit des résultats sur des intégrales, utilisés dans les parties suivantes.
+        
+        \itt À partir de la deuxième partie, on suppose donnée une suite $\suiteZ{X_n}$ de variables aléatoires mutuellement indépendantes définies sur un espace probabilisé $\p{\Omega, \bcA, \bbP}$ à valeurs dans $\ens{1, -1}$ et vérifiant
+        %
+        \[ \forall k \in \bdN^\star,\qquad \bbP\p{X_k = 1} = \bbP\p{X_k = -1} = \dfrac{1}{2}\]
+    \end{enumerate}
+    
+    \section{Suites et intégrales}
+    
+    \subsection{Étude d'une intégrale à paramètre}
+    
+    Pour $x \in \bdR_+$, on pose
+    %
+    \[ f\p{x} = \int_0^{+\infty} \dfrac{1 - \cos t}{t^2}e^{-xt}\dif t\]
+    %
+    \begin{enumerate}
+        \item Montrer que $f$ est définie et continue sur $\intor{0, +\infty}$ et de classe $\bcC^2$ sur $\into{0, +\infty}$.
+        
+        \noafter
+        %
+        \boxans{
+            Soit $t \in \bdR_+$. Par inégalité de \textsc{Taylor-Lagrange}, on obtient
+            %
+            \[ \mod{\cos t - \cos 0 - \p{t - 0}\cos'\p{0}} \leq \sup_\bdR \mod{\cos ''} \dfrac{\mod{t - 0}^2}{2!} = \dfrac{t^2}{2}\]
+            %
+            Or $\mod{\cos t - \cos 0 - \p{t - 0}\cos'\p{0}} = \mod{1 - \cos t}$ d'où pour $A \in \bdR_+$ et $x \in \into{0, +\infty}$ on a
+            %
+            \[ \int_0^A \mod{\dfrac{1 - \cos t}{t^2}e^{-xt}}\dif t \leq \int_0^A  \dfrac{t^2}{2t^2}e^{-xt}\dif t \leq \dfrac{1}{2}\int_0^A e^{-xt}\dif t = \dfrac{1}{2}\intc{\dfrac{-1}{x}e^{-xt}}_0^A = \dfrac{1-e^{-xA}}{2x} \lima{A \to +\infty} \dfrac{1}{2x}\]
+            %
+            Pour $x = 0$, on prend $A > 1$ et l'on découpe l'intégrale en deux parties
+            %
+            \[ \int_0^A \mod{\dfrac{1 - \cos t}{t^2}e^{-xt}}\dif t = \int_0^1 \mod{\dfrac{1 - \cos t}{t^2}}\dif t + \int_1^A \mod{\dfrac{1 - \cos t}{t^2}}\dif t \leq \dfrac{1}{2}\int_0^1 \dif t + 2\int_1^A \dfrac{\dif t}{t^2} = \dfrac{1}{2} + 2\intc{-\dfrac{1}{t}}_1^A \lima{A \to +\infty} \dfrac{5}{2}\]
+        }
+        %
+        \nobefore
+        %
+        \boxansconc{
+            Ainsi $f$ est bien définie sur $\intor{0, +\infty}$ (et majorée par $x \mapsto \dfrac{1}{2x}$ sur $\into{0,+\infty}$).
+        }
+        %
+        \boxans{
+            Posons $\varphi : \begin{array}[t]{ccc}
+                \into{0, +\infty}^2 &\to& \bdR  \\
+                \p{x, t} &\mapsto& \dfrac{1-\cos t}{t^2}e^{-xt} 
+            \end{array}$ Cette fonction est $\bbL^1$ sur $\into{0, +\infty}$ (ci-dessus), et $\bcC^\infty$ par rapport à ses deux variables. On a 
+            %
+            \[ \dfrac{\partial \varphi}{\partial x}\p{x, t} = -t\dfrac{1 - \cos t}{t^2}e^{-xt} \qquad\text{donc}\qquad \mod{\dfrac{\partial \varphi}{\partial x}\p{x, t}} \leq \dfrac{t}{2}e^{-xt} = \varphi_1\p{t}\]
+            %
+            On a $\varphi_1\p{t} \lima{t \to 0} 0$ et $\varphi_1\p{t} \lima{t \to 0} 0$ donc $\varphi_1$ est $\bbL_1$ sur $\into{0, +\infty}$. De plus
+            %
+            \[ \dfrac{\partial^2 \varphi}{\partial x^2}\p{x, t} = t^2\dfrac{1 - \cos t}{t^2}e^{-xt} \qquad\text{donc}\qquad \mod{\dfrac{\partial^2 \varphi}{\partial x^2}\p{x, t}} \leq \dfrac{t^2}{2}e^{-xt} = \varphi_2\p{t}\]
+            %
+            On obtient similairement que $\varphi_2$ est $\bbL_2$ sur $\into{0, +\infty}$.
+        }
+        %
+        \noafter
+        %
+        \boxansconc{
+            Par \emph{théorème de dérivabilité des intégrales à paramètres}, $f$ est de classe $\bcC^2$ sur $\into{0, +\infty}$.
+        }
+        %
+        \yesbefore
+        
+        \item Déterminer les limites de $f$ et $f'$ en $+\infty$.
+        
+        \boxansconc{
+            Pour tout $x \in \into{0, +\infty}$, on a montré que $f\p{x} \leq \dfrac{1}{2x} \lima{x \to +\infty} 0$ et, donc $\lim\limits_{x \to +\infty} f\p{x} = 0$. Par ailleurs, on a
+            %
+            \[ \forall x \in \into{0, +\infty},\qquad f'\p{x} = \int_0^{+\infty} \dfrac{\partial \varphi}{\partial x}\p{x, t}\dif t \leq \int_0^{+\infty} \dfrac{t}{2}e^{-xt} = \intc{\dfrac{-1}{2x}e^{-xt}}_0^{+\infty} = \dfrac{1}{2x} \lima{x \to +\infty} 0\]
+            %
+            donc de même $\lim\limits_{x \to +\infty} f'\p{x} = 0$.
+        }
+        
+        \item Exprimer $f''$ sur $\into{0, +\infty}$ à l'aide de fonctions usuelles et en déduire que
+        %
+        \[ \forall x \in \into{0, +\infty},\qquad f'\p{x} = \ln{x} -\dfrac{1}{2}\ln{x^2 + 1}\]
+        
+        \noafter
+        %
+        \boxans{
+            On a $f''\p{x} = \displaystyle\int_0^{+\infty} \dfrac{\partial^2}{\partial x^2}\p{x, t}\dif t = \int_0^{+\infty} \p{1 - \cos t}e^{-xt}\dif t = \dfrac{1}{x} - \int_0^{+\infty}\cos{t} e^{-xt}$. On intègre par parties :
+            %
+            \begin{align*}
+                \int_0^{+\infty} \cos{t}e^{-xt} \dif t&= \intc{\cos{t}\p{-\dfrac{e^{-xt}}{x}}}_0^{+\infty} - \int_0^{+\infty} \p{-\sin{t}}\p{-\dfrac{e^{-xt}}{x}}\dif t\\
+                &= \dfrac{1}{x} - \dfrac{1}{x}\int_0^{+\infty} \sin{t}e^{-xt}\dif t = \dfrac{1}{x} - \dfrac{1}{x}\p{\intc{\sin{t}\p{-\dfrac{e^{-xt}}{x}}}_0^{+\infty} - \int_0^{+\infty}\cos{t}\p{-\dfrac{e^{-xt}}{x}}\dif t}\\
+                &= \dfrac{1}{x} - \dfrac{1}{x^2}\int_0^{+\infty}\cos{t}e^{-xt}\dif t\\
+                &= \dfrac{1}{x}\dfrac{1}{1 + \frac{1}{x^2}} = \dfrac{x}{x^2 + 1}
+            \end{align*}
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+        
+        }
+    \end{enumerate}
+    
+\end{document}

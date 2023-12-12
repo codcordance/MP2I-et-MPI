@@ -1,0 +1,161 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{./Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+\usepackage{tikz-3dplot}
+ 
+\tdplotsetmaincoords{70}{122}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}} 
+    \renewcommand{\thesubsection}{\thesection.\Alph{subsection}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\labelenumi}{\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\roman{enumii})}
+    
+    \stylizeDocSpe{Physique}{Devoir maison n° 16}{}{Pour le lundi 20 mars 2023}
+    
+    Deux réservoirs sont reliés par une conduite cylindrique, de longueur $L$ et de section droite $\sigma = \pi a^2$. Le problème sera supposé unidimensionnel, toute grandeur dans la conduite ne dépendant spatialement que de l'abscisse $x$ (\cf figure \ref{fig:fig1}). L'ensemble contient un fluide incompressible, de masse volumique $\rho$, de chaleur massique $c$ et de conductivité thermique $\lambda$ (toutes ces grandeurs sont des constantes caractéristiques du fluide).
+    
+    \begin{center}
+        \begin{tikzpicture}
+        
+            \node[draw, inner sep=0.5cm] at (1.3, 0.9) {$T_1$};
+            
+            \node[draw, inner sep=0.5cm] at (8.7, 0.9) {$T_2$};
+            
+            \draw[] (2, 0.6) -- (8, 0.6);
+            \draw[] (2, 1.2) -- (8, 1.2);
+            
+            \draw[main3, <->] (4, 0.6) --node[midway, left] {$\pi a^2$} (4, 1.2);
+            
+            \node at (6, 0.9) {$\rho, \lambda, c$};
+            
+            \draw (2, 0) --++(0, -0.2) node[below] {$0$};
+            \draw (8, 0) --++(0, -0.2) node[below] {$L$};
+            \draw[->, thick] (0, 0) -- (10, 0) node[right] {$x, \vec{u_x}$};
+        \end{tikzpicture}
+        
+        \captionof{figure}{Situation du problème}\label{fig:fig1}
+    \end{center}
+    
+    Dans toute cette partie le fluide est immobile dans le référentiel d'étude et le régime stationnaire, toutes les grandeurs sont indépendantes du temps. On suppose tout d'abord la conduite parfaitement calorifugée sur sa surface latérale. On note $\dif \tau = \sigma\dif x$ un volume élémentaire de conduite (et le fluide qu'elle contient) situé entre les abscisses $x$ et $x + \dif x$.
+    
+    \begin{enumerate}
+        \item Établir l'équation différentielle satisfaite par la température $T\p{x}$ dans la conduite.
+        
+        \noafter
+        %
+        \boxans{
+            D'après l'\emph{équation de \textsc{Laplace}}, on a 
+            %
+            \[ \dfrac{\partial T}{\partial t}\p{x, t} = \dfrac{\lambda}{\rho c}\Delta T\p{x, t} = \dfrac{\lambda}{\rho c}\dfrac{\partial^2 T}{\partial x^2}\]
+            %
+            Or $T$ est constant par rapport au temps d'où $\dfrac{\partial T}{\partial t} = 0$, ainsi
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            \[ \dfrac{\partial^2 T}{\partial x^2}\p{x} = 0\]
+        }
+        %
+        \yesbefore
+        
+        \item Déterminer la répartition $T\p{x}$ de température dans la conduite.
+        
+        \boxansconc{
+            On a directement $T\p{x} = Ax + B$, or $T\p{0} = T_1$ d'où $B = T_1$ et $T\p{L} = T_2$ d'où $A = \dfrac{T_2 - T_1}{L}$ ainsi
+            %
+            \[ T\p{x} = \dfrac{T_2 - T_1}{L}x + T_1\]
+        }
+        
+        \item \begin{enumerate}
+            \item Établir un parallèle entre la loi de \textsc{Fourier} et la loi d'\textsc{Ohm} locale, en faisant apparaître sous forme de tableau les grandeurs analogues.
+            
+            \noafter
+            %
+            \boxans{
+                La loi d'\textsc{Ohm} locale affirme qu'un conducteur soumis à un champ électrique $\vec E$ de conductivité électrique $\gamma$ vérifie 
+                %
+                \[ \vec \jmath = \gamma \vec E = -\gamma \vec \nabla V \]
+                %
+                D'autre part, la loi phénoménologique de \textsc{Fourier} affirme que
+                %
+                \[ \vec {\jmath_\text{th}} = -\lambda \vec\nabla T \]
+                %
+                On peut donc établir l'analogie suivante :
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                \begin{center}
+                    \NiceMatrixOptions{cell-space-top-limit=3pt}
+                    \begin{NiceTabular}{|c||c|c|}[]
+                        \CodeBefore
+                            \rowcolor{main3!10}{1}
+                        \Body
+                            \toprule
+                            \text{Grandeur} & \text{thermique} & \text{électrique} \\ \midrule
+                            \text{Vecteur densité de courant} & $\vec{\jmath_\text{th}}$ & $\vec \jmath$\\
+                            \text{Conductivité} & $\lambda$ & $\gamma$\\
+                            \text{Potentiel} \mid \text{Tension} & $T \mid T_1 - T_2$ & $V \mid U$\\
+                            \text{Intensité}  & $\Phi$ & $I$\\
+                            \text{Champ} & $-\vec\nabla T$ & $\vec E$\\
+                            \text{Résistance} & $R_\text{th}$ & $R$ \\
+                            \bottomrule
+                    \end{NiceTabular}
+                \end{center}
+            }
+            %
+            \yesbefore
+            
+            \item Pour une portion de conducteur électrique située entre deux surfaces équipotentielles, de potentiels $V_1$ et $V_2$, et parcourue par un courant d'intensité $I$, la loi d'\textsc{Ohm} permet de définir la résistance électrique par $V_1 - V_2 = RI$. Montrer qu'il est possible de définir de manière analogue une résistance thermique $R_\textsc{th}$ pour un conducteur thermique. Établir son expression en fonction de $L$, $a$ et $\lambda$.
+            
+            \noafter
+            %
+            \boxans{
+                Puisque le conducteur électrique peut être modéliser par un câble cylindrique dont le courant ne dépend que de l'abscisse $x$, et que les deux surfaces sont équipotentielles, on peut prendre pour modèle analogique la situation présentée en début de l'énoncé. Entre les deux réservoirs, la température vérifie
+                %
+                \[ \forall x \in \intc{0, L},\qquad T\p{x} = \dfrac{T_2 - T_1}{L}x + T_1\]
+                %
+                donc par \emph{loi de \textsc{Fourier}} on a
+                %
+                \[ \vec{j_\text{th}} = - \lambda \vec \nabla T = - \lambda \dfrac{\partial T}{\partial x}\vec{u_x} = \lambda\dfrac{T_1 - T_2}{L}\vec{u_x}\]
+                %
+                Notons $\Phi$ le flux thermique passant par conduction du réservoir de gauche à celui de droite. La conduite étant isolée, on suppose que $\Phi$ est égal au flux passant par la section $\sigma\p{x}$ orientée selon $\vec{u_x}$ en toute abscisse $x$. 
+                %
+                \[ \Phi = \niint_{\sigma\p{x}} \vec{\jmath_\text{th}\p{x}}\cdot \vec{\dif \sigma} = \jmath_\text{th}\sigma = \lambda \dfrac{T_1 - T_2}{L}\pi a^2 \]
+            }
+            %
+            \nobefore\yesafter
+            %
+            \boxansconc{
+                Finalement, on a $T_1 - T_2 = \dfrac{L}{\lambda \pi a^2}\Phi $ donc on peut poser $R_\text{th} = \dfrac{L}{\lambda \pi a^2}$.
+            }
+            %
+            \yesbefore
+            
+            \item Calculer $R_\text{th}$ et la puissance thermique $P$ traversant une section de la conduite avec les données : $\lambda = \qty{0.7}{\watt\per\meter\per\kelvin}$, $L = \qty{5}{\meter}$, $a = \qty{10}{\centi\meter}$, $T_1 = \qty{350}{\kelvin}$ et $T_2 = \qty{290}{\kelvin}$.
+            
+            \boxansconc{
+                On obtient $R_\text{th} = \qty{2.3e2}{\kelvin\per\watt}$. Pour la puissance thermique, il s'agit du flux $\Phi$ :
+                %
+                \[ P = \Phi = \dfrac{T_1 - T_2}{R_\text{th}} \qquad\qquad\text{Application numérique :}\qquad P = \qty{2.6e-1}{\watt}\]
+            }
+            
+            \item Évaluer les transferts d'entropie $\delta S_\text e$ et $\delta S_\text S$, à travers les sections d'abscisse $x$ et $x + \dif x$ de $\dif \tau$ pendant $\delta t$. Montrer alors qu'il est possible de définir un vecteur \guill{courant d'entropie} de diffusion tel que $\vec{\jmath_S} = - \dfrac{\lambda}{T}\vec\nabla T$. En effectuant un bilan entropique, déterminer l'entropie volumique $s_\text c$ créée par unité de temps, en fonction de $\lambda$ et $T$. Commenter.
+            
+            \boxans{
+                On considère le volume $\dif \tau$ entre les deux sections en $x$ et $x + \dif x$. Par définition, on a 
+                %
+                \[ \delta Q = \int_{\sigma\p{x}}  \]
+            }
+        \end{enumerate}
+    \end{enumerate}
+    
+\end{document}

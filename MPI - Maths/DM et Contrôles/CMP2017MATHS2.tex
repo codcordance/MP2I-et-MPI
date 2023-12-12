@@ -1,0 +1,104 @@
+\documentclass[a4paper,french,bookmarks]{article}
+
+\usepackage{../../Structure/4PE18TEXTB}
+
+\newboxans
+\usepackage{booktabs}
+
+\begin{document}
+
+    \renewcommand{\thesection}{\Roman{section}}
+    \setlist[enumerate]{font=\color{white5!60!black}\bfseries\sffamily}
+    \renewcommand{\thesubsection}{\Roman{section}.\Alph{subsection}}
+    \renewcommand{\labelenumi}{\thesection.\arabic{enumi}.}
+    \renewcommand*{\labelenumii}{\alph{enumii})}
+
+    \stylizeDocSpe{Maths II}{Concours Commun Mines-Ponts}{Session MP 2017}{Sous-groupes compact du groupe linéaire}
+    
+    \subsubsection*{Notations et définitions}
+    
+    \begin{enumerate}
+        \itt Soit $E$ un espace vectoriel euclidien de dimension $n > 0$ dont le produit scalaire est noté $\phyavg{,}$ et la norme euclidienne associée est notée $\norm{}$. On note $\bcL\p{E}$ l'espace vectoriel des endomorphismes de $E$ et $\GL\p{E}$ le groupe des automorphismes de $E$. L'ensemble vide est noté $\emptyset$. 
+        
+        \itt Pour tout automorphisme $u$ de $E$, on note $u^i$ l'endomorphisme $\underbrace{u \circ u \circ \cdots \circ u}_{i \ \text{fois}}$ avec la convention $u^0 = \Id_E$. 
+        
+        \itt On rappelle qu'un sous-ensemble $C$ de $E$ est \emph{convexe} si pour tout $\p{x, y} \in C^2$ et tout $\lambda \in \intc{0, 1}$, on a $\lambda x + \p{1 - \lambda}y \in C$. De plus, pour toute famille $\p{a_1, \dots, a_p}$ d'éléments de $C$ convexe et tous nombres réels positifs ou nuls $\p{\lambda_1, \dots, \lambda_p}$ dont la somme égale $1$, on a
+        %
+        \[ \displaystyle \sum_{i=1}^p \lambda_i a_i \in C \]
+        
+        \itt Si $F$ est un sous-ensemble quelconque de $E$, on appelle \emph{enveloppe convexe} de $F$, et on note $\Conv{F}$, le plus petit sous-ensemble convexe de $E$ (au sens de l'inclusion) contenant $F$. On note $\bcH$ l'ensemble des $\p{\lambda_1, \dots, \lambda_{n+1}} \in \p{\bdR_+}^{n+1}$ dont la somme égale $1$, et on admet que 
+        %
+        \[ \Conv{F} = \ens{\sum_{i=1}^{n+1} \lambda_i x_i,\enstq \p{\lambda_1, \dots, \lambda_{n+1}} \in \bcH^{n+1},\ \p{x_1, \dots, x_{n+1}}\in F^{n+1}} \]
+        
+        \itt L'espace vectoriel des matrices à coefficients réels ayant $n$ lignes et $m$ colonnes est noté $\bcM_{n, m}\p{\bdR}$. On notera en particulier $\bcM_n\p{\bdR} = \bcM_{n, n}\p{\bdR}$. La matrice transposée d'une matrice $A$ à coefficients réels est notée $A^\top$. La trace de $A \in \bcM_n\p{\bdR}$ est notée $\Tr\p{A}$. 
+        
+        \itt On note $\GL_n\p{\bdR}$ le groupe linéaire des matrices inversibles de $\bcM_n\p{\bdR}$ et $\bcO_n\p{\bdR}$ le groupe orthogonal des matrices orthogonales de $\bcM_n\p{\bdR}$.
+    \end{enumerate}
+    
+    Les parties \textbf{\sffamily I}, \textbf{\sffamily II} et \textbf{\sffamily III} sont indépendantes.
+    
+    \section{Préliminaires sur les matrices symétriques}
+    
+    On note $\bcS_n\p{\bdR}$ le sous-espace vectoriel de $\bcM_n\p{\bdR}$ formé des matrices symétriques. Une matrice $S \in \bcS_n\p{\bdR}$ est dite \emph{définie positive} si et seulement si pour tout $X \in \bcM_{n,1}\p{\bdR}$ \emph{non nul}, on a $X^\top SX > 0$. On note $S_n^{++}\p{\bdR}$ l'ensemble des matrices symétriques définies positives.
+    
+    \begin{enumerate}
+        \item Montrer qu'une matrice symétrique $S \in \bcS_n\p{\bdR}$ est définie positive si et seulement si son spectre est contenu dans $\bdR_+^*$.
+        
+        \noafter
+        %
+        \boxans{
+            \begin{enumerate}
+                \itt $\boxed{\implies}$ Supposons que $S$ est définie positive. 
+                
+                Soit $\lambda \in \Sp{S}$ et $X = \begin{pNiceMatrix}x_1 & \Cdots & x_n\end{pNiceMatrix}^\top \in E_\lambda\p{S}$ non nul. On a
+                %
+                \[ X^\top SX > 0 \qquad\text{donc}\qquad \lambda X^\top X > 0 \qquad\text{donc}\qquad \lambda \sum_{i=1}^n x_i^2 > 0 \qquad\text{donc}\qquad \lambda > 0 \ \ie \ \Sp{S} \subset \bdR_+^*\]
+                
+                \itt $\boxed{\impliedby}$ Supposons que $\Sp{S} \subset \bdR_+^*$. On sait que $S$ est diagonalisable dans une base orthonormée, donc il existe $D = \diag{\lambda_1, \dots, \lambda_n}$ où $\ens{\lambda_i}_{i \in \iint{1, n}} \subset \Sp{S}$ et $P \in \bcO_n\p{\bdR}$ tel que $S = PDP^{-1}$. On a donc pour tout vecteur $X \in \bcM_{n, 1}\p{\bdR}$ non nul :
+                %
+                \[ X^\top S X = X^\top PDP^{-1} X = \p{P^{-1}X}^\top D P^{-1}X = Y^\top D Y = \sum_{i=1}^n \lambda_i y_i^2 > 0\]
+                %
+                où $Y = \begin{pNiceMatrix}y_1 & \Cdots & y_n\end{pNiceMatrix}^\top = P^{-1}X$. Ainsi $S$ est bien définie positive par définition.
+            \end{enumerate}
+        }
+        %
+        \nobefore\yesafter
+        %
+        \boxansconc{
+            On a bien montré qu'une matrice symétrique $S \in \bcS_n\p{\bdR}$ est définie positive si et seulement si son spectre est contenu dans $\bdR_+^*$.
+        }
+        %
+        \yesbefore
+        
+        \item En déduire que pour tout $S \in \bcS_n^{++}\p{\bdR}$, il existe $R \in \GL_n\p{\bdR}$ tel que $S = R^\top R$. 
+        
+        \item Montrer que l'ensemble $S_n^{++}\p{\bdR}$ est convexe.
+    \end{enumerate}
+    
+    \section{Autres préliminaires}
+    
+    Les trois questions de cette partie sont mutuellement indépendantes.
+    
+    \begin{enumerate}
+        \item Soit $K$ un sous-ensemble compact de $E$ et $\Conv{K}$ son enveloppe convexe. Définir une application $\phi$ de $\bdR^{n+1} \times E^{n+1}$ dans $E$ telle que $\Conv{K} = \phi\p{\bcH \times K^{n+1}}$. En déduire que $\Conv{K}$ est un sous-ensemble compact de $E$.
+    \end{enumerate}
+    
+    On désigne par $g$ un endomorphisme de $E$ tel que pour tout $\p{x, y} \in E^2$, si $\phyavg{x,y} = 0$ alors $\phyavg{g\p{x}, g\p{y}} = 0$.
+    
+    \begin{enumerate}[resume]
+        \item Montrer qu'il existe un réel positif $k$ tel que pour tout $x \in E$, on ait $\norm{g\p{x}} = k\norm{x}$. 
+        
+        \indication{On pourra utiliser une base orthonormée $\p{e_1, \dots, e_n}$ de $E$ et considérer les vecteurs $e1 + e_i$ et $e_1 - e_i$ pour $i \in \iint{2, n}$.}
+        
+        En déduire que $g$ est la composée d'une homothétie et d'un endormorphisme orthogonal.
+    \end{enumerate}
+    
+    \section{Quelques propiété de la compacité}
+    
+    \section{Théorème du point fixe de \textsc{Markov-Kakutani}}
+    
+    Soit $G$ un sous-groupe compact de $\GL\p{E}$ et $K$ un sous-ensemble non vide, compact et \emph{convexe} de $E$.
+    
+    \section{Sous-groupes compacts de $\GL_n\p{\bdR}$}
+    
+\end{document}
